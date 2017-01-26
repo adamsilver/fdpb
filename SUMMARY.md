@@ -4,7 +4,7 @@
 * [Registration](registration.md)
 * [Login](login.md)
 * [Subscription](subscription.md)
-* Quiz
+* [Quiz](quiz.md)
 * [Basket](basket.md)
 * Checkout
 * [Seat Chooser](seat-chooser.md)

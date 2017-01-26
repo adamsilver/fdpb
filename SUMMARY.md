@@ -11,4 +11,5 @@
 * [Book hotel room](room-booker.md)
 * [Book appointment](book-appointment.md)
 * [Filter](filter.md)
+* [Grocery product list](grocery-product-list.md)
 

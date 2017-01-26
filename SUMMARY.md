@@ -1,6 +1,6 @@
 # Summary
 
 * [Introduction](README.md)
-* [Register](second-chapter.md)
-* [Login](chapter1.md)
+* [Register](registration.md)
+* [Login](login.md)
 

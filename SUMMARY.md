@@ -6,7 +6,7 @@
 * [Subscription](subscription.md)
 * [Quiz](quiz.md)
 * [Basket](basket.md)
-* Checkout
+* [Checkout](checkout.md)
 * [Choose plane seat](seat-chooser.md)
 * [Book hotel room](room-booker.md)
 * [Book appointment](book-appointment.md)

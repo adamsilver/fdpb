@@ -13,4 +13,5 @@
 * [Book appointment](book-appointment.md)
 * [Filter](filter.md)
 * Principles to address
+* [Search](search.md)
 

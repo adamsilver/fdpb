@@ -9,6 +9,6 @@
 * Checkout
 * [Choose plane seat](seat-chooser.md)
 * [Book hotel room](room-booker.md)
-* Book appointment
+* [Book appointment](book-appointment.md)
 * [Filter](filter.md)
 

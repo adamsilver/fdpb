@@ -76,6 +76,6 @@
 
 - Though shall not misuse the select box
 
-## Chapter
+## Other
 
-- Search form without a button: no
+- textarea and maxlength indicator (tweet)

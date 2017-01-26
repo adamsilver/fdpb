@@ -72,7 +72,7 @@
 
 - Though shall avoid multiple select controls
 
-- Though shall use select boxes as a last resort
+- Though shall use select boxes as a last resort. Select box grouping with opt.
 
 - Though shall not misuse the select box
 

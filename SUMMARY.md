@@ -7,6 +7,8 @@
 * [Quiz](quiz.md)
 * [Basket](basket.md)
 * Checkout
-* [Seat Chooser](seat-chooser.md)
-* [Room Booker](room-booker.md)
+* [Choose plane seat](seat-chooser.md)
+* [Book hotel room](room-booker.md)
+* Book appointment
+* [Filter](filter.md)
 

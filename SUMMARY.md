@@ -1,5 +1,6 @@
 # Summary
 
+* [Principles to address](principles-to-address.md)
 * [Introduction](README.md)
 * [Registration](registration.md)
 * [Login](login.md)
@@ -11,5 +12,5 @@
 * [Book hotel room](room-booker.md)
 * [Book appointment](book-appointment.md)
 * [Filter](filter.md)
-* [Grocery product list](grocery-product-list.md)
+* Principles to address
 

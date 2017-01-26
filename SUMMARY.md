@@ -3,7 +3,7 @@
 * [Introduction](README.md)
 * [Registration](registration.md)
 * [Login](login.md)
-* Subscription
+* [Subscription](subscription.md)
 * Quiz
 * Basket
 * Checkout

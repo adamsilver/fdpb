@@ -5,7 +5,7 @@
 * [Login](login.md)
 * [Subscription](subscription.md)
 * Quiz
-* Basket
+* [Basket](basket.md)
 * Checkout
 * [Seat Chooser](seat-chooser.md)
 * [Room Booker](room-booker.md)

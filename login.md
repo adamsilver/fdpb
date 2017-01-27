@@ -8,6 +8,8 @@
 
 ## The username or password is incorrect problem error message
 
+First listen to Jared Spool (https://www.uie.com/jared-live/#design-opposed) at 42 mins.
+
 https://kev.inburke.com/kevin/invalid-username-or-password-useless/
 
 If you tell an attacker the email address is wrong, they'll try a different one. If you tell them the password is wrong, then an attacker knows that the username is correct, and can go on to try a bunch of passwords for that username until they hit the right one. So sites won't tell you which one is wrong, to try and avoid the information disclosure.

@@ -18,7 +18,7 @@
 
 - Only ask for absolutely necessary stuff. Ask for it as late as possible. PRogressive. If there are optional fields, mark those; not the required fields. 300 million button jared spool. Mr Joe, Boring Forms.
 
-- Explain why users should give us information or sign up. Mobile for text message updates on their delivery. Sign up for x and y and z. If no x and y - why asking for it? Jared Spool video about how got loads of sign ups but no sales. We want the right investment. For example growth labs by whats his chops makes u go thru an entire email funnel before signing up for his course. No link to get there without it. Investment => proper sign up and longevity. Something to consider.
+- Explain why users should give us information or sign up. Mobile for text message updates on their delivery. Sign up for x and y and z. If no x and y - why asking for it? Jared Spool video about how got loads of sign ups but no sales. We want the right investment. For example growth labs by whats his chops makes u go thru an entire email funnel before signing up for his course. No link to get there without it. Investment => proper sign up and longevity. Something to consider. https://www.uie.com/jared-live/#design-opposed
 
 - Buttons are not links.
 

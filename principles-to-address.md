@@ -34,7 +34,7 @@
 
 - Inline errors: show in-context of the erroneous control.
 
-- Forgive mistakes: trim, spaces, uppercase etc. date of birth, postcode fields.
+- Forgive mistakes: trim, spaces, uppercase etc. date of birth, postcode fields. Jared spool, 42 mins, Design Is Metrically Opposed: "it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong".
 
 - Success messages: Once shown, don't hide automatically. Let theuser dismiss if at all. Probably want to take them somewhere rather than show a success above the form. Back to account landing, on to the next step. back to home page as last resort etc.
 

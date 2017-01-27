@@ -1,7 +1,7 @@
 # Summary
 
-* [Principles to address](principles-to-address.md)
 * [Introduction](README.md)
+* [Principles to address](principles-to-address.md)
 * [Registration](registration.md)
 * [Login](login.md)
 * [Subscription](subscription.md)

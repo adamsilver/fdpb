@@ -12,6 +12,6 @@
 * [Book hotel room](room-booker.md)
 * [Book appointment](book-appointment.md)
 * [Filter](filter.md)
-* Principles to address
+* [Principles to address](principles-to-address.md)
 * [Search](search.md)
 

@@ -6,6 +6,14 @@
 - having it appear on a specific page like login prompt for checkout
 - different kinds of login - username/email/booking ref (always need a label and tell the user where to find it)
 
+## Social login
+
+In A Reg Form, we talked about email sign in as a potential option. The problem I have with Medium is the sheer choice. Choice is good but choice is also paraylysis.
+
+For example I may want to sign up with my email and not through social login, but I don't want to always go into my email. To do this, Medium would need yet another option. An ability to sign in through email and password.
+
+This is certainly not impossible to design for but it does bear somethinking about.
+
 ## The username or password is incorrect problem error message
 
 First listen to Jared Spool (https://www.uie.com/jared-live/#design-opposed) at 42 mins.

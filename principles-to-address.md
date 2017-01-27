@@ -1,28 +1,20 @@
 # Principles to address
 
-## Primary principles?
-
-- Though shall ensure all controls have labels
+## Primary principles
 
 - Though shall make label text extra clear. Password vs "Current password" or "New password".
-
-- Though shall place labels above each control
 
 - Labels: though shall make forms human and conversational. Don't use jargon.
 
 - Though shall ask for information in a sensible human order.
 
-- Though shall put form elements in a single column. Tabbing etc is better.
+- Though shall put form elements in a single column.
 
 - Placeholders - avoid - help or hint text should be outside field.
 
 - Only ask for absolutely necessary stuff. Ask for it as late as possible. Progressive. If there are optional fields, mark those; not the required fields. 300 million button jared spool. Mr Joe, Boring Forms.
 
 - Explain why users should give us information or sign up. Mobile for text message updates on their delivery. Sign up for x and y and z. If no x and y - why asking for it? Jared Spool video about how got loads of sign ups but no sales. We want the right investment. For example growth labs by whats his chops makes u go thru an entire email funnel before signing up for his course. No link to get there without it. Investment => proper sign up and longevity. Something to consider. https://www.uie.com/jared-live/#design-opposed
-
-- Buttons are not links.
-
-- Input size.
 
 ## Validation
 

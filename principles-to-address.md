@@ -69,7 +69,3 @@
 - Though shall use select boxes as a last resort. Select box grouping with opt.
 
 - Though shall not misuse the select box. Use checkbox instead.
-
-## Other
-
-- textarea and maxlength indicator (tweet)

@@ -1,5 +1,10 @@
 # Grocery product list
 
-- Tesco add all to basket
-- Multiple forms vs one form
+## Multiple add to basket
+
+- Perhaps a crossover with basket?
+- Multiple forms vs one big one
+
+##
+
 - Multiple actions; add selected to basket.

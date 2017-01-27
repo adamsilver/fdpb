@@ -1,3 +1,3 @@
 # Subscription preferences
 
-- Checkboxes versus toggles
+## Checkboxes versus toggles

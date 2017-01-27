@@ -139,10 +139,12 @@ Did you notice it this time? No? Look at the keyboard again. That’s right, the
 ## Buttons
 
 - Shouldn't have a hand cursor. They aren't links.
+- Getting the text right. Not "submit".
 
 ## Typing a password
 
 - Use a password reveal as explained in [this article](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
+
 
 ## Validation
 

@@ -10,6 +10,10 @@ Let's analyse a typical checkout flow consisting of:
 - Payment
 - Confirmation
 
+## The order of the forms and fields
+
+We don't ask for payment first. We ask for that last. When we type an address, we ask for it in a sensible order for people to understand etc.
+
 ## Do we really need to ask for it?
 
 ### Guest checkout

@@ -24,8 +24,6 @@ The first thing we need to know is that each field needs an associated label. th
 - visually-impaired users will hear the instructions when using a screen reader; and
 - motor-impaired users will find it easier to select a field thanks to the larger hit area. This is because clicking a label will move focus to the control.
 
-The `for` attribute associates the label with an input using its `id` value. This is one of the reasons we should ensure `id`s are unique.
-
 We might tempt ourselves into omit labels for particular forms in order to save space but this is not something to go minimal on. Every field needs a label.
 
 ## Placeholders
@@ -57,9 +55,9 @@ When I inform people of the placeholder problem, they often tell me that floatin
 
 But actually whilst decluttering the UI is a noble goal, it's only with declutting the unessential, but fixed and familiar labels are essential. I would go as far to say the floating labels are a solution looking for a problem.
 
-## Do we need to ask it?
+## Do we really need ask for that?
 
-Everytime we ask the user to fill out something, we make it harder for them. So we need to be very careful about whether we even should ask it, let alone, how we ask it.
+Everytime we ask the user another question, we make it harder for them. So we need to be very careful about whether we even should ask it, let alone, how we ask it.
 
 To register, does the user even need to tell us their name? If we don't have to get personal then don't ask them for it. And I mean *have* to. If it is important to have the user's name, then can we ask for it later instead?
 
@@ -79,15 +77,15 @@ The point of this discussion wasn't to get into the validity of email sign in. I
 
 ## Label values
 
-We design for content, not the other way around. Our design should help users read the content and complete the task. This is why copy is so important that in the government we call the people who write stuff content designers. And they have their own special poster which reads:
+In the public sector, we call the epople who write copy, content designers. And I think it's a good name. They are designing content and as we say in the public sector, *content is the user experience*.
 
-> Content is the user experience.
-
-As we've seen above, the presence of labels is vital, but the text we put inside the label is just as vital.
+As we've seen above, including a label is paramount, but the text we put inside the label is just as vital.
 
 The password field's label is *password* which seems simple enough. It's good to be terse. Less but better and all that. But is it missing some clarity. I would suggest that the label could encourage users to type a password they already have. Or that it might seem as they they are already registered.
 
 Perhaps it would be better if it said "Choose password" to reinforce the fact that a) they are signing up and b) that they should create a new password.
+
+- Labels: though shall make forms human and conversational. Don't use jargon.
 
 ## Additional hints
 
@@ -113,6 +111,8 @@ Just because we can use a hint, doesn't mean we should.
 
 ## Field types
 
+
+
 - email
 
 Did you notice it this time? No? Look at the keyboard again. That’s right, the keyboard is different. There are dedicated keys for the @ and . characters to help you complete the field more efficiently. As we discussed with type="search", there is no downside to using type="email" right now. If a browser doesn’t support it, it will degrade to type="text". And in some browsers, users will get a helping hand.
@@ -136,6 +136,14 @@ Did you notice it this time? No? Look at the keyboard again. That’s right, the
 
 ## Focus styles
 
+When the user focuses a field most browsers will highlight the field which helps the user know where they are. Some designers despise the aesthetic some browsers give by default, because it doesn't match the brand or some such. And in the mist of their hatred, they ask the developer to remove it. That would be okay if they replaced it with something better. But quite often they don't.
+
+There is no reason why we can't replace the outline with our own style and colour. The idea would be to make it clear regardless of colour for those that suffer with vision impairments.
+
+So do this:
+
+TODO: Include example and visual
+
 ## Buttons
 
 - Shouldn't have a hand cursor. They aren't links.
@@ -144,7 +152,6 @@ Did you notice it this time? No? Look at the keyboard again. That’s right, the
 ## Typing a password
 
 - Use a password reveal as explained in [this article](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
-
 
 ## Validation
 

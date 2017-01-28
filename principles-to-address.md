@@ -4,10 +4,6 @@
 
 - Though shall make label text extra clear. Password vs "Current password" or "New password".
 
-- Labels: though shall make forms human and conversational. Don't use jargon.
-
-- Though shall ask for information in a sensible human order.
-
 - Though shall put form elements in a single column.
 
 - Placeholders - avoid - help or hint text should be outside field.

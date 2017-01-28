@@ -16,6 +16,8 @@ Let's get started.
 
 --
 
+Mention about what it means to be simple. What it means to be human. What it means to be inclusive.
+
 Nobody wants to use ur site, or ur form. We wanted the desired outcome.
 
 https://medium.freecodecamp.com/nobody-wants-to-use-software-a75643bee654\#.75d0kki8t

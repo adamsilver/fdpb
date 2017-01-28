@@ -111,28 +111,39 @@ Just because we can use a hint, doesn't mean we should.
 
 ## Field types
 
-
-
-- email
+Talk about email field
 
 Did you notice it this time? No? Look at the keyboard again. That’s right, the keyboard is different. There are dedicated keys for the @ and . characters to help you complete the field more efficiently. As we discussed with type="search", there is no downside to using type="email" right now. If a browser doesn’t support it, it will degrade to type="text". And in some browsers, users will get a helping hand.
 
-- password
+Talk about password field
+
 - the keyboards that are displayed on phones
+
+## Typing a password
+
+- Use a password reveal as explained in [this article](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
 
 ## Marking required fields
 
+We've done a really good job already of deciding at least thinking about whether the things we're ask for are truly essential. If they are then there is actually nothing to mark as required or otherwise...
+
 - The first thing is to flip the question. What is optional. Mark that instead.
 - Do we really need first and last name.
-- Should those fields be combined - no - complicated
+
+## Combining first and last name
+
+No. Tis complicated.
 
 ## Label and input position
 
+- Mobile first approach, why change it?
 - Though shall place labels above each control
 - Position of first and last name on one line? NOPE
 - Tabbing etc is better.
 
 ## Why we don't need a fieldset
+
+Do we really need this?
 
 ## Focus styles
 
@@ -149,14 +160,24 @@ TODO: Include example and visual
 - Shouldn't have a hand cursor. They aren't links.
 - Getting the text right. Not "submit".
 
-## Typing a password
-
-- Use a password reveal as explained in [this article](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
-
 ## Validation
 
-- Don't use HTML5 validation, such as required.
-- novalidate
-- Fixing errors
-- server side first.
-- The problem with live validation
+## When to validate
+
+When the form is submitted or live validation.
+
+Live validation has a bunch of problems.
+
+## Fixing errors
+
+## Implementation
+
+### Server side first.
+
+The summary.
+
+The individual fields.
+
+### Client side progressive enhancement.
+
+Not using HTML 5. novalidate. No required boolean. etc. See Heydon.

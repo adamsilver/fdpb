@@ -18,7 +18,7 @@ We're going to begin our foray in to designing forms with a registration form. T
 
 ## Labels
 
-The first thing we need to know is that each field needs an associated label. this is because:
+The first thing we need to know is that each field needs an associated label. This is because:
 
 - sighted users will be able to see the instructions;
 - visually-impaired users will hear the instructions when using a screen reader; and
@@ -30,7 +30,7 @@ We might tempt ourselves into omit labels for particular forms in order to save 
 
 Since placeholders came along, we have adopted them as means of storing hints. Their appeal lies in their minimal aesthetic and the fact they save space.
 
-Some designers go one one step further and replace labels with placeholders. Either way, the placeholder is an Inclusive Design anti-pattern which causes problems (I've counted 13) for users. Here are 4:
+Some designers go one one step further and replace labels with placeholders. Either way, the placeholder is an Inclusive Design anti-pattern which causes problems (I've counted 13[^1]) for users. Here are 4:
 
 1. They are easy to forget because they disappears as soon as the user types.
 2. When fields are prepopulated, the fields lack clarity.
@@ -181,3 +181,5 @@ The individual fields.
 ### Client side progressive enhancement.
 
 Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
+
+[^1]: Some *crazy* footnote definition.

@@ -1,6 +1,6 @@
 # A registration form
 
-We're going to begin our foray in to designing forms with a registration form. This seemingly simple form has much for us to discuss. Here it is:
+We're going to begin our foray with a registration form. This seemingly simple form has much for us to discuss. Here it is:
 
 ```html
 <form id="register">
@@ -87,6 +87,8 @@ Perhaps it would be better if it said "Choose password" to reinforce the fact th
 
 - Labels: though shall make forms human and conversational. Don't use jargon.
 
+- Don't use caps?
+
 ## Additional hints
 
 Whilst we discussed earlier that placeholders are not a good design pattern for hints, that does not mean the user can't benefit from a hint itself.
@@ -100,6 +102,8 @@ https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-password
 The email address doesn't really need an additional hint. Unless you think a user really needs *e.g. yourname@example.com* which is what many designers place in placeholders. A double whammy of hard to use noise.
 
 Just because we can use a hint, doesn't mean we should.
+
+Back to password, we should say "your password must contain X, Y and Z".
 
 ## Why should they provide certain info.
 
@@ -123,6 +127,8 @@ Talk about password field
 
 - Use a password reveal as explained in [this article](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
 
+Often the user will delete the whole thing rather than counting dots or stars.
+
 ## Marking required fields
 
 We've done a really good job already of deciding at least thinking about whether the things we're ask for are truly essential. If they are then there is actually nothing to mark as required or otherwise...
@@ -137,9 +143,10 @@ No. Tis complicated.
 ## Label and input position
 
 - Mobile first approach, why change it?
-- Though shall place labels above each control
+- Though shall place labels above each control-Multiple columns disrupt a users vertical rythym. Users complete top aligned labeled forms at a much higher rate than left aligned labels. Top aligned labels also translate well on mobile. Can go against it but have a good reason to. This is a good rule of thumb and so will be using this approach through out the book. If in doubt test.
 - Position of first and last name on one line? NOPE
 - Tabbing etc is better.
+- Make sure space below the combined label/field is more. https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p
 
 ## Why we don't need a fieldset
 
@@ -162,11 +169,36 @@ TODO: Include example and visual
 
 ## Validation
 
+Up to now, we've done as much as we can to avoid user errors. But when the unfortunate thing happens, we need to help our users be on their way.
+
+Validation is the biggest design challenge we've faced so far and whilst it's not that hard, many sites get this wrong by either doing too little, or doing way too much too early.
+
+What the user needs to know is:
+
+1. Something is wrong
+2. How to fix it.
+
+But what we must also consider is when we display something is wrong and how to present it so that users find it easy to fix.
+
 ## When to validate
 
-When the form is submitted or live validation.
+To design an inclusive experience we must consider the experience without Javascript first, which is more common than you may at first think[^2]. Fortunately, when we consider the experience for people without Javascript we find there is only one option which is onsubmit.
 
-Live validation has a bunch of problems.
+And we cant fix everything on the client. For example, a user may type something that is formatted correctly but doesn't match up to something in the database. The point is, the user will have to hit the server at some point. So by designing for the Javascript off not only do we reach a wider audience but we also cover scenarios that we might not have considered had we jumped straight into the all singing and all dancing Javascript solution.
+
+Whatever happens we must validate our form on submit anyway so this seems like a sensible place to start. Now it's important to note that our form can be submitted by pressing return/enter as well as pressing the submit button. You see without any developer or designer intervention, forms are accessible to people who use a mouse or a keyboard (or their finger etc).
+
+Validating our form on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed along to the server for something more. But when Javascript is available can we do more but should we? 
+
+Heydon says this better than I ever could.:
+
+> Some fancy form validation scripts give you live feedback as you type your text entries, letting you know whether what you type is valid as you type it. This can become very difficult to manage. For entries that require a certain number of characters, the first few keystrokes always going to constitute an invalid entry. So, when do we send feedback to the user and how frequently?
+
+We can provide feedback when the user leaves the field, but at this point the user is finished with the field and has already mentally prepared to fill out the next field.
+
+> Not wanting to be the overbearing restaurant waiter continually interrupting customers to check in with them, we didn't flag errors on first run. Instead, only where errors are present after attempted submission do we begin informing the user.
+
+> Once the user is actively engaged in correcting errors, I think it helpful to reward their efforts as they work. For fields now marked invalid, we could run our validation routine on each input event, switching aria-invalid from false to true where applicable.
 
 ## Fixing errors
 
@@ -183,3 +215,4 @@ The individual fields.
 Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
 
 [^1]: Some *crazy* footnote definition.
+[^2]: Some *crazy* footnote definition.

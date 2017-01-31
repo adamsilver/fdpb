@@ -190,7 +190,7 @@ Whatever happens we must validate our form on submit anyway so this seems like a
 
 Validating our form on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed along to the server for something more. But when Javascript is available can we do more but should we? 
 
-Heydon says this better than I ever could.:
+Heydon says:
 
 > Some fancy form validation scripts give you live feedback as you type your text entries, letting you know whether what you type is valid as you type it. This can become very difficult to manage. For entries that require a certain number of characters, the first few keystrokes always going to constitute an invalid entry. So, when do we send feedback to the user and how frequently?
 
@@ -199,6 +199,12 @@ We can provide feedback when the user leaves the field, but at this point the us
 > Not wanting to be the overbearing restaurant waiter continually interrupting customers to check in with them, we didn't flag errors on first run. Instead, only where errors are present after attempted submission do we begin informing the user.
 
 > Once the user is actively engaged in correcting errors, I think it helpful to reward their efforts as they work. For fields now marked invalid, we could run our validation routine on each input event, switching aria-invalid from false to true where applicable.
+
+I had never thought about this approach until Heydon mentioned it. It's most certainly an improvement, but having spoken to him about this it's certainly not ideal.
+
+The problem still stands that when the user is fixing an error they are interupted. And validating onblur is too late.
+
+So keep it simple. Stick to submit.
 
 ## Fixing errors
 

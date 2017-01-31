@@ -129,6 +129,12 @@ Talk about password field
 
 Often the user will delete the whole thing rather than counting dots or stars.
 
+> Note that Internet Explorer and Microsoft Edge provide this functionality natively, using an interactive 'eye' icon associated with the <code>::ms-reveal</code> pseudo-class. Since we've provided our own (cross-browser) solution, it would be wise to suppress this feature:
+
+	input[type=password]::-ms-reveal {
+	  display: none;
+	}
+
 ## Marking required fields
 
 We've done a really good job already of deciding at least thinking about whether the things we're ask for are truly essential. If they are then there is actually nothing to mark as required or otherwise...
@@ -141,6 +147,16 @@ We've done a really good job already of deciding at least thinking about whether
 No. Tis complicated.
 
 ## Label and input position
+
+Number 5 in https://uxplanet.org/10-rules-for-efficient-form-design-e13dc1fb0e03#.r3ic58br2
+
+Top aligned labels. The biggest advantage to top-aligned labels — they make it easier for different sized labels and localized versions to fit easier within the UI (this is especially good for mobile screens with a limited estate).
+
+- Best completion rates
+- easiest to process
+- best support for multi language
+
+https://medium.com/@cjforms/the-idea-that-left-aligned-labels-have-slower-completion-times-is-incorrect-e1461f47242b#.dvl3en9g4
 
 - Mobile first approach, why change it?
 - Though shall place labels above each control-Multiple columns disrupt a users vertical rythym. Users complete top aligned labeled forms at a much higher rate than left aligned labels. Top aligned labels also translate well on mobile. Can go against it but have a good reason to. This is a good rule of thumb and so will be using this approach through out the book. If in doubt test.
@@ -173,12 +189,9 @@ Up to now, we've done as much as we can to avoid user errors. But when the unfor
 
 Validation is the biggest design challenge we've faced so far and whilst it's not that hard, many sites get this wrong by either doing too little, or doing way too much too early.
 
-What the user needs to know is:
+The user needs to know when the form has errors i.e. something went wrong. And what will make the form valid i.e. what needs fixing and how.
 
-1. Something is wrong
-2. How to fix it.
-
-But what we must also consider is when we display something is wrong and how to present it so that users find it easy to fix.
+When and how we present this stuff is up to us..
 
 ## When to validate
 
@@ -200,25 +213,80 @@ We can provide feedback when the user leaves the field, but at this point the us
 
 > Once the user is actively engaged in correcting errors, I think it helpful to reward their efforts as they work. For fields now marked invalid, we could run our validation routine on each input event, switching aria-invalid from false to true where applicable.
 
-I had never thought about this approach until Heydon mentioned it. It's most certainly an improvement, but having spoken to him about this it's certainly not ideal.
-
-The problem still stands that when the user is fixing an error they are interupted. And validating onblur is too late.
+I had never thought about this approach until Heydon mentioned it. It's most certainly an improvement, but having spoken to him about this it's certainly not ideal. The problem still stands that when the user is fixing an error they are interupted. And validating onblur is too late.
 
 So keep it simple. Stick to submit.
 
-## Fixing errors
+## How to present errors
 
-## Implementation
+### Error summary
 
-### Server side first.
+#### Position
 
-The summary.
+As discussed before, the degraded experience will need the server to handle the validation. The server will deliver the errors through a page refresh. And when any page is loaded it's the top of the page that is seen first. At this point in time, the fact that the user has errors to fix, it makes sense putting this at the top of the page after the header.
 
-The individual fields.
+#### Content
 
-### Client side progressive enhancement.
+You have blah errors
+
+error (link)
+error (link)
+
+#### Visual design
+
+> Conventionally, errors are denoted with a red coloration, so it's advisable to give the message box a red border or background. However, you should be wary of red being the only visual characteristic that classifies the message as an error. To support those who cannot see color and screen reader users at the same time, we can prepend a warning icon containing alternative text.
+
+This icon is vital for those with colour impairments but it's also helpful for those with perfect vision. It's much easier to scan for an icon than it is to read through some text explaining that there is an error. Is it is with inclusive design, what you do for one person often helps everyone else too.
+
+#### Code
+
+<div id="errorSummary" class="errorSummary" aria-live="assertive" role="alert">
+    Stuff
+</div>
+
+> When the form's submission event is suppressed, the live region is populated, switching its display state from none implicitly to block. This population of DOM content simultaneously triggers screen readers to announce the content, including the prepended alternative text: "Error: please make sure all your registration information is correct".
+
+> The advantage of declaring the presence of errors using a live region is that we don't have to move the user in order to bring this information to their attention. Commonly, form errors are alerted to the user by focusing the first invalid form field. This unexpected and unsolicited shift of position within the application risks disorientating the user. In our case, the user remains focused on the submit button and is free to move back into the form to fix the errors when ready.
+
+### In-context inline errors
+
+If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message.
+
+#### Placement
+
+#### Content
+
+#### Code
+
+?
+
+## Server side implementation
+
+### Summary
+
+?
+
+### Inline
+
+?
+
+## Client side progressively enhanced implementation
+
+### HTML5
 
 Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
+
+### Summary
+
+?
+
+### Inline
+
+?
+
+## Summary
+
+We've covered a lot in this chapter. Other chapters will not cover the same ground. Perhaps some of the same topics will be discussed further or more specifically when necessary, but this serves as the foundation to which to design all other forms. What's interesting in the upcoming chapters is the different problems we need to tackle as designers and how we can solve those problems.
 
 [^1]: Some *crazy* footnote definition.
 [^2]: Some *crazy* footnote definition.

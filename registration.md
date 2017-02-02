@@ -75,20 +75,6 @@ We may have improved the registration process, but for people that know their pa
 
 The point of this discussion wasn't to get into the validity of email sign in. It's that we must consider whether we really really need to ask for certain information and can we make forms simpler for users by removing the need to ask.
 
-## Label values
-
-In the public sector, we call the epople who write copy, content designers. And I think it's a good name. They are designing content and as we say in the public sector, *content is the user experience*.
-
-As we've seen above, including a label is paramount, but the text we put inside the label is just as vital.
-
-The password field's label is *password* which seems simple enough. It's good to be terse. Less but better and all that. But is it missing some clarity. I would suggest that the label could encourage users to type a password they already have. Or that it might seem as they they are already registered.
-
-Perhaps it would be better if it said "Choose password" to reinforce the fact that a) they are signing up and b) that they should create a new password.
-
-- Labels: though shall make forms human and conversational. Don't use jargon.
-
-- Don't use caps?
-
 ## Additional hints
 
 Whilst we discussed earlier that placeholders are not a good design pattern for hints, that does not mean the user can't benefit from a hint itself.
@@ -270,10 +256,6 @@ If the user has more than one error, then having to switch between the summary a
 
 ?
 
-## Error copy
-
-> A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages
-
 ## Client side progressively enhanced implementation
 
 ### HTML5
@@ -287,6 +269,26 @@ Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
 ### Inline
 
 ?
+
+## Content (Copy)
+
+Up to now we've focussed mostly on the visual and behavioural design aspect of form. It's so easy to ignore perhaps the most important aspect of design in general. That would be the content.
+
+Whether we're talking about labels, hints or error messaging, the design of microcopy is essential. The content designers I've worked with say *content is the user experience*. And that's hard to argue with.
+
+With regrds to errors, the affect on UX is huge.
+
+> A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages
+
+The same goes for labelling and hints.
+
+The password field's label is *password* which seems simple enough. It's good to be terse. Less but better and all that. But is it missing some clarity. I would suggest that the label could encourage users to type a password they already have. Or that it might seem as they they are already registered.
+
+Perhaps it would be better if it said "Choose password" to reinforce the fact that a) they are signing up and b) that they should create a new password.
+
+- Labels: though shall make forms human and conversational. Don't use jargon.
+
+- Don't use caps?
 
 ## Summary
 

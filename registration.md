@@ -270,6 +270,10 @@ If the user has more than one error, then having to switch between the summary a
 
 ?
 
+## Error copy
+
+> A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages
+
 ## Client side progressively enhanced implementation
 
 ### HTML5

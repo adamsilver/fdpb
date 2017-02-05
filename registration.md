@@ -141,10 +141,6 @@ No. Tis complicated.
 - Position of first and last name on one line? NOPE
 - Tabbing etc is better.
 
-## Why we don't need a fieldset
-
-Do we really need this?
-
 ## Focus styles
 
 When the user focuses a field most browsers will highlight the field which helps the user know where they are. Some designers despise the aesthetic some browsers give by default, because it doesn't match the brand or some such. And in the mist of their hatred, they ask the developer to remove it. That would be okay if they replaced it with something better. But quite often they don't.
@@ -159,6 +155,7 @@ TODO: Include example and visual
 
 - Shouldn't have a hand cursor. They aren't links.
 - Getting the text right. Not "submit".
+- Positioning
 
 ## Validation
 

@@ -24,13 +24,13 @@ The first thing we need to know is that each field needs an associated label. Th
 - visually-impaired users will hear the instructions when using a screen reader; and
 - motor-impaired users will find it easier to select a field thanks to the larger hit area. This is because clicking a label will move focus to the control.
 
-We might tempt ourselves into omit labels for particular forms in order to save space but this is not something to go minimal on. Every field needs a label.
+We might tempt ourselves into omit labels for particular forms in order to save space but this is a case of minimal not equalling simple. Every field needs a label.
 
 ## Placeholders
 
 Since placeholders came along, we have adopted them as means of storing hints. Their appeal lies in their minimal aesthetic and the fact they save space.
 
-Some designers go one one step further and replace labels with placeholders. Either way, the placeholder is an Inclusive Design anti-pattern which causes problems (I've counted 13[^1]) for users. Here are 4:
+Some designers go one one step further and replace labels with placeholders. Either way, the placeholder is an Inclusive Design anti-pattern which causes problems (I've counted 13[^1]) for users. I provide 4 here for your convenience:
 
 1. They are easy to forget because they disappears as soon as the user types.
 2. When fields are prepopulated, the fields lack clarity.
@@ -47,15 +47,17 @@ TODO: Image needs to go here.
 
 ## Floating labels
 
-When I inform people of the placeholder problem, they often tell me that floating labels is the answer to all our problems. In actual fact, they come with many of the same problems as placeholders but with a few additions:
+When I inform people of the placeholder problem, they often tell me that floating labels is the answer. In actual fact, they come with many of the same problems as placeholders but with a few additions:
 
 1. There is no actual space for a hint. The hint and the label are one and the same.
-2. The labels are often too small. If they were to be big, we would need to leave a space big enough for the label to fly into. In which case they don't save space. They are a novelty. UIs shouldn't be novel.
+2. The labels are often too small. If we made them bigger we would need to leave a bigger space for the label to float into. In which case they don't save space. They are a novelty. UIs shouldn't be novel.
 3. The animation affect is distracting and disorientating.
 
-But actually whilst decluttering the UI is a noble goal, it's only with declutting the unessential, but fixed and familiar labels are essential. I would go as far to say the floating labels are a solution looking for a problem.
+Decluttering is a noble goal. But only when we declutter the superfluous, not the essential. Labels are essential, and in somecases so are hints.
 
-## Do we really need ask for that?
+Emplying a pattern that is problematic and constraining at the same time is not a recipe for a friction-free user experience. I would go as far to say the floating labels are a solution looking for a problem.
+
+## Do we really need ask?
 
 Everytime we ask the user another question, we make it harder for them. So we need to be very careful about whether we even should ask it, let alone, how we ask it.
 
@@ -79,19 +81,27 @@ The point of this discussion wasn't to get into the validity of email sign in. I
 
 Whilst we discussed earlier that placeholders are not a good design pattern for hints, that does not mean the user can't benefit from a hint itself.
 
-Our registration form could really do with a hint for the password, especially if, like most sites they are asking for a complex ruleset to pass. "Need to type x characters and one upper and lower case latter etc".
+For example, if the password field, like most sites is asking for one upper case letter, one lower case and one number, then we should really tell the user in advance, otherwise we can guarantee the user is going to get an error when validating the form.
 
-If at all possible, we should avoid making our users satisfy a complex set of password rules that are hard for them to remember (even if they are using a password manager). We can do better than this. Pass phrases are more secure and easy to remember.
+If possible, we should avoid making users setup a complex password, but we'll discuss that shortly. For now we'll assume the password needs to satisify this complex set of rules.
+
+To help the user we'll want to provide a hint, but instead of putting it inside the field we'll place it outside the field just below the field as follows:
+
+![image](/blah)
+
+A readily accessible hint like this should reduce friction drastically for the user.
+
+But just because we can provide a hant, doesn't mean we should. An email address doesn't really need explaining. Yet, we often see sites that says "Email address" as a hint which is just a repeat of the label anyway.
+
+Or we see "yourname@example.com". Either way we don't need it. We should add a hint outside the field, only when it helps users.
+
+## Complex password
+
+Complex passwords like we just discussed are hard for them to remember. Password managers have their place but they don't solve all problems. We can do better by using a long pass phrase - they are secure and easy to remember.
 
 https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
 
-The email address doesn't really need an additional hint. Unless you think a user really needs *e.g. yourname@example.com* which is what many designers place in placeholders. A double whammy of hard to use noise.
-
-Just because we can use a hint, doesn't mean we should.
-
-Back to password, we should say "your password must contain X, Y and Z".
-
-## Why should they provide certain info.
+## Why should they complete the form/provide information
 
 - Reasons to complete the task
 
@@ -121,7 +131,7 @@ Often the user will delete the whole thing rather than counting dots or stars.
 	  display: none;
 	}
 
-## Marking required fields
+## Required fields
 
 We've done a really good job already of deciding at least thinking about whether the things we're ask for are truly essential. If they are then there is actually nothing to mark as required or otherwise...
 
@@ -180,11 +190,15 @@ When and how we present this stuff is up to us..
 
 To design an inclusive experience we must consider the experience without Javascript first, which is more common than you may at first think[^2]. Fortunately, when we consider the experience for people without Javascript we find there is only one option which is onsubmit.
 
-And we cant fix everything on the client. For example, a user may type something that is formatted correctly but doesn't match up to something in the database. The point is, the user will have to hit the server at some point. So by designing for the Javascript off not only do we reach a wider audience but we also cover scenarios that we might not have considered had we jumped straight into the all singing and all dancing Javascript solution.
+I've often found that making things work without Javascript to the best of my ability can quite often provide a great experience as is. And in fact in a recent large-scale government project, we performed validation on the server only. And you know what, because our forms were so friendly, the round-trip caused no issues.
+
+Now don't get me wrong, I'm a fan of client side validation, and we will be looking at this shortly. But the point is when we do the basics first, we can end up with providing the basics only which makes for a faster experience (no loading up extra Javascript for example) and far less for us to maintain as developers.
+
+Also, we can;t fix everything on the client. For example, a user may type something that is formatted correctly but doesn't match up to something in the database. The point being that the user will have to hit the server at some point anyway. So by designing for Javascript off not only do we reach a wider audience but we also cover scenarios that we might not have considered had we jumped straight into the all-singing and all-dancing fancy-pants solution.
 
 Whatever happens we must validate our form on submit anyway so this seems like a sensible place to start. Now it's important to note that our form can be submitted by pressing return/enter as well as pressing the submit button. You see without any developer or designer intervention, forms are accessible to people who use a mouse or a keyboard (or their finger etc).
 
-Validating our form on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed along to the server for something more. But when Javascript is available can we do more but should we? 
+Validating our form on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed through to the server for something more. But when Javascript is available can we do more but should we?
 
 Heydon says:
 
@@ -196,32 +210,40 @@ We can provide feedback when the user leaves the field, but at this point the us
 
 > Once the user is actively engaged in correcting errors, I think it helpful to reward their efforts as they work. For fields now marked invalid, we could run our validation routine on each input event, switching aria-invalid from false to true where applicable.
 
-I had never thought about this approach until Heydon mentioned it. It's most certainly an improvement, but having spoken to him about this it's certainly not ideal. The problem still stands that when the user is fixing an error they are interupted. And validating onblur is too late.
+I had never thought about this approach until Heydon mentioned it. It's most certainly an improvement, but having spoken to him about this it's still not not ideal. The problem still stands that when the user is fixing an error they are interupted. And validating onblur is too late.
 
-So keep it simple. Stick to submit.
+So let's keep it simple and stick with submit only.
 
 ## How to present errors
 
-### Error summary
+We're going to show errors when the user submits an invalid form. There are a three main things to do:
 
-#### Position
+1. Change the page title
+2. Provide an error summary
+3. Provide inline errors
 
-As discussed before, the degraded experience will need the server to handle the validation. The server will deliver the errors through a page refresh. And when any page is loaded it's the top of the page that is seen first. At this point in time, the fact that the user has errors to fix, it makes sense putting this at the top of the page after the header.
+## Changing the page title
 
-#### Content
+First we're going to want to change a website's `<title>` so after refresh, a screen reader user will know the form has errors. Most visually enabled users won't notice this but that's just fine.
 
-You have blah errors
+## Provide an error summary
 
-error (link)
-error (link)
+Next we're going to provide an error summary at the top which looks like this:
 
-#### Visual design
+![]()
+
+We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. This has become a convention, making things familiar. We won't be breaking that today.
+
+Even with Javascript, we can put the summary here and scroll to it to bring it onscreen again.
 
 > Conventionally, errors are denoted with a red coloration, so it's advisable to give the message box a red border or background. However, you should be wary of red being the only visual characteristic that classifies the message as an error. To support those who cannot see color and screen reader users at the same time, we can prepend a warning icon containing alternative text.
 
 This icon is vital for those with colour impairments but it's also helpful for those with perfect vision. It's much easier to scan for an icon than it is to read through some text explaining that there is an error. Is it is with inclusive design, what you do for one person often helps everyone else too.
 
-#### Code
+
+- Links to each erroneous field.
+
+Here's the code for the summary:
 
 <div id="errorSummary" class="errorSummary" aria-live="assertive" role="alert">
     Stuff
@@ -231,17 +253,17 @@ This icon is vital for those with colour impairments but it's also helpful for t
 
 > The advantage of declaring the presence of errors using a live region is that we don't have to move the user in order to bring this information to their attention. Commonly, form errors are alerted to the user by focusing the first invalid form field. This unexpected and unsolicited shift of position within the application risks disorientating the user. In our case, the user remains focused on the submit button and is free to move back into the form to fix the errors when ready.
 
-### In-context inline errors
+### Provide inline errors
 
 If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message.
 
-#### Placement
+- Placement
 
-#### Content
+- Content
 
-#### Code
+- Code
 
-?
+- ?
 
 ## Server side implementation
 
@@ -267,13 +289,13 @@ Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
 
 ?
 
-## Content (Copy)
+## Words
 
 Up to now we've focussed mostly on the visual and behavioural design aspect of form. It's so easy to ignore perhaps the most important aspect of design in general. That would be the content.
 
 Whether we're talking about labels, hints or error messaging, the design of microcopy is essential. The content designers I've worked with say *content is the user experience*. And that's hard to argue with.
 
-With regrds to errors, the affect on UX is huge.
+With regrads to errors, the affect on UX is huge.
 
 > A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages
 

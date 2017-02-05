@@ -12,7 +12,7 @@ Let's analyse a typical checkout flow consisting of:
 
 ## The order of the forms and fields
 
-We don't ask for payment first. We ask for that last. When we type an address, we ask for it in a sensible order for people to understand etc.
+We don't ask for payment first. We ask for that last. When we type an address, we ask for it in a sensible order for people to understand etc. Makes things more human and conversational.
 
 ## Do we really need to ask for it?
 
@@ -25,6 +25,8 @@ This might seem slightly off topic for a book dedicated to the design of forms, 
 This isn't really needed. Ask Oyvind. Steven.
 
 ## Size of the fields
+
+> Baymard institute usability study found that if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like CVV (card verification code).
 
 Address the address in this.
 

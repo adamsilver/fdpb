@@ -1,6 +1,6 @@
 # A registration form
 
-We're going to begin our foray in to designing forms with a registration form. This seemingly simple form has much for us to discuss. Here it is:
+We're going to begin our foray with a registration form. This seemingly simple form has much for us to discuss. Here it is:
 
 ```html
 <form id="register">
@@ -75,18 +75,6 @@ We may have improved the registration process, but for people that know their pa
 
 The point of this discussion wasn't to get into the validity of email sign in. It's that we must consider whether we really really need to ask for certain information and can we make forms simpler for users by removing the need to ask.
 
-## Label values
-
-In the public sector, we call the epople who write copy, content designers. And I think it's a good name. They are designing content and as we say in the public sector, *content is the user experience*.
-
-As we've seen above, including a label is paramount, but the text we put inside the label is just as vital.
-
-The password field's label is *password* which seems simple enough. It's good to be terse. Less but better and all that. But is it missing some clarity. I would suggest that the label could encourage users to type a password they already have. Or that it might seem as they they are already registered.
-
-Perhaps it would be better if it said "Choose password" to reinforce the fact that a) they are signing up and b) that they should create a new password.
-
-- Labels: though shall make forms human and conversational. Don't use jargon.
-
 ## Additional hints
 
 Whilst we discussed earlier that placeholders are not a good design pattern for hints, that does not mean the user can't benefit from a hint itself.
@@ -100,6 +88,8 @@ https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-password
 The email address doesn't really need an additional hint. Unless you think a user really needs *e.g. yourname@example.com* which is what many designers place in placeholders. A double whammy of hard to use noise.
 
 Just because we can use a hint, doesn't mean we should.
+
+Back to password, we should say "your password must contain X, Y and Z".
 
 ## Why should they provide certain info.
 
@@ -123,6 +113,14 @@ Talk about password field
 
 - Use a password reveal as explained in [this article](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
 
+Often the user will delete the whole thing rather than counting dots or stars.
+
+> Note that Internet Explorer and Microsoft Edge provide this functionality natively, using an interactive 'eye' icon associated with the <code>::ms-reveal</code> pseudo-class. Since we've provided our own (cross-browser) solution, it would be wise to suppress this feature:
+
+	input[type=password]::-ms-reveal {
+	  display: none;
+	}
+
 ## Marking required fields
 
 We've done a really good job already of deciding at least thinking about whether the things we're ask for are truly essential. If they are then there is actually nothing to mark as required or otherwise...
@@ -136,10 +134,21 @@ No. Tis complicated.
 
 ## Label and input position
 
+Number 5 in https://uxplanet.org/10-rules-for-efficient-form-design-e13dc1fb0e03#.r3ic58br2
+
+Top aligned labels. The biggest advantage to top-aligned labels — they make it easier for different sized labels and localized versions to fit easier within the UI (this is especially good for mobile screens with a limited estate).
+
+- Best completion rates
+- easiest to process
+- best support for multi language
+
+https://medium.com/@cjforms/the-idea-that-left-aligned-labels-have-slower-completion-times-is-incorrect-e1461f47242b#.dvl3en9g4
+
 - Mobile first approach, why change it?
-- Though shall place labels above each control
+- Though shall place labels above each control-Multiple columns disrupt a users vertical rythym. Users complete top aligned labeled forms at a much higher rate than left aligned labels. Top aligned labels also translate well on mobile. Can go against it but have a good reason to. This is a good rule of thumb and so will be using this approach through out the book. If in doubt test.
 - Position of first and last name on one line? NOPE
 - Tabbing etc is better.
+- Make sure space below the combined label/field is more. https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p
 
 ## Focus styles
 
@@ -159,24 +168,128 @@ TODO: Include example and visual
 
 ## Validation
 
+Up to now, we've done as much as we can to avoid user errors. But when the unfortunate thing happens, we need to help our users be on their way.
+
+Validation is the biggest design challenge we've faced so far and whilst it's not that hard, many sites get this wrong by either doing too little, or doing way too much too early.
+
+The user needs to know when the form has errors i.e. something went wrong. And what will make the form valid i.e. what needs fixing and how.
+
+When and how we present this stuff is up to us..
+
 ## When to validate
 
-When the form is submitted or live validation.
+To design an inclusive experience we must consider the experience without Javascript first, which is more common than you may at first think[^2]. Fortunately, when we consider the experience for people without Javascript we find there is only one option which is onsubmit.
 
-Live validation has a bunch of problems.
+And we cant fix everything on the client. For example, a user may type something that is formatted correctly but doesn't match up to something in the database. The point is, the user will have to hit the server at some point. So by designing for the Javascript off not only do we reach a wider audience but we also cover scenarios that we might not have considered had we jumped straight into the all singing and all dancing Javascript solution.
 
-## Fixing errors
+Whatever happens we must validate our form on submit anyway so this seems like a sensible place to start. Now it's important to note that our form can be submitted by pressing return/enter as well as pressing the submit button. You see without any developer or designer intervention, forms are accessible to people who use a mouse or a keyboard (or their finger etc).
 
-## Implementation
+Validating our form on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed along to the server for something more. But when Javascript is available can we do more but should we? 
 
-### Server side first.
+Heydon says:
 
-The summary.
+> Some fancy form validation scripts give you live feedback as you type your text entries, letting you know whether what you type is valid as you type it. This can become very difficult to manage. For entries that require a certain number of characters, the first few keystrokes always going to constitute an invalid entry. So, when do we send feedback to the user and how frequently?
 
-The individual fields.
+We can provide feedback when the user leaves the field, but at this point the user is finished with the field and has already mentally prepared to fill out the next field.
 
-### Client side progressive enhancement.
+> Not wanting to be the overbearing restaurant waiter continually interrupting customers to check in with them, we didn't flag errors on first run. Instead, only where errors are present after attempted submission do we begin informing the user.
+
+> Once the user is actively engaged in correcting errors, I think it helpful to reward their efforts as they work. For fields now marked invalid, we could run our validation routine on each input event, switching aria-invalid from false to true where applicable.
+
+I had never thought about this approach until Heydon mentioned it. It's most certainly an improvement, but having spoken to him about this it's certainly not ideal. The problem still stands that when the user is fixing an error they are interupted. And validating onblur is too late.
+
+So keep it simple. Stick to submit.
+
+## How to present errors
+
+### Error summary
+
+#### Position
+
+As discussed before, the degraded experience will need the server to handle the validation. The server will deliver the errors through a page refresh. And when any page is loaded it's the top of the page that is seen first. At this point in time, the fact that the user has errors to fix, it makes sense putting this at the top of the page after the header.
+
+#### Content
+
+You have blah errors
+
+error (link)
+error (link)
+
+#### Visual design
+
+> Conventionally, errors are denoted with a red coloration, so it's advisable to give the message box a red border or background. However, you should be wary of red being the only visual characteristic that classifies the message as an error. To support those who cannot see color and screen reader users at the same time, we can prepend a warning icon containing alternative text.
+
+This icon is vital for those with colour impairments but it's also helpful for those with perfect vision. It's much easier to scan for an icon than it is to read through some text explaining that there is an error. Is it is with inclusive design, what you do for one person often helps everyone else too.
+
+#### Code
+
+<div id="errorSummary" class="errorSummary" aria-live="assertive" role="alert">
+    Stuff
+</div>
+
+> When the form's submission event is suppressed, the live region is populated, switching its display state from none implicitly to block. This population of DOM content simultaneously triggers screen readers to announce the content, including the prepended alternative text: "Error: please make sure all your registration information is correct".
+
+> The advantage of declaring the presence of errors using a live region is that we don't have to move the user in order to bring this information to their attention. Commonly, form errors are alerted to the user by focusing the first invalid form field. This unexpected and unsolicited shift of position within the application risks disorientating the user. In our case, the user remains focused on the submit button and is free to move back into the form to fix the errors when ready.
+
+### In-context inline errors
+
+If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message.
+
+#### Placement
+
+#### Content
+
+#### Code
+
+?
+
+## Server side implementation
+
+### Summary
+
+?
+
+### Inline
+
+?
+
+## Client side progressively enhanced implementation
+
+### HTML5
 
 Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
 
+### Summary
+
+?
+
+### Inline
+
+?
+
+## Content (Copy)
+
+Up to now we've focussed mostly on the visual and behavioural design aspect of form. It's so easy to ignore perhaps the most important aspect of design in general. That would be the content.
+
+Whether we're talking about labels, hints or error messaging, the design of microcopy is essential. The content designers I've worked with say *content is the user experience*. And that's hard to argue with.
+
+With regrds to errors, the affect on UX is huge.
+
+> A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages
+
+The same goes for labelling and hints.
+
+The password field's label is *password* which seems simple enough. It's good to be terse. Less but better and all that. But is it missing some clarity. I would suggest that the label could encourage users to type a password they already have. Or that it might seem as they they are already registered.
+
+Perhaps it would be better if it said "Choose password" to reinforce the fact that a) they are signing up and b) that they should create a new password.
+
+- Labels: though shall make forms human and conversational. Don't use jargon.
+
+- Don't use caps?
+
+## Summary
+
+We've covered a lot in this chapter. Other chapters will not cover the same ground. Perhaps some of the same topics will be discussed further or more specifically when necessary, but this serves as the foundation to which to design all other forms. What's interesting in the upcoming chapters is the different problems we need to tackle as designers and how we can solve those problems.
+
 [^1]: Some *crazy* footnote definition.
+[^2]: Some *crazy* footnote definition.

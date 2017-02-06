@@ -230,17 +230,17 @@ So let's keep it simple and stick with submit only.
 
 ## How to present errors
 
-We're going to show errors when the user submits an invalid form. There are a three main things to do:
+When it comes to actually showing users an error in response to an invalid submission, there are three things to think about.
 
 1. Change the page title
 2. Provide an error summary
 3. Provide inline errors
 
-## Changing the page title
+### 1. Changing the page title
 
 First we're going to want to change a website's `<title>` so after refresh, a screen reader user will know the form has errors. Most visually enabled users won't notice this but that's just fine.
 
-## Provide an error summary
+### 2. Provide an error summary
 
 Next we're going to provide an error summary at the top which looks like this:
 

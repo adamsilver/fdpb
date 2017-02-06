@@ -1,6 +1,8 @@
 # A registration form
 
-We're going to begin our foray with a registration form. This seemingly simple form has much for us to discuss. Here it is:
+We're going to begin our foray with a registration form. This seemingly simple form has much to discuss. Here it is:
+
+![Image here](/etc/)
 
 ```html
 <form id="register">
@@ -170,11 +172,21 @@ So do this:
 
 TODO: Include example and visual
 
-## Buttons
+## Submit buttons
 
-- Shouldn't have a hand cursor. They aren't links.
-- Getting the text right. Not "submit".
-- Positioning
+You would think that a button is such a simple thing to design, that getting it right is a no brainer. And yet, the *aggregation of small gains* goes a long way.
+
+The first thing to note about buttons is that they aren't links. Links typically have special positioning (such as a header) and underlines to denote their meaning. And they also have a hand cursor (also known as a pointer).
+
+As buttons aren't links, we shouldn't give them any of this treatment. They should look like a button (affordance) in order to help users realise they are different. Fortunately buttons have a strong affordance anyway, and so we don't need to mess with them too much.
+
+We should align the button to left, inline with the fields themselves. It doesn't make much sense to position the fields to the left, and the submit button to the right. 
+
+Keep things inline is easier on the eye, particularly for visually impaired users. Zooming in, for example, could mean a right-most positioned button is off screen.
+
+We'll discuss text in more detail shortly, but emphasising it here is worthwhile too. Whatever we do, the button text should be descriptive of what the form is submitting. 
+
+In our case "Register" or "Sign up" is appropriate, friendly and terse. Exactly what you go for, might differe based on your brand. Whichever you go for, don't use jargon and don't be ambiguous. Cutesy text might be errr, cute, but it isn't friendly.
 
 ## Validation
 
@@ -240,7 +252,6 @@ Even with Javascript, we can put the summary here and scroll to it to bring it o
 
 This icon is vital for those with colour impairments but it's also helpful for those with perfect vision. It's much easier to scan for an icon than it is to read through some text explaining that there is an error. Is it is with inclusive design, what you do for one person often helps everyone else too.
 
-
 - Links to each erroneous field.
 
 Here's the code for the summary:
@@ -291,7 +302,7 @@ Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
 
 ## Words
 
-Up to now we've focussed mostly on the visual and behavioural design aspect of form. It's so easy to ignore perhaps the most important aspect of design in general. That would be the content.
+Up to now we've focussed mostly on the visual and behavioural aspects of form. It's so easy to ignore perhaps the most important aspect of design in general. That would be the content.
 
 Whether we're talking about labels, hints or error messaging, the design of microcopy is essential. The content designers I've worked with say *content is the user experience*. And that's hard to argue with.
 

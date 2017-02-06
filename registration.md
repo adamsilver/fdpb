@@ -188,6 +188,8 @@ We'll discuss text in more detail shortly, but emphasising it here is worthwhile
 
 In our case "Register" or "Sign up" is appropriate, friendly and terse. Exactly what you go for, might differe based on your brand. Whichever you go for, don't use jargon and don't be ambiguous. Cutesy text might be errr, cute, but it isn't friendly.
 
+Whilst each of these things seem small in isolation, it's the combination of doing all of these things right that makes a difference for users. It's the little bit details that can have a huge affect.
+
 ## Validation
 
 Up to now, we've done as much as we can to avoid user errors. But when the unfortunate thing happens, we need to help our users be on their way.

@@ -62,4 +62,10 @@ Can always use a smart default, so default it to checked on the payment page.
 
 Do I really advocate this? Probably not.
 
+## Should we ask for it?
+
+In A Registration Form, we talked about the need to explain to user why they should complete the form, why should they register. Depending on the form and the field we should also be explaining why we are asking for that information specifically.
+
+For example Kidly delivery address, asking for mobile phone, in order to send them notifications. We should tell the user why we are asking for their mobile phone. And if there is no good reason to ask for it, that should drive our design to realise that we shouldn't ask for it, period.
+
 

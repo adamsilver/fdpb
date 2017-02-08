@@ -103,13 +103,9 @@ Complex passwords like we just discussed are hard for them to remember. Password
 
 https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
 
-## Why should they complete the form/provide information
+## Why should they complete the form
 
-- Reasons to complete the task
-
-- Some forms make it obvious why they should complete the task. Some are less so. With a registration form it might well be important. So we should say as much.
-
-- Why should the user register
+When we decide to put any form in front of users we should first ask ourselves why. If it's compelling to us, the hope is that it's compelling for users. For example, our registration form could help users buy faster next time, or track their order, or get 10% off their next order. Whatever it is, we should be telling users why and explaining the benefits to them.
 
 ## Field types
 

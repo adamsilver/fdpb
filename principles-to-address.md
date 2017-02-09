@@ -1,5 +1,9 @@
 # Principles to address
 
+## Auto file
+
+https://cloudfour.com/thinks/autofill-what-web-devs-should-know-but-dont/
+
 ## Primary principles
 
 - Though shall make label text extra clear. Password vs "Current password" or "New password".

@@ -107,19 +107,19 @@ https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-password
 
 When we decide to put any form in front of users we should first ask ourselves why. If it's compelling to us, the hope is that it's compelling for users. For example, our registration form could help users buy faster next time, or track their order, or get 10% off their next order. Whatever it is, we should be telling users why and explaining the benefits to them.
 
-## Field types
+## An email field
 
-Talk about email field
+Most sites ask for an email field at some point in time. Our registration also includes one. We should be using the write input type for the job. An email input is not a text input.
 
-Did you notice it this time? No? Look at the keyboard again. That’s right, the keyboard is different. There are dedicated keys for the @ and . characters to help you complete the field more efficiently. As we discussed with type="search", there is no downside to using type="email" right now. If a browser doesn’t support it, it will degrade to type="text". And in some browsers, users will get a helping hand.
+An email input will, by default, only accept a valid email address. And on mobile will popup a keyboard that has dedicated and readily accessible keys for @ and . characters, thus making the task of filling in an email address significantly easier:
 
-Talk about password field
+![Put image here of email keyboard]()
 
-- the keyboards that are displayed on phones
+## A password field
 
-## Typing a password
+A password input will mask what the user types as a security measure. But how often have you been using a computer with someone over your shoulder watching you type your password?
 
-- Use a password reveal as explained in [this article](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
+For this reason we should at the very least offer a [password reveal](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23). It's no less secure and it's significantly easier to use because the user can check their entries.
 
 Often the user will delete the whole thing rather than counting dots or stars.
 
@@ -144,7 +144,7 @@ No. Tis complicated.
 
 Number 5 in https://uxplanet.org/10-rules-for-efficient-form-design-e13dc1fb0e03#.r3ic58br2
 
-Top aligned labels. The biggest advantage to top-aligned labels — they make it easier for different sized labels and localized versions to fit easier within the UI (this is especially good for mobile screens with a limited estate).
+Top aligned labels. The biggest advantage to top-aligned labels — they make it easier for different sized labels and localized versions to fit easier within the UI (this is especially good for mobile screens with limited screen space).
 
 - Best completion rates
 - easiest to process
@@ -176,11 +176,11 @@ The first thing to note about buttons is that they aren't links. Links typically
 
 As buttons aren't links, we shouldn't give them any of this treatment. They should look like a button (affordance) in order to help users realise they are different. Fortunately buttons have a strong affordance anyway, and so we don't need to mess with them too much.
 
-We should align the button to left, inline with the fields themselves. It doesn't make much sense to position the fields to the left, and the submit button to the right. 
+We should align the button to left, inline with the fields themselves. It doesn't make much sense to position the fields to the left, and the submit button to the right.
 
 Keep things inline is easier on the eye, particularly for visually impaired users. Zooming in, for example, could mean a right-most positioned button is off screen.
 
-We'll discuss text in more detail shortly, but emphasising it here is worthwhile too. Whatever we do, the button text should be descriptive of what the form is submitting. 
+We'll discuss text in more detail shortly, but emphasising it here is worthwhile too. Whatever we do, the button text should be descriptive of what the form is submitting.
 
 In our case "Register" or "Sign up" is appropriate, friendly and terse. Exactly what you go for, might differe based on your brand. Whichever you go for, don't use jargon and don't be ambiguous. Cutesy text might be errr, cute, but it isn't friendly.
 

@@ -1,5 +1,13 @@
 # Principles to address
 
+## Use the right field for the right keyboard
+
+Good quote on number keypad: http://simplyaccessible.com/article/8-things-parenting-taught-accessibility/
+
+## password tweet
+
+https://twitter.com/azumbrunnen_/status/462584313209696258
+
 ## Auto file
 
 https://cloudfour.com/thinks/autofill-what-web-devs-should-know-but-dont/

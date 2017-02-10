@@ -276,6 +276,10 @@ If the user has more than one error, then having to switch between the summary a
 
 ## Server side implementation
 
+### Keep populated values
+
+When the page refreshes must populate values as to not make users have to type it in again. Annoying.
+
 ### Summary
 
 ?

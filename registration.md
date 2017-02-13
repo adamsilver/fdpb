@@ -266,7 +266,9 @@ Here's the code for the summary:
 
 If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message.
 
-- Placement
+And for which gets read out as the user enters form's mode again.
+
+[Placement/position](http://adrianroselli.com/2017/01/avoid-messages-under-fields.html)
 
 - Content
 

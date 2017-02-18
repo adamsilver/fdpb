@@ -38,7 +38,7 @@ We might be tempted to omit labels for particular forms in order to save space b
 
 Code wise, the way in which to *connect* an input to a label is via the id and for attributes. They must be unique and they must match.
 
-## Placeholders
+## Placeholders and hints
 
 Since placeholders came along, we have adopted them as means of storing hints. Their appeal lies in their minimal aesthetic and the fact they save space.
 
@@ -59,9 +59,9 @@ Now just because we can provide a hint doesn't mean we should. Most of the field
 
 However, many sites ask for a complex set of rules for the password. Typically, at least 8 characters, one uppercase letter, one lowercase letter and a number etc.
 
-Now if possible, we should avoid asking users to setup a complex password, but we'll discuss that later. For now we'll assume a complex password is required.
+Now where possible, we should avoid asking users to create complex passwords because they are hard to remember. Instead you may decide to take a look at passphrases[^2]. But for our form, we'll stick to the more common password.
 
-In this case a hint in addition to the label is helpful. It should help many users avoid having to to fix problems later when validation kicks in.
+And in this case a hint in addition to the label is helpful. It should help many users avoid having to to fix problems later when validation kicks in, and only then being told what it takes to meet these complex requirements.
 
 ![Image here](/etc/)
 
@@ -118,50 +118,11 @@ The point of this discussion is not to provide a definitive answer as to how man
 
 Most sites require a password for sign up and so we'll assume this stance going forward.
 
-## Password phrases
-
-When we discussed providing a hint in the section about placeholders we assumed it would have to meet a complex set of validation rules. The problem with passwords is that:
-
-- they are hard to remember; and
-- they are hard to type
-
-And when we demand users to type in a complex password, we exchange usability for security. It's a balancing act. When we exchange usability for security we risk users giving up and leaving. That's not what we want.
-
-Password managers are one solution but they have problems:
-
-- if you forget the master password you're out of luck as there is no way to recover them.
-- most people are afraid of them or don't understand them
-- they cost money
-
-We want to handle our user's interest ourselves and not hand that off to optional and costly third-party tools.
-
-It's been shown that we can ask the user for a passphrase[^2] which balances usability and security more evenly. We could probably dedicate an entire chapter to just passwords but they are complicated and way above my head. In short a passphrase is easier for users becase:
-
-- they are easier to remember
-- they have less complex rules
-- they are very hard to crack
-
-It's the difference between 1p455w0rd@ and Idisliketypingpasswords. Users are used to meeting a complex set of rules so instead of asking for:
-
--has at least 8 characters
--includes capital and lowercase letters
--includes one or more digits
--includes one or more symbols (@, #, $, etc.)
--prohibits words found in dictionary
--prohibits user’s personal information
-
-we can ask for:
-
--has at least 16 characters
--includes a capital letter or number
-
-If your team decides to go down this route, then you'll need to change the labels and the hint to match and educate the user a little but. In fact the main disadvantage of a passphrase is that they are not a familiar convention on the web. But conventions and in turn, user expectations change over time.
-
 ## An email field
 
-Most sites ask for an email address. And so our registration form also includes one. With HTML5 we can enhance a regular text box so that it expects an email address.
+Like most sites, our registration requests an email address. HTML5 gave us a dedicated input type that improves the experience for users that use HTML5 conforming browsers. Nowadays that's most browsers.
 
-This helps users when they come to fill out the field. Instead of showing a regular keyboard, a mobile device will provide a dedicated keybaord with readily accessible @ and . characters. Here's a screenshot:
+On many touch screen devices, when the user focuses on the email address field, a keyboard will popup. And when we use [type=email] it contains readily accessible @ and . characters which are expected in an email address. Here's a screenshot:
 
 ![Put image here of email keyboard]()
 
@@ -183,14 +144,13 @@ Some browsers provide this functionality out of the box and as Heydon says:
 
 The password reveal also stops the need to use an additional "confirm password" field which further reduces work on the user's side.
 
-## Required fields
+## Specifying required fields
 
-We've done a really good job already of deciding at least thinking about whether the things we're ask for are truly essential. If they are then there is actually nothing to mark as required or otherwise...
+In "should we really ask for it", we've worked very hard only to ask users for what is necessary. Most users expect that all fields are required anyway and so it goes that we don't need to specify required fields.
 
-- The first thing is to flip the question. What is optional. Mark that instead.
-- Do we really need first and last name.
+It's visually and audibly noisey to specify required fields. When we explore other forms in later chapters we'll talk about this more deeply.
 
-- highligh, a highlight is to show something different from the norm. Optional fields are different from the norm so mark those. Jessica Enders.
+<!-- highligh, a highlight is to show something different from the norm. Optional fields are different from the norm so mark those. Jessica Enders.-->
 
 ## Label and input position
 

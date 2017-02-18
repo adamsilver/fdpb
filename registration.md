@@ -1,11 +1,17 @@
 # A registration form
 
-We're going to begin our foray with a registration form. This seemingly simple form has much to discuss. Here it is:
+We're going to begin our foray with a registration form. We'll use this simple form, to ahem, form the foundations on which to design more complex forms. But don't be fooled by its seemingly simple appearance. This registration form has much to be analysed, ripped apart and put back together again.
+
+This chapter is going to cover a lot of ground. It turns out foundations are important. And so as we step through other chapters we will draw on information found in this chapter and elaborate further where necessary to the specific form in question.
+
+So here it is, a registration form:
 
 ![Image here](/etc/)
 
+Here is the HTML code to build it
+
 ```html
-<form id="register">
+<form>
   <label for="firstName">First name</label>
   <input type="text" id="firstName" name="firstName">
   <label for="lastName">Last name</label>
@@ -18,100 +24,144 @@ We're going to begin our foray with a registration form. This seemingly simple f
 </form>
 ```
 
+It contains four fields and a submit button. You'll also notice each field that takes input has a label. And that is where we will start our analysis.
+
 ## Labels
 
 The first thing we need to know is that each field needs an associated label. This is because:
 
 - sighted users will be able to see the instructions;
 - visually-impaired users will hear the instructions when using a screen reader; and
-- motor-impaired users will find it easier to select a field thanks to the larger hit area. This is because clicking a label will move focus to the control.
+- motor-impaired users will find it easier to select a field thanks to the larger hit area. This is because clicking the label will move focus to its related control.
 
-We might tempt ourselves into omit labels for particular forms in order to save space but this is a case of minimal not equalling simple. Every field needs a label.
+We might be tempted to omit labels for particular forms in order to save space but this just about the worst thing you can do for users.
+
+Code wise, the way in which to *connect* an input to a label is via the id and for attributes. They must be unique and they must match.
 
 ## Placeholders
 
 Since placeholders came along, we have adopted them as means of storing hints. Their appeal lies in their minimal aesthetic and the fact they save space.
 
-Some designers go one one step further and replace labels with placeholders. Either way, the placeholder is an Inclusive Design anti-pattern which causes problems (I've counted 13[^1]) for users. I provide 4 here for your convenience:
+Some designers go one one step further and replace labels with placeholders. Either way, the placeholder is problem for many reasons. I've counted 13[^1] all together but here 4 reasons:
 
 1. They are easy to forget because they disappears as soon as the user types.
 2. When fields are prepopulated, the fields lack clarity.
 3. Placeholder text is often mistaken for a value, meaning users skip them and are subsequently shown an error.
 4. They have insufficient contrast.
 
-Some people ask me if it’s okay to use a placeholder in addition to a label. I say that if the hint is valuable to the user, we should make it easy-to-read and readily accessible, of which placeholders don’t meet these requirements.
+Some people ask me if it’s okay to use a placeholder in addition to a label. I say that if the hint is valuable to the user, we should make it easy-to-read and readily accessible. Placeholders don't meet these requirements.
 
-Others say that the placeholder is just an enhancement and not essential to the user. To this I say that if the hint isn’t essential then don’t include it. Content is not an enhancement.
+Others say that the placeholder is just an enhancement and not essential to the user. I say that if the hint isn’t essential then don’t include it. Content is not an enhancement.
 
 In the case of placeholders, minimal doesn't mean simple. If we do need to provide an additional hint we should provide it outside the field.
 
-TODO: Image needs to go here.
+Now just because we can provide a hint doesn't mean we should. Most of the fields in our registration form are self-explanatory.
+
+However, many sites ask for a complex set of rules for the password. Typically, at least 8 characters, one uppercase letter, one lowercase letter and a number etc.
+
+Now if possible, we should avoid asking users to setup a complex password, but we'll discuss that later. For now we'll assume a complex password is required.
+
+In this case a hint in addition to the label is helpful. It should help many users avoid having to to fix problems later when validation kicks in.
+
+![Image here](/etc/)
 
 ## Floating labels
 
 When I inform people of the placeholder problem, they often tell me that floating labels is the answer. In actual fact, they come with many of the same problems as placeholders but with a few additions:
 
-1. There is no actual space for a hint. The hint and the label are one and the same.
-2. The labels are often too small. If we made them bigger we would need to leave a bigger space for the label to float into. In which case they don't save space. They are a novelty. UIs shouldn't be novel.
+1. There is no actual space for a hint, because the hint and the label are one and the same.
+2. The labels are often too small. If we made them bigger we would need to leave a bigger space for the label to float into. In which case they don't save space.
 3. The animation affect is distracting and disorientating.
 
-Decluttering is a noble goal. But only when we declutter the superfluous, not the essential. Labels are essential, and in somecases so are hints.
+Decluttering is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases as we've just discussed so are hints.
 
-Emplying a pattern that is problematic and constraining at the same time is not a recipe for a friction-free user experience. I would go as far to say the floating labels are a solution looking for a problem.
+Empolying a pattern that is problematic and constraining at the same time is not a recipe we'll be using to cook up a great form experience in this book. In fact, when it comes to the floating label pattern, I would say it's a solution looking for a problem.
 
-## Do we really need ask?
+## Do we really need ask for it
 
-Everytime we ask the user another question, we make it harder for them. So we need to be very careful about whether we even should ask it, let alone, how we ask it.
+With every single form we design we should first ask ourselves if we even need the form at all. If we're going to ask users to register, for example, then we need to tell them why:
 
-To register, does the user even need to tell us their name? If we don't have to get personal then don't ask them for it. And I mean *have* to. If it is important to have the user's name, then can we ask for it later instead?
+1. Users can buy faster next time
+2. They can track their order
+3. Or get 10% off their next purchase.
 
-For example, we might need their name in order to send them a product. We may need their name in order to know who we're going to call. It all depends on the service they are signing up for.
+As the first chapter is dedicated to a registration form, we're going to assume we need it. Which brings us nicely to whether we need to ask for the fields within it.
 
-The point is that we should only ask for information that is critical and critical at this time.
+GDS has the following question protocol:
 
-Let's remove the first and last name fields, reducing the size of our form by half. But can we go further?
+*Before you start, make a list of all the information you need from your users. Only add a question if you know:*
 
-Medium.com have implemented a no password check in. They leverage the security of email accounts by sending the user a special login link. So technically speaking this registration form could just be a single field.
+-*that you need the information to deliver the service*
+-*why you need the information*
+-*what you’ll do with it*
+-*which users need to give you the information*
+-*how you’ll check the information is accurate*
+-*how to keep the information up to date and secure*
 
-This might be taking things too far. For one people are familiar with an email address and password (although that is not a reason in itself to avoid improving the experience of course). More importantly, if the user has to sign in via their email account this experience is clunky.
+Every time we ask the user for another piece of information, we're asking them for another piece of their time. Time is the most precious resource on earth. We can't get it back and so we need to value user's time like we would value our own.
 
-We may have improved the registration process, but for people that know their password or use a password manager, this flip flopping between your site and email account can be an unnecessary source of friction.
+In the registration form do we really need to ask for their first or last name? If we don't need the information, or we don't need that information at this point in time then we probably shouldn't be asking for it, right *now*. As with most things in life, it *depends*.
 
-The point of this discussion wasn't to get into the validity of email sign in. It's that we must consider whether we really really need to ask for certain information and can we make forms simpler for users by removing the need to ask.
+Let's assume we can remove the first and last name fields, this is a significant improvement as it reduces the size of the form by half. But we may be able to do better.
 
-## Additional hints
+## No password registration
 
-Whilst we discussed earlier that placeholders are not a good design pattern for hints, that does not mean the user can't benefit from a hint itself.
+Medium.com have implemented a no password sign in. They leverage the security of email accounts by sending the user a special login link. So technically speaking our registration form may only need an email field.
 
-For example, if the password field, like most sites is asking for one upper case letter, one lower case and one number, then we should really tell the user in advance, otherwise we can guarantee the user is going to get an error when validating the form.
+However, we may be over-simplifying. For one, people are familiar with an email address and password (although that is not a reason in itself to avoid improving the experience of course). For two, if the user has to sign in via their email account this experience is clunky.
 
-If possible, we should avoid making users setup a complex password, but we'll discuss that shortly. For now we'll assume the password needs to satisify this complex set of rules.
+We may have improved the registation process, but for people who know their password, or use a password manager, flipping flopping between the site and email account is an unnecessary source of friction.
 
-To help the user we'll want to provide a hint, but instead of putting it inside the field we'll place it outside the field just below the field as follows:
+This goes to show that designing a form in isolation is not a sensible way to go. Which is why following GDS's question protocol is always a very good place to start.
 
-![image](/blah)
+The point of this discussion is not to provide a definitive answer as to how many fields a registration form should have. But more importantly, that we need to rigorously ask ourselves why we are asking users in the first place.
 
-A readily accessible hint like this should reduce friction drastically for the user.
+Most sites require a password for sign up and so we'll assume this stance going forward.
 
-But just because we can provide a hant, doesn't mean we should. An email address doesn't really need explaining. Yet, we often see sites that says "Email address" as a hint which is just a repeat of the label anyway.
+## Password phrases
 
-Or we see "yourname@example.com". Either way we don't need it. We should add a hint outside the field, only when it helps users.
+When we discussed providing a hint in the section about placeholders we assumed it would have to meet a complex set of validation rules. The problem with passwords is that:
 
-## Complex password
+- they are hard to remember; and
+- they are hard to type
 
-Complex passwords like we just discussed are hard for them to remember. Password managers have their place but they don't solve all problems. We can do better by using a long pass phrase - they are secure and easy to remember.
+And when we demand users to type in a complex password, we exchange usability for security. It's a balancing act. When we exchange usability for security we risk users giving up and leaving. That's not what we want.
 
-https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
+Password managers are one solution but they have problems:
 
-## Why should they complete the form
+- if you forget the master password you're out of luck as there is no way to recover them.
+- most people are afraid of them or don't understand them
+- they cost money
 
-When we decide to put any form in front of users we should first ask ourselves why. If it's compelling to us, the hope is that it's compelling for users. For example, our registration form could help users buy faster next time, or track their order, or get 10% off their next order. Whatever it is, we should be telling users why and explaining the benefits to them.
+We want to handle our user's interest ourselves and not hand that off to optional and costly third-party tools.
+
+It's been shown that we can ask the user for a passphrase[^2] which balances usability and security more evenly. We could probably dedicate an entire chapter to just passwords but they are complicated and way above my head. In short a passphrase is easier for users becase:
+
+- they are easier to remember
+- they have less complex rules
+- they are very hard to crack
+
+It's the difference between 1p455w0rd@ and Idisliketypingpasswords. Users are used to meeting a complex set of rules so instead of asking for:
+
+-has at least 8 characters
+-includes capital and lowercase letters
+-includes one or more digits
+-includes one or more symbols (@, #, $, etc.)
+-prohibits words found in dictionary
+-prohibits user’s personal information
+
+we can ask for:
+
+-has at least 16 characters
+-includes a capital letter or number
+
+If your team decides to go down this route, then you'll need to change the labels and the hint to match and educate the user a little but. In fact the main disadvantage of a passphrase is that they are not a familiar convention on the web. But conventions and in turn, user expectations change over time.
 
 ## An email field
 
-Most sites ask for an email field at some point in time. Our registration also includes one. We should be using the write input type for the job. An email input is not a text input.
+Most sites ask for an email address. And so our registration form also includes one. With HTML5 we can enhance a regular text box so that it expects an email address.
 
-An email input will, by default, only accept a valid email address. And on mobile will popup a keyboard that has dedicated and readily accessible keys for @ and . characters, thus making the task of filling in an email address significantly easier:
+This helps users when they come to fill out the field. Instead of showing a regular keyboard, a mobile device will provide a dedicated keybaord with readily accessible @ and . characters. Here's a screenshot:
 
 ![Put image here of email keyboard]()
 
@@ -135,6 +185,8 @@ We've done a really good job already of deciding at least thinking about whether
 
 - The first thing is to flip the question. What is optional. Mark that instead.
 - Do we really need first and last name.
+
+- highligh, a highlight is to show something different from the norm. Optional fields are different from the norm so mark those. Jessica Enders.
 
 ## Combining first and last name
 
@@ -328,5 +380,5 @@ Perhaps it would be better if it said "Choose password" to reinforce the fact th
 
 We've covered a lot in this chapter. Other chapters will not cover the same ground. Perhaps some of the same topics will be discussed further or more specifically when necessary, but this serves as the foundation to which to design all other forms. What's interesting in the upcoming chapters is the different problems we need to tackle as designers and how we can solve those problems.
 
-[^1]: Some *crazy* footnote definition.
-[^2]: Some *crazy* footnote definition.
+[^1]: Placeholder article
+[^2]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/

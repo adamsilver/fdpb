@@ -167,17 +167,21 @@ This helps users when they come to fill out the field. Instead of showing a regu
 
 ## A password field
 
-A password input will mask what the user types as a security measure. But how often have you been using a computer with someone over your shoulder watching you type your password?
+A password input will show little circles for each character the user types. This is a security measure so that if someone is near you they can't see what you're password is.
 
-For this reason we should at the very least offer a [password reveal](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23). It's no less secure and it's significantly easier to use because the user can check their entries.
+The thing is, in reality this doesn't happen very often. And another problem is that when they make a mistake, it's often easier to delete the whole thing and start again, than it is to count the dots of characters you know you typed correctly.
 
-Often the user will delete the whole thing rather than counting dots or stars.
+And so for this reason we should at least enhance the field with a [password reveal](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23). It's no less secure and it's significantly easier to use because the user can check their entries.
+
+Some browsers provide this functionality out of the box and as Heydon says:
 
 > Note that Internet Explorer and Microsoft Edge provide this functionality natively, using an interactive 'eye' icon associated with the <code>::ms-reveal</code> pseudo-class. Since we've provided our own (cross-browser) solution, it would be wise to suppress this feature:
 
 	input[type=password]::-ms-reveal {
 	  display: none;
 	}
+
+The password reveal also stops the need to use an additional "confirm password" field which further reduces work on the user's side.
 
 ## Required fields
 
@@ -187,10 +191,6 @@ We've done a really good job already of deciding at least thinking about whether
 - Do we really need first and last name.
 
 - highligh, a highlight is to show something different from the norm. Optional fields are different from the norm so mark those. Jessica Enders.
-
-## Combining first and last name
-
-No. Tis complicated.
 
 ## Label and input position
 

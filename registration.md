@@ -205,47 +205,47 @@ Validation is the biggest design challenge we've faced so far and whilst it's no
 
 To ensure users can fix their errors easily, we'll need to tell them what's gone wrong and how to fix it. But before all that we need to decide when we should validate the form.
 
-## When to validate
+### When to validate
 
-To design an inclusive experience we must consider the experience without Javascript first, which is more common than you may at first think[^2]. Fortunately, when we consider the experience for people without Javascript we find there is only one option which is onsubmit.
+To design an inclusive experience we must consider the experience without Javascript first, which is more common than you may at first think[^]. Fortunately, when we consider the experience for people without Javascript we find there is only one option which is onsubmit.
 
-I've often found that making things work without Javascript to the best of my ability can quite often provide a great experience as is. And in fact in a recent large-scale government project, we performed validation on the server only. And you know what, because our forms were so friendly, the round-trip caused no issues.
+I've often found that making things work without Javascript to the best of my ability can quite often provide a great experience period. And in fact in a recent large-scale project I was involved with, we performed validation on the server only. And it worked really well.
 
-Now don't get me wrong, I'm a fan of client side validation, and we will be looking at this shortly. But the point is when we do the basics first, we can end up with providing the basics only which makes for a faster experience (no loading up extra Javascript for example) and far less for us to maintain as developers.
+This is not to say client-side validation is bad. It can be really beneficial. The point is when we do the basics first, we can find ourselves needing to provide the basics only. And when we do this, it makes for a faster experience. Less Javascript means we're quicker to market, less going down the wire, and less opportunity for failure.
 
-Also, we can;t fix everything on the client. For example, a user may type something that is formatted correctly but doesn't match up to something in the database. The point being that the user will have to hit the server at some point anyway. So by designing for Javascript off not only do we reach a wider audience but we also cover scenarios that we might not have considered had we jumped straight into the all-singing and all-dancing fancy-pants solution.
+Additionally, we can't validate everything on the client. At some point we're going to have to interogate the database. For our registration to pass validation it will need to check that the user didn't enter someone elses email address, for example.
 
-Whatever happens we must validate our form on submit anyway so this seems like a sensible place to start. Now it's important to note that our form can be submitted by pressing return/enter as well as pressing the submit button. You see without any developer or designer intervention, forms are accessible to people who use a mouse or a keyboard (or their finger etc).
+By designing with out Javascript to begin with, not only do we reach a wider audience, but we also cover scenarios that we may have forgotten about had we jumped straight into the all-singing and all-dancing fancy-pants solution.
 
-Validating our form on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed through to the server for something more. But when Javascript is available can we do more but should we?
+So, we're going to be validating our form on submit. This is something that forms do by default and is fully accessible out of the box. Validating on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed through to the server for something more.
 
-Heydon says:
+When Javascript kicks-in we have an opportunity to provide live validation. Live validation (also known as inline validation or live feedback) enables users to know whether what they type into a text box is valid as they type. Heydon Pickering talks about this in Inclusive Design Patterns:
 
 > Some fancy form validation scripts give you live feedback as you type your text entries, letting you know whether what you type is valid as you type it. This can become very difficult to manage. For entries that require a certain number of characters, the first few keystrokes always going to constitute an invalid entry. So, when do we send feedback to the user and how frequently?
 
-We can provide feedback when the user leaves the field, but at this point the user is finished with the field and has already mentally prepared to fill out the next field.
-
 > Not wanting to be the overbearing restaurant waiter continually interrupting customers to check in with them, we didn't flag errors on first run. Instead, only where errors are present after attempted submission do we begin informing the user.
 
-> Once the user is actively engaged in correcting errors, I think it helpful to reward their efforts as they work. For fields now marked invalid, we could run our validation routine on each input event, switching aria-invalid from false to true where applicable.
+> Once the user is actively engaged in correcting errors, I think it's helpful to reward their efforts as they work.
 
-I had never thought about this approach until Heydon mentioned it. It's most certainly an improvement, but having spoken to him about this it's still not not ideal. The problem still stands that when the user is fixing an error they are interupted. And validating onblur is too late.
+I had never considered the hybrid approach, but after talking with Heydon we agreed that this is still far from ideal. The problem still stands that when the user is fixing an error they are interupted. We could validate onblur (as they leave the field) but this is too late&mdash;the user has left that field and is mentally preparing for the next one.
 
-So let's keep it simple and stick with submit only.
+As much as live validation is touted to be a great validation pattern, much like floating labels, it's a solution that is nigh on impossible to do well. Any benefits would be outweighed by the problems it introduces.
 
-## How to present errors
+Again, we'll stick to robust and simple techniques that help users. We'll validate on submit.
 
-When it comes to actually showing users an error in response to an invalid submission, there are three things to think about.
+### Presenting errors
+
+If the user submits errors, we'll need to show users an error. To do this we'll need to:
 
 1. Change the page title
 2. Provide an error summary
 3. Provide inline errors
 
-### 1. Changing the page title
+#### 1. Changing the page title
 
 First we're going to want to change a website's `<title>` so after refresh, a screen reader user will know the form has errors. Most visually enabled users won't notice this but that's just fine.
 
-### 2. Provide an error summary
+#### 2. Provide an error summary
 
 Next we're going to provide an error summary at the top which looks like this:
 
@@ -271,7 +271,7 @@ Here's the code for the summary:
 
 > The advantage of declaring the presence of errors using a live region is that we don't have to move the user in order to bring this information to their attention. Commonly, form errors are alerted to the user by focusing the first invalid form field. This unexpected and unsolicited shift of position within the application risks disorientating the user. In our case, the user remains focused on the submit button and is free to move back into the form to fix the errors when ready.
 
-### Provide inline errors
+#### Provide inline errors
 
 If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message.
 
@@ -285,31 +285,31 @@ And for which gets read out as the user enters form's mode again.
 
 - ?
 
-## Server side implementation
+### Server side implementation
 
-### Keep populated values
+#### Keep populated values
 
 When the page refreshes must populate values as to not make users have to type it in again. Annoying.
 
-### Summary
+#### Summary
 
 ?
 
-### Inline
+#### Inline
 
 ?
 
 ## Client side progressively enhanced implementation
 
-### HTML5
+#### HTML5
 
 Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
 
-### Summary
+#### Summary
 
 ?
 
-### Inline
+#### Inline
 
 ?
 

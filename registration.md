@@ -251,35 +251,39 @@ Whilst it's arguably less useful for those without vision impairments, it could 
 
 #### 2. Provide an error summary
 
-Next we're going to provide an error summary at the top which looks like this:
+Next we're going to provide an error summary which looks like this:
 
 ![]()
 
-We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. This has become a convention, making things familiar. We won't be breaking that today.
+And is coded as follows:
 
-Even with Javascript, we can put the summary here and scroll to it to bring it onscreen again.
+```html
+<div id="errorSummary" class="errorSummary" aria-live="assertive" role="alert">
+    Stuff
+</div>
+```
+
+Notes:
+
+1. It's positioned at the top
+2. It uses colour in addition to an icon for those with colour blindness.
+3. Contains links to each field with an error
+4. Uses live region which is important when Javascript kicks in.
+
+We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs the validation (averting the page refresh).
 
 > Conventionally, errors are denoted with a red coloration, so it's advisable to give the message box a red border or background. However, you should be wary of red being the only visual characteristic that classifies the message as an error. To support those who cannot see color and screen reader users at the same time, we can prepend a warning icon containing alternative text.
 
 This icon is vital for those with colour impairments but it's also helpful for those with perfect vision. It's much easier to scan for an icon than it is to read through some text explaining that there is an error. Is it is with inclusive design, what you do for one person often helps everyone else too.
 
-- Links to each erroneous field.
-
-Here's the code for the summary:
-
-<div id="errorSummary" class="errorSummary" aria-live="assertive" role="alert">
-    Stuff
-</div>
+The error summary contains links to each erroneous field.
 
 > When the form's submission event is suppressed, the live region is populated, switching its display state from none implicitly to block. This population of DOM content simultaneously triggers screen readers to announce the content, including the prepended alternative text: "Error: please make sure all your registration information is correct".
-
 > The advantage of declaring the presence of errors using a live region is that we don't have to move the user in order to bring this information to their attention. Commonly, form errors are alerted to the user by focusing the first invalid form field. This unexpected and unsolicited shift of position within the application risks disorientating the user. In our case, the user remains focused on the submit button and is free to move back into the form to fix the errors when ready.
 
 #### Provide inline errors
 
-If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message.
-
-And for which gets read out as the user enters form's mode again.
+If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message. And which gets read out as the user enters form's mode again.
 
 [Placement/position](http://adrianroselli.com/2017/01/avoid-messages-under-fields.html)
 

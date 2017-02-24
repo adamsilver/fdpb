@@ -1,8 +1,8 @@
 # A registration form
 
-We're going to begin our foray with a registration form. We'll use this simple form, to ahem, form the foundations on which to design more complex forms. But don't be fooled by its seemingly simple appearance. This registration form has much to be analysed, ripped apart and put back together again.
+We're going to begin our forms adventure with a registration form. We'll use this simple form, to ahem, form the foundations on which to design more complex forms. But don't be fooled by its seemingly simple appearance. This registration form has much to be analysed, ripped apart and put back together again.
 
-This chapter is going to cover a lot of ground. It turns out foundations are important. And so as we step through other chapters we will draw on information found in this chapter and elaborate further where necessary to the specific form in question.
+This chapter is going to cover a lot of ground. As we continue through proceeding chapters we will draw and build on the information covered here.
 
 So here it is, a registration form:
 
@@ -24,44 +24,51 @@ Here is the HTML code to build it
 </form>
 ```
 
-It contains four fields and a submit button. You'll also notice each field that takes input has a label. And that is where we will start our analysis.
+It contains four fields and a submit button. You'll also notice each text field has a label. Labels are where we will begin.
 
 ## Labels
 
-The first thing we need to know is that each field needs an associated label. This is because:
+The first thing to know is that each field needs an associated label. This is because:
 
 - sighted users will be able to see the instructions;
 - visually-impaired users will hear the instructions when using a screen reader; and
 - motor-impaired users will find it easier to select a field thanks to the larger hit area. This is because clicking the label will move focus to its related control.
 
-We might be tempted to omit labels for particular forms in order to save space but this just about the worst thing you can do for users.
+We might be tempted to omit labels for particular forms in order to save space but this just about the worst thing we can do for users.
 
-Code wise, the way in which to *connect* an input to a label is via the id and for attributes. They must be unique and they must match.
+Code wise, the way in which to *connect* an input to a label, is with the `id` and `for` attributes. They must be unique and they must match.
+
+We'll talk about words later, but ensuring that every field has a well written, readily accessible, always visible label is perhaps half the battle with simple forms like this one.
 
 ## Placeholders and hints
 
-Since placeholders came along, we have adopted them as means of storing hints. Their appeal lies in their minimal aesthetic and the fact they save space.
+Since placeholders came along, we've adopted them as means of storing hints. Their appeal lies in their minimal aesthetic and the fact they save space.
 
-Some designers go one one step further and replace labels with placeholders. Either way, the placeholder is problem for many reasons. I've counted 13[^1] all together but here 4 reasons:
+Some designers go one one step further and replace labels with placeholders. Either way, the placeholder is problematic for many reasons.
 
-1. They are easy to forget because they disappears as soon as the user types.
-2. When fields are prepopulated, the fields lack clarity.
-3. Placeholder text is often mistaken for a value, meaning users skip them and are subsequently shown an error.
-4. They have insufficient contrast.
+1. The placeholder disappears when the user types. Once it’s gone it’s hard to remember.
+2. Placeholder text is often mistaken for a value, meaning users skip them and are subsequently shown an error.
+3. They lack sufficient contrast, making them hard to read for people lacking perfect vision which is a huge amount of people[^].
+
+I've actually counted 13 problems altogether, so if you're interest check out the reference in Placeholders Are Problematic[^].
 
 Some people ask me if it’s okay to use a placeholder in addition to a label. I say that if the hint is valuable to the user, we should make it easy-to-read and readily accessible. Placeholders don't meet these requirements.
 
-Others say that the placeholder is just an enhancement and not essential to the user. I say that if the hint isn’t essential then don’t include it. Content is not an enhancement.
+Others say that the placeholder is just an enhancement and not essential to the user. I say that if the hint isn’t essential then don’t include it. Afterall, content is not an enhancement.
 
-In the case of placeholders, minimal doesn't mean simple. If we do need to provide an additional hint we should provide it outside the field.
+In the case of placeholders, minimal doesn't mean simple. If we do need to provide an additional hint we should provide one outside of the field.
 
-Now just because we can provide a hint doesn't mean we should. Most of the fields in our registration form are self-explanatory.
+Just because we can provide a hint doesn't mean we should. Most of the fields in our registration form are self-explanatory. If in-doubt, test with your users.
 
-However, many sites ask for a complex set of rules for the password. Typically, at least 8 characters, one uppercase letter, one lowercase letter and a number etc.
+However, many sites ask for a complex set of rules for the password. Typically having to conform to the following rules:
 
-Now where possible, we should avoid asking users to create complex passwords because they are hard to remember. Instead you may decide to take a look at passphrases[^2]. But for our form, we'll stick to the more common password.
+- Must be at least 8 character
+- Must include at least one uppercase and lowercase letter
+- Must include at least one number.
 
-And in this case a hint in addition to the label is helpful. It should help many users avoid having to to fix problems later when validation kicks in, and only then being told what it takes to meet these complex requirements.
+Where possible, we should avoid asking users to create complex passwords because they are hard to remember. Instead you may decide to take a look at passphrases[^2] which is probably a chapters worth of analysis in its own right. For our form, we'll stick to the more common password rules as above.
+
+In this case a hint, in addition to the label is helpful. It should help many users avoid having to to fix errors later on when the validation routine is invoked.
 
 ![Image here](/etc/)
 
@@ -71,21 +78,23 @@ When I inform people of the placeholder problem, they often tell me that floatin
 
 1. There is no actual space for a hint, because the hint and the label are one and the same.
 2. The labels are often too small. If we made them bigger we would need to leave a bigger space for the label to float into. In which case they don't save space.
-3. The animation affect is distracting and disorientating.
+3. The animation affect is distracting and disorientating, particularly at a time when we're asking users to engage.
 
-Decluttering is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases as we've just discussed so are hints.
+Decluttering a UI is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases as we've just discussed so are hints.
 
-Empolying a pattern that is problematic and constraining at the same time is not a recipe we'll be using to cook up a great form experience in this book. In fact, when it comes to the floating label pattern, I would say it's a solution looking for a problem.
+Employing a pattern that is both problematic and constraining at the same time, is not a recipe we'll be following to design the forms presented in this book.
 
-## Do we really need ask for it
+In fact, this book is about building forms that work. That don't drive users crazy. And that have as little friction as possible. For these reasons, we'll leave floating labels for the creatives out there.
 
-With every single form we design we should first ask ourselves if we even need the form at all. If we're going to ask users to register, for example, then we need to tell them why:
+## Do we really need it?
 
-1. Users can buy faster next time
-2. They can track their order
-3. Or get 10% off their next purchase.
+When we ask users to register, they need a reason to do so. Nobody wants to use the forms we put in front of them, they just want the outcome. If we're building an ecommerce form, the outcome might be one or all of the following:
 
-As the first chapter is dedicated to a registration form, we're going to assume we need it. Which brings us nicely to whether we need to ask for the fields within it.
+1. can buy faster next time, as they don't have to type the same details over and over.
+2. can track their order, without having to make a phone call.
+3. will receive 10 percent off their next order.
+
+As the first chapter is dedicated to registration, we're going to assume we need it. Which brings us nicely to whether we need to ask for the *fields* within it.
 
 GDS has the following question protocol:
 
@@ -100,39 +109,39 @@ GDS has the following question protocol:
 
 Every time we ask the user for another piece of information, we're asking them for another piece of their time. Time is the most precious resource on earth. We can't get it back and so we need to value user's time like we would value our own.
 
-In the registration form do we really need to ask for their first or last name? If we don't need the information, or we don't need that information at this point in time then we probably shouldn't be asking for it, right *now*. As with most things in life, it *depends*.
+Do we really need to ask for their first and last name? If we don't need the information, or we don't need that information at this point in time then we probably shouldn't be asking for it, right *now*. As with most things in life, it *depends*.
 
-Let's assume we can remove the first and last name fields, this is a significant improvement as it reduces the size of the form by half. But we may be able to do better.
+Let's assume we can remove the first and last name fields, this is a significant improvement as it reduces the size of the form by half. But can we do better.
 
 ## No password registration
 
-Medium.com have implemented a no password sign in. They leverage the security of email accounts by sending the user a special login link. So technically speaking our registration form may only need an email field.
+Medium.com have implemented a no password sign in[^]. They leverage the security of email accounts by sending the user a special login link. This would result in our registration form slimming down to an email field.
 
-However, we may be over-simplifying. For one, people are familiar with an email address and password (although that is not a reason in itself to avoid improving the experience of course). For two, if the user has to sign in via their email account this experience is clunky.
+However, we may be over-simplifying our registration form. For one, people are familiar with an email address and password (although that is not a reason in itself to avoid improving the experience of course).
 
-We may have improved the registation process, but for people who know their password, or use a password manager, flipping flopping between the site and email account is an unnecessary source of friction.
+For two, people who know their password, or use a password manager, have to flip-flop between the site and their email account, which becomes an unnecessary source of friction.
 
-This goes to show that designing a form in isolation is not a sensible way to go. Which is why following GDS's question protocol is always a very good place to start.
+This goes to show that designing a form in isolation is not a sensible way to go. Which is why following GDS's question protocol is a good place to start. And designing journeys (as opposed to screens) is just as important.
 
-The point of this discussion is not to provide a definitive answer as to how many fields a registration form should have. But more importantly, that we need to rigorously ask ourselves why we are asking users in the first place.
+The point of this discussion is not to provide a definitive answer as to how many fields a registration form should have. What's most important is that we need to rigorously ask ourselves why we are asking users for information in the first place and how we may be able to improve an experience by simply not asking in the first place.
 
-Most sites require a password for sign up and so we'll assume this stance going forward.
+We'll keep the password field in our registration form which will help to keep the experience familiar and straightforward for most users. Moving away from convention is something we should do through testing. Otherwise we may end up exchanging one set of problems for another.
 
 ## An email field
 
-Like most sites, our registration requests an email address. HTML5 gave us a dedicated input type that improves the experience for users that use HTML5 conforming browsers. Nowadays that's most browsers.
+Like most sites, our registration form asks users to enter an email address. HTML5 gave us a dedicated input type that improves the experience for people using browsers that support it. Nowadays that's most browsers.
 
-On many touch screen devices, when the user focuses on the email address field, a keyboard will popup. And when we use [type=email] it contains readily accessible @ and . characters which are expected in an email address. Here's a screenshot:
+On many touch screen devices, when the user focuses on the email address field, a keyboard will popup. When we use `[type=email]` it contains readily accessible *@* and *.* characters which users need to type in an email address. Here's a screenshot:
 
 ![Put image here of email keyboard]()
 
 ## A password field
 
-A password input will show little circles for each character the user types. This is a security measure so that if someone is near you they can't see what you're password is.
+A password input will show circles for each character typed. This is a security measure so that if someone is looking over your should they can't see your password. However, this doesn't happen very often.
 
-The thing is, in reality this doesn't happen very often. And another problem is that when they make a mistake, it's often easier to delete the whole thing and start again, than it is to count the dots of characters you know you typed correctly.
+With this being the case, fixing typos when the value is obscured, makes usability decline. It's often easier to delete the whole entry and start again, than it is to count the circles you know you typed correctly.
 
-And so for this reason we should at least enhance the field with a [password reveal](https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23). It's no less secure and it's significantly easier to use because the user can check their entries.
+For this reason we should at least enhance the field with a password reveal[^3]. It's no less secure and it's significantly easier to use because the user can check what they typed.
 
 Some browsers provide this functionality out of the box and as Heydon says:
 
@@ -144,59 +153,45 @@ Some browsers provide this functionality out of the box and as Heydon says:
 
 The password reveal also stops the need to use an additional "confirm password" field which further reduces work on the user's side.
 
-## Specifying required fields
+You might also be thinking that we should just remove the masking altogether. But as we've already discussed moving away from convention and familiarity can breed fear into people that already fear issues of security on the Internet. It's for this reason that we offer the reveal as an enhancement, instead of something that you can *turn off*.
 
-In "should we really ask for it", we've worked very hard only to ask users for what is necessary. Most users expect that all fields are required anyway and so it goes that we don't need to specify required fields.
+## Required fields
 
-It's visually and audibly noisey to specify required fields. When we explore other forms in later chapters we'll talk about this more deeply.
+In *Do we really need it?*, we made sure that only ask users for what is necessary. For this reason, all fields in our registration form our required. Most users in fact expect all fields to be required anyway. And it's visually and audibly noisey to specify required fields. When we explore other forms in later chapters we'll talk about this topic more deeply.
 
 <!-- highligh, a highlight is to show something different from the norm. Optional fields are different from the norm so mark those. Jessica Enders.-->
 
 ## Label and input position
 
-Number 5 in https://uxplanet.org/10-rules-for-efficient-form-design-e13dc1fb0e03#.r3ic58br2
+There is no definitive answer as to the best place to position labels (and legends) in relation to their controls. However, if we're designing inclusive experiences on the web, then this implies we're building responsive websites. This in turn means that we'll want our forms to be friendly on small screens. For this reason alone we'll choose to use labels that sit above their controls.
 
-Top aligned labels. The biggest advantage to top-aligned labels — they make it easier for different sized labels and localized versions to fit easier within the UI (this is especially good for mobile screens with limited screen space).
-
-- Best completion rates
-- easiest to process
-- best support for multi language
-
-https://medium.com/@cjforms/the-idea-that-left-aligned-labels-have-slower-completion-times-is-incorrect-e1461f47242b#.dvl3en9g4
-
-- Mobile first approach, why change it?
-- Though shall place labels above each control-Multiple columns disrupt a users vertical rythym. Users complete top aligned labeled forms at a much higher rate than left aligned labels. Top aligned labels also translate well on mobile. Can go against it but have a good reason to. This is a good rule of thumb and so will be using this approach through out the book. If in doubt test.
-- Position of first and last name on one line? NOPE
-- Tabbing etc is better.
-- Make sure space below the combined label/field is more. https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p
+Not only do they work on small screens, but they make it easier for different sized labels (and legends) and localized versions to fit more easily within the UI.
 
 ## Focus styles
 
-When the user focuses a field most browsers will highlight the field which helps the user know where they are. Some designers despise the aesthetic some browsers give by default, because it doesn't match the brand or some such. And in the mist of their hatred, they ask the developer to remove it. That would be okay if they replaced it with something better. But quite often they don't.
+Browser, by default apply a focus style to the active element. This also applies to form fields. This behaviour lets users know where they are, which is particularly helpful for users using a keyboard.
 
-There is no reason why we can't replace the outline with our own style and colour. The idea would be to make it clear regardless of colour for those that suffer with vision impairments.
+Some designers despise the aesthetic of the browser defaults, because it doesn't match the brand or some such. And in the mist of their hatred, they ask the developer to remove it. That would be okay if they replaced it with something better. But quite often they don't.
 
-So do this:
+There is no reason why we can't replace the outline with our own style and colour. The idea would be to make it clear regardless of colour for those that suffer with vision impairments. To do this, add a border or outline that makes it thicker. Here's an example:
 
-TODO: Include example and visual
+![blah]()
 
 ## Submit buttons
 
-You would think that a button is such a simple thing to design, that getting it right is a no brainer. And yet, the *aggregation of small gains* goes a long way.
+You would think that a button is such a simple thing to design, that getting it right is a no brainer. And yet, we often forget that the *aggregation of marginal gains* goes a long way.
 
 The first thing to note about buttons is that they aren't links. Links typically have special positioning (such as a header) and underlines to denote their meaning. And they also have a hand cursor (also known as a pointer).
 
-As buttons aren't links, we shouldn't give them any of this treatment. They should look like a button (affordance) in order to help users realise they are different. Fortunately buttons have a strong affordance anyway, and so we don't need to mess with them too much.
+As buttons aren't links, we shouldn't give them any of this treatment. They should look like a button in order to help users realise they are different. Fortunately buttons have a strong affordance anyway, and so we don't need to mess with them too much.
 
-We should align the button to left, inline with the fields themselves. It doesn't make much sense to position the fields to the left, and the submit button to the right.
+We should align the button to left, inline with the fields themselves. It doesn't make much sense to position the fields to the left, and the submit button to the right. If labels sit atop of the field, the vertical rhythm goes straight down providing an intuitive expectation that what is needed will appear directly below.
 
-Keep things inline is easier on the eye, particularly for visually impaired users. Zooming in, for example, could mean a right-most positioned button is off screen.
+Additionally, keeping the button on the left inline with the fields will help users who zoom&mdash;a right-aligned button would appear off screen.
 
-We'll discuss text in more detail shortly, but emphasising it here is worthwhile too. Whatever we do, the button text should be descriptive of what the form is submitting.
+We'll discuss copy shortly, but let's take the opportunity to ensure the text on a button is descriptive of the action the user is taking. In our case "Register" or "Sign up" is meaningful and terse. The exact words might need to align more with your brand and tone of voice but don't exchange clarity for cuteness.
 
-In our case "Register" or "Sign up" is appropriate, friendly and terse. Exactly what you go for, might differe based on your brand. Whichever you go for, don't use jargon and don't be ambiguous. Cutesy text might be errr, cute, but it isn't friendly.
-
-Whilst each of these things seem small in isolation, it's the combination of doing all of these things right that makes a difference for users. It's the little bit details that can have a huge affect.
+Whilst each of these things seem small in isolation, it's the combination that makes a difference for users. Most sites don't care about these details, but we're not designing those sites.
 
 ## Validation
 
@@ -342,3 +337,4 @@ We've covered a lot in this chapter. Other chapters will not cover the same grou
 
 [^1]: Placeholder article
 [^2]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
+[^3]: https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)

@@ -77,3 +77,5 @@ https://cloudfour.com/thinks/autofill-what-web-devs-should-know-but-dont/
 - Though shall use select boxes as a last resort. Select box grouping with opt.
 
 - Though shall not misuse the select box. Use checkbox instead.
+
+- Make sure space below the combined label/field is more. https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p

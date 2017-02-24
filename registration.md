@@ -269,6 +269,7 @@ Notes:
 2. It uses colour in addition to an icon for those with colour blindness.
 3. Contains links to each field with an error
 4. Uses live region which is important when Javascript kicks in.
+5. We need to talk about the error messages themselves.
 
 We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs the validation (averting the page refresh).
 
@@ -321,26 +322,6 @@ Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
 
 ?
 
-## Words
-
-Up to now we've focussed mostly on the visual and behavioural aspects of form. It's so easy to ignore perhaps the most important aspect of design in general. That would be the content.
-
-Whether we're talking about labels, hints or error messaging, the design of microcopy is essential. The content designers I've worked with say *content is the user experience*. And that's hard to argue with.
-
-With regrads to errors, the affect on UX is huge.
-
-> A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages
-
-The same goes for labelling and hints.
-
-The password field's label is *password* which seems simple enough. It's good to be terse. Less but better and all that. But is it missing some clarity. I would suggest that the label could encourage users to type a password they already have. Or that it might seem as they they are already registered.
-
-Perhaps it would be better if it said "Choose password" to reinforce the fact that a) they are signing up and b) that they should create a new password.
-
-- Labels: though shall make forms human and conversational. Don't use jargon.
-
-- Don't use caps?
-
 ## Summary
 
 We've covered a lot in this chapter. Other chapters will not cover the same ground. Perhaps some of the same topics will be discussed further or more specifically when necessary, but this serves as the foundation to which to design all other forms. What's interesting in the upcoming chapters is the different problems we need to tackle as designers and how we can solve those problems.
@@ -348,3 +329,19 @@ We've covered a lot in this chapter. Other chapters will not cover the same grou
 [^1]: Placeholder article
 [^2]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
 [^3]: https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
+[^]:http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
+
+
+---
+
+Whether we're talking about labels, hints or error messaging, the design of microcopy is essential. The content designers I've worked with say *content is the user experience*. And that's hard to argue with.
+
+With regrads to errors, the affect on UX is huge.
+
+> A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages.[^]
+
+
+The password field's label is *password* which seems simple enough. It's good to be terse. Less but better and all that. But is it missing some clarity. I would suggest that the label could encourage users to type a password they already have. Or that it might seem as they they are already registered.
+
+Perhaps it would be better if it said "Choose password" to reinforce the fact that a) they are signing up and b) that they should create a new password.
+

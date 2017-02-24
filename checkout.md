@@ -44,7 +44,7 @@ You can apply these principles to other form fields where the length of the fiel
 
 ## Visual step indicator
 
-When we have a flow like this a step indicator is essential.
+When we have a flow like this a step indicator is essential. Or is it - read about GDS guidelines.
 
 ## Address lookup enhancement.
 
@@ -68,4 +68,4 @@ In A Registration Form, we talked about the need to explain to user why they sho
 
 For example Kidly delivery address, asking for mobile phone, in order to send them notifications. We should tell the user why we are asking for their mobile phone. And if there is no good reason to ask for it, that should drive our design to realise that we shouldn't ask for it, period.
 
-
+## Do we need valid from - don't think so.

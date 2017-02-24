@@ -195,13 +195,15 @@ Whilst each of these things seem small in isolation, it's the combination that m
 
 ## Validation
 
-Up to now, we've done as much as we can to avoid user errors. But when the unfortunate thing happens, we need to help our users be on their way.
+Up to now, we've done as much as we can to make this registration form easy to use. We have clear, always visible labels. We have an additional password hint that explains what we expect the user to type.
 
-Validation is the biggest design challenge we've faced so far and whilst it's not that hard, many sites get this wrong by either doing too little, or doing way too much too early.
+We have a layout that works well on small and big screens and a design that caters for people who use keyboard and that also may suffer from various visual or motor impairments.
 
-The user needs to know when the form has errors i.e. something went wrong. And what will make the form valid i.e. what needs fixing and how.
+But, sometimes people don't read all the instructions and sometimes people make mistakes. When this happens we need to help the user be on their way. This is essential.
 
-When and how we present this stuff is up to us..
+Validation is the biggest design challenge we've faced so far and whilst it's not that hard, many sites get this wrong by either doing too little, or doing too much too early.
+
+To ensure users can fix their errors easily, we'll need to tell them what's gone wrong and how to fix it. But before all that we need to decide when we should validate the form.
 
 ## When to validate
 

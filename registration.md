@@ -231,19 +231,23 @@ I had never considered the hybrid approach, but after talking with Heydon we agr
 
 As much as live validation is touted to be a great validation pattern, much like floating labels, it's a solution that is nigh on impossible to do well. Any benefits would be outweighed by the problems it introduces.
 
-Again, we'll stick to robust and simple techniques that help users. We'll validate on submit.
+Again, we'll stick to robust and simple techniques that help users. We'll validate on submit and leave the clever stuff to our competitors.
 
 ### Presenting errors
 
-If the user submits errors, we'll need to show users an error. To do this we'll need to:
+When the user submits an erroneous form we'll need to do three things:
 
 1. Change the page title
-2. Provide an error summary
-3. Provide inline errors
+2. Display a summary of the errors
+3. Display each error message in-context of the field
 
-#### 1. Changing the page title
+Each of these tasks involves using the correct HTML to ensure the experience is inclusive and friendly no matter people's ability and preference (or lackthereof).
 
-First we're going to want to change a website's `<title>` so after refresh, a screen reader user will know the form has errors. Most visually enabled users won't notice this but that's just fine.
+#### 1. Change the page title
+
+When a page loads, it's the page's title that is read out first. For this reason updating the title to read "The form has errors" is vital for users that rely on screen readers.
+
+Whilst it's arguably less useful for those without vision impairments, it could still be a benefit. For users that multi-task and switch between tabs, having a title that changes could help users spot a tab that needs attention.
 
 #### 2. Provide an error summary
 

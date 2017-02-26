@@ -83,3 +83,5 @@ https://cloudfour.com/thinks/autofill-what-web-devs-should-know-but-dont/
 - Labels: though shall make forms human and conversational. Don't use jargon.
 
 - Don't use caps?
+
+<!-- highligh, a highlight is to show something different from the norm. Optional fields are different from the norm so mark those. Jessica Enders.-->

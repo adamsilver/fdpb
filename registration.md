@@ -36,7 +36,7 @@ The first thing to know is that each field needs an associated label. This is be
 
 We might be tempted to omit labels for particular forms in order to save space but this just about the worst thing we can do for users.
 
-Code wise, the way in which to *connect* an input to a label, is with the `id` and `for` attributes. They must be unique and they must match.
+Code wise, the way in which to *connect* an input to a label, is with the `id` and `for` attributes. They must be unique and they must match. Without this the label won't work for visually-impaired and motor-impaired users.
 
 We'll talk about words later, but ensuring that every field has a well written, readily accessible, always visible label is perhaps half the battle with simple forms like this one.
 
@@ -158,8 +158,6 @@ You might also be thinking that we should just remove the masking altogether. Bu
 ## Required fields
 
 In *Do we really need it?*, we made sure that only ask users for what is necessary. For this reason, all fields in our registration form our required. Most users in fact expect all fields to be required anyway. And it's visually and audibly noisey to specify required fields. When we explore other forms in later chapters we'll talk about this topic more deeply.
-
-<!-- highligh, a highlight is to show something different from the norm. Optional fields are different from the norm so mark those. Jessica Enders.-->
 
 ## Label and input position
 
@@ -343,5 +341,5 @@ With regrads to errors, the affect on UX is huge.
 
 The password field's label is *password* which seems simple enough. It's good to be terse. Less but better and all that. But is it missing some clarity. I would suggest that the label could encourage users to type a password they already have. Or that it might seem as they they are already registered.
 
-Perhaps it would be better if it said "Choose password" to reinforce the fact that a) they are signing up and b) that they should create a new password.
+Perhaps it would be better if it said 'Choose password' to reinforce the fact that a) they are signing up and b) that they should create a new password.
 

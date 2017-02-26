@@ -38,8 +38,6 @@ We might be tempted to omit labels for particular forms in order to save space b
 
 Code wise, the way in which to *connect* an input to a label, is with the `id` and `for` attributes. They must be unique and they must match. Without this the label won't work for visually-impaired and motor-impaired users.
 
-We'll talk about words later, but ensuring that every field has a well written, readily accessible, always visible label is perhaps half the battle with simple forms like this one.
-
 ## Placeholders and hints
 
 Since placeholders came along, we've adopted them as means of storing hints. Their appeal lies in their minimal aesthetic and the fact they save space.
@@ -127,15 +125,15 @@ The point of this discussion is not to provide a definitive answer as to how man
 
 We'll keep the password field in our registration form which will help to keep the experience familiar and straightforward for most users. Moving away from convention is something we should do through testing. Otherwise we may end up exchanging one set of problems for another.
 
-## An email field
+## Email field
 
-Like most sites, our registration form asks users to enter an email address. HTML5 gave us a dedicated input type that improves the experience for people using browsers that support it. Nowadays that's most browsers.
+Like most sites, our registration form asks users to enter their email address. HTML5 gave us a dedicated input type that improves the experience for people using browsers that support it. Nowadays that's most browsers.
 
 On many touch screen devices, when the user focuses on the email address field, a keyboard will popup. When we use `[type=email]` it contains readily accessible *@* and *.* characters which users need to type in an email address. Here's a screenshot:
 
 ![Put image here of email keyboard]()
 
-## A password field
+## Password field
 
 A password input will show circles for each character typed. This is a security measure so that if someone is looking over your should they can't see your password. However, this doesn't happen very often.
 
@@ -159,11 +157,11 @@ You might also be thinking that we should just remove the masking altogether. Bu
 
 In *Do we really need it?*, we made sure that only ask users for what is necessary. For this reason, all fields in our registration form our required. Most users in fact expect all fields to be required anyway. And it's visually and audibly noisey to specify required fields. When we explore other forms in later chapters we'll talk about this topic more deeply.
 
-## Label and input position
+## Positioning
 
-There is no definitive answer as to the best place to position labels (and legends) in relation to their controls. However, if we're designing inclusive experiences on the web, then this implies we're building responsive websites. This in turn means that we'll want our forms to be friendly on small screens. For this reason alone we'll choose to use labels that sit above their controls.
+It's easy to find research that shows that top-aligned labels (and legends) convert best. But then if I really had to I could find some research to show something different. With that said, if we're designing inclusive experiences on the web, this implies we're building responsive websites. This in turn means that we'll want our forms to be friendly on small screens.
 
-Not only do they work on small screens, but they make it easier for different sized labels (and legends) and localized versions to fit more easily within the UI.
+For this reason alone we'll choose to use labels that sit above their controls.  Not only do they work on small screens, but they make it easier for different sized labels (and legends) and localized versions to fit more easily within the UI.
 
 ## Focus styles
 

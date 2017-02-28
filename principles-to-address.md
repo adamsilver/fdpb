@@ -85,3 +85,7 @@ https://cloudfour.com/thinks/autofill-what-web-devs-should-know-but-dont/
 - Don't use caps?
 
 <!-- highligh, a highlight is to show something different from the norm. Optional fields are different from the norm so mark those. Jessica Enders.-->
+
+- [Placement/position](http://adrianroselli.com/2017/01/avoid-messages-under-fields.html)
+
+- When the page refreshes must populate values as to not make users have to type it in again. Annoying.

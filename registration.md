@@ -241,6 +241,8 @@ I'll be providing a Javascript implementation[^] which behaves the same way as t
 
 If you decide to create your own script, be sure to attach the validation routine to the form's `submit` event and not onto the submit button's `click` event. The latter won't work for users who press *enter* when focussed on various form controls, creating a less inclusive experience.
 
+#### Live validation
+
 One question still remains though. When Javascript is available, we have an opportunity to provide what's commonly called *live validation*. The theory is that it's easier to fix errors as soon as they occur which sounds sensible. The thing is, live validation introduces more problems than it solves.
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted early and often.
@@ -255,104 +257,79 @@ This is just a few of the associated problems. I've counted 5 others which you c
 
 As is often the case in our industry, live validation is a technique that causes more problems than it solves. Again, we'll stick to robust and simple techniques that help users. We'll validate on submit and leave the clever stuff to our competitors.
 
+#### HTML5 validation
+
+- TODO: Not using HTML5. novalidate. No required boolean. etc. See Heydon.
+
 ### Presenting errors
 
-When the user submits an erroneous form we'll need to do three things:
+When the user submits a form with errors we'll need to inform the user in three separate ways:
 
 1. Change the page title
 2. Display a summary of the errors
 3. Display each error message in-context of the field
 
-Each of these tasks involves using the correct HTML to ensure the experience is inclusive and friendly no matter people's ability and preference (or lackthereof).
-
-#### 1. Change the page title
+#### 1. Page title
 
 When a page loads, it's the page's title that is read out first. For this reason updating the title to read "The form has errors" (or words to that affect) will drastically help screen reader users.
 
+I recently worked on a project that was thoroughly accessibility checked by RNIB, and we prepended "Retry - " to the page title. This tested well, but personally think we could have tried to testing something a little clearer.
+
 Whilst it's arguably less useful for those without vision impairments, it could still be a benefit. For users that multi-task and switch between tabs, having that text on the erroneous tab could provide a vital notification of sorts.
 
-#### 2. Provide an error summary
+For errors caught through client-side Javascript validation, the page title changing is less important (though you can still change the `title`). We'll provide more appropriate ways to inform people who use screen readers.
+
+#### 2. Error summary
 
 Next we're going to provide an error summary which looks like this:
 
-![]()
+![blah blah]()
+
+1. We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs the validation (averting the page refresh) by bringing the error summary into view.
+
+2. Conventionally, errors should be styled in some sort of red. So we won't be breaking this convention. To suppor tthose who can't see colour, we provide an icon. As is the case with most inclusive design approaches, this helps people who can see in colour too. A well-designed icon can be quicker to scan and interpret than reading long sentences. And long sentences on their own are often skipped.
+
+3. Each error message is an internal anchor that sets focus to the field
 
 And is coded as follows:
 
 ```html
-<div id="errorSummary" class="errorSummary" aria-live="assertive" role="alert">
-    Stuff
+<div id="errorSummary" class="errorSummary">
+  <h2 id="errorSummaryLink" tabindex="-1">You have 4 errors</h2>
+  <ul>
+    <li><a class="errorLink" href="#emailaddress">Email address cannot be empty</a></li>
+    <li><a class="errorLink" href="#password">Password cannot be empty</a></li>
+  </ul>
 </div>
 ```
 
-Notes:
+Need to talk about tabindex and focussing.
 
-1. It's positioned at the top
-2. It uses colour in addition to an icon for those with colour blindness.
-3. Contains links to each field with an error
-4. Uses live region which is important when Javascript kicks in.
-5. We need to talk about the error messages themselves.
+Without Javascript, and when there are errors, the summary will be rendered on the server. When the page is loaded without errors, this element should be hidden. To do this the server will need to apply an extra class of `errorSummary-isHidden`.
 
-We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs the validation (averting the page refresh).
+This way, the Javascript can inject and reveal errors by referring to the same element. This is important for two reasons:
 
-> Conventionally, errors are denoted with a red coloration, so it's advisable to give the message box a red border or background. However, you should be wary of red being the only visual characteristic that classifies the message as an error. To support those who cannot see color and screen reader users at the same time, we can prepend a warning icon containing alternative text.
-
-This icon is vital for those with colour impairments but it's also helpful for those with perfect vision. It's much easier to scan for an icon than it is to read through some text explaining that there is an error. Is it is with inclusive design, what you do for one person often helps everyone else too.
-
-The error summary contains links to each erroneous field.
+First, it means the Javascript has to do less work making it performant. And second, if the server renders an error. When the Javascript validation executes the error summary will be cleared and hidden. Otherwise we risk two error summary elements being present at the same time.
 
 > When the form's submission event is suppressed, the live region is populated, switching its display state from none implicitly to block. This population of DOM content simultaneously triggers screen readers to announce the content, including the prepended alternative text: "Error: please make sure all your registration information is correct".
+
 > The advantage of declaring the presence of errors using a live region is that we don't have to move the user in order to bring this information to their attention. Commonly, form errors are alerted to the user by focusing the first invalid form field. This unexpected and unsolicited shift of position within the application risks disorientating the user. In our case, the user remains focused on the submit button and is free to move back into the form to fix the errors when ready.
+
+5. With regrads to errors, the affect on UX is huge....
+
+> A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages.[^]
 
 #### Provide inline errors
 
 If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message. And which gets read out as the user enters form's mode again.
 
-[Placement/position](http://adrianroselli.com/2017/01/avoid-messages-under-fields.html)
-
 - Content
 
 - Code
 
-- ?
-
-### Server side implementation
-
-#### Keep populated values
-
-When the page refreshes must populate values as to not make users have to type it in again. Annoying.
-
-#### Summary
-
-?
-
-#### Inline
-
-?
-
-## Client side progressively enhanced implementation
-
-#### HTML5
-
-Not using HTML 5. novalidate. No required boolean. etc. See Heydon.
-
-#### Summary
-
-?
-
-#### Inline
-
-?
-
 ## Summary TODO
 
 We've covered a lot in this chapter. Other chapters will not cover the same ground. Perhaps some of the same topics will be discussed further or more specifically when necessary, but this serves as the foundation to which to design all other forms. What's interesting in the upcoming chapters is the different problems we need to tackle as designers and how we can solve those problems.
-
----
-
-With regrads to errors, the affect on UX is huge.
-
-> A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages.[^]
 
 [^1]: Placeholder article
 [^2]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/

@@ -219,35 +219,41 @@ To ensure users can fix their errors easily, we'll need to tell them what's gone
 
 ### When to validate
 
-To design an inclusive experience we must consider the experience without Javascript first, which is more common than you may at first think[^]. Fortunately, when we consider the experience for people without Javascript we're left with one option: to validate `onsubmit`.
+To design an inclusive experience we must consider the experience without Javascript first, which is more common than you may think[^]. Fortunately, when we consider the experience for people without Javascript we're left with one option, which is to validate `onsubmit`. 
 
-I've often found that&mdash;contrary to popular belief&mdash;making things work without Javascript often produces the best experience, period. And, in fact in a recent large-scale project I was involved with, we performed validation on the server only. And it worked really well.
+That's the beauty of designing within constraints. It means we can strive to excel within those bounds. Afterall, some wise people have said *we can't be creative without constraint*.
 
-This is not to say client-side validation is bad as such. But often we dive straight into the enhancement, when perhaps if we had started with the so-called *degraded* experience, we might find that we don't need the enhancement at all.
+I've often found that&mdash;contrary to popular belief&mdash;making things work without Javascript often produces the best experience anyway. And on a recent large-scale project I was involved with, we only performed validation on the server, which worked very well.
 
-If we don't need to provide the enhancement, then we don't need to write as much code. This in turn has the following benefits:
+This is not to say I advise avoiding client-side validation. I'm simply pointing out that by providing the so-called *degraded* experience may be all that users need. And if we don't need to provide the enhancement, then we don't need to write as much code. This in turn has the following benefits:
 
 1. We have less work to do
 2. We have to send less code to the user (meaning a faster experience)
 3. It has a wider (read: inclusive) reach by default.
 
-In any case, we can't validate everything on the client. At some point we're going to have to interogate the database. For our registration to pass validation it will need to check that the user didn't enter someone elses email address, for example.
+In any case, we can't validate everything on the client. At some point we're going to have to interogate the database. For people to register successfully  they will need to enter an email address that hasn't been used, for example.
 
 By designing without Javascript to begin with, not only do we reach a wider audience, but we also cover scenarios that we may have forgotten about had we jumped straight into the all-singing and all-dancing fancy-pants solution.
 
-So, we're going to be validating our form `onsubmit`. This is something that forms do by default and is fully accessible out of the box. Validating on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed through to the server for something more.
+So in short, we'll validate forms onsubmit. This is something that forms do by default and is fully accessible out of the box. Validating on submit gives users consistency and familiarity whether Javascript is available or whether the form was sent through to the server.
 
-When Javascript kicks-in we have an opportunity to provide live validation. Live inline validation (or feedback) enables users to know whether what they type into a text box is valid as they type. Heydon Pickering talks about this in Inclusive Design Patterns:
+I'll be providing a Javascript implementation[^] which behaves the same way as the server-side validation (which we'll discuss imminently). The only difference is that it does so without a server-side rount trip (and subsequent page refresh). The benefit to the user is a faster fail and succeed experience.
 
-> Some fancy form validation scripts give you live feedback as you type your text entries, letting you know whether what you type is valid as you type it. This can become very difficult to manage. For entries that require a certain number of characters, the first few keystrokes always going to constitute an invalid entry. So, when do we send feedback to the user and how frequently?
+If you decide to create your own script, be sure to attach the validation routine to the form's `submit` event and not onto the submit button's `click` event. The latter won't work for users who press *enter* when focussed on various form controls, creating a less inclusive experience.
+
+One question still remains though. When Javascript is available, we have an opportunity to provide what's commonly called *live validation*. Live validation enables users to know whether what they type into a text box is valid as they type. 
+
+Heydon Pickering talks about this in Inclusive Design Patterns:
+
+> Some fancy form validation scripts give you live feedback as you type your text entries, letting you know whether what you type is valid as you type it. This can become very difficult to manage. For entries that require a certain number of characters, the first few keystrokes is always going to constitute an invalid entry. So, when do we send feedback to the user and how frequently?
 
 > Not wanting to be the overbearing restaurant waiter continually interrupting customers to check in with them, we didn't flag errors on first run. Instead, only where errors are present after attempted submission do we begin informing the user.
 
 > Once the user is actively engaged in correcting errors, I think it's helpful to reward their efforts as they work.
 
-I had never considered the hybrid approach, but after talking with Heydon we agreed that this is still far from ideal. The problem still stands that when the user is fixing an error they are interrupted. We could validate `onblur` (as they leave the field) but this is too late&mdash;the user has left that field and is mentally preparing for the next one.
+This hybrid approach is certainly better but Heydon and I agreed that it's still not entirely prevented the problem. That is, when a user is fixing an error they are still interrupted either too early or too late. Too early by validating onkeypress before the user has finished, or too late by validating when they have left the field altogether onblur.
 
-As much as live validation is touted to be a great validation pattern, much like floating labels, it's a solution that is nigh on impossible to do well. Any benefits are outweighed by the problems it introduces.
+As often as live validation is touted as a must-have design feature, much like the floating label pattern, it's a solution that introduces way more problems than it solves.
 
 Again, we'll stick to robust and simple techniques that help users. We'll validate on submit and leave the clever stuff to our competitors.
 

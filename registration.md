@@ -207,31 +207,37 @@ Whilst each of these things seem small in isolation, it's the combination that m
 
 ## Validation
 
-Up to now, we've done as much as we can to make this registration form easy to use. We have clear, always visible labels. We have an additional password hint that explains what we expect the user to type.
+Up to now, we've done as much as we can to make this registration form easy to use. We have clear, always visible labels. We have an additional password hint that provides must-needed clarification.
 
-We have a layout that works well on small and big screens and a design that caters for people who use keyboard and that also may suffer from various visual or motor impairments.
+We have a layout that works well on small and big screens and a design that caters for people who use keyboard. And we've considered the experience for people suffering from various visual or motor impairments.
 
-But, sometimes people don't read all the instructions and sometimes people make mistakes. When this happens we need to help the user be on their way. This is essential.
+But, people don't always read the instructions and sometimes people make mistakes. When this happens it's essential we provide an experience that helps users fix their mistakes.
 
-Validation is the biggest design challenge we've faced so far and whilst it's not that hard, many sites get this wrong by either doing too little, or doing too much too early.
+Validation is the biggest design challenge we've faced so far and whilst it's not that hard, most sites get this wrong by either doing too little, or doing too much. Or oddly, by doing both at the same time.
 
-To ensure users can fix their errors easily, we'll need to tell them what's gone wrong and how to fix it. But before all that we need to decide when we should validate the form.
+To ensure users can fix their errors easily, we'll need to tell them what's gone wrong and how to make it right. The first question we need to answer is *when to provide feedback*.
 
 ### When to validate
 
-To design an inclusive experience we must consider the experience without Javascript first, which is more common than you may at first think[^]. Fortunately, when we consider the experience for people without Javascript we find there is only one option which is onsubmit.
+To design an inclusive experience we must consider the experience without Javascript first, which is more common than you may at first think[^]. Fortunately, when we consider the experience for people without Javascript we're left with one option: to validate `onsubmit`.
 
-I've often found that making things work without Javascript to the best of my ability can quite often provide a great experience period. And in fact in a recent large-scale project I was involved with, we performed validation on the server only. And it worked really well.
+I've often found that&mdash;contrary to popular belief&mdash;making things work without Javascript often produces the best experience, period. And, in fact in a recent large-scale project I was involved with, we performed validation on the server only. And it worked really well.
 
-This is not to say client-side validation is bad. It can be really beneficial. The point is when we do the basics first, we can find ourselves needing to provide the basics only. And when we do this, it makes for a faster experience. Less Javascript means we're quicker to market, less going down the wire, and less opportunity for failure.
+This is not to say client-side validation is bad as such. But often we dive straight into the enhancement, when perhaps if we had started with the so-called *degraded* experience, we might find that we don't need the enhancement at all.
 
-Additionally, we can't validate everything on the client. At some point we're going to have to interogate the database. For our registration to pass validation it will need to check that the user didn't enter someone elses email address, for example.
+If we don't need to provide the enhancement, then we don't need to write as much code. This in turn has the following benefits:
 
-By designing with out Javascript to begin with, not only do we reach a wider audience, but we also cover scenarios that we may have forgotten about had we jumped straight into the all-singing and all-dancing fancy-pants solution.
+1. We have less work to do
+2. We have to send less code to the user (meaning a faster experience)
+3. It has a wider (read: inclusive) reach by default.
 
-So, we're going to be validating our form on submit. This is something that forms do by default and is fully accessible out of the box. Validating on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed through to the server for something more.
+In any case, we can't validate everything on the client. At some point we're going to have to interogate the database. For our registration to pass validation it will need to check that the user didn't enter someone elses email address, for example.
 
-When Javascript kicks-in we have an opportunity to provide live validation. Live validation (also known as inline validation or live feedback) enables users to know whether what they type into a text box is valid as they type. Heydon Pickering talks about this in Inclusive Design Patterns:
+By designing without Javascript to begin with, not only do we reach a wider audience, but we also cover scenarios that we may have forgotten about had we jumped straight into the all-singing and all-dancing fancy-pants solution.
+
+So, we're going to be validating our form `onsubmit`. This is something that forms do by default and is fully accessible out of the box. Validating on submit gives users consistency and familiarity whether Javascript kicks in and validates formatting on the client, or whether it was passed through to the server for something more.
+
+When Javascript kicks-in we have an opportunity to provide live validation. Live inline validation (or feedback) enables users to know whether what they type into a text box is valid as they type. Heydon Pickering talks about this in Inclusive Design Patterns:
 
 > Some fancy form validation scripts give you live feedback as you type your text entries, letting you know whether what you type is valid as you type it. This can become very difficult to manage. For entries that require a certain number of characters, the first few keystrokes always going to constitute an invalid entry. So, when do we send feedback to the user and how frequently?
 
@@ -239,9 +245,9 @@ When Javascript kicks-in we have an opportunity to provide live validation. Live
 
 > Once the user is actively engaged in correcting errors, I think it's helpful to reward their efforts as they work.
 
-I had never considered the hybrid approach, but after talking with Heydon we agreed that this is still far from ideal. The problem still stands that when the user is fixing an error they are interupted. We could validate onblur (as they leave the field) but this is too late&mdash;the user has left that field and is mentally preparing for the next one.
+I had never considered the hybrid approach, but after talking with Heydon we agreed that this is still far from ideal. The problem still stands that when the user is fixing an error they are interrupted. We could validate `onblur` (as they leave the field) but this is too late&mdash;the user has left that field and is mentally preparing for the next one.
 
-As much as live validation is touted to be a great validation pattern, much like floating labels, it's a solution that is nigh on impossible to do well. Any benefits would be outweighed by the problems it introduces.
+As much as live validation is touted to be a great validation pattern, much like floating labels, it's a solution that is nigh on impossible to do well. Any benefits are outweighed by the problems it introduces.
 
 Again, we'll stick to robust and simple techniques that help users. We'll validate on submit and leave the clever stuff to our competitors.
 
@@ -257,9 +263,9 @@ Each of these tasks involves using the correct HTML to ensure the experience is 
 
 #### 1. Change the page title
 
-When a page loads, it's the page's title that is read out first. For this reason updating the title to read "The form has errors" is vital for users that rely on screen readers.
+When a page loads, it's the page's title that is read out first. For this reason updating the title to read "The form has errors" (or words to that affect) will drastically help screen reader users.
 
-Whilst it's arguably less useful for those without vision impairments, it could still be a benefit. For users that multi-task and switch between tabs, having a title that changes could help users spot a tab that needs attention.
+Whilst it's arguably less useful for those without vision impairments, it could still be a benefit. For users that multi-task and switch between tabs, having that text on the erroneous tab could provide a vital notification of sorts.
 
 #### 2. Provide an error summary
 

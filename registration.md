@@ -8,7 +8,7 @@ So here it is, a registration form:
 
 ![Image here](/etc/)
 
-Here is the HTML code to build it
+Here is the basic HTML code:
 
 ```html
 <form>
@@ -24,7 +24,7 @@ Here is the HTML code to build it
 </form>
 ```
 
-It contains four fields and a submit button. You'll also notice each text field has a label. Labels are where we will begin.
+It contains four fields and a submit button. You'll also notice each text field has a label. Labels are where our analysis begins.
 
 ## Labels
 
@@ -283,7 +283,7 @@ For errors caught through client-side Javascript validation, the page title chan
 
 Next we're going to provide an error summary which looks like this:
 
-![blah blah]()
+![blah blah](/)
 
 1. We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs the validation (averting the page refresh) by bringing the error summary into view.
 
@@ -324,7 +324,6 @@ First, it means the Javascript has to do less work making it performant. And sec
 If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message. And which gets read out as the user enters form's mode again.
 
 - Content
-
 - Code
 
 ## Summary TODO
@@ -337,4 +336,4 @@ We've covered a lot in this chapter. Other chapters will not cover the same grou
 [^3]: https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
 [^4]:https://medium.com/@cjforms/the-idea-that-left-aligned-labels-have-slower-completion-times-is-incorrect-e1461f47242b#.dvl3en9g4
 [^5]:https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p
-[^]:http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
+[^6]:http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/

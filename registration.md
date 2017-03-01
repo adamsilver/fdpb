@@ -285,48 +285,56 @@ Next we're going to provide an error summary which looks like this:
 
 ![blah blah](/)
 
-1. We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs the validation (averting the page refresh) by bringing the error summary into view.
+We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs the validation (averting the page refresh) by bringing the error summary into view.
 
-2. Conventionally, errors should be styled in some sort of red. So we won't be breaking this convention. To suppor tthose who can't see colour, we provide an icon. As is the case with most inclusive design approaches, this helps people who can see in colour too. A well-designed icon can be quicker to scan and interpret than reading long sentences. And long sentences on their own are often skipped.
+Conventionally, errors should be styled in some sort of red. So we won't be breaking this convention. To suppor tthose who can't see colour, we provide an icon. As is the case with most inclusive design approaches, this helps people who can see in colour too. A well-designed icon can be quicker to scan and interpret than reading long sentences. And long sentences on their own are often skipped.
 
-3. Each error message is an internal anchor that sets focus to the field
-
-And is coded as follows:
+Each error message is an internal anchor that sets focus to the field. Here's the HTML code:
 
 ```html
-<div id="errorSummary" class="errorSummary">
-  <h2 id="errorSummaryLink" tabindex="-1">You have 4 errors</h2>
+<div class="errorSummary">
+  <h2 tabindex="-1">Please fix the 4 errors</h2>
   <ul>
-    <li><a class="errorLink" href="#emailaddress">Email address cannot be empty</a></li>
-    <li><a class="errorLink" href="#password">Password cannot be empty</a></li>
+    <li><a href="#emailaddress">Email address cannot be empty</a></li>
+    <li><a href="#password">Password cannot be empty</a></li>
   </ul>
 </div>
 ```
 
-Need to talk about tabindex and focussing.
+The `tabindex` attribute allows Javascript to set focus to the element when an error is caught. This means we can bring the error summary into view. When focus is set the heading will be read out prompting the user to take informative action.
 
 Without Javascript, and when there are errors, the summary will be rendered on the server. When the page is loaded without errors, this element should be hidden. To do this the server will need to apply an extra class of `errorSummary-isHidden`.
 
-This way, the Javascript can inject and reveal errors by referring to the same element. This is important for two reasons:
+By doing this, we allow Javascript to reuse the same component (and the same location on the screen). This is important because if the server catches an error, then the Javascript validation will clear it appropriately. Otherwise we risk two error summary components being presented at the same time.
 
-First, it means the Javascript has to do less work making it performant. And second, if the server renders an error. When the Javascript validation executes the error summary will be cleared and hidden. Otherwise we risk two error summary elements being present at the same time.
-
-> When the form's submission event is suppressed, the live region is populated, switching its display state from none implicitly to block. This population of DOM content simultaneously triggers screen readers to announce the content, including the prepended alternative text: "Error: please make sure all your registration information is correct".
-
-> The advantage of declaring the presence of errors using a live region is that we don't have to move the user in order to bring this information to their attention. Commonly, form errors are alerted to the user by focusing the first invalid form field. This unexpected and unsolicited shift of position within the application risks disorientating the user. In our case, the user remains focused on the submit button and is free to move back into the form to fix the errors when ready.
-
-5. With regrads to errors, the affect on UX is huge....
+The error messages are of upmost importance. And I have a little story to back this up:
 
 > A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages.[^]
 
-#### Provide inline errors
+NEED MORE ABOUT MESSAGING THEMSELVES
 
-If the user has more than one error, then having to switch between the summary and the field is some friction that we can remove for users by providing an in-context error message. And which gets read out as the user enters form's mode again.
+#### 3. Provide in-context error messages
 
-- Content
-- Code
+The title tag and error summary panels go a long way to help different users and different use cases but we're not done yet. When the user actively starts to fix errors&mdash;particularly when there are multiple errors on longer forms&mdash;they'll have to flip-flop between the form and the error summary.
 
-## Summary TODO
+We can do better than this. We can place the error messages beside each field. However, we can't just bung the text in a paragraph because people using a screen reader in forms mode won't be aware of such information.
+
+As we know already, labels are read out as the user enters each control. So we can piggyback this well supported functionality by injecting error messages inside the labels themselves. This way when the user focuses on the erroneous email control, for example, they will hear something like "Email address. Your email address is invalid."
+
+We'll be discussing how to handle groups of fields, such as radio buttons, in upcoming chapters. The reason I bring this to your attention, is that when we inject errors to a group of fields, we can't inject the message into the label.
+
+```html
+<div class="field">
+  <label for="blah">
+    <span class="field-label">Email address</span>
+    <span class="field-error">Your email address is invalid</span>
+  </label>
+</div>
+```
+
+The classes themselves act as hooks for styling and behaviour. For the coders amongst you, checking the demo page will reveal all.
+
+## Summary
 
 We've covered a lot in this chapter. Other chapters will not cover the same ground. Perhaps some of the same topics will be discussed further or more specifically when necessary, but this serves as the foundation to which to design all other forms. What's interesting in the upcoming chapters is the different problems we need to tackle as designers and how we can solve those problems.
 

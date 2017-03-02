@@ -307,11 +307,11 @@ Without Javascript, and when there are errors, the summary will be rendered on t
 
 By doing this, we allow Javascript to reuse the same component (and the same location on the screen). This is important because if the server catches an error, then the Javascript validation will clear it appropriately. Otherwise we risk two error summary components being presented at the same time.
 
-The error messages are of upmost importance. And I have a little story to back this up:
+The error messages themselves are of utmost importance. In fact being able to provide custom error messages for one particular e-commerce site increased conversion by 0.5%. This deceivingly small percentage actually equates to over £250,000 per year[^].
 
-> A little improvement of the error messages on an e-commerce website increased completed purchases by 0.5% (a lot compared to the effort) and saved over £250,000 per year for the company. - £250,000 from better error messages.[^]
+This means spending time designing the content of the errors is one of the best investments we can make for our users. If an erroneous field simply said "Email address invalid, please fix", this is obviously unhelpful.
 
-NEED MORE ABOUT MESSAGING THEMSELVES
+Now this is the extreme of the situation, but subtle versions of this happen all over the Internet. If the Email address is invalid, then we need to explain to the user why that is. Perhaps the email address is already in-use. Or perhaps it contains invalid characters. We need to be specific and design our messages accordingly.
 
 #### 3. Provide in-context error messages
 
@@ -336,7 +336,17 @@ The classes themselves act as hooks for styling and behaviour. For the coders am
 
 ## Summary
 
-We've covered a lot in this chapter. Other chapters will not cover the same ground. Perhaps some of the same topics will be discussed further or more specifically when necessary, but this serves as the foundation to which to design all other forms. What's interesting in the upcoming chapters is the different problems we need to tackle as designers and how we can solve those problems.
+So we did it. From scratch we have navigated through many of the fundamental design challenges that most forms need to consider. In many ways this chapter has explained an equal amount of what not to do, as it has what it is we should do. In short:
+
+1. Always use a clear, readily accessible, human-readable label.
+2. Avoid any rule that inhibits rule number one.
+3. Strive to reduce the amount of questions we ask of our users.
+4. Use the right control for the job as many devices and browsers will enhance the experience for free.
+5. Validation should be executed on submit. Upon execution there are 3 parts of the page to update to ensure a fully inclusive, and easy path to remedying any errors.
+
+Whilst we have covered a lot of ground in this chapter, this is lots more to discuss. The foundations have been laid, and with that we will up the ante and face even tougher challenges. In doing so we can explore some of the more interesting techniques at our disposal.
+
+## Footnotes
 
 [^1]: Placeholder article
 [^2]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/

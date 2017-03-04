@@ -1,36 +1,47 @@
 # Checkout
 
-In 2008 I worked on a website for Boots.com. They wanted a single-page checkout, which was all the rage at the time. It was designed to use the trendiest of techniques from that era including accordions, AJAX and client-side validation.
+I've worked on more than 15 ecommerce websites over the years but one particular story I want to share is from a while back. In 2008, I worked on a website for Boots.com. I remember this story quite vividly because they were fascinated with the idea of having a single-page checkout flow.
 
-Each step—delivery address, delivery options and card details—had an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened.
+At the time this design pattern was all the rage. And so we designed for them what they wanted. The flow consisted of about 4 steps all represented by an accordion panel. Each step was submitted via AJAX. On success the panel would close and the next one would open.
 
-It was a disaster and Boots were pissed off.
+It was a disaster and Boots were, let's say, unhappy bunnies.
 
-We redesigned it so that each panel became its own page removing the need for accordions and AJAX. However, we kept the client-side validation to avoid an unnecessary trip to the server.
+We redesigned it so that each accordion panel became its own page which removed the need for accordions and AJAX. Fortunately, it convertly significantly better and Boots were happy bunnies again.
 
-It converted very well. I can't actually remember the statistics so you'll just have to take my word for it. Fortunately, six years later (2014), when I was at Just Eat, the same thing happened. We redesigned the checkout flow so that each section became its own page which resulted in an extra 2 million orders a year. That’s orders, not revenue.
+And history likes to repeat itself and six years later (in 2014), I was once again tasked with helping my fellow UXers redesign their checkout which was functioning in much the same way as the original Boots checkout.
 
-I found out some years later that this approach to design was a thing in its own right. Now not everything has to be labelled to be good, but I was delighted nonetheless because it’s easier to refer to, when it has a name.
+Once again, we redesigned it so that each section became its own page. This had a massively positive impact to the business. And this time I made a note of the numbers. The result wa an extra two million orders annually. And by the way, that's order, not revenue.
 
-Before we get to the pattern itself, let’s take a brief look at the page refresh which is something that comes hand-in-hand with pages.
+Some years later, I found out that putting each thing on a page of its own was a design pattern in its own right. And it had a name and everything. Not that everything needs a label to be good, but it's easier to refer to when it does.
+
+The pattern is known as One Thing Per Page and it is by far and away my favourite design pattern. Apart from the big impact of the statistics there is a lot of rationale behind the pattern which we'll get to shorlty. Before we do that, let's take a brief look at the page refresh, which is rather relevant to all this.
 
 ## The page refresh is no bad thing
 
-Browse the Internet. It won't take you a second to find a website that is crammed with shit you just don't need. Even well-known and successful websites put way too much on the page.
+Browse the Internet. I'll wait here while you do that. Back? Cool. You will have noticed that most websites are cram packed with stuff you just don't need and that your eyes have learnt to glaze over. Even well-known successful websites suffer from this problem.
 
-And it's not just that they put way too much on the page, it's that the put the wrong stuff on the page. It's quite often form over function.
+It's not just the amount of things that is the problem but its the things themselves. Quite often it's form over function. And more literally speaking, we're prone to dumping a lot of high resolution images on a single page.
 
-This manifestation stems from several places:
+We do this for several reasons:
 
 1. We have a complex about doing more (Contribution)
 2. Departments of successful companies fight for screen real estate and cram shit everywhere.
 3. We think people care about our product as much as we do. But they just want the outcome. They don't want to use a website like it's entertainment. We get bored and think we need to put high res images everywhere. Or we're influenced by our competitors
 4. Obsessed with some myth about 3 clicks to every outcome.
 5. We think having one big thing, is better than having 5 smaller things.
+6. We assume people have the same devices and data contracts as we do.
 
-Now, this is a problem itself for many reasons, but not least of which causes designers and developers to "innovate". Innovate by the way is the dirtiest word in our industry. It's like it's a license to spend time doing BS all day long.
+Regardless of the reasons we end up having to come up with "innovative" ways to make our slow pages faster. It's like eating donuts every day, putting on 5 stone, and trying to work out ways to make a fat man run fast. I'm thinking rocket boots, I don't know about you?
 
-What I mean practically speaking is that some smart designers and developers crack their heads together and announce "the page refresh is the problem". But the page refresh is not a problem. Yes there is a round trip on the network, but you can't eliminate a round trip.
+When I started writing this section of the book, I didn't think I would be talking about a fat man wearing rocket boots, but hey! "Innovation" is a dirty word and is often seen as a license to spend a lot of time solving problems that are mostly introduced by the same person trying to solve them.
+
+As part of this innovation, somebody announces that *the page refresh is the problem*. But this actually this is rather far from the truth. The real problem is the size of the page itself. AJAX itself doesn't avert the server-side round trip. It just avoids the page refresh.
+
+AJAX still has to repaint/reflow the page. AJAX still has to request stuff from the server. And that's not all. We need to send more code to the client in order to perform AJAX and we need to handle errors and show our own custom loading indicator.
+
+Loading indicators, by the way are a problem because they aren't accurate, like the browser's native implementation. And they aren't familiar.
+
+TODO....
 
 AJAX doesn't avert the server side round trip. It just avoids the page refresh. And that avoidance comes with very real problems. First you need to add *more* code to the page in order to do this. More code does not make websites faster. Second you need more code to recreate the functionality that browsers provide natively for free. That's right spinning indicators.
 

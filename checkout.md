@@ -68,9 +68,11 @@ It’s the same for users trying to complete a form or anything else for that ma
 
 **It’s easy to track progress and return to previous steps**. If users are submitting information more frequently, we can save their progress in a more granular fashion. For example, if a user exits the payment page (for whatever reason), we can send them back to that specific step by sending them an email.
 
-I've counted a further 10 reasons[^] and so quite obviously we'll be using this approach for the checkout flow.
+As if that wasn't enough I've managed to count a further 10 reasons why the pattern is such a good one[^], and so for these reasons we'll most certainly be using the approach for our checkout flow and for other problems in upcoming chapters.
 
-## Flow
+## Flow and order
+
+Caroline Jarett etc, says that blah this and blah that...
 
 - reference page 16 and 19 from caroline book.
 
@@ -82,8 +84,6 @@ Let's analyse a typical checkout flow consisting of:
 - Payment
 - Check
 - Confirmation
-
-## The order of the forms and fields
 
 We don't ask for payment first. We ask for that last. When we type an address, we ask for it in a sensible order for people to understand etc. Makes things more human and conversational.
 

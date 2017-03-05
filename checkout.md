@@ -138,3 +138,8 @@ Can always use a smart default, so default it to checked on the payment page.
 ## Payment card choose automatic js enhancemen
 
 Do I really advocate this? Probably not. Remember it's about fast pages. More code more problems.
+
+## Smart defaults
+
+- default delivery option/method
+- once information is stored (default del and pay) can jump to conf

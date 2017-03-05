@@ -58,112 +58,19 @@ One thing per page is not necessarily about having one item on a page. You'd sti
 
 Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies), it’s a good idea to understand why.
 
-The most important reason is that it reduces cognitive load.
-
-...
-
-I've actually counted 14 reasons[^] but here are just a few for your convenience:
-
-### 1. It reduces cognitive load
-
-Remember the first time you saw a complicated algebra equation? It was a jumble of symbols and unknowns. But when you stopped to break it down and isolate the parts, all that was left was the answer.
+**It reduces cognitive load**. Remember the first time you saw a complicated algebra equation? It was a jumble of symbols and unknowns. But when you stopped to break it down and isolate the parts, all that was left was the answer.
 
 It’s the same for users trying to complete a form or anything else for that matter. If there is less stuff on a single screen, and only one choice to make, friction is reduced to a minimum. Therefore users stay on task.
 
-### 2. It’s easy to handle errors
+**It’s easy to handle errors.** When users are filling in a small form, errors are caught and presented early. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users dropping off.
 
-When users are filling in a small form, errors are caught and presented early. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users dropping off.
+**It’s faster to load.** If pages are small by design, they will load faster. Faster pages reduce the risk of users leaving and they build trust in the service.
 
-### 3. It’s faster to load
+**It’s easy to track progress and return to previous steps**. If users are submitting information more frequently, we can save their progress in a more granular fashion. For example, if a user exits the payment page (for whatever reason), we can send them back to that specific step by sending them an email.
 
-If pages are small by design, they will load faster. Faster pages reduce the risk of users leaving and they build trust in the service.
+I've counted a further 10 reasons[^] and so quite obviously we'll be using this approach for the checkout flow.
 
-### 4. It’s easier to track behaviour
-
-The more there is on a page the harder it is to determine why a user left the page. Don’t get me wrong, we shouldn’t drive design by the ability to analyse it, but this is a nice by product of this pattern.
-
-### 5. It’s easy to track progress and return to previous steps
-
-If users are submitting information more frequently, we can save their progress in a more granular fashion. For example, if a user exits the payment page (for whatever reason), we can send them back to that specific step by sending them an email.
-
-### 6. It requires less (or no) scrolling
-
-Don’t get me wrong, scrolling is no big deal—users expect web pages to work this way. But if pages are small, users won’t have to. And the call-to-action is more likely to appear above the fold which reinforces the requirements and makes it easier to proceed.
-
-### 7. It’s easier to branch
-
-Sometimes we send users to a different part of the flow based on their previous choice. A simple example would be two drop down menus. What the user chooses in the first, affects the values that are shown in the second.
-
-This pattern makes this easy. The user makes a choice and submits to the server. The server works out what the user should see next. Easy and inclusive by default.
-
-We could use Javascript. But it’s far more complicated to build and ensure the UI is accessible. And when Javascript fails (and it will) the user may suffer a broken experience.
-
-If we use AJAX, the server round trip isn’t eliminated anyway. And now we need to present a loading indicator which isn’t as accurate or familiar as one that is native to the browser.
-
-All of which results in heavier, more complicated pages. This in turn results in an experience, that in all likeliness, doesn’t even have a perceived benefit, let alone a real one.
-
-Alternatively, we could load the page with all the permutations for all branches on the client. But, this could add serious weight to the page. And it could suffer from the same broken experience when Javascript fails.
-
-### 8. It’s easier for screen reader users
-
-If there is less on a page, then screen readers don’t have to wade through lots of superfluous secondary information. Users can navigate to the first heading and enter forms mode quickly.
-
-### 9. It’s easier to amend details
-
-Imagine someone is about confirm their order at the end of the checkout process. At the pertinent moment, they spot they’ve made a mistake with their payment details.
-
-The user will want to amend their details. In this case it is far easier to go back to a dedicated page, than it is to go to a section within a page (using a hash fragment).
-
-A hash fragment has problems. Arriving half way down the page may be disorientating. Remember the user clicked a link, described by the link text, to perform a specific action. Having other things on the page is confusing and distracting.
-
-It also takes more development work in certain circumstances. For example, if you want to show and hide certain panels within the same page, then you need extra logic to do that based on what the user is editing.
-
-Sometimes a user may make a change in the flow that disrupts the “happy path”. That is, they make a change that requires them to answer a different question (see branching above). In this case editing a section that makes a subsequent section redundant makes things complicated.
-
-With a single focus per page all of these problems fade away.
-
-### 11. It gives users control over their data allowance
-
-Users cannot half download a page. It’s all or nothing. Smaller pages save user’s data. If they want more information, they can click a link giving them the ability to choose. Users don’t mind clicking as long as each step takes them closer to their goal.
-
-### 12. Solving performance problems
-
-If everything is one gigantic thing — the extreme of which is an SPA — figuring out performance problems is hard. Is it a runtime issue, a memory leak, an AJAX call etc?
-
-It’s so easy to think that AJAX improves the experience, but adding more code rarely leads to faster experiences.
-
-Having complexity on the client can obscure the root cause of problems on the server. But if pages have one thing, there’s little chance of a performance issue. And if there is, finding the problem should be easier.
-
-### 13. It adds a sense of progression
-
-Because the user is constantly moving to the next step, there is a sense of progression which is a positive feeling to give users when they’re filling out a form.
-
-### 14. It’s easier to design
-
-When we’re working out a complex flow of any kind, breaking it down into atomic screens and components makes it easier to understand the problem and build them back up.
-
-It’s easy to swap screens with each other to change the order. Analysing problem areas is easier when, like users, we’re looking at one thing at time.
-
-All of which reduces the effort to design the feature — which is a nice byproduct of a pattern that benefits users so greatly.
-
-
-
-
-
-
-## TODO....
-
-
-The problem is not that the page is slow. The problem is that you designed a page that cannot be fast. Instead we should solve that problem at its root. Funnily enough this has two wonderful side effects:
-
-1. There is no speed problem anymore
-2. As there is less on the page there is far less cognitive burden on the user to know what to do next
-
-Simply put, a single page checkout with a wall of form fields, that takes a while to load is not a smart way of designing responsive, inclusive, performant forms for people. Not one real user has ever stated "oh this checkout is on one page, thank god".
-
-For these reasons and many more we'll use this technique for our checkout flow.
-
-## Flow and order
+## Flow
 
 - reference page 16 and 19 from caroline book.
 

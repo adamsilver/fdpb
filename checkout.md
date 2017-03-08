@@ -70,9 +70,15 @@ It’s the same for users trying to complete a form or anything else for that ma
 
 **It’s easy to track progress and return to previous steps**. If users  submit information frequently, we can save their progress in a more granular fashion. For example, if a user exits the payment page, we can send them back there later&mdash;by email perhaps.
 
-As if that wasn't enough I've managed to count a further 10 reasons why the pattern is such a good one[^], and so for these reasons we'll be using the approach for our checkout flow and for other problems in upcoming chapters.
+I've managed to count a further 10 reasons why the pattern is so beneficial[^]. This inconspicuous and humble UX pattern is flexible, performant and inclusive by design. It truly embraces the web, making things easy for high and low confidence users alike.
 
-MENTION PROGRESS DISC HERE TO FINISH OFF THIS SECTION.
+Having lots (or everything) on one page, may give an illusion of simplicity, but just like algebraic equations they are difficult to deal with unless they are broken down.
+
+If we consider a task as a transaction that a user wants to complete, breaking it down into multiple steps makes sense. It’s as if we’re using the very building blocks of the web as a form of progressive disclosure. And the metaphor behind pages provides a subconscious sense of moving forward.
+
+I’m not sure there is another pattern that has as many benefits as this one. It’s like compound interest, it just keeps on giving. This is one of those cases where simple is just that.
+
+Needless to say we'll be using this to design our checkout form in this chapter.
 
 ## Flow and order
 
@@ -93,7 +99,7 @@ We don't ask for payment first. We ask for that last. When we type an address, w
 
 ## Do we really need to ask for it?
 
-In A Registration Form, we talked about the need to explain to user why they should complete the form, why should they register. Depending on the form and the field we should also be explaining why we are asking for that information specifically.
+In A Registration Form, we talked about the need to explain to the user why they should complete the form, why should they register. Depending on the form and the field we should also be explaining why we are asking for that information specifically.
 
 For example Kidly delivery address, asking for mobile phone, in order to send them notifications. We should tell the user why we are asking for their mobile phone. And if there is no good reason to ask for it, that should drive our design to realise that we shouldn't ask for it, period.
 
@@ -138,10 +144,6 @@ Can talk about specifying delivery address first or payment address first. Eithe
 Could we put a checkbox USE THIS FOR BILLING ON DELIVERY ADDRESS - probably not its a distraction at the wrong time.
 
 Can always use a smart default, so default it to checked on the payment page.
-
-## Payment card choose automatic js enhancemen
-
-Do I really advocate this? Probably not. Remember it's about fast pages. More code more problems.
 
 ## Smart defaults
 

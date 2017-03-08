@@ -97,25 +97,19 @@ Let's analyse a typical checkout flow consisting of:
 
 We don't ask for payment first. We ask for that last. When we type an address, we ask for it in a sensible order for people to understand etc. Makes things more human and conversational.
 
-## Do we really need to ask for it?
+## Delivery option
 
-In A Registration Form, we talked about the need to explain to the user why they should complete the form, why should they register. Depending on the form and the field we should also be explaining why we are asking for that information specifically.
+- Only if you have delivery options obviously
+- Radios
+- Default radio
+- no validation as there is a default
 
-For example Kidly delivery address, asking for mobile phone, in order to send them notifications. We should tell the user why we are asking for their mobile phone. And if there is no good reason to ask for it, that should drive our design to realise that we shouldn't ask for it, period.
+## Delivery address
 
-## Guest checkout
-
-This might seem slightly off topic for a book dedicated to the design of forms, but this comes under the *must I ask it for it* rule. 300 million dollar button.
-
-## Valid from date
-
-This isn't really needed. Ask Oyvind. Steven.
-
-## Size of the fields
-
-> Baymard institute usability study found that if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like CVV (card verification code).
-
-Address the address in this.
+- explaining to the user why we ask for their mobile number? To send notificaitons. And if there is no good reason to ask for it, that should drive our design to realise that we shouldn't ask for it, period.
+- size of fields and affordance
+- address lookup enhancement (expensive but v useful)
+- why put mobile on this screen tho-weird?
 
 http://baymard.com/blog/form-field-usability-matching-user-expectations
 
@@ -129,11 +123,20 @@ If the width of the postcode field is larger to match the other fields, then the
 
 You can apply these principles to other form fields where the length of the field is known. For example, you wouldn't want to apply this principle to street and town because those values could be any length.
 
+## Payment
+
+- Size of fields again.
+- valid from date. Dont need ask oyvind and steven.
+
+> Baymard institute usability study found that if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like CVV (card verification code).
+
+## Guest checkout
+
+We've talked already about having to ask for it, or explaining why. But guest checkout is the number one thing. Whatever you do don't ask users to sign up before checking out unless you absolutely have to. Research shows that 300 million dollar button[^].
+
 ## Visual step indicator
 
 When we have a flow like this a step indicator is essential. Or is it - read about GDS guidelines.
-
-## Address lookup enhancement.
 
 ## Revealing a billing address if different from delivery.
 
@@ -145,8 +148,9 @@ Could we put a checkbox USE THIS FOR BILLING ON DELIVERY ADDRESS - probably not 
 
 Can always use a smart default, so default it to checked on the payment page.
 
-## Smart defaults
+## Smart defaults and one click?
 
+- one click and smart defaults is a benefit, tell the user at the end of guest checkout.
 - default delivery option/method
 - once information is stored (default del and pay) can jump to conf
 

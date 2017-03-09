@@ -90,14 +90,13 @@ Let's analyse a typical checkout flow consisting of:
 
 - Delivery options
 - Delivery address
-- Payment options
 - Payment
-- Check
-- Confirmation
+- Check details
+- Confirmation page (refer to gds confirmation pages perhaps)
 
 We don't ask for payment first. We ask for that last. When we type an address, we ask for it in a sensible order for people to understand etc. Makes things more human and conversational.
 
-## Delivery option
+## Delivery options
 
 - Only if you have delivery options obviously
 - Radios
@@ -153,6 +152,14 @@ Can always use a smart default, so default it to checked on the payment page.
 - one click and smart defaults is a benefit, tell the user at the end of guest checkout.
 - default delivery option/method
 - once information is stored (default del and pay) can jump to conf
+
+## Summary
+
+We've made it to the end of chapter 2, but we have actually covered the majority of issues we face when designing forms. Even if you stopped here and implemented what you now know, the form experiences you'll design will signficantly improve in quality for your users.
+
+In this chapter we've used one of the best, but quite often unheard of One Thing Per Page pattern to our user's advantage and covered off some of the gaps left over in chapter 1 with regards to managing different types of controls such as checkboxes and radios.
+
+In upcoming chapters we'll build on these patterns by solving different problems that we may face when designing more niche experiences on the web.
 
 ## Footnotes
 

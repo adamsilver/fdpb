@@ -1,3 +1,3 @@
 # Book hotel room
 
-- Is this interesting/different?
+- Is this interesting/different enough?

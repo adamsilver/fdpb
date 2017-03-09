@@ -2,7 +2,7 @@
 
 ## One thing per page
 
-- Perfect example for this. Lot's going on. Branching.
+- Branching.
 - If one thing per page then h1 and legend/label???
 
 ## Radios and fieldsets

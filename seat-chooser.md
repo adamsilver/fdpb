@@ -1,3 +1,3 @@
-# Choose plane seat
+# Choose plane seat, theatre, cinema?
 
 - interesting?

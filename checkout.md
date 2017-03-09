@@ -82,19 +82,27 @@ Needless to say we'll be using this to design our checkout form in this chapter.
 
 ## Flow and order
 
-Caroline Jarett etc, says that blah this and blah that...
+In Forms That Work[^] Caroline and Gerry explain the importance of asking questions in a logical order:
 
-- reference page 16 and 19 from caroline book. Amazing stuff.
+> Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
-Let's analyse a typical checkout flow consisting of:
+> Think about buying a car. You’re just browsing, getting a sense of what is available. A salesperson comes along and starts to ask you how you’ll pay. Would you answer? Or would you think, “If that person doesn’t stop annoying me, then I’m out to here”?
 
-- Delivery options
-- Delivery address
-- Payment
-- Check details
-- Confirmation page (refer to gds confirmation pages perhaps)
+> Now think about the point where you’ve told the salesperson which car you want to buy. Now it’s appropriate to start negotiating about payment. It would be quite odd if the salesperson did **not** do so.
 
-We don't ask for payment first. We ask for that last. When we type an address, we ask for it in a sensible order for people to understand etc. Makes things more human and conversational.
+This applies to the checkout flow. Our checkout flow will have the following steps:
+
+1. Delivery address
+2. Delivery options
+3. Payment
+4. Check details
+5. Confirmation
+
+Just like our car salesman above, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt and invoice for record keeping.
+
+Much like a human conversation, we should strive to make our digital forms human and conversational too. Conversational does not mean chatty.
+
+We'll next look at designing each of the screens in turn as each one has a set problems that need discussing in their own right.
 
 ## Delivery options
 
@@ -128,6 +136,12 @@ You can apply these principles to other form fields where the length of the fiel
 - valid from date. Dont need ask oyvind and steven.
 
 > Baymard institute usability study found that if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like CVV (card verification code).
+
+## Check
+
+## Confirmatin page
+
+- Confirmation page (refer to gds confirmation pages perhaps)
 
 ## Guest checkout
 

@@ -89,3 +89,5 @@ https://cloudfour.com/thinks/autofill-what-web-devs-should-know-but-dont/
 - [Placement/position](http://adrianroselli.com/2017/01/avoid-messages-under-fields.html)
 
 - When the page refreshes must populate values as to not make users have to type it in again. Annoying.
+
+-Caroline book: search for "Use error messages that respect the effort the user is making."

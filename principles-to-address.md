@@ -91,3 +91,5 @@ https://cloudfour.com/thinks/autofill-what-web-devs-should-know-but-dont/
 - When the page refreshes must populate values as to not make users have to type it in again. Annoying.
 
 -Caroline book: search for "Use error messages that respect the effort the user is making."
+
+-http://baymard.com/blog/form-field-usability-matching-user-expectations

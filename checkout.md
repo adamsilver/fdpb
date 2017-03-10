@@ -10,7 +10,7 @@ We redesigned it so that each accordion panel became its own page which removed 
 
 They say history repeats itself and six years later, in 2014, I joined Just Eat. I was once again tasked with helping my fellow UXers redesign the checkout flow, which was functioning in much the same way as the original Boots checkout.
 
-Once again, we redesigned it so that each section became its own page etc. This had a massively positive impact to the business. And this time I made a note of the numbers. The result was an extra two million orders a year. And just to be clear that's orders, not revenue.
+We redesigned it so that each section became its own page etc. This had a massively positive impact to the business. And this time I made a note of the numbers. The result was an extra two million orders a year. And just to be clear that's orders, not revenue.
 
 Some years later, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern in its own right[^]. And it had a name and everything. Not that things need to be named to be good, but they're easier to refer to when they do.
 
@@ -90,7 +90,7 @@ In Forms That Work[^] Caroline and Gerry explain the importance of asking questi
 
 > Now think about the point where you’ve told the salesperson which car you want to buy. Now it’s appropriate to start negotiating about payment. It would be quite odd if the salesperson did **not** do so.
 
-This applies to the checkout flow. Our checkout flow will have the following steps:
+This applies to the checkout flow. Our checkout will have the following steps:
 
 1. Delivery address
 2. Delivery options
@@ -98,37 +98,104 @@ This applies to the checkout flow. Our checkout flow will have the following ste
 4. Check details
 5. Confirmation
 
-Just like our car salesman above, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt and invoice for record keeping.
+Just like the car salesman above, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt and invoice for record keeping.
 
-Much like a human conversation, we should strive to make our digital forms human and conversational too. Conversational does not mean chatty.
+Much like a human conversation, we should strive to make our digital forms human and conversational too.
 
 We'll next look at designing each of the screens in turn as each one has a set problems that need discussing in their own right.
 
-## Delivery options
-
-- Only if you have delivery options obviously
-- Radios
-- Default radio
-- no validation as there is a default
-
 ## Delivery address
 
-- explaining to the user why we ask for their mobile number? To send notificaitons. And if there is no good reason to ask for it, that should drive our design to realise that we shouldn't ask for it, period.
-- size of fields and affordance
-- address lookup enhancement (expensive but v useful)
-- why put mobile on this screen tho-weird?
+Here is our delivery address form:
 
-http://baymard.com/blog/form-field-usability-matching-user-expectations
+![Image here](/etc/)
+
+Here is the HTML code:
+
+```html
+<form>
+  <label for="recipientName">Recipient name</label>
+  <input type="text" id="recipientName" name="recipientName">
+  <label for="mobile">
+  	<span class="label">Your mobile</span>
+  	<span class="hint">So we can notify you about delivery</span>
+  </label>
+  <input type="tel" id="mobile" name="mobile">
+  <label for="address1">Recipient address line 1</label>
+  <input type="text" id="address1" name="address1">
+  <label for="address2">Recipient address line 2</label>
+  <input type="text" id="address2" name="address2">
+  <label for="city">Recipient city</label>
+  <input type="text" id="city" name="city">
+  <label for="postcode">Recipient postcode</label>
+  <input type="text" id="postcode" name="poscode">
+  <input type="submit" value="Next">
+</form>
+```
+
+### Mobile field
+
+#### Hint
+
+As we know, it's important to tell people why we're asking for certain information. At first glance a user may not realise why we ask for a mobile phone in order to deliver a product and take an online order.
+
+But we know why we're asking for it. We're asking for it because our delivery service offers users realtime delivery notifications which is a nice piece of UX.
+
+For this reason we tell the user why we're asking for it.
+
+#### Type tel
+
+The keen eye amongst you will have noticed that the type of field is a tel. This brings up a keyboard specific for phone numbers make it far easier to complete on mobile.
+
+### Post code field
 
 The width of a field should provide a clue to the length of content it requires. The length of the content provides a clue to the type of content. Both of which help the user fill in a form field.
 
-For example, a postcode is made up of about 8 characters including an optional space. This field should be smaller than other fields in an address form.
+Our postcode is made up of about 8 characters including an optional space. This field should be smaller than other fields in an address form.
 
 If the width of the postcode field is larger to match the other fields, then there's a cognitive burden on the user. They may have to double check the label for example.
 
-![]Good/bad example of address form.
-
 You can apply these principles to other form fields where the length of the field is known. For example, you wouldn't want to apply this principle to street and town because those values could be any length.
+
+### Address lookup
+
+TODO: Discuss this enhancement perhaps.
+
+## Delivery options
+
+Here is our delivery address form:
+
+![Image here](/etc/)
+
+Here is the HTML code:
+
+```html
+<form>
+	<fieldset>
+	    <legend>Delivery options</legend>
+	    <input type="radio" name="option" id="option1" value="Standard" checked>
+	    <label for="option1">UK Standard (Free, 2-3 days)</label>
+	    <input type="radio" name="option" id="option2" value="Premium">
+	    <label for="option2">UK Premium (£6, Next day)</label>
+	</fieldset>
+</form>
+```
+
+### Introducing the fieldset
+
+This is the first time we've need to use another HTML element at our disposal, the fieldset and legend. These are needed to group elements, typically for a group of checkboxes or radios. In our case we have 2 mutually exclusive options, so that means using radio buttons.
+
+The fieldset groups the related controls and the legend provides a caption for the aformentioned group. Without it, visual users won't necessarily understand the choices on offer and for screen reader users, they won't be able to hear the caption.
+
+### Providing a default
+
+It is, generally speaking, good practice to default the selection of the first choice by ensuring we use the `checked` attribute. It is also good practice to put the most commonly used choice first.
+
+When we do this, we remove the need for validation and we require less effort from our users. Both of which reduce friction.
+
+### Radios versus select boxes?
+
+TODO: Last resort?
 
 ## Payment
 
@@ -167,6 +234,8 @@ Can always use a smart default, so default it to checked on the payment page.
 - default delivery option/method
 - once information is stored (default del and pay) can jump to conf
 
+## Pressing back
+
 ## Summary
 
 We've made it to the end of chapter 2, but we have actually covered the majority of issues we face when designing forms. Even if you stopped here and implemented what you now know, the form experiences you'll design will signficantly improve in quality for your users.
@@ -176,5 +245,7 @@ In this chapter we've used one of the best, but quite often unheard of One Thing
 In upcoming chapters we'll build on these patterns by solving different problems that we may face when designing more niche experiences on the web.
 
 ## Footnotes
+
+- autocomplete fields attribute - include here, find article??
 
 [^west]:https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/

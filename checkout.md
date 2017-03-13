@@ -236,6 +236,10 @@ Can always use a smart default, so default it to checked on the payment page.
 
 ## Pressing back
 
+## Order summary (check answers)
+
+- At the bottom of each screen on mobile etc.
+
 ## Summary
 
 We've made it to the end of chapter 2, but we have actually covered the majority of issues we face when designing forms. Even if you stopped here and implemented what you now know, the form experiences you'll design will signficantly improve in quality for your users.

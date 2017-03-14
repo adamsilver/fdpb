@@ -98,7 +98,7 @@ This applies to the checkout flow. Our checkout will have the following steps:
 4. Check details
 5. Confirmation
 
-Just like the car salesman above, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt and invoice for record keeping.
+Just like the salesperson, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt and invoice for record keeping.
 
 Much like a human conversation, we should strive to make our digital forms human and conversational too.
 
@@ -135,31 +135,20 @@ Here is the HTML code:
 
 ### Mobile field
 
-#### Hint
-
 As we know, it's important to tell people why we're asking for certain information. At first glance a user may not realise why we ask for a mobile phone in order to deliver a product and take an online order.
 
-But we know why we're asking for it. We're asking for it because our delivery service offers users realtime delivery notifications which is a nice piece of UX.
+But we're asking for it because our couriers offer our users real-time  notifications on the day of delivery. And so we tell our users accordingly which builds trust and reduces friction.
 
-For this reason we tell the user why we're asking for it.
-
-#### Type tel
-
-The keen eye amongst you will have noticed that the type of field is a tel. This brings up a keyboard specific for phone numbers make it far easier to complete on mobile.
+Those of you have a keen eye for detail will notice that mobile field has `type=tel`. Much like `type=email` discussed in A Registration Form, this will display a telephone specific keyboard on various mobile devices, improving usability in the process.
 
 ### Post code field
 
-The width of a field should provide a clue to the length of content it requires. The length of the content provides a clue to the type of content. Both of which help the user fill in a form field.
+The field width should provide a clue as to the length of content required. 
+Our postcode is made up of only eight or so characters including an optional space. Therefore, this field should be smaller than other fields in an address form.
 
-Our postcode is made up of about 8 characters including an optional space. This field should be smaller than other fields in an address form.
+Often designers like to make things line up perfectly, which helps if you're making a piece of art. But well-designed software is not art and in the case of the postcode field, making it bigger puts a cognitive burden on the user.
 
-If the width of the postcode field is larger to match the other fields, then there's a cognitive burden on the user. They may have to double check the label for example.
-
-You can apply these principles to other form fields where the length of the field is known. For example, you wouldn't want to apply this principle to street and town because those values could be any length.
-
-### Address lookup
-
-TODO: Discuss this enhancement perhaps.
+You can apply these principles to other form fields where the length of the field is known, but not for fields with unknown lengths. For example, you wouldn't want to apply this principle to street and town because those values could be any length.
 
 ## Delivery options
 
@@ -181,30 +170,64 @@ Here is the HTML code:
 </form>
 ```
 
-### Introducing the fieldset
+### Introducing the fieldset, legend and radio control
 
-This is the first time we've need to use another HTML element at our disposal, the fieldset and legend. These are needed to group elements, typically for a group of checkboxes or radios. In our case we have 2 mutually exclusive options, so that means using radio buttons.
+This our first form that needs a `fieldset` and `legend`. These elements are used to group fields together, which is typically the case for checkboxes and in this case radio buttons. We are using radio buttons because we have two mutually exclusive options.
 
-The fieldset groups the related controls and the legend provides a caption for the aformentioned group. Without it, visual users won't necessarily understand the choices on offer and for screen reader users, they won't be able to hear the caption.
+Without the `fieldset` and `legend`:
 
-### Providing a default
+* visual users won't be able to understand what the options necessarily pertain to; and
+* screen readers won't announce the caption when the user is in forms mode.
+
+In upcoming chapters, whenever we have a group of related fields, we will use the `fieldset` and `legend` for these reasons.
+
+### Provide a sensible default
 
 It is, generally speaking, good practice to default the selection of the first choice by ensuring we use the `checked` attribute. It is also good practice to put the most commonly used choice first.
 
-When we do this, we remove the need for validation and we require less effort from our users. Both of which reduce friction.
+When we do this, we remove the need for validation and we require less effort from our users. Both of which reduce friction. This of course makes sense in the context of checkout but there are times when we shouldn't default the answer, which we'll explore later.
 
 ### Radios versus select boxes?
 
-TODO: Last resort?
+- last resort luke
+- caroline slidedeck
 
 ## Payment
 
-- Size of fields again.
-- valid from date. Dont need ask oyvind and steven.
+Here is our payment form:
+
+![Image here](/etc/)
+
+Here is the HTML code:
+
+```html
+<form>
+  TBD
+</form>
+```
+
+You'll notice that, once again the size of the fields vary depending on their known lengths providing subtle clues to make form filling more intuitive. Here is what Baymard Institute has to say on the matter in context of a payment form:
 
 > Baymard institute usability study found that if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like CVV (card verification code).
 
-## Check
+## We don't need to ask for it
+
+You'll also notice we haven't got valid from date and name on card fields. In a recent project, our third-party card processor, Stripe doesn't require it and so we don't put that burden onto our users.
+
+This is why it's so important to follow the question protocol from A Registration Form. Once we know why we're asking for it, we may not have to ask for it at all.
+
+Proving assumptions correct or otherwise is an essential weapon in a designer's arsenal and it is applicable to form design too.
+
+<!--
+[3/14/2017] Oyvind Valland: No we don't. Only a handful of cards (debit) show those and it provides more hassle for the customer to enter than benefit to us in verifying card details.
+[3/14/2017] Oyvind Valland: If the card is stolen, having to enter a valid from date isn't going to stop the thief                        
+[3/14/2017] Oyvind Valland: Name on card is something we do ask for but i do not believe stripe uses it for verification. If i remember correctly, only the numerics contained in card details are used for verification. That is, house numbers are used, but not street names
+-->
+
+## Check details page
+
+- We think it's a burden on users to have to make another click. As we have already discussed, Counting Clicks is silly. And it's also applicable here. 
+- Giving users a clear chance to review their purchase puts them at ease, increases trust and reduces errors, and therefore returns, which are a signficiant cost to the business and a tremendous frustration to the user, which depending on the returns process, has to do a lotof work.
 
 ## Confirmatin page
 
@@ -235,6 +258,8 @@ Can always use a smart default, so default it to checked on the payment page.
 - once information is stored (default del and pay) can jump to conf
 
 ## Pressing back
+
+- post redirect get
 
 ## Order summary (check answers)
 

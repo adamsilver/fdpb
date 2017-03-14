@@ -222,6 +222,14 @@ Proving assumptions correct or otherwise is an essential weapon in a designer's 
 [3/14/2017] Oyvind Valland: No we don't. Only a handful of cards (debit) show those and it provides more hassle for the customer to enter than benefit to us in verifying card details.
 [3/14/2017] Oyvind Valland: If the card is stolen, having to enter a valid from date isn't going to stop the thief                        
 [3/14/2017] Oyvind Valland: Name on card is something we do ask for but i do not believe stripe uses it for verification. If i remember correctly, only the numerics contained in card details are used for verification. That is, house numbers are used, but not street names
+
+ME: Do you really need street name then etc
+
+                      
+[15:07, 3/14/2017] Oyvind Valland: In order to verify card details I think the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is very handy in any situation where you have to query what's happened                        
+[15:07, 3/14/2017] Oyvind Valland: besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
+
+This is interesting as yes we now know why we're asking for it. And this is also a good reason to include all the right people in design. Not just "designers", but so called "non designers" too.
 -->
 
 ## Check details page

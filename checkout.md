@@ -114,21 +114,33 @@ Here is the HTML code:
 
 ```html
 <form>
-  <label for="recipientName">Recipient name</label>
-  <input type="text" id="recipientName" name="recipientName">
-  <label for="mobile">
-  	<span class="label">Your mobile</span>
-  	<span class="hint">So we can notify you about delivery</span>
-  </label>
-  <input type="tel" id="mobile" name="mobile">
-  <label for="address1">Recipient address line 1</label>
-  <input type="text" id="address1" name="address1">
-  <label for="address2">Recipient address line 2</label>
-  <input type="text" id="address2" name="address2">
-  <label for="city">Recipient city</label>
-  <input type="text" id="city" name="city">
-  <label for="postcode">Recipient postcode</label>
-  <input type="text" id="postcode" name="poscode">
+  <div>
+    <label for="recipientName">Recipient name</label>
+    <input type="text" id="recipientName" name="recipientName">
+  </div>
+  <div>
+    <label for="mobile">
+    	<span class="label">Your mobile</span>
+    	<span class="hint">So we can notify you about delivery</span>
+    </label>
+    <input type="tel" id="mobile" name="mobile">
+  </div>
+  <div>
+    <label for="address1">Recipient address line 1</label>
+    <input type="text" id="address1" name="address1">
+  </div>
+  <div>
+    <label for="address2">Recipient address line 2</label>
+    <input type="text" id="address2" name="address2">
+  </div>
+  <div>
+    <label for="city">Recipient city</label>
+    <input type="text" id="city" name="city">
+  </div>
+  <div>
+    <label for="postcode">Recipient postcode</label>
+    <input type="text" id="postcode" name="poscode">
+  </div>
   <input type="submit" value="Next">
 </form>
 ```
@@ -137,18 +149,19 @@ Here is the HTML code:
 
 As we know, it's important to tell people why we're asking for certain information. At first glance a user may not realise why we ask for a mobile phone in order to deliver a product and take an online order.
 
-But we're asking for it because our couriers offer our users real-time  notifications on the day of delivery. And so we tell our users accordingly which builds trust and reduces friction.
+But we're asking for it because our couriers offer real-time notifications on the day of delivery. And so in telling our users, we build trust, reduce friction and make it a feature, all the same time.
 
-Those of you have a keen eye for detail will notice that mobile field has `type=tel`. Much like `type=email` discussed in A Registration Form, this will display a telephone specific keyboard on various mobile devices, improving usability in the process.
+Those of you have a keen eye for detail will notice that mobile field has `type=tel`. Much like `type=email` discussed in A Registration Form, this will display a telephone-specific keyboard on various mobile devices, improving usability in the process.
+
+[!](Image)
 
 ### Post code field
 
-The field width should provide a clue as to the length of content required. 
-Our postcode is made up of only eight or so characters including an optional space. Therefore, this field should be smaller than other fields in an address form.
+Often designers like to make things line up perfectly, which helps if you're making a piece of art. But well-designed software is not art and in the case of the postcode field, making it match other fields puts a cognitive burden on the user.
 
-Often designers like to make things line up perfectly, which helps if you're making a piece of art. But well-designed software is not art and in the case of the postcode field, making it bigger puts a cognitive burden on the user.
+The field width provides a clue as to the length of content required for input. The postcode consists of approximately eight characters, therefore this field should be smaller than other fields in an address form as shown.
 
-You can apply these principles to other form fields where the length of the field is known, but not for fields with unknown lengths. For example, you wouldn't want to apply this principle to street and town because those values could be any length.
+You can apply these principles to other form fields where the length of the field is known. For example, you wouldn't want to apply this principle to street and town because those values could be any length.
 
 ## Delivery options
 
@@ -162,10 +175,14 @@ Here is the HTML code:
 <form>
 	<fieldset>
 	    <legend>Delivery options</legend>
-	    <input type="radio" name="option" id="option1" value="Standard" checked>
-	    <label for="option1">UK Standard (Free, 2-3 days)</label>
-	    <input type="radio" name="option" id="option2" value="Premium">
-	    <label for="option2">UK Premium (£6, Next day)</label>
+      <div>
+  	    <input type="radio" name="option" id="option1" value="Standard" checked>
+  	    <label for="option1">UK Standard (Free, 2-3 days)</label>
+      </div>
+      <div>
+  	    <input type="radio" name="option" id="option2" value="Premium">
+  	    <label for="option2">UK Premium (£6, Next day)</label>
+      </div>
 	</fieldset>
 </form>
 ```
@@ -179,18 +196,28 @@ Without the `fieldset` and `legend`:
 * visual users won't be able to understand what the options necessarily pertain to; and
 * screen readers won't announce the caption when the user is in forms mode.
 
-In upcoming chapters, whenever we have a group of related fields, we will use the `fieldset` and `legend` for these reasons.
+For these reasons, we will always use a these elements when we need to group related controls together, both visually and semantically.
 
-### Provide a sensible default
+### Provide a sensible default 
 
-It is, generally speaking, good practice to default the selection of the first choice by ensuring we use the `checked` attribute. It is also good practice to put the most commonly used choice first.
+It is good practice to default the selection of the first choice by ensuring we use the `checked` attribute. It is also good practice to put the most commonly used choice first.
 
-When we do this, we remove the need for validation and we require less effort from our users. Both of which reduce friction. This of course makes sense in the context of checkout but there are times when we shouldn't default the answer, which we'll explore later.
+When we do this, we remove the need for validation and we require less effort from our users, both of which reduce friction. 
 
-### Radios versus select boxes?
+Obviously, this makes sense here as we put the most often and most economic option first and check it appropriately. But in some situations defaulting is not always a good idea, which we'll cover later.
 
-- last resort luke
-- caroline slidedeck
+### Why not use a `select` box?
+
+Historically, designers like using the `select` box because it is compact and takes up little real estate. But actually it's one of the least friendly form controls[^] at our disposal. Here's why:
+
+1. They have little hierarchy control.
+2. Browsers and devices don't enlarge the options.
+3. Can't be styled very easily cross-browser. Not a huge problem.
+4. They hide information behind an unnecessary extra click.
+5. They are not searchable. At least not easily searchable.
+6. They are taxing to scroll through and select.
+
+Radio buttons don't suffer from these problems. This doesn't mean we should never use a select box, but we'll look into this more in upcoming chapters.
 
 ## Payment
 
@@ -206,31 +233,27 @@ Here is the HTML code:
 </form>
 ```
 
-You'll notice that, once again the size of the fields vary depending on their known lengths providing subtle clues to make form filling more intuitive. Here is what Baymard Institute has to say on the matter in context of a payment form:
+### Field size
 
-> Baymard institute usability study found that if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like CVV (card verification code).
+Again the size of the fields vary depending on their known lengths. Baymard institute usability study[^44] found that if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.
 
-## We don't need to ask for it
+### We don't need to ask for it
 
-You'll also notice we haven't got valid from date and name on card fields. In a recent project, our third-party card processor, Stripe doesn't require it and so we don't put that burden onto our users.
+You may have noticed that the payment form does not contain a Valid From field but does contain Name On Card. When we designed the payment form for Kidly we had to take into account a couple things. 
 
-This is why it's so important to follow the question protocol from A Registration Form. Once we know why we're asking for it, we may not have to ask for it at all.
+Firstly, what did our payment provider need to take payment, and second, what did we want for our own records. I spoke to Oyvind Valland, CTO of Kidly about all this. Here is what he had to say:
 
-Proving assumptions correct or otherwise is an essential weapon in a designer's arsenal and it is applicable to form design too.
+> We don't need to ask for Valid From. Only a handful of debit cards show those and it provides more hassle for the customer to enter, than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
 
-<!--
-[3/14/2017] Oyvind Valland: No we don't. Only a handful of cards (debit) show those and it provides more hassle for the customer to enter than benefit to us in verifying card details.
-[3/14/2017] Oyvind Valland: If the card is stolen, having to enter a valid from date isn't going to stop the thief                        
-[3/14/2017] Oyvind Valland: Name on card is something we do ask for but i do not believe stripe uses it for verification. If i remember correctly, only the numerics contained in card details are used for verification. That is, house numbers are used, but not street names
+> Name on card is something we do ask for but I do not believe stripe uses it for verification. If I remember correctly, only the numerics contained in card details are used for verification. That is, house numbers are used, but not street names.
 
-ME: Do you really need street name then etc
+So I asked Oyvind why we have street name in the billing address field. Here's what he said:
 
-                      
-[15:07, 3/14/2017] Oyvind Valland: In order to verify card details I think the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is very handy in any situation where you have to query what's happened                        
-[15:07, 3/14/2017] Oyvind Valland: besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
+> In order to verify card details I think the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is very handy in any situation where you have to query what's happened. Besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
 
-This is interesting as yes we now know why we're asking for it. And this is also a good reason to include all the right people in design. Not just "designers", but so called "non designers" too.
--->
+Oyvind is not a designer per se, but his input into the design is of vital importance. This goes to show the importance of designign as a team sport[^] and that by following the Question Protocol, mentioned in A Registration Form, we can decide what it is we must ask and what it is we want to ask and why.
+
+Proving assumptions correct or otherwise is an essential weapon in a designer's arsenal and it is most certainly applicable to form design too.
 
 ## Check details page
 
@@ -286,3 +309,4 @@ In upcoming chapters we'll build on these patterns by solving different problems
 - autocomplete fields attribute - include here, find article??
 
 [^west]:https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/
+[^44]:https://baymard.com/checkout-usabilityworld-wide-web-not-wealthy-western-web-part-1/

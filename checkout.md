@@ -198,11 +198,11 @@ Without the `fieldset` and `legend`:
 
 For these reasons, we will always use a these elements when we need to group related controls together, both visually and semantically.
 
-### Provide a sensible default 
+### Provide a sensible default
 
 It is good practice to default the selection of the first choice by ensuring we use the `checked` attribute. It is also good practice to put the most commonly used choice first.
 
-When we do this, we remove the need for validation and we require less effort from our users, both of which reduce friction. 
+When we do this, we remove the need for validation and we require less effort from our users, both of which reduce friction.
 
 Obviously, this makes sense here as we put the most often and most economic option first and check it appropriately. But in some situations defaulting is not always a good idea, which we'll cover later.
 
@@ -239,7 +239,7 @@ Again the size of the fields vary depending on their known lengths. Baymard inst
 
 ### We don't need to ask for it
 
-You may have noticed that the payment form does not contain a Valid From field but does contain Name On Card. When we designed the payment form for Kidly we had to take into account a couple things. 
+You may have noticed that the payment form does not contain a Valid From field but does contain Name On Card. When we designed the payment form for Kidly we had to take into account a couple things.
 
 Firstly, what did our payment provider need to take payment, and second, what did we want for our own records. I spoke to Oyvind Valland, CTO of Kidly about all this. Here is what he had to say:
 
@@ -253,15 +253,50 @@ So I asked Oyvind why we have street name in the billing address field. Here's w
 
 Oyvind is not a designer per se, but his input into the design is of vital importance. This goes to show the importance of designign as a team sport[^] and that by following the Question Protocol, mentioned in A Registration Form, we can decide what it is we must ask and what it is we want to ask and why.
 
-Proving assumptions correct or otherwise is an essential weapon in a designer's arsenal and it is most certainly applicable to form design too.
+Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal and it is most certainly applicable to form design too.
 
 ## Check details page
 
-- We think it's a burden on users to have to make another click. As we have already discussed, Counting Clicks is silly. And it's also applicable here. 
-- Giving users a clear chance to review their purchase puts them at ease, increases trust and reduces errors, and therefore returns, which are a signficiant cost to the business and a tremendous frustration to the user, which depending on the returns process, has to do a lotof work.
+Here is the check details page:
+
+[!image]()
+
+You may be wondering why we even have this page. It's an extra page, an extra click and we're trying to get users to buy stuff. But what we already know is that users don't mind clicking as long as each click is meaningful.
+
+There is nothing worse than making an order when it wasn't expected. Or making the wrong order. This Check page is vital in scenarios where users have entered quite a lot of information during a flow.
+
+It allows the user to build trust in a system and double check their information before finally commiting to the order. Even the most sophisticated validation mechanism cannot eradicate the chance of human error, even if everything looks right and is formatted correctly.
+
+Giving users the chance to review, before spending their hard earned money, is a human, and quite frankly respectful thing to do.
+
+Imagine Mary, a mother of two, one young baby. She's tired and stressed and it's late at night. She ran out of nappies. With everything that's going on, she chooses the wrong card. It's still her card. It's still a valid card. But she didn't want to use that one because she's close to her overdraft.
+
+Giving her the chance to review on a dedicated page (again One Thing Per Page), gives her the chance to make the change.
+
+Here's another example. Maybe she chose the wrong nappies completely. Without givine her the chance to review, she ends up with the wrong product which is stressful enough and now she has to return it using time she doesn't have. And she still has no nappies.
+
+And it's also costly and time-consuming to the business, especially if they offer free returns. All of which is so avoidable.
+
+All in all, it's important to be honest upfront and put users in control.
+
+### Amending their order
+
+Each section in the flow is represented in the check page. They can edit any of those sections easily by clicking "change". When they do, they are taken to the dedicated page.
+
+This is one of the great things about One Thing Per Page. It allows users to jump back and forth easily. Page loads are fast, and each page has zero noise, providing the user with just what they asked for to make the necessary change.
+
+For example, if they want to update their delivery option to "Next Day" then they simply choose it, and the system should update that, and take the user right back to the Check pages for a final review.
+
+This is an important aspect of designing a Checkout flow using One Thing Per Page. As we collect information, we don't have to ask for it again and can send users to the most advanced step at any time reducing friction and in all likeliness, increasing conversion.
 
 ## Confirmatin page
 
+Once making a purchase, the experience is far from over.
+
+- Much like check page could have made mistake
+- Give the chance to cancel order and save phone calls and cost of del/returns
+- It's also a chance to have a positive confirmation screen
+- and get users to sign up if they haven't already done so.
 - Confirmation page (refer to gds confirmation pages perhaps)
 
 ## Guest checkout

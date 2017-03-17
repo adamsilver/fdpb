@@ -309,11 +309,9 @@ When we have a flow like this a step indicator is essential. Or is it - read abo
 
 ## Revealing a billing address if different from delivery.
 
-Checkbox is okay because its for state as well as value.
+Checkbox is okay because its for UI state as well as value.
 
 Can talk about specifying delivery address first or payment address first. Either way an address is necessary.
-
-Could we put a checkbox USE THIS FOR BILLING ON DELIVERY ADDRESS - probably not its a distraction at the wrong time.
 
 Can always use a smart default, so default it to checked on the payment page.
 

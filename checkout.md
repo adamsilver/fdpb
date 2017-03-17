@@ -291,23 +291,50 @@ This is an important aspect of designing a Checkout flow using One Thing Per Pag
 
 ## Confirmatin page
 
-Once making a purchase, the experience is far from over.
+Here is the confirmation page:
 
-- Much like check page could have made mistake
-- Give the chance to cancel order and save phone calls and cost of del/returns
-- It's also a chance to have a positive confirmation screen
-- and get users to sign up if they haven't already done so.
-- Confirmation page (refer to gds confirmation pages perhaps)
+[!](etc)
+
+There is no form on this page, so is somewhat out of scope for this book dedicated to designing forms. But we'll discuss some of the points briefly here anyway, because confirmation pages come at the end of a form. And we must not dismiss their importance.
+
+They actually serve many purposes and without one, it leaves users confused. In the case of buying something, they may wonder whether their order went through successfully or not.
+
+The GDS service manual states[^4] each service must have a confirmation page with the following:
+
+* a reference number (if there is one)
+* details of what happens next and when
+* contact details for the service
+* links to information or services that users are likely to need next
+* a link to your feedback page, where users can tell you what they think of the service
+* a way for users to save a record of the transaction (for example, as a PDF)
+
+Whilst GDS isn't selling something to its users, all of this is applicable to us. But GDS don't cover everything our checkout may need in order to create the best experience for our users.
+
+After the user places an order, their experience is, in many respects, just beginning. We need to continue the relationship, provide users with what they need and so forth.
+
+Much like the Check page, a user may have made a mistake so giving them a way to cancel the order is important. If we do this online, we make this quick for the user, and cheap for the business. So if you can offer this in your confirmation screen.
+
+If users aren't signed in, this is a perfect opportunity to have users sign up by explaining the value they may get in doing so. It's up to you and your business to provide value though. Perhaps it's money off their next order, but it can be something more simple, like tracking orders and enjoying a faster checkout experience next time.
+
+We'll be discussing the merits of being able to checkout anonymously now.
 
 ## Guest checkout
 
-We've talked already about having to ask for it, or explaining why. But guest checkout is the number one thing. Whatever you do don't ask users to sign up before checking out unless you absolutely have to. Research shows that 300 million dollar button[^].
+Sometimes, online shops force users to sign up before they are able to place an order. As Jared Spool explains in The 300 Million Dollar Button, this is just about the worst thing you can do.
 
-## Visual step indicator
+It puts unnecessary friction up front, for no gain at this time. Remember, when we said before that we would offer a faster checkout experience next time? That's because we have the user's details in order to do this.
+
+But the first time they place an order, we don't have those details. This is why, throughout this book we have to constantly ask ourselves, why are we asking for it?
+
+In this case, why are we asking users to sign in first? The answer to that question is invariably uncompelling.
+
+So whatever you do, don't do this. By all means get users to sign up, by giving them genuine value, but do so on the confirmation page.
+
+## Visual step indicator TODO
 
 When we have a flow like this a step indicator is essential. Or is it - read about GDS guidelines.
 
-## Revealing a billing address if different from delivery.
+## Revealing a billing address if different from delivery TODO
 
 Checkbox is okay because its for UI state as well as value.
 
@@ -315,17 +342,17 @@ Can talk about specifying delivery address first or payment address first. Eithe
 
 Can always use a smart default, so default it to checked on the payment page.
 
-## Smart defaults and one click?
+## Smart defaults and one click TODO
 
 - one click and smart defaults is a benefit, tell the user at the end of guest checkout.
 - default delivery option/method
 - once information is stored (default del and pay) can jump to conf
 
-## Pressing back
+## Pressing back TODO
 
 - post redirect get
 
-## Order summary (check answers)
+## Order summary TODO
 
 - At the bottom of each screen on mobile etc.
 
@@ -343,3 +370,4 @@ In upcoming chapters we'll build on these patterns by solving different problems
 
 [^west]:https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/
 [^44]:https://baymard.com/checkout-usabilityworld-wide-web-not-wealthy-western-web-part-1/
+[^4]:https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/

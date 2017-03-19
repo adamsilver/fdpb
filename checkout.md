@@ -255,6 +255,32 @@ Oyvind is not a designer per se, but his input into the design is of vital impor
 
 Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal and it is most certainly applicable to form design too.
 
+### Revealing the billing address
+
+When a card is validated, it needs an address. Most often, people's billing address is the same as the delivery address which is why we expose a checkbox asking the user to confirm whether it's the same as their delivery address.
+
+We do this to save users having to retype the same address which is a source of friction. We ask the question to ourselves, do we have to ask for it? and the answer is maybe.
+
+Because the answer is *maybe* we can provide a smart default. Smart defaults is something we'll discuss again in this chapter as well as upcoming chapters. We mark the checkbox by default, because for most people, it will be the same.
+
+This is another important principle: solve the most common problems first. We also offer users to uncheck the checkbox and in doing so, with Javascript we reveal the address form.
+
+Time for some more Javascript and some ARIA to boot to help screen readers understand what's happening:
+
+```javascript
+	// find checkbox
+	// see if checked as state comes from server
+	// .enhanced .billingAddress { hidden }
+	// listen to click
+	// if checked
+	// if not checked
+	// aria attributes etc.
+```
+
+Like is often the case with Progressive Enhancement, we reuse what we have already as UI controls to enhance. That is, we use the checkbox click even to trigger the showing or hiding of the form.
+
+TODO: If we talk about address lookup, which we should, we need to mention the use of it again here and the UI pattern around it.
+
 ## Check details page
 
 Here is the check details page:
@@ -356,14 +382,6 @@ Again, following GDS principles, if we need one, then we don't want to inherit t
 ![Local Image](./images/Progress_indicators_1.png)
 
 This scales well, is simple and doesn't suffer from many of the problems discussed already.
-
-## Revealing a billing address if different from delivery TODO
-
-Checkbox is okay because its for UI state as well as value.
-
-Can talk about specifying delivery address first or payment address first. Either way an address is necessary.
-
-Can always use a smart default, so default it to checked on the payment page.
 
 ## Smart defaults and one click TODO
 

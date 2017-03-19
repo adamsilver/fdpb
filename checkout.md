@@ -314,25 +314,48 @@ After the user places an order, their experience is, in many respects, just begi
 
 Much like the Check page, a user may have made a mistake so giving them a way to cancel the order is important. If we do this online, we make this quick for the user, and cheap for the business. So if you can offer this in your confirmation screen.
 
-If users aren't signed in, this is a perfect opportunity to have users sign up by explaining the value they may get in doing so. It's up to you and your business to provide value though. Perhaps it's money off their next order, but it can be something more simple, like tracking orders and enjoying a faster checkout experience next time.
+If users aren't signed in, this is a perfect opportunity to have users sign up by explaining the value they may get in doing so. It's up to you and your business to provide value though. Perhaps it's money off their next order, but it can be something more simple, like offering the capability to track orders or enjoying a speedier checkout experience next time.
 
-We'll be discussing the merits of being able to checkout anonymously now.
+We'll discuss the merits of being able to checkout anonymously next.
 
 ## Guest checkout
 
-Sometimes, online shops force users to sign up before they are able to place an order. As Jared Spool explains in The 300 Million Dollar Button, this is just about the worst thing you can do.
+Sometimes, online shops force users to sign up before they are able to place an order. As Jared Spool explains in The 300 Million Dollar Button[^], this is just about the worst thing you can do.
 
-It puts unnecessary friction up front, for no gain at this time. Remember, when we said before that we would offer a faster checkout experience next time? That's because we have the user's details in order to do this.
+It puts unnecessary friction up front, for no gain at this point in time. Remember when we said before that we would offer a faster checkout experience next time? That's because we have the user's details in order to do this.
 
 But the first time they place an order, we don't have those details. This is why, throughout this book we have to constantly ask ourselves, why are we asking for it?
 
-In this case, why are we asking users to sign in first? The answer to that question is invariably uncompelling.
+In this case, why are we asking users to register first? The answer to that question is invariably uncompelling.
 
-So whatever you do, don't do this. By all means get users to sign up, by giving them genuine value, but do so on the confirmation page.
+By all means get users to sign up, by giving them genuine value, but do so on the confirmation page. We should always be looking to lower barriers, and we can only do that by asking ourselves these questions consistently and rigorously.
 
 ## Visual step indicator TODO
 
-When we have a flow like this a step indicator is essential. Or is it - read about GDS guidelines.
+Age old advice would tell you that we should give users knowledge of where they are in the process. But this is not necessarily the case.
+
+![Local Image](./images/Progress_indicators_2.png)
+
+Much like the One Thing Per Page guidance, it's good practice to *start* without a progress indiciator, and test to see if one is really needed. It's much easier to add features than it is to remove them down the line.
+
+Again, I refer to GDS and their testing has shown that users don't really appreciate them and their existence serves as noise in many respects. GDS says that:
+
+- are often not noticed
+- take up lots of space
+- don’t scale well on small screens
+- can distract and confuse some people
+- make it hard to write good labels for the steps
+- make it hard to handle conditional sections
+
+Quite logical I would say.
+
+Also, it's not as if I haven't been banging the point home about asking the right questions. If we only ask for the essential information at the right time, our forms should be short and really easy to complete anyway. This leaves little need, at least in theory, for a progress indicator.
+
+Again, following GDS principles, if we need one, then we don't want to inherit the aformentioned list of problems. In which case, start simple with just 3/5 as follows:
+
+![Local Image](./images/Progress_indicators_1.png)
+
+This scales well, is simple and doesn't suffer from many of the problems discussed already.
 
 ## Revealing a billing address if different from delivery TODO
 

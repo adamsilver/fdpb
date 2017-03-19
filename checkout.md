@@ -356,15 +356,13 @@ In this case, why are we asking users to register first? The answer to that ques
 
 By all means get users to sign up, by giving them genuine value, but do so on the confirmation page. We should always be looking to lower barriers, and we can only do that by asking ourselves these questions consistently and rigorously.
 
-## Visual step indicator TODO
+## Progress indicators
 
-Age old advice would tell you that we should give users knowledge of where they are in the process. But this is not necessarily the case.
+Age old advice would tell you that we should give users knowledge of where they are in the process. But this is not necessarily the case. There is little data that shows including one is valuable in anyway.
 
 ![Local Image](./images/Progress_indicators_2.png)
 
-Much like the One Thing Per Page guidance, it's good practice to *start* without a progress indiciator, and test to see if one is really needed. It's much easier to add features than it is to remove them down the line.
-
-Again, I refer to GDS and their testing has shown that users don't really appreciate them and their existence serves as noise in many respects. GDS says that:
+GDS have shown that they:
 
 - are often not noticed
 - take up lots of space
@@ -373,15 +371,17 @@ Again, I refer to GDS and their testing has shown that users don't really apprec
 - make it hard to write good labels for the steps
 - make it hard to handle conditional sections
 
-Quite logical I would say.
+For these reasons, and much lkike the advice with One Thing Per Page, it's better to start without one, and test to see if one is actually needed. It's much easier to add features down the line than it is to remove them. Less costly that way and easier to measure.
 
-Also, it's not as if I haven't been banging the point home about asking the right questions. If we only ask for the essential information at the right time, our forms should be short and really easy to complete anyway. This leaves little need, at least in theory, for a progress indicator.
+If something is questionable, then by including it, it act as visual noise and makes the page slower, not to mention the aformentioned list above.
 
-Again, following GDS principles, if we need one, then we don't want to inherit the aformentioned list of problems. In which case, start simple with just 3/5 as follows:
+Also, if we follow the previous guidance, then we'll have already ensured that we're asking the essential questions, with clear labelling and excellent error message handling. In which case, checking out should be so quick and friction-free anyway.
+
+Research might show you need one. If so go with a simple version first and see how it fairs:
 
 ![Local Image](./images/Progress_indicators_1.png)
 
-This scales well, is simple and doesn't suffer from many of the problems discussed already.
+This simple progress indicator may well be more than enough and doesn't suffer from many of the challenges and problems of a more verbose, traditional indicator.
 
 ## Smart defaults and one click TODO
 

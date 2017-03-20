@@ -163,6 +163,10 @@ The field width provides a clue as to the length of content required for input. 
 
 You can apply these principles to other form fields where the length of the field is known. For example, you wouldn't want to apply this principle to street and town because those values could be any length.
 
+### Address lookup enhancement
+
+TODO
+
 ## Delivery options
 
 Here is our delivery address form:
@@ -303,6 +307,8 @@ Here's another example. Maybe she chose the wrong nappies completely. Without gi
 
 And it's also costly and time-consuming to the business, especially if they offer free returns. All of which is so avoidable.
 
+Still, there's more to it. This page, which at first seems like an extra page is the very reason we can eradicate the need to step through all the pages before it. But I'll leave you on a cliff edge to find out more shortly in the section about Smart Defaults.
+
 All in all, it's important to be honest upfront and put users in control.
 
 ### Amending their order
@@ -383,21 +389,23 @@ Research might show you need one. If so go with a simple version first and see h
 
 This simple progress indicator may well be more than enough and doesn't suffer from many of the challenges and problems of a more verbose, traditional indicator.
 
-## Smart defaults and one click TODO
+## Smart defaults
 
-- one click and smart defaults is a benefit, tell the user at the end of guest checkout.
-- default delivery option/method
-- once information is stored (default del and pay) can jump to conf
+Checkboxes and radio buttons allow us to use smart defaults which is exactly what we've done with *delivery options* and specifying that the *billing address is the same as the delivery address*. 
 
-## Pressing back TODO
+But we can do more than this, particulary for users that are ordering for a second time (and have signed up). Remember when I left you on a cliffhanger with the usefulness of the Check Details page? Now we're getting to the exciting end of the movie. I'm thinking of giving up on the analogies now you'll be glad to know.
 
-- post redirect get: graham
+Assuming we have encouraged users to sign up, our system will already have the user's information. So we can now speed up checkout massively for most people by sending them all the way to the Check Details page, giving users the chance to review and make amendments (as we've already discussed). We've reduced the number of interactions to potentially one.
+
+That's a friction free checkout experience.
 
 ## Order summary TODO
 
 - At the bottom of each screen on mobile etc.
 
-## Address lookup enhancement TODO
+## Pressing back TODO
+
+- post redirect get: graham
 
 ## Summary
 

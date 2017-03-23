@@ -191,16 +191,19 @@ Here is the HTML code:
 </form>
 ```
 
-### Introducing the fieldset, legend and radio control
+### Grouping controls with fieldset and legend
 
-This our first form that needs a `fieldset` and `legend`. These elements are used to group fields together, which is typically the case for checkboxes and in this case radio buttons. We are using radio buttons because we have two mutually exclusive options.
+This is the first form we've encountered that needs grouping both semantically and visually. This is because the radio buttons represent delivery options. 
 
-Without the `fieldset` and `legend`:
-
-* visual users won't be able to understand what the options necessarily pertain to; and
-* screen readers won't announce the caption when the user is in forms mode.
+Combining the fieldset and legend is inclusive design pattern. Visually the text provides an overarching description for the group. But also, in most screen readers, this will result in the legend's text being combined with each radio button's label.
 
 For these reasons, we will always use a these elements when we need to group related controls together, both visually and semantically.
+
+You might say that all fields could be grouped in some way. For example, we could wrap the registration form from the previous chapter in a fieldset and legend. Whilst this is valid it creates unnecessary noise to fields that are fully understandable anyway.
+
+It's easy to think of patterns as "right" and "wrong" but, as with most design decisions, we should apply solutions based on the context of the problem at hand. This applies to the use of the fieldset and legend.
+
+We should use them when required. We will see other examples of their usage in upcoming chapters.
 
 ### Provide a sensible default
 

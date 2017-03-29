@@ -165,7 +165,15 @@ You can apply these principles to other form fields where the length of the fiel
 
 ### Address lookup enhancement
 
-TODO
+I always advise enhancements to be used with careful consideration and only after proving that the enhancement really is an enhancement to the end user. This is because quite often, the so-called degraded experience (normal form fields) work better anyway. And when we enhance we need to think about accesssibility for all.
+
+With that in mind, a possible enhancement we can use here is to use Capture+ or an equivalent service that allows users to enter their address very quickly.
+
+Capture+ has many options, but on a recent project, we enhanced the address form to show just a single text control. Once the user starts typing the first line of their address, they can easily select the right one from the list. Once they do this, the remaining fields display with the populated values.
+
+![Image here](/etc/)
+
+The user can click *Enter manually* in order to bypass the enhancement, in the unlikely event it can't find the address, or if they prefer to type it out fully themselves.
 
 ## Delivery options
 
@@ -406,10 +414,6 @@ That's a friction free checkout experience.
 
 - At the bottom of each screen on mobile etc.
 
-## Pressing back TODO
-
-- post redirect get: graham
-
 ## Summary
 
 We've made it to the end of chapter 2, but we have actually covered the majority of issues we face when designing forms. Even if you stopped here and implemented what you now know, the form experiences you'll design will signficantly improve in quality for your users.
@@ -420,8 +424,7 @@ In upcoming chapters we'll build on these patterns by solving different problems
 
 ## Footnotes
 
-- autocomplete fields attribute - include here, find article??
-
+[^autocomplete fields attribute]:(https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/)
 [^west]:https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/
 [^44]:https://baymard.com/checkout-usabilityworld-wide-web-not-wealthy-western-web-part-1/
 [^4]:https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/

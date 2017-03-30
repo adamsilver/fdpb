@@ -201,7 +201,7 @@ Here is the HTML code:
 
 ### Grouping controls with fieldset and legend
 
-This is the first form we've encountered that needs grouping both semantically and visually. This is because the radio buttons represent delivery options. 
+This is the first form we've encountered that needs grouping both semantically and visually. This is because the radio buttons represent delivery options.
 
 Combining the fieldset and legend is inclusive design pattern. Visually the text provides an overarching description for the group. But also, in most screen readers, this will result in the legend's text being combined with each radio button's label.
 
@@ -272,7 +272,7 @@ Proving assumptions are correct or otherwise, is an essential weapon in a design
 
 ### Revealing the billing address
 
-When a card is validated, it needs an address. Most often, people's billing address is the same as the delivery address which is why we expose a checkbox asking the user to confirm whether it's the same as their delivery address.
+When a card is validated, it needs an address. Most often, people's billing address is the same as the delivery address, which is why we expose a checkbox asking the user to confirm whether it's the same as their delivery address.
 
 We do this to save users having to retype the same address which is a source of friction. We ask the question to ourselves, do we have to ask for it? and the answer is maybe.
 
@@ -283,18 +283,25 @@ This is another important principle: solve the most common problems first. We al
 Time for some more Javascript and some ARIA to boot to help screen readers understand what's happening:
 
 ```javascript
-	// find checkbox
-	// see if checked as state comes from server
-	// .enhanced .billingAddress { hidden }
-	// listen to click
-	// if checked
-	// if not checked
-	// aria attributes etc.
+	var checkbox = document.getElementById('TheID');
+	var billingAddressContainer = document.getElementById('etc');
+	checkbox.addEventListener('click', onCheckboxClick, false);
+
+	function onCheckboxClick(e) {
+		if(checkbox.checked) {
+			billingAddressContainer.classList.add('hidden');
+			// aria
+		} else {
+			billingAddressContainer.classList.remove('hidden');
+			// aria
+		}
+	}
+	// .enhanced .billingAddress-isHidden { display: none }
 ```
 
 Like is often the case with Progressive Enhancement, we reuse what we have already as UI controls to enhance. That is, we use the checkbox click even to trigger the showing or hiding of the form.
 
-TODO: If we talk about address lookup, which we should, we need to mention the use of it again here and the UI pattern around it.
+Once again, we can use the same enhancement for the delivery address for the billing address. This is what design patterns are for. So that we can reuse them and so that the familiarity around them helps users.
 
 ## Check details page
 
@@ -402,7 +409,7 @@ This simple progress indicator may well be more than enough and doesn't suffer f
 
 ## Smart defaults
 
-Checkboxes and radio buttons allow us to use smart defaults which is exactly what we've done with *delivery options* and specifying that the *billing address is the same as the delivery address*. 
+Checkboxes and radio buttons allow us to use smart defaults which is exactly what we've done with *delivery options* and specifying that the *billing address is the same as the delivery address*.
 
 But we can do more than this, particulary for users that are ordering for a second time (and have signed up). Remember when I left you on a cliffhanger with the usefulness of the Check Details page? Now we're getting to the exciting end of the movie. I'm thinking of giving up on the analogies now you'll be glad to know.
 

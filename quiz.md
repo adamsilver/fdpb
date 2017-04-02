@@ -7,7 +7,8 @@
 
 ## Radios and fieldsets
 
-Explaining the need for this.
+- Explaining the need for this.
+- Errors
 
 ## Survey
 

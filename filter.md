@@ -26,3 +26,5 @@ One thing I can think of is that a user doesn't know they have to submit.  This 
 This isn't some crazy anti pattern "if u ha e to explain u have failed". Just highlight the button after say 2 seconds for those that seem confused after making their selection.
 
 Everything else is a nonsense approach. Save space. Branding. Less clicks etc.
+
+- select box problem?

@@ -417,9 +417,17 @@ Assuming we have encouraged users to sign up, our system will already have the u
 
 That's a friction free checkout experience.
 
-## Order summary TODO
+## Order summary
 
-- At the bottom of each screen on mobile etc.
+When we go shopping in a physical shop we have everything we need through the experience. It's all close to hand. Evene when we line up to pay, we can still see everything we're buying.
+
+The order summary panel provides this functionality digitally. Including it throughout the checkout process keeps users informed and in control. Which in turn builds trust and keeps them moving.
+
+Not including one puts the user at a severe disdavantage and as soon as they forget what they are buying and the choices they've made they are likely to drop out.
+
+On small screens we put the order summary below the form. On bigger screens we have an opportunity put it beside the form as you can see below:
+
+![](Image)
 
 ## Summary
 

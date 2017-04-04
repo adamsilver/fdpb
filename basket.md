@@ -6,7 +6,7 @@ Need one big form.
 
 ## Multiple Submit buttons
 
-Update vs save and continue.
+Update versus save and continue.
 
 If lots of individual forms, and no bulk edit, then checkout is a link not a button. Buttons not links hand cursor. But call to action. check heydons book on that. Slightly different design but still obvious call to action.
 

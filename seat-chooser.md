@@ -126,6 +126,7 @@ Questions:
 2. Why aria atomic?
 
 Bits:
+- http://ljwatson.github.io/design-patterns/autocomplete/js/autocomplete.js
 - https://alphagov.github.io/accessible-typeahead/examples/
 - https://github.com/alphagov/accessible-typeahead/blob/dff68ee25fe0c346f410f353035b23d721949ee3/accessibility-criteria.md
 

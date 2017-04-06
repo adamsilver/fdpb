@@ -125,7 +125,7 @@ Theo notes and questions:
 -The reason it has to empty itself is because I didn’t know about aria-atomic http://pauljadam.com/demos/aria-atomic-relevant.html
 -JS OPTION: The autoselect property will select the first option whenever the user types in something that produces results.
 
-1. Why ios check?
+1. Why ios check? To prevent closing the menu when users dismiss the on-screen keyboard. I spent a few days trying to come with alternative methods (lots involving checking the size of the browser window) but since iOS 10 I don’t think there is an alternative way, which is very frustrating
 2. We can do the space thing. When focused on suggestions (not on text control) pressing space should select the option. So should pressing enter (like u said). When in the text control, space should be a normal space and enter should submit the form entirely.
 
 Bits:

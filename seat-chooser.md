@@ -63,7 +63,7 @@ b) searching, takes relatively a long time to perform requiring a server round t
 
 Again we can do better, particularly as an enhancement.
 
-### Typeahead
+### Typeahead combobox
 
 What we really need is a textbox and select menu rolled into one. In HTML5 there is the datalist but it is extremely buggy[^caniuse] otherwise I would most certainly be advising it's use.
 
@@ -82,13 +82,13 @@ Code:
 <div class="typeahead-wrapper">
 	<input class="typeahead-hint" readonly="true" tabindex="-1">
 	<input 
-		aria-owns="typeahead-default-listbox" 
-		autocomplete="off" 
-		class="typeahead-input" 
-		id="typeahead-default" 
-		name="input-typeahead" 
-		role="combobox" 
 		type="text"
+		name="input-typeahead" 
+		id="typeahead-default" 
+		autocomplete="off"
+		role="combobox" 
+		aria-owns="typeahead-default-listbox" 
+		aria-autocomplete="list"
 	>
 	<ul 
 		class="typeahead-menu typeahead-menu--hidden" 
@@ -102,28 +102,31 @@ Code:
 			Germany
 		</li>
 	</ul>
-	<div aria-live="polite" role="status" style="border: 0px; clip: rect(0px 0px 0px 0px); height: 1px; margin-bottom: -1px; margin-right: -1px; overflow: hidden; padding: 0px; position: absolute; white-space: nowrap; width: 1px;">
+	<div aria-live="polite" role="status" style="hidden stuff">
 		<span></span>
 	</div>
 </div>
 
-The reason it has to empty itself is because I didn’t know about aria-atomic http://pauljadam.com/demos/aria-atomic-relevant.html
+1. We give the textbox a role of `combobox` so that assistive devices know that it is a type ahead control. Not just a plain textbox/select box.
 
-[3:30]  
-The autoselect property will select the first option whenever the user types in something that produces results
+2. We give the suggestions a role of `listbox` and associate the suggestions with the combobox text control using `aria-owns`.
 
-[3:31]  
-The extra input is used to perfectly display a grey hint in the input field
+3. Each suggestion has a role of `option`. And each option has an `id` which is used to identify the currently active option with the combobox using `aria-activedescendant`.
 
-- role=combobox
-- aria-owns
-- role=listbox
-- role=option
-- aria-live
+4. There is also a dedicated live region with a role of `status` to announce updates to screen readers. E.g. 2 results are available. France (1 of 2) is selected.
 
-Questions:
+5. The extra input is used to *perfectly display a grey hint in the input field*.
+
+6. We give the text control an attribute of aria-autocomplete of `list` which means *a list of choices appears from which the user can choose.*
+
+7. As W3 states, aria-expanded indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. For us it's the *grouping element it controls* as it will indicate whether the suggestions are showing or not.
+
+Theo notes and questions:
+-The reason it has to empty itself is because I didn’t know about aria-atomic http://pauljadam.com/demos/aria-atomic-relevant.html
+-JS OPTION: The autoselect property will select the first option whenever the user types in something that produces results.
+
 1. Why ios check?
-2. Why aria atomic?
+2. We can do the space thing. When focused on suggestions (not on text control) pressing space should select the option. So should pressing enter (like u said). When in the text control, space should be a normal space and enter should submit the form entirely.
 
 Bits:
 - http://ljwatson.github.io/design-patterns/autocomplete/js/autocomplete.js

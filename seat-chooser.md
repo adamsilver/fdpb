@@ -1,14 +1,10 @@
 # Book a flight
 
-In the first two chapters we covered a lot of ground. Even if we finished our exploration here and implemented what we now know we would be in a good position and our users would thank us.
+In the first two chapters we covered a lot of ground. If we were to finish our exploration here and implemented what we know so far, our users would certainly be happier.
 
-But we certainly haven't covered everything. In this chapter we're going to discuss and analyse some lesser known but vitally important form patterns. And we're going to do this by designing a flight booking system.
+However, we're not going to finish here. We're going to tackle a very interesting, more niche problem. We're going to design a flight booking form.
 
-Booking a flight is a complex process. Because of this we're going to break it down and use One Thing Per Page once again. But we're not going to cover this aspect again. What's important is what we do on each screen.
-
-For brevity we'll also simplify the flow a little by not offering, for example *one way* tickets.
-
-Our flow will be as follows:
+Booking a flight is a complicated process. For brevity we'll simplify the flow, but this won't take away the primary points. Our flow will be as follows:
 
 1. Choose origin
 2. Choose destination
@@ -19,63 +15,56 @@ Our flow will be as follows:
 7. Choosing a seat
 8. Payment
 
-Let's dive in there is a lot to discuss.
-
 ## Choose desination
 
-The first thing users need to do is select a destination (and an origin). Without this information we can't offer the user any flights. There is a few things to discuss.
+The first thing users need to do is select a destination (and an origin). Without this information we can't offer the user any flights. The destination field could be a:
 
-We could design the destination field to be one of many types of control.
-
-1. Radio button group
-2. Select menu
-3. Text box (or type=search)
+1. radio buttons
+2. select box
+3. text box (`input type="search"`)
 
 ### Radio buttons
 
-We could use radio buttons but there are hundreds, if not thousands of destinations. It would be a huge page. The good thing about radio buttons is that we could use `cmd+f` but:
+We could use radio buttons but there are hundreds, if not thousands of destinations. It would be a huge page with a lot of scrolling. The good thing about radio buttons is that we could use `cmd+f` but:
 
 a) many users won't know about it's existence; 
 b) some browsers don't expose this capability particularly on mobile; and 
 c) ultimately, we shouldn't really on such an inconspicuous browser feature plug UX holes in our own design. We can surely do better.
 
-### Select menu
+### Select box
 
-In her talk Burn Your Select Tags[^] Alice Bartlett explains that select menus should be avoided wherever possible. This is something that Luke W also states in Dropdown menus are last resort[^lukew]. This is because:
+We could use a select box but like radio buttons they suffer from lots of scrolling and come with some additional problems.
+
+In her talk Burn Your Select Tags[^] Alice Bartlett explains that select boxes should be avoided wherever possible. This is something that Luke W also states in Dropdown menus are last resort[^lukew]. This is because:
 
 a) They hide choices and require a click just to see them;
 b) Some devices suppress the zoom of `option` overlays; and
 c) They aren't generally well understood.
 
-This is not about never using them, but use them sparingly. Fortunately, they are native and so they have a lot of accessibility features built in. But as choosing a destination is critical we owe it to ourselves to explore this further.
+This doesn't mean we should never ever use them, but we should do so consciously and when we have analysed all the options available to us. In this chapter we're going to do just that.
 
-### Text box (search)
+### Text box (`input type="search"`)
 
-We can use a regular text box, and allow users to search for a destination. We can use `type=search` which is a slightly-enhanced text box where:
+A regular text box (`input type="text"`) is an option for us but we could enhance the experience a by using a search box (`input type="search"`). In doing so the browser allows the user to clear the field easily either by tapping on the "x" or pressing *escape*.
 
-- You get a 'X' symbol at the end of the input/search box to clear texts in the box; and
-- Pressing 'Esc' key on keyboard also clears texts
+This is good when we have no idea what the user is going to search for. But we sort of do. Our flight booking servie offers a finite amount of destinations. Why let the user search, unassisted in order to arrive at a page that states something along the lines of *we don't offer that destination, choose another*?
 
-The problem with this is that:
-
-a) we don't allow users to select; meaning that they may search and get no results
-b) searching, takes relatively a long time to perform requiring a server round trip that again may result in no results (see A)).
-
-Again we can do better, particularly as an enhancement.
+In many respects we have regressed from the select box option above. At least users could guarantee a positive result. We can do better, certainly as an enhancement.
 
 ### Typeahead combobox
 
-What we really need is a textbox and select menu rolled into one. In HTML5 there is the datalist but it is extremely buggy[^caniuse] otherwise I would most certainly be advising it's use.
+What we really need is a textbox and select menu rolled into one. Up until recently there has been no such element for us to use. HTML5 gave us the promising `datalist` but unfortuntely, it is buggy[^caniuse].
 
-Because of that we need to use a relatively hefty amount of Javascript and ensure we don't lose accessibility needs in the process.
+Because of this we need to write our own custom form control using Javascript. I will provide solutions to this problem later, but first I think it's more important to understand the problem that any solution must think about, in order to ensure any component we create is as inclusive as possible.
 
-More importantly than the code itself is the requirements. GDS have an accessible typeahead in progress.
+Starting with a baseline experience, for those without Javascript capabilities, we need to offer our users either a text box or select box. As discussed earlier I think on balance it's better to go with a select box but depending on your situation a text box may be fine.
 
-Before we enhance our field with a typeahead though we first need to determine which of the above is our baseline experience. Either a text box or a select menu. Based on the above and your own situation I leave that as your decision.
+When our script executes successfully we'll need to to the following:
 
-Whichever way we go, we'll need to ensure that once we enhance it with script, that it becomes a text box.
-
-When the user types we'll need to reveal the results and expose those appropriately through ARIA attributes. And we'll need to ensure all of this works with the keyboard.
+1. Hide the select box.
+2. Create a text box with an `id` that matches the select box label.
+3. Works with the keyboard.
+4. Works with screen readers.
 
 Code:
 

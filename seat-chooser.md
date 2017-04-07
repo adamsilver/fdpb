@@ -87,7 +87,7 @@ Code:
 		<li id="typeahead-default-option--0" role="option" tabindex="-1">
 			France
 		</li>
-		<li id="typeahead-default-option--1" role="option" tabindex="-1">
+		<li id="typeahead-default-option--1" role="option" tabindex="-1" aria-selected="true">
 			Germany
 		</li>
 	</ul>
@@ -109,6 +109,10 @@ Code:
 6. We give the text control an attribute of aria-autocomplete of `list` which means *a list of choices appears from which the user can choose.*
 
 7. As W3 states, aria-expanded indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. For us it's the *grouping element it controls* as it will indicate whether the suggestions are showing or not.
+
+8. In combination with #7 we give the option aria-selected="true".
+
+9. We use autocomplete=off to stop browser interfering with our component.
 
 Theo notes and questions:
 -The reason it has to empty itself is because I didn’t know about aria-atomic http://pauljadam.com/demos/aria-atomic-relevant.html

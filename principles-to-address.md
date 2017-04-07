@@ -63,3 +63,6 @@ Jared Spool video about how got loads of sign ups but no sales. We want the righ
 ## Pressing back TODO
 
 - post redirect get: graham?
+
+
+- one thing per page then h1 and legend/label???

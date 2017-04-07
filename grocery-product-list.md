@@ -1,10 +1,5 @@
 # Grocery product list
 
-## Multiple add to basket
-
-- Perhaps a crossover with basket?
-- Multiple forms vs one big one
-
-##
-
-- Multiple actions; add selected to basket.
+- Multiple actions e.g. add selected.
+- Multiple forms (Cross-over with basket?)
+- Checkboxes and individual add buttons e.g. tesco.

@@ -27,4 +27,4 @@ This isn't some crazy anti pattern "if u ha e to explain u have failed". Just hi
 
 Everything else is a nonsense approach. Save space. Branding. Less clicks etc.
 
-- select box problem?
+- select box problem without submit button.

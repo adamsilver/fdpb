@@ -27,35 +27,37 @@ The first thing users need to do is select a destination (and an origin). Withou
 
 We could use radio buttons but there are hundreds, if not thousands of destinations. It would be a huge page with a lot of scrolling. The good thing about radio buttons is that we could use `cmd+f` but:
 
-a) many users won't know about it's existence; 
-b) some browsers don't expose this capability particularly on mobile; and 
-c) ultimately, we shouldn't really on such an inconspicuous browser feature plug UX holes in our own design. We can surely do better.
+a) many users won't know about it's existence;
+b) some browsers don't expose this capability particularly on mobile; and
+c) ultimately, we shouldn't rely on such an inconspicuous browser feature to fix issues with our own design. We can do better.
 
 ### Select box
 
 We could use a select box but like radio buttons they suffer from lots of scrolling and come with some additional problems.
 
-In her talk Burn Your Select Tags[^] Alice Bartlett explains that select boxes should be avoided wherever possible. This is something that Luke W also states in Dropdown menus are last resort[^lukew]. This is because:
+In her talk Burn Your Select Tags[^] Alice Bartlett explains that select boxes should be avoided. Luke Wobrelski echos this sentiment in his article Dropdown Menus Are A Last Resort[^lukew]. This is because:
 
-a) They hide choices and require a click just to see them;
+a) They hide choices and require a click to see them;
 b) Some devices suppress the zoom of `option` overlays; and
 c) They aren't generally well understood.
 
-This doesn't mean we should never ever use them, but we should do so consciously and when we have analysed all the options available to us. In this chapter we're going to do just that.
+This doesn't mean we should never ever use them, but we should do so consciously and when we have analysed all the options available to us. In this chapter, this is what we're going to do.
 
 ### Text box (`input type="search"`)
 
-A regular text box (`input type="text"`) is an option for us but we could enhance the experience a by using a search box (`input type="search"`). In doing so the browser allows the user to clear the field easily either by tapping on the "x" or pressing *escape*.
+A regular text box (`input type="text"`) is an option for us but we could enhance the experience by using a search box (`input type="search"`). In doing so the browser allows the user to clear the field more easily, by tapping on the "x" or pressing *escape*.
 
-This is good when we have no idea what the user is going to search for. But we sort of do. Our flight booking servie offers a finite amount of destinations. Why let the user search, unassisted in order to arrive at a page that states something along the lines of *we don't offer that destination, choose another*?
+This option is good when the amount of search options is completely dynamic and vast in size and breadth (like Amazon). But for this service, we have a finite amount destinations that we know confidently.
 
-In many respects we have regressed from the select box option above. At least users could guarantee a positive result. We can do better, certainly as an enhancement.
+Why let users search, unassisted, in order to arrive at a page that states something along the lines of *we don't fly to that destination*?
+
+In many respects we have regressed from the select box option above. At least users could guarantee a positive result. We can do better.
 
 ### Typeahead combobox
 
-What we really need is a textbox and select menu rolled into one. Up until recently there has been no such element for us to use. HTML5 gave us the promising `datalist` but unfortuntely, it is buggy[^caniuse].
+What we really need is a textbox and select menu rolled into one. Up until recently there has been no such element for us to use. HTML5 gave us the promising `datalist` but unfortuntely, it's buggy[^caniuse].
 
-Because of this we need to write our own custom form control using Javascript. I will provide solutions to this problem later, but first I think it's more important to understand the problem that any solution must think about, in order to ensure any component we create is as inclusive as possible.
+Because of this we need to write our own custom form control using Javascript. I will provide solutions to this problem later, but we should first understand the task we face when we embark upon creating our own custom and inclusive form component.
 
 Starting with a baseline experience, for those without Javascript capabilities, we need to offer our users either a text box or select box. As discussed earlier I think on balance it's better to go with a select box but depending on your situation a text box may be fine.
 
@@ -70,18 +72,18 @@ Code:
 
 <div class="typeahead-wrapper">
 	<input class="typeahead-hint" readonly="true" tabindex="-1">
-	<input 
+	<input
 		type="text"
-		name="input-typeahead" 
-		id="typeahead-default" 
+		name="input-typeahead"
+		id="typeahead-default"
 		autocomplete="off"
-		role="combobox" 
-		aria-owns="typeahead-default-listbox" 
+		role="combobox"
+		aria-owns="typeahead-default-listbox"
 		aria-autocomplete="list"
 	>
-	<ul 
-		class="typeahead-menu typeahead-menu--hidden" 
-		id="typeahead-default-listbox" 
+	<ul
+		class="typeahead-menu typeahead-menu--hidden"
+		id="typeahead-default-listbox"
 		role="listbox"
 		>
 		<li id="typeahead-default-option--0" role="option" tabindex="-1">
@@ -96,23 +98,25 @@ Code:
 	</div>
 </div>
 
-1. We give the textbox a role of `combobox` so that assistive devices know that it is a type ahead control. Not just a plain textbox/select box.
+1. We give the textbox a role of `combobox` so that assistive devices know that it is a type-ahead control. Not just a plain textbox or select box.
 
 2. We give the suggestions a role of `listbox` and associate the suggestions with the combobox text control using `aria-owns`.
 
 3. Each suggestion has a role of `option`. And each option has an `id` which is used to identify the currently active option with the combobox using `aria-activedescendant`.
 
-4. There is also a dedicated live region with a role of `status` to announce updates to screen readers. E.g. 2 results are available. France (1 of 2) is selected.
+4. There is also a dedicated live region with a role of `status` to announce updates to screen readers. For example *2 results are available. France (1 of 2) is selected*.
 
 5. The extra input is used to *perfectly display a grey hint in the input field*.
 
 6. We give the text control an attribute of aria-autocomplete of `list` which means *a list of choices appears from which the user can choose.*
 
-7. As W3 states, aria-expanded indicates whether the element, or another grouping element it controls, is currently expanded or collapsed. For us it's the *grouping element it controls* as it will indicate whether the suggestions are showing or not.
+7. We use aria-expanded to indicate whether the element, or another grouping element it controls, is currently expanded or collapsed. For us it's the *grouping element it controls* as it will indicate whether the suggestions are showing or not.
 
 8. In combination with #7 we give the option aria-selected="true".
 
 9. We use autocomplete=off to stop browser interfering with our component.
+
+---
 
 Theo notes and questions:
 -The reason it has to empty itself is because I didn’t know about aria-atomic http://pauljadam.com/demos/aria-atomic-relevant.html
@@ -136,6 +140,7 @@ Bits:
 - dates in the future
 - approximate dates
 - etc
+- always in advance, return date after outward date
 
 ### Using native datepicker
 
@@ -148,6 +153,7 @@ Bits:
 - Number field
 - Stepper
 - Not using select
+- making it clear what an adult is. easyjet in brackets.
 
 ## Confirming a flight
 

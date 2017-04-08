@@ -47,7 +47,18 @@ This doesn't mean we should never ever use them, but we should do so consciously
 
 A regular text box (`input type="text"`) is an option for us but we could enhance the experience by using a search box (`input type="search"`). In doing so the browser allows the user to clear the field more easily, by tapping on the "x" or pressing *escape*.
 
-This option is good when the amount of search options is completely dynamic and vast in size and breadth (like Amazon). But for this service, we have a finite amount destinations that we know confidently.
+![Image here](/etc/)
+
+HTML:
+
+```html
+	<div>
+		<label for="destination">Destination</label>
+		<input type="search" name="destination" id="destination">
+	</div>
+```
+
+This option is good when the amount of search options is completely dynamic and vast in size and breadth (like Amazon for example). But for this service, we have a finite amount of destinations that we know confidently.
 
 Why let users search, unassisted, in order to arrive at a page that states something along the lines of *we don't fly to that destination*?
 
@@ -55,80 +66,103 @@ In many respects we have regressed from the select box option above. At least us
 
 ### Typeahead combobox
 
-What we really need is a textbox and select menu rolled into one. Up until recently there has been no such element for us to use. HTML5 gave us the promising `datalist` but unfortuntely, it's buggy[^caniuse].
+What we really need is a textbox and select menu rolled into one. As the user types a destination suggestions will appear beneath allowing the user to autocomplete their input. This drastically saves time scrolling through a plethora of destinations.
 
-Because of this we need to write our own custom form control using Javascript. I will provide solutions to this problem later, but we should first understand the task we face when we embark upon creating our own custom and inclusive form component.
+Up until recently there has been no such element for us to use. HTML5 gave us the promising `datalist` but unfortuntely, it's signifcantly buggy[^caniuse].
 
-Starting with a baseline experience, for those without Javascript capabilities, we need to offer our users either a text box or select box. As discussed earlier I think on balance it's better to go with a select box but depending on your situation a text box may be fine.
+So we're left to build our own custom form component using Javascript. I will provide solutions to this problem later, but we should first understand the task we face when we embark upon creating our own custom and inclusive form component.
 
-When our script executes successfully we'll need to to the following:
+As discussed in A Registration Form, we'll need to design a core experience for those without Javascript. Our options are those we discussed above: a text box or a select box.
 
-1. Hide the select box.
-2. Create a text box with an `id` that matches the select box label.
-3. Works with the keyboard.
-4. Works with screen readers.
+On balance and for our given problem, it seems prudent to use the select box. But you may take a different tact depending on your exact problem domain.
 
-Code:
+Here is our destination control before we have implemented our custom Javascript combobox:
 
-<div class="typeahead-wrapper">
-	<input class="typeahead-hint" readonly="true" tabindex="-1">
+![Image here](/etc/)
+
+HTML:
+
+```html
+	<div>
+		<label for="destination">Destination</label>
+		<select name="destination" id="destination">
+			<option value="">Select</option>
+			<option value="france">France</option>
+			<option value="germany">Germany</option>
+			<option value="spain">Spain</option>
+		</select>
+	</div>
+```
+
+Here is custom combobox after Javascript kicks in:
+
+![Image here](/etc/)
+
+HTML:
+
+```html
+<div class="combobox">
+	<input class="combobox-hint" readonly="true" tabindex="-1">
 	<input
 		type="text"
-		name="input-typeahead"
-		id="typeahead-default"
+		name="destination"
+		id="destination"
 		autocomplete="off"
 		role="combobox"
-		aria-owns="typeahead-default-listbox"
+		aria-owns="destination-listbox"
 		aria-autocomplete="list"
+		aria-expanded="true"
+		class="combobox-textbox"
 	>
 	<ul
-		class="typeahead-menu typeahead-menu--hidden"
-		id="typeahead-default-listbox"
+		id="destination-listbox"
 		role="listbox"
+		class="combobox-menu combobox-menu-isHidden"
 		>
-		<li id="typeahead-default-option--0" role="option" tabindex="-1">
+		<li
+			id="combobox-menuOption--0"
+			role="option"
+			tabindex="-1">
 			France
 		</li>
-		<li id="typeahead-default-option--1" role="option" tabindex="-1" aria-selected="true">
+		<li
+			id="combobox-menuOption--1"
+			role="option"
+			tabindex="-1"
+			aria-selected="true">
 			Germany
 		</li>
 	</ul>
-	<div aria-live="polite" role="status" style="hidden stuff">
-		<span></span>
+	<div
+		aria-live="polite"
+		role="status"
+		class="combobox-liveRegion">
 	</div>
 </div>
+```
 
-1. We give the textbox a role of `combobox` so that assistive devices know that it is a type-ahead control. Not just a plain textbox or select box.
+This may look complicated but let's break it down and explain what's going on. There are four major HTML parts:
 
-2. We give the suggestions a role of `listbox` and associate the suggestions with the combobox text control using `aria-owns`.
+1. The text box
+2. A hidden text box
+3. A menu
+4. A live region
 
-3. Each suggestion has a role of `option`. And each option has an `id` which is used to identify the currently active option with the combobox using `aria-activedescendant`.
+This HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All those attributes are necessary in order to build an inclusive component that users can use with their mouse, (on-screen) keyboard and screen readers.
 
-4. There is also a dedicated live region with a role of `status` to announce updates to screen readers. For example *2 results are available. France (1 of 2) is selected*.
+Here's a brief run down:
 
-5. The extra input is used to *perfectly display a grey hint in the input field*.
+1. The textbox has a `role` of `combobox` so that assistive devices know that it's not a regular textbox or select box. And `aria-autocomplete` attribute is set to `list` which means *a list of choices appears from which the user can choose*. `aria-expanded` indicates the menu is in an expanded or collapsed state. `autocomplete` is set to `off` to stop the browser providing its own suggestions and interfering with ours.
 
-6. We give the text control an attribute of aria-autocomplete of `list` which means *a list of choices appears from which the user can choose.*
+2. We give the menu a role of `listbox` and associate it with the combobox control using `aria-owns`.
 
-7. We use aria-expanded to indicate whether the element, or another grouping element it controls, is currently expanded or collapsed. For us it's the *grouping element it controls* as it will indicate whether the suggestions are showing or not.
+3. Each option within the menu is given a `role` of `option`. And each option has an `id` which is used to identify which is active using `aria-activedescendant`. And `aria-selected` indicates which option is active.
 
-8. In combination with #7 we give the option aria-selected="true".
+4. The `div` at the bottom is a `live region` with a `role` of `status` to announce changes as the user types. For example, *2 results are available. France (1 of 2) is selected*.
 
-9. We use autocomplete=off to stop browser interfering with our component.
+5. The extra input is used to *perfectly display a grey hint in the input field* with CSS.
 
----
-
-Theo notes and questions:
--The reason it has to empty itself is because I didn’t know about aria-atomic http://pauljadam.com/demos/aria-atomic-relevant.html
--JS OPTION: The autoselect property will select the first option whenever the user types in something that produces results.
-
-1. Why ios check? To prevent closing the menu when users dismiss the on-screen keyboard. I spent a few days trying to come with alternative methods (lots involving checking the size of the browser window) but since iOS 10 I don’t think there is an alternative way, which is very frustrating
-2. We can do the space thing. When focused on suggestions (not on text control) pressing space should select the option. So should pressing enter (like u said). When in the text control, space should be a normal space and enter should submit the form entirely.
-
-Bits:
-- http://ljwatson.github.io/design-patterns/autocomplete/js/autocomplete.js
-- https://alphagov.github.io/accessible-typeahead/examples/
-- https://github.com/alphagov/accessible-typeahead/blob/dff68ee25fe0c346f410f353035b23d721949ee3/accessibility-criteria.md
+I built my own version[^] of this drawing on both GDS's *Accessible Typeahead*[^] of which they used Leonie Watson's accessible Autocomplete[^]. Feel free to use and check any of these out or build your own if need be using the above specification to guide you.
 
 ## Choosing a date
 
@@ -171,3 +205,12 @@ Bits:
 [^]:(https://www.nngroup.com/articles/drop-down-menus-use-sparingly/)
 [^]:(https://www.slideshare.net/cjforms/design-patterns-in-government-2016)
 [^buggy]:(http://caniuse.com/#feat=datalist)
+[^GDS type]:(https://alphagov.github.io/accessible-typeahead/)
+[^leonie]:(http://ljwatson.github.io/design-patterns/autocomplete/)
+
+---
+
+## Typeahead outstanding notes
+
+- Why ios check? To prevent closing the menu when users dismiss the on-screen keyboard. I spent a few days trying to come with alternative methods (lots involving checking the size of the browser window) but since iOS 10 I don’t think there is an alternative way, which is very frustrating
+- https://github.com/alphagov/accessible-typeahead/blob/dff68ee25fe0c346f410f353035b23d721949ee3/accessibility-criteria.md

@@ -1,18 +1,16 @@
 # Book a flight
 
-In the first two chapters we covered a lot of ground. If we were to finish our exploration here and implemented what we know so far, our users would certainly be happier.
+In only two chapters you'd be forgiven for thinking *there can't be too much more to know*. You'd be forgiven but you wouldn't be right. We're going to continue our adventure by analysing and designing a flight booking system.
 
-However, we're not going to finish here. We're going to tackle a very interesting, more niche problem. We're going to design a flight booking form.
+On the face of it, this is a niche problem&mdash;certainly less common than a Registration and Checkout forms. However, every topic within this chapter is an interesting one with tips that we can use in other forms.
 
-Booking a flight is a complicated process. For brevity we'll simplify the flow, but this won't take away the primary points. Our flow will be as follows:
+Booking a flight is a relatively long and complicated process. For brevity we'll simplify the flow a little bit. Our flow will be as follows:
 
-1. Choose origin
-2. Choose destination
-3. Choose departure date
-4. Choose return date
+1. Choose origin/destination
+3. Choose departure/return date
 5. Choose passengers
 6. Confirming flight
-7. Choosing a seat
+7. Choosing where to sit
 8. Payment
 
 ## Choose desination
@@ -166,15 +164,14 @@ I built my own version[^] of this drawing on both GDS's *Accessible Typeahead*[^
 
 ## Choosing a date
 
-- https://medium.com/samsung-internet-dev/making-input-type-date-complicated-a544fd27c45a
+In his article Making Input Type Date Complicated[^PPK], PPK says that all too often designers and developers make things complicated when it comes to offering users the ability to enter a date.
 
 ### Different types of date
 
 - Date of birth
 - dates in the future
 - approximate dates
-- etc
-- always in advance, return date after outward date
+- always in advance, return date after departure date
 
 ### Using native datepicker
 
@@ -184,20 +181,37 @@ I built my own version[^] of this drawing on both GDS's *Accessible Typeahead*[^
 
 ## Choosing passengers
 
-- Number field
-- Stepper
-- Not using select
-- making it clear what an adult is. easyjet in brackets.
+The next thing the user needs to do is choose how many passengers within each classification will be booked on the flight. That depends on the classfication categories.
+
+Before we get to the categories themselves, we first need to decide what type of form control to use. We could use a select box with options 1-9 to choose from, but we've already noted above that the select box is not the friendliest of controls.
+
+This leaves us with a text box. But we don't have to rely on the standard text box. We can use HTML5's `number` field. This has a few benefits:
+
+1. On mobile it will present a special keyboard with numbers on it, making it a very quick interaction.
+2. On desktop it contains up and down arrows that make quick adjustments easy with the mouse.
+3. We can constrain the input to be a minimum of 0 and a maximum of whatever the maximum amount of tickets is for our service. Let's say 9.
+
+There is just one potentially small problem with the number field. It's that the up and down arrows are very small. We can enhance those by first hiding them with CSS and then implementing our own increment and decrement functions in Javascript:
+
+```JS
+Code here
+```
+
+The only thing that remains is the classifications. The important thing here is the clarification of what exactly an adult, child and baby is. We can utilise the hint pattern that we used in the previous two chapters.
 
 ## Confirming a flight
 
-- Radios again?
+Once the user has chosen their requirements, and assuming there are tickets available, they will see a list of flights going out. As the user is booking one flight, we'll present the results as radio buttons.
+
+![Image here](/etc/)
+
+Within the label we can put all the pertinet information. Price and flight times etc. Clicking continue stores their choice and takes the user to the next step.
 
 ## Choosing a seat
 
 - Checkboxes
 - Nested fieldset and then don't need appointment booking?
-- a11y
+- Only being able to select a certain number of seats.
 
 ## Footnotes
 
@@ -207,6 +221,7 @@ I built my own version[^] of this drawing on both GDS's *Accessible Typeahead*[^
 [^buggy]:(http://caniuse.com/#feat=datalist)
 [^GDS type]:(https://alphagov.github.io/accessible-typeahead/)
 [^leonie]:(http://ljwatson.github.io/design-patterns/autocomplete/)
+[^ppk]:(https://medium.com/samsung-internet-dev/making-input-type-date-complicated-a544fd27c45a)
 
 ---
 

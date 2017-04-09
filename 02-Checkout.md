@@ -394,17 +394,17 @@ Sometimes, online shops force users to sign up before they are able to place an 
 
 It puts unnecessary friction up front, for no gain at this point in time. Remember when we said earlier that we would offer a faster checkout experience next time? That's because we have the user's details in order to do this.
 
-But the first time they place an order, we don't have those details. This is why, throughout this book we have to constantly ask ourselves, why are we asking for it?
+But the first time they place an order, we don't have those details. This is why we religiously ask ourselves *why are we asking for it?*
 
 In this case, why are we asking users to register first? The answer to that question is invariably uncompelling.
 
-By all means get users to sign up, by giving them genuine value, but do so on the confirmation page. We should always be looking to lower barriers, and we can only do that by asking ourselves these questions consistently and rigorously.
+By all means get users to sign up, by giving them genuine value, but do so on the confirmation page. We should always be looking to lower barriers, and we can only do that by asking ourselves these questions on a regular basis.
 
 ## Progress indicators
 
 Age old advice would tell you that we should give users knowledge of where they are in the process. But this is not necessarily the case. There is little data that shows including one is valuable in anyway.
 
-![Local Image](./images/Progress_indicators_2.png)
+![Progress indicator](./images/Progress_indicators_2.png)
 
 GDS have shown that they:
 
@@ -415,47 +415,49 @@ GDS have shown that they:
 - make it hard to write good labels for the steps
 - make it hard to handle conditional sections
 
-For these reasons, and much lkike the advice with One Thing Per Page, it's better to start without one, and test to see if one is actually needed. It's much easier to add features down the line than it is to remove them. Less costly that way and easier to measure.
+For these reasons, it's better to start without one, and test to see if one is actually needed. It's much easier to add features down the line than it is to remove them. Less costly that way and easier to measure.
 
-If something is questionable, then by including it, it act as visual noise and makes the page slower, not to mention the aformentioned list above.
+If something is questionable, then by including it, it acts as visual noise and makes the page slower.
 
-Also, if we follow the previous guidance, then we'll have already ensured that we're asking the essential questions, with clear labelling and excellent error message handling. In which case, checking out should be so quick and friction-free anyway.
+Also, if we follow the previous guidance, then we'll have already ensured that we're asking the essential questions, with clear labels and error messages. In which case, checking out should be so quick and friction-free anyway.
 
-Research might show you need one. If so go with a simple version first and see how it fairs:
+If, however, research shows you need one, go with a simple version first:
 
 ![Local Image](./images/Progress_indicators_1.png)
 
-This simple progress indicator may well be more than enough and doesn't suffer from many of the challenges and problems of a more verbose, traditional indicator.
+This progress indicator may well be enough and doesn't suffer from many of the challenges and problems of a more verbose, traditional indicator.
 
 ## Smart defaults
 
-Checkboxes and radio buttons allow us to use smart defaults which is exactly what we've done with *delivery options* and specifying that the *billing address is the same as the delivery address*.
+As we've already discussed, checking checkboxes and radio buttons by default helps users. But we can do more. A lot more. Particularly for those who are order for a second time.
 
-But we can do more than this, particulary for users that are ordering for a second time (and have signed up). Remember when I left you on a cliffhanger with the usefulness of the Check Details page? Now we're getting to the exciting end of the movie. I'm thinking of giving up on the analogies now you'll be glad to know.
+As we have stored their information from the previous order, we can send them all the to the Check Details page again giving the users the chance to review and make amends.
 
-Assuming we have encouraged users to sign up, our system will already have the user's information. So we can now speed up checkout massively for most people by sending them all the way to the Check Details page, giving users the chance to review and make amendments (as we've already discussed). We've reduced the number of interactions to potentially one.
-
-That's a friction free checkout experience.
+In this case we've reduced the number of interaction points to potentially one. This is the mark of a friction-free checkout experience.
 
 ## Order summary
 
-When we go shopping in a physical shop we have everything we need through the experience. It's all close to hand. Evene when we line up to pay, we can still see everything we're buying.
+What it looks like:
+
+![Order summary panel](./images/?.png)
+
+When we go shopping in a physical shop we have everything we need through the experience. It's all close to hand. Even when we line up to pay, we can still see everything we're buying.
 
 The order summary panel provides this functionality digitally. Including it throughout the checkout process keeps users informed and in control. Which in turn builds trust and keeps them moving.
 
 Not including one puts the user at a severe disdavantage and as soon as they forget what they are buying and the choices they've made they are likely to drop out.
 
-On small screens we put the order summary below the form. On bigger screens we have an opportunity put it beside the form as you can see below:
+On small screens we put the order summary below the form. On bigger screens we have an opportunity put it beside the form as follows:
 
-![](Image)
+![Order summary panel](./images/?.png)
 
 ## Summary
 
-We've made it to the end of chapter 2, but we have actually covered the majority of issues we face when designing forms. Even if you stopped here and implemented what you now know, the form experiences you'll design will signficantly improve in quality for your users.
+In this chapter we've covered what it takes to design a checkout flow using the One Thing Per Page design pattern. Out of this pattern comes several advantages.
 
-In this chapter we've used one of the best, but quite often unheard of One Thing Per Page pattern to our user's advantage and covered off some of the gaps left over in chapter 1 with regards to managing different types of controls such as checkboxes and radios.
+Most designers overcomplicate things by putting too much on a page. But by making each step focused, we make each step simple. In providing what appears to be a longer process, we significantly reduce the burden for *users*.
 
-In upcoming chapters we'll build on these patterns by solving different problems that we may face when designing more niche experiences on the web.
+We'll draw on these techniques further in upcoming chapters.
 
 ## Footnotes
 

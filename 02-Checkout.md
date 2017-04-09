@@ -1,84 +1,88 @@
 # Checkout
 
-I've worked on more than 15 ecommerce websites over the years but one particular story I want to share is from a while back. In 2008, I worked on a website for Boots.com. I remember this story quite vividly because they were fascinated with the idea of having a single-page checkout.
+In 2008 I worked on Boots.com. They wanted a single-page checkout with the trendiest of techniques from that era including accordions, AJAX and client-side validation.
 
-At the time this design pattern was all the rage. The design consisted of one page, with four steps (delivery, payment etc) all represented by an accordion panel. Each step was submitted via AJAX&mdash;on success the panel would close and the next one would open.
+Each step (delivery address, delivery options and card details) had an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened, with a sliding transition.
 
-It was a disaster and Boots were, let's say, unhappy bunnies.
+It looked a little like this:
 
-We redesigned it so that each accordion panel became its own page which removed the need for accordions and AJAX. Fortunately, it converted significantly better and Boots were once again, happy bunnies.
+![Single-page accordion](./images/boots1.png)
 
-They say history repeats itself and six years later, in 2014, I joined Just Eat. I was once again tasked with helping my fellow UXers redesign the checkout flow, which was functioning in much the same way as the original Boots checkout.
+Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the the accordion panels were painful and distracting. Inevitably, the client asked us to make changes.
 
-We redesigned it so that each section became its own page etc. This had a massively positive impact to the business. And this time I made a note of the numbers. The result was an extra two million orders a year. And just to be clear that's orders, not revenue.
+We redesigned it so that each panel became its own page removing the need for accordions and AJAX. However, we kept the client-side validation to avoid an unnecessary trip to the server.
 
-Some years later, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern in its own right[^]. And it had a name and everything. Not that things need to be named to be good, but they're easier to refer to when they do.
+It looked a little like this:
 
-The pattern is known as One Thing Per Page and it is by far and away my favourite design pattern. Apart from the resulting numbers their is a lot of design rationale behind the pattern which we'll get to shorlty. Before we do that though, let's take a brief look at the page refresh, which is particulary relevant to all this.
+![Multiple pages, no accordion](./images/boots2.png)
 
-## The page refresh
+This version converted much better. Although I can’t remember the exact numbers, I do know that the client was happy.
 
-Browse the Internet. I'll wait here while you do that. Back? Cool. You will have noticed that most websites are cram-packed with stuff you just don't need and that your eyes have learnt to glaze over. Even well-known successful websites suffer from this problem.
+Six years later (2014), when I was at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I made a note of the numbers. The result was an extra 2 million orders a year. That’s *orders*, not revenue.
 
-It's not just the *amount* of things, but its the things themselves. Quite often it's form over function. More literally speaking, we're prone to dumping several high resolution images on a single page.
+Here are some of the mobile-first designs we used:
 
-Sometimes we even go one step further and put background videos on the screen; to make an impact; to be different; to separate us from the competition. These sorts of things are not the mark of a positive user experience.
+![Just Eat checkout](./images/justeat.png)
 
-More interestingly though is *why* do we do this. As I have an unhealthy obsession for simplicity, I've managed to research and consciously observe people practicing the are of complicating things. Here's some notes on the matter:
+A couple of years later (2016), Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern in its own right known as One Thing Per Page. Apart from the resulting numbers there is a lot of rationale behind the pattern which we’ll get to shortly.
 
-1. We, people that is, have a complex about doing more. Mark Jenkins wrote an article about two different designers and how their approach and the resulting contribution sets them apart. In short, we as humans always want to do more and we worry about our own contribution. The more we contribute the better we feel. But this is often counterproductive.
+Before we do that though, let’s take a look at exactly what this pattern is.
 
-2. Greg McKeown talks about how success often breed failure because with success comes growth. With growth comes more opportunity, more departments, more people trying to contribute (see previous point). This manifests itself in different departments (marketing, digital, merchandising) vying for space on different parts of a website. Inevitably stuff gets added and pages get bloated.
+## What Does One Thing Per Page Mean Exactly?
 
-3. We often think that people care about our product as much as we do. We get emotionally invested in the products we design. But most people don't care about our site like we do. They don't come for entertainment. They just want the outcome. So *we* get bored and *we* add more stuff. In many respects we come up with problems to solve.
+One Thing Per Page is not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer.
 
-4. More specifically related to this topic is that we think all users must complete tasks within 3 clicks[^] which is a gigantic UX myth. It's not about clicks (or pages), it's about users making their way through a process as quickly and as easily as possible.
+Similarly, it’s not about having a single form field on each page either (although, again, it could).
 
-5. We often confuse simplicity for having *one* of something[^]. But that's not necessarily true. Having one of something that is intertwined with many things is far from simple.
+This pattern is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own.
 
-6. And lastly, we often assume that our users are the same as us. We think they have the same cutting edge devices and the same expensive data contracts. But actually they don't[^West].
+For example, instead of placing the address form on the same page as the delivery options and payment forms, we put it on a dedicated page of its own.
 
-Whatever the reason, we end up having to come up with clever ways to make slow pages faster. It's like eating donuts ever day, putting on five stone in weight, and then coming up with innovative ways to make a fat man run fast. I'm thinking rocket boots, do you have any better ideas?
+An address form has multiple fields, but it’s a single, tangible question that is being asked of the user. It makes sense to tackle this question on one screen.
 
-*Innovation* by the way is a dirty word. Most often, it's seen as a license to spend a lot of time solving problems that are typically introduced by the same person trying to solve them.
+Next we’ll take a look at why the pattern is so good.
 
-Ultimately, somebody announces *the page refresh is the problem*. To get rid of the page refresh we can put everything on a single page and use AJAX. But this is rather obviously not solving the actual problem. AJAX doesn't avert the server-side round trip. It just avoids the page refresh.
+## Why Is It So Damn Good?
 
-Even with AJAX, the page still needs to repaint. It still has to make requests to the server. That's not all. There are penalties in using AJAX. We need to send more code to the user to do this fancy stuff and we need to write more code to handle errors and to show a custom loading indicator.
+Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s nice to understand the rationale behind it.
 
-Loading indicators, by the way, are a problem because they aren't accurate, like the browser's native implementation. And they aren't familiar to the user&mdash;that is, they are always custom to the site implementing them. But familiarity is a UX convention that we should only break if we really really have to.
+### 1. It reduces cognitive load
 
-It's clear that in many ways by trying to improve the experience we've created a poorer one. The problem isn't that the page is slow, the real problem is designing a page that cannot be fast.
+Like Ryan Holiday describes in The Obstacle Is The Way, remember the first time you saw a complicated algebra equation? It was a jumble of symbols and unknowns. But when you stopped to break it down and isolate the parts, all that was left was the answer.
 
-## What exactly is One Thing Per Page?
+![Algebraic equation](./images/algebra.png)
 
-*One thing per page* is not necessarily about having one item on a page&mdash;you'd still have the header, the footer etc. And it's not about having one form field on each page either&mdash;that's over thinking things.
+It’s the same for users trying to complete a form or anything else for that matter. If there is less stuff on screen, and only one choice to make, friction is reduced to a minimum. Therefore users stay on task.
 
-It's about splitting a process into multiple digestable chunks, much like we discussed above with Boots and Just Eat. An address form has multiple fields, but it's one tangible thing that can be focussed on at a time.
+### 2. It's easy to fix errors
 
-## Why is One Thing Per Page so damn good?
+When users are filling in a small form, errors are caught and presented early. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up.
 
-Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies), it’s a good idea to understand why.
+### 3. Pages load faster
 
-**It reduces cognitive load**. In The Obstacle Is The Way, Ryan Holidy puts this eloquently. *Remember the first time you saw a complicated algebra equation? It was a jumble of symbols and unknowns. But when you stopped to break it down and isolate the parts, all that was left was the answer.*
+If pages are small by design, they will load faster. Faster pages reduce the risk of users leaving and they build trust in the service.
 
-It’s the same for users trying to complete a form or anything else for that matter. If there is less stuff on a single screen, and only one choice to make, friction is reduced to a minimum. Therefore users stay on task.
+### 4. It's easy to track progress and return to previous steps
 
-**It’s easy to handle errors.** When users are filling in a small form, errors are caught and presented early. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users dropping off.
+If users submit information frequently, we can save it in a more granular fashion. If a user drops off, we can send them an email, prompting them to complete their order, for example.
 
-**It’s faster to load.** If pages are small by design, they will load faster. Faster pages reduce the risk of users leaving and they build trust in the service.
+### 5. It reduces the chance of losing information
 
-**It’s easy to track progress and return to previous steps**. If users  submit information frequently, we can save their progress in a more granular fashion. For example, if a user exits the payment page, we can send them back there later&mdash;by email perhaps.
+A large form takes longer to complete. If it takes too long, then a page timeout may cause the information to be lost, causing tremendous frustration.
 
-I've managed to count a further 10 reasons why the pattern is so beneficial[^]. This inconspicuous and humble UX pattern is flexible, performant and inclusive by design. It truly embraces the web, making things easy for high and low confidence users alike.
+Alternatively, the computer freezes, which was the case for Daniel, the leading character in *I, Daniel Blake*. With declining health and having never used a computer before, his computer freezes and his data is lost. In the end, he gives up.
 
-Having lots (or everything) on one page, may give an illusion of simplicity, but just like algebraic equations they are difficult to deal with unless they are broken down.
+I've actually counted eleven more reasons[^Smashing Article] as to why this pattern works so well.
+
+This inconspicuous and humble UX pattern is flexible, performant and inclusive by design. It truly embraces the web, making things easy for high and low confidence users.
+
+Having lots (or everything) on one page, may give an illusion of simplicity, but like algebraic equations, they are difficult to deal with unless they are broken down.
 
 If we consider a task as a transaction that a user wants to complete, breaking it down into multiple steps makes sense. It’s as if we’re using the very building blocks of the web as a form of progressive disclosure. And the metaphor behind pages provides a subconscious sense of moving forward.
 
-I’m not sure there is another pattern that has as many benefits as this one. It’s like compound interest, it just keeps on giving. This is one of those cases where simple is just that.
+I’ve not come across a design pattern that has as many benefits as this one. It’s like compound interest, it just keeps on giving. This is one of those cases where simple is just that. Simple.
 
-Needless to say we'll be using this to design our checkout form in this chapter.
+Needless to say we'll this design pattern  to design our checkout form in this chapter.
 
 ## Flow and order
 
@@ -86,11 +90,11 @@ In Forms That Work[^] Caroline and Gerry explain the importance of asking questi
 
 > Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
-> Think about buying a car. You’re just browsing, getting a sense of what is available. A salesperson comes along and starts to ask you how you’ll pay. Would you answer? Or would you think, “If that person doesn’t stop annoying me, then I’m out to here”?
+> Think about buying a car. You’re just browsing, getting a sense of what is available. A salesperson comes along and starts to ask you how you’ll pay. Would you answer? Or would you think, “If that person doesn’t stop annoying me, then I’m out of here”?
 
 > Now think about the point where you’ve told the salesperson which car you want to buy. Now it’s appropriate to start negotiating about payment. It would be quite odd if the salesperson did **not** do so.
 
-This applies to the checkout flow. Our checkout will have the following steps:
+We can apply the same principles to our checkout process:
 
 1. Delivery address
 2. Delivery options
@@ -100,17 +104,17 @@ This applies to the checkout flow. Our checkout will have the following steps:
 
 Just like the salesperson, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt and invoice for record keeping.
 
-Much like a human conversation, we should strive to make our digital forms human and conversational too.
+Whenever we're designing a form, big or small, we should be thinking about flow and order.
 
-We'll next look at designing each of the screens in turn as each one has a set problems that need discussing in their own right.
+Next, we'll look at each screen separately.
 
 ## Delivery address
 
-Here is our delivery address form:
+What it looks like:
 
-![Image here](/etc/)
+![Delivery form](./images/?.png)
 
-Here is the HTML code:
+HTML:
 
 ```html
 <form>
@@ -147,41 +151,49 @@ Here is the HTML code:
 
 ### Mobile field
 
-As we know, it's important to tell people why we're asking for certain information. At first glance a user may not realise why we ask for a mobile phone in order to deliver a product and take an online order.
+As we discussed in A Registration Form, we know how important it is to tell users why we're asking for information.
 
-But we're asking for it because our couriers offer real-time notifications on the day of delivery. And so in telling our users, we build trust, reduce friction and make it a feature, all the same time.
+When a user first encounters this form, they wonder why we're asking for their mobile phone number, when they're ordering a product online.
 
-Those of you have a keen eye for detail will notice that mobile field has `type=tel`. Much like `type=email` discussed in A Registration Form, this will display a telephone-specific keyboard on various mobile devices, improving usability in the process.
+But we, the designers, know that our couriers offer real-time text messages on the day of delivery. And so as you can see in the design, we're telling our users that transparently. This builds trust, reduces friction and offers a nice little feature, all at the same time.
 
-[!](Image)
+Those of you with a keen eye for detail will have noticed that the mobile field has `type=tel`. Much like `type=email` discussed in A Registration Form, this will display a telephone-specific keyboard on various mobile devices:
 
-### Post code field
+![On-screen device keyboard](./images/?.png)
 
-Often designers like to make things line up perfectly, which helps if you're making a piece of art. But well-designed software is not art and in the case of the postcode field, making it match other fields puts a cognitive burden on the user.
+This allows users to type their phone number easily with a dedicated context-specific keyboard.
+
+### Postcode field
+
+Often designers like to make everything line up perfectly. In this case they design the width of the postcode field to match all the others.
+
+It's hard to argue that visually this is appealing. But we're not installing a minimalist art display. We're designing a form for people to use. And making the postcode field too big is a cognitive burden on the user.
 
 The field width provides a clue as to the length of content required for input. The postcode consists of approximately eight characters, therefore this field should be smaller than other fields in an address form as shown.
 
-You can apply these principles to other form fields where the length of the field is known. For example, you wouldn't want to apply this principle to street and town because those values could be any length.
+You can apply these principles to other form fields where the length of the field is *known*.
 
-### Address lookup enhancement
+### Capture+ enhancement
 
-I always advise enhancements to be used with careful consideration and only after proving that the enhancement really is an enhancement to the end user. This is because quite often, the so-called degraded experience (normal form fields) work better anyway. And when we enhance we need to think about accesssibility for all.
+Capture+[^] is a Javascript API and plugin that allows users to search for their address quickly and easily. Instead of manually typing each part of your address in 5 separate text boxes, we can offer users a single text box.
 
-With that in mind, a possible enhancement we can use here is to use Capture+ or an equivalent service that allows users to enter their address very quickly.
+![Capture+ enhancement](./images/?.png)
 
-Capture+ has many options, but on a recent project, we enhanced the address form to show just a single text control. Once the user starts typing the first line of their address, they can easily select the right one from the list. Once they do this, the remaining fields display with the populated values.
+As the user types the first line of their address, they can select their address from a list of suggestions. This drastically reduces the amount of keystrokes, and reduces the chance of typos.
 
-![Image here](/etc/)
+In the event that the component doesn't recognise a user's address, we still offer the user the ability to change the UI back to the standard address form. In doing this we conform to the fourth of Heni Swans UX principles, give people the ability to choose.
 
-The user can click *Enter manually* in order to bypass the enhancement, in the unlikely event it can't find the address, or if they prefer to type it out fully themselves.
+Enhancing a textbox like this doesn't come for free. We either hand off responsibility to the plugin and hope that they considered screen reader users, or we write our own.
+
+In upcoming chapters, we'll discuss what it takes to design and code a fully inclusive typeahead form component. This will give you some expertise in order to analyse other peoples plugins, or to write your own when needed.
 
 ## Delivery options
 
-Here is our delivery address form:
+What it looks like:
 
-![Image here](/etc/)
+![Delivery options](./images/?.png)
 
-Here is the HTML code:
+HTML:
 
 ```html
 <form>
@@ -201,46 +213,49 @@ Here is the HTML code:
 
 ### Grouping controls with fieldset and legend
 
-This is the first form we've encountered that needs grouping both semantically and visually. This is because the radio buttons represent delivery options.
+This is the first time we've encountered fields that needs grouping. This is because we have several form fields that relate to the same piece of information.
 
-Combining the fieldset and legend is inclusive design pattern. Visually the text provides an overarching description for the group. But also, in most screen readers, this will result in the legend's text being combined with each radio button's label.
+As you can see in the code above, we wrap each of the form fields inside a `fieldset`, with a `legend` element that provides a description for those options.
 
-For these reasons, we will always use a these elements when we need to group related controls together, both visually and semantically.
+Combining the fieldset and legend is an important inclusive form pattern. Visually the text provides an overarching description for the group. And in most screen readers, this results in the legend's text being read out with the the radio button's label. For example *Delivery options, UK Standard (Free, 2-3 days)*.
 
-You might say that all fields could be grouped in some way. For example, we could wrap the registration form from the previous chapter in a fieldset and legend. Whilst this is valid it creates unnecessary noise to fields that are fully understandable anyway.
+You might think that all fields can be grouped in some way. For example, we could wrap the entire registration form from the previous chapter in a `fieldset` and `legend`.
 
-It's easy to think of patterns as "right" and "wrong" but, as with most design decisions, we should apply solutions based on the context of the problem at hand. This applies to the use of the fieldset and legend.
-
-We should use them when required. We will see other examples of their usage in upcoming chapters.
+Whilst this is valid it creates unnecessary noise to fields that are fully understandable anyway. As Heydon Pickering says in Inclusive Design Patterns[^], *it's easy to think of patterns as "right" and "wrong"* but, as with most design decisions, we should apply solutions based on the context of the problem.
 
 ### Provide a sensible default
 
-It is good practice to default the selection of the first choice by ensuring we use the `checked` attribute. It is also good practice to put the most commonly used choice first.
+The first radio button has a `checked` attribute. This automatically selects the first delivery option without needing the user to do so.
 
-When we do this, we remove the need for validation and we require less effort from our users, both of which reduce friction.
+This has a couple of benefits:
 
-Obviously, this makes sense here as we put the most often and most economic option first and check it appropriately. But in some situations defaulting is not always a good idea, which we'll cover later.
+1. There is less work for the user to do; and
+2. There is no chance of causing validation errors.
+
+In this situation it's vital that we put the most common choice first, which in this case we have assumed to be the cheapest.
+
+What we should never do, is automically select the more expensive and least common option.
 
 ### Why not use a `select` box?
 
-Historically, designers like using the `select` box because it is compact and takes up little real estate. But actually it's one of the least friendly form controls[^] at our disposal. Here's why:
+Historically, designers like using the `select` box because it is compact and takes up little space on screen. But it's one of the least friendly form controls[^ive repeated this in the next chapter urgh, sort out] at our disposal. Here's why:
 
 1. They have little hierarchy control.
 2. Browsers and devices don't enlarge the options.
-3. Can't be styled very easily cross-browser. Not a huge problem.
+3. They can't be styled very easily cross-browser.
 4. They hide information behind an unnecessary extra click.
 5. They are not searchable. At least not easily searchable.
 6. They are taxing to scroll through and select.
 
-Radio buttons don't suffer from these problems. This doesn't mean we should never use a select box, but we'll look into this more in upcoming chapters.
+Radio buttons don't suffer from the above problems.
 
 ## Payment
 
-Here is our payment form:
+What it looks like:
 
-![Image here](/etc/)
+![Payment](./images/?.png)
 
-Here is the HTML code:
+HTML:
 
 ```html
 <form>
@@ -266,21 +281,19 @@ So I asked Oyvind why we have street name in the billing address field. Here's w
 
 > In order to verify card details I think the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is very handy in any situation where you have to query what's happened. Besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
 
-Oyvind is not a designer per se, but his input into the design is of vital importance. This goes to show the importance of designign as a team sport[^] and that by following the Question Protocol, mentioned in A Registration Form, we can decide what it is we must ask and what it is we want to ask and why.
+Oyvind is not a designer per se, but his input into the design is of vital importance. This goes to show the importance of designig as a team sport[^] and that by following the Question Protocol, mentioned in A Registration Form, we can decide what it is we must ask and what it is we want to ask and why.
 
-Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal and it is most certainly applicable to form design too.
+Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
 
-### Revealing the billing address
+### Billing address reveal
 
-When a card is validated, it needs an address. Most often, people's billing address is the same as the delivery address, which is why we expose a checkbox asking the user to confirm whether it's the same as their delivery address.
+To validate a card, it needs an associated address. For most users the billing address is the same as the delivery address. The user has already provided this and so we can improve the experience here.
 
-We do this to save users having to retype the same address which is a source of friction. We ask the question to ourselves, do we have to ask for it? and the answer is maybe.
+Instead of always exposing a billing address form, we provide users a checkbox asking them to confirm if their billing address is the same as their delivery address.
 
-Because the answer is *maybe* we can provide a smart default. Smart defaults is something we'll discuss again in this chapter as well as upcoming chapters. We mark the checkbox by default, because for most people, it will be the same.
+As this is the most common scenario we mark the checkbox as checked by default, and hide the billing address form. If the billing address *is* different, the user can uncheck the checkbox and fill out the form from there.
 
-This is another important principle: solve the most common problems first. We also offer users to uncheck the checkbox and in doing so, with Javascript we reveal the address form.
-
-Time for some more Javascript and some ARIA to boot to help screen readers understand what's happening:
+To do this we'll need a little Javascript.
 
 ```javascript
 	var checkbox = document.getElementById('TheID');
@@ -290,48 +303,53 @@ Time for some more Javascript and some ARIA to boot to help screen readers under
 	function onCheckboxClick(e) {
 		if(checkbox.checked) {
 			billingAddressContainer.classList.add('hidden');
-			// aria
+			// aria to do
 		} else {
 			billingAddressContainer.classList.remove('hidden');
-			// aria
+			// aria to do
 		}
 	}
+```
+
+```CSS
 	// .enhanced .billingAddress-isHidden { display: none }
 ```
 
-Like is often the case with Progressive Enhancement, we reuse what we have already as UI controls to enhance. That is, we use the checkbox click even to trigger the showing or hiding of the form.
+When the checkbox is checked we hide the billing address and ensure screen readers know to ignore the fields. When it is unchecked we show the billing address.
 
-Once again, we can use the same enhancement for the delivery address for the billing address. This is what design patterns are for. So that we can reuse them and so that the familiarity around them helps users.
+You'll also notice that the billing address form looks and functions exactly the same as the delivery address. This is important. In using the same pattern in multiple places, not only do we get to reuse the same solutions in the same way, but users become familiar with them too.
 
-## Check details page
+Familiarity is an important UX principle because familiar is easy and requires less effort from the user.
 
-Here is the check details page:
+## Check Details Page
 
-[!image]()
+What it looks like:
 
-You may be wondering why we even have this page. It's an extra page, an extra click and we're trying to get users to buy stuff. But what we already know is that users don't mind clicking as long as each click is meaningful.
+![Check details](./images/?.png)
 
-There is nothing worse than making an order when it wasn't expected. Or making the wrong order. This Check page is vital in scenarios where users have entered quite a lot of information during a flow.
+You may be wondering why we even have this page. It's an extra page, an extra click and afterall we're trying to get users to buy stuff!
 
-It allows the user to build trust in a system and double check their information before finally commiting to the order. Even the most sophisticated validation mechanism cannot eradicate the chance of human error, even if everything looks right and is formatted correctly.
+TODO: BUTTON TEXT Don't mislead etc.
 
-Giving users the chance to review, before spending their hard earned money, is a human, and quite frankly respectful thing to do.
+However, in a checkout flow, there is nothing worse than submitting an order that the user didn't expect. Or equally, submitting the *wrong* order.
 
-Imagine Mary, a mother of two, one young baby. She's tired and stressed and it's late at night. She ran out of nappies. With everything that's going on, she chooses the wrong card. It's still her card. It's still a valid card. But she didn't want to use that one because she's close to her overdraft.
+Even the most sophisticated validation mechanism cannot eradicate the chance of human error. Even if everything *looks* right and is formatted correctly, it doesn't mean mistakes aren't present.
 
-Giving her the chance to review on a dedicated page (again One Thing Per Page), gives her the chance to make the change.
+For example, take Mary (I made her up), a mother of two, one of which is a baby. It's late at night and shes tired and stressed. To make it worse she's ran out of nappies.
 
-Here's another example. Maybe she chose the wrong nappies completely. Without givine her the chance to review, she ends up with the wrong product which is stressful enough and now she has to return it using time she doesn't have. And she still has no nappies.
+She goes online, adds them to her basket, and goes to checkout. But she ordered the wrong nappies and used the wrong card. Both the nappies and the card are valid. But she needed different nappies and she wants to use a different card&mdash;one that is not in the red.
 
-And it's also costly and time-consuming to the business, especially if they offer free returns. All of which is so avoidable.
+Having spent a lot of time filling out a lot of information to complete the order, it's only human and respectful to give her the chance to review her order and make amends where necessary.
 
-Still, there's more to it. This page, which at first seems like an extra page is the very reason we can eradicate the need to step through all the pages before it. But I'll leave you on a cliff edge to find out more shortly in the section about Smart Defaults.
+Not only that but it saves the business a lot of time and money too. If she makes the wrong order then she'll need to return them. This is costly and time-consuming, especially if the business offers free returns.
 
-All in all, it's important to be honest upfront and put users in control.
+By removing this step, it makes users anxious and therefore drop out. We should strive for clarity over brevity every time. Providing a check page like this is an essential part of this process.
 
 ### Amending their order
 
 Each section in the flow is represented in the check page. They can edit any of those sections easily by clicking "change". When they do, they are taken to the dedicated page.
+
+![Reference One Thing Per Page Smashing Screenshot](./images/?.png)
 
 This is one of the great things about One Thing Per Page. It allows users to jump back and forth easily. Page loads are fast, and each page has zero noise, providing the user with just what they asked for to make the necessary change.
 
@@ -339,15 +357,15 @@ For example, if they want to update their delivery option to "Next Day" then the
 
 This is an important aspect of designing a Checkout flow using One Thing Per Page. As we collect information, we don't have to ask for it again and can send users to the most advanced step at any time reducing friction and in all likeliness, increasing conversion.
 
-## Confirmatin page
+## Confirmation page
 
-Here is the confirmation page:
+What it looks like:
 
-[!](etc)
+![Confirm screen](./images/?.png)
 
-There is no form on this page, so is somewhat out of scope for this book dedicated to designing forms. But we'll discuss some of the points briefly here anyway, because confirmation pages come at the end of a form. And we must not dismiss their importance.
+Technically, there is no form on this page, but confirmation pages are common at the end of a long form process and they are very much needed.
 
-They actually serve many purposes and without one, it leaves users confused. In the case of buying something, they may wonder whether their order went through successfully or not.
+They serve many purposes and without one, it leaves users confused. In the case of buying something, they may wonder whether their order went through successfully or not.
 
 The GDS service manual states[^4] each service must have a confirmation page with the following:
 
@@ -358,21 +376,23 @@ The GDS service manual states[^4] each service must have a confirmation page wit
 * a link to your feedback page, where users can tell you what they think of the service
 * a way for users to save a record of the transaction (for example, as a PDF)
 
-Whilst GDS isn't selling something to its users, all of this is applicable to us. But GDS don't cover everything our checkout may need in order to create the best experience for our users.
+Whilst GDS isn't selling something to its users, all of this is applicable to us here. But there's more for us to take into consideration...
 
 After the user places an order, their experience is, in many respects, just beginning. We need to continue the relationship, provide users with what they need and so forth.
 
-Much like the Check page, a user may have made a mistake so giving them a way to cancel the order is important. If we do this online, we make this quick for the user, and cheap for the business. So if you can offer this in your confirmation screen.
+Much like the Check page, a user may have made a mistake so giving them a way to cancel the order is important. If we do this online, we make this quick for the user, and cheap for the business.
 
-If users aren't signed in, this is a perfect opportunity to have users sign up by explaining the value they may get in doing so. It's up to you and your business to provide value though. Perhaps it's money off their next order, but it can be something more simple, like offering the capability to track orders or enjoying a speedier checkout experience next time.
+If users aren't signed in, this is a perfect opportunity to have users sign up by explaining the value they may get in doing so. It's up to you and your business to provide value though.
+
+Perhaps it's money off their next order, but it can be something more simple, like offering the capability to track orders or enjoying a speedier checkout experience next time.
 
 We'll discuss the merits of being able to checkout anonymously next.
 
 ## Guest checkout
 
-Sometimes, online shops force users to sign up before they are able to place an order. As Jared Spool explains in The 300 Million Dollar Button[^], this is just about the worst thing you can do.
+Sometimes, online shops force users to sign up before they are able to place an order. As Jared Spool explains in The 300 Million Dollar Button[^], this is just about the worst thing we can do.
 
-It puts unnecessary friction up front, for no gain at this point in time. Remember when we said before that we would offer a faster checkout experience next time? That's because we have the user's details in order to do this.
+It puts unnecessary friction up front, for no gain at this point in time. Remember when we said earlier that we would offer a faster checkout experience next time? That's because we have the user's details in order to do this.
 
 But the first time they place an order, we don't have those details. This is why, throughout this book we have to constantly ask ourselves, why are we asking for it?
 

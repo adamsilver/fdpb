@@ -461,7 +461,7 @@ We'll draw on these techniques further in upcoming chapters.
 
 ## Footnotes
 
-[^autocomplete fields attribute]:(https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/)
-[^west]:https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/
-[^44]:https://baymard.com/checkout-usabilityworld-wide-web-not-wealthy-western-web-part-1/
-[^4]:https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/
+[^autocomplete fields attribute]: https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/
+[^west]: https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/
+[^44]: https://baymard.com/checkout-usabilityworld-wide-web-not-wealthy-western-web-part-1/
+[^4]: https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/

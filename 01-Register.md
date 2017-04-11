@@ -1,4 +1,4 @@
-# A registration form
+# A Registration Form
 
 We're going to begin our forms adventure with a registration form. We'll use this simple form, to ahem, form the foundations on which to design more complex forms. But don't be fooled by its seemingly simple appearance. This registration form has much to be analysed, ripped apart and put back together again.
 

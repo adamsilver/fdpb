@@ -1,4 +1,4 @@
-# Book a flight
+# Book A Flight
 
 In only two chapters you'd be forgiven for thinking *there can't be too much more to know*. You'd be forgiven but you wouldn't be right. We're going to continue our adventure by analysing and designing a flight booking system.
 

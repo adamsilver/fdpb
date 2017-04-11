@@ -217,7 +217,7 @@ This is the first time we've encountered fields that needs grouping. This is bec
 
 As you can see in the code above, we wrap each of the form fields inside a `fieldset`, with a `legend` element that provides a description for those options.
 
-Combining the fieldset and legend is an important inclusive form pattern. Visually the text provides an overarching description for the group. And in most screen readers, this results in the legend's text being read out with the the radio button's label. For example *Delivery options, UK Standard (Free, 2-3 days)*.
+Combining the fieldset and legend is an important inclusive form pattern. Visually the text provides an overarching description for the group. And in most screen readers, this results in the legend's text being read out with the radio button's label. For example *Delivery options, UK Standard (Free, 2-3 days)*.
 
 You might think that all fields can be grouped in some way. For example, we could wrap the entire registration form from the previous chapter in a `fieldset` and `legend`.
 

@@ -181,23 +181,51 @@ In his article Making Input Type Date Complicated[^PPK], PPK says that all too o
 
 ## Choosing passengers
 
-The next thing the user needs to do is choose how many passengers within each classification will be booked on the flight. That depends on the classfication categories.
+The next thing the user needs to do is choose how many passengers are going on the trip. Passengers fall under certain categories. For example, Easyjet[^] has the following categories:
 
-Before we get to the categories themselves, we first need to decide what type of form control to use. We could use a select box with options 1-9 to choose from, but we've already noted above that the select box is not the friendliest of controls.
+1. Adults, aged 16 and over.
+2. Children, aged between 2 and 15 years old.
+3. Infants, who are under 2 years old.
 
-This leaves us with a text box. But we don't have to rely on the standard text box. We can use HTML5's `number` field. This has a few benefits:
+For each category we'll want a form field that uses the hint pattern from chapter 1.
 
-1. On mobile it will present a special keyboard with numbers on it, making it a very quick interaction.
-2. On desktop it contains up and down arrows that make quick adjustments easy with the mouse.
-3. We can constrain the input to be a minimum of 0 and a maximum of whatever the maximum amount of tickets is for our service. Let's say 9.
+It's the type of form field that is the most interesting part of this discussion. Up until recently, I've seen people using a select box with the values ranging from 1-9. As discussed above the select box is not the most friendly control.
 
-There is just one potentially small problem with the number field. It's that the up and down arrows are very small. We can enhance those by first hiding them with CSS and then implementing our own increment and decrement functions in Javascript:
+Again, radio buttons take up a lot of space which leaves us with a text box. HTML5 gave us a `number` field using `input type="number"`. When supported it has the following benefits:
 
-```JS
-Code here
+1. On mobile a keyboard will appear with numbers on it.
+2. On desktop, the text box contains up and down arrows that make incrementing and decrementing quicker with the mouse.
+3. On desktop, the user can use the up and down arrows on the keyboard to increment and decrement the value.
+4. We can constrain the input to be a minimum of 0 and a maximum of whatever the maximum amount of tickets is for our service. Let's say 9.
+
+There is just one small problem with the number field. The up and down arrows are very small. We can enhance those by first hiding them with CSS and then implementing our own increment and decrement functions in Javascript:
+
+```CSS
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+}
 ```
 
-The only thing that remains is the classifications. The important thing here is the clarification of what exactly an adult, child and baby is. We can utilise the hint pattern that we used in the previous two chapters.
+```JS
+Add buttons either side
+on decrement click, parseint value
+minus 1 and set
+etc
+```
+
+HTML:
+
+```JS
+Add buttons either side
+on decrement click, parseint value
+minus 1 and set
+etc
+```
+
+What it looks like:
+
+![Image here](/etc/)
 
 ## Confirming a flight
 

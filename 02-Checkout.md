@@ -234,20 +234,7 @@ This has a couple of benefits:
 
 In this situation it's vital that we put the most common choice first, which in this case we have assumed to be the cheapest.
 
-What we should never do, is automically select the more expensive and least common option.
-
-### Why not use a `select` box?
-
-Historically, designers like using the `select` box because it is compact and takes up little space on screen. But it's one of the least friendly form controls[^ive repeated this in the next chapter urgh, sort out] at our disposal. Here's why:
-
-1. They have little hierarchy control.
-2. Browsers and devices don't enlarge the options.
-3. They can't be styled very easily cross-browser.
-4. They hide information behind an unnecessary extra click.
-5. They are not searchable. At least not easily searchable.
-6. They are taxing to scroll through and select.
-
-Radio buttons don't suffer from the above problems.
+What we should never do, is automically select the most expensive and least common option.
 
 ## Payment
 

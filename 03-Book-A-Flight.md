@@ -23,27 +23,29 @@ The first thing users need to do is select a destination (and an origin). Withou
 
 ### Radio buttons
 
-We could use radio buttons but there are hundreds, if not thousands of destinations. It would be a huge page with a lot of scrolling. The good thing about radio buttons is that we could use `cmd+f` but:
+We could use radio buttons but there are hundreds, if not thousands of destinations. It would be a huge page with a lot of scrolling. One additional advantage that radio buttons possess is the ability to use use `cmd+f` to search the page for text strings. But:
 
-a) many users won't know about it's existence;
+a) many users won't know about this functionality;
 b) some browsers don't expose this capability particularly on mobile; and
 c) ultimately, we shouldn't rely on such an inconspicuous browser feature to fix issues with our own design. We can do better.
 
 ### Select box
 
-We could use a select box but like radio buttons they suffer from lots of scrolling and come with some additional problems.
+Designers often use `select` boxes because they save space. However, as Alice Bartlett explains in her talk Burn Your Select Tags, they should be avoided where possible. Luke Wobrelski shares the sentiment in Dropdown Menus Are A Last Resort.
 
-In her talk Burn Your Select Tags[^] Alice Bartlett explains that select boxes should be avoided. Luke Wobrelski echos this sentiment in his article Dropdown Menus Are A Last Resort[^lukew]. This is because:
+This is because:
 
-a) They hide choices and require a click to see them;
-b) Some devices suppress the zoom of `option` overlays; and
-c) They aren't generally well understood.
+- some devices suppress the zooming of `option` overlays
+- they have little hierarchy control
+- they can't be styled very easily cross-browser
+- they hide choices behind an unnecessary extra click
+- they are not searchable
+- they are taxing to scroll through and select
+- they aren't generally well understood
 
-This doesn't mean we should never ever use them, but we should do so consciously and when we have analysed all the options available to us. In this chapter, this is what we're going to do.
+### Text box
 
-### Text box (`input type="search"`)
-
-A regular text box (`input type="text"`) is an option for us but we could enhance the experience by using a search box (`input type="search"`). In doing so the browser allows the user to clear the field more easily, by tapping on the "x" or pressing *escape*.
+A text box (`input type="search"`) is another option. The search type enhances the functionality of a regular text box (`input type="text"`) by allowing the user to clear the contents of the field&mdash;either by tapping the X or pressing escape.
 
 ![Image here](/etc/)
 
@@ -56,15 +58,15 @@ HTML:
 	</div>
 ```
 
-This option is good when the amount of search options is completely dynamic and vast in size and breadth (like Amazon for example). But for this service, we have a finite amount of destinations that we know confidently.
+This option is good when the amount of search options is completely dynamic and vast in size and breadth (like Amazon for example). But for this service, we have a finite amount of destinations that we know in advance.
 
-Why let users search, unassisted, in order to arrive at a page that states something along the lines of *we don't fly to that destination*?
+If we were to let users search, unassisted, they would arrive at a page with a message of *we don't fly to that destination*. In doing this we have regressed the experience form a native select box&mdash;at least users could guarantee a positive result.
 
-In many respects we have regressed from the select box option above. At least users could guarantee a positive result. We can do better.
+Let's keep going.
 
 ### Typeahead combobox
 
-What we really need is a textbox and select menu rolled into one. As the user types a destination suggestions will appear beneath allowing the user to autocomplete their input. This drastically saves time scrolling through a plethora of destinations.
+What we really need is a text box and select menu rolled into one. As the user types a destination suggestions will appear beneath allowing the user to autocomplete their input. This drastically saves time scrolling through a plethora of destinations.
 
 Up until recently there has been no such element for us to use. HTML5 gave us the promising `datalist` but unfortuntely, it's signifcantly buggy[^caniuse].
 
@@ -150,7 +152,7 @@ This HTML, in combination with CSS and Javascript will display suggestions benea
 
 Here's a brief run down:
 
-1. The textbox has a `role` of `combobox` so that assistive devices know that it's not a regular textbox or select box. And `aria-autocomplete` attribute is set to `list` which means *a list of choices appears from which the user can choose*. `aria-expanded` indicates the menu is in an expanded or collapsed state. `autocomplete` is set to `off` to stop the browser providing its own suggestions and interfering with ours.
+1. The text box has a `role` of `combobox` so that assistive devices know that it's not a regular text box or select box. And `aria-autocomplete` attribute is set to `list` which means *a list of choices appears from which the user can choose*. `aria-expanded` indicates the menu is in an expanded or collapsed state. `autocomplete` is set to `off` to stop the browser providing its own suggestions and interfering with ours.
 
 2. We give the menu a role of `listbox` and associate it with the combobox control using `aria-owns`.
 
@@ -164,20 +166,54 @@ I built my own version[^] of this drawing on both GDS's *Accessible Typeahead*[^
 
 ## Choosing a date
 
-In his article Making Input Type Date Complicated[^PPK], PPK says that all too often designers and developers make things complicated when it comes to offering users the ability to enter a date.
+In his article Making Input Type Date Complicated[^PPK], PPK says that all too often designers and developers make things complicated when it comes to offering users the ability to enter a date. The solution he offers is a simple one. Use HTML5's `input type="date"`.
 
-### Different types of date
+![What it looks like](/etc/)
 
-- Date of birth
-- dates in the future
-- approximate dates
-- always in advance, return date after departure date
+This is because:
 
-### Using native datepicker
+- It's free
+- Doesn't need any extra code (performant)
+- Enhances for free
+- Matches the device date picker improving familiarity
+- Yada
+- Bada
+- Good for keyboard
+- Good for mouse
+- etc
 
-### When not to use a native datepicker
+I agree with PPK. It has many advantages and it's good place to start. But most design decisions don't adhere to a blanket rule. Context is everything. We can't design a great experience before first asking ourselves *what type of date are we asking users for?*
 
-### Feature detection
+The answer to this question most definitely influences the solution. For example, if we're asking for a date of birth, a date picker might be a bit clunky. Most people know their date of birth and typing it in directly is faster than scrolling; and then choosing the day, month and year separately.
+
+This is why GDS suggests the following:
+
+![Image here](/etc/)
+
+Each segment has it's own text box and clear labelling, drastically reducing the chance of errors and having to work out the localised format. For example an American date puts the month before the day.
+
+TODO: More reasons
+
+Here's another example. Say the user wants to choose an approximate date. Perhaps they need to take some holiday during the summer holiday perid. In this case the availability and price may well influence the date they pick. GDS's solution maybe less useful here.
+
+The native date picker does have some shortcomings that we should be aware of. It doesn't allow us to disable dates. Such as those that are in the past, or those that are *sold out*. In short, and as is often the case, it depends.
+
+With all that said, the native date field does make sense in our case. If the user chooses a date in the past, we can display an error quickly. And seeing as the user is *searching* for flights, if there are none we have an opportunity to say that and display the nearest dates all within a dedicated page of its own. 
+
+Cramming this information inside a date picker is hard to design and hard for users to intepret.
+
+Here's the code:
+
+```HTML
+<div>
+	<label for="">Flight date</label>
+	<input type="date">
+</div>
+```
+
+Here's what it looks like:
+
+![What it looks like](/etc/)
 
 ## Choosing passengers
 

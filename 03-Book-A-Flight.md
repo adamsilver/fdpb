@@ -66,17 +66,20 @@ Let's keep going.
 
 ### Typeahead combobox
 
-What we really need is a text box and select menu rolled into one. As the user types a destination suggestions will appear beneath allowing the user to autocomplete their input. This drastically saves time scrolling through a plethora of destinations.
+What we really need is a text box and select menu rolled into one. As the user types a destination, suggestions appear beneath allowing them to autocomplete the field. This drastically saves time scrolling through a plethora of destinations.
 
-Up until recently there has been no such element for us to use. HTML5 gave us the promising `datalist` but unfortuntely, it's signifcantly buggy[^caniuse].
+Up until recently there has been no such element for us to use. HTML5 gave us `datalist` but unfortuntely, it's signifcantly buggy[^caniuse].
 
-So we're left to build our own custom form component using Javascript. I will provide solutions to this problem later, but we should first understand the task we face when we embark upon creating our own custom and inclusive form component.
+As we've done the hard work in analysing what is best for users, we're left to build a custom component using Javascript. In doing so we need to adhere to a few important rules:
 
-As discussed in A Registration Form, we'll need to design a core experience for those without Javascript. Our options are those we discussed above: a text box or a select box.
+- must be focusable with keyboard
+- must be operable with keyboard
+- must expose it's values and state to acessibility APIs
+- must work without Javascript
 
-On balance and for our given problem, it seems prudent to use the select box. But you may take a different tact depending on your exact problem domain.
+To solve the last problem we need to choose from the aformentioned text box or select box. On balance, it seems prudent for us to use the select box. But you may take a different tact depending on your exact problem domain.
 
-Here is our destination control before we have implemented our custom Javascript combobox:
+Here's what this looks before it's enhanced:
 
 ![Image here](/etc/)
 
@@ -94,7 +97,7 @@ HTML:
 	</div>
 ```
 
-Here is custom combobox after Javascript kicks in:
+Here is the enhanced custom combobox:
 
 ![Image here](/etc/)
 
@@ -102,7 +105,6 @@ HTML:
 
 ```html
 <div class="combobox">
-	<input class="combobox-hint" readonly="true" tabindex="-1">
 	<input
 		type="text"
 		name="destination"
@@ -144,25 +146,24 @@ HTML:
 This may look complicated but let's break it down and explain what's going on. There are four major HTML parts:
 
 1. The text box
-2. A hidden text box
 3. A menu
 4. A live region
 
-This HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All those attributes are necessary in order to build an inclusive component that users can use with their mouse, (on-screen) keyboard and screen readers.
+This HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can use with their mouse, (on-screen) keyboard and screen readers.
 
 Here's a brief run down:
 
-1. The text box has a `role` of `combobox` so that assistive devices know that it's not a regular text box or select box. And `aria-autocomplete` attribute is set to `list` which means *a list of choices appears from which the user can choose*. `aria-expanded` indicates the menu is in an expanded or collapsed state. `autocomplete` is set to `off` to stop the browser providing its own suggestions and interfering with ours.
+- The text box has a `role` of `combobox` so that assistive devices know that it's not a regular text box or select box. And `aria-autocomplete` attribute is set to `list` which means *a list of choices appears from which the user can choose*. `aria-expanded` indicates the menu is in an expanded or collapsed state. `autocomplete` is set to `off` to stop the browser providing its own suggestions and interfering with ours.
 
-2. We give the menu a role of `listbox` and associate it with the combobox control using `aria-owns`.
+- We give the menu a role of `listbox` and associate it with the combobox control using `aria-owns`.
 
-3. Each option within the menu is given a `role` of `option`. And each option has an `id` which is used to identify which is active using `aria-activedescendant`. And `aria-selected` indicates which option is active.
+- Each option within the menu is given a `role` of `option`. And each option has an `id` which is used to identify which is active using `aria-activedescendant`. And `aria-selected` indicates which option is active.
 
-4. The `div` at the bottom is a `live region` with a `role` of `status` to announce changes as the user types. For example, *2 results are available. France (1 of 2) is selected*.
+- The `div` at the bottom is a `live region` with a `role` of `status` to announce changes as the user types. For example, *2 results are available. France (1 of 2) is selected*.
 
-5. The extra input is used to *perfectly display a grey hint in the input field* with CSS.
+TODO: JS?
 
-I built my own version[^] of this drawing on both GDS's *Accessible Typeahead*[^] of which they used Leonie Watson's accessible Autocomplete[^]. Feel free to use and check any of these out or build your own if need be using the above specification to guide you.
+I have prototyped my own version of this which is based on GDS's Accessible Typeahead[^]&mdash;theirs is based on Leonie Watson's accessible Autocomplete[^]. Feel free to use and check any of these out or build your own if need be using the above specification to guide you.
 
 ## Choosing a date
 

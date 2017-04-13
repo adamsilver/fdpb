@@ -17,31 +17,31 @@ Booking a flight is a relatively long and complicated process. For brevity we'll
 
 The first thing users need to do is select a destination (and an origin). Without this information we can't offer the user any flights. The destination field could be a:
 
-1. radio buttons
-2. select box
-3. text box (`input type="search"`)
+- radio button group
+- select box
+- text box (`input type="search"`)
 
-### Radio buttons
+### Radio Button Group
 
-We could use radio buttons but there are hundreds, if not thousands of destinations. It would be a huge page with a lot of scrolling. One additional advantage that radio buttons possess is the ability to use use `cmd+f` to search the page for text strings. But:
+We could use radio buttons but there are hundreds, if not thousands of destinations. It would be a huge page with a lot of scrolling. One additional advantage that radio buttons possess is the ability to use use `cmd+f` to search the page for text strings.
 
-a) many users won't know about this functionality;
-b) some browsers don't expose this capability particularly on mobile; and
-c) ultimately, we shouldn't rely on such an inconspicuous browser feature to fix issues with our own design. We can do better.
+However, most users won't know about this feature, not all browsers support it and ultimately, we shouldn't rely on an inconspicuous browser feature to fix issues in our design.
 
-### Select box
+We can do better.
 
-Designers often use `select` boxes because they save space. However, as Alice Bartlett explains in her talk Burn Your Select Tags, they should be avoided where possible. Luke Wobrelski shares the sentiment in Dropdown Menus Are A Last Resort.
+### Select Box
+
+Designers often use `select` boxes because they save space. However, as Alice Bartlett explains in her talk Burn Your Select Tags, they should be avoided where possible.
 
 This is because:
 
-- some devices suppress the zooming of `option` overlays
-- they have little hierarchy control
-- they can't be styled very easily cross-browser
+- some users are unable to close the select
+- some users try to type into a select
+- some users confused focused options with selected ones
+- users aren't able to pinch-zoom options on devices
+- they have limited hierarchy control
 - they hide choices behind an unnecessary extra click
-- they are not searchable
-- they are taxing to scroll through and select
-- they aren't generally well understood
+- they are not easily searchable
 
 ### Text box
 
@@ -198,7 +198,7 @@ Here's another example. Say the user wants to choose an approximate date. Perhap
 
 The native date picker does have some shortcomings that we should be aware of. It doesn't allow us to disable dates. Such as those that are in the past, or those that are *sold out*. In short, and as is often the case, it depends.
 
-With all that said, the native date field does make sense in our case. If the user chooses a date in the past, we can display an error quickly. And seeing as the user is *searching* for flights, if there are none we have an opportunity to say that and display the nearest dates all within a dedicated page of its own. 
+With all that said, the native date field does make sense in our case. If the user chooses a date in the past, we can display an error quickly. And seeing as the user is *searching* for flights, if there are none we have an opportunity to say that and display the nearest dates all within a dedicated page of its own.
 
 Cramming this information inside a date picker is hard to design and hard for users to intepret.
 
@@ -237,9 +237,9 @@ Again, radio buttons take up a lot of space which leaves us with a text box. HTM
 There is just one small problem with the number field. The up and down arrows are very small. We can enhance those by first hiding them with CSS and then implementing our own increment and decrement functions in Javascript:
 
 ```CSS
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
 }
 ```
 

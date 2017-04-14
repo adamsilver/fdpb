@@ -1,51 +1,51 @@
 # Book A Flight
 
-In only two chapters you'd be forgiven for thinking *there can't be too much more to know*. You'd be forgiven but you wouldn't be right. We're going to continue our adventure by analysing and designing a flight booking system.
+In this chapter, we'll be designing a flight booking system. On the face of it, this is more of a niche problem compared to Registration and Checkout forms. However, every topic in this chapter is, not only interesting but transferable to other problem domains.
 
-On the face of it, this is a niche problem&mdash;certainly less common than a Registration and Checkout forms. However, every topic within this chapter is an interesting one with tips that we can use in other forms.
-
-Booking a flight is a relatively long and complicated process. For brevity we'll simplify the flow a little bit. Our flow will be as follows:
+Here are the main steps in our flow:
 
 1. Choose origin/destination
-3. Choose departure/return date
-5. Choose passengers
-6. Confirming flight
-7. Choosing where to sit
-8. Payment
+2. Choose departure/return date
+3. Choose passengers
+4. Confirming flight
+5. Choosing where to sit
+6. Payment
 
-## Choose desination
+We discussed making online payments in the previous chapter so we'll skip that part.
 
-The first thing users need to do is select a destination (and an origin). Without this information we can't offer the user any flights. The destination field could be a:
+## 1. Choose origin/desination
 
-- radio button group
+The first thing users need to do is select a destination (and an origin). Without this information we can't offer the user any flights. The destination field could one of the following:
+
+- radio buttons
 - select box
-- text box (`input type="search"`)
+- text box
 
-### Radio Button Group
+### Radio buttons
 
-We could use radio buttons but there are hundreds, if not thousands of destinations. It would be a huge page with a lot of scrolling. One additional advantage that radio buttons possess is the ability to use use `cmd+f` to search the page for text strings.
+The usability of radio buttons is good, generally speaking. But they fall down when there are many choices to choose from. We could have hundreds, if not thousands of destinations to choose from, creating a long page.
 
-However, most users won't know about this feature, not all browsers support it and ultimately, we shouldn't rely on an inconspicuous browser feature to fix issues in our design.
+The user could use the browsers search feature (`CMD+F`), but a) many users won't know about this feature and we we shouldn't rely on an inconspicuous browser feature to fix issues with our own design.
 
 We can do better.
 
 ### Select Box
 
-Designers often use `select` boxes because they save space. However, as Alice Bartlett explains in her talk Burn Your Select Tags, they should be avoided where possible.
+Designers often use `select` boxes because they save space. However, as Luke Wobrelski states: *Dropdowns Should be the UI of Last Resort*[^]. Here's why:
 
-This is because:
-
-- some users are unable to close the select
-- some users try to type into a select
-- some users confused focused options with selected ones
+- some users are unable to close them
+- some users try to type into it
+- some users confuse focused options with selected ones
 - users aren't able to pinch-zoom options on devices
 - they have limited hierarchy control
 - they hide choices behind an unnecessary extra click
 - they are not easily searchable
 
+Again, we can do better.
+
 ### Text box
 
-A text box (`input type="search"`) is another option. The search type enhances the functionality of a regular text box (`input type="text"`) by allowing the user to clear the contents of the field&mdash;either by tapping the X or pressing escape.
+A text box (`input type="search"`) is another option. The search type enhances the functionality of a regular text box (`input type="text"`) by allowing the user to clear the contents of the field&mdash;either by tapping the X or pressing the escape key.
 
 ![Image here](/etc/)
 
@@ -58,26 +58,26 @@ HTML:
 	</div>
 ```
 
-This option is good when the amount of search options is completely dynamic and vast in size and breadth (like Amazon for example). But for this service, we have a finite amount of destinations that we know in advance.
+This option is good when the amount of search options is completely dynamic and vast in size and breadth, like searching for products on Amazon for example. But for this service, we have a finite amount of destinations that we know in advance.
 
-If we were to let users search, unassisted, they would arrive at a page with a message of *we don't fly to that destination*. In doing this we have regressed the experience form a native select box&mdash;at least users could guarantee a positive result.
+If we were to let users search, unassisted, they could often be met with no results: *we don't fly to that destination*.
 
-Let's keep going.
+One more time now: we can do better.
 
 ### Typeahead combobox
 
-What we really need is a text box and select menu rolled into one. As the user types a destination, suggestions appear beneath allowing them to autocomplete the field. This drastically saves time scrolling through a plethora of destinations.
+What we really need is a text box and select box rolled into one. As the user types a destination, suggestions appear beneath allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations.
 
-Up until recently there has been no such element for us to use. HTML5 gave us `datalist` but unfortuntely, it's signifcantly buggy[^caniuse].
+Up until recently there has been no such element for us to use. HTML5 gave us `datalist` but unfortuntely, it's very buggy[^caniuse].
 
-As we've done the hard work in analysing what is best for users, we're left to build a custom component using Javascript. In doing so we need to adhere to a few important rules:
+We've done the hard work to analyse the options to us. We're left to build a custom component. When we build a custom component there are rules we need to follow[^alice barlett talk bruce lawson?]. A custom component must:
 
-- must be focusable with keyboard
-- must be operable with keyboard
-- must expose it's values and state to acessibility APIs
-- must work without Javascript
+- be focusable with the keyboard
+- be operable with the keyboard
+- work with assistive devices
+- work without Javascript
 
-To solve the last problem we need to choose from the aformentioned text box or select box. On balance, it seems prudent for us to use the select box. But you may take a different tact depending on your exact problem domain.
+To solve the last problem we need to decide on what the core experience will be. Will it be a text box or select box? On balance, it seems prudent for us to use the select box. But you may take a different tact depending on the context of your own problem.
 
 Here's what this looks before it's enhanced:
 
@@ -86,15 +86,15 @@ Here's what this looks before it's enhanced:
 HTML:
 
 ```html
-	<div>
-		<label for="destination">Destination</label>
-		<select name="destination" id="destination">
-			<option value="">Select</option>
-			<option value="france">France</option>
-			<option value="germany">Germany</option>
-			<option value="spain">Spain</option>
-		</select>
-	</div>
+<div>
+	<label for="destination">Destination</label>
+	<select name="destination" id="destination">
+		<option value="">Select</option>
+		<option value="france">France</option>
+		<option value="germany">Germany</option>
+		<option value="spain">Spain</option>
+	</select>
+</div>
 ```
 
 Here is the enhanced custom combobox:
@@ -111,24 +111,24 @@ HTML:
 		id="destination"
 		autocomplete="off"
 		role="combobox"
-		aria-owns="destination-listbox"
+		aria-owns="combobox-options"
 		aria-autocomplete="list"
 		aria-expanded="true"
 		class="combobox-textbox"
 	>
 	<ul
-		id="destination-listbox"
+		id="combobox-options"
 		role="listbox"
-		class="combobox-menu combobox-menu-isHidden"
+		class="combobox-options combobox-options-isHidden"
 		>
 		<li
-			id="combobox-menuOption--0"
+			id="combobox-option--0"
 			role="option"
 			tabindex="-1">
 			France
 		</li>
 		<li
-			id="combobox-menuOption--1"
+			id="combobox-option--1"
 			role="option"
 			tabindex="-1"
 			aria-selected="true">
@@ -138,32 +138,48 @@ HTML:
 	<div
 		aria-live="polite"
 		role="status"
-		class="combobox-liveRegion">
+		class="combobox-status">
 	</div>
 </div>
 ```
 
-This may look complicated but let's break it down and explain what's going on. There are four major HTML parts:
+This may look complicated but there are just 3 main elements:
 
-1. The text box
-3. A menu
-4. A live region
+- Text box
+- Menu
+- Status box
 
 This HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can use with their mouse, (on-screen) keyboard and screen readers.
 
-Here's a brief run down:
+Here's a run down of the attributes:
 
-- The text box has a `role` of `combobox` so that assistive devices know that it's not a regular text box or select box. And `aria-autocomplete` attribute is set to `list` which means *a list of choices appears from which the user can choose*. `aria-expanded` indicates the menu is in an expanded or collapsed state. `autocomplete` is set to `off` to stop the browser providing its own suggestions and interfering with ours.
+The text box has:
 
-- We give the menu a role of `listbox` and associate it with the combobox control using `aria-owns`.
+- `role="combobox"` so that assistive devices know what it is.
+- `aria-autocomplete="list"` to explain that a list of choices will appear from which the user can choose.
+- `aria-expanded` to indicate that the menu is showing or not.
+- `aria-owns="combobox-options"` connects the text box to the menu by `id`.
+- `aria-activedescendant` identifies the active option using the `id` of the menu option.
+- `autocomplete="off"` stops browsers providing their own suggestions and interfering with our component.
 
-- Each option within the menu is given a `role` of `option`. And each option has an `id` which is used to identify which is active using `aria-activedescendant`. And `aria-selected` indicates which option is active.
+Each option has:
 
-- The `div` at the bottom is a `live region` with a `role` of `status` to announce changes as the user types. For example, *2 results are available. France (1 of 2) is selected*.
+- `role="option"` to explain what it is.
+- `id` to tie up with `aria-activedescendant` explained above.
+- `aria-selected` to indicate which option is active
 
-TODO: JS?
+The "status" div has:
 
-I have prototyped my own version of this which is based on GDS's Accessible Typeahead[^]&mdash;theirs is based on Leonie Watson's accessible Autocomplete[^]. Feel free to use and check any of these out or build your own if need be using the above specification to guide you.
+- `aria-role="status" to provide a status such as *2 results are available. France (1 of 2) is selected*
+- `aria-live="polite" to announce the status when the user stops typings as opposed to interupting them.
+
+The Javascript is quite complicated but here's a run down of what it needs to do:
+
+- a
+- b
+- c
+
+I have prototyped a version of this based on GDS's Accessible Typeahead[^]&mdash;theirs is based on Leonie Watson's accessible Autocomplete[^]. Feel free to use and check any of these out or build your own if needed using the above specification to guide you.
 
 ## Choosing a date
 

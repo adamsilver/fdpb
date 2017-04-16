@@ -175,9 +175,12 @@ The "status" div has:
 
 The Javascript is quite complicated but here's a run down of what it needs to do:
 
-- a
-- b
-- c
+- listen to keyup events on the text box.
+- in response to that event, need to display options;
+- and update the attributes as per above
+- if user types down/up arrows highlight the option
+- if highlighted on option, and user presses spacebar/return put the value in the textbox
+- if the user taps/clicks an option, put value in text box, and move focus back to the text box.
 
 I have prototyped a version of this based on GDS's Accessible Typeahead[^]&mdash;theirs is based on Leonie Watson's accessible Autocomplete[^]. Feel free to use and check any of these out or build your own if needed using the above specification to guide you.
 

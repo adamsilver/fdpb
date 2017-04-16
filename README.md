@@ -1,6 +1,6 @@
 # Introduction
 
-My obsession with forms first started after I did my first web design module.
+My obsession with forms first started my first web design module.
 
 Mostly that consisted of me cutting and pasting html, css and javascript by people that somewhat knew what they were doing into my own pages and editing stuff until I broke it/fixed it.
 

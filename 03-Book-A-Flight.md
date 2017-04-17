@@ -186,60 +186,39 @@ The Javascript is quite complicated but here's a run down of what it needs to do
 
 I have prototyped a version of this based on GDS's Accessible Typeahead[^]&mdash;theirs is based on Leonie Watson's accessible Autocomplete[^]. Feel free to use and check any of these out or build your own if needed using the above specification to guide you.
 
-## Choosing a date
+## Choosing dates
 
-In his article Making Input Type Date Complicated[^PPK], PPK says that all too often designers and developers make things complicated when it comes to offering users the ability to enter a date. The solution he offers is a simple one. Use HTML5's `input type="date"`.
+Dates are one of those things&mdash;what's the word?&mdash;that's it, a pain in the ass. Years ago, I would mostly see them implemented as three separate select boxes; one for day, month and year.
 
-"You can find screenshots for all types for six mobile browsers here."
+They just don't work. From our previous analysis, we know that select boxes aren't any good anyway. But the whole point of a select box, is that the user selects from a set of valid options. With dates this is not the case.
 
-"If you feel that this date picker looks a lot like the system date picker that you use for setting dates and times on your phone, hey, that’s not a coincidence. In fact, type=”date” was created exactly so that mobile browsers could outsource date picking to native components. The idea behind that is that users will already be familiar with it, and that they’re reasonably well suited to the mobile touchscreen environment."
+This is because some months have 31 days, others 30 and of course February. Oh damn you February. So unique and so painful you are. As I write this memories come flooding back. There is also leap years to contend with.
 
-"The UK Government Digital Services does not recommend using these native widgets because of problems they found during user tests. Most importantly, filling out your date of birth may require a lot of scrolling: the date picker starts at the current year, and the older you are, the more you have to scroll back."
+We didn't want to use a text box because we didn't know what users would type, in what format and with what delimitter: a dash, a period, a slash, or no delimitter at all. Then there is internationalisation. Some people write dates with the month first, some with the day.
 
-"As a result the GDS recommends using three separate form fields for day, month, and year, not offer any other interface, and being liberal in what the server accepts. I definitely agree with that last bit of advice, and must admit that scrolling back to your year of birth may be annoying."
+HTML5 introduced the date input. This is particularly useful on mobile browsers, where it will show the native date UI control, making it familiar, and quite well suited. Also, if the manufacturers make improvements our forms will get the same treatment, with no effort on our part whatsoever. Lastly, when supported, we don't need any heavy and difficult to create custom components. Native components are typically fast and accessible by default.
 
-"The date-of-birth problem could be partially solved by setting the default value of the date field to 18 years before the current date. It is reasonable to assume that just about every visitor of a government website is over 18, so setting the date would save everyone some scrolling. Still, this is just a little extra bit of help, and not a fundamental solution to the problem."
+Here's the screenshots for what this looks like on mobile:
 
-"Despite these valid concerns, we should realise that many sites have different requirements. Flight and hotel booking sites, for instance, want to know your date of arrival and departure, and they are usually a few months into the future at most. For these sites there is much less of a reason to avoid <input type=”date”>."
+![Mobile native date control](./images/mobile-date.png)
 
-"The unspoken assumption is, that your site must look and work exactly the same on all types of devices. Even though we know that that is nonsense, we keep falling for it."
+Desktop browsers are different and have less support. Chrome and Edge work pretty well but Firefox, for example, doesn't have any support. Here's the widget on desktop Chrome:
 
-Sometimes people come up with rubbish excuses to avoid using the native control, such as doesn't look the same. But sometimes they come up with good reasons such as, I can't mark which dates are unavailable and stop the user selecting them.
+![Desktop native date control](./images/desktop-date.png)
 
-We can enhance and fallback. textbox -> date field [OR custom date widget].
+It all seems a bit messy doesn't it? But with all of these things we need to step through this information slowly.
 
-![What it looks like](/etc/)
+GDS have done a lot of research with regard to asking for date&mdash;in particular people's birth date. Most users know this information&mdash;therefore a date picker is often slower and more problematic than typing numbers into a text box.
 
-We already know how much more work it is to create a custom component and we also know that a custom component is less familiar. But we also know that a native component IS familiar, free, performant and usually accessible.
+GDS advise three *separate* boxes for day, month and year, to avert the delimitter and internationalisation problems we discussed earlier. Here's what it looks like:
 
-This is because:
+![GDS date of birth](./images/gds-dob.png)
 
-- It's free
-- Doesn't need any extra code (performant)
-- Enhances for free
-- Matches the device date picker improving familiarity
+It works well, and the research I've been apart of has backed this position up.
 
-I agree with PPK. It has many advantages and it's good place to start. But most design decisions don't adhere to a blanket rule. Context is everything. We can't design a great experience before first asking ourselves *what type of date are we asking users for?*
+However, as with any other design problem, context is important. Our flight booking system isn't asking for a date of birth. It's asking for a flight  date in the future, exact or approximate, and one that is often informed by the day of the week in which that date lands.
 
-The answer to this question most definitely influences the solution. For example, if we're asking for a date of birth, a date picker might be a bit clunky. Most people know their date of birth and typing it in directly is faster than scrolling; and then choosing the day, month and year separately.
-
-This is why GDS suggests the following:
-
-![Image here](/etc/)
-
-Each segment has it's own text box and clear labelling, drastically reducing the chance of errors and having to work out the localised format. For example an American date puts the month before the day.
-
-TODO: More reasons
-
-Here's another example. Say the user wants to choose an approximate date. Perhaps they need to take some holiday during the summer holiday perid. In this case the availability and price may well influence the date they pick. GDS's solution maybe less useful here.
-
-The native date picker does have some shortcomings that we should be aware of. It doesn't allow us to disable dates. Such as those that are in the past, or those that are *sold out*. In short, and as is often the case, it depends.
-
-With all that said, the native date field does make sense in our case. If the user chooses a date in the past, we can display an error quickly. And seeing as the user is *searching* for flights, if there are none we have an opportunity to say that and display the nearest dates all within a dedicated page of its own.
-
-Cramming this information inside a date picker is hard to design and hard for users to intepret.
-
-Here's the code:
+Offering users a date picker seems sensible. Afterall, we already know how it is to create a custom component and how they incur performance penalties. We also know the native date picker doesn't suffer from these problems. For these reasons we'll use one as a starting point and wait for evidence that shows they are problematic.
 
 ```HTML
 <div>
@@ -248,9 +227,40 @@ Here's the code:
 </div>
 ```
 
-Here's what it looks like:
+We know that widgets don't need to look the same cross browser[^] so our only remaining problem is *what about browsers that don't support it?*. We can feature detect support and use a custom component[^] when there is none. There are many to choose from[^].
 
-![What it looks like](/etc/)
+```Javascript
+function supportsDateInput() {
+	var el = document.createElement('input')
+	el.type = "date"
+	return typeof el.type == "date";
+}
+
+if(!supportsDateInput()) {
+	// create and use custom date picker
+}
+
+---
+
+DOB:
+
+Each segment has it's own text box and clear labelling, drastically reducing the chance of errors and having to work out the localised format. For example an American date puts the month before the day.
+
+ANOTHER EG:
+
+Say the user wants to choose an approximate date. Perhaps they need to take some holiday during the summer holiday perid. In this case the availability and price may well influence the date they pick. GDS's solution maybe less useful here.
+
+NATIVE SHORTCOMINGS:
+
+The native date picker does have some shortcomings that we should be aware of. It doesn't allow us to disable dates. Such as those that are in the past, or those that are *sold out*. In short, and as is often the case, it depends.
+
+...
+
+If the user chooses a date in the past, we can display an error quickly. And seeing as the user is *searching* for flights, if there are none we have an opportunity to say that and display the nearest dates all within a dedicated page of its own.
+
+Cramming this information inside a date picker is hard to design and hard for users to intepret.
+
+---
 
 ## Choosing passengers
 

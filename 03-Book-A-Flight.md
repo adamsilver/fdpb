@@ -176,9 +176,11 @@ The "status" div has:
 The Javascript is quite complicated but here's a run down of what it needs to do:
 
 - listen to keyup events on the text box.
-- in response to that event, need to display options;
-- and update the attributes as per above
+- display options if and when they match
+- if an option matches exactly hide options
+- ...and when displaying options apply attributes as per above
 - if user types down/up arrows highlight the option
+- ...and mark attribues as per above
 - if highlighted on option, and user presses spacebar/return put the value in the textbox
 - if the user taps/clicks an option, put value in text box, and move focus back to the text box.
 
@@ -188,7 +190,27 @@ I have prototyped a version of this based on GDS's Accessible Typeahead[^]&mdash
 
 In his article Making Input Type Date Complicated[^PPK], PPK says that all too often designers and developers make things complicated when it comes to offering users the ability to enter a date. The solution he offers is a simple one. Use HTML5's `input type="date"`.
 
+"You can find screenshots for all types for six mobile browsers here."
+
+"If you feel that this date picker looks a lot like the system date picker that you use for setting dates and times on your phone, hey, that’s not a coincidence. In fact, type=”date” was created exactly so that mobile browsers could outsource date picking to native components. The idea behind that is that users will already be familiar with it, and that they’re reasonably well suited to the mobile touchscreen environment."
+
+"The UK Government Digital Services does not recommend using these native widgets because of problems they found during user tests. Most importantly, filling out your date of birth may require a lot of scrolling: the date picker starts at the current year, and the older you are, the more you have to scroll back."
+
+"As a result the GDS recommends using three separate form fields for day, month, and year, not offer any other interface, and being liberal in what the server accepts. I definitely agree with that last bit of advice, and must admit that scrolling back to your year of birth may be annoying."
+
+"The date-of-birth problem could be partially solved by setting the default value of the date field to 18 years before the current date. It is reasonable to assume that just about every visitor of a government website is over 18, so setting the date would save everyone some scrolling. Still, this is just a little extra bit of help, and not a fundamental solution to the problem."
+
+"Despite these valid concerns, we should realise that many sites have different requirements. Flight and hotel booking sites, for instance, want to know your date of arrival and departure, and they are usually a few months into the future at most. For these sites there is much less of a reason to avoid <input type=”date”>."
+
+"The unspoken assumption is, that your site must look and work exactly the same on all types of devices. Even though we know that that is nonsense, we keep falling for it."
+
+Sometimes people come up with rubbish excuses to avoid using the native control, such as doesn't look the same. But sometimes they come up with good reasons such as, I can't mark which dates are unavailable and stop the user selecting them.
+
+We can enhance and fallback. textbox -> date field [OR custom date widget].
+
 ![What it looks like](/etc/)
+
+We already know how much more work it is to create a custom component and we also know that a custom component is less familiar. But we also know that a native component IS familiar, free, performant and usually accessible.
 
 This is because:
 
@@ -196,11 +218,6 @@ This is because:
 - Doesn't need any extra code (performant)
 - Enhances for free
 - Matches the device date picker improving familiarity
-- Yada
-- Bada
-- Good for keyboard
-- Good for mouse
-- etc
 
 I agree with PPK. It has many advantages and it's good place to start. But most design decisions don't adhere to a blanket rule. Context is everything. We can't design a great experience before first asking ourselves *what type of date are we asking users for?*
 

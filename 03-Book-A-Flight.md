@@ -208,7 +208,7 @@ Desktop browsers are different and have less support. Chrome and Edge work prett
 
 It all seems a bit messy doesn't it? But with all of these things we need to step through this information slowly.
 
-GDS have done a lot of research with regard to asking for date&mdash;in particular people's birth date. Most users know this information&mdash;therefore a date picker is often slower and more problematic than typing numbers into a text box.
+GDS have done a lot of research with regard to asking for dates&mdash;in particular people's birth date. Most users intuively know this information&mdash;picking a date picker is often slower and more problematic than typing numbers into a text box without any further assistance.
 
 GDS advise three *separate* boxes for day, month and year, to avert the delimitter and internationalisation problems we discussed earlier. Here's what it looks like:
 
@@ -218,7 +218,7 @@ It works well, and the research I've been apart of has backed this position up.
 
 However, as with any other design problem, context is important. Our flight booking system isn't asking for a date of birth. It's asking for a flight  date in the future, exact or approximate, and one that is often informed by the day of the week in which that date lands.
 
-Offering users a date picker seems sensible. Afterall, we already know how it is to create a custom component and how they incur performance penalties. We also know the native date picker doesn't suffer from these problems. For these reasons we'll use one as a starting point and wait for evidence that shows they are problematic.
+Offering users a date picker seems sensible. Afterall, we already know how hard it is to create a custom component and incurred performance cost. We also know the native date pickers are immune to these particualr issues. So we'll use one.
 
 ```HTML
 <div>
@@ -227,7 +227,22 @@ Offering users a date picker seems sensible. Afterall, we already know how it is
 </div>
 ```
 
-We know that widgets don't need to look the same cross browser[^] so our only remaining problem is *what about browsers that don't support it?*. We can feature detect support and use a custom component[^examplesppk] when there is none. There are many to choose from[^].
+Webkit browsers allow us to style native bits of the control using the following psedo selectors:
+
+```CSS
+::-webkit-datetime-edit
+::-webkit-datetime-edit-fields-wrapper
+::-webkit-datetime-edit-text
+::-webkit-datetime-edit-month-field
+::-webkit-datetime-edit-day-field
+::-webkit-datetime-edit-year-field
+::-webkit-inner-spin-button
+::-webkit-calendar-picker-indicator
+```
+
+We know that widgets don't need to look the same cross browser[^] so our only remaining concern is what to do with browsers that don't support it.
+
+We can feature detect support for it as follows:
 
 ```Javascript
 function supportsDateInput() {
@@ -237,28 +252,11 @@ function supportsDateInput() {
 }
 
 if(!supportsDateInput()) {
-	// create and use custom date picker
+	// create and use custom Javascript date picker widget
 }
+```
 
----
-
-DOB:
-
-Each segment has it's own text box and clear labelling, drastically reducing the chance of errors and having to work out the localised format. For example an American date puts the month before the day.
-
-ANOTHER EG:
-
-Say the user wants to choose an approximate date. Perhaps they need to take some holiday during the summer holiday perid. In this case the availability and price may well influence the date they pick. GDS's solution maybe less useful here.
-
-NATIVE SHORTCOMINGS:
-
-The native date picker does have some shortcomings that we should be aware of. It doesn't allow us to disable dates. Such as those that are in the past, or those that are *sold out*. In short, and as is often the case, it depends.
-
-...
-
-If the user chooses a date in the past, we can display an error quickly. And seeing as the user is *searching* for flights, if there are none we have an opportunity to say that and display the nearest dates all within a dedicated page of its own.
-
-Cramming this information inside a date picker is hard to design and hard for users to intepret.
+If the browser doesn't support the native date input, we can create a custom widget instead. You can either write your own, or use an existing component, for which there are many to choose from[^examplesppk]).
 
 ---
 

@@ -258,8 +258,6 @@ if(!supportsDateInput()) {
 
 If the browser doesn't support the native date input, we can create a custom widget instead. You can either write your own, or use an existing component, for which there are many to choose from[^examplesppk]).
 
----
-
 ## Choosing passengers
 
 The next thing the user needs to do is choose how many passengers are going on the trip. Passengers fall under certain categories. For example, Easyjet[^] has the following categories:

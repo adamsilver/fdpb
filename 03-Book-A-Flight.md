@@ -227,7 +227,7 @@ Offering users a date picker seems sensible. Afterall, we already know how it is
 </div>
 ```
 
-We know that widgets don't need to look the same cross browser[^] so our only remaining problem is *what about browsers that don't support it?*. We can feature detect support and use a custom component[^] when there is none. There are many to choose from[^].
+We know that widgets don't need to look the same cross browser[^] so our only remaining problem is *what about browsers that don't support it?*. We can feature detect support and use a custom component[^examplesppk] when there is none. There are many to choose from[^].
 
 ```Javascript
 function supportsDateInput() {
@@ -333,11 +333,4 @@ Within the label we can put all the pertinet information. Price and flight times
 [^GDS type]:(https://alphagov.github.io/accessible-typeahead/)
 [^leonie]:(http://ljwatson.github.io/design-patterns/autocomplete/)
 [^ppk]:(https://medium.com/samsung-internet-dev/making-input-type-date-complicated-a544fd27c45a)
-
----
-
-## Typeahead outstanding notes
-
-- Why ios check? To prevent closing the menu when users dismiss the on-screen keyboard. I spent a few days trying to come with alternative methods (lots involving checking the size of the browser window) but since iOS 10 I don’t think there is an alternative way, which is very frustrating
-- https://github.com/alphagov/accessible-typeahead/blob/dff68ee25fe0c346f410f353035b23d721949ee3/accessibility-criteria.md
-- ios check, capture+ blur thinger.
+[^examplesppk]:(http://www.hongkiat.com/blog/useful-calendar-date-picker-scripts-for-web-developers/)

@@ -276,7 +276,7 @@ if(!supportsDateInput()) {
 }
 ```
 
-If the browser doesn't support the native date input, we can create a custom widget instead. You can either write your own, or use an existing component, for which there are many to choose from[^examplesppk]).
+If the browser doesn't support the native date input, we can create a custom widget instead. You can either write your own, or use an existing component, for which there are many to choose from[^exampledatepickers]).
 
 ## Choosing passengers
 
@@ -349,4 +349,4 @@ Within the label we can put all the pertinet information. Price and flight times
 [^GDS type]:(https://alphagov.github.io/accessible-typeahead/)
 [^leonie]:(http://ljwatson.github.io/design-patterns/autocomplete/)
 [^ppk]:(https://medium.com/samsung-internet-dev/making-input-type-date-complicated-a544fd27c45a)
-[^examplesppk]:(http://www.hongkiat.com/blog/useful-calendar-date-picker-scripts-for-web-developers/)
+[^exampledatepickers]:(http://www.webaxe.org/accessible-date-pickers/)

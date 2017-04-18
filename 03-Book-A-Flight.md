@@ -198,7 +198,7 @@ Notes:
   - Why native is best where possible, and that's the approach we have taken so far. Little enhancements, but mostly just beautiful semantic performant html.
   - mobile support
   - desktop support
-  - creating our own (feature detect, design, no overlay, button, a11y, size of choices)
+  - creating our own (feature detect, design, no overlay, button, a11y, size of choices). If need OTHER EG and custom behaviour OR user testing shows that on mobile and desktop our own implementation is better, just remove the IF SUPPORTS BIT. Done. 
   - those that get the native date enhancement
     - style better
     - turn off shit with css

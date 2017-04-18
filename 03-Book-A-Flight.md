@@ -52,10 +52,10 @@ A text box (`input type="search"`) is another option. The search type enhances t
 HTML:
 
 ```html
-	<div>
-		<label for="destination">Destination</label>
-		<input type="search" name="destination" id="destination">
-	</div>
+<div>
+	<label for="destination">Destination</label>
+	<input type="search" name="destination" id="destination">
+</div>
 ```
 
 This option is good when the amount of search options is completely dynamic and vast in size and breadth, like searching for products on Amazon for example. But for this service, we have a finite amount of destinations that we know in advance.
@@ -187,6 +187,26 @@ The Javascript is quite complicated but here's a run down of what it needs to do
 I have prototyped a version of this based on GDS's Accessible Typeahead[^]&mdash;theirs is based on Leonie Watson's accessible Autocomplete[^]. Feel free to use and check any of these out or build your own if needed using the above specification to guide you.
 
 ## Choosing dates
+
+Notes:
+- why dates are hard.
+- types of dates. Must know what, before we know how
+  - dob
+  - flight
+  - other eg
+- picking dates natively
+  - Why native is best where possible, and that's the approach we have taken so far. Little enhancements, but mostly just beautiful semantic performant html.
+  - mobile support
+  - desktop support
+  - creating our own (feature detect, design, no overlay, button, a11y, size of choices)
+  - those that get the native date enhancement
+    - style better
+    - turn off shit with css
+  - those which get degraded text box
+    - strict formatting where necessary...
+    - good hint
+    - good error messaging (good for everyone else too)
+	- With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
 
 Dates are one of those things&mdash;what's the word?&mdash;that's it, a pain in the ass. Years ago, I would mostly see them implemented as three separate select boxes; one for day, month and year.
 

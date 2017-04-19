@@ -272,6 +272,30 @@ Oyvind is not a designer per se, but his input into the design is of vital impor
 
 Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
 
+### Expiry date
+
+Generally speaking, dates are hard. But, fortunately, an expiry date is straightforward to design and easy to use. We offer users a single text box that closely matches the format found on the credit card themselves. This reduces the cognitive burden for users as they can just copy what they see.
+
+> "Be conservative in what you send; be liberal in what you accept."
+
+We can forgive users for entering a slash as we can easily strip that out on the server. We do the hard work so users don't have to. In addition to this we still give users a hint so for users that are more careful and anxious&mdash;those that read all insutrctions&mdash;they will feel at ease and empowered at the same time.
+
+You'll also notice the expiry date uses `input type="number"`. For supporting browsers, users won't even be able to type a slash. It will be ignored. On mobile an on-screen number keyboard will be shown making it much easier. This is what it looks like:
+
+![!]()
+
+And for people who like to use the keyboard on desktop, we might call them power users, can use the up and down arrows to increment and decrement the field without the pain of selecting/deleting/typing etc.
+
+Some browsers show little increment and decrement buttons on these inputs. They are quite ugly and hard to use. To turn them off, we can use the following CSS:
+
+```CSS
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+```
+
 ### Billing address reveal
 
 To validate a card, it needs an associated address. For most users the billing address is the same as the delivery address. The user has already provided this and so we can improve the experience here.

@@ -188,8 +188,24 @@ I have prototyped a version of this based on GDS's Accessible Typeahead[^]&mdash
 
 ## Choosing dates
 
-Notes:
-- why dates are hard.
+Dates are hard[^]. There is no getting away from this fact. Different time zones, formats, delimitters, days in the month, length of a year. It's hard work to design all of this complexity out of a UI.
+
+Traditionally and sometimes still to this day, websites use three select boxes; one for day, month and year. We already know select boxes are problematic anyway, but one of their qualities is that they stop the user entering wrong information.
+
+With dates this isn't the case as users can select *31 February 2016*, for example resulting in an error, that needs handling. This is just one of many problems.
+
+So why did websites and why do some websites still use select boxes, instead of a simple textbox. Mostly because it stops the system needing to handle a plethora of different formats. Some dates start with month first, some with day. Some delimit dates with slashes; others with dashes. It's actually really hard to know.
+
+But I digress too early. Before we know how to design a date form control, we first need to understand what type of date we're asking for. Fortunately, GDS has done the hard work for us. They say *the way you should ask users for dates depends on the types of date you’re asking for*.
+
+Here are four examples they use to demonstrate:
+
+- memorable dates (for example, date of birth or marriage)
+- dates from documents or cards (for example, a passport or credit card)
+- approximate dates (like ‘June 1983’)
+- relative dates (like ‘4 days from today’)
+
+
 - types of dates. Must know what, before we know how
   - dob
   - flight
@@ -198,7 +214,7 @@ Notes:
   - Why native is best where possible, and that's the approach we have taken so far. Little enhancements, but mostly just beautiful semantic performant html.
   - mobile support
   - desktop support
-  - creating our own (feature detect, design, no overlay, button, a11y, size of choices). If need OTHER EG and custom behaviour OR user testing shows that on mobile and desktop our own implementation is better, just remove the IF SUPPORTS BIT. Done. 
+  - creating our own (feature detect, design, no overlay, button, a11y, size of choices). If need OTHER EG and custom behaviour OR user testing shows that on mobile and desktop our own implementation is better, just remove the IF SUPPORTS BIT. Done.
   - those that get the native date enhancement
     - style better
     - turn off shit with css
@@ -208,7 +224,7 @@ Notes:
     - good error messaging (good for everyone else too)
 	- With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
 
-Dates are one of those things&mdash;what's the word?&mdash;that's it, a pain in the ass. Years ago, I would mostly see them implemented as three separate select boxes; one for day, month and year.
+---
 
 They just don't work. From our previous analysis, we know that select boxes aren't any good anyway. But the whole point of a select box, is that the user selects from a set of valid options. With dates this is not the case.
 
@@ -350,3 +366,4 @@ Within the label we can put all the pertinet information. Price and flight times
 [^leonie]:(http://ljwatson.github.io/design-patterns/autocomplete/)
 [^ppk]:(https://medium.com/samsung-internet-dev/making-input-type-date-complicated-a544fd27c45a)
 [^exampledatepickers]:(http://www.webaxe.org/accessible-date-pickers/)
+[^dateshard]:(http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time)

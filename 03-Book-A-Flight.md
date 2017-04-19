@@ -192,93 +192,90 @@ Dates are hard[^]. There is no getting away from this fact. Different time zones
 
 Traditionally and sometimes still to this day, websites use three select boxes; one for day, month and year. We already know select boxes are problematic anyway, but one of their qualities is that they stop the user entering wrong information.
 
-With dates this isn't the case as users can select *31 February 2016*, for example resulting in an error, that needs handling. This is just one of many problems.
+With dates, this isn't the case as users can select *31 February 2016*, for example resulting in an error that needs handling. This is just one of many problems.
 
-So why did websites and why do some websites still use select boxes, instead of a simple textbox. Mostly because it stops the system needing to handle a plethora of different formats. Some dates start with month first, some with day. Some delimit dates with slashes; others with dashes. It's actually really hard to know.
+So why did websites and why do some websites still use select boxes, instead of a simple textbox. Mostly because it stops the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes; others with dashes. It's actually really hard to know.
 
-But I digress too early. Before we know how to design a date form control, we first need to understand what type of date we're asking for. Fortunately, GDS has done the hard work for us. They say *the way you should ask users for dates depends on the types of date you’re asking for*.
+But I digress. Before we can design a date form control, we first need to understand what type of date we're asking for. Like GDS says *the way you should ask users for dates depends on the types of date you’re asking for*.
 
-Here are four examples they use to demonstrate:
+### Dates from documents
 
-- memorable dates (for example, date of birth or marriage)
-- dates from documents or cards (for example, a passport or credit card)
-- approximate dates (like ‘June 1983’)
-- relative dates (like ‘4 days from today’)
+We already discussed this in *Checkout* when we designed the expiry date field. If you're not reading this book in order, feel free to jump back there now.
 
+### Memorable dates
 
-- types of dates. Must know what, before we know how
-  - dob
-  - flight
-  - other eg
-- picking dates natively
-  - Why native is best where possible, and that's the approach we have taken so far. Little enhancements, but mostly just beautiful semantic performant html.
-  - mobile support
-  - desktop support
-  - creating our own (feature detect, design, no overlay, button, a11y, size of choices). If need OTHER EG and custom behaviour OR user testing shows that on mobile and desktop our own implementation is better, just remove the IF SUPPORTS BIT. Done.
-  - those that get the native date enhancement
-    - style better
-    - turn off shit with css
-  - those which get degraded text box
-    - strict formatting where necessary...
-    - good hint
-    - good error messaging (good for everyone else too)
-	- With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
+People find it easy to remember certain dates, such as date of birth. It's often slower and harder to find this date (using a calendar, for example) than it is to type numbers into a text box unassisted.
 
----
-
-They just don't work. From our previous analysis, we know that select boxes aren't any good anyway. But the whole point of a select box, is that the user selects from a set of valid options. With dates this is not the case.
-
-This is because some months have 31 days, others 30 and of course February. Oh damn you February. So unique and so painful you are. As I write this memories come flooding back. There is also leap years to contend with.
-
-We didn't want to use a text box because we didn't know what users would type, in what format and with what delimitter: a dash, a period, a slash, or no delimitter at all. Then there is internationalisation. Some people write dates with the month first, some with the day.
-
-HTML5 introduced the date input. This is particularly useful on mobile browsers, where it will show the native date UI control, making it familiar, and quite well suited. Also, if the manufacturers make improvements our forms will get the same treatment, with no effort on our part whatsoever. Lastly, when supported, we don't need any heavy and difficult to create custom components. Native components are typically fast and accessible by default.
-
-Here's the screenshots for what this looks like on mobile:
-
-![Mobile native date control](./images/mobile-date.png)
-
-Desktop browsers are different and have less support. Chrome and Edge work pretty well but Firefox, for example, doesn't have any support. Here's the widget on desktop Chrome:
-
-![Desktop native date control](./images/desktop-date.png)
-
-It all seems a bit messy doesn't it? But with all of these things we need to step through this information slowly.
-
-GDS have done a lot of research with regard to asking for dates&mdash;in particular people's birth date. Most users intuively know this information&mdash;picking a date picker is often slower and more problematic than typing numbers into a text box without any further assistance.
-
-GDS advise three *separate* boxes for day, month and year, to avert the delimitter and internationalisation problems we discussed earlier. Here's what it looks like:
+This is why GDS suggest using three *separate* text boxes on their own; one for day, month and year. Why three? To avoid the formatting issues we discussed earlier. Here's what it looks like:
 
 ![GDS date of birth](./images/gds-dob.png)
 
-It works well, and the research I've been apart of has backed this position up.
+HTML:
 
-However, as with any other design problem, context is important. Our flight booking system isn't asking for a date of birth. It's asking for a flight  date in the future, exact or approximate, and one that is often informed by the day of the week in which that date lands.
+```HTML
+<fieldset>
+    <legend>Date of birth</legend>
+	<div>
+		<label for="day">Day (DD)</label>
+		<input type="number" name="day" id="day" pattern="[0-9]*">
+	</div>
+	<div>
+		<label for="month">Month (MM)</label>
+		<input type="number" name="month" id="month" pattern="[0-9]*">
+	</div>
+	<div>
+		<label for="year">Year (YYYY)</label>
+		<input type="number" name="year" id="year" pattern="[0-9]*">
+	</div>
+</fieldset>
+```
 
-Offering users a date picker seems sensible. Afterall, we already know how hard it is to create a custom component and incurred performance cost. We also know the native date pickers are immune to these particualr issues. So we'll use one.
+Like radios, it uses the fieldset and legend to group the three text boxes together.
+
+TODO: (The pattern attribute triggers the numeric keyboard on iPhones.) GDS
+
+### Booking dates
+
+A user might want to choose a date having been informed by price, availability and knowing which day of the week it relates to. It's the latter that is of most concern to us. People often orientate themselves by day and week to booking holidays. For this reason, we'll want to offer users a more convenient way of choosing a date.
+
+UIs that try to solve several problems at once are often detrimental to the resulting user experience. For example, if we were to try and convey price and availability inside a calendar widget, from which to choose a date, it would end up being full of information that's hard to process.
+
+Because of this, we'll simply let users pick a date preference in which to fly. We can help them decide which date to choose (based on price for example) in later steps.
+
+### Calendar controls
+
+Up until recently, we were left to create our own custom calendar control using Javascript. We already know how much effort it is to produce a user-friendly custom component that's inclusive. Wherever possible, we should let the browser do the work for us.
+
+HTML5 gave us `input type="date"` which enhances a text box into a calendar control. This is good because they:
+
+- save us time and money in design and implementation costs
+- are performant (as users don't need to download and execute custom components)
+- are familiar because native apps use the same UI control
+
+Also, when browser vendors improve the behaviour, our users get them too without waiting for us to upgrade our code. This frees us up to solve other problems instead.
+
+Mobile browser support is good, and this is where the native date picker really shines. Here's what it looks like:
+
+![Mobile native date control](./images/mobile-date.png)
+
+Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although by the time this book is released this may well have changed. Here's what it looks like for Chrome:
+
+![Desktop native date control](./images/desktop-date.png)
+
+If you're concerned about differences in appearance across different platforms and browsers. Don't be. User's either don't notice or don't care. And if you're not convinved you should watch Nicholas Zakas's video[^] and have a read of this website [^dowebsitesneedtolookthesame].
+
+Here's the HTML:
 
 ```HTML
 <div>
-	<label for="">Flight date</label>
-	<input type="date">
+	<label for="date">Flight date</label>
+	<input type="date" name="date" id="date">
 </div>
 ```
 
-Webkit browsers allow us to style native bits of the control using the following psedo selectors:
+We do have one remaining issue to consider: browsers that don't support `input type="date"`*.
 
-```CSS
-::-webkit-datetime-edit
-::-webkit-datetime-edit-fields-wrapper
-::-webkit-datetime-edit-text
-::-webkit-datetime-edit-month-field
-::-webkit-datetime-edit-day-field
-::-webkit-datetime-edit-year-field
-::-webkit-inner-spin-button
-::-webkit-calendar-picker-indicator
-```
-
-We know that widgets don't need to look the same cross browser[^] so our only remaining concern is what to do with browsers that don't support it.
-
-We can feature detect support for it as follows:
+The first thing we're going to want to do is detect support:
 
 ```Javascript
 function supportsDateInput() {
@@ -292,7 +289,43 @@ if(!supportsDateInput()) {
 }
 ```
 
-If the browser doesn't support the native date input, we can create a custom widget instead. You can either write your own, or use an existing component, for which there are many to choose from[^exampledatepickers]).
+The great thing about Progressive Enhancement, is that we don't actually have to do anything. The user can still type a date, it's just not as easy as it could be. Or we can use or write some code that creates a custom built calendar widget. There are many to choose from[^exampledatepickers].
+
+#### Writing our own
+
+- Not an overlay, just put it inline. Why make someone click to reveal if most people are going to do that anyway. GDS suggestion. Lot's of advantages. Less complex, less chance of stuff hiding off screen (position: absolute woes) etc.
+- Button to trigger it's display
+- size of choices
+- tables/columns
+- buttons
+- tabs to move around control/focus
+- up/down/left/right for dates
+
+The other wonderful thing about this approach is that if testing shows our custom component works better, we just remove the supports condition. But only after testing.
+
+---
+
+- picking dates natively
+  - those that get the native date enhancement
+    - style better
+    - turn off shit with css
+  - those which get degraded text box
+    - strict formatting where necessary...
+    - good hint
+    - good error messaging (good for everyone else too)
+	- With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
+---
+
+```CSS
+::-webkit-datetime-edit
+::-webkit-datetime-edit-fields-wrapper
+::-webkit-datetime-edit-text
+::-webkit-datetime-edit-month-field
+::-webkit-datetime-edit-day-field
+::-webkit-datetime-edit-year-field
+::-webkit-inner-spin-button
+::-webkit-calendar-picker-indicator
+```
 
 ## Choosing passengers
 

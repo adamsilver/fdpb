@@ -188,15 +188,15 @@ I have prototyped a version of this based on GDS's Accessible Typeahead[^]&mdash
 
 ## Choosing dates
 
-Dates are hard[^]. There is no getting away from this fact. Different time zones, formats, delimitters, days in the month, length of a year. It's hard work to design all of this complexity out of a UI.
+Dates are hard[^]. There is no getting away from this fact. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of a UI.
 
-Traditionally and sometimes still to this day, websites use three select boxes; one for day, month and year. We already know select boxes are problematic anyway, but one of their qualities is that they stop the user entering wrong information.
+Traditionally, and sometimes still to this day, websites use three select boxes; one for day, month and year. We already know select boxes are problematic anyway, but one of their qualities is that they stop the user entering wrong information.
 
-With dates, this isn't the case as users can select *31 February 2016*, for example resulting in an error that needs handling. This is just one of many problems.
+However, this quality doesn't apply to picking dates. This is because users can, for example, select *31 February 2016*, which results in a validation error. This is just one of many problems.
 
-So why did websites and why do some websites still use select boxes, instead of a simple textbox. Mostly because it stops the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes; others with dashes. It's actually really hard to know.
+So why use select boxes, instead of a simple textbox? Mostly because it stops the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes; others with dashes. It's actually really hard to know. But I digress.
 
-But I digress. Before we can design a date form control, we first need to understand what type of date we're asking for. Like GDS says *the way you should ask users for dates depends on the types of date you’re asking for*.
+Before we can design a date control, we first need to understand what type of date we're asking for. Like GDS says *the way you should ask users for dates depends on the types of date you’re asking for*.
 
 ### Dates from documents
 
@@ -230,9 +230,9 @@ HTML:
 </fieldset>
 ```
 
-Like radios, it uses the fieldset and legend to group the three text boxes together.
+Like radio buttons, this uses the fieldset and legend to group the three text boxes together so that users know the month is in relation to date of birth.
 
-TODO: (The pattern attribute triggers the numeric keyboard on iPhones.) GDS
+The `pattern` attribute is there to trigger the numeric keyboard on iPhones as some versions won't automatically show it even though the *type* should be all we need[^CHECK GDS SERVICE MANUAL FOR DATES].
 
 ### Booking dates
 

@@ -305,6 +305,8 @@ The other wonderful thing about this approach is that if testing shows our custo
 
 ---
 
+SPEC: https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/
+
 - picking dates natively
   - those that get the native date enhancement
     - style better

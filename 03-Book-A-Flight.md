@@ -143,7 +143,7 @@ HTML:
 </div>
 ```
 
-This may look complicated but there are just 3 main elements:
+This may look complicated but there are just three main elements:
 
 - Text box
 - Menu
@@ -236,7 +236,7 @@ The `pattern` attribute is there to trigger the numeric keyboard on iPhones as s
 
 ### Booking dates
 
-A user might want to choose a date having been informed by price, availability and knowing which day of the week it relates to. It's the latter that is of most concern to us. People often orientate themselves by day and week to booking holidays. For this reason, we'll want to offer users a more convenient way of choosing a date.
+A user might want to choose a date having been informed by price, availability and knowing which day of the week it relates to. It's the latter that is of most concern to us. People often orientate themselves by day and week when booking holidays. For this reason, we'll want to offer users a more convenient way of choosing a date.
 
 UIs that try to solve several problems at once are often detrimental to the resulting user experience. For example, if we were to try and convey price and availability inside a calendar widget, from which to choose a date, it would end up being full of information that's hard to process.
 
@@ -251,18 +251,19 @@ HTML5 gave us `input type="date"` which enhances a text box into a calendar cont
 - save us time and money in design and implementation costs
 - are performant (as users don't need to download and execute custom components)
 - are familiar because native apps use the same UI control
+- are normally accessible by default
 
-Also, when browser vendors improve the behaviour, our users get them too without waiting for us to upgrade our code. This frees us up to solve other problems instead.
+Also, when browser improve the design of the native components, our users get them too without waiting for us to upgrade our own code. This frees us up to solve other problems instead.
 
-Mobile browser support is good, and this is where the native date picker really shines. Here's what it looks like:
+So let's talk support. Mobile browser support is good. Here's what it looks like:
 
 ![Mobile native date control](./images/mobile-date.png)
 
-Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although by the time this book is released this may well have changed. Here's what it looks like for Chrome:
+Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although I hear it's on it's way. Here's what it looks like for Chrome:
 
 ![Desktop native date control](./images/desktop-date.png)
 
-If you're concerned about differences in appearance across different platforms and browsers. Don't be. User's either don't notice or don't care. And if you're not convinved you should watch Nicholas Zakas's video[^] and have a read of this website [^dowebsitesneedtolookthesame].
+If you're concerned about differences in appearance across different platforms and browsers. Don't be. User's either don't notice or don't care. And if you're not convinced you should watch Nicholas Zakas's video[^] and have a read of this website [^dowebsitesneedtolookthesame].
 
 Here's the HTML:
 
@@ -291,17 +292,21 @@ if(!supportsDateInput()) {
 
 The great thing about Progressive Enhancement, is that we don't actually have to do anything. The user can still type a date, it's just not as easy as it could be. Or we can use or write some code that creates a custom built calendar widget. There are many to choose from[^exampledatepickers].
 
-#### Writing our own
+And lastly, if testing shows that the custom widget performs better just remove the conditional feature detection and you're component will execute for everyone.
 
-- Not an overlay, just put it inline. Why make someone click to reveal if most people are going to do that anyway. GDS suggestion. Lot's of advantages. Less complex, less chance of stuff hiding off screen (position: absolute woes) etc.
-- Button to trigger it's display
-- size of choices
-- tables/columns
-- buttons
-- tabs to move around control/focus
-- up/down/left/right for dates
+#### Writing your own
 
-The other wonderful thing about this approach is that if testing shows our custom component works better, we just remove the supports condition. But only after testing.
+If the available widgets aren't suitable, here's a brief run down of things to consider:
+
+- Don't use an overlay. Put it inline. Why make someone click to reveal if most people are going to do that anyway. GDS suggestion. Lot's of advantages. Less complex, less chance of stuff hiding off screen (position: absolute woes) etc.
+- Use a button to trigger it's display
+- Make the choices easily clickable and tappable for those with fine motor issues.
+- Use a table for the grid to organise the days of the month to give context
+- Only make one day tabable.
+- Make back/previous buttons to be naturally focusable.
+- up/down/left/right for dates, and continuation
+
+Visual users may benefit from Cal. Not so much users of screen readers. We can still do something though.https://ux.stackexchange.com/questions/60884/best-way-for-date-field-for-visually-impaired-users
 
 ---
 

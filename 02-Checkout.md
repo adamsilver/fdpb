@@ -151,9 +151,9 @@ HTML:
 
 ### Mobile field
 
-As we discussed in A Registration Form, we know how important it is to tell users why we're asking for information.
+As we discussed in A Registration Form, we know how important it is to tell users why we're asking them for information.
 
-When a user first encounters this form, they wonder why we're asking for their mobile phone number, when they're ordering a product online.
+When they first encounters this form, they may wonder why we're asking for their mobile phone number, when they're ordering a product online.
 
 But we, the designers, know that our couriers offer real-time text messages on the day of delivery. And so as you can see in the design, we're telling our users that transparently. This builds trust, reduces friction and offers a nice little feature, all at the same time.
 
@@ -185,7 +185,7 @@ In the event that the component doesn't recognise a user's address, we still off
 
 Enhancing a textbox like this doesn't come for free. We either hand off responsibility to the plugin and hope that they considered screen reader users, or we write our own.
 
-In upcoming chapters, we'll discuss what it takes to design and code a fully inclusive typeahead form component. This will give you some expertise in order to analyse other peoples plugins, or to write your own when needed.
+In upcoming chapters, we'll discuss what it takes to design and code an inclusive typeahead component. This will give you some expertise in order to analyse other peoples plugins, or to write your own if needed.
 
 ## Delivery options
 
@@ -221,20 +221,20 @@ Combining the fieldset and legend is an important inclusive form pattern. Visual
 
 You might think that all fields can be grouped in some way. For example, we could wrap the entire registration form from the previous chapter in a `fieldset` and `legend`.
 
-Whilst this is valid it creates unnecessary noise to fields that are fully understandable anyway. As Heydon Pickering says in Inclusive Design Patterns[^], *it's easy to think of patterns as "right" and "wrong"* but, as with most design decisions, we should apply solutions based on the context of the problem.
+Whilst this is valid, it creates unnecessary noise to fields that are fully understandable anyway. As Heydon Pickering says in Inclusive Design Patterns[^], *it's easy to think of patterns as "right" and "wrong"* but, as with most design decisions, we should apply solutions based on the context of the problem.
 
 ### Provide a sensible default
 
 The first radio button has a `checked` attribute. This automatically selects the first delivery option without needing the user to do so.
 
-This has a couple of benefits:
+This has two benefits as there is:
 
-1. There is less work for the user to do; and
-2. There is no chance of causing validation errors.
+- less work for the user to do
+- no chance of causing validation errors
 
 In this situation it's vital that we put the most common choice first, which in this case we have assumed to be the cheapest.
 
-What we should never do, is automically select the most expensive and least common option.
+What we should never do, however, is automically select the most expensive and least common option.
 
 ## Payment
 
@@ -256,9 +256,12 @@ Again the size of the fields vary depending on their known lengths. Baymard inst
 
 ### We don't need to ask for it
 
-You may have noticed that the payment form does not contain a Valid From field but does contain Name On Card. When we designed the payment form for Kidly we had to take into account a couple things.
+You may have noticed that the payment form does not contain a *Valid From* field but does contain *Name On Card*. When we designed the payment form for Kidly we had to take into account the following:
 
-Firstly, what did our payment provider need to take payment, and second, what did we want for our own records. I spoke to Oyvind Valland, CTO of Kidly about all this. Here is what he had to say:
+- What did our payment provider need to take payment?
+- What did we want to keep for our own records?
+
+So I spoke to Oyvind Valland, CTO of Kidly about this to jog my memory. Here's what he said:
 
 > We don't need to ask for Valid From. Only a handful of debit cards show those and it provides more hassle for the customer to enter, than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
 
@@ -268,19 +271,19 @@ So I asked Oyvind why we have street name in the billing address field. Here's w
 
 > In order to verify card details I think the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is very handy in any situation where you have to query what's happened. Besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
 
-Oyvind is not a designer per se, but his input into the design is of vital importance. This goes to show the importance of designig as a team sport[^] and that by following the Question Protocol, mentioned in A Registration Form, we can decide what it is we must ask and what it is we want to ask and why.
+Oyvind is not a designer per se, but his input into the design is of vital importance. This goes to show the importance of designing as a team[^] and that by following the Question Protocol, mentioned in A Registration Form, we can decide what it is we must ask and what it is we want to ask and why.
 
 Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
 
 ### Expiry date
 
-Generally speaking, dates are hard. But, fortunately, an expiry date is straightforward to design and easy to use. We offer users a single text box that closely matches the format found on the credit card themselves. This reduces the cognitive burden for users as they can just copy what they see.
+Generally speaking, dates are hard. But, fortunately, an expiry date is straightforward to design and easy to use. We offer users a single text box that closely matches the format found on their own physical credit card. This reduces the cognitive burden for users as they can just copy what they see.
 
 > "Be conservative in what you send; be liberal in what you accept."
 
-We can forgive users for entering a slash as we can easily strip that out on the server. We do the hard work so users don't have to. In addition to this we still give users a hint so for users that are more careful and anxious&mdash;those that read all insutrctions&mdash;they will feel at ease and empowered at the same time.
+We can forgive users for entering a slash as we can easily strip that out on the server. We do the hard work so users don't have to. Additionally, we still give users a hint, so that users who are more careful and anxious&mdash;those that read all instructions&mdash;they will feel at ease and empowered at the same time.
 
-You'll also notice the expiry date uses `input type="number"`. For supporting browsers, users won't even be able to type a slash. It will be ignored. On mobile an on-screen number keyboard will be shown making it much easier. This is what it looks like:
+You'll also notice the expiry date uses `input type="number"`. For supporting browsers, users won't even be able to type a slash. It will be ignored. On mobile, an on-screen numeric keyboard will be shown making it easier still. This is what it looks like:
 
 ![!]()
 

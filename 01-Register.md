@@ -179,9 +179,9 @@ For this reason alone we'll choose to use labels that sit above their controls. 
 
 ## Focus styles
 
-By default, browsers apply a focus style to the active element. This also applies to form fields. This behaviour lets users know where they are, which is particularly helpful for users using a keyboard.
+By default, browsers apply a focus style to the active element. This also applies to form fields. This behaviour lets users know where they are, which is particularly helpful for keyboard users.
 
-Some designers despise the aesthetic of the browser defaults, because it *doesn't match the brand* or some such. In the mist of their hatred, they ask the developer to remove it. This is okay as long as they replace it.
+Some designers dislike the aesthetic of the browser defaults, because it *doesn't match the brand* or some such. In the mist of their dislike, they ask the developer to remove it. This is okay as long as they replace it.
 
 I've found that replacing it with a coloured border or outline (that has a different thickness to the default) makes this beautiful and functional at the same time.
 
@@ -189,15 +189,15 @@ I've found that replacing it with a coloured border or outline (that has a diffe
 
 ## Submit buttons
 
-Designing a button is straightforward, and yet aggregration of small details goes a long way.
+Designing a button is straightforward, and yet the aggregration of small details goes a long way.
 
-The first thing to note about buttons is that they aren't links. Links typically have special positioning (such as within the header) and underlines to denote their meaning. And they also have a hand cursor (also known as a pointer).
+The first thing to note about buttons is that they aren't links. Links typically have special positioning (such as those placed within a header) and underlines to denote their meaning. And they also have a hand cursor (also known as a pointer).
 
-As buttons aren't links, we shouldn't give them any of this treatment. They should look like a button in order to help users realise they are different. Fortunately buttons have a strong affordance anyway, and so we don't need to mess with them.
+As buttons aren't links, we shouldn't give them any of this treatment. They should look like a button in order to help users realise they are different. Fortunately buttons have a strong affordance[^] anyway, and so we don't need to mess with them.
 
 We should align the button to left, inline with the fields themselves. It doesn't make much sense to position the fields to the left, and the submit button to the right. If labels sit atop of the field, the vertical rhythm is straight down. This provides an intuitive expectation that what comes next will appear directly below.
 
-Therefore, keeping the button aligned to the left (like the fields) help users who zoom. Conversely a right-aligned button would disappear off-screen.
+Moreover, aligning buttons to the left will help users who zoom. Conversely a right-aligned button would disappear off-screen.
 
 The button's text must be descriptive of the action being taken. In our case "Register" or "Sign up" is both meaningful and terse. The exact words might need to align more with your brand and tone of voice but don't exchange clarity for cuteness.
 
@@ -211,7 +211,7 @@ We also have a layout that works well on small and big screens. And a design tha
 
 However, people make mistakes. And when they do, it's our job to design an experience which makes fixing them as quick and as painless as possible.
 
-Validation is the biggest design challenge we've faced so far and whilst it's not so hard, most sites get this wrong&mdash;either by not doing enough, or by doing too much. Or strangely by doing both at the same time.
+Validation is the biggest design challenge we've faced so far and whilst it's not a huge design challenge, most sites get this wrong&mdash;either by not doing enough, or by doing too much. Or strangely by doing both at the same time. Don't worry, I'll explain.
 
 To ensure users can fix errors easily, we'll need to tell them what's gone wrong and how to make it right. Our first discussion focuses on *when* to provide feedback.
 
@@ -253,7 +253,7 @@ Another problem with triggering the feedback on `blur` is that many people switc
 
 This is just a few of the associated problems. I've counted 5 others which you can read about in Live Validation Is Problematic[^] if you're interested.
 
-As is often the case in our industry, live validation is a technique that causes more problems than it solves. Again, we'll stick to robust and simple techniques that help users. We'll validate on `submit` and leave the clever stuff to our competitors.
+As is often the case in our industry, live validation is a technique that causes more problems than it solves. We'll stick to robust and simple techniques that help users. We'll validate on `submit` and leave the clever stuff to our competitors.
 
 #### HTML5 validation
 
@@ -271,11 +271,11 @@ When the user submits a form with errors we'll need to inform the user in three 
 
 When a page loads, it's the page's title that is read out first by screen readers. For this reason updating the title to read "The form has errors" (or words to that affect) will drastically help screen reader users.
 
-I recently worked on a project that was thoroughly accessibility checked by RNIB, and we prepended "Retry - " to the page title. This tested well. As the experience became familiar, this short prompt proved informative and terse.
+I recently worked on a project that was accessibility checked by RNIB, and we prepended "Retry - " to the page title. This tested well because as the experience became familiar, a short prompt proved to be both informative and terse.
 
 Whilst it's arguably less useful for those without vision impairments, it could still be a benefit. For users that multi-task and switch between tabs, having that text on the erroneous tab acts as a notification of sorts.
 
-For errors caught through client-side Javascript validation, the page title changing is less important (though you can still change the `title`). We'll provide more appropriate ways to inform people who use screen readers.
+For errors caught through client-side Javascript validation, the change of page title is less important (though you still can). We'll provide more appropriate ways to inform those using use screen readers.
 
 #### 2. Error summary
 
@@ -283,9 +283,9 @@ Next we're going to provide an error summary which looks like this:
 
 ![blah blah](/)
 
-We'll position this at the top of the page, so that when a page refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs validation (averting the page refresh) by bringing the error summary into view.
+We'll position this at the top of the page, so that when it refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs validation (averting the page refresh) by bringing the error summary into view.
 
-Conventionally, errors should be styled in some sort of red. We'll embrace this convention. To support those who can't see colour, we also provide an icon. As is the case with most inclusive design approaches, this helps people who can see in colour too. A well-designed icon is quicker to scan and interpret than reading long sentences.
+Conventionally, errors should be styled in red. We'll embrace this convention. To support those who can't see colour, we also provide an icon. As is the case with most inclusive design approaches, this helps people who can see in colour too. A well-designed icon is quicker to scan and interpret than reading long sentences.
 
 Each error message is an internal anchor that sets focus to the field.
 
@@ -303,15 +303,15 @@ HTML:
 
 The `tabindex` attribute allows Javascript to set focus to the element when an error is caught. This means we can bring the error summary into view. When focus is set, the heading will be read out prompting the user to take informative action.
 
-Without Javascript, and when there are errors, the summary will be rendered on the server. When the page is loaded without errors, this element should be hidden. To do this the server will need to apply an extra class of `errorSummary-isHidden`.
+Without Javascript, and when there are errors, the summary will be rendered on the server. When the page is loaded without errors, this element should be hidden. To do this, the server will need to apply an extra class of `errorSummary-isHidden`.
 
 By doing this, we allow Javascript to reuse the same component (and the same location on the screen). This is important because if the server catches an error, the Javascript validation will clear it appropriately. Otherwise we risk two error summary components being presented at the same time.
 
 The error message text itself is also important. One study showed that *being able to provide custom error messages for one particular e-commerce site increased conversion by 0.5%*. This tiny increase equates to over £250,000 per year[^].
 
-Spending time designing the error text is one of the best investments we can make to improve the experience for users. If an erroneous field simply said "Email address invalid, please fix", this is obviously unhelpful.
+Spending time designing error messages is one of the best investments we can make for users. If an erroneous field simply said "Email address invalid, please fix", this is lazy and unhelpful.
 
-This is the extreme of the situation, but subtle versions of this happen all over the Internet. If the Email address is invalid, then we need to explain to the user why that is. Perhaps the email address is already in-use. Or perhaps it contains invalid characters. We need to be specific and design our messages accordingly.
+Subtle versions of this happen all the time. If the Email address is invalid, then we need to explain to the user why that is. Perhaps the email address is already in-use. Or perhaps it contains invalid characters. We need to be specific and design our messages accordingly.
 
 #### 3. Provide in-context error messages
 
@@ -319,7 +319,7 @@ The title tag and error summary panels go a long way to help different users and
 
 We can do better. We can place error messages beside each field. However, we can't just place the text in a paragraph because people using screen readers won't be aware of such information.
 
-As we know already, labels are read out as the user enters each control. So we can piggyback this well supported functionality by injecting error messages inside the labels themselves. This way, on focussing on the erroneous email control, for example, they will hear something like "Email address. Your email address is invalid."
+As we know already, labels are read out as the user focuses each control. So we can piggyback this well supported functionality by injecting error messages inside the labels themselves. This way, on focussing on the erroneous email control, for example, they will hear something like "Email address. Your email address is missing the @ symbol."
 
 We'll be discussing how to handle groups of fields, such as radio buttons, in upcoming chapters. The reason I bring this to your attention, is that when we inject errors into a group of fields, injecting it into a label doesn't work.
 
@@ -332,7 +332,7 @@ We'll be discussing how to handle groups of fields, such as radio buttons, in up
 </div>
 ```
 
-The classes themselves act as hooks for styling and behaviour. The provided code[^] and demo will show this further.
+The classes themselves act as hooks for styling and behaviour. You can view a demo of the code[^] to see how these things apply, and customise them to your needs.
 
 ## Summary
 
@@ -341,7 +341,7 @@ We have navigated through many of the fundamental design challenges that most fo
 1. Always use a clear, readily accessible, human-readable label.
 2. Avoid any rule that inhibits rule number one.
 3. Strive to reduce the amount of questions we ask of our users.
-4. Use the right control for the job as many devices and browsers will enhance the experience for free.
+4. Use the right form control so that browsers can enhance the experience.
 5. Validation should be executed on submit. Upon execution there are 3 parts of the page to update to ensure a fully inclusive, and easy path to remedying any errors.
 
 Whilst we have covered a lot of ground in this chapter, this is lots more to discuss. The foundations have been laid, and with that we will up the ante and face even tougher challenges. In doing so we can explore some of the more interesting techniques at our disposal.

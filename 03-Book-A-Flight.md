@@ -64,7 +64,7 @@ If we were to let users search, unassisted, they could often be met with no resu
 
 One more time now: we can do better.
 
-### Typeahead combobox
+### Autocomplete combobox
 
 What we really need is a text box and select box rolled into one. As the user types a destination, suggestions appear beneath allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations.
 
@@ -274,9 +274,11 @@ Here's the HTML:
 </div>
 ```
 
-We do have one remaining issue to consider: browsers that don't support `input type="date"`*.
+We do have one remaining issue: browsers that don't support `input type="date"`*.
 
-The first thing we're going to want to do is detect support:
+#### Date input unsupported
+
+If someone uses a browser that lacks support for the date input, we can still provide an enhancement using Javascript. We need to write some Javascript that detects this capability:
 
 ```Javascript
 function supportsDateInput() {
@@ -290,23 +292,50 @@ if(!supportsDateInput()) {
 }
 ```
 
-The great thing about Progressive Enhancement, is that we don't actually have to do anything. The user can still type a date, it's just not as easy as it could be. Or we can use or write some code that creates a custom built calendar widget. There are many to choose from[^exampledatepickers].
+This is why Progressive Enhancement is such an important principle. We don't actually have to write any of this code. We can choose to let it degrade. The user can still type a date, it's just not so easy.
 
-And lastly, if testing shows that the custom widget performs better just remove the conditional feature detection and you're component will execute for everyone.
+Conversely, we may want to provide a fallback using Javascript. We may even find, that through testing, our own custom component is better than the native input. If we do, we can just remove the condition and always execute our own script.
 
-#### Writing your own
+If we do want to write our own component, or use an existing component[^], then we'll want to be able to identify the qualities of a well-designed, fully inclusive date picker.
 
-If the available widgets aren't suitable, here's a brief run down of things to consider:
+#### Writing our own Date Picker
 
-- Don't use an overlay. Put it inline. Why make someone click to reveal if most people are going to do that anyway. GDS suggestion. Lot's of advantages. Less complex, less chance of stuff hiding off screen (position: absolute woes) etc.
-- Use a button to trigger it's display
-- Make the choices easily clickable and tappable for those with fine motor issues.
-- Use a table for the grid to organise the days of the month to give context
-- Only make one day tabable.
+If we want to create our own Date Picker widget, we'll need to how to do it. As with everything else in this book, I have prototyped a version of this for you to peruse in your favourite browser to see how it all works.
+
+What it looks like:
+
+HTML:
+
+```HTML
+
+```
+
+Here's an explanation of the design and code:
+
+- We use a `button` with `type="button"` so that it doesn't submit the form. The button is also responsible for toggling the visibility of the calendar.
+- `aria-hidden` tells screen readers whether it's showing or not.
+- The table has `role="grid"` so that screen readers know what type of widget this is. It has a label which describes what type of grid it is.
+- Each row has role=row
+- Each cell has role=gridcell
+- Each column heading has role=columnheading
+- Live region
+- Label by
+- activedescendant
+- td description
+- aria-selected
+- Hitting the previous month should show the previous month and select the first day of that month. Same for hitting next month.
+- Once focus is set on the grid, the user can use arrow keys to move about to select a date. We avoid making the cells part of the tab sequence as it's too much for users to wade through.
+
+Design wise:
+
+- We want big buttons to make the days easily tapable. Fine motoro skills
+- Create a `<button type="button">` that toggles the calendar's visibility.
+- When displaying the calendar, display it inline below the text input. Overlays are complicated beasts that obscure parts of the screen, so we'll want to avoid those and keep things simple. Also on mobile, a dialog is a bit of an anti-pattern as the estate available to the overlay is often less than utilising the main page itself.
+- When focussed within the Date Picker, pressing `escape` should hide it.
+- Pressing enter/space should select the date and close the picker.
 - Make back/previous buttons to be naturally focusable.
 - up/down/left/right for dates, and continuation
-
-Visual users may benefit from Cal. Not so much users of screen readers. We can still do something though.https://ux.stackexchange.com/questions/60884/best-way-for-date-field-for-visually-impaired-users
+- Event though we are making the control screen reader friendly, it's probably not useful to them. But we don't assume. Visual users may benefit from Cal. Not so much users of screen readers. We can still do something though.https://ux.stackexchange.com/questions/60884/best-way-for-date-field-for-visually-impaired-users
 
 ---
 
@@ -318,7 +347,6 @@ SPEC: https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/
     - turn off shit with css
   - those which get degraded text box
     - strict formatting where necessary...
-    - good hint
     - good error messaging (good for everyone else too)
 	- With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
 ---

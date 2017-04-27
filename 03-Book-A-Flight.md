@@ -199,6 +199,7 @@ Traditionally, and sometimes still to this day, websites use three select boxes;
 In the case of picking dates, however, this is not the case. This is because users can, for example, select *31 February 2017*, which results in a validation error. This is just one of many problems.
 
 ![Select boxes for dates](./images/date-select.png)
+[https://www.gov.uk/state-pension-age/y/age]
 
 So why use select boxes instead of a simple textbox? Mostly because it stops the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes; others with dashes. It's actually really hard to know. More on this later.
 

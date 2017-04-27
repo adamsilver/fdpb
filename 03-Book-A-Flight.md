@@ -303,13 +303,13 @@ if(!supportsDateInput()) {
 
 This is why Progressive Enhancement is such a useful technique. We don't actually have to write any of this code. We can choose to let it degrade. The user can still type a date, it's just not so easy.
 
-Conversely, we may even find research shows that our custom component works better than the native input. If we do, we can just remove the condition, which will mean our widget runs everywhere.
+Conversely, we may even find research shows that our custom component works better than the native input. If we do, we can just remove the condition, which will ensure it executes in all browsers&mdash;not just those lacking support for the native control.
 
-If we do want to write our own component, or use an existing component[^],  we'll want to be able to identify the qualities of a well-designed, fully inclusive date picker.
+Wether we choose to use an existing component[^] or we make the bold step to design our own, it is beneficial to be able to identify the qualities of a well-design and fully inclusive date picker.
 
-#### Writing our own Date Picker
+#### Writing our own date picker
 
-If we want to create our own Date Picker widget, we'll need to know how. As with everything else in this book, I have prototyped a version of this for you to peruse in your favourite browser to see how it all works.
+If we want to create our own date picker, we'll need to know how. I have prototype[^] you can look at to see how it all works.
 
 What it looks like:
 

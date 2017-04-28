@@ -173,6 +173,8 @@ In *Do we really need it?*, we made sure that we only ask users for what is nece
 
 ## Positioning
 
+TODO: The Definitive Guide To Form Label Positioning by Jessica Enders
+
 It's easy to find research that shows that top-aligned labels (and legends) convert best[^]. But, if we really had to, we could find research to the contrary. With that said, if we're designing inclusive experiences on the web, this implies we're building responsive websites. This in turn means that we'll want our forms to be friendly on small screens.
 
 For this reason alone we'll choose to use labels that sit above their controls.  Not only do they work on small screens, but they make it easier for different sized labels (and legends) and localized versions to fit more easily within the UI.
@@ -292,7 +294,7 @@ Each error message is an internal anchor that sets focus to the field.
 HTML:
 
 ```html
-<div class="errorSummary">
+<div class="errorSummary" role="alert">
   <h2 tabindex="-1">Please fix the 4 errors</h2>
   <ul>
     <li><a href="#emailaddress">Email address cannot be empty</a></li>
@@ -300,6 +302,8 @@ HTML:
   </ul>
 </div>
 ```
+
+As Aaron Gustafsson says in The Features Of Highly Effective Forms (39 mins), `role=alert` this will get read out as soon as the page loads, when Javascript didn't catch the error on the client.
 
 The `tabindex` attribute allows Javascript to set focus to the element when an error is caught. This means we can bring the error summary into view. When focus is set, the heading will be read out prompting the user to take informative action.
 

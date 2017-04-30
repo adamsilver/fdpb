@@ -284,6 +284,19 @@ Here's the HTML:
 </div>
 ```
 
+```CSS
+::-webkit-datetime-edit
+::-webkit-datetime-edit-fields-wrapper
+::-webkit-datetime-edit-text
+::-webkit-datetime-edit-month-field
+::-webkit-datetime-edit-day-field
+::-webkit-datetime-edit-year-field
+::-webkit-inner-spin-button
+::-webkit-calendar-picker-indicator
+```
+
+We can use these pseudo selectors to style these things where we think it helps and tweak the styles and turn things off like "spinners".
+
 So far this works really well. We do have one remaining issue to address. That's browsers that don't support `input type="date"`.
 
 #### Date input unsupported
@@ -382,28 +395,20 @@ Here's the Javascript:
 Do I put all the JS in? It's complex.
 ```
 
----
+#### The final trade off
 
-- picking dates natively
-  - those that get the native date enhancement
-    - style better
-    - turn off shit with css
-  - those which get degraded text box
-    - strict formatting where necessary...
-    - good error messaging (good for everyone else too)
-	- With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
----
+In cases where:
 
-```CSS
-::-webkit-datetime-edit
-::-webkit-datetime-edit-fields-wrapper
-::-webkit-datetime-edit-text
-::-webkit-datetime-edit-month-field
-::-webkit-datetime-edit-day-field
-::-webkit-datetime-edit-year-field
-::-webkit-inner-spin-button
-::-webkit-calendar-picker-indicator
-```
+- user hasn't got JS; and
+- there is no support for date input
+
+Users are left to type into a textbox lacking instructions. We can't put in a placeholder that says type "dd/mm/yyyy" because it will show when the browser *does* support the native date input and when the user will be assisted.
+
+We are left to rely on error messaging. The best error messages are those that don't appear, but in this case we can't get around it, unless we make the optimisitic experience worse. That is we add a placeholder that makes dealing with the native date input confusing.
+
+We hope that we have endeavoured to provide the best experience where possible with the best degraded experience where necessary. In this case there is nothing more we can do, and I think that's okay.
+
+With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
 
 ## Choosing passengers
 

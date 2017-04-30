@@ -269,7 +269,16 @@ Third, they don't convey *why* they are disabled, or what it takes for it to ena
 
 #### HTML5 validation
 
-- TODO: Not using HTML5. novalidate. No required boolean. etc. See Heydon.
+As Heydon Pickering says in Inclusive Design Patterns, *there are concerns about the support and the uniformity of HTML5 form validation based on the browser's interpretation.
+
+For these reasons, we'll implement our own implementation. To stop HTML5 compliant browsers from executing their own validation, we'll disable it by using `novalidate` as follows:
+
+HTML:
+
+```html
+<form novalidate>
+</form>
+```
 
 ### Presenting errors
 

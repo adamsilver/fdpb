@@ -25,3 +25,7 @@ If you tell an attacker the email address is wrong, they'll try a different one.
 Unfortunately this assumes that there's no other way for an attacker to discover whether a username/email address is registered for a service. This assumption is incorrect.
 
 99.9% of websites on the Internet will only let you create one account for each email address. So if you want to see if an email address has an account, try signing up for a new account with the same email address.
+
+## Captures
+
+Ensure captchas are user-friendly to everyone Christopherson

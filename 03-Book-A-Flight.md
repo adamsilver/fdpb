@@ -8,10 +8,9 @@ Here are the main steps in our flow:
 2. Choose departure/return date
 3. Choose passengers
 4. Confirming flight
-5. Choosing where to sit
-6. Payment
+5. Choosing a seat
 
-The last step, *Payment*, is something we already solved in *Checkout*, so you refer to that if you're rebelliously reading this book out of order.
+There are other steps, like providing passenger name and passport information, as well as paying out but we'll leave those out as we have covered the majority of those problems in chapter 2, *Checkout*.
 
 ## 1. Choose origin/desination
 
@@ -529,17 +528,78 @@ TODO?: LUKEW steppers: https://www.lukew.com/ff/entry.asp?1950
 
 ## Confirming a flight
 
-Once the user has chosen their requirements, and assuming there are tickets available, they will see a list of flights going out. As the user is booking one flight, we'll present the results as radio buttons.
+If there are flights matching the users preferences, the page will display a list of flights represented by radio buttons. Radio buttons are perfectly suited here, because we can fit price, time and any other pertinent information inside the related label.
 
 ![Image](./images/image.png)
 
-Within the label we can put all the pertinet information. Price and flight times etc. Clicking continue stores their choice and takes the user to the next step.
+Clicking *continue*, saves their flight time and sends them to the next step.
 
 ## Choosing a seat
 
-- Checkboxes
-- Nested fieldset and then don't need appointment booking?
-- Only being able to select a certain number of seats.
+Next, the user needs to choose a seat. If more than one passenger is travelling, they'll be able to select more than one seat. In this case we'll want to use checkboxes to represent each seat.
+
+In a similar vein to picking dates, it makes sense to pick a seat&mdash;visually at least&mdash;in the context of where that seat is located. As a user I want to know where the seat is located so that I can choose an appropriate seat for me and my wife, for example.
+
+Up to now, we have just presented form fields in a simple manner. In this case, however, we can help visual users in particular by presenting the checkboxes as if they were seats on a plane. That is, laid in in rows.
+
+What it looks like:
+
+![Image](./images/image.png)
+
+HTML:
+
+```HTML
+```
+
+Everything here looks quite straightforward and is similar to the HTML we used to construct a group of radio buttons. The only difference is the nested fieldset, which deserves it's own little section.
+
+## Nested fieldsets
+
+It may not be obvious, but the preferences we have collected from users so far has subtly influenced the interface we have given our users. Specifically, we didn't ask the user whether they wanted to travel first class or economy.
+
+The reason for this, is so that we reduced friction, giving users results as quickly as possible. The downside is because the preferences are broader, than they otherwise might be, we now have to present all the categorisations of flight on a single screen.
+
+This is why we used a nested fieldset. The outermost fieldset represents the overarching question *What seat do you want?* and the inner fieldset represents the categorisation of either first class or economy.
+
+On balance, it would be wise to add an extra question, asking users how they want to travel. In doing so we remove the need for more complex mark-up which is particuarly tedious for those users using screen readers, but that also makes for a smaller, faster loading page for everyone else. A smaller, and faster loading page, which less choice, should reduce friction.
+
+Most users afterall will choose economy, and we can default to this, meaning we don't even have to increase the friction here.
+
+As with everything else in this book, your mileage may vary, so test test test.
+
+Here's what the simplified version looks like:
+
+![Image](./images/image.png)
+
+HTML:
+
+```HTML
+```
+
+## Limiting seat selection
+
+We purposely asked users how many passengers are flying. Much like the previous point, this has also influenced our interface, and perhaps unnecessarily so.
+
+As we asked how many passengers there are, it seems we are forced to constrain the selection of seats to that value. Otherwise why did we ask for that information in the first place?
+
+Perhaps we don't need to ask it up front. Perhaps we can just let users select as many seats (up to the maximum), and then answer questions about those passengers (like age) later on.
+
+Aha, that's not going to work though. Having talked this through with this sheet of paper, I realise why we're asking for that information upfront. It's because the age of the passenger influences the price of the ticket. The price of the ticket influences the choice the user makes.
+
+Unfortunately, this time we'll have to leave it in. But as always, it's vital we know why.
+
+If there is just one passenger travelling, we should change the inputs to radio buttons. This way, the affordance itself tells users they can only choose one seat.
+
+To crysalise this information for users, we should provide a hint explaining they can only select X users.
+
+If Javascript is available and the browser is capable, we can enhance the experience so that users don't experience an error. That is, *You can only select 2 seats*. We can do this by disabling all seats as soon as the maximum amount have been selected.
+
+Here's what that script looks like:
+
+```JS
+```
+
+## Summary
 
 ## Footnotes
 

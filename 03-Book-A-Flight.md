@@ -321,6 +321,22 @@ What it looks like:
 
 ![Date widget](./images/date-widget.png)
 
+A run down of the design and behaviour:
+
+- Use big buttons for good tap targets. Fine motor skills.
+
+- When displaying the calendar, display it inline below the text input. Overlays are complicated beasts that obscure parts of the screen, so we'll want to avoid those and keep things simple. Also on mobile, a dialog is a bit of an anti-pattern as the estate available to the overlay is often less than utilising the main page itself.
+
+- Hitting the previous month should show the previous month and select the first day of that month. Same for hitting next month.
+
+- Once focus is set on the grid, the user can use arrow keys to move about to select a date. We avoid making the cells part of the tab sequence as it's too much for users to wade through.
+
+- When focussed within the Date Picker, pressing `escape` should hide it.
+
+- Pressing enter/space should select the date and close the picker.
+
+- Make back/previous buttons to be naturally focusable.
+
 HTML:
 
 ```HTML
@@ -328,7 +344,7 @@ HTML:
 	<label for="date">Flight date</label>
 	<div class="datepicker">
 		<input type="date" name="date" id="date">
-		<button>Choose date</button>
+		<button type="button">Choose date</button>
 		<div class="datepicker-calendar">
 			// html here
 		</div>
@@ -336,42 +352,37 @@ HTML:
 </div>
 ```
 
-JS:
+In addition to the `input` there is a `button` which shows the calendar and the calendar itself, both injected with Javascript, as they do nothing without Javascript.
+
+We use a button (with type `button`) as opposed to a link because it's not navigation. The type button ensures the button doesn't submit the form.
+
+Even our calendar widget is screen reader friendly, it's probably not useful to them[^calendarscreenreader]. But we don't assume. Visual users may benefit from it also. One important aspect about inclusive design is giving users choice. We don't assume. Please just a handful of people we may not know about is good practice. Remember we write the component once, and we can reuse it many times over.
+
+Here's a run down of the attributes:
+
+- The button has a type of `button` so that it doesn't submit the form. It's responsible for showing the calendar. It's specifically not a link, as it doesn't navigate.
+
+- `aria-hidden` tells readers whether it's showing or not.
+
+- The table has a `role="grid"` so that screen readers know how to navigate this element i.e. with up, down, left and right arrows.
+
+- The table also has a `aria-labelledby` matching the ID of the element with the visual decription. In the illustration, "April 2017".
+
+- Each week row has a `role="row"` so that screen readers can navigate.
+
+- Each day cell has a `role="gridcell"` for the same reason. They also have `aria-label` to read out the full date, as the number is only enough visually. Much like the autocomplete component each day is like an option and so needs an ID to tie in with `aria-activedescendant` on the table itself. Same goes for `aria-selected`.
+
+- Each column heading has a `role="columnheading"`. Each day is abbreviated for space and convention as we need this to work nicely on small screens. Using the `abbr` element allows the abbreviation to be expanded upon in supporting browsers and assistive technology.
+
+- Live region? Do I need?
+
+Here's the Javascript:
 
 ```JS
 Do I put all the JS in? It's complex.
 ```
 
-Here's an explanation of the design and code:
-
-- We use a `button` with `type="button"` so that it doesn't submit the form. The button is also responsible for toggling the visibility of the calendar.
-- `aria-hidden` tells screen readers whether it's showing or not.
-- The table has `role="grid"` so that screen readers know what type of widget this is. It has a label which describes what type of grid it is.
-- Each row has role=row
-- Each cell has role=gridcell
-- Each column heading has role=columnheading
-- Live region
-- Label by
-- activedescendant
-- td description
-- aria-selected
-- Hitting the previous month should show the previous month and select the first day of that month. Same for hitting next month.
-- Once focus is set on the grid, the user can use arrow keys to move about to select a date. We avoid making the cells part of the tab sequence as it's too much for users to wade through.
-
-Design wise:
-
-- We want big buttons to make the days easily tapable. Fine motoro skills
-- Create a `<button type="button">` that toggles the calendar's visibility.
-- When displaying the calendar, display it inline below the text input. Overlays are complicated beasts that obscure parts of the screen, so we'll want to avoid those and keep things simple. Also on mobile, a dialog is a bit of an anti-pattern as the estate available to the overlay is often less than utilising the main page itself.
-- When focussed within the Date Picker, pressing `escape` should hide it.
-- Pressing enter/space should select the date and close the picker.
-- Make back/previous buttons to be naturally focusable.
-- up/down/left/right for dates, and continuation
-- Event though we are making the control screen reader friendly, it's probably not useful to them. But we don't assume. Visual users may benefit from Cal. Not so much users of screen readers. We can still do something though.https://ux.stackexchange.com/questions/60884/best-way-for-date-field-for-visually-impaired-users
-
 ---
-
-SPEC: https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/
 
 - picking dates natively
   - those that get the native date enhancement
@@ -467,3 +478,5 @@ Within the label we can put all the pertinet information. Price and flight times
 [^ppk]:(https://medium.com/samsung-internet-dev/making-input-type-date-complicated-a544fd27c45a)
 [^exampledatepickers]:(http://www.webaxe.org/accessible-date-pickers/)
 [^dateshard]:(http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time)
+[^calendarscreenreader]:(https://ux.stackexchange.com/questions/60884/best-way-for-date-field-for-visually-impaired-users)
+[^calendarw3ariaspec]:(https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/)

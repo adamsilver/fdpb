@@ -257,6 +257,16 @@ This is just a few of the associated problems. I've counted 5 others which you c
 
 As is often the case in our industry, live validation is a technique that causes more problems than it solves. We'll stick to robust and simple techniques that help users. We'll validate on `submit` and leave the clever stuff to our competitors.
 
+#### Disabling buttons until valid
+
+I've seen some forms that will start off as disabled until a user fills out the fields successfully. As you will probably have guessed by now, this presents several difficulties.
+
+First, as we said earlier, valid formats does not make valid forms. So as the form becomes valid, and enables the button only to be a shown an error later is frustrating.
+
+Second, disabled buttons are greyed out making them hard to read for those with poor eyesight.
+
+Third, they don't convey *why* they are disabled, or what it takes for it to enable. This is why we validate on submit, because allowing the user to submit, allows the system to respond with errors, helping the user to progress.
+
 #### HTML5 validation
 
 - TODO: Not using HTML5. novalidate. No required boolean. etc. See Heydon.

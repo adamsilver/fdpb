@@ -525,22 +525,13 @@ InputNumberButtons.prototype.decrement = function() {
 };
 ```
 
-TODO: LUKEW steppers
-
-----
-Again, radio buttons take up a lot of space which leaves us with a text box. HTML5 gave us a `number` field using `input type="number"`. When supported it has the following benefits:
-
-1. On mobile a keyboard will appear with numbers on it.
-2. On desktop, the text box contains up and down arrows that make incrementing and decrementing quicker with the mouse.
-3. On desktop, the user can use the up and down arrows on the keyboard to increment and decrement the value.
-4. We can constrain the input to be a minimum of 0 and a maximum of whatever the maximum amount of tickets is for our service. Let's say 9.
----
+TODO?: LUKEW steppers: https://www.lukew.com/ff/entry.asp?1950
 
 ## Confirming a flight
 
 Once the user has chosen their requirements, and assuming there are tickets available, they will see a list of flights going out. As the user is booking one flight, we'll present the results as radio buttons.
 
-![Image here](/etc/)
+![Image](./images/image.png)
 
 Within the label we can put all the pertinet information. Price and flight times etc. Clicking continue stores their choice and takes the user to the next step.
 

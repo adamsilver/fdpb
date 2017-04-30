@@ -285,11 +285,11 @@ We can forgive users for entering a slash as we can easily strip that out on the
 
 You'll also notice the expiry date uses `input type="number"`. For supporting browsers, users cant't type a slash; it will be ignored. On mobile, an on-screen numeric keyboard will be shown making it easier still. This is what it looks like:
 
-![!]()
+![Numeric keyboard](./images/numeric-keyboard.png)
 
 And for people who use the keyboard on desktop, may use the up and down arrows to increment and decrement the field without the pain of selecting/deleting/typing etc.
 
-Some browsers show little increment and decrement buttons on these inputs. They are quite ugly and hard to use. To turn them off, we can use the following CSS:
+Some browsers may also show little increment and decrement buttons on these inputs, known rather oddly as spin buttons. They are quite ugly, small and ahrd to use&mdash;we can hide them with CSS:
 
 ```CSS
 input::-webkit-outer-spin-button,

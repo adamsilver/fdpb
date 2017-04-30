@@ -1,6 +1,6 @@
 # Book A Flight
 
-In this chapter, we'll design a flight booking system. At first this might seem like a bit of a *niche* problem, especially when compared to *A Registration Form* and *Checkout*. However, this chapter encourages to solve several interesting topics that are very much applicable to other problem domains.
+In this chapter, we'll design a flight booking system. At first this might seem like a bit of a *niche* problem, especially when compared to *A Registration Form* and *Checkout*. However, this chapter encourages us to solve several interesting topics that are transferable to other problem domains.
 
 Here are the main steps in our flow:
 
@@ -11,7 +11,7 @@ Here are the main steps in our flow:
 5. Choosing where to sit
 6. Payment
 
-The last step, *Payment*, is something we already solved in the previous chapter, *Checkout*, so we'll skip this step in this one.
+The last step, *Payment*, is something we already solved in *Checkout*, so you refer to that if you're rebelliously reading this book out of order.
 
 ## 1. Choose origin/desination
 
@@ -66,13 +66,15 @@ If we let users search unassisted, they will likely be met with a screen  displa
 
 ![Image here](/etc/)
 
-Once again: we can do better.
+Once again, we can do better.
 
 ### Autocomplete
 
 What we really need is a text box and select box rolled into one. As the user types a destination, suggestions appear beneath allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations.
 
-Up until recently there has been no such element for us to use. HTML5 gave us `datalist` but unfortuntely, it's too buggy[^caniuse] for the general web.
+Up until recently there has been no such element for us to use. HTML5 gave us `datalist` but unfortuntely, it's too buggy[^caniuse] for us to use, especially for the open web.
+
+If you have fine control over the design and usage of the component, you may still decide to use one. This book is about designing robust, and inclusive experiences, and so we don't have the luxury of this choice.
 
 Our remaining option is to build a custom component ourselves. When we build a custom component there are rules we need to follow[^alice barlett talk bruce lawson?]. A custom component must:
 
@@ -127,27 +129,26 @@ HTML:
 		>
 		<li
 			id="combobox-option--0"
-			role="option"
-			tabindex="-1">
+			role="option">
 			France
 		</li>
 		<li
 			id="combobox-option--1"
 			role="option"
-			tabindex="-1"
 			aria-selected="true">
 			Germany
 		</li>
 	</ul>
 	<div
 		aria-live="polite"
+		aria-atomic="true"
 		role="status"
 		class="combobox-status">
 	</div>
 </div>
 ```
 
-There are three parts to this:
+In Atomic Design[^] speak this *molecule* is made up of three atoms:
 
 - Text box
 - Menu
@@ -159,33 +160,32 @@ Here's a run down of the attributes:
 
 The text box has:
 
-- `role="combobox"` so that assistive devices know what it is.
-- `aria-autocomplete="list"` to explain that a list of choices will appear from which the user can choose.
-- `aria-expanded` to indicate that the menu is showing or not.
+- `role="combobox"` so that assistive devices know what it is, as opposed to a regular text box, for example.
+- `aria-autocomplete="list"` so that assistive devices may explain that a list of choices will appear from which the user can choose.
+- `aria-expanded` so that assistive devices may indicate the menu is showing or not.
 - `aria-owns="combobox-options"` connects the text box to the menu by `id`.
-- `aria-activedescendant` identifies the active option using the `id` of the menu option.
-- `autocomplete="off"` stops browsers providing their own suggestions and interfering with our component.
+- `aria-activedescendant` identifies the active option using the `id` of the menu option. This is because the options in the menu aren't focusable with the keyboard. In a composite widget like this, focus should stay in the text box, so that uses may carry on typing, even if they are 'focussed' on an option within the menu.
+- `autocomplete="off"` stops browsers providing their own suggestions and interfering with those offered by our own.
 
 Each option has:
 
 - `role="option"` to explain what it is.
 - `id` to tie up with `aria-activedescendant` explained above.
-- `aria-selected` to indicate which option is active
+- `aria-selected` to indicate which option is active.
 
-The "status" div has:
+The status box has:
 
 - `aria-role="status" to provide a status such as *2 results are available. France (1 of 2) is selected*
 - `aria-live="polite" to announce the status when the user stops typings as opposed to interupting them.
+- `aria-atomic="true"` means that assistive devices announce the entirety of the status. The reason for this is so that we can update just the number perhaps, which is perhaps more efficient in Javascript, than injecting a large lump of text, but so that the user doesn't hear "2".
 
 The Javascript specification is as follows:
 
 - listen to keyup events on the text box.
-- display options if and when they match
-- if an option matches exactly hide options
-- ...and when displaying options apply the attributes as mentioned above
-- if user presses up or down, highlight the option
-- ...and mark attribues as per above
-- if an option is highlighted, when the user presses spacebar or enter, put the value in the textbox and close the suggestions, and update the attributes.
+- display options if and when they match.
+- if an option matches, hide options
+- if user presses up or down, 'focus' the option
+- if an option is 'focussed', when the user presses spacebar or enter, put the value in the textbox and close the suggestions, otherwise enter should implicitly submit the form (like normal).
 - if the user clicks an option, put value in text box, and move focus back to the text box.
 
 This code is available on the complimentary demo website[^]. If it's not suitable for your needs, you can use the above specification to guide you.
@@ -194,26 +194,26 @@ This code is available on the complimentary demo website[^]. If it's not suitabl
 
 Dates are hard[^]. There is no getting away from this fact. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of a UI.
 
-Traditionally, and sometimes still to this day, websites use three select boxes; one for day, month and year. We already know select boxes are problematic, but one of their redeeming qualities is that they stop the user entering wrong information.
+Traditionally, and sometimes still to this day, websites use three select boxes for a date of birth field; one for day, month and year. We already know select boxes are problematic, but one of their redeeming qualities is that they stop the user entering wrong information.
 
-In the case of picking dates, however, this is not the case. This is because users can, for example, select *31 February 2017*, which results in a validation error. This is just one of many problems.
+In the case of picking dates, however, even *this* is not the case. Users can, for example, select *31 February 2017*, which will result in a validation error.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-So why use select boxes instead of a simple textbox? Mostly because it stops the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes; others with dashes. It's actually really hard to know. More on this later.
+So why use select boxes instead of a simple textbox? Mostly because it stops the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes; others with dashes. It's really hard to determine, meaning we can't be as forgiving with what we accept as we are with other fields.
 
 Before we can design a date control, we first need to understand what type of date we're asking for. Like GDS says *the way you should ask users for dates depends on the types of date you’re asking for*.
 
 ### Dates from documents
 
-We already discussed this in *Checkout* when we designed the expiry date field. If you're not reading this book in order, feel free to read that now. We'll wait here until you have.
+We already discussed this in *Checkout* when we designed the expiry date field. If you haven't read it yet, I'll wait here until you have. Back? Let's continue.
 
 ### Memorable dates
 
 People find it easy to remember certain dates, such as date of birth. It's often slower and harder to find this date (using a calendar, for example) than it is to type numbers into a text box unassisted.
 
-This is why GDS suggest using three *separate* text boxes on their own; one for day, month and year. Why three? To avoid the formatting issues we discussed earlier. Here's what it looks like:
+This is why GDS suggests three *separate* text boxes on their own; one for day, month and year. Why three? To avoid the formatting issues we discussed earlier. Here's what it looks like:
 
 ![GDS date of birth](./images/gds-dob.png)
 
@@ -241,32 +241,29 @@ Like radio buttons, this uses the fieldset and legend to group the three text bo
 
 The `pattern` attribute is there to trigger the numeric keyboard on iPhones as some versions won't automatically show it even though the *type* should be all we need[^CHECK GDS SERVICE MANUAL FOR DATES].
 
-#### Auto tab
+As there are three separate boxes for one field, some websites automatically advance the user to the next field automically using Javascript. This is a usability problem because it:
 
-- reference bank/hargreaves to emphasis the point.
-- Forms that Automatically Advance to the Next Field
-http://www.freedomscientific.com/Training/Surfs-Up/Forms.htm
+- makes mistakes harder to fix. I may make a mistake in the first box, but my cursor is now in the second box.
+- Screen readers have trouble http://www.freedomscientific.com/Training/Surfs-Up/Forms.htm
 
 ### Calendar control
 
-When booking a flight, for example, it's helpful to have some context to help us choose a date. People often orientate themselves by day and week when booking flights. For this reason, we'll want to offer users a more convenient solution than three separate text boxes.
+When booking a flight, which is the case for us, it's helpful to have some context to help users choose a date. People often orientate themselves by day and week when booking flights. For this reason, we'll want to offer users a more convenient solution than three separate text boxes.
 
-UIs that try to solve many problems at once are often detrimental to the resulting user experience. For example, if we were to try and convey price and availability inside a calendar widget, we would end up with too much data to process at once.
-
-Because of this, we'll let users pick a date preference in which to fly. We can help them decide which date to choose later on.
+Interfaces that try to solve too many problems at once are often detrimental to the user experience. For example, if we were to try and convey price and availability inside a calendar widget, we could end up with too much data for users to process. Instead, we'll let users pick a date preference in which to fly. We can help them decide which date to choose later on.
 
 #### Input Type Date
 
-Up until recently, we were left to create our own custom calendar control using Javascript. We already know how hard it is to design and build a custom component because we did just that with the Autocomplete. Wherever possible, we should let the browser do the work for us.
+Up until recently, we were left to create our own custom calendar control using Javascript. We already know how hard it is to design and build a custom component because we did just that with the autocomplete component above. Wherever possible, we should let the browser do the work for us.
 
-HTML5 gave us `input type="date"` which enhances a text box into a calendar control. This is good because they are:
+With the advent of mobile browsers, HTML5 gave us `input type="date"` which enhances a text box into a calendar control. This is good because they are:
 
 - cost effective&mdash;they save us design and development time
-- performant (as users don't need to download and execute custom components)
-- familiar because native apps use the same UI control
+- performant (as users don't need to download and execute custom code)
+- familiar because native apps/different websites will use the same interface
 - accessible by default
 
-Also, when browsers release improvement to native controls, our users get them without waiting for us to upgrade our own code. This frees us up to solve other problems instead.
+Also, when browsers release improvements to native controls, our users get them immediately; they don't have to wait for us to deploy code, freeing us up to solve other problems instead.
 
 The input is well supported on mobile. Here's what it looks like:
 
@@ -291,9 +288,11 @@ So far this works really well. We do have one remaining issue to address. That's
 
 #### Date input unsupported
 
-If someone uses a browser that lacks support for the date input, we can build a custom component, much like the Autocomplete we designed earlier.
+Browsers that don't support the date input will degrade gracefully into a simple text box, which may be sufficient. This is one of the many beautys of progressive enhancement, we can choose to degrade gracefully, or, we can decide to plug the gap.
 
-In addition to that though, we'll want to first detect that the browser doesn't support the native date input. Only then do we want to execute our custom component.
+For us, choosing dates is integral to booking a flight online. As much as a text box can work, we'll want to do better. We'll once again want to design and build our own custom component.
+
+We'll first need to detect the browser *doesn't* support the native date input. Only then do we want to execute our custom component.
 
 ```Javascript
 function supportsDateInput() {
@@ -303,19 +302,20 @@ function supportsDateInput() {
 }
 
 if(!supportsDateInput()) {
-	// create and use custom Javascript date picker widget
+	// code to create and use a custom calendar widget
 }
 ```
 
-This is why Progressive Enhancement is such a useful technique. We don't actually have to write any of this code. We can choose to let it degrade. The user can still type a date, it's just not so easy.
+In future we may find that:
 
-Conversely, we may even find research shows that our custom component works better than the native input. If we do, we can just remove the condition, which will ensure it executes in all browsers&mdash;not just those lacking support for the native control.
+- research shows that our own widget performs better than the native input
+- support is drastically improved and that hardly any of our users have an unsupported browser
 
-Wether we choose to use an existing component[^] or we make the bold step to design our own, it is beneficial to be able to identify the qualities of a well-design and fully inclusive date picker.
+In both of these cases we may choose to remove our custom component altogether, giving us less to maintain, and give users faster experiences.
 
-#### Writing our own date picker
+To plug the gap, you can choose from a plethora of existing accessibile solutions[^]. Or we can be bold and design our own.
 
-If we want to create our own date picker, we'll need to know how. I have prototype[^] you can look at to see how it all works.
+#### Custom Calendar Control Component
 
 What it looks like:
 
@@ -325,7 +325,21 @@ HTML:
 
 ```HTML
 <div>
+	<label for="date">Flight date</label>
+	<div class="datepicker">
+		<input type="date" name="date" id="date">
+		<button>Choose date</button>
+		<div class="datepicker-calendar">
+			// html here
+		</div>
+	</div>
 </div>
+```
+
+JS:
+
+```JS
+Do I put all the JS in? It's complex.
 ```
 
 Here's an explanation of the design and code:

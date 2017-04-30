@@ -342,6 +342,8 @@ A run down of the design and behaviour:
 
 - Hitting the previous month should show the previous month and select the first day of that month. Same for hitting next month.
 
+- Some date pickers will allow users to jump to the next and previous years. For most airlines though, they only offer flights within the next 12 months. Following the lead here, there is no need to provide this functionality.
+
 - Once focus is set on the grid, the user can use arrow keys to move about to select a date. We avoid making the cells part of the tab sequence as it's too much for users to wade through.
 
 - When focussed within the Date Picker, pressing `escape` should hide it.
@@ -387,6 +389,8 @@ Here's a run down of the attributes:
 
 - Each column heading has a `role="columnheading"`. Each day is abbreviated for space and convention as we need this to work nicely on small screens. Using the `abbr` element allows the abbreviation to be expanded upon in supporting browsers and assistive technology.
 
+(((In 200X, somebody wrote [Abbr hatrick](https://alistapart.com/article/hattrick), stating that whilst not many browsers support it, eventually they will. The prediction came true. And it's the same approach we can take more broadly.)))
+
 - Live region? Do I need?
 
 Here's the Javascript:
@@ -420,8 +424,12 @@ The next thing the user needs to do is choose how many passengers are going on t
 
 For each category we'll want a form field that uses the hint pattern from chapter 1.
 
-It's the type of form field that is the most interesting part of this discussion. Up until recently, I've seen people using a select box with the values ranging from 1-9. As discussed above the select box is not the most friendly control.
+It's the type of form field that is the most interesting part of this discussion. Websites once again used the `select` box containing options one through nine. We'll be avoiding that of course and we'll use the number field, which we already discussed at length in *Checkout*.
 
+Additionally, we want to create our own increment and decrement buttons, because the native ones are too small and we can also use the number field to constrain the amount of people booking tickets. Let's say nine.
+
+
+----
 Again, radio buttons take up a lot of space which leaves us with a text box. HTML5 gave us a `number` field using `input type="number"`. When supported it has the following benefits:
 
 1. On mobile a keyboard will appear with numbers on it.

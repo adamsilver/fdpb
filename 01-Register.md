@@ -165,7 +165,7 @@ What's not as obvious is the text we should use for the password field. The labe
 
 It might also subtly suggest the user is already registered. And they might forget what they're doing and think they're signing in. In which case  "Choose password" may be an improvement that provides clarity from all perspectives. This reinforces the fact a) they are signing up and b) that they should create a new password.
 
-Once again, the point of this discussion is not to provide the definitive answer on the correct label for your form. The point is to think about the importance of labelling in general. Friends of mine say "Content is the user experience" and this is a good way to reinforce this principle.
+Once again, the point of this discussion is not to provide the definitive answer on the correct label for your form. The point is to think about the importance of labelling in general. Friends of mine say *Content is the user experience* and this is a good way to reinforce this principle.
 
 ## Required fields
 

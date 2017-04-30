@@ -416,18 +416,116 @@ With design there is always a tradeoff. I consider myself to care about everyone
 
 ## Choosing passengers
 
-The next thing the user needs to do is choose how many passengers are going on the trip. Passengers fall under certain categories. For example, Easyjet[^] has the following categories:
+Next, users must choose how many people are travelling. Typically, passengers fall under three categories:
 
-1. Adults, aged 16 and over.
-2. Children, aged between 2 and 15 years old.
-3. Infants, who are under 2 years old.
+- Adults: aged 16 and over.
+- Children, aged between 2 and 15 years old
+- Infants, who are under 2 years old
 
-For each category we'll want a form field that uses the hint pattern from chapter 1.
+For each category we'll want a form field that uses the hint pattern from chapter 1, *Register*. Here's what it looks like:
+
+![Passengers](./images/choose-passengers.png)
+
+HTML:
+
+```HTML
+<div>
+    <label for="adult-passengers">
+    	<span class="label">How many adults are flying?</span>
+    	<span class="hint">Aged 16 years and over</span>
+    </label>
+    <input type="number" id="adult-passengers" name="adult-passengers">
+</div>
+<div>
+    <label for="adult-children">
+    	<span class="label">How many children are flying?</span>
+    	<span class="hint">Aged between 2 and 15 years old</span>
+    </label>
+    <input type="number" id="adult-children" name="adult-children">
+</div>
+<div>
+    <label for="adult-infants">
+    	<span class="label">How many adults are flying?</span>
+    	<span class="hint">Under 2 years old</span>
+    </label>
+    <input type="number" id="adult-infants" name="adult-infants">
+</div>
+```
+
+TODO: maxlength=9?
+
+We already discussed the benefits of using a number field in chapter 2, *Checkout*, but we'll want to make additional improvements
 
 It's the type of form field that is the most interesting part of this discussion. Websites once again used the `select` box containing options one through nine. We'll be avoiding that of course and we'll use the number field, which we already discussed at length in *Checkout*.
 
-Additionally, we want to create our own increment and decrement buttons, because the native ones are too small and we can also use the number field to constrain the amount of people booking tickets. Let's say nine.
+In *Checkout*, we turned off the native increment and decrement buttons because they look a little odd and they are hard to click. Having increment buttons was unnecessary in that case.
 
+However, in this case, selecting the amount of passengers is a vital aspect of booking flights. It's often easier for many users to tap an increment button a couple times, as opposed to tapping on the field and typing in a digit.
+
+For this reason we'll create our own using Javascript. After the Javascript executes the HTML will look like this:
+
+```HTML
+<div>
+    <label for="adult-passengers">
+    	<span class="label">How many adults are flying?</span>
+    	<span class="hint">Aged 16 years and over</span>
+    </label>
+    <button type="button" tabindex="-1" aria-label="Decrement">-</button>
+    <input type="number" id="adult-passengers" name="adult-passengers">
+    <button type="button" tabindex="-1" aria-label="Increment">+</button>
+</div>
+<div>
+    <label for="adult-children">
+    	<span class="label">How many children are flying?</span>
+    	<span class="hint">Aged between 2 and 15 years old</span>
+    </label>
+    <button type="button" tabindex="-1" aria-label="Decrement">-</button>
+    <input type="number" id="adult-children" name="adult-children">
+</div>
+<div>
+    <label for="adult-infants">
+    	<span class="label">How many adults are flying?</span>
+    	<span class="hint">Under 2 years old</span>
+    </label>
+    <button type="button" tabindex="-1" aria-label="Decrement">-</button>
+    <input type="number" id="adult-infants" name="adult-infants">
+    <button type="button" tabindex="-1" aria-label="Increment">+</button>
+</div>
+```
+
+```JS
+function InputNumberButtons(input) {
+	this.input = input;
+	this.createDecrementButton();
+	this.createIncrementButton();
+}
+
+InputNumberButtons.prototype.createDecrementButton = function() {
+	// create button
+	// listen to event
+};
+
+InputNumberButtons.prototype.createIncrementButton = function() {
+	// create button
+	// listen to event
+};
+
+InputNumberButtons.prototype.increment = function() {
+	// get value
+	// parseInt
+	// plus one
+	// set input value
+};
+
+InputNumberButtons.prototype.decrement = function() {
+	// get value
+	// parseInt
+	// minus one
+	// set input value
+};
+```
+
+TODO: LUKEW steppers
 
 ----
 Again, radio buttons take up a lot of space which leaves us with a text box. HTML5 gave us a `number` field using `input type="number"`. When supported it has the following benefits:
@@ -436,35 +534,7 @@ Again, radio buttons take up a lot of space which leaves us with a text box. HTM
 2. On desktop, the text box contains up and down arrows that make incrementing and decrementing quicker with the mouse.
 3. On desktop, the user can use the up and down arrows on the keyboard to increment and decrement the value.
 4. We can constrain the input to be a minimum of 0 and a maximum of whatever the maximum amount of tickets is for our service. Let's say 9.
-
-There is just one small problem with the number field. The up and down arrows are very small. We can enhance those by first hiding them with CSS and then implementing our own increment and decrement functions in Javascript:
-
-```CSS
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-}
-```
-
-```JS
-Add buttons either side
-on decrement click, parseint value
-minus 1 and set
-etc
-```
-
-HTML:
-
-```JS
-Add buttons either side
-on decrement click, parseint value
-minus 1 and set
-etc
-```
-
-What it looks like:
-
-![Image here](/etc/)
+---
 
 ## Confirming a flight
 

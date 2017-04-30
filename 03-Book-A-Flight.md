@@ -241,6 +241,12 @@ Like radio buttons, this uses the fieldset and legend to group the three text bo
 
 The `pattern` attribute is there to trigger the numeric keyboard on iPhones as some versions won't automatically show it even though the *type* should be all we need[^CHECK GDS SERVICE MANUAL FOR DATES].
 
+#### Auto tab
+
+- reference bank/hargreaves to emphasis the point.
+- Forms that Automatically Advance to the Next Field
+http://www.freedomscientific.com/Training/Surfs-Up/Forms.htm
+
 ### Calendar control
 
 When booking a flight, for example, it's helpful to have some context to help us choose a date. People often orientate themselves by day and week when booking flights. For this reason, we'll want to offer users a more convenient solution than three separate text boxes.

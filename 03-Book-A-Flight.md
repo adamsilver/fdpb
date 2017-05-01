@@ -549,23 +549,82 @@ What it looks like:
 HTML:
 
 ```HTML
+<fieldset>
+	<legend>
+		Choose 2 seats
+	</legend>
+	<fieldset>
+		<legend>First class</legend>
+		<div class="row">
+			<div class="seat">
+				<input type="checkbox" name="seat" id="1A">
+				<label for="1A">1A</label>
+			</div>
+			<div class="seat">
+				<input type="checkbox" name="seat" id="1B">
+				<label for="1B">1B</label>
+			</div>
+			<div class="seat">
+				<input type="checkbox" name="seat" id="1C">
+				<label for="1C">1C</label>
+			</div>
+			<div class="seat">
+				<input type="checkbox" name="seat" id="1D">
+				<label for="1D">1D</label>
+			</div>
+		</div>
+		<div class="row">
+			...
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Economy class</legend>
+		<div class="row">
+			<div class="seat">
+				<input type="checkbox" name="seat" id="9A">
+				<label for="9A">9A</label>
+			</div>
+			<div class="seat">
+				<input type="checkbox" name="seat" id="9B">
+				<label for="9B">9B</label>
+			</div>
+			<div class="seat">
+				<input type="checkbox" name="seat" id="9C">
+				<label for="9C">9C</label>
+			</div>
+			<div class="seat">
+				<input type="checkbox" name="seat" id="9D">
+				<label for="9D">9D</label>
+			</div>
+			<div class="seat">
+				<input type="checkbox" name="seat" id="9E">
+				<label for="9E">9E</label>
+			</div>
+			<div class="seat">
+				<input type="checkbox" name="seat" id="9F">
+				<label for="9F">9F</label>
+			</div>
+		</div>
+		<div class="row">
+			...
+		</div>
+	</fieldset>
+</fieldset>
 ```
 
-Everything here looks quite straightforward and is similar to the HTML we used to construct a group of radio buttons. The only difference is the nested fieldset, which deserves it's own little section.
+Everything here should look familiar as we used the same constructs for radio buttons before. The only difference is the nested fieldset, which we'll discuss next.
 
 ## Nested fieldsets
 
-It may not be obvious, but the preferences we have collected from users so far has subtly influenced the interface we have given our users. Specifically, we didn't ask the user whether they wanted to travel first class or economy.
+It may not be obvious, but the preferences we have collected from users so far has subtly influenced the interface we have given our users. Specifically, we didn't ask the user whether they wanted to travel first class or economy, which reduced friction upfront.
 
-The reason for this, is so that we reduced friction, giving users results as quickly as possible. The downside is because the preferences are broader, than they otherwise might be, we now have to present all the categorisations of flight on a single screen.
+The downside is that we now have to present both categorisations on a single screen. To expose this categorisation both visually and semantically, we need a nested fieldset.
 
-This is why we used a nested fieldset. The outermost fieldset represents the overarching question *What seat do you want?* and the inner fieldset represents the categorisation of either first class or economy.
+The outermost fieldset represents the overarching question *What seat do you want?* and the inner fieldset represents the categorisation: either first class or economy.
 
-On balance, it would be wise to add an extra question, asking users how they want to travel. In doing so we remove the need for more complex mark-up which is particuarly tedious for those users using screen readers, but that also makes for a smaller, faster loading page for everyone else. A smaller, and faster loading page, which less choice, should reduce friction.
+It would be prudent to ask users this quesion upfront, so that we can reduce the complexity of the experience, and HTML alike. This is particularly useful for screen reader or keyboard users. But really it helps all users, by increasing speed of the page and finally, reducing options for users.
 
-Most users afterall will choose economy, and we can default to this, meaning we don't even have to increase the friction here.
-
-As with everything else in this book, your mileage may vary, so test test test.
+In anycase, most users will choose economy meaning we can use a smart default here. The tiny bit of added friction upfront, is a small price to pay for the reduced complexity during this step. As with everything though, test the experience with users.
 
 Here's what the simplified version looks like:
 
@@ -574,6 +633,56 @@ Here's what the simplified version looks like:
 HTML:
 
 ```HTML
+<fieldset>
+	<legend>
+		Choose 2 seats
+	</legend>
+	<div class="row">
+		<div class="seat">
+			<input type="checkbox" name="seat" id="1A">
+			<label for="1A">1A</label>
+		</div>
+		<div class="seat">
+			<input type="checkbox" name="seat" id="1B">
+			<label for="1B">1B</label>
+		</div>
+		<div class="seat">
+			<input type="checkbox" name="seat" id="a3">
+			<label for="a3">A3</label>
+		</div>
+		...
+	</div>
+	<div class="row">
+		...
+	</div>
+</fieldset>
+```
+
+This looks good as is and I would encourage you to test this with users before adding style enhancements. But my spidey sense tells me that we can improve the experience by hiding the checkboxes and styling the labels to look like seats in a plane.
+
+This saves space giving our design a better chance of working on smaller screens, *without* needing a horizontal scroll bar or having the seats wrap. It should also help to show those seats that are in the isle and those that are by the window.
+
+The important thing to note here though, is that we shouldn't hide the labels unless Javascript is available and capable to manage focus. Without this, keyboard users won't know where the cursor is.
+
+To fix this, we can listen to the focus event of each checkbox, and when it fires, we add a highlight to the label. When it blurs, remove the highlight. We don't need to do anything for assistive devices here because they will use the form like normal.
+
+```CSS
+https://codepen.io/siiron/pen/MYXZWg
+```
+
+```JS
+function CheckboxLabelHighlighter(checkboxes) {
+	checkboxes.on('focus', $.proxy(this, 'onCheckboxFocus'));
+	checkboxes.on('blur', $.proxy(this, 'onCheckboxBlur'));
+}
+
+CheckboxLabelHighlighter.prototype.onCheckboxFocus = function(e) {
+	$(e.target).addClass('seat-isFocussed');
+}
+
+CheckboxLabelHighlighter.prototype.onCheckboxBlur = function(e) {
+	$(e.target).removeClass('seat-isFocussed');
+}
 ```
 
 ## Limiting seat selection
@@ -590,7 +699,7 @@ Unfortunately, this time we'll have to leave it in. But as always, it's vital we
 
 If there is just one passenger travelling, we should change the inputs to radio buttons. This way, the affordance itself tells users they can only choose one seat.
 
-To crysalise this information for users, we should provide a hint explaining they can only select X users.
+To crystalise this information for users, we should include this information a hint explaining they can only select X users.
 
 If Javascript is available and the browser is capable, we can enhance the experience so that users don't experience an error. That is, *You can only select 2 seats*. We can do this by disabling all seats as soon as the maximum amount have been selected.
 

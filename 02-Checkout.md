@@ -358,7 +358,7 @@ Having spent a lot of time filling out a lot of information to complete the orde
 
 Not only that but it saves the business a lot of time and money too. If she makes the wrong order then she'll need to return them. This is costly and time-consuming, especially if the business offers free returns.
 
-By removing this step, it makes users anxious and therefore drop out. We should strive for clarity over brevity every time. Providing a check page like this is an essential part of this process.
+By removing this step, it makes users anxious and therefore drop out. We should strive for clarity over brevity every time. Providing a check page like this employs this principle.
 
 ### Amending their order
 

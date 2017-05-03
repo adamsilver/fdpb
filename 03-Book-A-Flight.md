@@ -249,7 +249,7 @@ As there are three separate boxes for one field, some websites automatically adv
 
 When booking a flight, which is the case for us, it's helpful to have some context to help users choose a date. People often orientate themselves by day and week when booking flights. For this reason, we'll want to offer users a more convenient solution than three separate text boxes.
 
-Interfaces that try to solve too many problems at once are often detrimental to the user experience. For example, if we were to try and convey price and availability inside a calendar widget, we could end up with too much data for users to process. Instead, we'll let users pick a date preference in which to fly. We can help them decide which date to choose later on.
+Interfaces that try to solve too many problems at once often cause problems for users. For example, if we try and convey price and availability inside a calendar, this could cause information overload. Instead, we'll only let users pick a date. And later, we'll help them pick a flight.
 
 #### Input Type Date
 
@@ -366,7 +366,7 @@ HTML:
 </div>
 ```
 
-In addition to the `input` there is a `button` which shows the calendar and the calendar itself, both injected with Javascript, as they do nothing without Javascript.
+In addition to the `input` there is a `button` which toggles the calendar's visibility, and of course the calendar itself. Both are injected with Javascript, as they only work when Javascript is available.
 
 We use a button (with type `button`) as opposed to a link because it's not navigation. The type button ensures the button doesn't submit the form.
 

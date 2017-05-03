@@ -369,6 +369,10 @@ We have navigated through many of the fundamental design challenges that most fo
 
 Whilst we have covered a lot of ground in this chapter, this is lots more to discuss. The foundations have been laid, and with that we will up the ante and face even tougher challenges. In doing so we can explore some of the more interesting techniques at our disposal.
 
+## TODO
+
+ARIA - Put the first rule of aria in chapter 1
+
 ## Footnotes
 
 [^1]: Placeholder article

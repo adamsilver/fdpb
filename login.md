@@ -1,18 +1,30 @@
 # A login form
 
-- https://www.sitepoint.com/3-rules-painless-account-ux-login-screens/
-- Forgot password?
-- Multiple social logins? That's hard work.
-- having it appear on a specific page like login prompt for checkout
-- different kinds of login - username/email/booking ref (always need a label and tell the user where to find it)
+After chapter 3, *Book A Flight*, it would be good to take a break from the technical side of building custom form components. With that in mind let's look at the design challenges surrounding a simple login form.
 
-## Social login
+Most sites have one, and whilst they are simple and stature, many people's sites are found wanting. On top of that, social logins make things more complicated still.
 
-In A Reg Form, we talked about email sign in as a potential option. The problem I have with Medium is the sheer choice. Choice is good but choice is also paraylysis.
+## Social login: choice vs choice paralysis
 
-For example I may want to sign up with my email and not through social login, but I don't want to always go into my email. To do this, Medium would need yet another option. An ability to sign in through email and password.
+One of the great dilemmas we face in design as that of choice versus ease. More choice sounds great, but actually it can cause friction.
 
-This is certainly not impossible to design for but it does bear somethinking about.
+The idea behind loggin in with Facebook or Gmail or Twitter etc, is so that users don't have to remember more credentials. Also, some online services will integrate into social media platforms.
+
+For example, Kidly is an online baby store that I worked on in 2016. Before building the product, they were (and still are) active on Facebook, getting to know their customers through online giveaways and quizes.
+
+As Kidly's customers were on Facebook it made sense to offer Facebook social login capabilities. But in integrating Facebook login we had some design challenges. In providing choice we actually have to introduce a little bit of friction up front. The user now has two choices.
+
+Then what if I sign up with Kidly with Facebook, and then later forget, and try logging in with my email? What if I sign up twice, once with email and another time with Facebook?
+
+To handle this situation, we needed to detect whether the user had already signed up with us and offer them an error and a way to rectify things.
+
+For example, if I have signed up with Facebook but I try to sign in by email, and that email is associated with my Facebook account, we show an error message explaining this.
+
+[Image]()
+
+We can perhaps do better, and offer users the choice to override that and vice versa, or perhaps we should allow users to sign in with both?
+
+Of course these problems get worse the more options we give users. The most important thing here, as is the main theme throughout this book, is to understand how important it is to add choices and create more friction.
 
 ## The username or password is incorrect problem error message
 
@@ -26,6 +38,29 @@ Unfortunately this assumes that there's no other way for an attacker to discover
 
 99.9% of websites on the Internet will only let you create one account for each email address. So if you want to see if an email address has an account, try signing up for a new account with the same email address.
 
+## Specific Page Context
+
+- having it appear on a specific page like login prompt for checkout
+
+## One thing per page?
+
+- Like google? Overkill?
+
+## What exactly is a username?
+
+- if email say so.
+- Why offering non standard login form, like booking ref?
+- If so tell users where to find it and use the hint pattern to explain the format.
+
+## What exactly is a password?
+
+- if it's a pin, say so or at least explain the format
+
 ## Captures
 
-Ensure captchas are user-friendly to everyone Christopherson
+- time hacking (https://www.sitepoint.com/3-rules-painless-account-ux-login-screens/)
+- Ensure captchas are user-friendly to everyone Christopherson
+
+## Forgot Password handling?
+
+- Not sure I need to cover?

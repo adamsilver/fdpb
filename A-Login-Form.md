@@ -1,10 +1,19 @@
-# A login form
+# A Login Form
 
-After chapter 3, *Book A Flight*, it would be good to take a break from the technical side of building custom form components. With that in mind let's look at the design challenges surrounding a simple login form.
+Having navigated the complex world of custom date pickers and autocompletes in Chapter 3, we'll take this opportunity to step away from the code to discuss a simple, honest login form.
 
-Most sites have one, and whilst they are simple and stature, many people's sites are found wanting. On top of that, social logins make things more complicated still.
+You'd think that something so simple wouldn't need a chapter of its own, but there are some design challenges for us to consider. And seeing as login forms are ubiquitous, it seems like a good investment for us to make.
 
-## Social login: choice vs choice paralysis
+## Social Login
+
+https://conversionxl.com/social-login/
+
+https://blog.loginradius.com/2014/01/understanding-benefits-social-login-add-value-website/...........
+> To speak to your point, we actually find it reduces confusion due to the Account Linking feature. This allows users to sign in using multiple methods, which means they aren’t required to remember the method they used previously. Also, all methods used will be connected to a single profile of that user.
+
+Up until recently, all login forms consisted of a username and password field. Now, we need to consider giving our users the ability to login with Facebook, Google, Twitter and a slew of others.
+
+The idea is that
 
 One of the great dilemmas we face in design as that of choice versus ease. More choice sounds great, but actually it can cause friction.
 
@@ -26,6 +35,9 @@ We can perhaps do better, and offer users the choice to override that and vice v
 
 Of course these problems get worse the more options we give users. The most important thing here, as is the main theme throughout this book, is to understand how important it is to add choices and create more friction.
 
+Pros: Users don’t have to fill out registration form, to create another usernames/passwords and to verify emails, hence can sign up in like 10 seconds instead of 10 minutes. And most important, users don’t have to remember a new usernames/passwords.
+Cons: Since the information about the user is loaded automatically it raises a huge privacy concern and not everyone is likely to be happy to share her profile data. For such cases you should have traditional login system running in parallel.
+
 ## The username or password is incorrect problem error message
 
 First listen to Jared Spool (https://www.uie.com/jared-live/#design-opposed) at 42 mins.
@@ -37,6 +49,8 @@ If you tell an attacker the email address is wrong, they'll try a different one.
 Unfortunately this assumes that there's no other way for an attacker to discover whether a username/email address is registered for a service. This assumption is incorrect.
 
 99.9% of websites on the Internet will only let you create one account for each email address. So if you want to see if an email address has an account, try signing up for a new account with the same email address.
+
+- also error doesn't associate itself with field.
 
 ## Specific Page Context
 
@@ -64,3 +78,9 @@ Unfortunately this assumes that there's no other way for an attacker to discover
 ## Forgot Password handling?
 
 - Not sure I need to cover?
+
+## sign in and sign UP
+
+https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
+
+## Don't put two forms together on same page

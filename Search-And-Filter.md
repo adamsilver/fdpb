@@ -4,7 +4,7 @@
 
 ## 2. Search shouldn't just find products [https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba](Jared Spool)
 
-## 3. Do we really need it? Kidly didn't do search as product taxonomy so small
+## 3. Do we really need it? Kidly didn't do search as product taxonomy so small. Let Google do it.
 
 ## 4. Filter
 

@@ -280,6 +280,11 @@ HTML:
 </form>
 ```
 
+### Be forgiving
+
+TODO: Be flexible, allow spaces, uppercase, lowercase trim.
+Jared 42mins, Design Is Metrically Opposed: "it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong".
+
 ### Presenting errors
 
 When the user submits a form with errors we'll need to inform the user in three separate ways:
@@ -371,7 +376,9 @@ Whilst we have covered a lot of ground in this chapter, this is lots more to dis
 
 ## TODO
 
-ARIA - Put the first rule of aria in chapter 1
+- ARIA - Put the first rule of aria in chapter 1, why we use labels, and put errors inside those.
+
+- When the page refreshes must populate values as to not make users have to type it in again. Annoying.
 
 ## Footnotes
 

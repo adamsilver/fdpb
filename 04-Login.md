@@ -1,8 +1,8 @@
 # A Login Form
 
-Having navigated the complex world of custom form controls in Chapter 3, we'll take this opportunity to discuss a more well-known design challenge.
+Having navigated the complex world of custom form controls in Chapter 3, we'll take this opportunity to improve a form that resides on pretty much every website.
 
-Login forms are basic in stature, but have become trickier with the rise of social login. There are also common problems that too many login forms out their in the wild suffer from. We we want to do better and so we will.
+Login forms are so , but have become trickier with the rise of social login. There are also common problems that too many login forms out their in the wild suffer from. We we want to do better and so we will.
 
 What it looks like:
 

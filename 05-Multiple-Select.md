@@ -62,8 +62,12 @@ With a list of my favourite products, or a list of emails, quite often we might 
 
 - Without JS? Use buttons to reload the page with all selected.
 - With JS piggyback the button/link to not do a post back.
+- checkbox indeterminate state.
 
 ## Action buttons versus select box
+
+- Sometimes it's not just a button, sometimes it's a selection, like apply filter. But better to go to other page
+- other thing is, can have modes. Modes that say "browse mode" or "manage mode". Only show checkboxes when users wants to manage stuff. One thing per page principle type thing.
 
 This little gizmo has much to be discussed.
 

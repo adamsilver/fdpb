@@ -1,8 +1,61 @@
 # A Login Form
 
-Having navigated the complex world of custom date pickers and autocompletes in Chapter 3, we'll take this opportunity to step away from the code to discuss a simple, honest login form.
+Having navigated the complex world of custom form controls in Chapter 3, we'll take this opportunity to discuss a more well-known design challenge.
 
-You'd think that something so simple wouldn't need a chapter of its own, but there are some design challenges for us to consider. And seeing as login forms are ubiquitous, it seems like a good investment for us to make.
+Login forms are basic in stature, but have become trickier with the rise of social login. There are also common problems that too many login forms out their in the wild suffer from. We we want to do better and so we will.
+
+What it looks like:
+
+![Login](./images/login.png)
+
+HTML:
+
+```html
+<form>
+  <div class="field">
+  	<label for="email">
+  		<span class="label">Email address</span>
+  	</label>
+  	<input type="email" id="email" name="email">
+  </div>
+  <div class="field">
+  	<label for="password">
+  		<span class="label">Password</span>
+  		<span class="hint">Must contain at least 8 characters with 1 uppercase letter and a number.</span>
+  	</label>
+  	<input type="password" id="password" name="password">
+  </div>
+  <input type="submit" value="Sign in">
+</form>
+```
+
+This is almost identical to the registration form we designed in chapter 1. In fact we can use the exact same pattern for each field. We use the same elements, the same behaviour including the show password enhancement.
+
+The only difference is the password label. Instead of telling users to choose a password, we ask them to enter it. We also keep the hint there so that we don't force users to guess what's needed.
+
+Often this is done in the name of security, but any hacker can sign up themselves to find it the rules if they really want to.
+
+## Non standard username and password fields
+
+If your username isn't an email address say so. For example, a flight booking service, like the one we designed in chapter 3 might ask for a booking reference number, instead of an email address.
+
+In this case tell the user what they need to enter, what form it is in, and where they might find it. Probably in email correspondence or on their ticket.
+
+Similarly, if the password is a pin number, like Paypal, then say so, and tell the user how many numbers they are expected to type.
+
+## Error messages and security
+
+First listen to Jared Spool (https://www.uie.com/jared-live/#design-opposed) at 42 mins.
+
+https://kev.inburke.com/kevin/invalid-username-or-password-useless/
+
+If you tell an attacker the email address is wrong, they'll try a different one. If you tell them the password is wrong, then an attacker knows that the username is correct, and can go on to try a bunch of passwords for that username until they hit the right one. So sites won't tell you which one is wrong, to try and avoid the information disclosure.
+
+Unfortunately this assumes that there's no other way for an attacker to discover whether a username/email address is registered for a service. This assumption is incorrect.
+
+99.9% of websites on the Internet will only let you create one account for each email address. So if you want to see if an email address has an account, try signing up for a new account with the same email address.
+
+- also error doesn't associate itself with field.
 
 ## Social Login
 
@@ -38,39 +91,13 @@ Of course these problems get worse the more options we give users. The most impo
 Pros: Users don’t have to fill out registration form, to create another usernames/passwords and to verify emails, hence can sign up in like 10 seconds instead of 10 minutes. And most important, users don’t have to remember a new usernames/passwords.
 Cons: Since the information about the user is loaded automatically it raises a huge privacy concern and not everyone is likely to be happy to share her profile data. For such cases you should have traditional login system running in parallel.
 
-## The username or password is incorrect problem error message
-
-First listen to Jared Spool (https://www.uie.com/jared-live/#design-opposed) at 42 mins.
-
-https://kev.inburke.com/kevin/invalid-username-or-password-useless/
-
-If you tell an attacker the email address is wrong, they'll try a different one. If you tell them the password is wrong, then an attacker knows that the username is correct, and can go on to try a bunch of passwords for that username until they hit the right one. So sites won't tell you which one is wrong, to try and avoid the information disclosure.
-
-Unfortunately this assumes that there's no other way for an attacker to discover whether a username/email address is registered for a service. This assumption is incorrect.
-
-99.9% of websites on the Internet will only let you create one account for each email address. So if you want to see if an email address has an account, try signing up for a new account with the same email address.
-
-- also error doesn't associate itself with field.
-
 ## Specific Page Context
 
 - having it appear on a specific page like login prompt for checkout
 
-## One thing per page?
+## Don't use captcha
 
-- Like google? Overkill?
-
-## What exactly is a username?
-
-- if email say so.
-- Why offering non standard login form, like booking ref?
-- If so tell users where to find it and use the hint pattern to explain the format.
-
-## What exactly is a password?
-
-- if it's a pin, say so or at least explain the format
-
-## Captures
+- gds
 
 - time hacking (https://www.sitepoint.com/3-rules-painless-account-ux-login-screens/)
 - Ensure captchas are user-friendly to everyone Christopherson

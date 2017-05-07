@@ -6,7 +6,7 @@ This chapter is going to cover a lot of ground. As we continue through proceedin
 
 So here it is, a registration form:
 
-![Image here](/etc/)
+![Registration Form](./images/.png)
 
 Here is the basic HTML code:
 

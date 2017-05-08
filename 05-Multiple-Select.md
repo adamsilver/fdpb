@@ -1,14 +1,18 @@
 # Multiple Select
 
-Managing lists is something we haven't had to do up to now. Whether it's an inbox full of emails or adding multiple food items to your weekly shop, we all need to manage multiple things at once.
+Most online services, products and shops contain lists of things. Whether it's it's an inbox containing emails or adding different food products to your weekly shop, we all need to manage multiple things at the same time.
 
-In this chapter we'll design an inbox, like Gmail. But we can apply these principles to any list in any project.
+In this chapter we'll design an email inbox. Our analysis begins with lists versus tables.
 
-The first thing we'll do is add a checkbox next to each email in the first column if you're using tables, or if you're using lists, it will be the first element.
+## Lists versus tables
 
-## Lists or tables?
+Typically we can represent the same data in more ways than one. We can put data in tables, graphs, lists and we can even describe the data in a paragraph.
 
-Many times I've had the argument that something makes sense *semantically* as a list *and* a table. I am quite pedantic anyway, but if I want to push my limit to the extreme, then everything on a website is a list; it's a list of things on a website isn't it?
+Semantically speaking everything is a list. The things on the page are a list of things on the page. Perhaps the first element inside the body tag should be a `ul`? No, don't do that.
+
+Tables are useful when data 
+
+---
 
 Tables are useful when column headings are needed to add context to the values in the cells. For example, the number 23 without a heading tells the user not very much.
 

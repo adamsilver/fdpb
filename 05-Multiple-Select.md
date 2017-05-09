@@ -1,10 +1,10 @@
 # Multiple Select
 
-Most online services, products and shops contain lists of things. Whether it's it's an inbox containing emails or adding different food products to your weekly shop, we all need to manage multiple things at the same time.
+Most online services, products and shops contain lists of things. Whether it's it's an inbox of emails or searching for a list of products to your weekly grocery shop, we all need to manage multiple things at the same time.
 
-In this chapter we'll design an email inbox. Our analysis begins with lists versus tables.
+Managing lists have several interesting design challenges for our consideration. The first being how to present the list of things to edit.
 
-## Lists versus tables
+## Lists Versus Tables
 
 Typically we can represent the same data in more ways than one. We can put data in tables, graphs, lists and we can even describe the data in a paragraph.
 

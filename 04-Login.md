@@ -1,8 +1,8 @@
 # A Login Form
 
-Having navigated the complex world of custom form controls in Chapter 3, we'll take this opportunity to improve a form that resides on pretty much every website.
+Having navigated the complex world of custom form controls in Chapter 3, we'll take a break from the technical side of writing custom form components. This gives us adequate space to discuss login forms. Login forms are everywhere, the posh word for that is ubiquitous. I know this because I just looked it up. 
 
-Login forms are so , but have become trickier with the rise of social login. There are also common problems that too many login forms out their in the wild suffer from. We we want to do better and so we will.
+Whilst login forms are seemingly simple, the rise of social login has certainly made them trickier to design. Not only that, but there are quite a few common design mistakes we make. And seeing as the foot fall on login forms is great, it seems appropriate to me to spend an entire chapter discussing them.
 
 What it looks like:
 
@@ -29,19 +29,19 @@ HTML:
 </form>
 ```
 
-This is almost identical to the registration form we designed in chapter 1. In fact we can use the exact same pattern for each field. We use the same elements, the same behaviour including the show password enhancement.
+This is almost identical to the registration form we designed in chapter 1. In fact we can use the exact same pattern for each field. We use the same elements and the same password reveal enhancement.
 
 The only difference is the password label. Instead of telling users to choose a password, we ask them to enter it. We also keep the hint there so that we don't force users to guess what's needed.
 
-Often this is done in the name of security, but any hacker can sign up themselves to find it the rules if they really want to.
+Often this is done in the name of security, but any hacker can sign up for their own account in order to find out the rules.
 
 ## Non standard username and password fields
 
-If your username isn't an email address say so. For example, a flight booking service, like the one we designed in chapter 3 might ask for a booking reference number, instead of an email address.
+If your username isn't an email address say so. For example, a flight booking service, like the one we designed in chapter 3, might ask for a booking reference number, instead of an email address. In this case tell the user what they need to enter, what form it is in, and where they might find it.
 
-In this case tell the user what they need to enter, what form it is in, and where they might find it. Probably in email correspondence or on their ticket.
+The same approach applies to the password field. If the password is a pin number, as is the case with PayPal, then say so. Tell the user they need to type 6 numbers.
 
-Similarly, if the password is a pin number, like Paypal, then say so, and tell the user how many numbers they are expected to type.
+This gives users less to think about, and avoids an unnecessary validation error that will only explain the same thing as the hint, after submission.
 
 ## Error messages and security
 

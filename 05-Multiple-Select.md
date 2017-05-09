@@ -127,6 +127,7 @@ In this case this undo feature will be part of the success message like gmail:
 ## Notes
 
 - Delete should be a post
+- aria labelledby - first rule is not to use aria, but here it makes sense.
 
 http://www.enterpriseux.co/how-to-make-gmail-style-user-friendly-tables-part-1/
 http://www.enterpriseux.co/gmail-style-data-tables-part-2/

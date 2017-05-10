@@ -99,28 +99,31 @@ The first is quite straightforward. Make it clear there is two ways to sign in. 
 
 ![Login form](./images/kidly-login.png)
 
-The second is a little more complicated. At Kidly, we helped users by showing them an error message. For example, if I have signed up with Facebook but I try to sign in by email, and that email is associated with my Facebook account, we show an error message explaining this.
+The second is a little more complicated. At Kidly, we helped users by showing them an error message as follows:
 
 ![Login form](./images/kidly-error.png)
 
-But when I left the project, there was an item in the backlog to allow users to login interchangebly and connect two different accounts if need be.
+But instead of showing an error message, we could just merge the accounts automatically, allowing users to login seamlessly whichever way that suits them. In fact Facebook has a guide on how to do just this[^facebook].
 
----
+Medium.com does this really well. I already have an account with Medium, but if I login with Facebook, then Medium.com logs me in without any friction. In fact, as a user I can't really tell that anything has happened. Not unless I visit the settings page:
 
-https://conversionxl.com/social-login/
+![Medium settings page](./images/medium-settings.png)
 
-https://blog.loginradius.com/2014/01/understanding-benefits-social-login-add-value-website/...........
-> To speak to your point, we actually find it reduces confusion due to the Account Linking feature. This allows users to sign in using multiple methods, which means they aren’t required to remember the method they used previously. Also, all methods used will be connected to a single profile of that user.
+There is a "Connections section" containing Facebook and Twitter options. Users can connect or disconnect their social media logins easily here. But only if they're interested in doing so.
 
-Pros: Users don’t have to fill out registration form, to create another usernames/passwords and to verify emails, hence can sign up in like 10 seconds instead of 10 minutes. And most important, users don’t have to remember a new usernames/passwords.
+Medium have put a lot of effort into creating such a friction free and flexible login system. If you're going to create you're own you can do a lot worse than copy them in this regard.
 
-Cons: Since the information about the user is loaded automatically it raises a huge privacy concern and not everyone is likely to be happy to share their profile data.
+## Forgot Password Placement
 
-## Forgot Password handling?
+This is a minor nitpick but the forgotten password link should come after the form in the document flow. Some cute designers sometimes place the link within the form itself in context of the password field, but this can upset the natural tab order.
 
-Put the forgot password link after the form. It's a secondary action and we don't want to disrupt the tab sequence.
+When inside a form, users expect the tab to move to form controls. Unlike forms mode in screen readers, normal browsing with the keyboard will focus through form inputs *and* links. Putting a link within a form disrupts the natural flow.
 
-## sign in and sign UP
+Wherever possible place the link after the form as follows:
+
+![Forgot password link](./images/forgot-password-link.png)
+
+## Sign in/Sign up
 
 https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
 
@@ -132,4 +135,8 @@ Todo
 
 ## Footnotes
 
-Here
+[^facebook]:(https://developers.facebook.com/docs/facebook-login/multiple-providers)
+
+https://conversionxl.com/social-login/
+
+https://blog.loginradius.com/2014/01/understanding-benefits-social-login-add-value-website/

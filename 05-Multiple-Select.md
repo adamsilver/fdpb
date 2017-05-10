@@ -1,8 +1,8 @@
 # Multiple Select
 
-Managing lists is something we haven't had to do up to now. Whether it's an inbox full of emails or adding multiple food items to your weekly shop, we all need to manage multiple things at once.
+Managing lists is something we haven't had to do up to now. Whether it's an inbox full of emails or adding multiple food items to your weekly shop, we need ensure that manage multiple things at once, is easy.
 
-In this chapter we'll design an inbox, like Gmail. But we can apply these principles to any list in any project.
+In this chapter we'll design an inbox, like Gmail. But we can apply these principles to any list that needs managing.
 
 The first thing we'll do is add a checkbox next to each email in the first column if you're using tables, or if you're using lists, it will be the first element.
 
@@ -66,7 +66,7 @@ With a list of my favourite products, or a list of emails, quite often we might 
 
 ## Action buttons versus select box
 
-- Sometimes it's not just a button, sometimes it's a selection, like apply filter. But better to go to other page
+- Sometimes it's not just a button, sometimes it's a selection, like apply filter. But better to go to other page probably. Like for Universal Credit, we have a page that selects people to be allocated to another agent. That means the user selects people, then chooses who to allocate it to then presses the button. Better as a flow, at least to start with.
 - other thing is, can have modes. Modes that say "browse mode" or "manage mode". Only show checkboxes when users wants to manage stuff. One thing per page principle type thing.
 
 This little gizmo has much to be discussed.

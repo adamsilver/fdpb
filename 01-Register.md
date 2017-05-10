@@ -380,6 +380,8 @@ Whilst we have covered a lot of ground in this chapter, this is lots more to dis
 
 - When the page refreshes must populate values as to not make users have to type it in again. Annoying.
 
+Jared: That stupid credit card security code, that is erased as long as there’s some other error on the page. Then you correct the other error and submit it, [?] and it says, “But you didn’t put in your security code.” I said, “I did put in my security code. You have the memory of a goldfish.”
+
 ## Footnotes
 
 [^1]: Placeholder article

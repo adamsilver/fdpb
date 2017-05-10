@@ -1,5 +1,6 @@
 # Book appointment
 
+- reuse autocomplete from chapter 3.
 - Tables not responsive
 - Nested fieldsets and Leonies article
 - Revealing more

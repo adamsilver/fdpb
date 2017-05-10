@@ -474,6 +474,13 @@ Most designers overcomplicate things by putting too much on a page. But by makin
 
 We'll draw on these techniques further in upcoming chapters.
 
+## TODO
+
+CVC number disappearing due to another error. Means the user fixes the error and resubmits. If you have to clear this for security, first find out why, and second if so, then tell the user to reenter and why so they don't get pissed off.
+https://www.uie.com/jared-live/#design-opposed (42 mins)
+
+--- DIFFERENT HEADERS IN CHECKOUT
+
 ## Footnotes
 
 [^autocomplete fields attribute]: (https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/)

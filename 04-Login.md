@@ -1,8 +1,8 @@
 # A Login Form
 
-Having navigated the complex world of custom form controls in Chapter 3, we'll take this opportunity to improve a form that resides on pretty much every website.
+In chapter 3 *Book A Flight*, we *ahem*, navigated our way through the complicated world of custom form controls. I don't know about you, but I could certainly do with a break from that. And I can't think of a better way to do that, than with the inocuous and ubiquitous login form.
 
-Login forms are so , but have become trickier with the rise of social login. There are also common problems that too many login forms out their in the wild suffer from. We we want to do better and so we will.
+Most sites have login forms, and yet many of them suffer from the same common problems. Coupled with the rise of social login, login forms are an unnecessary source of friction for people. In this chapter, we're going to solve these problems and thus reduce friction.
 
 What it looks like:
 
@@ -29,85 +29,104 @@ HTML:
 </form>
 ```
 
-This is almost identical to the registration form we designed in chapter 1. In fact we can use the exact same pattern for each field. We use the same elements, the same behaviour including the show password enhancement.
+We have used the same fields as we did in chapter 1 *Registration* including the show password enhancement. The only differences are the button text and the label text for the passord
 
-The only difference is the password label. Instead of telling users to choose a password, we ask them to enter it. We also keep the hint there so that we don't force users to guess what's needed.
+Too often, login forms forgo useful hint text. Often this is done in the name of security. The thing is, if a hacker really wants to find out the rules that govern a secure password, all they need to do is sign up for the site themselves.
 
-Often this is done in the name of security, but any hacker can sign up themselves to find it the rules if they really want to.
+And so, we'll give our users a friendly reminder, in turn giving them the chance to avoid errors. If they forget to read the hint, our fully inclusive validation patterns will kick in anyway.
 
 ## Non standard username and password fields
 
-If your username isn't an email address say so. For example, a flight booking service, like the one we designed in chapter 3 might ask for a booking reference number, instead of an email address.
+Some online services don't have a standard login form with email address and password fields. The flight booking service we designed in chapter 3, may ask users to enter their unique bookin reference number in order to login.
 
-In this case tell the user what they need to enter, what form it is in, and where they might find it. Probably in email correspondence or on their ticket.
+Similarly, some websites don't ask for traditional passwords. For exampl, PayPal asks for a pin number. Whether it's the username, the password or both, we should be explicit about what we expect users to type.
 
-Similarly, if the password is a pin number, like Paypal, then say so, and tell the user how many numbers they are expected to type.
+If it's a unique booking reference number, for example, then we should tell users where they might find it, much like we do with the credit card security number on the back of the card.
 
-## Error messages and security
+In short, be clear, not ambiguous.
 
-First listen to Jared Spool (https://www.uie.com/jared-live/#design-opposed) at 42 mins.
+## The username and password doesn't match
 
-https://kev.inburke.com/kevin/invalid-username-or-password-useless/
+If the user enters an incorrect username or password, many sites will show an error saying *The username and password doesn't match*. Put simply, this is bad and as Jared Spool explains in Design Is Metrically Opposed[^]:
 
-If you tell an attacker the email address is wrong, they'll try a different one. If you tell them the password is wrong, then an attacker knows that the username is correct, and can go on to try a bunch of passwords for that username until they hit the right one. So sites won't tell you which one is wrong, to try and avoid the information disclosure.
+> First we know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.*
 
-Unfortunately this assumes that there's no other way for an attacker to discover whether a username/email address is registered for a service. This assumption is incorrect.
+In reality hackers don't do this and in anycase most websites only let you sign up for one account. So if they really wanted to find out, they could sign up for an account with that username.
 
-99.9% of websites on the Internet will only let you create one account for each email address. So if you want to see if an email address has an account, try signing up for a new account with the same email address.
+Instead, we should treat humans like human beings. Tell them what is going on so they can login easily.
 
-- also error doesn't associate itself with field.
+## Contextual login forms
+
+Another common problem is login forms that are designed out of context. Taking a checkout process for example. Normally a checkout flow has it's own simplified layout with minimalist headers and footers. If the user presses checkout from the basket page, then they should expect to enter the checkout flow.
+
+Now, if the user must login to checkout, then we should display the login form in context of the checkout. That is using the checkout *layout*. This is exactly what we did for Kidly.
+
+It reinforces that the user is midway through a process and helps them focus. That's the reason for the dedicated checkout layout in the first place.
+
+Conversely, Tesco don't do this. When I go to add a product to the basket, they force me to login, but in doing so, I'm taken somewhere else which is disorientating.
+
+![Forced to login](./images/tesco-logged-out.png)
+
+![Login form](./images/tesco-login-form.png)
 
 ## Social Login
+
+Up until recently, most sites only offered people one way of logging in. That's with a username and password, or email address and password like the one we have so far designed.
+
+In truth many sites still only offer users one way of logging in. However, more and more sites are offering users another option: social login. Specifically, the ability to sign in to a site without having to setup another username and password. Instead, people can sign in with Facebook, Twitter and a slew of other social platforms.
+
+The idea being that a) most people already have an account for one of those, and b) that it saves them time and hassle. However, with choice comes choice *paralysis*. If there are many ways to login then users have to *decide*, which takes up energy. This energy is limited.
+
+In addition to this, what if I signed up to the site twice, once with Facebook and once with the standard form? Handling this situation is important. Users shouldn't have to remember which one in an ideal world.
+
+Logging in with Facebook, for example is not just about ease but also about integration. It might be that an app will post automatically for you on Facebook for example.
+
+When we were building Kidly, we engaged our potential customers on Facebook. That's where they were so we went to them. We had competitions and giveaways and to this day Kidly have good rapport with their customers on Facebook.
+
+When it came to designing Kidly's login form it made sense to offer this functionality. As with most things in this book, it's so important we take the time to understand why. And reseach with users.
+
+There is a case for providing an MVP without social login, or alternatively social login *only*. It's less work, and it gives you time and space to test one feature change at a time.
+
+If you do end up adding social login, then there are a few considerations:
+
+1. Design the login page clearly
+2. Allow users to login with both interchangeably.
+
+The first is quite straightforward. Make it clear there is two ways to sign in. Here's what we did for Kidly:
+
+![Login form](./images/kidly-login.png)
+
+The second is a little more complicated. At Kidly, we helped users by showing them an error message. For example, if I have signed up with Facebook but I try to sign in by email, and that email is associated with my Facebook account, we show an error message explaining this.
+
+![Login form](./images/kidly-error.png)
+
+But when I left the project, there was an item in the backlog to allow users to login interchangebly and connect two different accounts if need be.
+
+---
 
 https://conversionxl.com/social-login/
 
 https://blog.loginradius.com/2014/01/understanding-benefits-social-login-add-value-website/...........
 > To speak to your point, we actually find it reduces confusion due to the Account Linking feature. This allows users to sign in using multiple methods, which means they aren’t required to remember the method they used previously. Also, all methods used will be connected to a single profile of that user.
 
-Up until recently, all login forms consisted of a username and password field. Now, we need to consider giving our users the ability to login with Facebook, Google, Twitter and a slew of others.
-
-The idea is that
-
-One of the great dilemmas we face in design as that of choice versus ease. More choice sounds great, but actually it can cause friction.
-
-The idea behind loggin in with Facebook or Gmail or Twitter etc, is so that users don't have to remember more credentials. Also, some online services will integrate into social media platforms.
-
-For example, Kidly is an online baby store that I worked on in 2016. Before building the product, they were (and still are) active on Facebook, getting to know their customers through online giveaways and quizes.
-
-As Kidly's customers were on Facebook it made sense to offer Facebook social login capabilities. But in integrating Facebook login we had some design challenges. In providing choice we actually have to introduce a little bit of friction up front. The user now has two choices.
-
-Then what if I sign up with Kidly with Facebook, and then later forget, and try logging in with my email? What if I sign up twice, once with email and another time with Facebook?
-
-To handle this situation, we needed to detect whether the user had already signed up with us and offer them an error and a way to rectify things.
-
-For example, if I have signed up with Facebook but I try to sign in by email, and that email is associated with my Facebook account, we show an error message explaining this.
-
-[Image]()
-
-We can perhaps do better, and offer users the choice to override that and vice versa, or perhaps we should allow users to sign in with both?
-
-Of course these problems get worse the more options we give users. The most important thing here, as is the main theme throughout this book, is to understand how important it is to add choices and create more friction.
-
 Pros: Users don’t have to fill out registration form, to create another usernames/passwords and to verify emails, hence can sign up in like 10 seconds instead of 10 minutes. And most important, users don’t have to remember a new usernames/passwords.
-Cons: Since the information about the user is loaded automatically it raises a huge privacy concern and not everyone is likely to be happy to share her profile data. For such cases you should have traditional login system running in parallel.
 
-## Specific Page Context
-
-- having it appear on a specific page like login prompt for checkout
-
-## Don't use captcha
-
-- gds
-
-- time hacking (https://www.sitepoint.com/3-rules-painless-account-ux-login-screens/)
-- Ensure captchas are user-friendly to everyone Christopherson
+Cons: Since the information about the user is loaded automatically it raises a huge privacy concern and not everyone is likely to be happy to share their profile data.
 
 ## Forgot Password handling?
 
-- Not sure I need to cover?
+Put the forgot password link after the form. It's a secondary action and we don't want to disrupt the tab sequence.
 
 ## sign in and sign UP
 
 https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
 
 ## Don't put two forms together on same page
+
+## Summary
+
+Todo
+
+## Footnotes
+
+Here

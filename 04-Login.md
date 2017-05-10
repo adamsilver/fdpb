@@ -111,6 +111,8 @@ Medium.com does this really well. I already have an account with Medium, but if 
 
 There is a "Connections section" containing Facebook and Twitter options. Users can connect or disconnect their social media logins easily here. But only if they're interested in doing so.
 
+From Medium's perspective it's not just about easing the login process. It's about connecting writers and readers to people in their social network. That is their friends on Facebook and Twitter.
+
 Medium have put a lot of effort into creating such a friction free and flexible login system. If you're going to create you're own you can do a lot worse than copy them in this regard.
 
 ## Forgot Password Placement

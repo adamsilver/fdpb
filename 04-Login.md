@@ -127,7 +127,11 @@ Wherever possible place the link after the form as follows:
 
 ## Sign in/Sign up
 
-https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
+Strictly speaking this is not to do with the login form itself, but more to do with how the user arrives at the login form. The advice here is simple. Don't use the same verbs next to each other if you can avoid it.
+
+The problem with using the same verbs next to each other like this is that the difference is minimal, and therefore, hard to notice. Users will make mistake and those that don't will have to exert yet more energy working out which they want.
+
+Instead use *Sign In* and *Register* as they are far easier to distinguish.
 
 ## Don't put two forms together on same page
 

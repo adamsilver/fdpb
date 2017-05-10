@@ -29,7 +29,8 @@ HTML:
 </form>
 ```
 
-We have used the same fields as we did in chapter 1 *Registration* including the show password enhancement. The only differences are the button text and the label text for the passord
+
+We have used the same fields as we did in chapter 1 *Registration* including the show password enhancement. The only differences are the button text and the label text for the passord.
 
 Too often, login forms forgo useful hint text. Often this is done in the name of security. The thing is, if a hacker really wants to find out the rules that govern a secure password, all they need to do is sign up for the site themselves.
 
@@ -37,11 +38,13 @@ And so, we'll give our users a friendly reminder, in turn giving them the chance
 
 ## Non standard username and password fields
 
-Some online services don't have a standard login form with email address and password fields. The flight booking service we designed in chapter 3, may ask users to enter their unique bookin reference number in order to login.
+Some online services don't have a standard login form with email address and password fields. The flight service we designed in chapter 3, may ask users to enter their unique bookin reference number in order to login.
 
-Similarly, some websites don't ask for traditional passwords. For exampl, PayPal asks for a pin number. Whether it's the username, the password or both, we should be explicit about what we expect users to type.
+Similarly, some websites don't ask for traditional passwords. For example, PayPal asks for a pin number. Whether it's the username, the password or both, we should be explicit about what we expect users to type.
 
 If it's a unique booking reference number, for example, then we should tell users where they might find it, much like we do with the credit card security number on the back of the card.
+
+This gives users less to think about, and avoids an unnecessary validation error that will only explain the same thing as the hint, after submission.
 
 In short, be clear, not ambiguous.
 

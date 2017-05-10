@@ -173,11 +173,13 @@ In *Do we really need it?*, we made sure that we only ask users for what is nece
 
 ## Positioning
 
-TODO: The Definitive Guide To Form Label Positioning by Jessica Enders
+We already know that we must include a clear, always visible and well-written label. What we haven't discussed is the best position for them in relation to the form control.
 
-It's easy to find research that shows that top-aligned labels (and legends) convert best[^]. But, if we really had to, we could find research to the contrary. With that said, if we're designing inclusive experiences on the web, this implies we're building responsive websites. This in turn means that we'll want our forms to be friendly on small screens.
+In *The Definitive Guide To Form Label Positioning*[^] Jessica Enders explains that there are advantages and disadvantages to labels that are position above the control as well as those that are placed beside the control.
 
-For this reason alone we'll choose to use labels that sit above their controls.  Not only do they work on small screens, but they make it easier for different sized labels (and legends) and localized versions to fit more easily within the UI.
+There's no clear answer. But, what we know is that on small screens there is no room for the label to fit next to the field. Seeing as we want to design forms that work well responsively, it would be prudent to simply keep the labels above the controls, until extensive research shows otherwise.
+
+What's more important than any of this though is of course consistency.
 
 ## Focus styles
 

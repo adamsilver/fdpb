@@ -4,11 +4,17 @@ Managing lists is something we haven't had to do up to now. Whether it's an inbo
 
 In this chapter we'll design an inbox, like Gmail. But we can apply these principles to any list that needs managing.
 
-The first thing we'll do is add a checkbox next to each email in the first column if you're using tables, or if you're using lists, it will be the first element.
+Managing lists have several interesting design challenges for our consideration. The first being how to present the list of things to edit.
 
-## Lists or tables?
+## Lists Versus Tables
 
-Many times I've had the argument that something makes sense *semantically* as a list *and* a table. I am quite pedantic anyway, but if I want to push my limit to the extreme, then everything on a website is a list; it's a list of things on a website isn't it?
+Typically we can represent the same data in more ways than one. We can put data in tables, graphs, lists and we can even describe the data in a paragraph.
+
+Semantically speaking everything is a list. The things on the page are a list of things on the page. Perhaps the first element inside the body tag should be a `ul`? No, don't do that.
+
+Tables are useful when data
+
+---
 
 Tables are useful when column headings are needed to add context to the values in the cells. For example, the number 23 without a heading tells the user not very much.
 
@@ -123,6 +129,7 @@ In this case this undo feature will be part of the success message like gmail:
 ## Notes
 
 - Delete should be a post
+- aria labelledby - first rule is not to use aria, but here it makes sense.
 
 http://www.enterpriseux.co/how-to-make-gmail-style-user-friendly-tables-part-1/
 http://www.enterpriseux.co/gmail-style-data-tables-part-2/

@@ -135,26 +135,19 @@ However, the form is short and so we can place the forgotten password link after
 
 ## Don't put two forms together on same page
 
-https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
+Some sites put the registration and login forms on the same page. Putting them on the same page is problematic for many of the reasons most of which we discussed in One Thing Per Page.
 
-## Differentiating call to action text
+As we know the registration form is similar to the login form. Putting them together makes it harder to differentiate. It's also confusing for users that have ended up on this page having clicked a specific call to action such as *login*.
 
-Strictly speaking this is not to do with the login form itself, but more to do with how the user arrives at the login form. The advice here is simple. Don't use the same verbs next to each other if you can avoid it.
-
-The problem with using the same verbs next to each other like this is that the difference is minimal, and therefore, hard to notice. Users will make mistake and those that don't will have to exert yet more energy working out which they want.
-
-Instead use *Sign In* and *Register* as they are far easier to distinguish.
+Instead keep things separate and offer a small link before or after the login form allowing users to register.
 
 ## Summary
 
-In this chapter we have covered the main problems associated with login forms. Most sites these days have a login form. We can do a lot worse than spending time optimising the experience here.
+In this chapter we have covered the main problems associated with login forms. Most sites have a login form. Don't let unfounded security holes stop you designing a friction-free login experience.
 
-In summary:
+If you're going to provide social login capabilites consider the tradeoffs, implement one at a time, and ensure users aren't penalised if they sign up or login with different mechanisms.
 
-- Make sure you really need social
-- Use the appropriate text
-- Security problems aren't problems
-- Etc
+Finally, put login forms in context of the flow in which they have been triggered. It's intuitive and keeps users focussed on the task at hand.
 
 ## Todo
 

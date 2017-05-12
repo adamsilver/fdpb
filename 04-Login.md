@@ -139,9 +139,15 @@ Instead use *Sign In* and *Register* as they are far easier to distinguish.
 
 ## Don't put two forms together on same page
 
+https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
+
 ## Summary
 
 Todo
+
+- kidly could do better but they knew it. They decided to do less work until it became a big problem.
+
+-https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
 
 ## Footnotes
 

@@ -111,7 +111,7 @@ The last problem is that some users may not remember which method they chose to 
 
 I think we could have done a better job with this. Again, Medium.com solves this elegantly. In fact it's so elegant that users have no idea. As a user I shouldn't have to remember which one I signed up with.
 
-And Facebook, for example, knows what my email is. If I sign in with my email and have already signed up with Facebook, then Medium.com logs me in automtically. It's seamless. They just merge my accounts. The only way I realise this is if I visit the settings page:
+And Facebook, for example, knows what my email is. If I sign in with my email and have already signed up with Facebook, then Medium.com logs me in automatically. It's seamless. They just merge my accounts without me knowing. The only way I realise this is if I visit the settings page:
 
 ![Medium settings page](./images/medium-settings.png)
 
@@ -121,15 +121,23 @@ If you're going to provide social login capabilities, then first work out why. I
 
 ## Forgot Password Placement
 
-This is a minor nitpick but the forgotten password link should come after the form in the document flow. Some cute designers sometimes place the link within the form itself in context of the password field, but this can upset the natural tab order.
+One aspect of inclusivity is honouring people's interaction preferences. Some users prefer using the keyboard. Some prefer the mouse. Some use them both interchangeably.
 
-When inside a form, users expect the tab to move to form controls. Unlike forms mode in screen readers, normal browsing with the keyboard will focus through form inputs *and* links. Putting a link within a form disrupts the natural flow.
+When using forms or more broadly websites, the *tab* allows users to move focus. By default links and form controls gain focus with the tab key. This switching between forms and links is a source of disruption. Unlike forms mode, a web page allows users to move freely between links and form controls.
 
-Wherever possible place the link after the form as follows:
+This means that if you place a forgotten password link between the username and password fields, some users may tab to the link, instead of the expected password field.
+
+Or perhaps the forgotten password link may appear straight after the password field. Both of these may make some sense from a visual design perspective. Offering a solution to a problem in context of the problem is an act of good contextual design.
+
+However, the form is short and so we can place the forgotten password link after the form itself.
 
 ![Forgot password link](./images/forgot-password-link.png)
 
-## Sign in/Sign up
+## Don't put two forms together on same page
+
+https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
+
+## Differentiating call to action text
 
 Strictly speaking this is not to do with the login form itself, but more to do with how the user arrives at the login form. The advice here is simple. Don't use the same verbs next to each other if you can avoid it.
 
@@ -137,17 +145,20 @@ The problem with using the same verbs next to each other like this is that the d
 
 Instead use *Sign In* and *Register* as they are far easier to distinguish.
 
-## Don't put two forms together on same page
-
-https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
-
 ## Summary
 
-Todo
+In this chapter we have covered the main problems associated with login forms. Most sites these days have a login form. We can do a lot worse than spending time optimising the experience here.
+
+In summary:
+
+- Make sure you really need social
+- Use the appropriate text
+- Security problems aren't problems
+- Etc
+
+## Todo
 
 - kidly could do better but they knew it. They decided to do less work until it became a big problem.
-
--https://uxplanet.org/designing-ux-login-form-and-process-8b17167ed5b9
 
 ## Footnotes
 

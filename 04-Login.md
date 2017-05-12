@@ -1,10 +1,10 @@
 # A Login Form
 
-In chapter 3 *Book A Flight*, we *ahem*, navigated our way through the complicated world of custom form controls. I don't know about you, but I could certainly do with a break from that. And I can't think of a better way to do that, than with the inocuous and ubiquitous login form.
+In chapter 3 *Book A Flight*, we *ahem*, navigated our way through the complicated world of custom form controls. I don't know about you, but I could certainly do with a short intermission. And I can't think of a better way to do that, than with the inocuous and ubiquitous login form.
 
-Most sites have login forms, and yet many of them suffer from the same common problems. Coupled with the rise of social login, login forms are an unnecessary source of friction for people. In this chapter, we're going to solve these problems and thus reduce friction.
+Most sites have login forms but almost as many sites have login forms that cause problems for users. The rise of social login hasn't helped matters either. In this chapter we're going to discuss these issues and look to design solutions accordingly.
 
-What it looks like:
+A login form:
 
 ![Login](./images/login.png)
 
@@ -29,44 +29,55 @@ HTML:
 </form>
 ```
 
+If you're reading this book in order, you'll notice how similar this form is to the form we settled on in chapter 1 *Registration*. We have the same fields with the same field types. And we have the exact same password hint.
 
-We have used the same fields as we did in chapter 1 *Registration* including the show password enhancement. The only differences are the button text and the label text for the passord.
+In fact everything is pretty much indentical except for the labelling of the password field and the button text. This text is more appropriate in this context.
 
-Too often, login forms forgo useful hint text. Often this is done in the name of security. The thing is, if a hacker really wants to find out the rules that govern a secure password, all they need to do is sign up for the site themselves.
+Too often login forms forgo hint text. That is they don't tell users what password rules they need to abide by. Shamefully, but like many people, I use the same or similar passwords for lots of sites although writing this now has prompted me to sort that out.
 
-And so, we'll give our users a friendly reminder, in turn giving them the chance to avoid errors. If they forget to read the hint, our fully inclusive validation patterns will kick in anyway.
+In anycase, imagine my password is *password*. On a site that requires a capital letter, I'll probably create a password of *Password*. And if the site forces me to include a number, then it will be *password1*.
+
+The point is, if there is a hint to inform me of the rules, then I won't have to submit the form to find out. Doing so is frustrating, slower and unnecessary.
+
+Often these rules are omitted due to "security reasons". But if a hacker  wants to find out the password rules then all they need to do is sign up for an account themselves.
+
+Don't do this. Instead give users a chance by providing a hint. And if, like some users, they ignore the hint our fully inclusive validation routine will kick in.
 
 ## Non standard username and password fields
 
-Some online services don't have a standard login form with email address and password fields. The flight service we designed in chapter 3, may ask users to enter their unique bookin reference number in order to login.
+Some services, like the flight booking service we designed in chapter 3 may not ask users to sign in with their email and password credentials. Instead, they may ask for a booking reference number, for example.
 
-Similarly, some websites don't ask for traditional passwords. For example, PayPal asks for a pin number. Whether it's the username, the password or both, we should be explicit about what we expect users to type.
+Similarly, some banks ask for a pin number instead of a password. In either case, don't use ambiguous labels. If it's a pin or reference number say so. And also tell users where they might find it.
 
-If it's a unique booking reference number, for example, then we should tell users where they might find it, much like we do with the credit card security number on the back of the card.
+This is exactly what we did in chapter 2 *Checkout* when we asked users for the security number on the back of their credit card. If something is out of the ordinary or testing shows that people may struggle, provide an obvious hint.
 
-This gives users less to think about, and avoids an unnecessary validation error that will only explain the same thing as the hint, after submission.
+In doing so users have to think less.
 
-In short, be clear, not ambiguous.
-
-## The username and password doesn't match
+## The username and password doesn't match problem
 
 If the user enters an incorrect username or password, many sites will show an error saying *The username and password doesn't match*. Put simply, this is bad and as Jared Spool explains in Design Is Metrically Opposed[^]:
 
-> First we know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.*
+> We know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.*
 
-In reality hackers don't do this and in anycase most websites only let you sign up for one account. So if they really wanted to find out, they could sign up for an account with that username.
+Hackers don't do this and even if they did most sites let you sign up for one account. This means if they want to find out, all they have to do is sign up for an account themselves with that username.
 
-Instead, we should treat humans like human beings. Tell them what is going on so they can login easily.
+Instead, tell users which field is problematic and allow them to fix it easily.
 
 ## Contextual login forms
 
-Another common problem is login forms that are designed out of context. Taking a checkout process for example. Normally a checkout flow has it's own simplified layout with minimalist headers and footers. If the user presses checkout from the basket page, then they should expect to enter the checkout flow.
+Some sites have all-access areas and login-only areas. Quite often login form pages are designed without considering the context in which they are being used.
 
-Now, if the user must login to checkout, then we should display the login form in context of the checkout. That is using the checkout *layout*. This is exactly what we did for Kidly.
+To demonstrate the problem, we'll ignore for the moment, that forcing users to login before checking out is an anti-pattern. Imagine a basket (or shopping cart page if you're linguistically american). On there is a *checkout* button.
 
-It reinforces that the user is midway through a process and helps them focus. That's the reason for the dedicated checkout layout in the first place.
+Clicking *Checkout* takes the user to the beginning of the checkout flow. If the user is logged out they are prompted to login first. A checkout flow, is often designed to streamline the process. To do this checkout flows have a minimalist layout.
 
-Conversely, Tesco don't do this. When I go to add a product to the basket, they force me to login, but in doing so, I'm taken somewhere else which is disorientating.
+If the user went to checkout, then even though the user is presented with a login form, they should still feel as though they are in checkout. This is what we did for Kidly:
+
+![Forced to login](./images/kidly-login.png)
+
+This reinforces that the user is midway through a process and helps them focus. That's the reason for the dedicated checkout layout in the first place.
+
+Conversely, Tesco don't do this. When the user adds a product to their basket, they are taken somewhere else, that feels more out of context which is disorientating.
 
 ![Forced to login](./images/tesco-logged-out.png)
 
@@ -74,46 +85,39 @@ Conversely, Tesco don't do this. When I go to add a product to the basket, they 
 
 ## Social Login
 
-Up until recently, most sites only offered people one way of logging in. That's with a username and password, or email address and password like the one we have so far designed.
+Up until recently, most sites only offered people the standard username and password approach to login. Many sites today still do this.
 
-In truth many sites still only offer users one way of logging in. However, more and more sites are offering users another option: social login. Specifically, the ability to sign in to a site without having to setup another username and password. Instead, people can sign in with Facebook, Twitter and a slew of other social platforms.
+However, more sites are offering users the ability to sign in with Facebook or Twitter for example. This saves users typing&mdash;if they are logged into Facebook already then there they are instantly logged into to the site.
 
-The idea being that a) most people already have an account for one of those, and b) that it saves them time and hassle. However, with choice comes choice *paralysis*. If there are many ways to login then users have to *decide*, which takes up energy. This energy is limited.
+Also, they don't have to spend time signing up and remembering yet another set of credentials. And some sites will integrate with your social media account. For example, Medium.com, a social media site for reading and writing articles, will post to Facebook automitically for example.
 
-In addition to this, what if I signed up to the site twice, once with Facebook and once with the standard form? Handling this situation is important. Users shouldn't have to remember which one in an ideal world.
+For those who spend a lot of time socialisiing on Facebook, they'll be pleased to automate some of these things.
 
-Logging in with Facebook, for example is not just about ease but also about integration. It might be that an app will post automatically for you on Facebook for example.
+However, with choice comes choice *paralysis*. If there are many ways to login then users have to spend time and energy *deciding*. There is also a question and concern over privacy.
 
-When we were building Kidly, we engaged our potential customers on Facebook. That's where they were so we went to them. We had competitions and giveaways and to this day Kidly have good rapport with their customers on Facebook.
-
-When it came to designing Kidly's login form it made sense to offer this functionality. As with most things in this book, it's so important we take the time to understand why. And reseach with users.
-
-There is a case for providing an MVP without social login, or alternatively social login *only*. It's less work, and it gives you time and space to test one feature change at a time.
-
-If you do end up adding social login, then there are a few considerations:
-
-1. Design the login page clearly
-2. Allow users to login with both interchangeably.
-
-The first is quite straightforward. Make it clear there is two ways to sign in. Here's what we did for Kidly:
+To make the choices obvious, you can do this by clearly setting out the options. This is what we did for Kidly:
 
 ![Login form](./images/kidly-login.png)
 
-The second is a little more complicated. At Kidly, we helped users by showing them an error message as follows:
+To try and mitigate concerns over privacy, it's important to tell users how their credentials will or won't be used. I think we could have done a better job on this at Kidly.
+
+Medium.com make this clear by telling users that they *won't post without asking*.
+
+![Medium Login](./images/medium-login.png)
+
+The last problem is that some users may not remember which method they chose to sign up. At Kidly, if we detected that they had signed up with a different choice then we told them with an error message.
 
 ![Login form](./images/kidly-error.png)
 
-But instead of showing an error message, we could just merge the accounts automatically, allowing users to login seamlessly whichever way that suits them. In fact Facebook has a guide on how to do just this[^facebook].
+I think we could have done a better job with this. Again, Medium.com solves this elegantly. In fact it's so elegant that users have no idea. As a user I shouldn't have to remember which one I signed up with.
 
-Medium.com does this really well. I already have an account with Medium, but if I login with Facebook, then Medium.com logs me in without any friction. In fact, as a user I can't really tell that anything has happened. Not unless I visit the settings page:
+And Facebook, for example, knows what my email is. If I sign in with my email and have already signed up with Facebook, then Medium.com logs me in automtically. It's seamless. They just merge my accounts. The only way I realise this is if I visit the settings page:
 
 ![Medium settings page](./images/medium-settings.png)
 
-There is a "Connections section" containing Facebook and Twitter options. Users can connect or disconnect their social media logins easily here. But only if they're interested in doing so.
+The "Connections" section shows Facebook and Twitter options. Users can connect or disconnect their social media logins easily here. But only if they're interested in doing so.
 
-From Medium's perspective it's not just about easing the login process. It's about connecting writers and readers to people in their social network. That is their friends on Facebook and Twitter.
-
-Medium have put a lot of effort into creating such a friction free and flexible login system. If you're going to create you're own you can do a lot worse than copy them in this regard.
+If you're going to provide social login capabilities, then first work out why. If the why is compelling, then be sure to make this seamless for users and make the choices clear.
 
 ## Forgot Password Placement
 

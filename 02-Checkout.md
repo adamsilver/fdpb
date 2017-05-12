@@ -300,6 +300,14 @@ input::-webkit-inner-spin-button {
 }
 ```
 
+### Security number
+
+You'll notice above that we have once again used the hint pattern for the security number. In this case the label may be ambiguous on it's own. Not everyone knows what a security number is. Sometimes it's referred to as a CVC number.
+
+I've just looked it up and this stands for Card Verification Code. First, avoid acryonyms[^] because users shouldn't have to know what they mean. Second, in providing a hint we have an opportunity to tell users what it is and more importantly where to find it.
+
+Telling users *This is the last 3 digits on the back of your card* keeps things simple.
+
 ### Billing address reveal
 
 To validate a card, it needs an associated address. For most users the billing address is the same as the delivery address. The user has already provided this and so we can improve the experience here.

@@ -12,13 +12,11 @@ Choosing which of these to use is the first design challenge we'll discuss. We c
 
 But don't worry. Everything we discuss here is very much applicable to other types of lists.
 
-## Lists Versus Tables
+## Everything is list
 
-Typically we can represent the same data in more ways than one. We can put data in tables, graphs, lists and we can even describe the data in a paragraph.
+Semantically speaking we can describe everything as a list. The things on the page are a list of things on the page. Pedantism aside, we need to decide how to present our inbox.
 
-Semantically speaking everything is a list. The things on the page are a list of things on the page. Perhaps the first element inside the body tag should be a `ul`? No, don't do that.
-
-Tables are useful when data
+Gmail, has rows and columns of data to represent different aspects of an email. Recipient, data, subject and a preview of the body content. However, they don't include table headings, visually or semantically.
 
 ---
 

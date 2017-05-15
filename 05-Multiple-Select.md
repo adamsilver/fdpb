@@ -1,17 +1,16 @@
-# Multiple Select
+# Multiple Select Lists
 
 My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones.
 
 Despite *her* obsession, the world is full of lists. There is even a list of great people[^]. But lists are a tricky thing to manage. On the web, there are some conventions that have evolved over the years.
 
-In this chapter, we're going to ensure that managing lists through a web interface is easy. My sister loves pen and paper, but I have hope that she may one day convert to a digitally managed list.
+In this chapter, we're going to make sure that managing lists is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to a digitally managed list.
 
+On the web there are many types of list: tabular data (`<table>`), description lists (which used to be called definition lists) (`<dl>`), unordered lists (`<ul>`) and ordered lists (`ol`).
 
-Managing lists is something we haven't had to do up to now. Whether it's an inbox full of emails or adding multiple food items to your weekly shop, we need ensure that manage multiple things at once, is easy.
+Choosing which of these to use is the first design challenge we'll discuss. We can't discuss this problem meaningfully unless we have a specificy problem to solve. To keep things interesting, we'll design an inbox, like Gmail.
 
-In this chapter we'll design an inbox, like Gmail. But we can apply these principles to any list that needs managing.
-
-Managing lists have several interesting design challenges for our consideration. The first being how to present the list of things to edit.
+But don't worry. Everything we discuss here is very much applicable to other types of lists.
 
 ## Lists Versus Tables
 

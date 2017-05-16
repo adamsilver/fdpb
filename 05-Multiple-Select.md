@@ -22,6 +22,8 @@ We should use tables to represent two-dimensional data. In our case the rows rep
 
 We could represent rows as list items and&mdash;at least in big screens&mdash;style them visually as columns. This brings us to the first problem. Tables aren't very responsive.
 
+Tables are semantically tied to the way they look. Meaning it's hard to make tables not *look* like tables. There are some solutions, but they are not particularly cross-browser friendly.
+
 Moreover, tables are a good choice when the data needs contextual information to make it useful. For example, *23* is useless information without the context of *goals scored* as a column heading and *Lionel Messi* as a row heading.
 
 Our inbox is seemingly less tabular. It's a list of emails that if read out as "From Heydon, subject: Buttons, 19/09/2017 at 9am" would be quite readable.
@@ -32,7 +34,84 @@ In fact, Mailchimp has a similar looking interface to Gmail but uses list items 
 
 This shows that semantics on the web is hard. Only once we take a step back and try and critique solutions from many articles does the "right" solution rear its head.
 
-This, on the face of it, may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. It goes to show that we must consider their surrounds just as much as we should consider the elements themselves.
+This may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. It goes to show that we must consider their surrounds just as much as we should consider the elements themselves. If you're interested in wider problems to accessibility you should read Heydon Pickering's *Inclusive Design Patterns*.
+
+At this point, it seems prudent to choose an unordered list to represent our inbox. This certainly makes it easier to design for small screens. Designing for those with small screens is an act of inclusive design.
+
+Here's what our inbox looks like so far:
+
+![Inbox](./images/inbox.png)
+
+HTML:
+
+```
+<ul class="inbox">
+	<li>
+		<a href="/emails/1/">
+			<div class="inbox-recipient">From Heydon Pickering</div>
+			<div class="inbox-subject">Subject: Buttons</div>
+			<div class="inbox-date">19/09/2017</div>
+		</a>
+	</li>
+	...
+</ul>
+```
+
+Writing the HTML above shows us another problems that tables have that list items don't. Each email is surrounded by a link, which allows the user to click the row to read the email.
+
+Tables don't allow links to span across multiple cells. Gmail relies on Javascript to do this, which is an act of exclusivity. One that we'll avoid whereever possible. Up to now we've had a 100% record, that I'm keen not to break.
+
+In anycase, list items are working for us. Let's continue.
+
+## Enabling selection
+
+To allow users to select and action multiple emails at once, we'll need to add a checkbox to each item in the list.
+
+Here's what that looks like:
+
+![Inbox](./images/inbox.png)
+
+HTML:
+
+```
+<ul class="inbox">
+	<li>
+		<input type="checkbox" name="email">
+		<a href="/emails/1/">
+			<div class="inbox-recipient">From Heydon Pickering</div>
+			<div class="inbox-subject">Subject: Buttons</div>
+			<div class="inbox-date">19/09/2017</div>
+		</a>
+	</li>
+	...
+</ul>
+```
+
+The first thing to notice is that the checkbox doesn't have a label. This is one of those annoying situations where every solution on offer has a tradeoff. The trick is find a balance. Let's see if we can find one.
+
+1. use aria described by
+2. create a label and duplicate and hide
+3. get rid of the link, make the majority/all of the row a label text
+
+1: We can use aria-describedby or labelledby, but the first rule of aria is don't use it. That's the beauty of the label element, it works everywhere. ARIA has less support. ARIA only arrived on the scene in 2010? The good thing about this is that there is no HTML repetition, keeping our mark-up lean and therefore as performant as possible.
+
+2: We create a label, duplicate some/all of the information and visually hide it. Not only is this repetive and slower but there is a smaller target area to click.
+
+3: now the entire row is clickable to mark as selected but the list is multi functional. I can click the row to view the email. Now I would need dedicated "view" links on each row. This is a trade off. First there is less to click for the majority action, second it's repetitive. View this, view that. We might consider modes of operation. Manage mode, and view mode. But modes have their own trade offs in that I have to activate them. It's nice keeping UIs minimal whereever possible. Also, having two modes is slower and time consuming. This for me is not a bad way to go at all, but in this scenario it's my least favourite. If managing emails happened 1% of the time for users then it might be a valid option. But it's more 5050.
+
+--------
+
+- enabling selection
+- adding a checkbox and highlighting the item
+- multiple submit buttons
+- legend?
+- buttons on each row, to quickly delete without having to select.
+- showing actions (responsively too, select versus menu), misusing select
+- location of actions
+- (de)select all
+- success messages
+
+--------
 
 ## Higlighting the item
 
@@ -132,6 +211,7 @@ In this case this undo feature will be part of the success message like gmail:
 
 ## Notes
 
+- modes: view and manage modes
 - multi select box, checkboxes.
 - Delete should be a post
 - aria labelledby - first rule is not to use aria, but here it makes sense.

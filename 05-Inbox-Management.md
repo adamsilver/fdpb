@@ -134,33 +134,67 @@ The problem with this is duplication, bloat and once again a smaller hit area.
 
 It's painstakingly obvious that there is no perfect answer. The trick is to find the balance and test. I'm caught between option 1 and 3. My inclination is to choose the duplicated label as we know it's better supported. A bit of duplication never hurt anyone.
 
-## Highlighting the selected row
+HTML:
 
-## Actions
+```HTML
+<fieldset class="inbox">
+	<legend>Inbox: 26 emails</legend>
+	<ul>
+		<li>
+			<input type="checkbox" name="email" id="email1" value="1">
+			<label for="email1">From: Heydon Pickering, Subject: Buttons, Sent: 19/09/2017</label>
+			<a href="/emails/1/">
+				<div class="inbox-recipient">From Heydon Pickering</div>
+				<div class="inbox-subject">Subject: Buttons</div>
+				<div class="inbox-date">19/09/2017</div>
+			</a>
+		</li>
+		...
+	</ul>
+</fieldset>
+```
 
-What use is being able to select a row, if there is no actionable next step. In the next section blah.
+CSS:
+
+```CSS
+.inbox label {
+	// visually hidden
+}
+```
+
+## Highlighting rows
+
+When a user clicks a checkbox it becomes checked. The user knows this because a tick (or check) appears inside the box. We might be tempted to do more. Specifically, we may be tempted to use Javascript to highlight the entire list item when the user checks the box.
+
+As humans we seem hard wired to want more. More money, more friends, more cars, more credibitily, more followers, more responsibility, more power. Whatever it may be, we have an unhealthy obsession with it.
+
+A useful way to build software is to do the minimum, and test. There is even a special acronym for it: MVP. It stands for Minimal Viable Product. Simply put. Do the minimum, test. If it needs more, then do more. Testing proves that more is worth the investment.
+
+Mailchimp, who are well-known for their investment into usability testing don't both highlighting the row. The checkbox is enough:
+
+![Mailchimp List](./images/mailchimp-list.png)
+
+We'll follow their lead and avoid the extra work, safe in the knowledge that we'll test this later on.
+
+## Submit buttons
+
+We now have a form, that enables the selection of emails to action. But what use is selection, if there is no way of actioning them. We need to add some buttons. One for each action: delete, archive, and marking spam.
+
+### Multiple buttons
+
+### Button location
+
+- At the top?
+- At the bottom too?
 
 --------
 
-- enabling selection
-- adding a checkbox and highlighting the item
-- multiple submit buttons
-- legend?
 - buttons on each row, to quickly delete without having to select.
 - showing actions (responsively too, select versus menu), misusing select
-- location of actions
 - (de)select all
 - success messages
 
 --------
-
-## Higlighting the item
-
-When a checkbox is clicked, it becomes checked. The user knows this because a little tick appears inside the checkbox. There is no need to write anymore code to highlight the row. Mailchimp does this:
-
-![Mailchimp List](./images/mailchimp-list.png)
-
-If user testing shows, that users don't get it and it's not obvious enough, you may decide to write some Javascript that highlights the entire row. But as with every enhancement in this book, only do that once testing shows it's worth added design effort, and code being downloaded on users machines.
 
 ## Showing actions
 
@@ -182,9 +216,9 @@ http://www.enterpriseux.co/gmail-style-data-tables-part-2/
 
 ## Where to display action buttons
 
-Conventionally speaking we should display action buttons at the top of a list. This is becauses lists can be long. At least by having actions at the top, the user has a chance to see what is available before making a selection.
+Conventionally speaking we should display action buttons at the top of a list. This is becauses lists can be long. At least by having actions at the top, the user has a chance to see what actions are available before selection.
 
-You can put the action buttons at the bottom too for convenience. Or you could consider using `position: sticky`. It's not usually something I advise by default, because sticky elements get in the way. And is quite often to the way with lists, we're not always acting upon them in this way. Quite often we're just browsing and clicking in to detail.
+We can put the buttons at the bottom too for convenience and for screen readers. Or you could consider using `position: sticky`. It's not usually something I advise by default, because sticky elements get in the way. And is quite often to the way with lists, we're not always acting upon them in this way. Quite often we're just browsing and clicking in to detail.
 
 ## Select all?
 
@@ -252,18 +286,14 @@ In this case this undo feature will be part of the success message like gmail:
 
 ## Notes
 
-- modes: view and manage modes
 - multi select box, checkboxes.
 - Delete should be a post
-- aria labelledby - first rule is not to use aria, but here it makes sense.
 
 http://www.enterpriseux.co/how-to-make-gmail-style-user-friendly-tables-part-1/
 http://www.enterpriseux.co/gmail-style-data-tables-part-2/
 http://www.enterpriseux.co/data-tables-part-3-user-feedback-and-messaging/
 
 ---
-
-Tables are useful when column headings are needed to add context to the values in the cells. For example, the number 23 without a heading tells the user not very much.
 
 Unless of course it had a pound sign in front of it, and it was located within a list of products, with each product given it's own heading.
 

@@ -70,7 +70,7 @@ Gmail uses Javascript to make this happen, which unforunately is an act of exclu
 
 To allow users to select and action multiple emails at once, we'll need to add a checkbox to each item in the list.
 
-Here's what that looks like:
+What it looks like:
 
 ![Inbox](./images/inbox.png)
 
@@ -90,17 +90,55 @@ HTML:
 </ul>
 ```
 
-The first thing to notice is that the checkbox doesn't have a label. This is one of those annoying situations where every solution on offer has a tradeoff. The trick is find a balance. Let's see if we can find one.
+The first thing to notice is that, unlike all other fields in the book so far, the checkbox doesn't have a label. This is one of those situations where there is no clear right answer. To my knowledge there are three options, each with their own set of tradeoffs:
 
-1. use aria described by
-2. create a label and duplicate and hide
-3. get rid of the link, make the majority/all of the row a label text
+- Use ARIA attributes in order to connect the values inside the divs to the label.
+- Wrap the contents in a label and associate it with the checkbox.
+- Create a separate label and duplicate the contents of the list item.
 
-1: We can use aria-describedby or labelledby, but the first rule of aria is don't use it. That's the beauty of the label element, it works everywhere. ARIA has less support. ARIA only arrived on the scene in 2010? The good thing about this is that there is no HTML repetition, keeping our mark-up lean and therefore as performant as possible.
+### Use ARIA attributes
 
-2: We create a label, duplicate some/all of the information and visually hide it. Not only is this repetive and slower but there is a smaller target area to click.
+We could use aria-describedby or aria-labelledby to associate the already-present information in the list item with the label. There are two problems with this.
 
-3: now the entire row is clickable to mark as selected but the list is multi functional. I can click the row to view the email. Now I would need dedicated "view" links on each row. This is a trade off. First there is less to click for the majority action, second it's repetitive. View this, view that. We might consider modes of operation. Manage mode, and view mode. But modes have their own trade offs in that I have to activate them. It's nice keeping UIs minimal whereever possible. Also, having two modes is slower and time consuming. This for me is not a bad way to go at all, but in this scenario it's my least favourite. If managing emails happened 1% of the time for users then it might be a valid option. But it's more 5050.
+The first is that there is less support for ARIA attributes than there is labels. In fact the first rule of ARIA is not to use ARIA if you can do it natively. Support is directly related to inclusivity, so this is not something to take lightly.
+
+The second is that the hit area is reduced. You'll recall from the first chapter that increasing the hit area helps users with fine motor impairments.
+
+TODO: when did ARIA come along
+
+### Wrap the contents in a label
+
+This is my favourite option because it doesn't rely on ARIA meaning it has excellent support. And the hit area is large, solving both of the problems with the previous option.
+
+However, it has several problems:
+
+In order to implement this solution we need to remove the link. But the link is what allows the user to read and reply to the email. We can't have two interactive elements taking up the same space.
+
+We could instead have a *view email* link at the end of each row, but this forces a change in UI. It could be that an explicit buttons works well, but that would need testing and the hit area of the main action is now reduced.
+
+Remember the links are repetitive, bloat that takes up screen real estate. Hardly insurmountable, but worth our consideration as designers.
+
+We could use *modes*. We could have a separate button on the page that changes the mode in which the user is interacting with the list. For example, the list might start off in view mode, but clicking the "edit mode" button converts the list into a set of checkboxes that can be bulk actioned.
+
+Having dedicated modes may work well but both view and edit modes seem desirable. If edit mode was signicantly less desirable then you could default view mode and allow users to switch and avoid the above problems.
+
+This seems a bit over the top for this situation particularly as it slows users down as they have to switch between the views.
+
+### Create a label and duplicate the contents
+
+The final option is to duplicate the contents and put inside a separate regular email. In addition to duplication we must ensure to hide the label visually as it's the same as the already on-screen information.
+
+The problem with this is duplication, bloat and once again a smaller hit area.
+
+### Which to choose?
+
+It's painstakingly obvious that there is no perfect answer. The trick is to find the balance and test. I'm caught between option 1 and 3. My inclination is to choose the duplicated label as we know it's better supported. A bit of duplication never hurt anyone.
+
+## Highlighting the selected row
+
+## Actions
+
+What use is being able to select a row, if there is no actionable next step. In the next section blah.
 
 --------
 

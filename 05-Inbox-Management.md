@@ -1,4 +1,4 @@
-# Multiple Select Lists
+# Inbox Management
 
 My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones.
 

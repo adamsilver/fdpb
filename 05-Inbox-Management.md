@@ -286,8 +286,7 @@ In this case this undo feature will be part of the success message like gmail:
 
 ## Notes
 
-- multi select box, checkboxes.
-- Delete should be a post
+- Delete and other types of modification should be a post
 
 http://www.enterpriseux.co/how-to-make-gmail-style-user-friendly-tables-part-1/
 http://www.enterpriseux.co/gmail-style-data-tables-part-2/

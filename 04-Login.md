@@ -1,5 +1,8 @@
 # A Login Form
 
+> As a user I want to login so that
+> —Nobody ever
+
 In chapter 3 *Book A Flight*, we *ahem*, navigated our way through the complicated world of custom form controls. I don't know about you, but I could certainly do with a short intermission. And I can't think of a better way to do that, than with the inocuous and ubiquitous login form.
 
 Most sites have login forms but almost as many sites have login forms that cause problems for users. The rise of social login hasn't helped matters either. In this chapter we're going to discuss these issues and look to design solutions accordingly.

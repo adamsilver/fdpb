@@ -28,17 +28,17 @@ Moreover, tables are a good choice when the data needs contextual information to
 
 Our inbox is seemingly less tabular. It's a list of emails that if read out as "From Heydon, subject: Buttons, 19/09/2017 at 9am" would be quite readable.
 
-In fact, Mailchimp has a similar looking interface to Gmail but uses list items instead of tables:
+Mailchimp, which is not an inbox, has a similar looking interface to Gmail but uses list items instead of tables:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-This shows that semantics on the web is hard. Only once we take a step back and try and critique solutions from many articles does the "right" solution rear its head.
+It looks the same, but the advantage of a list items over tables is that they are maleable. Semantics on the web is hard. Only once we take a step back and critique solutions from many angles does the "right" solution show itself.
 
-This may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. It goes to show that we must consider their surrounds just as much as we should consider the elements themselves. If you're interested in wider problems to accessibility you should read Heydon Pickering's *Inclusive Design Patterns*.
+This may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface on their own.
 
-At this point, it seems prudent to choose an unordered list to represent our inbox. This certainly makes it easier to design for small screens. Designing for those with small screens is an act of inclusive design.
+On balance, an unordered list is preferential. This is not to say tables are bad. We can't classify elements this way. We simply need to understand their meaning, their behaviour and their constraints.
 
-Here's what our inbox looks like so far:
+So here's our inbox:
 
 ![Inbox](./images/inbox.png)
 
@@ -57,11 +57,14 @@ HTML:
 </ul>
 ```
 
-Writing the HTML above shows us another problems that tables have that list items don't. Each email is surrounded by a link, which allows the user to click the row to read the email.
+This is the HTML without any form controls. We'll do that in a moment. Even so, the act of writing HTML has exposed another advantage of lists over tables.
 
-Tables don't allow links to span across multiple cells. Gmail relies on Javascript to do this, which is an act of exclusivity. One that we'll avoid whereever possible. Up to now we've had a 100% record, that I'm keen not to break.
+You'll notice the contents of each item is wrapped in a link. The link takes the user to read the email in full. Tables don't allow this behaviour. It's invalid and broken to use an `a` acorss table cells.
 
-In anycase, list items are working for us. Let's continue.
+> if you can solve a problem with a simpler solution lower in the stack, you should
+> —Derek Featherstone
+
+Gmail uses Javascript to make this happen, which unforunately is an act of exclusivity. We want to avoid this wherever possible. We haven't relied on Javascript so far, so let's keep it this way.
 
 ## Enabling selection
 

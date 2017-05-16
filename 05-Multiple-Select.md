@@ -2,37 +2,37 @@
 
 My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones.
 
-Despite *her* obsession, the world is full of lists. There is even a list of great people[^]. But lists are a tricky thing to manage. On the web, there are some conventions that have evolved over the years.
+Despite her obsession, the world is full of lists. There is even a list of great people[^]. But lists are a tricky thing to manage. On the web, there are some conventions that have emerged over the years.
 
-In this chapter, we're going to make sure that managing lists is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to a digitally managed list.
+In this chapter, we're going to make sure list management is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to a digitally managed list.
 
 On the web there are many types of list: tabular data (`<table>`), description lists (which used to be called definition lists) (`<dl>`), unordered lists (`<ul>`) and ordered lists (`ol`).
 
-Choosing which of these to use is the first design challenge we'll discuss. We can't discuss this problem meaningfully unless we have a specificy problem to solve. To keep things interesting, we'll design an inbox, like Gmail.
+We can't discuss the merit of each until orientate ourselves around a  specific problem that needs solving. We'll design an inbox. The aim of course is to achieve a zen-like state of Inbox Zero.
 
-But don't worry. Everything we discuss here is very much applicable to other types of lists.
+To get to Inbox Zero our UI must enable users to delete, archive and mark  spam. But not individually. In bulk.
+
+Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists.
 
 ## Everything is list
 
-Semantically speaking we can describe everything as a list. The things on the page are a list of things on the page. Pedantism aside, we need to decide how to present our inbox.
+Semantically speaking everything is a list. The things on the page are a list of things on the page. Pedantism aside, we need to decide what type of list our inbox will use.
 
-Gmail, has rows and columns of data to represent different aspects of an email. Recipient, data, subject and a preview of the body content. However, they don't include table headings, visually or semantically.
+We should use tables to represent two-dimensional data. In our case the rows represent emails and the columns represent the details about the email: recipient, subject and sent date etc. Gmail, omits table headings which might suggest a table is the wrong choice.
 
----
+We could represent rows as list items and&mdash;at least in big screens&mdash;style them visually as columns. This brings us to the first problem. Tables aren't very responsive.
 
-Tables are useful when column headings are needed to add context to the values in the cells. For example, the number 23 without a heading tells the user not very much.
+Moreover, tables are a good choice when the data needs contextual information to make it useful. For example, *23* is useless information without the context of *goals scored* as a column heading and *Lionel Messi* as a row heading.
 
-Unless of course it had a pound sign in front of it, and it was located within a list of products, with each product given it's own heading.
+Our inbox is seemingly less tabular. It's a list of emails that if read out as "From Heydon, subject: Buttons, 19/09/2017 at 9am" would be quite readable.
 
-At Tesco, we did just this, but we also laid out parts of each product in columns as you can see below:
+In fact, Mailchimp has a similar looking interface to Gmail but uses list items instead of tables:
 
-![Tesco Product List](./images/tesco-list.png)
+![Mailchimp List](./images/mailchimp-list.png)
 
-At the time, we weren't designing a fully responsive, mobile-first website but if we had it would have been relatively straightforward to convert these divs/list items.
+This shows that semantics on the web is hard. Only once we take a step back and try and critique solutions from many articles does the "right" solution rear its head.
 
-Tables on the other hand aren't responsive: if there isn't enough room, then the user will get a horizontal scroll bar. This is particulary a problem with tables that have lots of (wide) columns.
-
-If you can design something well that doesn't use tables, I would start there, but regardless, whether you use a table or a list item, or a div for that matter, the design principles in this chapter are still applicable.
+This, on the face of it, may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. It goes to show that we must consider their surrounds just as much as we should consider the elements themselves.
 
 ## Higlighting the item
 
@@ -140,3 +140,18 @@ http://www.enterpriseux.co/how-to-make-gmail-style-user-friendly-tables-part-1/
 http://www.enterpriseux.co/gmail-style-data-tables-part-2/
 http://www.enterpriseux.co/data-tables-part-3-user-feedback-and-messaging/
 
+---
+
+Tables are useful when column headings are needed to add context to the values in the cells. For example, the number 23 without a heading tells the user not very much.
+
+Unless of course it had a pound sign in front of it, and it was located within a list of products, with each product given it's own heading.
+
+At Tesco, we did just this, but we also laid out parts of each product in columns as you can see below:
+
+![Tesco Product List](./images/tesco-list.png)
+
+At the time, we weren't designing a fully responsive, mobile-first website but if we had it would have been relatively straightforward to convert these divs/list items.
+
+Tables on the other hand aren't responsive: if there isn't enough room, then the user will get a horizontal scroll bar. This is particulary a problem with tables that have lots of (wide) columns.
+
+If you can design something well that doesn't use tables, I would start there, but regardless, whether you use a table or a list item, or a div for that matter, the design principles in this chapter are still applicable.

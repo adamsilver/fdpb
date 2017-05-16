@@ -710,6 +710,8 @@ Here's what that script looks like:
 
 ## Summary
 
+TODO: Summary
+
 ## Footnotes
 
 [^luke]:(http://www.lukew.com/ff/entry.asp?1950)

@@ -2,13 +2,15 @@
 
 ## 1. Designing a global search in responsive header
 
+If search is used a lot, don't make people click a magnifying glass. It's really annoying. Also once someone searches, at least consider keepign it open.
+
 ## 2. Search shouldn't just find products [https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba](Jared Spool)
 
 ## 3. Do we really need it? Kidly didn't do search as product taxonomy so small. Let Google do it.
 
 ## 4. Filter
 
-- Don't make links look like checkbox/radios
+- Don't make links look like checkbox/radios (https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)
 - Material honesty - check Resilient Web Design book for ref.
 - AND = checkboxes
 - OR = radios

@@ -90,7 +90,9 @@ HTML:
 </ul>
 ```
 
-The first thing to notice is that, unlike all other fields in the book so far, the checkbox doesn't have a label. This is one of those situations where there is no clear right answer. To my knowledge there are three options, each with their own set of tradeoffs:
+You'll notice that that, unlike all other fields in the book so far, the checkbox has a label missing. We can add a label, but the contents of the label will duplicate the contents of link. We can't wrap the anchor in the label either as their will be two operations using the same space.
+
+We have three options to discuss, each with their own set of tradeoffs:
 
 - Use ARIA attributes in order to connect the values inside the divs to the label.
 - Wrap the contents in a label and associate it with the checkbox.
@@ -132,7 +134,7 @@ The problem with this is duplication, bloat and once again a smaller hit area.
 
 ### Which to choose?
 
-It's painstakingly obvious that there is no perfect answer. The trick is to find the balance and test. I'm caught between option 1 and 3. My inclination is to choose the duplicated label as we know it's better supported. A bit of duplication never hurt anyone.
+It's painstakingly obvious that there is no perfect answer. The trick is to find the balance and test. My inclination is to choose the duplicated label as we know it's better supported. A bit of duplication never hurt anyone.
 
 HTML:
 
@@ -154,7 +156,7 @@ HTML:
 </fieldset>
 ```
 
-CSS:
+We can hide the visually duplicated label with CSS:
 
 ```CSS
 .inbox label {
@@ -164,28 +166,35 @@ CSS:
 
 ## Highlighting rows
 
-When a user clicks a checkbox it becomes checked. The user knows this because a tick (or check) appears inside the box. We might be tempted to do more. Specifically, we may be tempted to use Javascript to highlight the entire list item when the user checks the box.
+When a user clicks a checkbox it becomes checked. The user knows this because a tick (or check) appears inside the box. We might be tempted to use Javascript to highlight the entire list item. Don't fall into temptation to do more until user testing shows that users are struggling.
 
-As humans we seem hard wired to want more. More money, more friends, more cars, more credibitily, more followers, more responsibility, more power. Whatever it may be, we have an unhealthy obsession with it.
+In software there is special acronym for this approach. MVP stands for Minimial Viable Product. Simply put, do the minimum, test. If it needs more, then do more. Testing proves that *more* is worth the investment.
 
-A useful way to build software is to do the minimum, and test. There is even a special acronym for it: MVP. It stands for Minimal Viable Product. Simply put. Do the minimum, test. If it needs more, then do more. Testing proves that more is worth the investment.
-
-Mailchimp, who are well-known for their investment into usability testing don't both highlighting the row. The checkbox is enough:
+Mailchimp, who are well-known for their investment into usability testing don't highlight the rows. The checkbox is enough:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-We'll follow their lead and avoid the extra work, safe in the knowledge that we'll test this later on.
+We'll follow their lead and avoid the extra effort. More code is more opportunity for failure and more stuff to maintain. As designers, we should practice Dieter Ram's famous ethos *less, but better*.
 
 ## Submit buttons
 
-We now have a form, that enables the selection of emails to action. But what use is selection, if there is no way of actioning them. We need to add some buttons. One for each action: delete, archive, and marking spam.
-
-### Multiple buttons
+We have a form that enables the selection, but no actions to choose from? We need to add buttons for delete, archive, and marking spam.
 
 ### Button location
 
-- At the top?
-- At the bottom too?
+Traditionally, submit buttons are placed after the form fields. Up to now this is exactly what we've done. This made sense, as users typically have to answer the questions from top to bottom. And once they have finished answering the questions they can submit.
+
+With a form like this, the same logic doesn't necessarily follow. Users who wish to select and act on individual emails will probably not step through each and every checkbox.
+
+Moreover, placing the buttons at the bottom of a long list doesn't aid discoverability. For these reasons, it makes sense to place the buttons at the top.
+
+We might also duplicate the buttons at the bottom of the form. If the list is long, which might be unavoidable, then making users scroll back to the top seems lazy on our part.
+
+There is another option though. We can use CSS to enhance the buttons so that they are *sticky*. That is they will stay on screen even if users scroll. This is not something to do haphazardly though. Using sticky elements take up space and can be visually noisy, particuarly if users are in browsing mode.
+
+If you want to test this, make sure you do so on a wide range of browsers, screen sizes and users, performing different tasks: browsing and editing.
+
+### Multiple buttons
 
 --------
 
@@ -213,12 +222,6 @@ Once again, consider your options, do the simplest thing first and test.
 First time users, or low confidence users may need more than just the enabling or a button. Perhaps a little animation or something might help users notice it.
 
 http://www.enterpriseux.co/gmail-style-data-tables-part-2/
-
-## Where to display action buttons
-
-Conventionally speaking we should display action buttons at the top of a list. This is becauses lists can be long. At least by having actions at the top, the user has a chance to see what actions are available before selection.
-
-We can put the buttons at the bottom too for convenience and for screen readers. Or you could consider using `position: sticky`. It's not usually something I advise by default, because sticky elements get in the way. And is quite often to the way with lists, we're not always acting upon them in this way. Quite often we're just browsing and clicking in to detail.
 
 ## Select all?
 

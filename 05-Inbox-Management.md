@@ -194,7 +194,31 @@ There is another option though. We can use CSS to enhance the buttons so that th
 
 If you want to test this, make sure you do so on a wide range of browsers, screen sizes and users, performing different tasks: browsing and editing.
 
-### Multiple buttons
+### The multiple submit button problem
+
+All our forms, up to now, have had a single submit button. Having once choice wherever possible makes it easier for users as it requires less thinking. However, our inbox has multiple actions and therefore many submit buttons.
+
+Multiple submit buttons are problematic due to the way *implicit* submission works with the keyboard. You may have realised you can submit a form by pressing *enter*, when the focus is within a field (as opposed to a button).
+
+If the user does press enter, then the form will submit as if the user had **pressed the first button**. This is the *implicit* bit. This is something that wherever possible we should design out of a system. That is explore alternative ways to provide the functionality without combining forms.
+
+For example, consider the following form that combines *save* and *delete* actions:
+
+![Save and delete form combined](./images/save-and-delete-form-combined.png)
+
+In this case we might consider splitting up the forms into two. One for saving and one for deleting. To make this work we would need to consider the end to end experience&mdash;not just the form in isolation.
+
+Our inbox *could* be designed differently. For example, we could have the actions first. Clicking an action takes the user to a dedicated form where the user selects which emails to apply to the action.
+
+I wouldn't mind seeing this approach in user testing to find out, but lets assume that this is long winded and unintuitive in the case of an inbox.
+
+By putting the buttons first in the flow users have an opportunity to see or hear the actions on offer, and it might stop users using the keyboard to submit a form whilst focussed on the checkbox.
+
+The other thing is, the interface doesn't really afford that of implicit submission, because it's a list of checkboxes. Unlike say a search form, where users type and submit without moving to the button.
+
+Despite this, the user could still submit with *enter*. In this case we can ensure the first submit button is the least dangerous and destructive one. That is make sure that the *delete selected emails* action is not first.
+
+We'll also be discussing shortly the ability undo actions like this, but mitigation is a fruitful first step.
 
 --------
 
@@ -230,6 +254,7 @@ With a list of my favourite products, or a list of emails, quite often we might 
 - Without JS? Use buttons to reload the page with all selected.
 - With JS piggyback the button/link to not do a post back.
 - checkbox indeterminate state.
+- button aria-pressed?
 
 ## Action buttons versus select box
 

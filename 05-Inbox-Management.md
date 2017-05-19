@@ -218,18 +218,17 @@ The other thing is, the interface doesn't really afford that of implicit submiss
 
 Despite this, the user could still submit with *enter*. In this case we can ensure the first submit button is the least dangerous and destructive one. That is make sure that the *delete selected emails* action is not first.
 
-We'll also be discussing shortly the ability undo actions like this, but mitigation is a fruitful first step.
+We'll shortly discuss the ability to undo actions like this, but mitigation is a fruitful first step regardless.
 
---------
+### Disabling and hiding buttons before selection
 
-- buttons on each row, to quickly delete without having to select.
-- showing actions (responsively too, select versus menu), misusing select
-- (de)select all
-- success messages
+In chapter 1 we discussed the problem with disabled buttons. Specifically,  disabling buttons until the form becomes *valid*. Our inbox doesn't look like a traditional form but it effectively suffers from the same problem.
 
---------
+In theory, the user shouldn't submit a form until the user selects at least one checkbox. It's this thinking that may tempt designers to disable the buttons until the user selects a checkbox. 
 
-## Showing actions
+We discussed in the problem with disabed buttons in chapter 1. Our inbox doesn't have valid and invalid states. However, the buttons can't possibly work without selecting at least one checkbox.
+
+
 
 Another question is do we disable or hide the actions until they can be clicked? Maybe we don't even do that.
 
@@ -239,7 +238,7 @@ There is a case hoever, for always showing the actions, but having them in a dis
 
 I have a bit of an aversion to disabled buttons because I have seen users try and click on disabled elements and not understand why they are disabled. A subtle greyed out state doesn't say very must. UIs should be clear always.
 
-So instead, we could allow users to press the button, and show an error if the user hasn't selected any items yet. This matches all the other forms we have designed in the book, and it just feels right.
+So instead, we could allow users to press the button, and show an error if the user hasn't selected any items yet. This matches all the other forms we have designed in the book.
 
 Once again, consider your options, do the simplest thing first and test.
 
@@ -247,7 +246,14 @@ First time users, or low confidence users may need more than just the enabling o
 
 http://www.enterpriseux.co/gmail-style-data-tables-part-2/
 
-## Select all?
+### Menu treatment and small screen design (TODO)
+
+TODO:
+- small screens need compact menu (responsive aria attributes with JS)
+- aria menu vs select box
+- just display them
+
+## Select all (TODO)
 
 With a list of my favourite products, or a list of emails, quite often we might want to select and act upon all options in a list. We may want to, for example archive all the emails. Having a (de)select all button makes sense.
 
@@ -255,6 +261,14 @@ With a list of my favourite products, or a list of emails, quite often we might 
 - With JS piggyback the button/link to not do a post back.
 - checkbox indeterminate state.
 - button aria-pressed?
+
+--------
+
+- buttons on each row, to quickly delete without having to select.
+- (de)select all
+- success messages
+
+--------
 
 ## Action buttons versus select box
 

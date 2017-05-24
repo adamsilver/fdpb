@@ -62,14 +62,18 @@ HTML:
 </ul>
 ```
 
-This is the HTML without any form controls. We'll add those momentarily. Even so, the very act of creating this HTML exposes another advantage of lists over tables.
+Here's the HTML without any form controls. We'll add those momentarily.
 
-You'll notice the contents of each item is wrapped in a link. The link takes the user to read the email *detail* view. Tables don't allow this behaviour. It's invalid and problematic to have a link span across table cells.
+Interestingly, the act of writing the HTML exposes a design problem. You'll notice the content is wrapped in a link. This can't be done with tables. Wrapping a link across table cells is not allowed.
 
-> if you can solve a problem with a simpler solution lower in the stack, you should
+Designers should have a deep understanding of the materials they use to build artifacts. In our case the materials our HTML, CSS and Javascript. And the artifacts are, of course, web pages.
+
+> If you can solve a problem with a simpler solution lower in the stack, you should.
 > —Derek Featherstone
 
-Gmail uses Javascript to make this happen, which unforunately is an act of exclusivity. We want to avoid this wherever possible. We haven't relied on Javascript so far, and there is no reason for us to do this now.
+Gmail uses tables and yet the entire row is clickable. For this to happen Google's developers have had to use Javascript. As we've previously discussed, this is an act of exclusivity.
+
+Wherever possible we should avoid solutions that exclude people. In fact inclusivity is a constraint that helps guide us to the path of the "right" design.
 
 ## Enabling selection
 
@@ -97,49 +101,57 @@ HTML:
 
 You'll notice that unlike all other fields in the book so far, the checkbox has a label missing. We can add a label, but the contents of the label will duplicate the contents of link. We can't wrap the anchor in the label either as their will be two operations using the same space.
 
-We have three options to discuss, each with their own set of tradeoffs:
+We have three options, each with their own set of tradeoffs:
 
-- Use ARIA attributes in order to connect the values inside the divs to the label.
-- Wrap the contents in a label and associate it with the checkbox.
-- Create a separate label and duplicate the contents of the list item.
+- Use ARIA attributes in order to connect the values inside the `div`s to the label.
+- Wrap the contents in a `label` and associate it with the checkbox.
+- Create a separate `label` and duplicate the contents of the list item.
 
 ### Use ARIA attributes
 
-We could use aria-describedby or aria-labelledby to associate the already-present information in the list item with the label. There are two problems with this.
+We could use `aria-describedby` or `aria-labelledby` to associate the  information in the list item with the label. However, there are two problems.
 
-The first is that there is less support for ARIA attributes than there is labels. In fact the first rule of ARIA is not to use ARIA if you can do it natively. Support is directly related to inclusivity, so this is not something to take lightly.
+First, there is less support for ARIA attributes than there is labels. This is because ARIA came along relatively late in the day[^]. Browsers and assistive technology that came before it won't understand the attributes.
 
-The second is that the hit area is reduced. You'll recall from the first chapter that increasing the hit area helps users with fine motor impairments.
+The first rule of ARIA is not to use ARIA[^]. Support is intertwined with inclusivity. If we can provide the same functionality natively without ARIA we should.
 
-TODO: when did ARIA come along
+Secondly, the size of the hit area is smaller. You'll recall from the first chapter that increasing the hit area helps users with fine motor impairments. We don't want to lose this feature if at all possible.
 
 ### Wrap the contents in a label
 
-This is my favourite option because it doesn't rely on ARIA meaning it has excellent support. And the hit area is large, solving both of the problems with the previous option.
+This solves the problem with the previous option. Specifically, it has more support because it doesn't rely on ARIA. For the same reason, the size of the hit area is maximised.
 
-However, it has several problems:
+However, it's not without its own problems:
 
-In order to implement this solution we need to remove the link. But the link is what allows the user to read and reply to the email. We can't have two interactive elements taking up the same space.
+A label can't contain a link because you can't have two interactive elements occupying the same space in the interface. We'd have to remove the link, losing the ability to view the email in detail.
 
-We could instead have a *view email* link at the end of each row, but this forces a change in UI. It could be that an explicit buttons works well, but that would need testing and the hit area of the main action is now reduced.
+Instead, we could add a *view email* link at the end of each "row", but this means chaning the interface. I'm a fan of explicit links, but to be sure we'd need to test it works well.
 
-Remember the links are repetitive, bloat that takes up screen real estate. Hardly insurmountable, but worth our consideration as designers.
+Furthermore, the links are repetitive and they use a fair amount of space on the screen&mdash;hardly insurmountable but worth considering.
 
-We could use *modes*. We could have a separate button on the page that changes the mode in which the user is interacting with the list. For example, the list might start off in view mode, but clicking the "edit mode" button converts the list into a set of checkboxes that can be bulk actioned.
+We might consider using *modes*.
 
-Having dedicated modes may work well but both view and edit modes seem desirable. If edit mode was signicantly less desirable then you could default view mode and allow users to switch and avoid the above problems.
+We could place a separate button on the page that switches the mode between "read" mode and "edit" mode.
 
-This seems a bit over the top for this situation particularly as it slows users down as they have to switch between the views.
+Read mode will have the entire row clickable and not show the checkbox. Edit mode will have a checkbox and the entire row being the label (not a link).
 
-### Create a label and duplicate the contents
+![Modes](./images/modes.png)
 
-The final option is to duplicate the contents and put inside a separate regular email. In addition to duplication we must ensure to hide the label visually as it's the same as the already on-screen information.
+Modes work well, particulary if one mode is used far less. But if users are using both modes equally, then it might be undesirable to have to switch all the time.
 
-The problem with this is duplication, bloat and once again a smaller hit area.
+### Duplicate the contents inside a hidden label
+
+We could duplicate the contents inside of a separate label. The problem is that label needs to be visually hidden. This causes the HTML to be heavier. And the extra noise could cause problems for those using a screen reader. Two problems we want to avoid.
 
 ### Which to choose?
 
-It's painstakingly obvious that there is no perfect answer. The trick is to find the balance and test. My inclination is to choose the duplicated label as we know it's better supported. A bit of duplication never hurt anyone.
+Much to our collective frustration, *perfect* rarely exists in the world of design. And in this case, I'm not sure there is a *perfect* answer here either.
+
+Let's make a decision later once we've discussed the other issues surrounding the overal design problem. Spoiler: it will.
+
+---
+
+On balance, we'll duplicate the label and visually hide it. A bit of duplication never hurt anyone. But to verify we should test the usability in our interface wherever possible.
 
 HTML:
 
@@ -149,11 +161,13 @@ HTML:
 	<ul>
 		<li>
 			<input type="checkbox" name="email" id="email1" value="1">
-			<label for="email1">From: Heydon Pickering, Subject: Buttons, Sent: 19/09/2017</label>
-			<a href="/emails/1/">
-				<div class="inbox-recipient">From Heydon Pickering</div>
+			<label for="email1">
+				<div class="inbox-recipient">Heydon Pickering</div>
 				<div class="inbox-subject">Subject: Buttons</div>
 				<div class="inbox-date">19/09/2017</div>
+			</label>
+			<a href="/emails/1/">
+
 			</a>
 		</li>
 		...

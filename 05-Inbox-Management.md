@@ -117,17 +117,17 @@ The first rule of ARIA is not to use ARIA[^]. Support is intertwined with inclus
 
 Secondly, the size of the hit area is smaller. You'll recall from the first chapter that increasing the hit area helps users with fine motor impairments. We don't want to lose this feature if at all possible.
 
+### Duplicate the contents inside a hidden label
+
+We could duplicate the contents inside of a separate label. The problem is that the label needs to be visually hidden. This causes the HTML to be heavier. And the extra noise could cause problems for those using a screen reader. Two problems we want to avoid.
+
 ### Wrap the contents in a label
 
-This solves the problem with the previous option. Specifically, it has more support because it doesn't rely on ARIA. For the same reason, the size of the hit area is maximised.
+Instead of duplicating the contents inside a hidden label, we could wrap the contents in a label. Labels have excellent support and so there is no need for ARIA. By the same taken, the entire row becomes clickable which maximises the hit area.
 
-However, it's not without its own problems:
+So far so good, but this solution introduces some other problems:
 
 A label can't contain a link because you can't have two interactive elements occupying the same space in the interface. We'd have to remove the link, losing the ability to view the email in detail.
-
-Instead, we could add a *view email* link at the end of each "row", but this means chaning the interface. I'm a fan of explicit links, but to be sure we'd need to test it works well.
-
-Furthermore, the links are repetitive and they use a fair amount of space on the screen&mdash;hardly insurmountable but worth considering.
 
 We might consider using *modes*.
 
@@ -139,19 +139,23 @@ Read mode will have the entire row clickable and not show the checkbox. Edit mod
 
 Modes work well, particulary if one mode is used far less. But if users are using both modes equally, then it might be undesirable to have to switch all the time.
 
-### Duplicate the contents inside a hidden label
+Instead, we could add a *view* link at the end of each "row". The problem is that the most of the row is a label. Clicking it ticks the checkbox, instead of viewing the email. This seems somewhat undesirable.
 
-We could duplicate the contents inside of a separate label. The problem is that label needs to be visually hidden. This causes the HTML to be heavier. And the extra noise could cause problems for those using a screen reader. Two problems we want to avoid.
+However, explicit actions are good. That's because dedicated actions are obvious and obvious is something that makes users feel awesome.
+
+We don't have to limit the row to contain just a *view* link. We can put the other actions within the row too.
+
+![Actions in rows](./images/actions-in-rows.png)
+
+This works quite well. For those that want to quickly delete a single email, clicking the button is far quicker than clicking the checkbox and then hitting the action button.
+
+The trade off is that the interface is full of buttons. Only user testing can tell us which is best. I don't have any personal experience to draw on with regards to an inbox with multiple buttons, so we'll have to make a decision.
 
 ### Which to choose?
 
-Much to our collective frustration, *perfect* rarely exists in the world of design. And in this case, I'm not sure there is a *perfect* answer here either.
+Much to our collective frustration, *perfect* rarely exists in the design world. And in this case, I'm not sure there is a *perfect* answer here either.
 
-Let's make a decision later once we've discussed the other issues surrounding the overal design problem. Spoiler: it will.
-
----
-
-On balance, we'll duplicate the label and visually hide it. A bit of duplication never hurt anyone. But to verify we should test the usability in our interface wherever possible.
+On balance, we'll duplicate the label and visually hide it. A bit of duplication never hurt anyone.
 
 HTML:
 
@@ -161,13 +165,11 @@ HTML:
 	<ul>
 		<li>
 			<input type="checkbox" name="email" id="email1" value="1">
-			<label for="email1">
+			<label for="email1">Heydon Pickering, Buttons, 19/09/2017</label>
+			<a href="/emails/1/">
 				<div class="inbox-recipient">Heydon Pickering</div>
 				<div class="inbox-subject">Subject: Buttons</div>
 				<div class="inbox-date">19/09/2017</div>
-			</label>
-			<a href="/emails/1/">
-
 			</a>
 		</li>
 		...
@@ -185,19 +187,25 @@ We can hide the visually duplicated label with CSS:
 
 ## Highlighting rows
 
-When a user clicks a checkbox it becomes checked. The user knows this because a tick (or check) appears inside the box. We might be tempted to use Javascript to highlight the entire list item. Don't fall into temptation to do more until user testing shows that users are struggling.
+When a user clicks a checkbox it becomes checked. The user knows this because a tick (or check) appears inside the box. We might be tempted to use Javascript to highlight the entire row. Don't fall into temptation to do *more* until user testing shows that users are struggling.
 
 In software there is special acronym for this approach. MVP stands for Minimial Viable Product. Simply put, do the minimum, test. If it needs more, then do more. Testing proves that *more* is worth the investment.
 
-Mailchimp, who are well-known for their investment into usability testing don't highlight the rows. The checkbox is enough:
+Mailchimp, who invest heavily into usability don't highlight the rows. The checkbox is enough:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-We'll follow their lead and avoid the extra effort. More code is more opportunity for failure and more stuff to maintain. As designers, we should practice Dieter Ram's famous ethos *less, but better*.
+We'll follow their lead and avoid the extra effort. More code is more opportunity for failure and more stuff to maintain. As designers, we should practice Dieter Ram's famous ethos *less, but better* whenever there is an opportunity to do so.
 
 ## Submit buttons
 
-We have a form that enables the selection, but no actions to choose from? We need to add buttons for delete, archive, and marking spam.
+We have a form that enables the selection of an email, but no actions to apply to it. We need to add buttons for delete, archive, and marking spam. There are a few design considersatons:
+
+- Button location
+- The multiple submit problem
+- Disabling buttons before selection
+- Hiding buttons before selection
+- Responsive ARIA components
 
 ### Button location
 
@@ -263,8 +271,6 @@ Once again, consider your options, do the simplest thing first and test.
 
 First time users, or low confidence users may need more than just the enabling or a button. Perhaps a little animation or something might help users notice it.
 
-http://www.enterpriseux.co/gmail-style-data-tables-part-2/
-
 ### Menu treatment and small screen design (TODO)
 
 TODO:
@@ -272,24 +278,7 @@ TODO:
 - aria menu vs select box
 - just display them
 
-## Select all (TODO)
-
-With a list of my favourite products, or a list of emails, quite often we might want to select and act upon all options in a list. We may want to, for example archive all the emails. Having a (de)select all button makes sense.
-
-- Without JS? Use buttons to reload the page with all selected.
-- With JS piggyback the button/link to not do a post back.
-- checkbox indeterminate state.
-- button aria-pressed?
-
---------
-
-- buttons on each row, to quickly delete without having to select.
-- (de)select all
-- success messages
-
---------
-
-## Action buttons versus select box
+### Action buttons versus select box
 
 - Sometimes it's not just a button, sometimes it's a selection, like apply filter. But better to go to other page probably. Like for Universal Credit, we have a page that selects people to be allocated to another agent. That means the user selects people, then chooses who to allocate it to then presses the button. Better as a flow, at least to start with.
 - other thing is, can have modes. Modes that say "browse mode" or "manage mode". Only show checkboxes when users wants to manage stuff. One thing per page principle type thing.
@@ -305,27 +294,6 @@ The problem with using a select box despite the general disadvantages as we've d
 For this reason we might consider a ARIA TOOLBAR. A div with a button that exposes more buttons on small screens, and on big screens, just expose the buttons without showing/hiding (or aria-expand/collapse).
 
 As we know we don't want to hide options if there is room to show them.
-
-## Putting actions within the table too
-
-If users often act upon one list item at a time, then you might want convenient buttons in context too. It saves users having to select an item first and then acting upon it. One click is better than three or four in this case.
-
-If we count the clicks on small screens then it would be:
-
-1. Check the item
-2. Scroll up to the top (depending if the actions are off screen)
-3. Open the menu/select box
-4. Click action
-
-Or with an in-context button
-
-1. Click button
-
-When modifying data, we should always use a form and submit button. Links are for getting/retrievig documents and information. They are not for modifying. This is an HTTP restful principle that I need to look up to get more detail as to why this is a good thing.
-
-If you have an in context delete button, it shouldn't be a link. Unless of course, you're going to link to another page or whatever, that shows a form saying *are you sure you wish to delete* and that button being a form/submit.
-
-But as you will see shortly, if having to confirm these actions all the time, makes the act full of friction and frsutrating. Instead we might be able to use a better way.
 
 ## Success messages
 
@@ -345,24 +313,16 @@ In this case this undo feature will be part of the success message like gmail:
 
 ![Undo](./images/undo.png)
 
-## Notes
+## (De)Select all (TODO)
 
-- Delete and other types of modification should be a post
+With a list of my favourite products, or a list of emails, quite often we might want to select and act upon all options in a list. We may want to, for example archive all the emails. Having a (de)select all button makes sense.
 
-http://www.enterpriseux.co/how-to-make-gmail-style-user-friendly-tables-part-1/
-http://www.enterpriseux.co/gmail-style-data-tables-part-2/
-http://www.enterpriseux.co/data-tables-part-3-user-feedback-and-messaging/
+- Without JS? Use buttons to reload the page with all selected.
+- With JS piggyback the button/link to not do a post back.
+- checkbox indeterminate state.
+- button aria-pressed?
+- Could just have a button that doesn't rely on checking boxes. "Delete all" for example.
 
----
+## Summary
 
-Unless of course it had a pound sign in front of it, and it was located within a list of products, with each product given it's own heading.
-
-At Tesco, we did just this, but we also laid out parts of each product in columns as you can see below:
-
-![Tesco Product List](./images/tesco-list.png)
-
-At the time, we weren't designing a fully responsive, mobile-first website but if we had it would have been relatively straightforward to convert these divs/list items.
-
-Tables on the other hand aren't responsive: if there isn't enough room, then the user will get a horizontal scroll bar. This is particulary a problem with tables that have lots of (wide) columns.
-
-If you can design something well that doesn't use tables, I would start there, but regardless, whether you use a table or a list item, or a div for that matter, the design principles in this chapter are still applicable.
+TODO

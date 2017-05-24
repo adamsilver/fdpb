@@ -6,11 +6,16 @@ Despite her obsession, the world is full of lists. There is even a list of great
 
 In this chapter, we're going to make sure list management is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to a digitally managed list.
 
-On the web there are many types of list: tabular data (`<table>`), description lists (which used to be called definition lists) (`<dl>`), unordered lists (`<ul>`) and ordered lists (`ol`).
+On the web there are several elements that represent lists:
 
-We can't discuss the merit of each until orientate ourselves around a  specific problem that needs solving. We'll design an inbox. The aim of course is to achieve a zen-like state of Inbox Zero.
+- tabular data (`<table>`)
+- description lists (which used to be called definition lists) (`<dl>`)
+- unordered lists (`<ul>`)
+- ordered lists (`ol`).
 
-To get to Inbox Zero our UI must enable users to delete, archive and mark  spam. But not individually. In bulk.
+We can't discuss the merit of these until we orientate ourselves around a  specific problem that needs solving. To do this, we'll design an inbox. The aim of course is to achieve a zen-like state of Inbox Zero[^].
+
+To get to Inbox Zero our UI must enable users to delete, archive and mark  spam. But not one at a time. In bulk.
 
 Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists.
 
@@ -18,25 +23,25 @@ Whilst this chapter is about email, the principles and design patterns are appli
 
 Semantically speaking everything is a list. The things on the page are a list of things on the page. Pedantism aside, we need to decide what type of list our inbox will use.
 
-We should use tables to represent two-dimensional data. In our case the rows represent emails and the columns represent the details about the email: recipient, subject and sent date etc. Gmail, omits table headings which might suggest a table is the wrong choice.
+We should use tables to represent two-dimensional data. In our case, rows represent emails and columns represent the recipient, subject and sent date etc. Gmail omits table headings. Perhaps this suggests a table is the wrong choice of list.
 
 We could represent rows as list items and&mdash;at least in big screens&mdash;style them visually as columns. This brings us to the first problem. Tables aren't very responsive.
 
 Tables are semantically tied to the way they look. Meaning it's hard to make tables not *look* like tables. There are some solutions, but they are not particularly cross-browser friendly.
 
-Moreover, tables are a good choice when the data needs contextual information to make it useful. For example, *23* is useless information without the context of *goals scored* as a column heading and *Lionel Messi* as a row heading.
+Tables *are* a good choice when the data needs contextual information to make it useful. For example, *23* is useless information without the context of *goals scored* as a column heading and *Lionel Messi* as a row heading.
 
-Our inbox is seemingly less tabular. It's a list of emails that if read out as "From Heydon, subject: Buttons, 19/09/2017 at 9am" would be quite readable.
+Our inbox, however, is seemingly less tabular. It's a list of emails that if read out as "From Heydon, subject: Buttons, 19/09/2017 at 9am" would be quite readable. You might even argue that the verbosity of having column headings is something that hinders the experience as opposed to helping it.
 
-Mailchimp, which is not an inbox, has a similar looking interface to Gmail but uses list items instead of tables:
+Mailchimp, which is not an inbox, has a similar interface to Gmail but uses list items instead of tables:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-It looks the same, but the advantage of a list items over tables is that they are maleable. Semantics on the web is hard. Only once we take a step back and critique solutions from many angles does the "right" solution show itself.
+It looks the same, but the advantage of list items over table rows is that they are maleable. Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the "right" solution show itself.
 
-This may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface on their own.
+This may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface all on their own.
 
-On balance, an unordered list is preferential. This is not to say tables are bad. We can't classify elements this way. We simply need to understand their meaning, their behaviour and their constraints.
+On balance, an unordered list is preferential. This is not to say tables are bad. We can't classify elements this as *good* and *bad*. We simply need to understand their meaning, their behaviour and their constraints. From here we may choose to classify them as *appropriate* or *inappropriate*.
 
 So here's our inbox:
 
@@ -57,14 +62,14 @@ HTML:
 </ul>
 ```
 
-This is the HTML without any form controls. We'll do that in a moment. Even so, the act of writing HTML has exposed another advantage of lists over tables.
+This is the HTML without any form controls. We'll add those momentarily. Even so, the very act of creating this HTML exposes another advantage of lists over tables.
 
-You'll notice the contents of each item is wrapped in a link. The link takes the user to read the email in full. Tables don't allow this behaviour. It's invalid and broken to use an `a` acorss table cells.
+You'll notice the contents of each item is wrapped in a link. The link takes the user to read the email *detail* view. Tables don't allow this behaviour. It's invalid and problematic to have a link span across table cells.
 
 > if you can solve a problem with a simpler solution lower in the stack, you should
 > —Derek Featherstone
 
-Gmail uses Javascript to make this happen, which unforunately is an act of exclusivity. We want to avoid this wherever possible. We haven't relied on Javascript so far, so let's keep it this way.
+Gmail uses Javascript to make this happen, which unforunately is an act of exclusivity. We want to avoid this wherever possible. We haven't relied on Javascript so far, and there is no reason for us to do this now.
 
 ## Enabling selection
 
@@ -90,7 +95,7 @@ HTML:
 </ul>
 ```
 
-You'll notice that that, unlike all other fields in the book so far, the checkbox has a label missing. We can add a label, but the contents of the label will duplicate the contents of link. We can't wrap the anchor in the label either as their will be two operations using the same space.
+You'll notice that unlike all other fields in the book so far, the checkbox has a label missing. We can add a label, but the contents of the label will duplicate the contents of link. We can't wrap the anchor in the label either as their will be two operations using the same space.
 
 We have three options to discuss, each with their own set of tradeoffs:
 
@@ -220,19 +225,19 @@ Despite this, the user could still submit with *enter*. In this case we can ensu
 
 We'll shortly discuss the ability to undo actions like this, but mitigation is a fruitful first step regardless.
 
-### Disabling and hiding buttons before selection
+### Disabling buttons before selection
 
-In chapter 1 we discussed the problem with disabled buttons. Specifically,  disabling buttons until the form becomes *valid*. Our inbox doesn't look like a traditional form but it effectively suffers from the same problem.
+Theoritically the user shouldn't perform an action until they select at least one checkbox. It's this idea that can tempt us to disable the action buttons until the user selects a checkbox.
 
-In theory, the user shouldn't submit a form until the user selects at least one checkbox. It's this thinking that may tempt designers to disable the buttons until the user selects a checkbox. 
+In chapter one, however, we discussed the associated problems with disabling buttons until a form is valid. Our inbox doesn't look like a traditional form but it effectively suffers from the same problem as any other.
 
-We discussed in the problem with disabed buttons in chapter 1. Our inbox doesn't have valid and invalid states. However, the buttons can't possibly work without selecting at least one checkbox.
+Once again, we'll stick to the foundations we've built from earlier chapters and avoid leaving users guessing how an interface works. We'll ensure our buttons are always enabled.
 
+### Hiding buttons before selection
 
+Whilst disabling is clearly problematic, we might consider hiding the actions until the user selects a checkbox. Mailchimp does exactly this. So does Gmail.
 
-Another question is do we disable or hide the actions until they can be clicked? Maybe we don't even do that.
-
-Mailchimp hides the actions until the user clicks at least one checkbox. Gmail does the exact same thing.
+--
 
 There is a case hoever, for always showing the actions, but having them in a disable state. This may give the user a clue that they can manage their list, but they first need to do something to enable the buttons.
 

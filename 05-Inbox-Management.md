@@ -213,7 +213,7 @@ We have a form that enables the selection of an email, but no actions to apply t
 - The multiple submit problem
 - Disabling buttons before selection
 - Hiding buttons before selection
-- Responsive ARIA components
+- Menu design
 
 ### Button location
 
@@ -259,27 +259,51 @@ We'll shortly discuss the ability to undo actions like this, but mitigation is a
 
 Theoritically the user shouldn't perform an action until they select at least one checkbox. It's this idea that can tempt us to disable the action buttons until the user selects a checkbox.
 
-In chapter one, however, we discussed the associated problems with disabling buttons until a form is valid. Our inbox doesn't look like a traditional form but it effectively suffers from the same problem as any other.
+In chapter one, however, we discussed the associated problems with disabling buttons until a form is valid. Our inbox doesn't look like a traditional form but it suffers from the same problems as any other.
 
-Once again, we'll stick to the foundations we've built from earlier chapters and avoid leaving users guessing how an interface works. We'll ensure our buttons are always enabled.
+Like all the other forms we've designed so far, we'll ensure the buttons are always enabled.
 
 ### Hiding buttons before selection
 
-Whilst disabling is clearly problematic, we might consider hiding the actions until the user selects a checkbox. Mailchimp does exactly this. So does Gmail.
+Our interface is filling up quickly. And we haven't really considered other UI elements that may make up the inbox.
 
---
+We're not always selecting an email for bulk actioning. For this reason we might consider hiding the buttons until the user selects at least one checkbox.
 
-There is a case hoever, for always showing the actions, but having them in a disable state. This may give the user a clue that they can manage their list, but they first need to do something to enable the buttons.
+Both Mailchimp and Gmail do exactly this. Still, whenever we hide piece of UI, we rely on users discovering functionality.
 
-I have a bit of an aversion to disabled buttons because I have seen users try and click on disabled elements and not understand why they are disabled. A subtle greyed out state doesn't say very must. UIs should be clear always.
+Sometimes this is worth it, sometimes it's not. Like most things in design, it depends.
 
-So instead, we could allow users to press the button, and show an error if the user hasn't selected any items yet. This matches all the other forms we have designed in the book.
+One good reason to hide the buttons is because users are not always interacting with the inbox. They may simply be browsing and reading their inbox. Why clutter the UI in this case? It may prove distracting.
 
-Once again, consider your options, do the simplest thing first and test.
+One bad reason to hide is that it's extra work and requires discovery.
 
-First time users, or low confidence users may need more than just the enabling or a button. Perhaps a little animation or something might help users notice it.
+One principle we've followed throughout this book, is doing the simplest thing first and testing. It makes little since to do the hardest thing first and delete. This is far more costly and time-consuming. It's risky.
 
-### Menu treatment and small screen design (TODO)
+We'll stick to ever-present buttons and keep in mind to test how this works. We can always hide them later if user testing shows it's a problem.
+
+Having multiple action buttons on small screens may prove tricky. This is something we'll be discussing shortly.
+
+### Menu design
+
+Just before we decied that are buttons would be ever present and always visible, but we didn't go into any detail into how they would look. Or why it is they would look like this.
+
+We could just lay out the buttons as follows:
+
+![Buttons in a row above table](./images/etc.png)
+
+This works well, particularly if there is no other functionality above the table. And if using big screens.
+
+It doesn't work so well if we want it to be less overpowering or be able to fit the actions nicely on small screens.
+
+If we want to design a component that is suitable for the open web, then we need to do our best to make this component responsive. Responsivity is one component of inclusivity.
+
+- layout/stack
+- select box and misusing the select box
+- responsive aria
+
+---
+
+### Responsive aria
 
 TODO:
 - small screens need compact menu (responsive aria attributes with JS)

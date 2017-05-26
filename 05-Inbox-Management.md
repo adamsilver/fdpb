@@ -285,30 +285,29 @@ Having multiple action buttons on small screens may prove tricky. This is someth
 
 ### Menu design
 
-Just before we decied that are buttons would be ever present and always visible, but we didn't go into any detail into how they would look. Or why it is they would look like this.
+Just before we decided that the buttons would always be visible, but we didn't go into any detail as to how they would look.
 
-We could just lay out the buttons as follows:
+We could show the buttons like this:
 
 ![Buttons in a row above table](./images/etc.png)
 
-This works well, particularly if there is no other functionality above the table. And if using big screens.
+Naturally, this works on big screen as there's plenty of space. On small screens they would stack which is okay but they would dominate the screen. Dominance is a quality we need to use sparingly. If everything dominates, nothing does.
 
-It doesn't work so well if we want it to be less overpowering or be able to fit the actions nicely on small screens.
+Similarly if there is other UI elements, there may not be enough room, even on big screens. In this case we're going to want to apply some *show hide* magic. But how?
 
-If we want to design a component that is suitable for the open web, then we need to do our best to make this component responsive. Responsivity is one component of inclusivity.
+There are two options that come to mind:
 
-- layout/stack
-- select box and misusing the select box
-- responsive aria
+- Select box
+- Responsive ARIA menu
+
+#### Select box
+
+#### Responsive ARIA menu
+
+- On small screens, hidden menu and aria
+- On big screen, exposed menu, no aria?
 
 ---
-
-### Responsive aria
-
-TODO:
-- small screens need compact menu (responsive aria attributes with JS)
-- aria menu vs select box
-- just display them
 
 ### Action buttons versus select box
 

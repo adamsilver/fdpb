@@ -291,18 +291,38 @@ We could show the buttons like this:
 
 ![Buttons in a row above table](./images/etc.png)
 
-Naturally, this works on big screen as there's plenty of space. On small screens they would stack which is okay but they would dominate the screen. Dominance is a quality we need to use sparingly. If everything dominates, nothing does.
+Naturally, this works on big screens with plenty of space. On small screens they would stack which is okay excusing the fact they would dominate the screen. Dominance is a quality we need to use sparingly. If everything dominates, nothing does.
 
-Similarly if there is other UI elements, there may not be enough room, even on big screens. In this case we're going to want to apply some *show hide* magic. But how?
+Similarly if there are other UI elements, there may not be space to present them comfortably—even on big screens. In this case it's useful to hide the actions behind a menu.
 
-There are two options that come to mind:
+There are two options:
 
 - Select box
 - Responsive ARIA menu
 
 #### Select box
 
-#### Responsive ARIA menu
+We know select boxes are problematic because we discussed them in chapter 3 *Book a Flight*. But, we'll discuss again here because they are often used as a replacement for menus.
+
+They are a menu of sorts. They present items for selection (like a menu). And as they are provided by the browser, for free, they require no extra work.
+
+However, select boxes look like menus and act a little like a menu, they aren't menus. Select boxes are for input. Menus are for taking action. This is why a select box like this must always have an accompanying button (to submit the choice).
+
+Moreover, select boxes that submit onchange are a problem for users that use keyboards and screen readers[^]. On Chrome Windows, for example, the form is submitted as soon as the user moves to the first option, making it hard (or impossible) to select the second.
+
+This is not a browser bug, it's just that some browsers are more forgiving and wait until the user presses *space* or *enter* to make the submission. The real problem is that a control that is meant for input has been used to create a menu like thing.
+
+All other forms up to now have kept selection/input and submission separate. This is something that WCAG2.0 also recommends[^]:
+
+> “Changing the setting of any user interface component does not automatically cause a change of context”
+
+Lastly, we want to display the actions on big screens where there is enough room to do so. A select box, however, always starts in a collapsed state. We'd have to write Javascript to change the interface.
+
+The server-side would also have to recognise input from button actions as well as input from the select box.
+
+Instead, we'll construct a true and responsive menu using ARIA next.
+
+#### Responsive ARIA Menu
 
 - On small screens, hidden menu and aria
 - On big screen, exposed menu, no aria?
@@ -310,23 +330,6 @@ There are two options that come to mind:
 (https://inclusive-components.design/menus-menu-buttons/#truemenus)
 
 ---
-
-### Action buttons versus select box
-
-- Sometimes it's not just a button, sometimes it's a selection, like apply filter. But better to go to other page probably. Like for Universal Credit, we have a page that selects people to be allocated to another agent. That means the user selects people, then chooses who to allocate it to then presses the button. Better as a flow, at least to start with.
-- other thing is, can have modes. Modes that say "browse mode" or "manage mode". Only show checkboxes when users wants to manage stuff. One thing per page principle type thing.
-
-This little gizmo has much to be discussed.
-
-We could use a select box, one of the rare cases where saving space like this makes sense. But always use a submit button, and don't apply the change when the user changes options.
-
-MISUSING THE SELECT BOX
-
-The problem with using a select box despite the general disadvantages as we've discussed at length in Book A Flight is that they don't allow us to enhance the experience for big screens. That is to display the options when there is enough space to do so.
-
-For this reason we might consider a ARIA TOOLBAR. A div with a button that exposes more buttons on small screens, and on big screens, just expose the buttons without showing/hiding (or aria-expand/collapse).
-
-As we know we don't want to hide options if there is room to show them.
 
 ## Success messages
 
@@ -359,3 +362,7 @@ With a list of my favourite products, or a list of emails, quite often we might 
 ## Summary
 
 TODO
+
+---
+
+- Sometimes it's not just a button, sometimes it's a selection, like apply filter. But better to go to other page probably. Like for Universal Credit, we have a page that selects people to be allocated to another agent. That means the user selects people, then chooses who to allocate it to then presses the button. Better as a flow, at least to start with.

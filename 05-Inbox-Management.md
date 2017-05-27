@@ -11,35 +11,35 @@ On the web there are several elements that represent lists:
 - tabular data (`<table>`)
 - description lists (which used to be called definition lists) (`<dl>`)
 - unordered lists (`<ul>`)
-- ordered lists (`ol`).
+- ordered lists (`ol`)
 
-We can't discuss the merit of these until we orientate ourselves around a  specific problem that needs solving. To do this, we'll design an inbox. The aim of course is to achieve a zen-like state of Inbox Zero[^].
+We can't discuss the merit of these until we orientate ourselves around a specific problem that needs solving. To do this, we'll design an inbox. The aim of course is to achieve a zen-like state of Inbox Zero[^].
 
 To get to Inbox Zero our UI must enable users to delete, archive and mark spam. But not just one at a time. In bulk.
 
-Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists.
+Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists that need acting upon.
 
 ## Everything is list
 
-Semantically speaking everything is a list. The things on the page are a list of things on the page. Pedantism aside, we need to decide what type of list is best for our inbox.
+Semantically speaking everything is a list. The things on the page are a list of things on the page. Pedanticism aside, we need to decide what type of list is best for our inbox.
 
-Tables work when representing two-dimensional data. In our case, rows represent emails and columns represent the recipient, subject and sent date etc. Interestingly, Gmail omits table headings, suggesting that a table is the wrong choice in this case.
+Tables work when representing two-dimensional data. In our case, rows represent emails and columns represent the recipient, subject and sent date etc. Interestingly, Gmail omits table headings, suggesting that tables are less appropriate in this case.
 
-We could represent rows as list items and (at least in big screens) make them *look* like columns. This brings us to the first problem. Tables aren't the most responsive component.
+We could represent rows as list items and (at least in big screens) make them *look* like columns. This brings us to the first problem. Tables aren't the most responsive of elements.
 
-Tables are semantically tied to the way they look. Meaning it's hard to make tables not *look* like tables. There are some solutions, but they are not particularly cross-browser friendly.
+Tables are semantically tied to the way they look. Meaning it's hard to make tables not *look* like tables. There are some solutions, but they are not particularly cross-browser friendly. However, striving to make tables (or any other element) not look like a table is materially dishonest.
 
 Tables *are* a good choice when the data needs contextual information to make it useful. For example, *23* is useless information without the context of *goals scored* as a column heading and *Lionel Messi* as a row heading.
 
 Our inbox, however, is seemingly less tabular. It's a list of emails that if read out as "From Heydon, subject: Buttons, 19/09/2017 at 9am" would be quite readable. You might even argue that the verbosity of having column headings is something that hinders, as opposed to helps the experience.
 
-Mailchimp, which is not an inbox, has a similar interface to Gmail but *does* use list items instead of tables:
+Mailchimp, which is not an inbox, has a similar interface to Gmail but *does* use list items:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
 It looks the same, but the advantage of list items over table rows is that they are maleable. We can style them differently and more appropriatelty for small and big screens alike.
 
-Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the "right" solution show itself.
+Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the "right" solution present itself.
 
 This may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface all on their own.
 
@@ -68,7 +68,7 @@ Here's the HTML without any form controls. We'll add those momentarily.
 
 Interestingly, the act of writing the HTML exposes another design problem. You'll notice the content is wrapped in a link. This can't be done with tables and is semantically invalid.
 
-Designers should have a deep understanding of the materials they use to build artifacts. In our case the materials are HTML, CSS, Javascript. And the artefacts are web pages.
+Designers should have a deep understanding of the materials they use to build artifacts. A chair designer should intimately know how wood works. In our case the materials include HTML, CSS, Javascript. And the artefacts are web pages.
 
 > If you can solve a problem with a simpler solution lower in the stack, you should.
 > —Derek Featherstone
@@ -283,7 +283,7 @@ We'll stick to ever-present buttons and keep in mind to test how this works. We 
 
 Having multiple action buttons on small screens may prove tricky. This is something we'll be discussing shortly.
 
-### Menu design
+## Menu
 
 Just before we decided that the buttons would always be visible, but we didn't go into any detail as to how they would look.
 
@@ -300,7 +300,7 @@ There are two options:
 - Select box
 - Responsive ARIA menu
 
-#### Select box
+### Select box
 
 We know select boxes are problematic because we discussed them in chapter 3 *Book a Flight*. But, we'll discuss again here because they are often used as a replacement for menus.
 
@@ -322,12 +322,66 @@ The server-side would also have to recognise input from button actions as well a
 
 Instead, we'll construct a true and responsive menu using ARIA next.
 
-#### Responsive ARIA Menu
+### Responsive ARIA Menu
 
-- On small screens, hidden menu and aria
-- On big screen, exposed menu, no aria?
+Thankfully, a menu is a relatively easy component to create.
 
-(https://inclusive-components.design/menus-menu-buttons/#truemenus)
+Here's the HTML:
+
+```HTML
+<div role="menubar">
+	<input role="menuitem" type="submit" name="archive" value="Archive">
+	<input role="menuitem" type="submit" name="delete" value="Delete">
+	<input role="menuitem" type="submit" name="spam" value="Mark as spam">
+</div>
+```
+
+#### Notes
+
+- The role menubar and menuitem indicates that the user has entered a menu and will announce how many menuitems there are.
+- Submit buttons are focusable using the tab key. On this occasion we'll disable this functionality as a menu should be navigable using the arrow keys. The advantage is that users don't have to move through every menu item to leave the menu. This is useful enhancement, especially where there are many menu items.
+- To do this, each button is given a tabindex of -1, except the first. This makes the menu items unfocusable with the tab key but allows us to programmatically set focus when the user presses the arrow keys.
+- We don't set the tabindex on the first button so that the user can tab into the menu. Once the user is within the menu we give the first button a tabindex of -1 to match the others.
+- Pressing right on a menu item moves to the next item (on loop).
+- Pressing left on a menu item moves to the previous item (on loop).
+
+We'll further enhance the experience for small screens by creating a more traditional menu that expands and collapses.
+
+This is what it looks like:
+
+![Menu](./images/etc.png)
+
+HTML:
+
+```HTML
+<button aria-haspopup="true" aria-expanded="false">
+  Actions
+  <span aria-hidden="true">&#x25be;</span>
+</button>
+<div role="menu">
+  <input role="menuitem" type="submit" name="archive" value="Archive">
+  <input role="menuitem" type="submit" name="delete" value="Delete">
+  <input role="menuitem" type="submit" name="spam" value="Mark as spam">
+</div>
+```
+
+#### Notes
+
+- The aria-haspopup property indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
+- The <span> inside the button contains the unicode point for a black down-pointing small triangle. This convention indicates visually what aria-haspopup does non-visually — that pressing the button will reveal something below it. The aria-hidden="true" attribution prevents screen readers from announcing “down pointing triangle” or similar. Thanks to aria-haspopup, it’s not needed in the non-visual context.
+- The aria-haspopup property is complemented by aria-expanded. This tells the user whether the menu is currently in an open (expanded) or closed (collapsed) state by toggling between true and false values.
+The menu itself takes the (aptly named) menu role. It takes descendants with the menuitem role.
+- The role is now menu instead of menubar. Menu is used because it expands and collapses. A menubar is ever present.
+- Pressing the button, shows the menu and moves focus to the first menu item.
+- Pressing down on a menu item moves to the next item (on loop).
+- Pressing up on a menu item moves to the previous item (on loop).
+- Pressing escape on a menu moves to the menu button and closes the menu.
+- All menuitems's have a tabindex of -1. It's the single menu button that is focusable by the tab key making this aspect slightly more straightforward to code.
+
+Here's the final script:
+
+```JS
+```
 
 ---
 
@@ -363,6 +417,12 @@ With a list of my favourite products, or a list of emails, quite often we might 
 
 TODO
 
+## Footnotes
+
+TODO
+
 ---
+
+- TODO: Hover vs click (for aria menu)
 
 - Sometimes it's not just a button, sometimes it's a selection, like apply filter. But better to go to other page probably. Like for Universal Credit, we have a page that selects people to be allocated to another agent. That means the user selects people, then chooses who to allocate it to then presses the button. Better as a flow, at least to start with.

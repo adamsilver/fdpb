@@ -28,3 +28,9 @@ This isn't some crazy anti pattern "if u ha e to explain u have failed". Just hi
 Everything else is a nonsense approach. Save space. Branding. Less clicks etc.
 
 https://articles.uie.com/faceted_search/
+
+If simple taxonomy u don't need it.
+
+If I do then emasure what users want most.
+
+Then expose it. Don't hide it.

@@ -385,6 +385,30 @@ There final Javascript:
 ```JS
 ```
 
+## Select all
+
+Users may want to archive all emails in their inbox for example. Rather than having to endlessly select each checkbox manually, we can offer users the convenience of a button, and let scripting do the heavy lifting.
+
+This would become an additional action but separate to the action menu itself. Or perhaps it should be in the same menu with a separator?
+
+This feature is often provided as an enhancement but we might consider offering it to users without Javascript too. Providing a button that refreshes the page with all checkboxes checked is straightforward and doesn't have to rely on Javascript.
+
+We can then enhance the experience using Javascript, meaning users don't have to wait for the page to refresh.
+
+Often a user interface will have a checkbox to represent *select all*. Even though it's become convention it's not really the right element for the job, semanticall speaking.
+
+Instead, we'll use the already available button and enrich it with a little ARIA.
+
+```HTML
+<button aria-pressed="false">Select all</button>
+```
+
+And the Javascript:
+
+```JS
+Script here
+```
+
 ## Success messages
 
 When the submits the form successfully, the page will refresh and the emails disappear from their inbox. It's wise to notify users of this action as without a clear message the user is left to wonder if it worked. This is particularly the case if they have marked many emails in an inbox full of emails.
@@ -414,7 +438,7 @@ HTML:
 - Without a Javascript, navigating away will dismiss the message.
 - With Javascript, we can enrich the experience by adding a dismiss button. Clicking it will hide the message.
 
-### Are you sure? versus undo
+### Confirming versus undo
 
 Roads have speed bumps in order to slow drivers down to keep them safe. In much the same way we can slow users down and keep them safe by asking them to confirm their action:
 
@@ -428,16 +452,6 @@ Instead we might offer users an undo feature. This is Gmail's:
 
 To do this, the success messgae needs to contain a button with the words *Undo*. Clicking it will undo their previous action and restore the emails back into their inbox.
 
-## (De)Select all (TODO)
-
-With a list of my favourite products, or a list of emails, quite often we might want to select and act upon all options in a list. We may want to, for example archive all the emails. Having a (de)select all button makes sense.
-
-- Without JS? Use buttons to reload the page with all selected.
-- With JS piggyback the button/link to not do a post back.
-- checkbox indeterminate state.
-- button aria-pressed?
-- Could just have a button that doesn't rely on checking boxes. "Delete all" for example.
-
 ## Summary
 
 TODO
@@ -446,6 +460,8 @@ TODO
 
 TODO
 
----
+## Other considerations
 
-- TODO: Hover vs click (for aria menu)
+- Selecting all, but spanning several pages (Gmail)
+- Hover vs click (for aria menu)
+- checkbox indeterminate state.

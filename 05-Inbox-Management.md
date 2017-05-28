@@ -324,7 +324,9 @@ Instead, we'll construct a true and responsive menu using ARIA next.
 
 ### Responsive ARIA Menu
 
-Thankfully, a menu is a relatively easy component to create.
+Our menu will be responsive. It will work well on small screens and big screens. Here's what it will look like on big screens:
+
+![Menu](./images/etc.png)
 
 Here's the HTML:
 
@@ -345,7 +347,7 @@ Here's the HTML:
 - Pressing right on a menu item moves to the next item (on loop).
 - Pressing left on a menu item moves to the previous item (on loop).
 
-We'll further enhance the experience for small screens by creating a more traditional menu that expands and collapses.
+On small screens we'll need to tweak the layout and behaviour. As there is no room to present all the items, we'll hide them behind a tradional menu that expands and collapses.
 
 This is what it looks like:
 
@@ -378,30 +380,53 @@ The menu itself takes the (aptly named) menu role. It takes descendants with the
 - Pressing escape on a menu moves to the menu button and closes the menu.
 - All menuitems's have a tabindex of -1. It's the single menu button that is focusable by the tab key making this aspect slightly more straightforward to code.
 
-Here's the final script:
+There final Javascript:
 
 ```JS
 ```
 
----
-
 ## Success messages
 
-When the user submits the form, the page will refresh, and the item will be gone, if the user deleted (or archived). In this case it would be wise to make this clear to the user with a success message.
+When the submits the form successfully, the page will refresh and the emails disappear from their inbox. It's wise to notify users of this action as without a clear message the user is left to wonder if it worked. This is particularly the case if they have marked many emails in an inbox full of emails.
 
-Like error messages, success messages are of vital importance. They leave users feeling good, and in control. When we built the checkout flow, we had a gigantic success message at the end in the form of an order confirmation.
+Like error messgaes, success messages promote trust and calm. It leaves the user feeling good and in control. Two qualities that make the user feel awesome as they get close to Inbox Zero.
 
-In this case, we need a message in context. A toast message is named after toast popping up after a toaster has had its way with a piece of bread. The thing to know about toast messages is that they shouldn't disappear without users dismissing them.
+In checkout, for example, the user ends up on a dedicated confirmation screen. We could have a confirmation screen, but it seems a bit long-winded to use this approach for managing an inbox.
 
-Some users may not notice them at first. Some users may be using a screen reader, and not have read it out yet. Some users may notice it, but take a really long time to read the message.
+Instead, we'll need a success message at the top of the page, much like the error message alert panel we designed in chapter one.
 
-Whatever it is, don't dismiss the message automatically.
+Here's what it looks like:
 
-Also, within the success message we may provide users with an undo feature, that let's them undo their last action. This often causes less friction, then asking users to confirm their action "Are you sure you want to delte this item?" etc.
+![etc](./images/etc.png)
 
-In this case this undo feature will be part of the success message like gmail:
+HTML:
+
+```HTML
+<div role="alert" class="success">
+	You've successfully archived 5 emails
+</div>
+```
+
+### Notes
+
+- The role of alert means the panel is announced immediately for those using screen readers
+- The message stays on screen. It doesn't automatically hide. This is a poor experience. It either hangs around for too long, or it disappears before the user had a chance to read it.
+- Without a Javascript, navigating away will dismiss the message.
+- With Javascript, we can enrich the experience by adding a dismiss button. Clicking it will hide the message.
+
+### Are you sure? versus undo
+
+Roads have speed bumps in order to slow drivers down to keep them safe. In much the same way we can slow users down and keep them safe by asking them to confirm their action:
+
+![Are you sure](./images/etc.png)
+
+This works okay for infrequent tasks. But for tasks that are performed frequently, this is a frustrating source of friction.
+
+Instead we might offer users an undo feature. This is Gmail's:
 
 ![Undo](./images/undo.png)
+
+To do this, the success messgae needs to contain a button with the words *Undo*. Clicking it will undo their previous action and restore the emails back into their inbox.
 
 ## (De)Select all (TODO)
 
@@ -424,5 +449,3 @@ TODO
 ---
 
 - TODO: Hover vs click (for aria menu)
-
-- Sometimes it's not just a button, sometimes it's a selection, like apply filter. But better to go to other page probably. Like for Universal Credit, we have a page that selects people to be allocated to another agent. That means the user selects people, then chooses who to allocate it to then presses the button. Better as a flow, at least to start with.

@@ -406,7 +406,8 @@ Instead, we'll use the already available button and enrich it with a little ARIA
 And the Javascript:
 
 ```JS
-Script here
+Loop through all checkboxes and check them
+update aria-pressed to true
 ```
 
 ## Success messages

@@ -1,6 +1,6 @@
 # Search And Filter
 
-I'm organised. Even as a boy I was organised. I've always been minimalist too. Organising things when you only have a few things is quite easy.
+I'm organised. Even as a boy I was organised. I've always been minimalist too. Organising things when you only have a few things is easy.
 
 I rarely lost things but when I did, all I had to do was shout in the general direction of the resident search engine "Where's my..." and the search engine would tell me.
 
@@ -18,13 +18,38 @@ I'm left to peruse each cupboard one by one. And of course when I need said *thi
 
 In this chapter we're going to design a search and filter which won't make users anxious. Just like mum we'll want these features to be in easy reach and as human as possible.
 
+We'll start with search.
+
 ## Search
 
-- Do we even need search? If simple taxonomy, no. Kidly, no. Let Google handle it?
-- Search shouldn't just find products or articles
-- If search is important don't hide it
-- Magnifying glass icon, icon last resort (a11y)
-- After search, measure what users want most and perhaps make it a nav item
+As ever, the first question is *do we need it*? And, as ever, the answer is *it depends*.
+
+In 2016, I worked at Kidly, a start-up that houses *the best stuff for your baby all in one place*. They had grand visions for all the features they wanted to provide their customers.
+
+But we wanted to launch quickly. Working out what we could cut was an essential skill in forming our MVP and managing to launch in a reasonable time.
+
+As we only had a small product range to begin with our navigation menu was simple. Finding a product in a small range is easy. So we decided to cut search as a feature until the feature is needed.
+
+Nurturing an MVP mindset is something that benefits everyone because it keeps the team focussed on the most essential thing for customers and in turn maximises the value of the delivery.
+
+We'll assume search is a user need otherwise this would be the end of a promising chapter.
+
+### UI
+
+- location
+- responsive
+- lack of label (Jeremy)
+- html and html5 input type and keyboard
+- if important show it
+- magnifying and iconography last resort. Don't be different with iconography.
+
+### Search should find everything
+
+- TODO
+
+### Measure what users want most
+
+- and make it a nav item (jared)
 
 ## Filter
 

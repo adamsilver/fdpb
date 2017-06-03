@@ -36,12 +36,33 @@ We'll assume search is a user need otherwise this would be the end of a promisin
 
 ### UI
 
-- location
-- responsive
-- lack of label (Jeremy)
-- html and html5 input type and keyboard
-- if important show it
-- magnifying and iconography last resort. Don't be different with iconography.
+Up to now, we've been able to reuse the same patterns, both in function and form. Search, however, is often treated as a global feature and typically resides inside the header.
+
+We might consider placing it on a page of its own and just link to it from some sort of navigation in the header, but as search is used frequently this would probably slow users down frequently.
+
+The header is hot property real estate and when a header is deep it pushes the main content down. An everlasting problem in designing for the web and the elusive fold.
+
+And, this becomes even more problematic for small screen devices where space is at an extreme premium. What can we do? The short answer, is make room.
+
+Designers are often seduced by novel patterns that save space but there is little point in collapsing search behind some sort of reveal if it's going to be used frequently. If it's going to be used in frequently we might want to question it's prominent existence.
+
+This isn't strictly form design, but as we've said in the previous chapter *forms don't exist in a vaccum*. Ultimately there is no right answer here but consider the options:
+
+1. Expose it always. Put inside the header, hiding other things. Or put under the header making the header deeper and pushing down content. Not the worst thing in the world. A quick flick and it's okay.
+2. Have a magnifying glass that exposes like Medium perhaps.
+
+A header typically needs to store 4 things:
+
+- Logo
+- global nav, like login, account
+- main nav, product categories
+- search.
+
+When we have to squeeze stuff we may kid ourselves into removing the label. (Jeremy).
+
+### Input type search
+
+TODO
 
 ### Search should find everything
 

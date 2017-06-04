@@ -1,6 +1,6 @@
 # Search And Filter
 
-I'm organised. Even as a boy I was organised. I've always been minimalist too. Organising things when you only have a few things is easy.
+I'm organised. I remember I've always been organised, even as a boy. I've always been a minimalist too. Organising things when you only own a few things is easy.
 
 I rarely lost things but when I did, all I had to do was shout in the general direction of the resident search engine "Where's my..." and the search engine would tell me.
 
@@ -16,9 +16,7 @@ I'm a dad now, and as much as I try not to, I own more things. It's hard to be a
 
 I'm left to peruse each cupboard one by one. And of course when I need said *thing* and can't find it, I become anxious. If I really want it and know it exists I'll perservere. If not, I'll give up.
 
-In this chapter we're going to design a search and filter which won't make users anxious. Just like mum we'll want these features to be in easy reach and as human as possible.
-
-We'll start with search.
+In this chapter we're going to design a search and filter which won't make users anxious. Just like mum we'll want the interface to answer our questions accurately and as quickly as possible.
 
 ## Search
 
@@ -26,39 +24,48 @@ As ever, the first question is *do we need it*? And, as ever, the answer is *it 
 
 In 2016, I worked at Kidly, a start-up that houses *the best stuff for your baby all in one place*. They had grand visions for all the features they wanted to provide their customers.
 
-But we wanted to launch quickly. Working out what we could cut was an essential skill in forming our MVP and managing to launch in a reasonable time.
+But naturally, Kidly were eager to launch. Deciding what to cut was essential in forming our MVP and managing to launch in a reasonable time frame.
 
-As we only had a small product range to begin with our navigation menu was simple. Finding a product in a small range is easy. So we decided to cut search as a feature until the feature is needed.
+As we only had a small product range to begin with our navigation menu was simple. Browsing a small range of products is easy. For this reason we cut search from the backlog.
 
 Nurturing an MVP mindset is something that benefits everyone because it keeps the team focussed on the most essential thing for customers and in turn maximises the value of the delivery.
 
-We'll assume search is a user need otherwise this would be the end of a promising chapter.
+We'll assume our users need search. Otherwise that would be the end of an interesting chapter.
 
-### UI
+### Interface design
 
-Up to now, we've been able to reuse the same patterns, both in function and form. Search, however, is often treated as a global feature and typically resides inside the header.
+Throughout previous chapters we've been able to reuse form patterns because they have been the main feature of the page or flow in question.
 
-We might consider placing it on a page of its own and just link to it from some sort of navigation in the header, but as search is used frequently this would probably slow users down frequently.
+Search is typically located in the header. This is because just like navigation, a user may want to search at any time.
 
-The header is hot property real estate and when a header is deep it pushes the main content down. An everlasting problem in designing for the web and the elusive fold.
+The problem is that the header is like premium real estate. There isn't much room and it's highly sought after.
 
-And, this becomes even more problematic for small screen devices where space is at an extreme premium. What can we do? The short answer, is make room.
+We can't just keep adding features into the header as not only does it diminish the value of the header but it pushes the content down. I won't dare mention the elusive fold.
 
-Designers are often seduced by novel patterns that save space but there is little point in collapsing search behind some sort of reveal if it's going to be used frequently. If it's going to be used in frequently we might want to question it's prominent existence.
+On mobile, there's even less room and so the design challenge is even greater.
 
-This isn't strictly form design, but as we've said in the previous chapter *forms don't exist in a vaccum*. Ultimately there is no right answer here but consider the options:
+This is why designers are often seduced by novel patterns that save space[^hamburgerdeepdesign]. But putting something in the header to make it easy, only to hide it somewhat defeats the point.
 
-1. Expose it always. Put inside the header, hiding other things. Or put under the header making the header deeper and pushing down content. Not the worst thing in the world. A quick flick and it's okay.
-2. Have a magnifying glass that exposes like Medium perhaps.
+If it's going to be frequently used, then we should do our very best not to hide it. If we don't think it will be used often, we might want to question it's existence.
 
-A header typically needs to store 4 things:
+Medium even on large viewports hides the search form behind a magnifying glass icon meaning I have to click before typing. Is this wrong? Not necessarily but it's something to think about.
 
-- Logo
-- global nav, like login, account
-- main nav, product categories
-- search.
+[](!)
 
-When we have to squeeze stuff we may kid ourselves into removing the label. (Jeremy).
+Another common problem is that some sites use a placeholder to replace a label, and we already discussed the problem at length in chapter 1.
+
+To accomodate a well-design search form with an ever-present label we need to consider the header holistically. To do this we'd have to know what's going in your header.
+
+- logo
+- account navigation (login etc)
+- main nav (product categories perhaps)
+- search
+
+Here's a few tips:
+
+1. Account navigation is often used infrequently and should therefore be lowest priority. We might consider putting it elsewhere or collapsing it behind an icon.
+2. Don't use a placeholder. If you absolutely must hide the label, then do so in an accessible way.
+3. If you have to collapse the search form, then when revealing it, automically move focus to the text box.
 
 ### Input type search
 
@@ -97,3 +104,4 @@ Everything else is a nonsense approach. Save space. Branding. Less clicks etc.
 [Don't make links look like checkbox/radios]: https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)
 [jared search find more than products]:https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
 
+When we have to squeeze stuff we may kid ourselves into removing the label. (Jeremy).

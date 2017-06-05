@@ -1,10 +1,10 @@
 # Search And Filter
 
-I'm organised. I remember I've always been organised, even as a boy. I've always been a minimalist too. Organising things when you only own a few things is easy.
+I'm an organised person. Even as I boy I remember being this way. But, I've always been a minimalist too. Organising things when you only own a few things is easy.
 
-I rarely lost things but when I did, all I had to do was shout in the general direction of the resident search engine "Where's my..." and the search engine would tell me.
+As a boy, I rarely lost things, but when I did, I just had to shout in the general direction of the resident search engine 'Where's my...' and the search engine would tell me.
 
-By search engine, I mean my mum. Mum knew where everything was. Not just my stuff. Everyone's. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to any question I had.
+By search engine, I mean my mum. Mum knew where everything was. Not just my stuff. Everyone's. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to almost any question I had.
 
 If I could go back in time and accelerate my nerdyness a little bit, I might have nicknamed her Google.
 
@@ -12,49 +12,41 @@ Sometimes when I asked mum questions, she would ask me questions in return. Ques
 
 I'd tell her and she would give me the answer. These questions are filters on a large set of results.
 
-I'm a dad now, and as much as I try not to, I own more things. It's hard to be a minimalist with a wife and kid. Even if I meticulously organise our things it's hard to remember where everything is.
+I'm a dad now, and as much as I try not to, I own more things. It's hard to be a minimalist with a wife and child. Even if I meticulously organise our things it's hard to remember where everything is.
 
-I'm left to peruse each cupboard one by one. And of course when I need said *thing* and can't find it, I become anxious. If I really want it and know it exists I'll perservere. If not, I'll give up.
+Sometimes I'm left to peruse each cupboard one by one. And of course when I need said thing and can't find it, I become anxious. If I really want it and know it exists I'll perservere. If not, I'll give up.
 
-In this chapter we're going to design a search and filter which won't make users anxious. Just like mum we'll want the interface to answer our questions accurately and as quickly as possible.
+In this chapter we're going to design a search and filter which helps users and avoids making them feel anxious. Just like mum we'll want the interface to answer our questions accurately and as quickly as possible.
 
 ## Search
 
-As ever, the first question is *do we need it*? And, as ever, the answer is *it depends*.
+The first thing to ask ourselves is *do we need search?*
 
-In 2016, I worked at Kidly, a start-up that houses *the best stuff for your baby all in one place*. They had grand visions for all the features they wanted to provide their customers.
+In 2016, I worked at Kidly, a start-up that houses *the best stuff for your baby all in one place*. They wanted to build a lot of features. Naturally, they were also eager to launch.
 
-But naturally, Kidly were eager to launch. Deciding what to cut was essential in forming our MVP and managing to launch in a reasonable time frame.
+Deciding what to cut became an essential skill in forming our MVP within a reasonable time frame. We realised that the product range, at least on day one, would be small. 
 
-As we only had a small product range to begin with our navigation menu was simple. Browsing a small range of products is easy. For this reason we cut search from the backlog.
+We felt we could do without search and rely on a well organised browse system. So we cut out search from the launch backlog.
 
-Nurturing an MVP mindset is something that benefits everyone because it keeps the team focussed on the most essential thing for customers and in turn maximises the value of the delivery.
+Nurturing a do-less mindset is something that benefits everyone because it encourages momenturm, keeps the team focussed on the most essential thing for customers and in turn maximises the value of the delivery.
 
-We'll assume our users need search. Otherwise that would be the end of an interesting chapter.
+This chapter wouldn't be particularly interesting if we decided not to build a search feature so we'll assume that our users need it.
 
 ### Interface design
 
-Throughout previous chapters we've been able to reuse form patterns because they have been the main feature of the page or flow in question.
+Throughout previous chapters we've been able to reuse form patterns because they have been the main feature of the page or flow in question. Search is typically located in the header. This is because, like navigation, a user may want to search at any time.
 
-Search is typically located in the header. This is because just like navigation, a user may want to search at any time.
+The problem is that the header is premium real estate. That is there isn't much room available and it's highly sought after. We can't just keep adding features into the header as not only does it diminish the value of the header but it pushes the content down.
 
-The problem is that the header is like premium real estate. There isn't much room and it's highly sought after.
-
-We can't just keep adding features into the header as not only does it diminish the value of the header but it pushes the content down. I won't dare mention the elusive fold.
-
-On mobile, there's even less room and so the design challenge is even greater.
+On mobile, there's even less room so we face an even greater design challenge.
 
 This is why designers are often seduced by novel patterns that save space[^hamburgerdeepdesign]. But putting something in the header to make it easy, only to hide it somewhat defeats the point.
 
-If it's going to be frequently used, then we should do our very best not to hide it. If we don't think it will be used often, we might want to question it's existence.
-
-Medium even on large viewports hides the search form behind a magnifying glass icon meaning I have to click before typing. Is this wrong? Not necessarily but it's something to think about.
-
-[](!)
+If it's going to be frequently used, then we should do our best to keep it visible. If we don't think it will be used often, we might want to question it's existence.
 
 Another common problem is that some sites use a placeholder to replace a label, and we already discussed the problem at length in chapter 1.
 
-To accomodate a well-design search form with an ever-present label we need to consider the header holistically. To do this we'd have to know what's going in your header.
+To accomodate a well-design search form with an ever-present label we need to consider the header holistically.
 
 - logo
 - account navigation (login etc)
@@ -65,7 +57,7 @@ Here's a few tips:
 
 1. Account navigation is often used infrequently and should therefore be lowest priority. We might consider putting it elsewhere or collapsing it behind an icon.
 2. Don't use a placeholder. If you absolutely must hide the label, then do so in an accessible way.
-3. If you have to collapse the search form, then when revealing it, automically move focus to the text box.
+3. If you have to collapse the search form, then when revealing it, automically move focus to the text box. (Like Medium)
 
 ### Input type search
 

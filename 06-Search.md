@@ -34,38 +34,56 @@ This chapter wouldn't be particularly interesting if we decided not to build a s
 
 ### Interface design
 
-Throughout previous chapters we've been able to reuse form patterns because they have been the main feature of the page or flow in question. Search is typically located in the header. This is because, like navigation, a user may want to search at any time.
+Throughout previous chapters we've easily been able to reuse components across different types of forms. This is because the form has been the primary feature on the page.
 
-The problem is that the header is premium real estate. That is there isn't much room available and it's highly sought after. We can't just keep adding features into the header as not only does it diminish the value of the header but it pushes the content down.
+Search is typically located in the header. This is because a user may want to search at any time. The problem is that the header is premium real estate. That is there isn't much room available and it's highly sought after. 
 
-On mobile, there's even less room so we face an even greater design challenge.
+We can't just keep adding features into the header as not only does it diminish the value of the header but it pushes the page content down. On mobile, there's even less room so we face an even greater design challenge.
 
-This is why designers are often seduced by novel patterns that save space[^hamburgerdeepdesign]. But putting something in the header to make it easy, only to hide it somewhat defeats the point.
+This is why designers are often seduced by novel patterns that save space[^hamburgerdeepdesign]. But putting something in the header to make it readily accessible, only to hide it with Javascript somewhat defeats the point.
 
 If it's going to be frequently used, then we should do our best to keep it visible. If we don't think it will be used often, we might want to question it's existence.
 
-Another common problem is that some sites use a placeholder to replace a label, and we already discussed the problem at length in chapter 1.
+Another common problem is that some sites use placeholder text as a replacement for a separate label. We already know that this hurts users because we discussed this at length in chapter 1.
 
-To accomodate a well-design search form with an ever-present label we need to consider the header holistically.
+To accomodate a well-design search form with an ever-present label we need to consider the content of the header holistically and prioritse its importance. There are four main aspects you might find in a typical website.
 
 - logo
-- account navigation (login etc)
-- main nav (product categories perhaps)
 - search
+- main navigation (categories)
+- account navigation (login, profile, orders)
 
-Here's a few tips:
+Account navigation is probably used infrequently in comparision and so should probably be the lowest priority and a prime candidate to be collapsed down. And we're probably going to want to simplify our main navigation taxonomy to promote a mobile first and therefore small-screen accomodating design.
 
-1. Account navigation is often used infrequently and should therefore be lowest priority. We might consider putting it elsewhere or collapsing it behind an icon.
-2. Don't use a placeholder. If you absolutely must hide the label, then do so in an accessible way.
-3. If you have to collapse the search form, then when revealing it, automically move focus to the text box. (Like Medium)
+Despite this, we may still need to keep our search form small and potentially collapsible. Afterall it's better to have something reveal well (with large text and accomodating messaging) than it is to have something ever present and hard to read (due to small text and placeholder text for example).
 
-### Input type search
+In this case here are summarising list of tips:
 
-TODO
+- Don't use a placeholder.
+- Always include a label.
+- Strive to keep this label visually accessible.
+- Avoid using a maginifying glass for an icon as the best icons are text.
+- If you must hide the label do so in an accessible way.
+- If you must hide the form then make sure that the search box is focussed when the user reveals the form (like Medium).
+- Use input type=search due to the benefits we discussed in chapter 3
+
+What it looks like:
+
+[]()
+
+HTML:
+
+```HTML
+<div>
+	label
+	input type search
+</div>
+```
 
 ### Search should find everything
 
 - TODO
+- if can find anything then tell users they can find anything. This is why it's good to reveal it and give it the space to tell users this with the hint pattern. 
 
 ### Measure what users want most
 

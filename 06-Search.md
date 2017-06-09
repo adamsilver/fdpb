@@ -81,13 +81,13 @@ In *Content and Design Are Inseparable Work Partners* Jared Spool explains that 
 
 But users want what they want. As Jared says, they might be looking for a returns policy. But the returns policy doesn't reside in a database table so a search yields no results. Useless.
 
-It might be wise to use a the hint pattern to tell users what it is they can and can't search for.
+It might be wise to use the hint pattern to tell users what it is they can and can't search for.
 
 [!]()
 
-### Measure what users want most
+The other thing we can do is measure what it is users are searching for. Once we know that we might decide to elevate those into navigation items that are readily accessible.
 
-- and make it a nav item (jared)
+Search is more than a feature, it's a way to learn what users want.
 
 ## Filter
 

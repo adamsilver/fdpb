@@ -59,34 +59,31 @@ Here's Kidly's header as shown for those with small screens:
 
 You'll see even with careful thought, we're unable to fit an ever present fully inclusive search form without making the header deeper. Assuming a deeper header is problematic we'll want to have a collapsed state.
 
-Afterall it's better to have something reveal well (with large text and accomodating messaging) than it is to have something ever present and hard to read (due to small text and placeholder text for example).
+Afterall it's better to have something reveal well (with large text and accomodating messaging) than it is to have something ever present and hard to read (due to small text and placeholder text for example). If we're going to reveal the search form then we'll need to do so under the header.
 
-Here is a list of things to check:
+To do this make sure the search button in the header reveals a search form and automatically moves focus to it. Not only does this save users a click, but it means screen readers will know they can immediately start their search.
 
-- Don't use a placeholder.
-- Always show a label.
-- Avoid using a maginifying glass for an icon as the best icons are text.
-- If you must hide the form then make sure that the search box is focussed when the user reveals the form (like Medium).
-- Use `input type="search"` due to the benefits we discussed in chapter 3.
-- Create a button that toggles aria-expanded.
+Iconography in the form of a magnifying glass is also used to save space. Due to its prolific use a magnifying glass is quite well understood. But the best icon is a text icon, so if your tone and design can accomodate it use text. It's fully inclusive out of the box and removes any ambiguity in meaning.
 
-What it looks like:
+In summary:
 
-[!]()
-
-HTML:
-
-```HTML
-<div>
-	label
-	input type search
-</div>
-```
+- Don't use a placeholder
+- Always show a label
+- Use text instead of an icon where possible for both the toggle button and the submit button.
+- If the form starts hidden, use aria-expanded and focus the search box as soon as the user toggles the display.
+- Use `input type="search"` to get the benefits as we discussed in chapter three.
 
 ### Search should find everything
 
-- TODO
-- if can find anything then tell users they can find anything. This is why it's good to reveal it and give it the space to tell users this with the hint pattern. 
+Once we have the interface design sorted we need to consider the functionality of the search itself. When I recounted my child-hood interaction with my mum I was able to ask her anything and she would know the answer.
+
+In *Content and Design Are Inseparable Work Partners* Jared Spool explains that *content is the thing the user wants right now*. All too often search is limited to products or articles or videos. That is stuff that is in a database.
+
+But users want what they want. As Jared says, they might be looking for a returns policy. But the returns policy doesn't reside in a database table so a search yields no results. Useless.
+
+It might be wise to use a the hint pattern to tell users what it is they can and can't search for.
+
+[!]()
 
 ### Measure what users want most
 

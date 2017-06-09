@@ -30,45 +30,59 @@ It contains four fields and a submit button. You'll also notice each text field 
 
 The first thing to know is that each field needs an associated label. This is because:
 
-- sighted users will be able to see the instructions;
-- visually-impaired users will hear the instructions when using a screen reader; and
-- motor-impaired users will find it easier to select a field thanks to the larger hit area. This is because clicking the label will move focus to its related control.
+- Sighted users can see the instructions.
+- Visually-impaired users can hear the instructions when using a screen reader.
+- Motor-impaired users can easily move focus to the field due to the larger hit area. (Clicking a label moves focus to the field).
 
-Code wise, the way in which to *connect* an input to a label, is with the `id` and `for` attributes. They must be unique and they must match. Without this the label won't work for visually-impaired and motor-impaired users.
+To *connect* an input to a label the `id` and `for` attributes must match and be unique. If you forget only sighted users will be cared for.
 
-We might be tempted to omit labels for particular forms in order to save space but this is probably the worst thing we can do for users.
+We might be tempted to omit labels for particular forms in order to save space but this the worst thing we can do for users who have to fill out forms.
 
-## Placeholders and hints
+## Placeholders
 
 Since placeholders came along, we've adopted them as means of storing hints. Their appeal lies in their minimal aesthetic and the fact they save space.
 
-Some designers go one one step further and replace labels with placeholders. Either way, the placeholder is problematic for many reasons.
+Some designers go one one step further and replace labels with placeholders. Either way the placeholder is problematic for many reasons.
 
 1. The placeholder disappears when the user types. Once it’s gone it’s hard to remember.
 2. Placeholder text is often mistaken for a value, meaning users skip them and are subsequently shown an error.
-3. They lack sufficient contrast, making them hard to read for people lacking perfect vision which is a huge amount of people[^].
+3. They lack sufficient contrast, making them hard to read for people lacking perfect vision which is a large amount people[^].
 
-I've actually counted 13 problems altogether, so if you're interest check out the reference in Placeholders Are Problematic[^].
+I've actually counted 13 problems altogether which you can read in my article Placeholders Are Problematic[^].
 
-Some people ask me if it’s okay to use a placeholder in addition to a label. I say that if the hint is valuable to the user, we should make it easy-to-read and readily accessible. Placeholders don't meet these requirements.
+Some people ask me if it’s okay to use a placeholder in addition to a label. But if the hint is valuable to the user shouldn't we make it easy to read and readily accessible? Placeholders don't meet these requirements.
 
-Others say that the placeholder is just an enhancement and not essential to the user. I say that if the hint isn’t essential then don’t include it. Afterall, content is not an enhancement.
+Others say the placeholder is just an enhancement and not essential. But if the hint isn’t essential then why are we including it? Afterall, content is not an enhancement[^].
 
-In the case of placeholders, minimal doesn't mean simple. If we do need to provide an additional hint we should provide one outside of the field.
+In the case of placeholders minimal doesn't mean simple[^]. If we do need to provide an additional hint we should provide one outside of the field, below the label.
 
-Just because we can provide a hint doesn't mean we should. Most of the fields in our registration form are self-explanatory. If in-doubt, test with your users.
+Just because we can provide a hint doesn't mean we should. Most of the fields in our registration form don't need clarification.
 
-However, many sites ask for a complex set of rules for the password. Typically having to conform to the following rules:
+However, many sites ask for a complex set of rules for the password:
 
-- Must be at least 8 character
+- Must be at least 8 characters
 - Must include at least one uppercase and lowercase letter
-- Must include at least one number.
+- Must include at least one number
 
-Now where possible, we should avoid asking users to create complex passwords because they are hard to remember. Instead you may decide to take a look at passphrases[^2]. But for our form, we'll stick to the more common password pattern.
+Now where possible, we should avoid asking users to create complex passwords because they are hard to remember. In the case of simplifying the password field, we might consider passphrases[^2]. 
 
-And in this case a hint, in addition to the label is helpful. It should help many users avoid having to to fix problems later when validation kicks in, and only then being told what it takes to meet these complex requirements.
+A passphrase has many benefits but they are also less familiar to users so for our form we'll stick to the common and familiar pattern and solve the challenge inherent in the traditional password field.
 
-This is how it all looks so far:
+As a password has many rules and because these rules differ between sites, we can help the user by providing a hint, in addition to the label. This way, we give users th ebest chance of having to fix errors after submission.
+
+HTML:
+
+```HTML
+<div class="field">
+  <label for="password">
+    <span class="field-label">Password</span>
+    <span class="field-hint">Your password must be at least 8 characters including at least one number and one uppercase letter.</span>
+  </label>
+  <input type="password" id="password" name="password">
+</div>
+```
+
+How it looks:
 
 ![Image here](/etc/)
 

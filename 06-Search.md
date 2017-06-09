@@ -91,22 +91,59 @@ We can improve our designs by tracking the most popular searches. Once we know t
 
 ## Filter
 
-- Don't make links look like checkbox/radios (https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)
-- Material honesty - check Resilient Web Design book for ref.
-- AND = checkboxes
-- OR = radios
-- select box problem without submit button.
-- One submit button, save many ajax requests, is ajax worth it for entire page of results?
+Depending on the broadness of a search and the volume of content available, results may be in the thousands. Just like Mum, there are times when the system needs a little helping hand to be able to help the user find the one thing they were looking for.
 
-## Heydon filter notes
+Filters, also known as facet navigation or guided navigation lets users refine a set of results by selecting particular attributes. The cool word for these attributes is meta data. This just means information about the information. For example the information is *trousers* and the meta data is *black in colour*.
 
-First thing to ask is why don't radios with labels and a separate button work.
+The beauty of a filter is that it allows users to find what they want using their own mental model, rather than a predefined one that can't possibly work for all users under all scenarios.
 
-One thing I can think of is that a user doesn't know they have to submit.  This is just the way forms work.but because we have fucked them up over the years we may have to reteach them a bit.
+### A link filter
 
-This isn't some crazy anti pattern "if u ha e to explain u have failed". Just highlight the button after say 2 seconds for those that seem confused after making their selection.
+Some filters are actually just organised lists of links as follows:
 
-Everything else is a nonsense approach. Save space. Branding. Less clicks etc.
+[!https://asset.uie.com/articles/img/faceted_search/BuzzillionsKMWorld.jpg](from UIE)
+
+If your filter is a list of links then just be sure to be materially honest and make sure the links look like links. I've seen many incarnations that semantically under the hood use links but are made to look like radio buttons or checkboxes. 
+
+Designing honestly is a quality we want to upkeep. Mixing form controls and links is a recipe for confusion and sets the wrong expectation for behaviour. That is, with a form I expect to select something and submit. With a form I don't.
+
+### Radio buttons and checkboxes
+
+Other filters are actual forms and in this case we'll want to make sure our checkboxes and radio buttons look as such. In fact there is no reason to give them differential visual treatment to those which we have used throughout the book.
+
+The only thing that differs is the location of the filter. On big screens we might choose to show it beside the list of results. On small screens we're probably going to want to collpase it to elevate the results themselves, much like the approach we have taken with the global search form.
+
+### Separate submission from selection
+
+We've talked about this before[^?] but we're going to want to stay true to familar conventions by ensuring submission is separate from selection. Like select boxes, we shouldn't submit a form when the user checks a radio button for example.
+
+A good reason for this is that the user may want to choose several facets before submission. For example, if they're searching for a pair of shoes they may want to select the size and colour at the same time. Doign this with two separate interactions is wasteful of their time and the load on the server.
+
+### Checkboxes versus radio buttons
+
+Users may want to select multiple options within the same category. For example, if I'm shopping for shoes I may not be sure of my size and want to search for two different sizes at the same time.
+
+In this case allowing the user to select both options is important. Obviously we should reflect this by using checkboxes. Radio buttons are for selecting one option within a category.
+
+### And or OR results
+
+If the user can choose many options to filter by at the same time then how we treat the search is very different depending on the way we see things. We might say find me products that are red and large. Meaning that red items that aren't large are not returned in the results.
+
+Or we might say find me products that are red or large. Meaning that the results will contain black large things and red small things. This search becomes an OR.
+
+Choosing OR is good because it guarantees that results will be returned but I wonder about the value here. Why would a user search for something that is red OR black, for example?
+
+### Do you need to refresh results with AJAX?
+
+AJAX is often used to patch over websites that have bad performance, normally because we cram so much shit on a page. But AJAX doesn't negate a server round trip.
+
+Also, the search results are what make up the majority of the page. Might as well do a page refresh.
+
+### Don't offer hundreds of facets
+
+### More dos and donts
+
+## Summary
 
 ## Footnotes
 
@@ -114,4 +151,20 @@ Everything else is a nonsense approach. Save space. Branding. Less clicks etc.
 [Don't make links look like checkbox/radios]: https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)
 [jared search find more than products]:https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
 
-When we have to squeeze stuff we may kid ourselves into removing the label. (Jeremy).
+## Todo?
+
+Don't make links look like checkbox/radios (https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)
+- Not using a label for the search form? (Jeremy and link to my article?).
+- Material honesty - check Resilient Web Design book for ref.
+- select box problem without submit button?
+
+## Heydon filter notes?
+
+First thing to ask is why don't radios with labels and a separate button work.
+
+One thing I can think of is that a user doesn't know they have to submit.  This is just the way forms work.but because we have fucked them up over the years we may have to reteach them a bit.
+z
+
+This isn't some crazy anti pattern "if u ha e to explain u have failed". Just highlight the button after say 2 seconds for those that seem confused after making their selection.
+
+Everything else is a nonsense approach. Save space. Branding. Less clicks etc.

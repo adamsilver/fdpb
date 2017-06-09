@@ -28,7 +28,7 @@ A couple of years later (2016), Robin Whittleton from GDS, told me that putting 
 
 Before we do that though, let’s take a look at exactly what this pattern is.
 
-## What Does One Thing Per Page Mean Exactly?
+## What is One Thing Per Page?
 
 One Thing Per Page is not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer.
 
@@ -42,7 +42,7 @@ An address form has multiple fields, but it’s a single, tangible question that
 
 Next we’ll take a look at why the pattern is so good.
 
-## Why Is It So Damn Good?
+## Why it works
 
 Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s nice to understand the rationale behind it.
 
@@ -425,17 +425,17 @@ By all means get users to sign up, by giving them genuine value, but do so on th
 
 ## Progress indicators
 
-Age old advice would tell you that we should give users knowledge of where they are in the process. But this is not necessarily the case. There is little data that shows including one is valuable in anyway.
+Age old advice would tell you that we should give users knowledge of where they are in the process. But this is not necessarily the case. There is little data that shows including one is valuable.
 
 ![Progress indicator](./images/Progress_indicators_2.png)
 
-GDS have shown that they:
+GDS say that they:
 
 - are often not noticed
 - take up lots of space
 - don’t scale well on small screens
 - can distract and confuse some people
-- make it hard to write good labels for the steps
+- make it hard to write good labels
 - make it hard to handle conditional sections
 
 For these reasons, it's better to start without one, and test to see if one is actually needed. It's much easier to add features down the line than it is to remove them. Less costly that way and easier to measure.

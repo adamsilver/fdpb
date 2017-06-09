@@ -16,21 +16,21 @@ I'm a dad now, and as much as I try not to, I own more things. It's hard to be a
 
 Sometimes I'm left to peruse each cupboard one by one. And of course when I need said thing and can't find it, I become anxious. If I really want it and know it exists I'll perservere. If not, I'll give up.
 
-In this chapter we're going to design a search and filter which helps users and avoids making them feel anxious. Just like mum we'll want the interface to answer our questions accurately and as quickly as possible.
+In this chapter we're going to ensure that finding things is easy. Just like mum we'll want the interface to answer questions accurately, quickly and as humanly as possible.
 
 ## Search
 
 The first thing to ask ourselves is *do we need search?*
 
-In 2016, I worked at Kidly, a start-up that houses *the best stuff for your baby all in one place*. They wanted to build a lot of features. Naturally, they were also eager to launch.
+Kidly is a start-up that houses *the best stuff for your baby all in one place*. They wanted to create something great with a lot of wonderful features. Naturally, they were also eager to launch.
 
-Deciding what to cut became an essential skill in forming our MVP within a reasonable time frame. We realised that the product range, at least on day one, would be small. 
+Deciding what to cut from the large backlog of work quickly became an essential skill. Launching an MVP within a reasonable timeframe meant having a critical understanding on the value each feature would provide our users.
 
-We felt we could do without search and rely on a well organised browse system. So we cut out search from the launch backlog.
+We knew that our product range would be small, at least to start with. This meant we could scrap the ability to search. Instead we could really on a well organised navigation system.
 
-Nurturing a do-less mindset is something that benefits everyone because it encourages momenturm, keeps the team focussed on the most essential thing for customers and in turn maximises the value of the delivery.
+This freed up a lot of our time and attention to solve more important problems. Nurturing a do-less mindset is something that benefits everyone because it encourages momentum, keeps the team focussed on the most essential thing for users with a product that maximises the value of the delivery effort.
 
-This chapter wouldn't be particularly interesting if we decided not to build a search feature so we'll assume that our users need it.
+This wouldn't be a particulary useful chapter on search if we decided to scrap the feature altogether so we'll assume we need it and design accordingly.
 
 ### Interface design
 
@@ -38,38 +38,41 @@ Throughout previous chapters we've easily been able to reuse components across d
 
 Search is typically located in the header. This is because a user may want to search at any time. The problem is that the header is premium real estate. That is there isn't much room available and it's highly sought after. 
 
-We can't just keep adding features into the header as not only does it diminish the value of the header but it pushes the page content down. On mobile, there's even less room so we face an even greater design challenge.
+We can't just keep adding features into the header as not only does this push  page content down, but it diminishes the value of the header. If everything is important, nothing is. On mobile, there's even less room. This is why designers are often seduced by novel patterns that save space[^hamburgerdeepdesign]. 
 
-This is why designers are often seduced by novel patterns that save space[^hamburgerdeepdesign]. But putting something in the header to make it readily accessible, only to hide it with Javascript somewhat defeats the point.
+Putting something in the header promotes access and importance. To then hide it with Javascript somewhat defeats the point. True to life, design is not always black and white. If we have little space to work with we may well need to collapse it.
 
-If it's going to be frequently used, then we should do our best to keep it visible. If we don't think it will be used often, we might want to question it's existence.
+Again, for space-saving reasons designed might be tempted to remove the label altogether and replace it with placeholder text. Placeholder text, as we've already discussed in chapter one, suffers from many usability problems.
 
-Another common problem is that some sites use placeholder text as a replacement for a separate label. We already know that this hurts users because we discussed this at length in chapter 1.
-
-To accomodate a well-design search form with an ever-present label we need to consider the content of the header holistically and prioritse its importance. There are four main aspects you might find in a typical website.
+To accomodate a well-designed search form with an ever-present label we need to consider the content of the header holistically and prioritise. There are four main aspects you might find in a typical website.
 
 - logo
 - search
 - main navigation (categories)
 - account navigation (login, profile, orders)
 
-Account navigation is probably used infrequently in comparision and so should probably be the lowest priority and a prime candidate to be collapsed down. And we're probably going to want to simplify our main navigation taxonomy to promote a mobile first and therefore small-screen accomodating design.
+Account navigation is probably the least used and so is a prime candidate to be collapsed. And we're probably going to want to simplify our main navigation taxonomy to promote a mobile-first and therefore small-screen accomodating design.
 
-Despite this, we may still need to keep our search form small and potentially collapsible. Afterall it's better to have something reveal well (with large text and accomodating messaging) than it is to have something ever present and hard to read (due to small text and placeholder text for example).
+Here's Kidly's header as shown for those with small screens:
 
-In this case here are summarising list of tips:
+[!]()
+
+You'll see even with careful thought, we're unable to fit an ever present fully inclusive search form without making the header deeper. Assuming a deeper header is problematic we'll want to have a collapsed state.
+
+Afterall it's better to have something reveal well (with large text and accomodating messaging) than it is to have something ever present and hard to read (due to small text and placeholder text for example).
+
+Here is a list of things to check:
 
 - Don't use a placeholder.
-- Always include a label.
-- Strive to keep this label visually accessible.
+- Always show a label.
 - Avoid using a maginifying glass for an icon as the best icons are text.
-- If you must hide the label do so in an accessible way.
 - If you must hide the form then make sure that the search box is focussed when the user reveals the form (like Medium).
-- Use input type=search due to the benefits we discussed in chapter 3
+- Use `input type="search"` due to the benefits we discussed in chapter 3.
+- Create a button that toggles aria-expanded.
 
 What it looks like:
 
-[]()
+[!]()
 
 HTML:
 

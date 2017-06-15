@@ -93,7 +93,7 @@ Links are offered for facets that have results. That's one of the advantages. If
 
 In *Resilient Web Design* Jeremy Keith talks about the idea of Material Honesty. He says *one material should not be used as a substitute for another. Otherwise the end result is deceptive.* In this case we want our links to look like links as that's what they are.
 
-The problem is that some designers make these links look like radio buttons. They'll use background images to make it appear as though the user is clicking a radio button. The problem is that it's not a radio button and doesn't have the functionality of a radio button.
+The problem is that some designers make links look like radio buttons. They'll use background images to make it appear as though the user is clicking a radio button. The problem is that it's not a radio button and doesn't have the functionality of a radio button.
 
 Avoid this whereever possible.
 

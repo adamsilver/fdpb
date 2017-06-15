@@ -141,11 +141,20 @@ AJAX is useful when you want to make a small update to the screen with the major
 
 In this case, not only does it defeat the point, but it may well make the page slower. You've been warned.
 
-### Don't offer hundreds of facets
+### Dos and Don'ts
 
-### More dos and donts
+UIE has some high level guidance on facet navigation design:
+
+- DON’T go crazy with facets. This overwhelms the user.
+- DO base facets on key use cases & known user access patterns. Use research, and analytics to help decide on included facets.
+- DO order facets & values based on importance. Use the same data to decide order.
+- DO show additional facets when they become relevant. Start with high level facets, then reveal others as the user drills down.
+- DO collapse the least popular facet items. Within a facet show the first 5 and collpase the rest behind a show more.
+- DO build your taxonomy with faceted search in mind. A broader shallower taxonomy creates a better experience as users don't end up far down a funnel.
 
 ## Summary
+
+TODO
 
 ## Footnotes
 
@@ -157,7 +166,4 @@ In this case, not only does it defeat the point, but it may well make the page s
 
 Don't make links look like checkbox/radios (https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)
 - Not using a label for the search form? (Jeremy and link to my article?).
-- Material honesty - check Resilient Web Design book for ref.
 - select box problem without submit button?
-e may have to reteach them a bit.
-z

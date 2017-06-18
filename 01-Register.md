@@ -64,7 +64,7 @@ However, many sites ask for a complex set of rules for the password:
 - Must include at least one uppercase and lowercase letter
 - Must include at least one number
 
-Now where possible, we should avoid asking users to create complex passwords because they are hard to remember. In the case of simplifying the password field, we might consider passphrases[^2]. 
+Now where possible, we should avoid asking users to create complex passwords because they are hard to remember. In the case of simplifying the password field, we might consider passphrases[^2].
 
 A passphrase has many benefits but they are also less familiar to users so for our form we'll stick to the common and familiar pattern and solve the challenge inherent in the traditional password field.
 
@@ -100,13 +100,13 @@ Employing a pattern that is both problematic and constraining at the same time, 
 
 In fact, this book is about building forms that work. That don't drive users crazy. And that have as little friction as possible. For these reasons, we'll leave floating labels for the creatives out there.
 
-## Do we really need it?
+## The Question Protocol
 
 Nobody wants to use the forms we put in front of them, they just want the outcome. If, for example, we're asking users to register for an online shop, the appeal may lie in one or all of the following selling points:
 
 1. Users can buy faster next time, as they don't have to type the same details over and over.
 2. Users can track their order, without having to make a phone call.
-3. Users will receive ten percent off their next order.
+3. Users will receive 10% off their next order.
 
 As the first chapter is dedicated to registration, we're going to assume we need it. But the fields *within* the form, are still very much *up for grabs*.
 

@@ -36,9 +36,9 @@ This wouldn't be a particulary useful chapter on search if we decided to scrap t
 
 Throughout previous chapters we've easily been able to reuse components across different types of forms. This is because the form has been the main feature of the page.
 
-Search is typically located in the header. This is because a user may want to search at any time. The problem is that the header is premium real estate. That is, there isn't much room available and it's highly sought after. 
+Search is typically located in the header. This is because a user may want to search at any time. The problem is that the header is premium real estate. That is, there isn't much room available and it's highly sought after.
 
-We can't just keep adding features into the header as not only does this push  page content down, but it diminishes the value of the header. If everything is important, nothing is. And on mobile, there's even less room. 
+We can't just keep adding features into the header as not only does this push  page content down, but it diminishes the value of the header. If everything is important, nothing is. And on mobile, there's even less room.
 
 Designers are often seduced by novel patterns that save space[^hamburgerdeepdesign]. But generally speaking, hiding content behind a toggle, carousel, modal or what have you is a waste of time for both design and user.
 
@@ -63,7 +63,7 @@ HTML:
 
 ### Search should find everything
 
-Having designed the interface, next we should consider the search functionality itself. When I recounted my child-hood interaction with my mum I was able to ask her anything and she would know the answer. 
+Having designed the interface, next we should consider the search functionality itself. When I recounted my child-hood interaction with my mum I was able to ask her anything and she would know the answer.
 
 In *Content and Design Are Inseparable Work Partners* Jared Spool explains that *content is the thing the user wants right now*. All too often search is limited to products or articles or videos. That is, the stuff stored in the database.
 
@@ -137,7 +137,7 @@ AJAX is often used to patch over websites that have bad performance, normally be
 - Increases the chance of memory leaks
 - battery?
 
-AJAX is useful when you want to make a small update to the screen with the majority of the page staying the same. When filtering, the main feature of the page itself changes. Both the results and the filter itself. 
+AJAX is useful when you want to make a small update to the screen with the majority of the page staying the same. When filtering, the main feature of the page itself changes. Both the results and the filter itself.
 
 In this case, not only does it defeat the point, but it may well make the page slower. You've been warned.
 

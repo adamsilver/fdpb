@@ -40,39 +40,28 @@ As we're designing for people, we'll use the diversity of people as constraints.
 
 Many forms omit labels in order to save space but this is the worst thing we can do. In upcoming chapters we'll discuss situations where we'll have to resist the natural temptation to exclude them.
 
-## Placeholders
+## Placeholders and hints
 
-The `placeholder` attribute is used to store an additional piece of text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as the password field in the registration form.
+The `placeholder` attribute is used to store additional text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as our password field.
 
 Unlike labels, placeholders are optional. Designers find them appeaing due to their minimal aesthetic and the fact they save space.
 
-Some go one one step further and replace labels with placeholders. As we know already this is problematic. But actually, the placeholder is problematic in its own right.
+Some go one one step further and replace labels with placeholders. As we know already this is problematic. But actually, placeholders are problematic in their own right. Here's some reasons why:
 
-- The placeholder disappears when the user types. Once it’s gone it’s hard to remember.
-- Placeholder text is often mistaken for a value, meaning users skip the field causing an error.
-- They lack sufficient contrast, making them hard to read for people lacking perfect vision[^].
+- It disappears when the user types making it easy to forget.
+- It's often mistaken for a value, meaning users skip the field causing an error.
+- They lack sufficient contrast making them hard to read.
+- Some browsers don't support them.
+- Some screen readers don't announce them.
+- Some browsers don't translate them.
 
-I've actually counted 13 problems altogether which you can read in Placeholders Are Problematic[^].
+I've counted 7 additional problems which you can read about more deeply in Placeholders Are Problematic[^].
 
-Some people ask me if it’s okay to use a placeholder in addition to a label. But if the hint is valuable to the user shouldn't we make it easy to read and readily accessible? Placeholders don't meet these requirements.
+Content isn't an enhancement[^]. Therefore, if a hint helps users we should make sure it's readily accessible. We can do this by placing it outside the field below the label.
 
-Others say the placeholder is just an enhancement and not essential. But if the hint isn’t essential then why are we including it? Afterall, content is not an enhancement[^].
+This is how it looks in our registration form, but we'll use this pattern throughout the book.
 
-In the case of placeholders minimal doesn't mean simple[^]. If we do need to provide an additional hint we should provide one outside of the field, below the label.
-
-Just because we can provide a hint doesn't mean we should. Most of the fields in our registration form don't need clarification.
-
-However, many sites ask for a complex set of rules for the password:
-
-- Must be at least 8 characters
-- Must include at least one uppercase and lowercase letter
-- Must include at least one number
-
-Now where possible, we should avoid asking users to create complex passwords because they are hard to remember. In the case of simplifying the password field, we might consider passphrases[^2].
-
-A passphrase has many benefits but they are also less familiar to users so for our form we'll stick to the common and familiar pattern and solve the challenge inherent in the traditional password field.
-
-As a password has many rules and because these rules differ between sites, we can help the user by providing a hint, in addition to the label. This way, we give users th ebest chance of having to fix errors after submission.
+![]()
 
 HTML:
 
@@ -86,23 +75,48 @@ HTML:
 </div>
 ```
 
-How it looks:
-
-![Image here](/etc/)
+You'll notice the hint is actually part of the label and we wrap a `span` around it so that we can style it as per design. We put it inside the label to make sure it's read out by screen readers.
 
 ## Floating labels
 
-When I inform people of the placeholder problem, they often tell me that floating labels are the answer. In actual fact, they come with many of the same problems as placeholders but with a few additions:
+Floating labels work by putting the label inside the field to begin with like a placeholder. When the user starts typing the label moves out of the box to ‘float’ above the field.
 
-1. There is no actual space for a hint, because the hint and the label are one and the same.
-2. The labels are often too small. If we made them bigger we would need to leave a bigger space for the label to float into. In which case they don't save space.
-3. The animation affect is distracting and disorientating, particularly at a time when we're asking more from our users.
+Designers like this approach because they supposedly:
+
+- make forms cool
+- reduce the height of forms
+- make forms easier to scan
+
+Cool interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do that. So that's the first strike.
+
+The other two benefits are one and the same. Reducing the height makes it easier to scan in a sense. But as Luke Wobrelski[^lukewsays] says *I don’t have any quantitative data at scale that shows saving pixel height in forms increases conversion or usability.*
+
+Interestingly, they don't actually save space because the label needs whitespace to move into. The only way they do save space—and by space I mean a pixel or two—is because the floating label is often small which is a problem in its own right.
+
+Scanning a form is not the only aspect of the experience either. Users have to read instructions, fill them in and fix errors too. Floating labels cause problems with this.
+
+I've counted nine problems in total, which you can read about in Floating Labels Are Problematic[^].
 
 Decluttering a UI is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases as we've just discussed so are hints.
 
-Employing a pattern that is both problematic and constraining at the same time, is not a recipe we'll be following to design the forms presented in this book.
+Employing a pattern that is both problematic and constraining at the same time, is not a recipe we'll use to cook up delicious forms. More importantly I won't be using this analogy going forward.
 
-In fact, this book is about building forms that work. That don't drive users crazy. And that have as little friction as possible. For these reasons, we'll leave floating labels for the creatives out there.
+Ultimately, this book is about designing forms that work. Forms that don't drive users crazy. Forms that have as little friction as possible and forms that are inclusive.
+
+For these reasons we'll leave placeholders and floating labels to our competitors.
+
+## Passphrases
+
+Many sites ask for a complex set of password rules. They must at least:
+
+- eight characters
+- one uppercase letter
+- one lowercase letter
+- one number
+
+Where possible, we should avoid asking users to create complex passwords because they are hard to remember. In the case of simplifying the password field, we might consider passphrases[^2].
+
+A passphrase has many benefits but they are also less familiar to users so for our form we'll stick to the common and familiar pattern and solve the challenge inherent in the traditional password field.
 
 ## The Question Protocol
 
@@ -123,13 +137,13 @@ Government Digital Services (GDS) has something called the Question Protocol. It
 -*how you’ll check the information is accurate*
 -*how to keep the information up to date and secure*
 
-Every time we ask for information, we're asking users to spend time doing so. Time is the most precious resource on earth. We can't get it back and so we need to value user's time like we would value our own.
+Every time we ask for information, we're asking users to spend more time. Time is the most precious resource on earth. We can't get it back and so we need to value our user's time like we value our own.
 
-In which case, *do we need to ask for their name?* If *not*, or even if we don't need it at *this* point in time, we shouldn't be asking for it within the registration form.
+### Do users need to state their name?
 
-Let's remove the first and last name fields, which importantly reduces the size of the form by half. Excellent. But we can do better.
+Ddo we need to ask for their name? If we do, do we need to ask for it now? Most likely, we don't need to. Let's remove it which reduces the size of the form by half which will almost certainly improve conversion.
 
-## No password registration
+### Do users need to provide a password?
 
 Medium.com have implemented a no password sign in[^]. They leverage the security of email accounts by sending the user a login link. This would result in our registration form slimming down to a single email field.
 
@@ -411,3 +425,4 @@ Jared: That stupid credit card security code, that is erased as long as there’
 [^4]:https://medium.com/@cjforms/the-idea-that-left-aligned-labels-have-slower-completion-times-is-incorrect-e1461f47242b#.dvl3en9g4
 [^5]:https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p
 [^6]:http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
+[^lukesays]: https://twitter.com/lukew/status/872861520811614208?s=09

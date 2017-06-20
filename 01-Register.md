@@ -1,14 +1,14 @@
 # A Registration Form
 
-We're going to begin our forms adventure with a registration form. We'll use this simple form, to ahem, form the foundations on which to design more complex forms. But don't be fooled by its seemingly simple appearance. This registration form has much to be analysed, ripped apart and put back together again.
+We're going to begin our adventure with registration. We'll use this simple form, to ahem, form the foundations on which to solve more complex forms later.
 
-This chapter is going to cover a lot of ground. As we continue through proceeding chapters we will draw and build on the information covered here.
+Don't be fooled by its simple appearance though. There's a lot of ground to cover and patterns that will emerge. Patterns we'll either use directly or as a foundation to build new patterns when needed.
 
-So here it is, a registration form:
+## What it looks like
 
 ![Registration Form](./images/.png)
 
-Here is the basic HTML code:
+HTML:
 
 ```html
 <form>
@@ -19,36 +19,40 @@ Here is the basic HTML code:
   <label for="email">Email address</label>
   <input type="email" id="email" name="email">
   <label for="password">Password</label>
-  <input type="password" id="password" name="password">
+  <input type="password" id="password" name="password" placeholder="Must be 8 characters">
   <input type="submit" value="Register">
 </form>
 ```
 
-It contains four fields and a submit button. You'll also notice each text field has a label. Labels are where our analysis begins.
+It contains four fields and a submit button. You'll  notice each field has a label. Labels are where our analysis begins.
 
 ## Labels
 
-The first thing to know is that each field needs an associated label. This is because:
+Each field needs an associated label because:
 
-- Sighted users can see the instructions.
-- Visually-impaired users can hear the instructions when using a screen reader.
-- Motor-impaired users can easily move focus to the field due to the larger hit area. (Clicking a label moves focus to the field).
+- sighted users can see the instructions.
+- visually-impaired users can hear the instructions  using a screen reader
+- motor-impaired users can more easily move focus to the field due to the larger hit area. (Clicking the label moves focus to the field.)
 
-To *connect* an input to a label the `id` and `for` attributes must match and be unique. If you forget only sighted users will be cared for.
+To *connect* an input to a label, the `id` and `for` attributes must match and contain a unique value. Forgetting to do so, means ignoring the needs of those with visual and motor impairments.
 
-We might be tempted to omit labels for particular forms in order to save space but this the worst thing we can do for users who have to fill out forms.
+As we're designing for people, we'll use the diversity of people as constraints. Constraints that ultimately lead to the creation of inclusive form patterns that work.
+
+Many forms omit labels in order to save space but this is the worst thing we can do. In upcoming chapters we'll discuss situations where we'll have to resist the natural temptation to exclude them.
 
 ## Placeholders
 
-Since placeholders came along, we've adopted them as means of storing hints. Their appeal lies in their minimal aesthetic and the fact they save space.
+The `placeholder` attribute is used to store an additional piece of text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as the password field in the registration form.
 
-Some designers go one one step further and replace labels with placeholders. Either way the placeholder is problematic for many reasons.
+Unlike labels, placeholders are optional. Designers find them appeaing due to their minimal aesthetic and the fact they save space.
 
-1. The placeholder disappears when the user types. Once it’s gone it’s hard to remember.
-2. Placeholder text is often mistaken for a value, meaning users skip them and are subsequently shown an error.
-3. They lack sufficient contrast, making them hard to read for people lacking perfect vision which is a large amount people[^].
+Some go one one step further and replace labels with placeholders. As we know already this is problematic. But actually, the placeholder is problematic in its own right.
 
-I've actually counted 13 problems altogether which you can read in my article Placeholders Are Problematic[^].
+- The placeholder disappears when the user types. Once it’s gone it’s hard to remember.
+- Placeholder text is often mistaken for a value, meaning users skip the field causing an error.
+- They lack sufficient contrast, making them hard to read for people lacking perfect vision[^].
+
+I've actually counted 13 problems altogether which you can read in Placeholders Are Problematic[^].
 
 Some people ask me if it’s okay to use a placeholder in addition to a label. But if the hint is valuable to the user shouldn't we make it easy to read and readily accessible? Placeholders don't meet these requirements.
 

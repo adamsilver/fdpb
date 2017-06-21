@@ -97,13 +97,13 @@ Scanning a form is not the only aspect of the experience either. Users have to r
 
 I've counted nine problems in total, which you can read about in Floating Labels Are Problematic[^].
 
-Decluttering a UI is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases as we've just discussed so are hints.
+Decluttering a UI is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases so are hints.
 
 Employing a pattern that is both problematic and constraining at the same time, is not a recipe we'll use to cook up delicious forms. More importantly I won't be using this analogy going forward.
 
-Ultimately, this book is about designing forms that work. Forms that don't drive users crazy. Forms that have as little friction as possible and forms that are inclusive.
+Ultimately, this book is about designing forms that work. Forms that don't drive users crazy. Forms that have as little friction as possible.
 
-For these reasons we'll leave placeholders and floating labels to our competitors.
+And so, we'll use a pattern that has an ever present, high-contrast and easy to read label and hint. We'll leave placeholders and floating labels to our competitors.
 
 ## Passphrases
 
@@ -126,9 +126,9 @@ Nobody wants to use the forms we put in front of them, they just want the outcom
 2. Users can track their order, without having to make a phone call.
 3. Users will receive 10% off their next order.
 
-As the first chapter is dedicated to registration, we're going to assume we need it. But the fields *within* the form, are still very much *up for grabs*.
+As the first chapter is dedicated to registration, we're going to assume we need it. But the fields *within* the form need to justify their existence.
 
-Government Digital Services (GDS) has something called the Question Protocol. It states that *before you start [designing a form], make a list of all the information you need from your users. Only add a question if you know:*
+Government Digital Services (GDS) has something called the Question Protocol. It states that *before you start designing a form, make a list of all the information you need from your users. Only add a question if you know:*
 
 -*that you need the information to deliver the service*
 -*why you need the information*
@@ -137,13 +137,19 @@ Government Digital Services (GDS) has something called the Question Protocol. It
 -*how you’ll check the information is accurate*
 -*how to keep the information up to date and secure*
 
-Every time we ask for information, we're asking users to spend more time. Time is the most precious resource on earth. We can't get it back and so we need to value our user's time like we value our own.
+When we ask ourselves why we need to ask for certain information it should map back to a user need. For example, by asking the users to sign up, we can speed up the experience drastically the next time.
 
-### Do users need to state their name?
+Additionally, the Question Protocol urges us to think about how we ask for information. Is there a more simpler way. Let's use the Question Protocol to answer the following questions:
+
+- Do we need to ask for their first and last name?
+- Do we need to ask for a password?
+- Assuming we do, are there better ways of asking for it?
+
+### Do we need to ask for their first and last name?
 
 Ddo we need to ask for their name? If we do, do we need to ask for it now? Most likely, we don't need to. Let's remove it which reduces the size of the form by half which will almost certainly improve conversion.
 
-### Do users need to provide a password?
+### Do we need to ask for a password?
 
 Medium.com have implemented a no password sign in[^]. They leverage the security of email accounts by sending the user a login link. This would result in our registration form slimming down to a single email field.
 
@@ -156,6 +162,10 @@ This goes to show that designing a form in isolation is not a sensible way to go
 The point of this discussion is not to provide a definitive answer as to how many fields a registration form should have. What's more important is that we need to rigorously ask ourselves why we are asking users for information in the first place and how we may be able to improve an experience by simply not asking users at all.
 
 We'll keep the password field in our registration form which will help to keep the experience familiar and straightforward for most users. Moving away from convention is something we should do through testing. Otherwise we may end up exchanging one set of problems for another.
+
+### Are there better ways of asking for a password?
+
+TODO
 
 ## Email field
 

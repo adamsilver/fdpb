@@ -105,19 +105,6 @@ Ultimately, this book is about designing forms that work. Forms that don't drive
 
 And so, we'll use a pattern that has an ever present, high-contrast and easy to read label and hint. We'll leave placeholders and floating labels to our competitors.
 
-## Passphrases
-
-Many sites ask for a complex set of password rules. They must at least:
-
-- eight characters
-- one uppercase letter
-- one lowercase letter
-- one number
-
-Where possible, we should avoid asking users to create complex passwords because they are hard to remember. In the case of simplifying the password field, we might consider passphrases[^2].
-
-A passphrase has many benefits but they are also less familiar to users so for our form we'll stick to the common and familiar pattern and solve the challenge inherent in the traditional password field.
-
 ## The Question Protocol
 
 Nobody wants to use the forms we put in front of them, they just want the outcome. If, for example, we're asking users to register for an online shop, the appeal may lie in one or all of the following selling points:
@@ -147,25 +134,38 @@ Additionally, the Question Protocol urges us to think about how we ask for infor
 
 ### Do we need to ask for their first and last name?
 
-Ddo we need to ask for their name? If we do, do we need to ask for it now? Most likely, we don't need to. Let's remove it which reduces the size of the form by half which will almost certainly improve conversion.
+Why do we need someones name to give them the ability to register? We don't, we just need a secure way for them to login and a means to communicate to them. An email and password suffices.
+
+If we do need their name for a specific reason later on, then we should ask for it later on too and justify to ourselves and to them why we're asking for it.
+
+Removing it here reduces the size of the form by half, and will almost certainly improve conversion. A simple question, a simple answer and a better experience.
 
 ### Do we need to ask for a password?
 
 Medium.com have implemented a no password sign in[^]. They leverage the security of email accounts by sending the user a login link. This would result in our registration form slimming down to a single email field.
 
-However, we may be over-simplifying things. For one, people are familiar with an email address and password (although that is not a reason in itself to avoid improving the experience of course).
+However, this may be over-simplifying things. For one, people are familiar with an email address and password (although that is not a reason in itself to avoid improving the experience of course).
 
 For two, people who know their password, or use a password manager, have to switch between the site and their email account, which becomes an unnecessary source of friction.
 
-This goes to show that designing a form in isolation is not a sensible way to go. Which is why the Question Protocol is something we should lean on. And designing journeys (as opposed to screens) is just as important.
+This goes to show that designing a form in isolation is not a sensible way to go. Which is why the Question Protocol is something that helps us think about the journey as opposed to single screens.
 
-The point of this discussion is not to provide a definitive answer as to how many fields a registration form should have. What's more important is that we need to rigorously ask ourselves why we are asking users for information in the first place and how we may be able to improve an experience by simply not asking users at all.
+The point of this discussion is not to provide a definitive answer as to how many fields a registration form should have. What's important is that we need to rigorously ask ourselves why we are asking users for information in the first place and how we may be able to improve an experience by simply not asking users at all.
 
 We'll keep the password field in our registration form which will help to keep the experience familiar and straightforward for most users. Moving away from convention is something we should do through testing. Otherwise we may end up exchanging one set of problems for another.
 
 ### Are there better ways of asking for a password?
 
-TODO
+Many sites ask for a complex set of password rules. They must have at least:
+
+- eight characters
+- one uppercase letter
+- one lowercase letter
+- one number
+
+Where possible, we should avoid asking users to create complex passwords because they are hard to remember. In the case of simplifying the password field, we might consider passphrases[^2].
+
+A passphrase has many benefits but they are also less familiar to users so for our form we'll stick to the common and familiar pattern and solve the challenge inherent in the traditional password field.
 
 ## Email field
 

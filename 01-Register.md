@@ -187,13 +187,11 @@ In the case that you have a form that has a genuine need for an optional field, 
 
 ## Label position
 
-You'll notice that we've placed the label and hint above the field. This is not by accident. The alternative is to place labels to the left of the field but has the following problems.
+You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left of the field to reduce the height of a form. We already know that reducing the height of a form is not a good reason on its own.
 
-There is no room on small screens. To design inclusive forms we want them to work well on small screens as well as big. Even on big screens they are constraining. If label/hint text wraps on two lines the flow of the form goes awry.
+Moreover, there is no room on small screens to fit the label in. Even on big screens they are constraining—if the label is long and wraps, the flow of the form goes awry and hurts scanability.
 
-There's also some evidence the people fill out forms faster when the label is above the field. The only supposed downside is that it increases the height of forms, but as we've discussed already there is no defintive data that shows reducing the height in and of itself helps users.
-
-The Question Protocol and other techniques in this book well ensure our forms are short and easy to use rendering the question of height completely obselete.
+By putting the label above the field gives us a pattern that accomodates the various different content lengths that different forms will need.
 
 ## Focus styles
 

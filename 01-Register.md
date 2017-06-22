@@ -79,7 +79,7 @@ You'll notice the hint is actually part of the label and we wrap a `span` around
 
 ## Floating labels
 
-Floating labels work by putting the label inside the field to begin with like a placeholder. When the user starts typing the label moves out of the box to ‘float’ above the field.
+Floating labels work by putting the label inside the field to begin with—like a placeholder. But, when the user starts typing the label moves out of the box to ‘float’ above the field.
 
 Designers like this approach because they supposedly:
 
@@ -87,13 +87,17 @@ Designers like this approach because they supposedly:
 - reduce the height of forms
 - make forms easier to scan
 
-Cool interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do that. So that's the first strike.
+Cool interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do that. So we'll forget that one.
 
-The other two benefits are one and the same. Reducing the height makes it easier to scan in a sense. But as Luke Wobrelski[^lukewsays] says *I don’t have any quantitative data at scale that shows saving pixel height in forms increases conversion or usability.*
+Reducing the height of forms is a noble goal if done right. But using float labels creates problems for an unconvincing gain. We could remove all the whitespace and decrease font size to 5px which also reduces the height but creates an awful experience.
 
-Interestingly, they don't actually save space because the label needs whitespace to move into. The only way they do save space—and by space I mean a pixel or two—is because the floating label is often small which is a problem in its own right.
+Forms expert, Luke Wobrelski[^lukew] hasn't got any data at scale that shows shaving pixels in forms increases conversion or usability. In anycase they don't actually save space because floating labels need space to move into.
 
-Scanning a form is not the only aspect of the experience either. Users have to read instructions, fill them in and fix errors too. Floating labels cause problems with this.
+Besides, scanning a form is not the only user need. Users have to read instructions, fill them in and fix errors too. Floating labels are problem because:
+
+- There is no space for hint. The label and hint are one and the same
+- They are hard to read due to poor contrast and small text
+- Like placeholders, they may be mistaken for a value
 
 I've counted nine problems in total, which you can read about in Floating Labels Are Problematic[^].
 
@@ -103,19 +107,19 @@ Employing a pattern that is both problematic and constraining at the same time, 
 
 Ultimately, this book is about designing forms that work. Forms that don't drive users crazy. Forms that have as little friction as possible.
 
-And so, we'll use a pattern that has an ever present, high-contrast and easy to read label and hint. We'll leave placeholders and floating labels to our competitors.
+And so, we'll use a pattern that has an ever present, high-contrast and easy to read label and hint. We'll leave placeholders and floating labels to our competitors and use better techniques to reduce the size of forms.
 
 ## The Question Protocol
 
-Nobody wants to use forms. They just want the outcome from doing so. We have to ensure that outcome is appealing. If, for example, it's a registration form, the user may benefit from:
+Nobody wants to use forms. They are not a source of entertainment. People just want the end result. Paying off their debts, receiving some new shoes, or receving a new tax disc so they avoid fines and save money.
+
+When we put a form in front of someone we have to make sure that there are good reasons for doing so. Why then, are we suggesting people register? Perhaps it's because in doing so the user will get:
 
 - a faster checkout
 - order tracking
-- receiving a 10% discount
+- a 10% discount
 
-But if users don't get any of these benefits we have to question the very existence of the form. It's not just the overall form though, it's the questions within the form that need justification too.
-
-Government Digital Services (GDS) has the Question Protocol. It states that *before you start designing a form, make a list of all the information you need from your users. Only add a question if you know:*
+It's not just the form itself though. It's the questions within the form that need justification too. Government Digital Services’ (GDS) Question Protocol suggests that before starting design, make a list of the information you need from users. Then, only add a question if you know:
 
 - that you need the information to deliver the service
 - why you need the information
@@ -134,29 +138,29 @@ For our registration form, we might want to ask ourselves:
 
 ### Do we need to ask for their first and last name?
 
-Why do we the user's name to register? We don't. We just need a secure way for them to login and a line of communication to manage their account. An email and password is enough.
+Users don't need to tell us their name to register for an account. The minimum they need to do is provide an email and password. And maybe not even a password is needed (more on this shortly).
 
-If we do need their name for a specific reason, then it's okay to include it. Or it might be better to ask for it later when it's more relevant to ask for it. Perhaps during checkout when providing a delivery address.
+If at some stage we do need their name, we should ask for it then, in context. For example, asking for their name during checkout is required in order to deliver the address to the recipient.
 
-Removing it here halves the size of the form and will almost certainly improve conversion. A simple question, a simple answer and a better experience.
+We'll remove these tewo fields in our form. In doing so it halves the size of our form. A simple question, a simple answer and a better experience. This naturally reduces the height of the form, but without resorting to novel and problematic design patterns.
 
 ### Do we need to ask for a password?
 
-Medium.com have implemented a no password sign in[^]. They leverage the security of email accounts by sending the user a login link. This would result in our registration form slimming down to a single email field.
+Medium.com have implemented a no password sign in[^]. A no password sign-in works by leveraging the security of email accounts (that do have a password) by sending the user a login link. 
 
-However, this may be over-simplifying things. For one, people are familiar with an email address and password (although that is not a reason in itself to avoid improving the experience of course).
+If we were to use this technique, this would reduce our registration form down to a single field. But this may be an over simplification. Users are less familiar with this approach, although that is not a reason in itself to avoid improving the experience.
 
-For two, people who know their password, or use a password manager, have to switch between the site and their email account, which becomes an unnecessary source of friction.
+More importantly when people login, they have to switch to their email account (which also requires logging in to). For those that know their password, or use a password manager, this switching is actually a lot slower.
 
-This goes to show that designing a form in isolation is not a sensible way to go. Which is why the Question Protocol is something that helps us think about the journey as opposed to single screens.
+This shows that designing a form in isolation is not a sensible approach to design. The Question Protocol helps us think about the journey as a whole.
 
-The point of this discussion is not to provide a definitive answer as to how many fields a registration form should have. What's important is that we need to rigorously ask ourselves why we are asking users for information in the first place and how we may be able to improve an experience by simply not asking users at all.
+This discussion doesn't show that one approach is better than the other necessarily. It simply proves that discussion and analysis is a good thing and makes us conscious of our decisions and the effect they have on users. 
 
-We'll keep the password field in our registration form which will help to keep the experience familiar and straightforward for most users. Moving away from convention is something we should do through testing. Otherwise we may end up exchanging one set of problems for another.
+We'll keep the password field making the experience familar and straightforward for most users. Moving away from convention is something we should do through testing. Otherwise we may end up exchanging one set of problems for another.
 
 ### Are there better ways of asking for a password?
 
-Many sites ask for a complex set of password rules. They must have at least:
+Passwords are typically designed to conform to a complex set of rules. They must have at least:
 
 - eight characters
 - one uppercase letter
@@ -165,7 +169,9 @@ Many sites ask for a complex set of password rules. They must have at least:
 
 Where possible, we should avoid asking users to create complex passwords because they are hard to remember. In the case of simplifying the password field, we might consider passphrases[^2].
 
-A passphrase has many benefits but they are also less familiar to users so for our form we'll stick to the common and familiar pattern and solve the challenge inherent in the traditional password field.
+Like the No Password technique, a passphrase has many benefits but they are uncommon and unfamilar. Once again this is something we should explore through testing.
+
+We'll stick to a more traditional password field (that has complex rules). In doing so we'll look at ways to make such a field easy to use.
 
 ## Email field
 

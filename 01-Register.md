@@ -173,17 +173,15 @@ Like the No Password technique, a passphrase has many benefits but they are unco
 
 We'll stick to a more traditional password field (that has complex rules). In doing so we'll look at ways to make such a field easy to use.
 
-## Highlighting required fields
+## Marking required fields
 
-Many users don't notice that some fields are required and some are not. In anycase though, the Question Protocol encourages forms that only asks for the essential. In doing so, all fields are required and there is nothing to highlight. This is the case for the registration form.
+Traditionally, we've marked required fields using an asterisk. A legend, above the form would explain the meaning behind it. I'm not entirely sure how this came to be, but having a layer of abstraction puts cognitive strain on the user.
 
-If you have a good reason to show optional fields, then it's better to highlight those. As Jessica Enders says, the point of a highlight is to highlight the rare and different. Otherwise it's noise instead of signal.
+Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains things.*
 
-Similarly, imagine a filter form which is full of options. There is no point in marking everything as optional.
+As we've seen, the Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In *Required versus optional fields* Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.* 
 
-Our registration form only has required fields and so there is no value in highlighting anything.
-
-In the case that you have a form that has a genuine need for an optional field, then putting the word *optional* in brackets inside the label is a simple and inclusive approach.
+If required fields are the norm, and optional fields aren't then it's the optional fields we should think about marking. In this case put the words optional (in brackets) and inside the label to ensure it is fully accessible.
 
 ## Label position
 

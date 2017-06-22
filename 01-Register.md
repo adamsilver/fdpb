@@ -107,26 +107,26 @@ And so, we'll use a pattern that has an ever present, high-contrast and easy to 
 
 ## The Question Protocol
 
-Nobody wants to use the forms we put in front of them, they just want the outcome. If, for example, we're asking users to register for an online shop, the appeal may lie in one or all of the following selling points:
+Nobody wants to use forms. They just want the outcome from doing so. We have to ensure that outcome is appealing. If, for example, it's a registration form, the user may benefit from:
 
-1. Users can buy faster next time, as they don't have to type the same details over and over.
-2. Users can track their order, without having to make a phone call.
-3. Users will receive 10% off their next order.
+- a faster checkout
+- order tracking
+- receiving a 10% discount
 
-As the first chapter is dedicated to registration, we're going to assume we need it. But the fields *within* the form need to justify their existence.
+But if users don't get any of these benefits we have to question the very existence of the form. It's not just the overall form though, it's the questions within the form that need justification too.
 
-Government Digital Services (GDS) has something called the Question Protocol. It states that *before you start designing a form, make a list of all the information you need from your users. Only add a question if you know:*
+Government Digital Services (GDS) has the Question Protocol. It states that *before you start designing a form, make a list of all the information you need from your users. Only add a question if you know:*
 
--*that you need the information to deliver the service*
--*why you need the information*
--*what you’ll do with it*
--*which users need to give you the information*
--*how you’ll check the information is accurate*
--*how to keep the information up to date and secure*
+- that you need the information to deliver the service
+- why you need the information
+- what you’ll do with it
+- which users need to give you the information
+- how you’ll check the information is accurate
+- how to keep the information up to date and secure
 
-When we ask ourselves why we need to ask for certain information it should map back to a user need. For example, by asking the users to sign up, we can speed up the experience drastically the next time.
+Asking these questions ensures we justify the existence of each question. And in doing so urges us to explore more simpler ways of getting users to fill out forms.
 
-Additionally, the Question Protocol urges us to think about how we ask for information. Is there a more simpler way. Let's use the Question Protocol to answer the following questions:
+For our registration form, we might want to ask ourselves:
 
 - Do we need to ask for their first and last name?
 - Do we need to ask for a password?
@@ -134,11 +134,11 @@ Additionally, the Question Protocol urges us to think about how we ask for infor
 
 ### Do we need to ask for their first and last name?
 
-Why do we need someones name to give them the ability to register? We don't, we just need a secure way for them to login and a means to communicate to them. An email and password suffices.
+Why do we the user's name to register? We don't. We just need a secure way for them to login and a line of communication to manage their account. An email and password is enough.
 
-If we do need their name for a specific reason later on, then we should ask for it later on too and justify to ourselves and to them why we're asking for it.
+If we do need their name for a specific reason, then it's okay to include it. Or it might be better to ask for it later when it's more relevant to ask for it. Perhaps during checkout when providing a delivery address.
 
-Removing it here reduces the size of the form by half, and will almost certainly improve conversion. A simple question, a simple answer and a better experience.
+Removing it here halves the size of the form and will almost certainly improve conversion. A simple question, a simple answer and a better experience.
 
 ### Do we need to ask for a password?
 

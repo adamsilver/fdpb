@@ -185,31 +185,31 @@ If required fields are the norm, and optional fields aren't then it's the option
 
 ## Label position
 
-You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left of the field to reduce the height of a form. We already know that reducing the height of a form is not a good reason on its own.
+You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left of the field. The only so-called advantage of this is that it reduces the height. However, we already that mindlessly striving to reduce the height of a form is unwise.
 
-Moreover, there is no room on small screens to fit the label in. Even on big screens they are constraining—if the label is long and wraps, the flow of the form goes awry and hurts scanability.
+Regardless, there is no space on small screens to put the label here anyway. And even on big screens placing labels beside the field is unnecessarily constraining. This is because if the label wraps onto multiple lines, the flow of the form is disrupted and thus hinders scanability.
 
-By putting the label above the field gives us a pattern that accomodates the various different content lengths that different forms will need.
+You might be thinking that as long as we make labels terse we need not worry about the wrapping and thus the problem goes away. But some questions require longer labels and hints. Putting the label above the field enables us to use a pattern that accomodates to the needs of different questions and their content.
 
 ## Focus styles
 
-By default, browsers apply a focus style to the active element. This also applies to form fields. This behaviour lets users know where they are, which is particularly helpful for keyboard users.
+By default, and without any effort on our part, browsers give active form fields a focus style in the form of an outline. This is helpful in its own right, but especially so for those using keyboards.
 
-Some designers dislike the aesthetic of the browser defaults, because it *doesn't match the brand* or some such. In the mist of their dislike, they ask the developer to remove it. This is okay as long as they replace it.
+Some designers dislike the default styling that the browser vendors chose. So much so that they often ask their developer to remove it altogether. This is an inclusive design anti pattern that we must avoid.
 
-I've found that replacing it with a coloured border or outline (that has a different thickness to the default) makes this beautiful and functional at the same time.
+If you want to have a focus style that is more in keeping with your design system, then be sure to replace it with something more suitable, but do not remove it.
 
 ![blah]()
 
 ## Email field
 
-Like most sites, our registration form asks users to enter their email address. HTML5 gave us a dedicated input type that improves the experience for people using supporting browsers&mdash;nowadays that's most of them.
+The first field asks users for their email. As this is self explanatory we don't need a hint. And the text of the label should be *email address*. As obvious as this may sound to us here, some sites actually label the field username. Where possible we should be specific and explicit.
 
-The benefit of using this input type is that on-screen keyboards will include readily accessible *@* and *.* characters which email addresses must contain.
+As we're asking users for their email address we can use HTML5’s `input[type="email"]`. In doing so it improves the experience for those using supporting browsers. Nowadays that's most. The benefit is that mobile devices will display dedicated on-screen keyboards that expose a readily accessible @ and period characters which every email address contains.
 
 ![Put image here of email keyboard]()
 
-People using a non-supporting browser will get a standard text field (`type="text"`) and a standard keyboard. This is the beauty of progressive enhancement, which is an important technique that we'll be using throughout this book.
+Non-supporting browsers will fall back to a standard text field and thus a standard keyboard. No biggie. This is one of the advantages of progressive enhancement, a principle we'll be using throughout this book. A principle that is one of the cornerstones of designing inclusive experiences.
 
 ## Password field
 

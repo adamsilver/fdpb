@@ -8,7 +8,7 @@
 - Question Protocol
 	- First and last name
 	- Password
-- Marking required fields
+- Highlighting required fields
 - Positioning labels
 - Focus styles
 - Email field

@@ -173,6 +173,38 @@ Like the No Password technique, a passphrase has many benefits but they are unco
 
 We'll stick to a more traditional password field (that has complex rules). In doing so we'll look at ways to make such a field easy to use.
 
+## Highlighting required fields
+
+Many users don't notice that some fields are required and some are not. In anycase though, the Question Protocol encourages forms that only asks for the essential. In doing so, all fields are required and there is nothing to highlight. This is the case for the registration form.
+
+If you have a good reason to show optional fields, then it's better to highlight those. As Jessica Enders says, the point of a highlight is to highlight the rare and different. Otherwise it's noise instead of signal.
+
+Similarly, imagine a filter form which is full of options. There is no point in marking everything as optional.
+
+Our registration form only has required fields and so there is no value in highlighting anything.
+
+In the case that you have a form that has a genuine need for an optional field, then putting the word *optional* in brackets inside the label is a simple and inclusive approach.
+
+## Label position
+
+You'll notice that we've placed the label and hint above the field. This is not by accident. The alternative is to place labels to the left of the field but has the following problems.
+
+There is no room on small screens. To design inclusive forms we want them to work well on small screens as well as big. Even on big screens they are constraining. If label/hint text wraps on two lines the flow of the form goes awry.
+
+There's also some evidence the people fill out forms faster when the label is above the field. The only supposed downside is that it increases the height of forms, but as we've discussed already there is no defintive data that shows reducing the height in and of itself helps users.
+
+The Question Protocol and other techniques in this book well ensure our forms are short and easy to use rendering the question of height completely obselete.
+
+## Focus styles
+
+By default, browsers apply a focus style to the active element. This also applies to form fields. This behaviour lets users know where they are, which is particularly helpful for keyboard users.
+
+Some designers dislike the aesthetic of the browser defaults, because it *doesn't match the brand* or some such. In the mist of their dislike, they ask the developer to remove it. This is okay as long as they replace it.
+
+I've found that replacing it with a coloured border or outline (that has a different thickness to the default) makes this beautiful and functional at the same time.
+
+![blah]()
+
 ## Email field
 
 Like most sites, our registration form asks users to enter their email address. HTML5 gave us a dedicated input type that improves the experience for people using supporting browsers&mdash;nowadays that's most of them.
@@ -214,30 +246,6 @@ What's not as obvious is the text we should use for the password field. The labe
 It might also subtly suggest the user is already registered. And they might forget what they're doing and think they're signing in. In which case  "Choose password" may be an improvement that provides clarity from all perspectives. This reinforces the fact a) they are signing up and b) that they should create a new password.
 
 Once again, the point of this discussion is not to provide the definitive answer on the correct label for your form. The point is to think about the importance of labelling in general. Friends of mine say *Content is the user experience* and this is a good way to reinforce this principle.
-
-## Required fields
-
-In *Do we really need it?*, we made sure that we only ask users for what is necessary. For this reason, all fields in our registration form are required. Most users in fact expect all fields to be required anyway. And it's visually and audibly noisey to specify required fields. Fortunately, in this case we don't need to tackle this problem here. But we will do in upcoming chapters.
-
-## Positioning
-
-We already know that we must include a clear, always visible and well-written label. What we haven't discussed is the best position for them in relation to the form control.
-
-In *The Definitive Guide To Form Label Positioning*[^] Jessica Enders explains that there are advantages and disadvantages to labels that are position above the control as well as those that are placed beside the control.
-
-There's no clear answer. But, what we know is that on small screens there is no room for the label to fit next to the field. Seeing as we want to design forms that work well responsively, it would be prudent to simply keep the labels above the controls, until extensive research shows otherwise.
-
-What's more important than any of this though is of course consistency.
-
-## Focus styles
-
-By default, browsers apply a focus style to the active element. This also applies to form fields. This behaviour lets users know where they are, which is particularly helpful for keyboard users.
-
-Some designers dislike the aesthetic of the browser defaults, because it *doesn't match the brand* or some such. In the mist of their dislike, they ask the developer to remove it. This is okay as long as they replace it.
-
-I've found that replacing it with a coloured border or outline (that has a different thickness to the default) makes this beautiful and functional at the same time.
-
-![blah]()
 
 ## Submit buttons
 

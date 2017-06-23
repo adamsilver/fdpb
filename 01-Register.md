@@ -146,7 +146,7 @@ By removing the first and last name fields, we've halved the size of the form. A
 
 ### Do we need to ask for a password?
 
-Medium.com have implemented a no password sign in[^]. A no password sign-in works by leveraging the security of email accounts (that do have a password) by sending the user a login link. 
+Medium.com have implemented a no password sign in[^]. A no password sign-in works by leveraging the security of email accounts (that do have a password) by sending the user a login link.
 
 If we were to use this technique, this would reduce our registration form down to a single field. But this may be an over simplification. Users are less familiar with this approach, although that is not a reason in itself to avoid improving the experience.
 
@@ -154,24 +154,26 @@ More importantly when people login, they have to switch to their email account (
 
 This shows that designing a form in isolation is not a sensible approach to design. The Question Protocol helps us think about the journey as a whole.
 
-This discussion doesn't show that one approach is better than the other necessarily. It simply proves that discussion and analysis is a good thing and makes us conscious of our decisions and the effect they have on users. 
+This discussion doesn't show that one approach is better than the other necessarily. It simply proves that discussion and analysis is a good thing and makes us conscious of our decisions and the effect they have on users.
 
 We'll keep the password field making the experience familar and straightforward for most users. Moving away from convention is something we should do through testing. Otherwise we may end up exchanging one set of problems for another.
 
 ### Are there better ways of asking for a password?
 
-Passwords are typically designed to conform to a complex set of rules. They must have at least:
+Passwords are generally short, hard to remember and easy to crack, even if they adhere to the following rules:
 
 - eight characters
 - one uppercase letter
 - one lowercase letter
 - one number
 
-Where possible, we should avoid asking users to create complex passwords because they are hard to remember. In the case of simplifying the password field, we might consider passphrases[^2].
+Where possible we want to ask users something that is easy to remember and more secure. Passphrases are easier to remember. They are considered more secure due to their length and the fact you don't need to write them down.
 
-Like the No Password technique, a passphrase has many benefits but they are uncommon and unfamilar. Once again this is something we should explore through testing.
+A passphrase is a series of words such as ‘monkeysinmygarden’. The only downside is that this approach is unfamiliar and unfamiliarity, especially with passwords causes anxiety.
 
-We'll stick to a more traditional password field (that has complex rules). In doing so we'll look at ways to make such a field easy to use.
+Again, we shouldn't discount this technique because it's new, but we should explore the validity of the approach with users before making the decision either way.
+
+We'll stick to a more traditional password field that requires a set of complex rules. In doing so we'll look at ways to make this approach easy to use.
 
 ## Marking required fields
 
@@ -179,7 +181,7 @@ Traditionally, we've marked required fields using an asterisk. A legend, above t
 
 Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains things.*
 
-As we've seen, the Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In *Required versus optional fields* Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.* 
+As we've seen, the Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In *Required versus optional fields* Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.*
 
 If required fields are the norm, and optional fields aren't then it's the optional fields we should think about marking. In this case put the words optional (in brackets) and inside the label to ensure it is fully accessible.
 
@@ -203,25 +205,43 @@ If you want to have a focus style that is more in keeping with your design syste
 
 ## Email field
 
-The first field asks users for their email. As this is self explanatory we don't need a hint. And the text of the label should be *email address*. As obvious as this may sound to us here, some sites actually label the field username. Where possible we should be specific and explicit.
+There's a few things to notice about the label:
 
-As we're asking users for their email address we can use HTML5’s `input[type="email"]`. In doing so it improves the experience for those using supporting browsers. Nowadays that's most. The benefit is that mobile devices will display dedicated on-screen keyboards that expose a readily accessible @ and period characters which every email address contains.
+- The label is specific. It says ‘Email address’. Some sites will label this field as ‘Username’ which is ambiguous. We should design specific labels where possible.
+- The label uses sentence case because as John Saito explains in Making a Case for Letter Case[^], it's easier to read, friendlier and easier to spot Nouns.
+- There is no need for a hint as the label is enough.
+
+### Input type email
+
+HTML5 gave us the `email` input which improves the experience for those using a supporting browser. Nowadays that most.
+
+Using this field on a mobile phone, for example, will show a *dedicated* on-screen keyboard with readily accessible ‘@’ and ‘.’ symbols which every email address needs.
 
 ![Put image here of email keyboard]()
 
-Non-supporting browsers will fall back to a standard text field and thus a standard keyboard. No biggie. This is one of the advantages of progressive enhancement, a principle we'll be using throughout this book. A principle that is one of the cornerstones of designing inclusive experiences.
+Non-supporting browsers will fall back to a standard text field. This is one of the many advantages of progressive enhancement. Progressive enhancement improves the experience where possible without hurting others.
+
+Progressive Enhancement is a cornerstone of Inclusive Design, a technique that we'll be using throughout this book.
 
 ## Password field
 
-A password field (`input type="password"`) shows circles for each character typed. This is a security measure that protects users from people looking *over the shoulder*.
+The password label is ‘Password’. However, the label is not enough information on its own. So we can use the hint pattern to explain the rules that constitute a valid password.
 
-The problem with circles, is that it's much harder for users to fix typos because the value is obscured. And because of this, it's often easier to delete the whole entry and start over, than it is to work out which circles you're confident are correct.
+### Input type password
 
-In reality, it's not often that people are standing behind you as you type your password. For this reason it's a good idea to enhance the field with a password reveal[^3]. It's no less secure and it's significantly easier to use because the user can check what they type.
+A password should use the `password` input type. It will show a circle for each character the user types. This is a security measure that guards against ‘over the shoulder spying’.
 
-The password reveal also stops the need to use an additional "confirm password" field which further reduces user's workload.
+The problem is that it's hard to fix typos as the value is obscured. Because of this, it's often easier to delete the whole entry and start over.
 
-Some browsers provide a password reveal natively. So if you write your own cross-browser solution, then you'll want to supress this functionality:
+Also, most of the time, people aren't lurking over our shoulder. Regardless, people would feel anxious if we were to show the password in plain text.
+
+For all these reasons it's a good idea to have a password reveal. It's no less secure, and it gives users choice to see what it is they've typed.
+
+Being able to check their password, also means we don't have to add an extra ‘Confirm password’ field which reduces effort.
+
+### Password reveal component
+
+Some browsers provide this behaviour natively. If you're crafting your own solution then you'll want to supress this:
 
 ```css
 input[type=password]::-ms-reveal {
@@ -229,19 +249,15 @@ input[type=password]::-ms-reveal {
 }
 ```
 
-Removing the masking altogether is an option, but as we've already discussed, moving away from conventions that are familar can breed fear into people that already have concerns with security and privacy on the Internet.
+```JS
+Inject button with aria-pressed
+Dont change text
+```
 
-## Label text
+#### Notes
 
-Whilst we've discussed the importance of labels, we haven't addressed the text itself. This is so important. What may seem obvious may not always be.
-
-I've often seen email addresses labelled as "username". But if the username always requires an email address we should make that clear. So our email field has a label value of "Email address", accordingly.
-
-What's not as obvious is the text we should use for the password field. The label "Password" is potentially missing some clarity. It could suggest that the user needs to type a password they already possess. This is both incorrect and bad for security.
-
-It might also subtly suggest the user is already registered. And they might forget what they're doing and think they're signing in. In which case  "Choose password" may be an improvement that provides clarity from all perspectives. This reinforces the fact a) they are signing up and b) that they should create a new password.
-
-Once again, the point of this discussion is not to provide the definitive answer on the correct label for your form. The point is to think about the importance of labelling in general. Friends of mine say *Content is the user experience* and this is a good way to reinforce this principle.
+- Create a button that toggles the input type
+- Use aria-pressed without changing the text.
 
 ## Submit buttons
 

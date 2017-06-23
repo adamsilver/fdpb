@@ -42,7 +42,7 @@ Many forms omit labels in order to save space but this is the worst thing we can
 
 ## Placeholders and hints
 
-The `placeholder` attribute is used to store additional text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as our password field.
+The `placeholder` attribute is used to store additional text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as the password field.
 
 Unlike labels, placeholders are optional. Designers find them appeaing due to their minimal aesthetic and the fact they save space.
 
@@ -59,7 +59,7 @@ I've counted 7 additional problems which you can read about more deeply in Place
 
 Content isn't an enhancement[^]. Therefore, if a hint helps users we should make sure it's readily accessible. We can do this by placing it outside the field below the label.
 
-This is how it looks in our registration form, but we'll use this pattern throughout the book.
+This is how it looks in the registration form, but we'll use this pattern throughout the book.
 
 ![]()
 
@@ -130,7 +130,7 @@ It's not just the form itself though. It's the questions within the form that ne
 
 Asking these questions ensures we justify the existence of each question. And in doing so urges us to explore more simpler ways of getting users to fill out forms.
 
-For our registration form, we might want to ask ourselves:
+For the registration form, we might want to ask ourselves:
 
 - Do we need to ask for their first and last name?
 - Do we need to ask for a password?
@@ -140,9 +140,9 @@ For our registration form, we might want to ask ourselves:
 
 Users don't need to tell us their name to register for an account. The minimum they need to do is provide an email and password. And maybe not even a password is needed (more on this shortly).
 
-If at some stage we do need their name, we should ask for it then, in context. For example, asking for their name during checkout is required in order to deliver the address to the recipient.
+If at some stage we do need their name, we should ask for it then, in context. For example, asking for their name during checkout is required as part of a delivery address form.
 
-We'll remove these tewo fields in our form. In doing so it halves the size of our form. A simple question, a simple answer and a better experience. This naturally reduces the height of the form, but without resorting to novel and problematic design patterns.
+By removing the first and last name fields, we've halved the size of the form. A simple question, a simple answer and a better experience. This *naturally* reduces the height of the form without resorting to problematic design patterns such as those discussed earlier.
 
 ### Do we need to ask for a password?
 

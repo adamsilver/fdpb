@@ -258,6 +258,7 @@ Dont change text
 
 - Create a button that toggles the input type
 - Use aria-pressed without changing the text.
+- Or, change the text and use aria-checked=true/false
 
 ## Submit buttons
 

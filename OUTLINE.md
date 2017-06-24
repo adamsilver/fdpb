@@ -20,6 +20,7 @@
 	- Input type
 	- Password reveal
 - Submit buttons
+	- Text
 	- Cursor
 	- Placement
 - Validation

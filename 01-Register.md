@@ -250,61 +250,86 @@ input[type=password]::-ms-reveal {
 ```
 
 ```JS
-Inject button with aria-pressed
-Dont change text
+function PasswordReveal(el) {
+    this.el = el;
+    this.passwordControl = $(el);
+    this.showingPassword = false;
+    this.createButton();
+};
+
+PasswordReveal.prototype.createButton = function() {
+    this.button = $('<button>'+this.showText+'</button>');
+    this.passwordControl.parent().append(this.button);
+    this.button.on('click', $.proxy(this, 'onButtonClicked'));
+};
+
+PasswordReveal.prototype.onButtonClicked = function(e) {
+    e.preventDefault();
+    if(this.showingPassword) {
+        this.hidePassword();
+    } else {
+        this.showPassword();
+    }
+};
+
+PasswordReveal.prototype.showPassword = function() {
+    this.el.type = 'text';
+    this.showingPassword = true;
+    this.button.text('Hide password');
+};
+
+PasswordReveal.prototype.hidePassword = function() {
+    this.el.type = 'password';
+    this.showingPassword = false;
+    this.button.text('Show password');
+};
 ```
 
-#### Notes
-
-- Create a button that toggles the input type
-- Use aria-pressed without changing the text.
-- Or, change the text and use aria-checked=true/false
+The script creates a `button` that when clicked changes the input type to `text`. And when clicked again, back to `password`.
 
 ## Submit buttons
 
-Designing a button is straightforward, and yet the aggregration of small details goes a long way.
+The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned to differentiate them amongst other words. For those using a mouse the cusor will change to a hand. This is because, unlike buttons, links have weak affordance[^].
 
-The first thing to note about buttons is that they aren't links. Links typically have special positioning (such as those placed within a header) and underlines to denote their meaning. And they also have a hand cursor (also known as a pointer).
+As buttons aren't links we shouldn't make them look like links and we shouldn't give them the hand cursor. What we should do is make them look like buttons. Buttons have strong affordance.
 
-As buttons aren't links, we shouldn't give them any of this treatment. They should look like a button in order to help users realise they are different. Fortunately buttons have a strong affordance[^] anyway, and so we don't need to mess with them.
+We should place the button beneath the form fields. This follows the flow of the form and intuitively meets users expectation[^position]. This also helps users who zoom—a right-aligned button disappears off-screen easily.
 
-We should align the button to left, inline with the fields themselves. It doesn't make much sense to position the fields to the left, and the submit button to the right. If labels sit atop of the field, the vertical rhythm is straight down. This provides an intuitive expectation that what comes next will appear directly below.
+The text of the button is just as important. It should be descriptive and terse. It should almost definitely be a verb and if they need more than one word, use sentence case.
 
-Moreover, aligning buttons to the left will help users who zoom. Conversely a right-aligned button would disappear off-screen.
-
-The button's text must be descriptive of the action being taken. In our case "Register" or "Sign up" is both meaningful and terse. The exact words might need to align more with your brand and tone of voice but don't exchange clarity for cuteness.
-
-Whilst each of these things seem small in isolation, it's the combination that makes the difference to users. Most sites don't care about these details, but we do.
+The exact words may differ to match your brand's tone of voice but don't exchange clarity for cuteness. In our case ‘Register’ is good.
 
 ## Validation
 
-Up to now, we've done as much as we can to make our registration form easy to use. We have clear, always visible labels. And we have readily accessible hints for added clarity where necessary.
+Up to now, we've done as much as we can to make sure the registration form is easy to use. We have clear, always visible labels. And we have readily-accessible well-written hints.
 
-We also have a layout that works well on small and big screens. And a design that caters for people who use a keyboard. And lastly we've considered the experience for people suffering from various visual or motor impairments.
+We have a layout that works well responsively. And an experience that caters for a broad range of users. However, people make mistakes. And when they do, it's our job to make fixing them painless.
 
-However, people make mistakes. And when they do, it's our job to design an experience which makes fixing them as quick and as painless as possible.
-
-Validation is the biggest design challenge we've faced so far and whilst it's not a huge design challenge, most sites get this wrong&mdash;either by not doing enough, or by doing too much. Or strangely by doing both at the same time. Don't worry, I'll explain.
+Validation is so important because this is when users are most frustrated. Many sites design a poor validation experience, either by not doing enough to help users, or bizarely doing too much. More on this shortly.
 
 To ensure users can fix errors easily, we'll need to tell them what's gone wrong and how to make it right. Our first discussion focuses on *when* to provide feedback.
 
 ### When to validate
 
-To design an inclusive experience we must first consider the experience without Javascript, which is more common than most think[^]. Fortunately, when we consider the experience for people without Javascript we're left with one option, which is to validate `onsubmit`.
+To design inclusively we must first consider the experience without Javascript, which is far more common than most people think it is[^]. When we consider this scenario we're left with no choice but to validate `onsubmit`.
 
-This is the beauty of designing to constraints. In this case, it means we can focus on designing the best form validation experience through submission to the server.
+> “There is no creativity without constraint”
 
-I've often found that&mdash;contrary to popular belief&mdash;making things work without Javascript often produces the best experience anyway. And in a recent large-scale project I was involved with, we *only* performed validation on the server, which worked very well.
+You might see this as constraining but it couldn't be more freeing. Constraints help us to design experiences that embrace the platform and help users. In practical terms, we get to focus on creating the best experience within the bounds of something that works for everyone.
 
-This is not to say I advise avoiding client-side validation. I'm simply pointing out that the so-called *degraded* experience may be all that users need. And if we don't need to provide the enhancement, then we don't need to write as much code. This in turn has the following benefits:
+Interestingly, I've often found the best experience is one that doesn't rely on Javascript anyway. In a recent project we only performed validation on the server and it worked really well.
+
+This is not to say client-side validation is bad. I'm simply pointing out that the so-called *degraded* experience may be all that users need. And if we don't need to provide the enhancement, then we don't need to write as much code. This has the following benefits:
 
 1. We have less work to do
 2. We have to send less code to the user (meaning a faster experience)
-3. It has a wider (read: inclusive) reach by default.
+3. It's more inclusive by default.
 
-In any case, we can't validate everything on the client. At some point we're going to have to interogate the database. For people to register successfully they will need to enter an email address that hasn't been used, for example.
+In any case, we can't validate everything on the client with Javascript. At some point we're going to have to interogate the database. For people to register successfully they will need to enter an email address that hasn't been taken, for example.
 
 By designing first without Javascript, not only do we reach a wider audience, but we also cover scenarios that we may have forgotten about had we jumped straight into the all-singing and all-dancing fancy-pants solution.
+
+--
 
 In short, we'll validate forms onsubmit. This is something that forms do by default and is fully accessible out of the box. Validating on submit gives users consistency and familiarity whether Javascript is available or whether the form was sent through to the server.
 
@@ -463,3 +488,4 @@ Jared: That stupid credit card security code, that is erased as long as there’
 [^5]:https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p
 [^6]:http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
 [^lukesays]: https://twitter.com/lukew/status/872861520811614208?s=09
+[^position]: http://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php

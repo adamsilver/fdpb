@@ -321,57 +321,57 @@ The exact words may need matching to your brand's tone of voice but don't exchan
 
 ## Validation
 
-It would be fair to say we've ensured the registration is easy to use. We're only asking two questions and those questions are clear and readily accessible.
+We've put in great effort to create a well thought out and well designed registration form. Despite these efforts, we cannot eradicate human error. People make mistakes and it's our job to make sure they know exactly how to fix them
 
-The fields work responsively and the experience caters for a broad range of users. Despite our efforts, we cannot eradicate human error. People make mistakes and when they do, it's our job to make fixing these mistakes easy.
+Many websites provide a neglected experience. One that doesn't consider the broad range of users. Or bizarely, some websites try too hard to help users through inline validation—but more on this shortly.
 
-Validation is important because this is when users are most frustrated. Many websites provide a poor experience here. This is often because they either don't do enough to help or bizarely they do too much, but more on this shortly.
-
-To ensure errors easily remedied, we'll need to tell users what's gone wrong and how to fix it quickly. Our first discussion focuses on *when* to provide feedback.
+Ensuring errors are easily remedied relies on a few things. The first being *when* to provide feedback.
 
 ### When to validate
 
-To design inclusively we must first consider the experience without Javascript, which is far more common than you may think[^]. Without Javascript we are only able to validate a form `onsubmit`.
+To design inclusively we must first consider the experience without Javascript, which is far more common than you may think[^]. Without Javascript we are left with validating forms `onsubmit`.
 
-> “There is no creativity without constraint”
+> ‘There is no creativity without constraint’
 
-Constraints help us solve problems within certain boundaries that are defined by the platform and the users of said platform. I've found that, generally speaking, the best experiences are those that don't rely on Javascript anyway.
+Constraints help us solve problems. When we accept the constraints of a system and the users of that system, we narrow our focus of possibilities and make the best of those to the user's advantage.
 
-This is not to say validating forms with script is bad. It's just that something that may appear to be  problematic from the point of view of designers, may not be a problem at all for users. Without testing with users, we'll never know.
+I've found that, generally speaking, the best experiences are those that don't rely on Javascript anyway. On a recent project, we only performed validation on the server side, and nobody noticed.
 
-Not everything can be validated with Javascript anyway. At some point we're going to need to validate certain things on the server. To register an account, for example, we'll need to ensure nobody else signed up with their email address.
+This is not to say validating forms with script is bad. It's just that something that may appear to be  problematic from a designer's point of view, may not be a problem at all for users. Without testing with users, we can't know.
+
+Not everything can be validated with script anyway. At some point we're going to need to check information in a database. To register, for example, we'll need to ensure nobody else has an account with  their email address.
 
 By designing first without Javascript we reach a wider audience, and expose scenarios that we may have otherwise forgotten, had we jumped head first into the all-singing and all-dancing fancy-pants solution.
 
-If it wasn't clear already, we'll be validating `onsubmit` even when Javascript is available. This also promotes consistency, which breeds familiarity, two qualities often found in well-designed interfaces.
+When Javascript is available, we'll check as much as we can to save a server-side round trip, speeding up the process. We'll validate on submit, because we have to do that anyway.
 
-Despite the rant about ‘no Javascript’, a client-side solution is useful because it saves users experiencing a round-trip, and subsequent page refresh, just to see a few formatting errrors.
+And doing it this way promotes consistency and familiarity, two qualities often found in well-designed interfaces. Whether validation is performed on the client, or caught on the server, the order of things will be the same.
 
 #### Inline validation
 
-One question still remains though. When Javascript is available, we have an opportunity to provide what's commonly called *live validation*. The theory is that it's easier to fix errors as soon as they occur. The thing is, live validation introduces more problems than it solves.
+One question still remains though. When Javascript is available, we also have an opportunity to provide feedback as the user types. The theory is that it's easier to fix errors as soon as they occur. The thing is, inline validation is problematic.
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted early and often.
 
 We could wait until the user has entered enough characters before showing an error. But this means the only way in which a user will get feedback is after they have completed the field successfully which is pointless.
 
-Alternatively, we could provide feedback when the user leaves the field (on `blur`) but this is too late. The user has already started to mentally prepare for (and to fill out) the next field.
+Alternatively, we could provide feedback when the user leaves the field (`onblur`) but this is too late. The user has already started to mentally prepare for (and to fill out) the next field.
 
-Another problem with triggering the feedback on `blur` is that many people switch windows or use a password manager to assist in filling out forms. But leaving the field will cause an error to show prematurely when the user hadn't finished yet.
+Another problem with triggering the feedback `onblur` is that many people switch windows or use a password manager to assist in filling out forms. But leaving the field will cause an error to show prematurely when the user hasn't finished yet.
 
-This is just a few of the associated problems. I've counted 5 others which you can read about in Live Validation Is Problematic[^] if you're interested.
+This is just a few of the problems with inline validation. I've documented the other problems in Inline Validation is Problematic[^] if you'd like to know more.
 
-As is often the case in our industry, live validation is a technique that causes more problems than it solves. We'll stick to robust and simple techniques that help users. We'll validate on `submit` and leave the clever stuff to our competitors.
+Inline validation is a technique that causes more problems than it solves. We'll stick to robust and simple techniques that help users. We'll validate `onsubmit` and leave inline validation to our competitors.
 
-#### Disabling buttons until valid
+#### Disabling buttons until the form is valid
 
-I've seen some forms that will start off as disabled until a user fills out the fields successfully. As you will probably have guessed by now, this presents several difficulties.
+Some forms start off with the submit button disabled. Then when the user fills in all the fields successfully, the button will enable, giving users a clue that they can continue. This presents several problems for users.
 
-First, as we said earlier, valid formats does not make valid forms. So as the form becomes valid, and enables the button only to be a shown an error later is frustrating.
+First, as we said earlier, valid formats do not make valid forms. So as the form becomes valid, and enables the button only to be a shown an error later is frustrating.
 
 Second, disabled buttons are greyed out making them hard to read for those with poor eyesight.
 
-Third, they don't convey *why* they are disabled, or what it takes for it to enable. This is why we validate on submit, because allowing the user to submit, allows the system to respond with errors, helping the user to progress.
+Third, they don't convey *why* they are disabled, or what it takes for it to be valid. This is why we validate on submit, because allowing the user to submit, allows the system to respond with errors, helping the user to progress.
 
 #### HTML5 validation
 

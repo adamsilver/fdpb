@@ -289,57 +289,67 @@ The script creates a `button` that when clicked changes the input type to `text`
 
 ## Submit buttons
 
-The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned to differentiate them amongst other words. For those using a mouse the cusor will change to a hand. This is because, unlike buttons, links have weak affordance[^].
+When it comes to submit buttons there are three design considerations:
 
-As buttons aren't links we shouldn't make them look like links and we shouldn't give them the hand cursor. What we should do is make them look like buttons. Buttons have strong affordance.
+- Visual design
+- Placement
+- Label
 
-We should place the button beneath the form fields. This follows the flow of the form and intuitively meets users expectation[^position]. This also helps users who zoom—a right-aligned button disappears off-screen easily.
+### Visual design
 
-The text of the button is just as important. It should be descriptive and terse. It should almost definitely be a verb and if they need more than one word, use sentence case.
+The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned to differentiate them amongst other words. For those using a mouse the cursor will change to a hand on hover. This is because, unlike buttons, links have weak affordance[^].
 
-The exact words may differ to match your brand's tone of voice but don't exchange clarity for cuteness. In our case ‘Register’ is good.
+In *Resilient Web Design*, Jeremy Keith discusses the idea of material honesty. He says:
+
+> One material should not be used as a substitute for another. Otherwise the end result is deceptive.
+
+Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not. Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked.
+
+So it follows, buttons shouldn't look like links and they shouldn't use the hand cursor. Instead we should make them look like buttons.
+
+### Placement
+
+The primary action should be placed where users are naturally going to look for it. Eye tracking testing[^] shows that users naturally and intuitively look directly below the last field which makes sense from a flow perspective. This also helps users who zoom in as a right-aligned button would disappear off-screen easily.
+
+### Label
+
+The word *submit* is probably a bad name for a submit button. The word(s) should describe the specific action being taken and because it's an action it should be a verb.
+
+We should aim to use as few words as possible because they are quicker to read. But not at the cost of clarity. If you need two words to make the action clear then use sentence case.
+
+The exact words may need matching to your brand's tone of voice but don't exchange clarity for cuteness. In our case ‘Register’ works well.
 
 ## Validation
 
-Up to now, we've done as much as we can to make sure the registration form is easy to use. We have clear, always visible labels. And we have readily-accessible well-written hints.
+It would be fair to say we've ensured the registration is easy to use. We're only asking two questions and those questions are clear and readily accessible.
 
-We have a layout that works well responsively. And an experience that caters for a broad range of users. However, people make mistakes. And when they do, it's our job to make fixing them painless.
+The fields work responsively and the experience caters for a broad range of users. Despite our efforts, we cannot eradicate human error. People make mistakes and when they do, it's our job to make fixing these mistakes easy.
 
-Validation is so important because this is when users are most frustrated. Many sites design a poor validation experience, either by not doing enough to help users, or bizarely doing too much. More on this shortly.
+Validation is important because this is when users are most frustrated. Many websites provide a poor experience here. This is often because they either don't do enough to help or bizarely they do too much, but more on this shortly.
 
-To ensure users can fix errors easily, we'll need to tell them what's gone wrong and how to make it right. Our first discussion focuses on *when* to provide feedback.
+To ensure errors easily remedied, we'll need to tell users what's gone wrong and how to fix it quickly. Our first discussion focuses on *when* to provide feedback.
 
 ### When to validate
 
-To design inclusively we must first consider the experience without Javascript, which is far more common than most people think it is[^]. When we consider this scenario we're left with no choice but to validate `onsubmit`.
+To design inclusively we must first consider the experience without Javascript, which is far more common than you may think[^]. Without Javascript we are only able to validate a form `onsubmit`.
 
 > “There is no creativity without constraint”
 
-You might see this as constraining but it couldn't be more freeing. Constraints help us to design experiences that embrace the platform and help users. In practical terms, we get to focus on creating the best experience within the bounds of something that works for everyone.
+Constraints help us solve problems within certain boundaries that are defined by the platform and the users of said platform. I've found that, generally speaking, the best experiences are those that don't rely on Javascript anyway.
 
-Interestingly, I've often found the best experience is one that doesn't rely on Javascript anyway. In a recent project we only performed validation on the server and it worked really well.
+This is not to say validating forms with script is bad. It's just that something that may appear to be  problematic from the point of view of designers, may not be a problem at all for users. Without testing with users, we'll never know.
 
-This is not to say client-side validation is bad. I'm simply pointing out that the so-called *degraded* experience may be all that users need. And if we don't need to provide the enhancement, then we don't need to write as much code. This has the following benefits:
+Not everything can be validated with Javascript anyway. At some point we're going to need to validate certain things on the server. To register an account, for example, we'll need to ensure nobody else signed up with their email address.
 
-1. We have less work to do
-2. We have to send less code to the user (meaning a faster experience)
-3. It's more inclusive by default.
+By designing first without Javascript we reach a wider audience, and expose scenarios that we may have otherwise forgotten, had we jumped head first into the all-singing and all-dancing fancy-pants solution.
 
-In any case, we can't validate everything on the client with Javascript. At some point we're going to have to interogate the database. For people to register successfully they will need to enter an email address that hasn't been taken, for example.
+If it wasn't clear already, we'll be validating `onsubmit` even when Javascript is available. This also promotes consistency, which breeds familiarity, two qualities often found in well-designed interfaces.
 
-By designing first without Javascript, not only do we reach a wider audience, but we also cover scenarios that we may have forgotten about had we jumped straight into the all-singing and all-dancing fancy-pants solution.
+Despite the rant about ‘no Javascript’, a client-side solution is useful because it saves users experiencing a round-trip, and subsequent page refresh, just to see a few formatting errrors.
 
---
+#### Inline validation
 
-In short, we'll validate forms onsubmit. This is something that forms do by default and is fully accessible out of the box. Validating on submit gives users consistency and familiarity whether Javascript is available or whether the form was sent through to the server.
-
-I'll be providing a Javascript implementation[^] which behaves the same way as the server-side validation. The only difference is that it does so without a server-side round trip (and subsequent page refresh). The benefit to the user is a faster fail and succeed experience.
-
-If you decide to create your own script, be sure to attach the validation routine to the form's `submit` event and not onto the submit button's `click` event. The latter won't work for users[double check your memory on this] who press *enter* when focussed on various form controls, creating a less inclusive experience.
-
-#### Live validation
-
-One question still remains though. When Javascript is available, we have an opportunity to provide what's commonly called *live validation*. The theory is that it's easier to fix errors as soon as they occur which sounds sensible. The thing is, live validation introduces more problems than it solves.
+One question still remains though. When Javascript is available, we have an opportunity to provide what's commonly called *live validation*. The theory is that it's easier to fix errors as soon as they occur. The thing is, live validation introduces more problems than it solves.
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted early and often.
 

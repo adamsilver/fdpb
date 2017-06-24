@@ -27,7 +27,7 @@
 	- when to validate
 		- On submit
 		- Inline validation
-	- Disabling submit buttons
+		- Disabling until valid
 	- HTML5 validation
 	- Be forgiving
 	- Restore values
@@ -35,6 +35,7 @@
 		- Page title
 		- Summary
 		- In-context
+	- Validation component
 
 ## Checkout
 

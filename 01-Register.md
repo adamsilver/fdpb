@@ -423,25 +423,39 @@ When the user submits an erroneous form we'll need to inform the user by:
 
 #### Changing the page title
 
-When a page loads, the `title` is read out first by screen readers. So we'll update the title to read "The form has errors" (or words to that affect).
+When a page loads, the `title` is read out first by screen readers. So we'll update the title to read ‘The form has errors’ (or words to that affect).
 
-I recently worked on a project that was heavily accessibility checked by Royal National Institute of Blind People (RNIB). We prepended "Retry - " to the page title which tested well. As the experience became familiar, a short prompt like this, proved to be both informative and terse.
+On a recent project, the Royal National Institute of Blind People (RNIB) suggested we prepend ‘Retry — ’ which tested well. As the experience became familiar, this shorter prompt proved informative and terse.
 
-Whilst it's arguably less useful for those without vision impairments, it could still be a benefit. For users that multi-task and switch between tabs, having that text on the erroneous tab acts as a notification of sorts.
+Changing the `title` is mostly for those using screen readers. However, for those multi-tasking and switching between tabs, the title acts as a notification of sorts.
 
-For errors caught through client-side Javascript validation, the change of page title is less important (though you still can). We'll provide more appropriate ways to inform those using use screen readers.
+[]()
 
-#### 2. Error summary
+To change the title on the server, we'll need to update the `title` element:
 
-Next we're going to provide an error summary which looks like this:
+```HTML
+<title>Retry - Title</title>
+```
+
+To apply the same behaviour in Javascript we need to prepend the text to the documents `title` property:
+
+```Javascript
+document.title = 'Retry - ' + document.title;
+```
+
+#### 2. Displaying an error summary
+
+Next, we'll provide an error summary at the top of the page, so that when the page refreshes, the error will be shown without having to scroll.
 
 ![blah blah](/)
 
-We'll position this at the top of the page, so that when it refreshes the error will be shown without the user having to scroll. We can do the same thing, even when Javascript performs validation (averting the page refresh) by bringing the error summary into view.
+We'll apply the same functionality for errors caught on the client-side. But this time, we'll need to focus the error summary into the viewport. More on this later.
 
-Conventionally, errors should be styled in red. We'll embrace this convention. To support those who can't see colour, we also provide an icon. As is the case with most inclusive design approaches, this helps people who can see in colour too. A well-designed icon is quicker to scan and interpret than reading long sentences.
+Conventionally speaking, we should style errors in red. To support those who can't see colour, we'll need to ensure the summary is prominent without it. We could use an icon, or a short heading for the summary.
 
-Each error message is an internal anchor that sets focus to the field.
+As is often the case with inclusive design patterns, this helps everyone—not just those who can't see colour. Here's what it looks like:
+
+[]()
 
 HTML:
 
@@ -455,23 +469,33 @@ HTML:
 </div>
 ```
 
-As Aaron Gustafsson says in The Features Of Highly Effective Forms (39 mins), `role="alert"` this will be read out when the page finishes loading, when Javascript didn't catch the error on the client.
+Here's a few notes on the HTML:
 
-The `tabindex` attribute allows Javascript to set focus to the element when an error is caught. This means we can bring the error summary into view. When focus is set, the heading will be read out prompting the user to take informative action.
+- Each error message is an internal anchor that sets focus to the field.
+- As Aaron Gustafsson says in The Features Of Highly Effective Forms (39 mins), `role="alert"` this will be read out when the page finishes loading, when Javascript didn't catch the error on the client.
+- The `tabindex` allows us to programmatically set focus to the element when an error is caught by script. This means we can bring the summary into view. When focus is set, the heading will be read out prompting the user to take action.
 
-Without Javascript, and when there are errors, the summary will be rendered on the server. When the page is loaded without errors, this element should be hidden. To do this, the server will need to apply an extra class of `errorSummary-isHidden`.
+Without Javascript, the server will render the summary. When the page is loaded without errors, this element should be hidden. To do this, the server will need to apply a `hidden` attribute. For browsers that don't support it, just add `hidden { display: none; }` to your stylesheet.
 
-By doing this, we allow Javascript to reuse the same component (and the same location on the screen). This is important because if the server catches an error, the Javascript validation will clear it appropriately. Otherwise we risk two error summary components being presented at the same time.
+This allows us to reuse the same component (and the same location on the screen). This is useful because if the server catches an error, the Javascript validation will clear it appropriately. Otherwise we risk two error summaries being shown.
 
-The error message text itself is also important. One study showed that *being able to provide custom error messages for one particular e-commerce site increased conversion by 0.5%*. This tiny increase equates to over £250,000 per year[^].
+The error message text itself is also important. One study showed that *being able to provide custom error messages for one particular e-commerce site increased conversion by 0.5%*. This tiny increase equated to over £250,000 per year[^].
 
-Spending time designing error messages is one of the best investments we can make for users. If an erroneous field simply said "Email address invalid, please fix", this is lazy and unhelpful.
+Spending time designing error messages is one of the best investments we can make for users. An error message of ‘Email address invalid, please fix’ is lazy and unhelpful.
 
-Subtle versions of this happen all the time. If the Email address is invalid, then we need to explain to the user why that is. Perhaps the email address is already in-use. Or perhaps it contains invalid characters. We need to be specific and design our messages accordingly.
+Instead, we need to be specific. Did the user miss the @ symbol, or has the address been taken?
 
-#### 3. Provide in-context error messages
+#### 3. Display in-context error messages
 
-The title tag and error summary panels go a long way to help different users and different use cases but we're not done yet. When the user actively starts to fix errors&mdash;particularly when there are multiple errors on longer forms&mdash;they'll have to switch between the form and the error summary.
+Placing errors in-context of the field is helpful on many counts.
+
+What it looks like:
+
+HTML:
+
+```HTML
+
+```
 
 We can do better. We can place error messages beside each field. However, we can't just place the text in a paragraph because people using screen readers won't be aware of such information.
 

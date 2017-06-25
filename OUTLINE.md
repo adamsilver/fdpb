@@ -31,9 +31,9 @@
 		- Disabling until valid
 	- HTML5 validation
 	- Showing errors
-		- Page title
-		- Summary
-		- In-context
+		- Changing the page title
+		- Displaying an error summary
+		- Displaying an in-context error
 	- Validation component
 
 ## Checkout

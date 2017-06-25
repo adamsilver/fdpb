@@ -415,17 +415,17 @@ HTML:
 
 ### Showing errors
 
-When the user submits a form with errors we'll need to inform the user in three separate ways:
+When the user submits an erroneous form we'll need to inform the user by:
 
-1. Change the page title
-2. Display a summary of the errors
-3. Display each error message in-context of the field
+- Changing the page title.
+- Displaying an error summary.
+- Displaying an in-context error.
 
-#### 1. Page title
+#### Changing the page title
 
-When a page loads, it's the page's title that is read out first by screen readers. For this reason updating the title to read "The form has errors" (or words to that affect) will drastically help screen reader users.
+When a page loads, the `title` is read out first by screen readers. So we'll update the title to read "The form has errors" (or words to that affect).
 
-I recently worked on a project that was accessibility checked by RNIB, and we prepended "Retry - " to the page title. This tested well because as the experience became familiar, a short prompt proved to be both informative and terse.
+I recently worked on a project that was heavily accessibility checked by Royal National Institute of Blind People (RNIB). We prepended "Retry - " to the page title which tested well. As the experience became familiar, a short prompt like this, proved to be both informative and terse.
 
 Whilst it's arguably less useful for those without vision impairments, it could still be a benefit. For users that multi-task and switch between tabs, having that text on the erroneous tab acts as a notification of sorts.
 

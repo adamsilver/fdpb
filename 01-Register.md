@@ -347,7 +347,7 @@ For example, if some errors can only be caught on the server, then if we're not 
 
 #### Inline validation
 
-When Javascript is available, we have an opportunity to provide feedback as the user types. The theory is that it's easier to fix errors as soon as they occur. The thing is, inline validation is problematic.
+Inline validation informs users whether what they type is valid as they type. The theory is that it’s easier to fix errors as soon as they occur instead of waiting until submission. The thing is, inline validation causes several problems:
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted causing them to switch mental contexts—entering information and fixing it.
 

@@ -534,6 +534,12 @@ Whilst we have covered a lot of ground in this chapter, this is lots more to dis
 
 Jared: That stupid credit card security code, that is erased as long as there’s some other error on the page. Then you correct the other error and submit it, [?] and it says, “But you didn’t put in your security code.” I said, “I did put in my security code. You have the memory of a goldfish.”
 
+### Be forgiving
+
+TODO: Be flexible, allow spaces, uppercase, lowercase trim.
+Jared 42mins, Design Is Metrically Opposed: "it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong".
+
+
 ## Footnotes
 
 [^1]: Placeholder article
@@ -545,12 +551,3 @@ Jared: That stupid credit card security code, that is erased as long as there’
 [^6]:http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
 [^lukesays]: https://twitter.com/lukew/status/872861520811614208?s=09
 [^position]: http://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
-
-
-
-### Be forgiving
-
-TODO: Be flexible, allow spaces, uppercase, lowercase trim.
-Jared 42mins, Design Is Metrically Opposed: "it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong".
-
-### Restoring values

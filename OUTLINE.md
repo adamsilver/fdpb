@@ -30,8 +30,6 @@
 		- Checklist affirmation
 		- Disabling until valid
 	- HTML5 validation
-	- Be forgiving
-	- Restore values
 	- Showing errors
 		- Page title
 		- Summary

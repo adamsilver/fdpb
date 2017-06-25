@@ -425,7 +425,7 @@ When the user submits an erroneous form we'll need to inform the user by:
 
 When a page loads, the `title` is read out first by screen readers. So we'll update the title to read ‘The form has errors’ (or words to that affect).
 
-On a recent project, the Royal National Institute of Blind People (RNIB) suggested we prepend ‘Retry — ’ which tested well. As the experience became familiar, this shorter prompt proved informative and terse.
+On one project, the Royal National Institute of Blind People (RNIB) suggested we prepend ‘Retry — ’ which tested well. As the experience became familiar, this shorter prompt proved informative and terse.
 
 Changing the `title` is mostly for those using screen readers. However, for those multi-tasking and switching between tabs, the title acts as a notification of sorts.
 

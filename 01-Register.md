@@ -349,7 +349,7 @@ And doing it this way promotes consistency and familiarity, two qualities often 
 
 #### Inline validation
 
-One question still remains though. When Javascript is available, we also have an opportunity to provide feedback as the user types. The theory is that it's easier to fix errors as soon as they occur. The thing is, inline validation is problematic.
+When Javascript is available, we have an opportunity to provide feedback as the user types. The theory is that it's easier to fix errors as soon as they occur. The thing is, inline validation is problematic.
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted early and often.
 
@@ -357,11 +357,31 @@ We could wait until the user has entered enough characters before showing an err
 
 Alternatively, we could provide feedback when the user leaves the field (`onblur`) but this is too late. The user has already started to mentally prepare for (and to fill out) the next field.
 
-Another problem with triggering the feedback `onblur` is that many people switch windows or use a password manager to assist in filling out forms. But leaving the field will cause an error to show prematurely when the user hasn't finished yet.
+Another problem with triggering the feedback `onblur` is that many people switch windows or use a password manager to assist in filling out forms. But leaving the field will cause an error to show prematurely before the user finishes.
 
-This is just a few of the problems with inline validation. I've documented the other problems in Inline Validation is Problematic[^] if you'd like to know more.
+These are just a few of the problems with inline validation. I've documented the others in Inline Validation is Problematic[^] if you'd like to know more.
 
 Inline validation is a technique that causes more problems than it solves. We'll stick to robust and simple techniques that help users. We'll validate `onsubmit` and leave inline validation to our competitors.
+
+#### Checklist affirmation pattern
+
+Some fields such as our password field have a specific set of rules that must be met. In this case there is an enhancement that may help those with good vision.
+
+It works by displaying each of the rules separately beside the field. As the user types and a rule is successfully met, the rule will be marked as complete.
+
+There are four potential problems with this approach:
+
+- it only checks formatting
+- it can't fit on small screens with on-screen keyboad easily
+- it could be distracting
+- it may not be noticed at all
+- it's inconsistent with other simple fields
+
+Submission will still catch any rules that haven't been met and present a useful error message. Whilst this pattern may help some users, it may also be a waste of time, particularly if the form is short and the field is well described with a hint.
+
+This is because typing and submitting, which admittedly isn't quite as instantaneous will help the user fix any mistakes without the potential for distraction.
+
+On small screens this distraction is half on-screen, causing users to scroll up and down to be reminded of which rules still remain. It's not a particularly inclusive pattern, it only really works well for visual users on big screens.
 
 #### Disabling buttons until the form is valid
 

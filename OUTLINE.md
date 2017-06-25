@@ -27,6 +27,7 @@
 	- when to validate
 		- On submit
 		- Inline validation
+		- Checklist affirmation
 		- Disabling until valid
 	- HTML5 validation
 	- Be forgiving

@@ -187,11 +187,11 @@ If required fields are the norm, and optional fields aren't then it's the option
 
 ## Label position
 
-You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left of the field. The only so-called advantage of this is that it reduces the height. However, we already that mindlessly striving to reduce the height of a form is unwise.
+You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left. The only so-called advantage of this is that it reduces the height. However, we already know that it's unwise to focus on reducing the height of a form through UI.
 
-Regardless, there is no space on small screens to put the label here anyway. And even on big screens placing labels beside the field is unnecessarily constraining. This is because if the label wraps onto multiple lines, the flow of the form is disrupted and thus hinders scanability.
+There are practical reasons to avoid left-aligned labels. On small screens that are oriented in portrait (such as mobile phones) there is no room anyway. And for those using screen magnifiers there is far more chance of the label disappearing off screen. 
 
-You might be thinking that as long as we make labels terse we need not worry about the wrapping and thus the problem goes away. But some questions require longer labels and hints. Putting the label above the field enables us to use a pattern that accomodates to the needs of different questions and their content.
+Also, for labels that contain a lot of text will wrap onto multiple lines, disrupting the form's visual rhythm. Whilst we should strive to keep labels and hints terse, this is not always possible and so it's wise to use a pattern that is accomodates to the varying length of content.
 
 ## Focus styles
 
@@ -373,22 +373,20 @@ In any case, designing the perfect inline validation experience is nigh on impos
 
 #### Checklist affirmation pattern
 
-Some fields such as the password field which we've already discussed have a specific set of rules that must be met. In this case we might consider a Javascript enhancement as the user types—but this is not inline validation.
-
-Inline validation works by showing errors as the user types. Conversely this works by marking each rule as correct as the user types. Mailchimp does this really well.
+Besides inline validation, there is another form of instant feedback. Some fields, such as password, have a complex set of rules. Instead of interupting users overtly with errors, we might consider marking each rule as correct as the user types. Mailchimp does this with their sign up form.
 
 []()
 
-This is most certainly better than inline validation, but it still suffers from the following problems:
+This is better than inline validation as it's less invasive, but it's still problematic because:
 
-- It only checks the formatting, so it may appear to the user they have done everything right, only to receive an error after submission.
-- It creates an inconsistent experience, because other, less complex fields won't have this treatment.
-- The on-screen keyboard on mobile phones, for example, may obscure some of the rules causing the user to stop filling out the form and scroll to check.
-- It could be distracting to be typing a password and see the interface changing.
-- Low confidence users or those that look at the keyboard while typing may not notice the feedback anyway.
+- It only checks the formatting. That is, it may appear that they have completed the field successfully but the server might catch another problem.
+- It creates an inconsistent experience. This is because other (less complex) fields won't have this behaviour.
+- On-screen keyboards, such as those found on mobile may obscure the rules causing the user to scroll to check what's going on.
+- It's still a form of distraction that the interface is updating as the user is focusing on a particular task.
+- Low confidence users or those that don't touch type won't notice the feedback.
 - The rules take up a lot of space.
 
-With those problems in the open, this pattern may still help some users. But considering the problems and that the validation provides clear feedback without distracting users we won't bother.
+Having the interface change when the user hasn't taken explicit action is jarring and disruptive. Instead, we'll give users the respect they deserve, by giving them control. To do this, we'll provide feedback `onsubmit` when we know the user expects it.
 
 #### Disabling the submit button until valid
 
@@ -398,20 +396,11 @@ Some forms start off with a disabled submit button. When all fields become valid
 - If there is something wrong, the user won't know why. As there is no feedback, the user is left to guess which field is wrong and why.
 - Disabled buttons typically have a greyed out treatment that has poor contrast making the button hard to read.
 
-Instead, we'll allow users to submit a form when they want and provide feedback accordingly. This ensures that the system can respond and help users progress.
+Instead, we'll allow users to submit when they wish and provide feedback accordingly. This ensures that the system can respond and help users progress.
 
 #### HTML5 validation
 
-As Heydon Pickering says in Inclusive Design Patterns, *there are concerns about the support and the uniformity of HTML5 form validation based on the browser's interpretation.
-
-For these reasons, we'll implement our own implementation. To stop HTML5 compliant browsers from executing their own validation, we'll need to disable it by using `novalidate`:
-
-HTML:
-
-```html
-<form novalidate>
-</form>
-```
+In Inclusive Design Patterns, Heydon Pickering says *there are concerns about the support and the uniformity of HTML5 form validation. As we'll be implementing a custom solution, we'll need to tell browsers not to execute their own. To do this, we can add the `novalidate` attribute to the `form`.
 
 ### Showing errors
 

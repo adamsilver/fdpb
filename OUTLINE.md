@@ -25,9 +25,9 @@
 	- Placement
 - Validation
 	- when to validate
-		- On submit
 		- Inline validation
 		- Checklist affirmation
+		- On submit
 		- Disabling until valid
 	- HTML5 validation
 	- Showing errors

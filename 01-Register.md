@@ -203,7 +203,7 @@ If required fields are the norm, and optional fields aren't then it's the option
 
 You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left. The only so-called advantage of this is that it reduces the height. However, we already know that it's unwise to focus on reducing the height of a form through UI.
 
-There are practical reasons to avoid left-aligned labels. On small screens that are oriented in portrait (such as mobile phones) there is no room anyway. And for those using screen magnifiers there is far more chance of the label disappearing off screen. 
+There are practical reasons to avoid left-aligned labels. On small screens that are oriented in portrait (such as mobile phones) there is no room anyway. And for those using screen magnifiers there is far more chance of the label disappearing off screen.
 
 Also, for labels that contain a lot of text will wrap onto multiple lines, disrupting the form's visual rhythm. Whilst we should strive to keep labels and hints terse, this is not always possible and so it's wise to use a pattern that is accomodates to the varying length of content.
 
@@ -335,33 +335,28 @@ The exact words may need matching to your brand's tone of voice but don't exchan
 
 ## Validation
 
-We've put in great effort to create a well designed registration form. Despite these efforts, we cannot eradicate human error. People make mistakes and it's our job to make sure they know exactly how to fix them.
+We've put in a lot of effort to create a well designed registration form. Despite these efforts, we cannot eradicate human error. People make mistakes and it's our job to make sure that fixing errors is easy.
 
-Ensuring errors are easily remedied relies on a few things. The first being *when* to provide feedback.
+To design a great validation experience we need to consider:
 
-### When to validate
+- When to validate
+- How to show errors
+- How to write errors
+- How to be forgiving
+- Restoring entered values
 
-To design inclusively we must first consider the experience without Javascript, which is far more common than you may think[^]. Without Javascript we are left to validate forms `onsubmit`.
+### When to give user's feedback?
 
-> ‘There is no creativity without constraint’
+Choosing when to give feedback is crucial. We have two overarching choices:
 
-Constraints help us solve problems. When we accept the constraints of a system and the users of that system, we narrow our focus, often to the user's advantage.
+- Instant feedback. That is as the user types or steps through each field.
+- Explicit feedback. That is when the user submits, either by pressing the submit button, or pressing enter.
 
-I've found that, generally speaking, the best experiences are those that don't rely on Javascript anyway. On a recent project, we only performed validation on the server side, and nobody noticed.
-
-This is not to say client-side validation is *bad*. It's just that something that may appear to be  problematic from a designer's point of view, may not be a problem at all for users. Without testing with users, we can't tell.
-
-Not everything can be validated with script anyway. At some point we're going to need to check information in a database. To register, for example, we'll need to ensure nobody else has an account with  their email address.
-
-By designing first without Javascript we reach a wider audience, and expose scenarios that we may have otherwise forgotten, had we jumped head first into the all-singing and all-dancing fancy-pants solution.
-
-For example, if some errors can only be caught on the server, then if we're not careful we could end up with two error summary boxes—one for the server error and one for the client side error. This makes for a poor experience.
-
-[]()
+There are actually 3 flavours of instant feedback. Let's discuss each of those now.
 
 #### Inline validation
 
-Inline validation informs users whether what they type is valid as they type. The theory is that it’s easier to fix errors as soon as they occur instead of waiting until submission. The thing is, inline validation causes several problems:
+The first form of instant feedback is what's commonly known as inline validation. Inline validation informs users whether what they type is valid as they type. The theory is that it’s easier to fix errors as soon as they occur. There are several problems with this approach.
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted causing them to switch mental contexts—entering information and fixing it.
 
@@ -375,48 +370,69 @@ Another problem with triggering feedback `onblur` is that many people switch win
 
 []()
 
-These are just a few of the problems with inline validation. I've documented the others in Inline Validation is Problematic[^] if you'd like to know more.
+These are just a few of the problems with inline validation. The others are documented in more detail in Inline Validation is Problematic[^].
 
-Designers like inline validation because it avoids users seeing lots of errors after filling a long form. Assuming this is a true we can solve this by:
+If we want to stop users seeing a lot of errors, then we can do so by:
 
-- Removing unnecessary fields (we've done this).
-- Ensuring fields are well-understood with clear guidance (again we've done this).
-- Using One Thing Per Page which we'll discuss in the next chapter.
+- Removing unnecessary fields—we've done this already.
+- Ensuring fields have clear guidance—we've done this too.
+- Using One Thing Per Page—we'll discuss this in the next chapter.
 
-In any case, designing the perfect inline validation experience is nigh on impossible. Where possible, we'll focus on solutions that don't come with problems. We'll simply validate forms `onsubmit`.
-
-#### Checklist affirmation pattern
-
-Besides inline validation, there is another form of instant feedback. Some fields, such as password, have a complex set of rules. Instead of interupting users overtly with errors, we might consider marking each rule as correct as the user types. Mailchimp does this with their sign up form.
-
-[]()
-
-This is better than inline validation as it's less invasive, but it's still problematic because:
-
-- It only checks the formatting. That is, it may appear that they have completed the field successfully but the server might catch another problem.
-- It creates an inconsistent experience. This is because other (less complex) fields won't have this behaviour.
-- On-screen keyboards, such as those found on mobile may obscure the rules causing the user to scroll to check what's going on.
-- It's still a form of distraction that the interface is updating as the user is focusing on a particular task.
-- Low confidence users or those that don't touch type won't notice the feedback.
-- The rules take up a lot of space.
-
-Having the interface change when the user hasn't taken explicit action is jarring and disruptive. Instead, we'll give users the respect they deserve, by giving them control. To do this, we'll provide feedback `onsubmit` when we know the user expects it.
+In any case, designing the perfect inline validation experience is nigh on impossible.
 
 #### Disabling the submit button until valid
 
-Some forms start off with a disabled submit button. When all fields become valid, the button will be enabled, giving users a clue that the form is now valid. This presents several problems for users:
+Another form of instant feedback is by disabling the submit button until the form is valid. The user types like normal, and when all the fields becomes valid, the submit button is enabled.
 
-- Validating formats doesn't prove everything is valid, creating an untrustworthy experience. That is, they submit a correct looking form, only to see other errors that have been caught on the server.
+Whilst this feedback is instant, the feedback is ambiguous and suffers from the following problems:
+
+- Disabled buttons are afforded by being ‘greyed out’. But this gives the button low contrast making it hard to read.
 - If there is something wrong, the user won't know why. As there is no feedback, the user is left to guess which field is wrong and why.
-- Disabled buttons typically have a greyed out treatment that has poor contrast making the button hard to read.
 
 Instead, we'll allow users to submit when they wish and provide feedback accordingly. This ensures that the system can respond and help users progress.
 
-#### HTML5 validation
+#### Checklist affirmation pattern
 
-In Inclusive Design Patterns, Heydon Pickering says *there are concerns about the support and the uniformity of HTML5 form validation. As we'll be implementing a custom solution, we'll need to tell browsers not to execute their own. To do this, we can add the `novalidate` attribute to the `form`.
+The last type of instant feedback is what I'm calling checklist affirmation. Like inline validation, it provides feedback as the user types. Except, instead of showing *errors* it marks each rule as correct.
 
-### Showing errors
+Mailchimp's sign up form uses this technique:
+
+[]()
+
+This is less invasive than inline validation but it still has the following problems:
+
+- It only checks the formatting. That is, it may appear that the user has completed the field successfully but the server might catch another problem.
+- It creates an inconsistent experience. This is because other (less complex) fields won't have this behaviour.
+- On-screen keyboards, such as those found on mobile may obscure the rules causing the user to scroll to check what's going on.
+- It's still a form of distraction. The interface is updating as the user is working on a particular task.
+- Low confidence users or those that don't touch type won't notice the feedback.
+- The rules take up a lot of space giving the perception of a bigger task.
+
+Having the interface change when the user hasn't taken explicit action is jarring and disruptive. Instead, we'll give users respect by putting them firmly in control. To do this, we'll provide feedback when the user explicitly submits a form which is a clear intent to take action.
+
+#### On submit
+
+Having discussed the problems with instant feedback, we're left with validating on submit. To design inclusively, we must first consider the experience without Javascript, which is far more common than most people think[^].
+
+> ‘There is no creativity without constraint’
+
+Constraints help us solve problems. When we accept the constraints, we narrow our focus, often to the user's advantage. In this case, we can only validate forms on submit anyway.
+
+Interestingly, I've found that, generally speaking, the best experiences are those that don't rely on Javascript. On a recent project, we only performed validation on the server side, and nobody noticed.
+
+This is not to say client-side validation is *bad*. It's just that something that may appear to be  problematic from a designer's point of view, may not be a problem at all for users. Without testing with users, we can't tell.
+
+Client-side validation typically only checks the format. At some point we're going to need to check information in a database. To register, for example, we'll need to ensure nobody enters an email address that already exists in the database.
+
+By designing first without Javascript we reach a wider audience, and expose scenarios that we may have otherwise forgotten, had we jumped head first into the all-singing and all-dancing fancy-pants solution.
+
+For example, if some errors can only be caught on the server, then if we're not careful we could end up with two error summary boxes—one generated by the server and one generated on the client.
+
+[]()
+
+As already noted, by validating on submit we create a consistent experience whether errors are caught on the server or the client. And it puts users in control and saves us having to second guess when users wish to receive feedback.
+
+### How to show errors
 
 When the user submits an erroneous form we'll need to inform the user by:
 
@@ -510,12 +526,36 @@ We'll be discussing how to handle groups of fields, such as radio buttons, in up
 <div class="field">
   <label for="blah">
     <span class="field-label">Email address</span>
-    <span class="field-error">Your email address is invalid</span>
+    <span class="field-error">The email address is invalid</span>
   </label>
 </div>
 ```
 
 The classes themselves act as hooks for styling and behaviour. You can view a demo of the code[^] to see how these things apply, and customise them to your needs.
+
+### How to write errors
+
+- Use punctuation (some errors have clauses and more than one sentence).
+- Be consistent.
+- Be explicit
+- Research?
+
+### How to be forgiving
+
+TODO: Be flexible, allow spaces, uppercase, lowercase trim.
+Jared 42mins, Design Is Metrically Opposed: "it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong".
+
+### Restoring values
+
+- When the page refreshes must populate values as to not make users have to type it in again. Annoying.
+
+Jared: That stupid credit card security code, that is erased as long as there’s some other error on the page. Then you correct the other error and submit it, [?] and it says, “But you didn’t put in your security code.” I said, “I did put in my security code. You have the memory of a goldfish.”
+
+### Validation component
+
+In Inclusive Design Patterns, Heydon Pickering says *there are concerns about the support and the uniformity of HTML5 form validation. As we'll be implementing a custom solution, we'll need to tell browsers not to execute their own. To do this, we can add the `novalidate` attribute to the `form`.
+
+- JS TODO
 
 ## Summary
 
@@ -528,18 +568,6 @@ We have navigated through many of the fundamental design challenges that most fo
 5. Validation should be executed on submit. Upon execution there are 3 parts of the page to update to ensure a fully inclusive, and easy path to remedying any errors.
 
 Whilst we have covered a lot of ground in this chapter, this is lots more to discuss. The foundations have been laid, and with that we will up the ante and face even tougher challenges. In doing so we can explore some of the more interesting techniques at our disposal.
-
-## TODO
-
-- When the page refreshes must populate values as to not make users have to type it in again. Annoying.
-
-Jared: That stupid credit card security code, that is erased as long as there’s some other error on the page. Then you correct the other error and submit it, [?] and it says, “But you didn’t put in your security code.” I said, “I did put in my security code. You have the memory of a goldfish.”
-
-### Be forgiving
-
-TODO: Be flexible, allow spaces, uppercase, lowercase trim.
-Jared 42mins, Design Is Metrically Opposed: "it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong".
-
 
 ## Footnotes
 

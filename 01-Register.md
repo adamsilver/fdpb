@@ -69,13 +69,27 @@ HTML:
 <div class="field">
   <label for="password">
     <span class="field-label">Password</span>
-    <span class="field-hint">Your password must be at least 8 characters including at least one number and one uppercase letter.</span>
+    <span class="field-hint">Must contains 8+ characters with at least 1 number and 1 uppercase letter.</span>
   </label>
   <input type="password" id="password" name="password">
 </div>
 ```
 
-You'll notice the hint is actually part of the label and we wrap a `span` around it so that we can style it as per design. We put it inside the label to make sure it's read out by screen readers.
+The hint is inside a `span` so that we can style it differently. You'll notice that it's inside the `label`. This makes sure that it is read out by screen readers. We could have placed the hint outside of the `label` using ARIA:
+
+```HTML
+<div class="field">
+  <label for="password">Password</label>
+  <p class="field-hint" id="passwordhint">Must contains 8+ characters with at least 1 number and 1 uppercase letter.</p>
+  <input type="password" id="password" name="password" aria-describedby="passwordhint">
+</div>
+```
+
+However the first rule of ARIA is *Don't use ARIA*. The specification states:
+
+> ‘If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.’
+
+In this case, a label allows us to provide the behaviour using the natural HTML semantics. But this isn't just about following the standard. Whilst ARIA support gets better and better, it's never as good as plain HTML.
 
 ## Floating labels
 
@@ -516,8 +530,6 @@ We have navigated through many of the fundamental design challenges that most fo
 Whilst we have covered a lot of ground in this chapter, this is lots more to discuss. The foundations have been laid, and with that we will up the ante and face even tougher challenges. In doing so we can explore some of the more interesting techniques at our disposal.
 
 ## TODO
-
-- ARIA - Put the first rule of aria in chapter 1, why we use labels, and put errors inside those.
 
 - When the page refreshes must populate values as to not make users have to type it in again. Annoying.
 

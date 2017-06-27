@@ -470,9 +470,11 @@ Next, we'll provide an error summary at the top of the page, so that when the pa
 
 We'll apply the same functionality for errors caught on the client-side. But this time, we'll need to focus the error summary into the viewport. More on this later.
 
-Conventionally speaking, we should style errors in red. To support those who can't see colour, we'll need to ensure the summary is prominent without it. We could use an icon, or a short heading for the summary.
+Conventionally speaking, we should style errors in red. But, to support those who can't see (the full range of) colour, we'll need to ensure the summary is prominent without it. We'll use a short but prominent heading.
 
-As is often the case with inclusive design patterns, this helps everyone—not just those who can't see colour. Here's what it looks like:
+As is often the case with inclusive design patterns, this helps everyone—not just those who can't see colour.
+
+Here's what it looks like:
 
 []()
 
@@ -480,10 +482,10 @@ HTML:
 
 ```html
 <div class="errorSummary" role="alert">
-  <h2 tabindex="-1">Please fix the 4 errors</h2>
+  <h2 tabindex="-1">There are 4 errors</h2>
   <ul>
-    <li><a href="#emailaddress">Email address cannot be empty</a></li>
-    <li><a href="#password">Password cannot be empty</a></li>
+    <li><a href="#emailaddress">Provide an email address.</a></li>
+    <li><a href="#password">The password must contain an uppercase letter.</a></li>
   </ul>
 </div>
 ```
@@ -491,36 +493,20 @@ HTML:
 Here's a few notes on the HTML:
 
 - Each error message is an internal anchor that sets focus to the field.
-- As Aaron Gustafsson says in The Features Of Highly Effective Forms (39 mins), `role="alert"` this will be read out when the page finishes loading, when Javascript didn't catch the error on the client.
+- As Aaron Gustafsson says in The Features Of Highly Effective Forms at 39 mins in, `role="alert"` will be read out first when the page loads.
 - The `tabindex` allows us to programmatically set focus to the element when an error is caught by script. This means we can bring the summary into view. When focus is set, the heading will be read out prompting the user to take action.
 
-Without Javascript, the server will render the summary. When the page is loaded without errors, this element should be hidden. To do this, the server will need to apply a `hidden` attribute. For browsers that don't support it, just add `hidden { display: none; }` to your stylesheet.
+Without Javascript, the *server* will render the summary. When the page loads without errors the summary should be hidden. To do this, the server will need to apply a `hidden` attribute. For browsers that don't support it, add `hidden { display: none; }`.
 
-This allows us to reuse the same component (and the same location on the screen). This is useful because if the server catches an error, the Javascript validation will clear it appropriately. Otherwise we risk two error summaries being shown.
+This allows us to reuse the same component and the same location on the screen. This is useful because if the server catches an error, the Javascript validation will clear it appropriately. Otherwise we risk two error summaries being shown as previously mentioned.
 
-The error message text itself is also important. One study showed that *being able to provide custom error messages for one particular e-commerce site increased conversion by 0.5%*. This tiny increase equated to over £250,000 per year[^].
+#### 3. Show in-context error messages
 
-Spending time designing error messages is one of the best investments we can make for users. An error message of ‘Email address invalid, please fix’ is lazy and unhelpful.
-
-Instead, we need to be specific. Did the user miss the @ symbol, or has the address been taken?
-
-#### 3. Display in-context error messages
-
-Placing errors in-context of the field is helpful on many counts.
+Showing errors in-context of the field is helpful too.
 
 What it looks like:
 
 HTML:
-
-```HTML
-
-```
-
-We can do better. We can place error messages beside each field. However, we can't just place the text in a paragraph because people using screen readers won't be aware of such information.
-
-As we know already, labels are read out as the user focuses each control. So we can piggyback this well supported functionality by injecting error messages inside the labels themselves. This way, on focussing on the erroneous email control, for example, they will hear something like "Email address. Your email address is missing the @ symbol."
-
-We'll be discussing how to handle groups of fields, such as radio buttons, in upcoming chapters. The reason I bring this to your attention, is that when we inject errors into a group of fields, injecting it into a label doesn't work.
 
 ```html
 <div class="field">
@@ -531,9 +517,15 @@ We'll be discussing how to handle groups of fields, such as radio buttons, in up
 </div>
 ```
 
-The classes themselves act as hooks for styling and behaviour. You can view a demo of the code[^] to see how these things apply, and customise them to your needs.
+Like the hint pattern we discussed earlier, we place the error inside the label too providing broad support for those using screen readers. This means, that when the user focuses the field the error will be read out along with the label.
+
+The registration form only contains a simple text box, but in upcoming chapters we'll discuss how to show errors for groups of fields such as radio buttons. Spoiler alert: Injecting the error into a radio button's label doesn't work.
 
 ### How to write errors
+
+The error message text itself is also important. One study showed that *being able to provide custom error messages for one particular site increased conversion by 0.5%*. This tiny increase equated to over £250,000 per year[^].
+
+Spending time designing error messages is one of the best investments we can make. An error message of ‘Email address invalid, please fix’ is lazy, unhelpful and long winded.
 
 - Use punctuation (some errors have clauses and more than one sentence).
 - Be consistent.

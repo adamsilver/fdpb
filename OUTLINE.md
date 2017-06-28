@@ -24,16 +24,18 @@
 	- Cursor
 	- Placement
 - Validation
-	- when to validate
+	- When to give feedback
 		- Inline validation
+		- Disabling submit until valid
 		- Checklist affirmation
 		- On submit
-		- Disabling until valid
-	- HTML5 validation
-	- Showing errors
+	- How to show errors
 		- Changing the page title
 		- Displaying an error summary
 		- Displaying an in-context error
+	- How to write errors
+	- How to be forgiving
+	- Restoring values
 	- Validation component
 
 ## Checkout

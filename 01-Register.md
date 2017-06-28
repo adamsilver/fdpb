@@ -339,13 +339,13 @@ We've put in a lot of effort to create a well designed registration form. Despit
 
 To design a great validation experience we need to consider:
 
-- When to give users feedback
+- When to give feedback
 - How to show errors
 - How to write errors
 - How to be forgiving
-- Restoring entered values
+- Restoring values
 
-### When to give users feedback
+### When to give feedback
 
 We can either give users feedback instantly—that is as the user types or steps through each field. Or we can give users feedback on submission—that is when they press submit or press <kbd>Enter</kbd>.
 
@@ -466,7 +466,7 @@ We'll apply the same functionality for errors caught on the client-side. But thi
 
 Conventionally speaking, we should style errors in red. But, to support those who can't see (the full range of) colour, we'll need to ensure the summary is prominent without it. We'll use a short but prominent heading.
 
-As is often the case with inclusive design patterns, this helps everyone—not just those who can't see colour.
+As is often the case with inclusive design patterns, what helps a minority of users often helps everyone else too. In this case a prominent heading helps everyone, not just those with poor vision.
 
 Here's what it looks like:
 
@@ -484,15 +484,15 @@ HTML:
 </div>
 ```
 
-Here's a few notes on the HTML:
+Notes:
 
-- Each error message is an internal anchor that sets focus to the field.
-- As Aaron Gustafsson says in The Features Of Highly Effective Forms at 39 mins in, `role="alert"` will be read out first when the page loads.
+- `role="alert"` means the summary will be read out first when the page loads.
 - The `tabindex` allows us to programmatically set focus to the element when an error is caught by script. This means we can bring the summary into view. When focus is set, the heading will be read out prompting the user to take action.
+- Each error message is an internal anchor that sets focus to the field.
 
 Without Javascript, the *server* will render the summary. When the page loads without errors the summary should be hidden. To do this, the server will need to apply a `hidden` attribute. For browsers that don't support it, add `hidden { display: none; }`.
 
-This allows us to reuse the same component and the same location on the screen. This is useful because if the server catches an error, the Javascript validation will clear it appropriately. Otherwise we risk two error summaries being shown as previously mentioned.
+This allows us to reuse the same component and the same location on the screen. This is useful because if the server catches an error, the Javascript validation will clear it appropriately. Otherwise we risk two error summaries being shown.
 
 #### 3. Show in-context error messages
 
@@ -517,14 +517,14 @@ The registration form only contains a simple text box, but in upcoming chapters 
 
 ### How to write errors
 
-The error message text itself is also important. One study showed that *being able to provide custom error messages for one particular site increased conversion by 0.5%*. This tiny increase equated to over £250,000 per year[^].
+Even the most robust and inclusive mechanism for validation means little if the error messages themselves aren't helpful. One study showed that *being able to provide custom error messages increased conversion by 0.5%*. This tiny increase equated to over £250,000 per year[^].
 
-Spending time designing error messages is one of the best investments we can make. An error message of ‘Email address invalid, please fix’ is lazy, unhelpful and long winded.
+So it follows, an error message of ‘Email address invalid, please fix’ is lazy, unhelpful and long winded. We can do so much better than this. Here's a few tips:
 
-- Use punctuation (some errors have clauses and more than one sentence).
-- Be consistent.
-- Be explicit
-- Research?
+- Use punctuation. Some errors have clauses and contain several sentences.
+- Be explicit. If the system knows exactly why something is invalid, then say so. For example, ‘The email address is missing the @ symbol.’
+- Don't use this opportunity to promote your quirky brand's tone of voice. Be respectful of people's time and be chatty elsewhere.
+- Be consistent. Use the same tone, the same words, in the same order and with the same form of punctuation.
 
 ### How to be forgiving
 

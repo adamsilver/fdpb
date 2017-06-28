@@ -525,6 +525,10 @@ So it follows, an error message of ‘Email address invalid, please fix’ is la
 - Be explicit. If the system knows exactly why something is invalid, then say so. For example, ‘The email address is missing the @ symbol.’
 - Don't use this opportunity to promote your quirky brand's tone of voice. Be respectful of people's time and be chatty elsewhere.
 - Be consistent. Use the same tone, the same words, in the same order and with the same form of punctuation.
+- Be human. Make content human, after all it's humans who will read it. Avoid being cutesy and avoid words like invalid, unrecognised (which is passive), and mandatory[^cjerrors].
+- Use plain language.
+
+https://paper.dropbox.com/doc/Error-messages-fifEJpOYMGjRy0lHTmthb
 
 ### How to be forgiving
 
@@ -566,3 +570,5 @@ Whilst we have covered a lot of ground in this chapter, this is lots more to dis
 [^6]:http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
 [^lukesays]: https://twitter.com/lukew/status/872861520811614208?s=09
 [^position]: http://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
+[^cjerrors]: http://www.effortmark.co.uk/avoid-embarrassed-error-messages/
+[^cjbuttons]: http://www.effortmark.co.uk/seven-basic-best-practices-buttons/

@@ -1,6 +1,6 @@
 # A Registration Form
 
-We're going to begin our adventure with registration. We'll use this simple form, to ahem, form the foundations on which to solve more complex forms later.
+We're going to begin our adventure with a simple registration form. We'll use this simple form, to ahem, form the foundations on which to solve more complex forms later. I've already used the word form 4 times, and we've got a whole book to go.
 
 Don't be fooled by its simple appearance though. There's a lot of ground to cover and patterns that will emerge. Patterns we'll either use directly or as a foundation to build new patterns when needed.
 
@@ -490,7 +490,13 @@ Notes:
 - The `tabindex` allows us to programmatically set focus to the element when an error is caught by script. This means we can bring the summary into view. When focus is set, the heading will be read out prompting the user to take action.
 - Each error message is an internal anchor that sets focus to the field.
 
-Without Javascript, the *server* will render the summary. When the page loads without errors the summary should be hidden. To do this, the server will need to apply a `hidden` attribute. For browsers that don't support it, add `hidden { display: none; }`.
+Without Javascript, the *server* will render the summary. When the page loads without errors the summary should be hidden. To do this, the server will need to apply an extra class:
+
+```CSS
+.errorSummary-isHidden {
+	display: none;
+}
+```
 
 This allows us to reuse the same component and the same location on the screen. This is useful because if the server catches an error, the Javascript validation will clear it appropriately. Otherwise we risk two error summaries being shown.
 
@@ -543,9 +549,42 @@ Jared: That stupid credit card security code, that is erased as long as there’
 
 ### Validation component
 
-In Inclusive Design Patterns, Heydon Pickering says *there are concerns about the support and the uniformity of HTML5 form validation. As we'll be implementing a custom solution, we'll need to tell browsers not to execute their own. To do this, we can add the `novalidate` attribute to the `form`.
+What about HTML5 form validation? There are concerns about the support and uniformity of HTML form validation. To achieve all of the functionality we've discussed and to grant ourselves the flexibility to design *whatever it is we need* we'll build our own implementation.
 
-- JS TODO
+TO do this, we'll first need to ‘turn off’ HTML5 form validation for browsers that support it. We can do this by adding a `novalidate` attribute to the form element.
+
+```HTML
+<form novalidate>
+```
+
+Then we'll need to define a reusable validation script:
+
+```JS
+Do this
+```
+
+To create an instance for the registration form is as follows:
+
+```JS
+var validator = new FormValidator(form);
+validator.addValidator('email', [{
+	method: function( ) {},
+	message: 'Do this'
+}]);
+validator.addValidator('password', [{
+	method: function( ) {},
+	message: 'Do this'
+}]);
+
+```
+
+Notes:
+
+- Rule structure
+- Validate on submit
+- Display errors
+- Hide errors
+- Focus errors
 
 ## Summary
 

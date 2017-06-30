@@ -523,16 +523,37 @@ The registration form only contains a simple text box, but in upcoming chapters 
 
 ### How to write errors
 
-Even the most robust and inclusive mechanism for validation means little if the error messages themselves aren't helpful. One study showed that *being able to provide custom error messages increased conversion by 0.5%*. This tiny increase equated to over £250,000 per year[^].
+Up to now, we've ensured that our approach to validation is robust and inclusive. But, this doesn't count for anything if we neglect to design the messages themselves. The message itself is vital&mdash;one study showed that providing *custom* error messages increased conversion by 0.5%. This little percentage equates to over £250,000 a year[^].
 
-So it follows, an error message of ‘Email address invalid, please fix’ is lazy, unhelpful and long winded. We can do so much better than this. Here's a few tips:
+> ‘Content is the user experience’
+
+A good error message is easier to understand and easy to fix. Whilst we can't drive design without knowing the content, we can't completely design the content without understanding the constraints of the interface itself.
+
+In our case we know that we are going to show the error messages in two places. At the top in the summary and beside the field ‘in context’. With these constraints in mind let's discuss the relevant points in turn:
 
 - Use punctuation. Some errors have clauses and contain several sentences.
-- Be explicit. If the system knows exactly why something is invalid, then say so. For example, ‘The email address is missing the @ symbol.’
-- Don't use this opportunity to promote your quirky brand's tone of voice. Be respectful of people's time and be chatty elsewhere.
-- Be consistent. Use the same tone, the same words, in the same order and with the same form of punctuation.
+- Be explicit. If the system knows why something is wrong, then we should tell the user. For example, ‘The email address is missing the “at” (@) symbol.’
+- Use plain language. Error messages are never wanted. Don't use this opportunity to promote your quirky brand's tone of voice. 
 - Be human. Make content human, after all it's humans who will read it. Avoid being cutesy and avoid words like invalid, unrecognised (which is passive), and mandatory[^cjerrors].
-- Use plain language.
+- Understandable no matter the context. A message of ‘You need to answer this.’ works when it's next to the field is okay. But is useless when part of the summary.
+- Be consistent. Use the same tone, the same words, the same punctuation throughout all your forms.
+ 
+Pleasantries
+Soft language - is it necessary? I think we all agree that ‘please’ is unnecessary at the start of error messages. However, without ‘please’ some messages feel blunt. For example: “Please answer this question” v “Answer this question”. What should we do in this situation? “You need to …”?
+ 
+Helping people fix the thing
+Some existing messages tell people they’ve done things wrong but don’t attempt to explain why. Should we have a rule like this: ‘Never just highlight an error - you need to tell users how to fix it’? For example: “This is too long” v “You need to enter less than 20 characters”.
+ 
+Directional terms
+‘Enter’ v ‘use’ v ‘put’ v ‘select’ v ‘choose’ v ‘pick’- what’s best? 
+
+
+When the messages reside in the summary they need to make sense on their own out of context of the field. That is, ‘Provide an answer’ is ambiguous.
+We don’t want to maintain two messages, one in context and one for the summary (admittedly not based on users needs).
+When there are lots of errors in the summary the words ‘You need to’ get quite noisy. Although, in reality how often will this happen. Probably not very.
+Users of agent-side use the system a lot, meaning do we need to be polite with “You need to” over and over?
+To have useful messages we probably need to mention the field and specific problem. This means tailored user-centric messages. This is more work.
+
 
 https://paper.dropbox.com/doc/Error-messages-fifEJpOYMGjRy0lHTmthb
 

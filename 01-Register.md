@@ -547,13 +547,11 @@ Some existing messages tell people they’ve done things wrong but don’t attem
 Directional terms
 ‘Enter’ v ‘use’ v ‘put’ v ‘select’ v ‘choose’ v ‘pick’- what’s best? 
 
-
-When the messages reside in the summary they need to make sense on their own out of context of the field. That is, ‘Provide an answer’ is ambiguous.
-We don’t want to maintain two messages, one in context and one for the summary (admittedly not based on users needs).
+Repetition
 When there are lots of errors in the summary the words ‘You need to’ get quite noisy. Although, in reality how often will this happen. Probably not very.
-Users of agent-side use the system a lot, meaning do we need to be polite with “You need to” over and over?
-To have useful messages we probably need to mention the field and specific problem. This means tailored user-centric messages. This is more work.
 
+Frequency of use
+Users of agent-side use the system a lot, meaning do we need to be polite with “You need to” over and over?
 
 https://paper.dropbox.com/doc/Error-messages-fifEJpOYMGjRy0lHTmthb
 

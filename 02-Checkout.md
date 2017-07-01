@@ -86,7 +86,7 @@ Needless to say we'll this design pattern  to design our checkout form in this c
 
 ## Flow and order
 
-In Forms That Work[^] Caroline and Gerry explain the importance of asking questions in a logical order:
+In Forms That Work[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a logical order:
 
 > Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
@@ -102,11 +102,7 @@ We can apply the same principles to our checkout process:
 4. Check details
 5. Confirmation
 
-Just like the salesperson, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt and invoice for record keeping.
-
-Whenever we're designing a form, big or small, we should be thinking about flow and order.
-
-Next, we'll look at each screen separately.
+Just like the salesperson, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt for record keeping.
 
 ## Delivery address
 

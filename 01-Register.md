@@ -568,9 +568,9 @@ Not to mention the added burden on the user. Consider this with each and every f
 
 ### Restoring values
 
-- When the page refreshes must populate values as to not make users have to type it in again. Annoying.
+This is something that is easy to forget, creates a huge burden on the user and is easy to solve. When the form is submitted with an error, we should restore whatever the user typed back into the fields. Otherwise users have to type the same thing again.
 
-Jared: That stupid credit card security code, that is erased as long as there’s some other error on the page. Then you correct the other error and submit it, [?] and it says, “But you didn’t put in your security code.” I said, “I did put in my security code. You have the memory of a goldfish.”
+Jared Spool, in the same talk explains how frustrating this can be. He says *that stupid credit card security code, that is erased as long as there’s some other error on the page. Then you correct the other error and submit it, [?] and it says, “But you didn’t put in your security code.” I said, “I did put in my security code. You have the memory of a goldfish.”.
 
 ### Validation component
 

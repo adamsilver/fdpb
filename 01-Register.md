@@ -1,8 +1,6 @@
 # A Registration Form
 
-We're going to begin our adventure with a simple registration form. We'll use this simple form, to ahem, form the foundations on which to solve more complex forms later. I've already used the word form 4 times, and we've got a whole book to go.
-
-Don't be fooled by its simple appearance though. There's a lot of ground to cover and patterns that will emerge. Patterns we'll either use directly or as a foundation to build new patterns when needed.
+We're going to begin our adventure with a simple registration form. We'll use this simple form, to ahem, form the foundations on which to solve more complex forms later.
 
 ## What it looks like
 
@@ -24,7 +22,7 @@ HTML:
 </form>
 ```
 
-It contains four fields and a submit button. You'll  notice each field has a label. Labels are where our analysis begins.
+It contains four fields and a submit button. Each field has a label. Labels are where our analysis begins.
 
 ## Labels
 
@@ -335,7 +333,7 @@ The exact words may need matching to your brand's tone of voice but don't exchan
 
 ## Validation
 
-We've put in a lot of effort to create a well designed registration form. Despite these efforts, we cannot eradicate human error. People make mistakes and it's our job to make sure that fixing errors is easy.
+We've put in a lot of effort to create a well designed registration form. Despite these efforts, we cannot eradicate human error. People make mistakes and it's our job to make sure that fixing them is easy.
 
 To design a great validation experience we need to consider:
 
@@ -347,33 +345,33 @@ To design a great validation experience we need to consider:
 
 ### When to give feedback
 
-We can either give users feedback instantly—that is as the user types or steps through each field. Or we can give users feedback on submission—that is when they press submit or press <kbd>Enter</kbd>.
-
-There are 3 flavours of instant feedback. We'll discuss each of those first.
+We can either give users feedback instantly or when they submit by pressing submit or through implicit submission. Implicit submission is when the user presses <kbd>enter</kbd> while focus is within a field. There are 3 flavours of instant feedback. We'll discuss each of these first.
 
 #### Inline validation
 
-The first, ahem, form of instant feedback is inline validation. This informs users whether what they type is valid as they type. The theory is that it’s easier to fix errors as soon as they occur. However, there are several problems with this approach.
+The first type of instant feedback is inline validation. This informs users whether what they type is valid as they type. The theory is that it’s easier to fix errors as soon as they occur. However, there are several problems with this approach.
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted causing them to switch mental contexts—entering information and fixing it.
 
 []()
 
-We could wait until the user has entered enough characters before showing an error. But this means the only way in which a user will get feedback is after they have completed the field successfully which is pointless.
+We could wait until the user types enough characters before showing an error. But this means the only way in which a user will get feedback is after they have completed the field successfully which is pointless.
 
-Alternatively, we could provide feedback when the user leaves the field (`onblur`) but this is too late. The user has already started to prepare for (and to fill out) the next field.
+We could provide feedback when the user leaves the field (`onblur`) but this is too late. The user has already started to prepare for (and to fill out) the next field.
 
-Another problem with triggering feedback `onblur` is that many people switch windows or use a password manager to assist in filling out forms. But leaving the field will cause an error to show prematurely before the user finishes.
+Another problem with triggering feedback `onblur` is that some users switch windows or use a password manager to help fill out forms. But doing so will cause an error to show prematurely before the user finishes.
 
 []()
 
 These are just a few of the problems with inline validation. The others are documented in Inline Validation is Problematic[^].
 
-If users find lots of error hard to deal with, then we can minimise this by:
+If users really do find lots of error hard to deal with, then we can minimise this by:
 
 - Removing unnecessary fields—we've done this already.
 - Ensuring fields have clear guidance—we've done this too.
+- Ensuring errors are presented clearly—we'll do this shortly.
 - Using One Thing Per Page—we'll discuss this in the next chapter.
+- Using Errors-only approach[^errorsonly].
 
 In any case, designing a ‘perfect’ inline validation experience is nigh on impossible.
 
@@ -381,9 +379,9 @@ In any case, designing a ‘perfect’ inline validation experience is nigh on i
 
 Another form of instant feedback is by disabling the submit button until the form is valid. The user types like normal, and when all the fields becomes valid, the submit button is enabled.
 
-Whilst this feedback is instant, the feedback itself is ambiguous and suffers from two main problems. Firstly, disabled buttons are afforded by the ‘greyed out’ treatment, but this is hard to read.
+Whilst instant, this feedback is ambiguous and suffers from two main problems. Firstly, disabled buttons are afforded by being ‘greyed out’, but this is hard to read.
 
-More importantly, if there is an error, the user won't be told why. They're left to guess which fields are erroneous, and even worse they won't know how to fix it.
+Secondly, and more importantly, if there is an error, the user won't be told why. They're left to guess which fields are erroneous, and even worse they won't know how to fix it.
 
 #### Checklist affirmation pattern
 
@@ -404,27 +402,27 @@ This is less invasive than inline validation but it still has the following prob
 
 #### On submit
 
-Instant feedback, means updating the interface when the user hasn't taken explicit action. This creates a jarring, disruptive and ambiguous experience. Instead, we'll give users the respect they deserve by giving them control. Of course, we'll do this by providing feedback when they explicitly submit the form.
+Instant feedback causes the interface to update even though the user didn't take explicit action. This creates a jarring, disruptive and ambiguous experience. Instead, we'll give users respect by putting them firmly in control. To do this, we'll provide feedback when they explicitly submit the form.
 
 To design inclusively, we must first consider the experience without Javascript, which is far more common than most people think[^].
 
 > ‘There is no creativity without constraint’
 
-Constraints help us solve problems. When we accept the constraints, we narrow our focus, often to the user's advantage. In this case, we can only validate forms on submit anyway.
+Constraints help us solve problems. When we accept constraints, we narrow our focus, often to the user's advantage. In this case, we can only validate forms on submit anyway.
 
 Interestingly, I've found that, generally speaking, the best experiences are those that don't rely on Javascript. On a recent project, we only performed validation on the server side, and nobody noticed.
 
-This is not to say client-side validation is *bad*. It's just that something that may appear to be  problematic from a designer's point of view, may not be a problem at all for users. Without testing with users, we can't tell.
+This is not to say client-side validation is *bad*. It's just that something that may appear to be problematic from a designer's point of view, may not be a problem at all for users. But, without testing we can't be sure.
 
 Client-side validation typically only checks the format. At some point we're going to need to check information in a database. To register, for example, we'll need to ensure nobody enters an email address that already exists in the database.
 
 By designing first without Javascript we reach a wider audience, and expose scenarios that we may have otherwise forgotten, had we jumped head first into the all-singing and all-dancing fancy-pants solution.
 
-For example, if some errors can only be caught on the server, then if we're not careful we could end up with two error summary boxes—one generated by the server and one generated on the client.
+If some errors can only be caught on the server, if we're not careful we could end up with two error summaries—one generated on the server and one generated on the client.
 
 []()
 
-As already noted, by validating on submit we create a consistent experience whether errors are caught on the server or the client. And it puts users in control and saves us having to second guess when users wish to receive feedback.
+As already noted, by validating on submit we create a consistent experience whether errors are caught on the server or the client. And it puts users in control and saves us having to second guess when users expect feedback.
 
 ### How to show errors
 
@@ -436,9 +434,7 @@ When the user submits an erroneous form we'll need to inform the user by:
 
 #### Changing the page title
 
-When a page loads, the `title` is read out first by screen readers. So we'll update the title to read ‘The form has errors’ (or words to that affect).
-
-On one project, the Royal National Institute of Blind People (RNIB) suggested we prepend ‘Retry — ’ which tested well. As the experience became familiar, this shorter prompt proved informative and terse.
+When a page loads, the `title` is read out first by screen readers. So we'll update the title to read ‘Errors in - ’ or similar. On one project, the Royal National Institute of Blind People (RNIB) suggested we prepend ‘Retry — ’ which tested well. As the experience became familiar, this shorter prompt proved informative and terse.
 
 Changing the `title` is mostly for those using screen readers. However, for those multi-tasking and switching between tabs, the title acts as a notification of sorts.
 
@@ -458,13 +454,13 @@ document.title = 'Retry - ' + document.title;
 
 #### 2. Displaying an error summary
 
-Next, we'll provide an error summary at the top of the page, so that when the page refreshes, the error will be shown without having to scroll.
+Next, we'll provide an error summary at the top of the page, so that when the page refreshes, the error is shown without having to scroll.
 
 ![blah blah](/)
 
-We'll apply the same functionality for errors caught on the client-side. But this time, we'll need to focus the error summary into the viewport. More on this later.
+We'll apply the same functionality for errors caught on the client. But this time, we'll need to move focus to the error summary to ensure users see it. More on this later.
 
-Conventionally speaking, we should style errors in red. But, to support those who can't see (the full range of) colour, we'll need to ensure the summary is prominent without it. We'll use a short but prominent heading.
+Conventionally speaking, we should style errors in red. But to support those who can't see (the full range of) colour, we'll need to ensure the summary is prominent without it. We'll use a short but prominent heading to do this.
 
 As is often the case with inclusive design patterns, what helps a minority of users often helps everyone else too. In this case a prominent heading helps everyone, not just those with poor vision.
 
@@ -476,7 +472,7 @@ HTML:
 
 ```html
 <div class="errorSummary" role="alert">
-  <h2 tabindex="-1">There are 4 errors</h2>
+  <h2 tabindex="-1">Fix the following errors</h2>
   <ul>
     <li><a href="#emailaddress">Provide an email address.</a></li>
     <li><a href="#password">The password must contain an uppercase letter.</a></li>
@@ -486,11 +482,15 @@ HTML:
 
 Notes:
 
-- `role="alert"` means the summary will be read out first when the page loads.
-- The `tabindex` allows us to programmatically set focus to the element when an error is caught by script. This means we can bring the summary into view. When focus is set, the heading will be read out prompting the user to take action.
+- `role="alert"` ensures the summary is read out first when the page loads.
+- The `tabindex` allows us to programmatically set focus to the element when an error is caught on the client. This means we can bring the summary into view. When focus is set, the heading will be read out prompting the user to take action.
 - Each error message is an internal anchor that sets focus to the field.
 
-Without Javascript, the *server* will render the summary. When the page loads without errors the summary should be hidden. To do this, the server will need to apply an extra class:
+For those without Javascript support, or for errors that can only be handled on the server, the server will render the summary. When the page loads without errors the summary should be hidden. To do this, the server will need to apply an extra class:
+
+```HTML
+<div class="errorSummary errorSummary-isHidden">
+```
 
 ```CSS
 .errorSummary-isHidden {
@@ -498,11 +498,9 @@ Without Javascript, the *server* will render the summary. When the page loads wi
 }
 ```
 
-This allows us to reuse the same component and the same location on the screen. This is useful because if the server catches an error, the Javascript validation will clear it appropriately. Otherwise we risk two error summaries being shown.
+This allows us to reuse the same component and the same location on the screen regardless and ensures only one summary will ever be shown.
 
 #### 3. Show in-context error messages
-
-Showing errors in-context of the field is helpful too.
 
 What it looks like:
 
@@ -517,23 +515,23 @@ HTML:
 </div>
 ```
 
-Like the hint pattern we discussed earlier, we place the error inside the label too providing broad support for those using screen readers. This means, that when the user focuses the field the error will be read out along with the label.
+Like the hint pattern we discussed earlier, we place the error inside the label too, providing broad support for those using screen readers. This means, that when the user focuses the field the error will be read out along with the label.
 
 The registration form only contains a simple text box, but in upcoming chapters we'll discuss how to show errors for groups of fields such as radio buttons. Spoiler alert: Injecting the error into a radio button's label doesn't work.
 
 ### How to write errors
 
-Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for zero if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to  over £250,000 a year in revenue[^].
+Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^].
 
 A good error message is easy to understand and easy to fix. Whilst it's often backwards to design an interface without first knowing the content, in this case, it's hard to design the messages without understanding the interface.
 
-We know the error will appear in two places: the summary and next to the field. ‘You need to enter the “at” symbol.’ is ambiguous when it appears in the summary but works when next to the field.
+As we've just designed the interface, we already know that errors might appear in two places: the summary and next to the field. What this means is we need to ensure the error message works well regardless of these two locations. That is, ‘You need to enter the “at” symbol.’ is ambiguous when it appears in the summary but works when next to the field.
 
 []()
 
-Maintaining two different messages for each error is  a lot more work and for little gain. To solve this, we should design a messgae that works in both cases. For example, ‘You need to enter the “at” symbol in the email address.’.
+Maintaining two different messages for each error is a lot more work and for little gain. To solve this, we'll design messages that works in both cases. For example, ‘You need to enter the “at” symbol in the email address.’.
 
-We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisey and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to [answer this question.]’ may be better as it sounds softer but it has more words.
+We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisey and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to [answer this question.]’ may be better as it sounds softer but it has more words. Tricky.
 
 To help answer the question of pleasantries, we might consider how frequently the system is being used by the same user. For users who use a system every day, removing ‘You need to’ gets straight to the point and may be better. For less frequent users it may come across rude. Without testing it's hard to know.
 
@@ -541,13 +539,13 @@ Regardless of the chosen approach, there's bound to be some repetition. Often wh
 
 []()
 
-The reptition is obvious in this worst case scenario. As content designers, we might freak out and wish to remove this cardinal sin. But in reality how often do users submit a long form that is full of errors? Most users aren't trying to break the interface.
+The repetition is obvious in this worst case scenario. And, as content designers, we might freak out and try fix this cardinal sin. But in reality how often do users submit a long form that is full of errors? Most users aren't trying to break the interface.
 
 With these considerations out of the way, here's a list of tips for designing error messages:
 
 - Use punctuation. Some errors have clauses and contain several sentences.
 - Be specific. If the system knows why something is wrong, then it should say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user to find out why.
-- Use active voice. ‘Enter your name’ not ‘Your name must have an entry’.
+- Use the active voice. For example, ‘Enter your name’ not ‘Your name must have an entry’.
 - Don't blame the user.
 - Use plain language. Error messages are not an opportunity to promote your quirky brand's tone of voice. Keep it simple and obvious.
 - Be human, avoid jargon. Avoid being cutesy and avoid words like *invalid*, *unrecognised* (which is passive) and *mandatory*.
@@ -562,13 +560,13 @@ There are little things we can do to help users fill out forms without causing a
 
 If someone types an extra space in an email address at the end, we can trim that for them with a little bit of code. Don't put that burden on the user where ever possible.
 
-Jared Spool makes a funny joke about this in Design is Metrically Opposed, at 42 minutes in. He says ‘it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong’.
+Jared Spool makes a joke about this in Design is Metrically Opposed[^], at 42 minutes in. He says ‘it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong’.
 
 Not to mention the added burden on the user. Consider this with each and every form validation rule you have to write.
 
 ### Restoring values
 
-This is something that is easy to forget, creates a huge burden on the user and is easy to solve. When the form is submitted with an error, we should restore whatever the user typed back into the fields. Otherwise users have to frustratingly type the same thing again.
+When the form is submitted with an error, we should restore whatever the user typed back into the fields. Otherwise users have to frustratingly type the same thing again. This is something that is easy to forget, creates a huge burden on the user but fortunately just as is easy to solve.
 
 ### Validation component
 
@@ -635,3 +633,4 @@ Whilst we have covered a lot of ground in this chapter, this is lots more to dis
 [^cjerrors]: http://www.effortmark.co.uk/avoid-embarrassed-error-messages/
 [^cjbuttons]: http://www.effortmark.co.uk/seven-basic-best-practices-buttons/
 [^gdserrorguidacne]: https://paper.dropbox.com/doc/Error-messages-fifEJpOYMGjRy0lHTmthb
+[^errorsonly]:https://www.smashingmagazine.com/2012/06/form-field-validation-errors-only-approach/

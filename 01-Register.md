@@ -523,35 +523,33 @@ The registration form only contains a simple text box, but in upcoming chapters 
 
 ### How to write errors
 
-Up to now, we've ensured that our approach to validation is robust and inclusive. But, this doesn't count for anything if we neglect to design the messages themselves. The message itself is vital&mdash;one study showed that providing *custom* error messages increased conversion by 0.5%. This little percentage equates to over £250,000 a year[^].
+Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for zero if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to  over £250,000 a year in revenue[^].
 
-> ‘Content is the user experience’
+A good error message is easy to understand and easy to fix. Whilst it's often backwards to design an interface without knowing the content, in this case, it's hard to design the messages without understanding the interface.
 
-A good error message is easier to understand and easy to fix. Whilst we can't drive design without knowing the content, we can't completely design the content without understanding the constraints of the interface itself.
+We know there's going be an error summary at the top, and each individual error in context of the field. A message of ‘You need to enter the “at” symbol.’ is ambiguous in the error summary but perfectly undestandable in context of the field.
 
-In our case we know that we are going to show the error messages in two places. At the top in the summary and beside the field ‘in context’. With these constraints in mind let's discuss the relevant points in turn:
+However, maintaining two different messages for each error is probably of little value and creates a lot of extra work. For this reason, it's better to use a message that stands alone: ‘You need to enter the “at” symbol in the email address.’ works in and out of context.
+
+We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisey and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to answer this question’ may be better as it sounds softer but has more words.
+
+To help answer the question of pleasantries, we might consider how frequently the system is being used by the same user. For users who use a system every day, removing the pleasantries and getting to the point might be valuable. For less frequent users perhaps it may come across rude. Without testing it's hard to know.
+
+Regardless of the chosen approach, there's bound to be some repetition. Often when we test the error state of a form, we'll submit it without entering anything. But this always present the very worst case scenario which is a long list of error messages grouped together:
+
+[]()
+
+You'll notice that there is a lot of repetition. As content designers, we might freak out and wish to remove the repetition. But in reality how often will this happen. Most users trying to use a system don't try to create errors.
+
+With those considerations out of the way, here is a list of simple tips that help users understand and fix errors.
 
 - Use punctuation. Some errors have clauses and contain several sentences.
-- Be explicit. If the system knows why something is wrong, then we should tell the user. For example, ‘The email address is missing the “at” (@) symbol.’
-- Use plain language. Error messages are never wanted. Don't use this opportunity to promote your quirky brand's tone of voice. 
-- Be human. Make content human, after all it's humans who will read it. Avoid being cutesy and avoid words like invalid, unrecognised (which is passive), and mandatory[^cjerrors].
+- Be explicit. If the system knows why something is wrong, then it should say so. For example, ‘The email address is missing the “at” (@) symbol.’ versus ‘The email is invalid.’.
+- Use plain language. Don't use error messages as an opportunity to promote your quirky brand's tone of voice.
+- Be human, avoid jargon. Make content human. Avoid being cutesy and avoid words like invalid, unrecognised (which is passive), and mandatory[^cjerrors].
 - Understandable no matter the context. A message of ‘You need to answer this.’ works when it's next to the field is okay. But is useless when part of the summary.
-- Be consistent. Use the same tone, the same words, the same punctuation throughout all your forms.
- 
-Pleasantries
-Soft language - is it necessary? I think we all agree that ‘please’ is unnecessary at the start of error messages. However, without ‘please’ some messages feel blunt. For example: “Please answer this question” v “Answer this question”. What should we do in this situation? “You need to …”?
- 
-Helping people fix the thing
-Some existing messages tell people they’ve done things wrong but don’t attempt to explain why. Should we have a rule like this: ‘Never just highlight an error - you need to tell users how to fix it’? For example: “This is too long” v “You need to enter less than 20 characters”.
- 
-Directional terms
-‘Enter’ v ‘use’ v ‘put’ v ‘select’ v ‘choose’ v ‘pick’- what’s best? 
-
-Repetition
-When there are lots of errors in the summary the words ‘You need to’ get quite noisy. Although, in reality how often will this happen. Probably not very.
-
-Frequency of use
-Users of agent-side use the system a lot, meaning do we need to be polite with “You need to” over and over?
+- Be consistent. Use the same tone, the same words, the same punctuation throughout all your forms. Consider which of ‘Enter’ v ‘use’ v ‘put’ v ‘select’ v ‘choose’ v ‘pick’ is best and stick to it.
+- Be terse. Don't be too chatty, particularly on a system that is used frequently.
 
 https://paper.dropbox.com/doc/Error-messages-fifEJpOYMGjRy0lHTmthb
 

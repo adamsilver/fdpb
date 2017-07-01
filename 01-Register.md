@@ -572,21 +572,21 @@ This is something that is easy to forget, creates a huge burden on the user and 
 
 ### Validation component
 
-What about HTML5 form validation? There are concerns about the support and uniformity of HTML form validation. To achieve all of the functionality we've discussed and to grant ourselves the flexibility to design *whatever it is we need* we'll build our own implementation.
+There are concerns about the support and uniformity of HTML5 form validation. To achieve all of the functionality we've discussed so far and to grant ourselves the flexibility to design *whatever it is we need* we'll build our own implementation.
 
-TO do this, we'll first need to ‘turn off’ HTML5 form validation for browsers that support it. We can do this by adding a `novalidate` attribute to the form element.
+To do this, we'll first need to ‘turn off’ HTML5 form validation for browsers that support it. We can do this by adding `novalidate` to the form element:
 
 ```HTML
 <form novalidate>
 ```
 
-Then we'll need to define a reusable validation script:
+Then we'll need to create a reusable component using Javascript:
 
 ```JS
 Do this
 ```
 
-To create an instance for the registration form is as follows:
+To create an instance for the registration we'd need something like this:
 
 ```JS
 var validator = new FormValidator(form);

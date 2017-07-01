@@ -525,38 +525,46 @@ The registration form only contains a simple text box, but in upcoming chapters 
 
 Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for zero if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to  over £250,000 a year in revenue[^].
 
-A good error message is easy to understand and easy to fix. Whilst it's often backwards to design an interface without knowing the content, in this case, it's hard to design the messages without understanding the interface.
+A good error message is easy to understand and easy to fix. Whilst it's often backwards to design an interface without first knowing the content, in this case, it's hard to design the messages without understanding the interface.
 
-We know there's going be an error summary at the top, and each individual error in context of the field. A message of ‘You need to enter the “at” symbol.’ is ambiguous in the error summary but perfectly undestandable in context of the field.
-
-However, maintaining two different messages for each error is probably of little value and creates a lot of extra work. For this reason, it's better to use a message that stands alone: ‘You need to enter the “at” symbol in the email address.’ works in and out of context.
-
-We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisey and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to answer this question’ may be better as it sounds softer but has more words.
-
-To help answer the question of pleasantries, we might consider how frequently the system is being used by the same user. For users who use a system every day, removing the pleasantries and getting to the point might be valuable. For less frequent users perhaps it may come across rude. Without testing it's hard to know.
-
-Regardless of the chosen approach, there's bound to be some repetition. Often when we test the error state of a form, we'll submit it without entering anything. But this always present the very worst case scenario which is a long list of error messages grouped together:
+We know the error will appear in two places: the summary and next to the field. ‘You need to enter the “at” symbol.’ is ambiguous when it appears in the summary but works when next to the field.
 
 []()
 
-You'll notice that there is a lot of repetition. As content designers, we might freak out and wish to remove the repetition. But in reality how often will this happen. Most users trying to use a system don't try to create errors.
+Maintaining two different messages for each error is  a lot more work and for little gain. To solve this, we should design a messgae that works in both cases. For example, ‘You need to enter the “at” symbol in the email address.’.
 
-With those considerations out of the way, here is a list of simple tips that help users understand and fix errors.
+We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisey and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to [answer this question.]’ may be better as it sounds softer but it has more words.
+
+To help answer the question of pleasantries, we might consider how frequently the system is being used by the same user. For users who use a system every day, removing ‘You need to’ gets straight to the point and may be better. For less frequent users it may come across rude. Without testing it's hard to know.
+
+Regardless of the chosen approach, there's bound to be some repetition. Often when testing validation, we'll submit the form without entering anything. This, of course, presents a long list of errors:
+
+[]()
+
+The reptition is obvious in this worst case scenario. As content designers, we might freak out and wish to remove this cardinal sin. But in reality how often do users submit a long form that is full of errors? Most users aren't trying to break the interface.
+
+With these considerations out of the way, here's a list of tips for designing error messages:
 
 - Use punctuation. Some errors have clauses and contain several sentences.
-- Be explicit. If the system knows why something is wrong, then it should say so. For example, ‘The email address is missing the “at” (@) symbol.’ versus ‘The email is invalid.’.
-- Use plain language. Don't use error messages as an opportunity to promote your quirky brand's tone of voice.
-- Be human, avoid jargon. Make content human. Avoid being cutesy and avoid words like invalid, unrecognised (which is passive), and mandatory[^cjerrors].
-- Understandable no matter the context. A message of ‘You need to answer this.’ works when it's next to the field is okay. But is useless when part of the summary.
-- Be consistent. Use the same tone, the same words, the same punctuation throughout all your forms. Consider which of ‘Enter’ v ‘use’ v ‘put’ v ‘select’ v ‘choose’ v ‘pick’ is best and stick to it.
-- Be terse. Don't be too chatty, particularly on a system that is used frequently.
-
-https://paper.dropbox.com/doc/Error-messages-fifEJpOYMGjRy0lHTmthb
+- Be specific. If the system knows why something is wrong, then it should say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user to find out why.
+- Use active voice. ‘Enter your name’ not ‘Your name must have an entry’.
+- Don't blame the user.
+- Use plain language. Error messages are not an opportunity to promote your quirky brand's tone of voice. Keep it simple and obvious.
+- Be human, avoid jargon. Avoid being cutesy and avoid words like *invalid*, *unrecognised* (which is passive) and *mandatory*.
+- Understandable out of context. A message of ‘You need to answer this.’ works when it's next to the field, but it's useless when inside the summary.
+- Be terse. Don't be overly chatty, particularly on a system that is used frequently.
+- Be consistent. Use the same tone, the same words and the same punctuation.
+- Test your messages with users.
 
 ### How to be forgiving
 
-TODO: Be flexible, allow spaces, uppercase, lowercase trim.
-Jared 42mins, Design Is Metrically Opposed: "it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong".
+There are little things we can do to help users fill out forms without causing an error message to show. We should be flexible by allowing spaces, uppercase and lowercase letters depending on the field.
+
+If someone types an extra space in an email address at the end, we can trim that for them with a little bit of code. Don't put that burden on the user where ever possible.
+
+Jared Spool makes a funny joke about this in Design is Metrically Opposed, at 42 minutes in. He says ‘it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong’.
+
+Not to mention the added burden on the user. Consider this with each and every form validation rule you have to write.
 
 ### Restoring values
 
@@ -628,3 +636,4 @@ Whilst we have covered a lot of ground in this chapter, this is lots more to dis
 [^position]: http://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
 [^cjerrors]: http://www.effortmark.co.uk/avoid-embarrassed-error-messages/
 [^cjbuttons]: http://www.effortmark.co.uk/seven-basic-best-practices-buttons/
+[^gdserrorguidacne]: https://paper.dropbox.com/doc/Error-messages-fifEJpOYMGjRy0lHTmthb

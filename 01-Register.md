@@ -609,15 +609,18 @@ Notes:
 
 ## Summary
 
-We have navigated through many of the fundamental design challenges that most forms need to accommodate. In many ways this chapter has explained an equal amount of what not to do, as it has what it is we should do. In short:
+In this chapter we've solved most of the fundamental problems we face in designing forms. In some respects, this chapter has been as much about what not to do as it has about what it is we should.
 
-1. Always use a clear, readily accessible, human-readable label.
-2. Avoid any rule that inhibits rule number one.
-3. Strive to reduce the amount of questions we ask of our users.
-4. Use the right form control so that browsers can enhance the experience.
-5. Validation should be executed on submit. Upon execution there are 3 parts of the page to update to ensure a fully inclusive, and easy path to remedying any errors.
+Notes:
 
-Whilst we have covered a lot of ground in this chapter, this is lots more to discuss. The foundations have been laid, and with that we will up the ante and face even tougher challenges. In doing so we can explore some of the more interesting techniques at our disposal.
+1. Always use a clear and readily accessible label.
+2. Avoid techniques that defy the first tule.
+3. Use the Question Protocol to find ways to remove fields.
+4. Use the right type of form control to provide field-specific keyboards.
+5. Show errors when the user takes explicit action through submit.
+6. Write errors in the active voice, and ensure those errors are specific and consistent.
+
+In upcoming chapters, we'll build on the foundations we've laid here in order to solve more complex problems. In doing so we'll need to explore a host of other patterns at our disposal.
 
 ## Footnotes
 

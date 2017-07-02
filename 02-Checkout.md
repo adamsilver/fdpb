@@ -68,7 +68,7 @@ A large form takes longer to complete. If it takes too long, then a page timeout
 
 Alternatively, the computer freezes, which was the case for Daniel, the leading character in *I, Daniel Blake*. With declining health and having never used a computer before, his computer freezes and his data is lost. In the end, he gives up.
 
-I've actually counted eleven more reasons[^Smashing Article] as to why this pattern works so well.
+I've actually counted eleven more reasons which you can read about in Better Form Design: One Thing Per Page[^].
 
 This inconspicuous and humble UX pattern is flexible, performant and inclusive by design. It truly embraces the web, making things easy for high and low confidence users.
 
@@ -78,7 +78,7 @@ If we consider a task as a transaction that a user wants to complete, breaking i
 
 I’ve not come across a design pattern that has as many benefits as this one. It’s like compound interest, it just keeps on giving. This is one of those cases where simple is just that. Simple.
 
-Needless to say we'll this design pattern  to design our checkout form in this chapter.
+Needless to say we'll the checkout flow using this design pattern. Before we design each page, we'll first think about flow and order.
 
 ## Flow and order
 
@@ -95,10 +95,10 @@ We can apply the same principles to our checkout process:
 1. Delivery address
 2. Delivery options
 3. Payment
-4. Check details
-5. Confirmation
+4. Check and confirm
+5. Order confirmation
 
-Just like the salesperson, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt for record keeping.
+Just like the car salesperson, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt for record keeping.
 
 ## Delivery address
 
@@ -109,75 +109,79 @@ What it looks like:
 HTML:
 
 ```html
-<form>
-  <div>
-    <label for="recipientName">Recipient name</label>
+<form novalidate>
+  <div class="field">
+    <label for="recipientName">
+		<span class="field-label">Recipient name</span>
+    </label>
     <input type="text" id="recipientName" name="recipientName">
   </div>
-  <div>
+  <div class="field">
     <label for="mobile">
-    	<span class="label">Your mobile</span>
-    	<span class="hint">So we can notify you about delivery</span>
+    	<span class="field-label">Your mobile</span>
+    	<span class="field-hint">So we can notify you about delivery</span>
     </label>
     <input type="tel" id="mobile" name="mobile">
   </div>
-  <div>
-    <label for="address1">Recipient address line 1</label>
+  <div class="field">
+    <label for="address1">
+    	<span class="field-label">Recipient address line 1</span>
+    </label>
     <input type="text" id="address1" name="address1">
   </div>
-  <div>
-    <label for="address2">Recipient address line 2</label>
+  <div class="field">
+    <label for="address2">
+    	<span class="field-label">Recipient address line 2</span>
+   	</label>
     <input type="text" id="address2" name="address2">
   </div>
-  <div>
-    <label for="city">Recipient city</label>
+  <div class="field">
+    <label for="city">
+    	<span class="field-label">Recipient city</span>
+    </label>
     <input type="text" id="city" name="city">
   </div>
-  <div>
-    <label for="postcode">Recipient postcode</label>
+  <div class="field">
+    <label for="postcode">
+    	<span class="field-label">Recipient postcode</span>
+    </label>
     <input type="text" id="postcode" name="poscode">
   </div>
   <input type="submit" value="Next">
 </form>
 ```
 
+We've used the same field pattern from the first chapter with a label and optional hint for each field. But there are few specific things to point out.
+
 ### Mobile field
 
-As we discussed in A Registration Form, we know how important it is to tell users why we're asking them for information.
+As we discussed in the first chapter, Registration, we know how important it is to tell users why we're asking them for information. Users may wonder why it is we're asking for this, particularly when they're ordering online.
 
-When they first encounters this form, they may wonder why we're asking for their mobile phone number, when they're ordering a product online.
+But we know that our couriers offer real-time text messages on the day of delivery. And so we're telling our users this openly. This builds trust, reduces friction and promotes this useful feature all at the same time.
 
-But we, the designers, know that our couriers offer real-time text messages on the day of delivery. And so as you can see in the design, we're telling our users that transparently. This builds trust, reduces friction and offers a nice little feature, all at the same time.
-
-Those of you with a keen eye for detail will have noticed that the mobile field has `type=tel`. Much like `type=email` discussed in A Registration Form, this will display a telephone-specific keyboard on various mobile devices:
+The mobile field has `type=tel`. This will display a telephone-specific keyboard on various mobile devices making it easier to input their phone number.
 
 ![On-screen device keyboard](./images/?.png)
 
-This allows users to type their phone number easily with a dedicated context-specific keyboard.
-
 ### Postcode field
 
-Often designers like to make everything line up perfectly. In this case they design the width of the postcode field to match all the others.
+Designers are obsessed with clean lines and everything looking uniform. In the case of the delivery form, we might be tempted to give it the same width as the other fields. It's hard to argue aginst the beauty of such a design, but we're not installing a minimalist art display.
 
-It's hard to argue that visually this is appealing. But we're not installing a minimalist art display. We're designing a form for people to use. And making the postcode field too big is a cognitive burden on the user.
+We're designing a form for people to complete easily. Making the postcode field wide is a cognitive burden on the user. This is because the width of the field gives users a clue as to the length of the content required for input.
 
-The field width provides a clue as to the length of content required for input. The postcode consists of approximately eight characters, therefore this field should be smaller than other fields in an address form as shown.
-
-You can apply these principles to other form fields where the length of the field is *known*.
+As a postcode consists of approximately 8 characters this field should indicate this through the width by being smaller than the others as shown. We can apply the same principles to other fields, where the length of the field is known.
 
 ### Capture+ enhancement
 
-Capture+[^] is a Javascript API and plugin that allows users to search for their address quickly and easily. Instead of manually typing each part of your address in 5 separate text boxes, we can offer users a single text box.
+Capture+[^] is a Javascript plugin that allows users to search for their address quickly and easily. Instead of manually typing each part of the address in 5 separate boxes, it offers users a single text box.
 
 ![Capture+ enhancement](./images/?.png)
 
-As the user types the first line of their address, they can select their address from a list of suggestions. This drastically reduces the amount of keystrokes, and reduces the chance of typos.
+As the user types the first line of their address, suggestions appear from which users can select. This drastically reduces the amount of keystrokes and reduces the chance of typos.
 
-In the event that the component doesn't recognise a user's address, we still offer the user the ability to change the UI back to the standard address form. In doing this we conform to the fourth of Heni Swans UX principles, give people the ability to choose.
+In the event that the component doesn't recognise a user's address, we offer the ability to change the interface back to a standard address form. In doing this we conform to the fourth of Heni Swans wonderful UX principles: give people the ability to choose.
 
-Enhancing a textbox like this doesn't come for free. We either hand off responsibility to the plugin and hope that they considered screen reader users, or we write our own.
-
-In upcoming chapters, we'll discuss what it takes to design and code an inclusive typeahead component. This will give you some expertise in order to analyse other peoples plugins, or to write your own if needed.
+Enhancing a textbox with a script like this isn't free. We either hand off responsibility to the plugin and hope that they considered accessibility or we write our own. in the next chapter, we'll look at what it takes to design and code an inclusive autocomplete component such as this.
 
 ## Delivery options
 
@@ -190,15 +194,15 @@ HTML:
 ```html
 <form>
 	<fieldset>
-	    <legend>Delivery options</legend>
-      <div>
-  	    <input type="radio" name="option" id="option1" value="Standard" checked>
-  	    <label for="option1">UK Standard (Free, 2-3 days)</label>
-      </div>
-      <div>
-  	    <input type="radio" name="option" id="option2" value="Premium">
-  	    <label for="option2">UK Premium (£6, Next day)</label>
-      </div>
+		<legend>Delivery options</legend>
+		<div>
+		    <input type="radio" name="option" id="option1" value="Standard" checked>
+		    <label for="option1">UK Standard (Free, 2-3 days)</label>
+		</div>
+		<div>
+		    <input type="radio" name="option" id="option2" value="Premium">
+		    <label for="option2">UK Premium (£6, Next day)</label>
+		</div>
 	</fieldset>
 </form>
 ```

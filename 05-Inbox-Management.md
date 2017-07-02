@@ -15,9 +15,9 @@ On the web there are several elements that represent lists:
 
 We can't discuss the merit of these until we orientate ourselves around a specific problem that needs solving. To do this, we'll design an inbox. The aim of course is to achieve a zen-like state of Inbox Zero[^].
 
-To get to Inbox Zero our UI must enable users to delete, archive and mark spam. But not just one at a time. In bulk.
+To get to Inbox Zero our interace must enable users to delete, archive and mark spam. But not just one at a time. In bulk.
 
-Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists that need acting upon.
+Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists that may benefit from bulk actions.
 
 ## Everything is list
 
@@ -25,33 +25,33 @@ Semantically speaking everything is a list. The things on the page are a list of
 
 Tables work when representing two-dimensional data. In our case, rows represent emails and columns represent the recipient, subject and sent date etc. Interestingly, Gmail omits table headings, suggesting that tables are less appropriate in this case.
 
-We could represent rows as list items and (at least in big screens) make them *look* like columns. This brings us to the first problem. Tables aren't the most responsive of elements.
+We could represent rows as list items and (at least in big screens) make them *look* like columns. This brings us to the first problem. Tables aren't particularly responsive.
 
-Tables are semantically tied to the way they look. Meaning it's hard to make tables not *look* like tables. There are some solutions, but they are not particularly cross-browser friendly. However, striving to make tables (or any other element) not look like a table is materially dishonest.
+Tables are semantically tied to the way they look. Meaning it's hard to make tables not *look* like tables. There are some solutions, but they are not particularly cross-browser friendly. However, striving to make tables (or any other element) not look like a table is materially dishonest[^].
 
-Tables *are* a good choice when the data needs contextual information to make it useful. For example, *23* is useless information without the context of *goals scored* as a column heading and *Lionel Messi* as a row heading.
+Tables *are* a good choice when the data needs contextual information to make it useful. For example, *23* is ambiguous without *goals scored* and *Lionel Messi* as column and row headings respectively.
 
-Our inbox, however, is seemingly less tabular. It's a list of emails that if read out as "From Heydon, subject: Buttons, 19/09/2017 at 9am" would be quite readable. You might even argue that the verbosity of having column headings is something that hinders, as opposed to helps the experience.
+Our inbox, however, is seemingly less tabular. It's a list of emails that if read out as ‘From Heydon, subject: Buttons, 19/09/2017 at 9am’ would be quite readable. You might even argue that the verbosity of having column headings is something that hinders, as opposed to helps the experience.
 
-Mailchimp, which is not an inbox, has a similar interface to Gmail but *does* use list items:
+Mailchimp, which is not an inbox, has a similar interface to Gmail but uses list items:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
 It looks the same, but the advantage of list items over table rows is that they are maleable. We can style them differently and more appropriatelty for small and big screens alike.
 
-Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the "right" solution present itself.
+Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the ‘right’ solution present itself.
 
-This may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface all on their own.
+This may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface on their own.
 
 On balance, an unordered list is preferential. This is not to say tables are bad. We can't classify elements as *good* and *bad*. We simply need to understand their meaning, their behaviour and their constraints. From here we may choose to classify them as *appropriate* or *inappropriate*.
 
-So here's our inbox:
+Here's our inbox:
 
 ![Inbox](./images/inbox.png)
 
 HTML:
 
-```
+```HTML
 <ul class="inbox">
 	<li>
 		<a href="/emails/1/">
@@ -64,16 +64,13 @@ HTML:
 </ul>
 ```
 
-Here's the HTML without any form controls. We'll add those momentarily.
-
-Interestingly, the act of writing the HTML exposes another design problem. You'll notice the content is wrapped in a link. This can't be done with tables and is semantically invalid.
+Here's the HTML without any form controls. We'll add those momentarily. Interestingly, the act of writing the HTML exposes another design problem. You'll notice the content is wrapped in a link. This can't be done with tables and is semantically invalid.
 
 Designers should have a deep understanding of the materials they use to build artifacts. A chair designer should intimately know how wood works. In our case the materials include HTML, CSS, Javascript. And the artefacts are web pages.
 
-> If you can solve a problem with a simpler solution lower in the stack, you should.
-> —Derek Featherstone
+> ‘If you can solve a problem with a simpler solution lower in the stack, you should.’—Derek Featherstone
 
-Gmail uses tables and yet the entire row is clickable. For this to happen Google's developers have had to use Javascript. As we've previously discussed, this is an act of exclusivity.
+Gmail uses tables and yet the entire row is clickable. Google's developers have had to use Javascript. But, as we've previously discussed, this is an act of exclusivity.
 
 Wherever possible we should avoid solutions that exclude people. Inclusivity is really just a set of constraints that guide us to create robust interfaces and therefore better experiences.
 
@@ -101,15 +98,15 @@ HTML:
 </ul>
 ```
 
-You'll notice that unlike all other fields in the book so far, the checkbox has a label missing. We can add a label, but the contents of the label will duplicate the contents of the link.
+Unlike all other fields in the book so far, the checkbox has a label missing. We can add a label, but the contents of the label will duplicate the contents of the link.
 
-We can't wrap the anchor in the label either as their will be two operations occupying the same space. The label should select the checkbox, the link should navigate etc.
+We can't wrap the anchor in the label either as there will be 2 operations occupying the same space. That is, the label selects the checkbox and the link navigates.
 
-We have three options, each with their own set of tradeoffs:
+We have three options to help us solve this problem, each with their own set of tradeoffs:
 
-- Use ARIA attributes in order to connect the information to the checkbox.
+- Use ARIA attributes to connect the information to the checkbox.
+- Create a separate `label` and duplicate the information.
 - Wrap the contents in a `label` and associate it with the checkbox.
-- Create a separate `label` and duplicate the contents of the list item.
 
 ### Use ARIA attributes
 
@@ -117,27 +114,24 @@ We could use `aria-describedby` or `aria-labelledby` to associate the informatio
 
 First, there is less support for ARIA attributes than there is labels. This is because ARIA came along relatively late in the day[^]. Browsers and assistive technology that came before it won't understand the attributes.
 
-The first rule of ARIA is not to use ARIA[^]. Support is intertwined with inclusivity. If we can provide the same functionality natively without ARIA we should.
+It's worth noting again, that the first rule of ARIA is not to use ARIA. Support is intertwined with inclusivity. If we can provide the same functionality natively without ARIA we should.
 
-Secondly, the size of the hit area is smaller. You'll recall from the first chapter that increasing the hit area helps users with fine motor impairments. We don't want to lose this feature if at all possible.
+Secondly, the size of the hit area is smaller. You'll recall from the first chapter that increasing the hit area helps those with fine motor impairments. We don't want to lose this feature if possible.
 
 ### Duplicate the contents inside a hidden label
 
-We could duplicate the contents inside of a separate label. The problem is that the label needs to be visually hidden. This causes the HTML to be heavier. And the extra noise could cause problems for those using a screen reader. Two problems we want to avoid.
+We could duplicate the contents inside of a separate label. The problem is that the label needs to be visually hidden. This causes  HTML bloat. And the extra noise could cause problems for those using a screen reader. Two problems we want to avoid.
 
 ### Wrap the contents in a label
 
-Instead of duplicating the contents inside a hidden label, we could wrap the contents in a label. Labels have excellent support and so there is no need for ARIA. By the same taken, the entire row becomes clickable which maximises the hit area.
+Instead of duplicating the contents inside a hidden label, we could wrap the contents in a label. Labels have excellent support and so there is no need for ARIA. By the same token, the entire row becomes clickable which maximises the hit area.
 
 So far so good, but this solution introduces some other problems:
 
 A label can't contain a link because you can't have two interactive elements occupying the same space in the interface. We'd have to remove the link, losing the ability to view the email in detail.
 
-We might consider using *modes*.
-
-We could place a separate button on the page that switches the mode between "read" mode and "edit" mode.
-
-Read mode will have the entire row clickable and not show the checkbox. Edit mode will have a checkbox and the entire row being the label (not a link).
+We might consider using *modes*. We could place a separate button on the page that switches the mode between "read" mode and "edit" mode.
+Read mode will make the row a link and hide the checkbox. Edit mode will have a checkbox and will make the row a label.
 
 ![Modes](./images/modes.png)
 
@@ -151,15 +145,13 @@ We don't have to limit the row to contain just a *view* link. We can put the oth
 
 ![Actions in rows](./images/actions-in-rows.png)
 
-This works quite well. For those that want to quickly delete a single email, clicking the button is far quicker than clicking the checkbox and then hitting the action button.
+This works quite well. For those that want to quickly delete a single email, clicking the button is quicker than clicking the checkbox and then hitting the action button.
 
-The trade off is that the interface is full of buttons. Only user testing can tell us which is best. I don't have any personal experience to draw on with regards to an inbox with multiple buttons, so we'll have to make a decision.
+The trade off is that the interface is full of buttons. [Only user testing can tell us which is best. I don't have any personal experience to draw on with regards to an inbox with multiple buttons, so we'll have to make a decision.]
 
 ### Which to choose?
 
-Much to our collective frustration, *perfect* rarely exists in the design world. And in this case, I'm not sure there is a *perfect* answer here either.
-
-On balance, we'll duplicate the label and visually hide it. A bit of duplication never hurt anyone, and more importantly we have rationalised why we've made the choices we have.
+Much to our collective frustration, *perfect* rarely exists in the design world. And in this case, there's probably not a *perfect* answer either. We'll duplicate the label and visually hide it. A bit of duplication never hurt anyone, and more importantly we have rationalised why we've made the choices we have.
 
 HTML:
 
@@ -193,17 +185,15 @@ We can hide the visually duplicated label with CSS:
 
 When a user clicks a checkbox it becomes checked. The user knows this because a tick (or check) appears inside the box. We might be tempted to use Javascript to highlight the entire row which is a reasonable feature to progressively enhance.
 
-As designers and developers, or more broadly speaking: humans, we are often tempted to do more. We think more is better.
+As designers and developers, or more broadly speaking: humans, we are often tempted to do more. We think more is better. We also think doing more is a sign hardwork. In fact it's so easy to do more. Your peers will cheer you on when you say you want to do *more*.
 
-We also think doing more is a sign of our hardwork. In fact it's so easy to do more. Your peers will cheer you on when you say you want to do *more*.
-
-Try and refrain from this if you can. Because what if you don't need more? If you don't do more you can spend time solving other problems that need you. If you don't do more the developers won't need to do more either. Same goes for everyoen else on your team who is involve in the delivery of that feature.
+But what if you don't need more? If you don't do more you can spend time solving other problems that need you. If you don't do more the developers won't need to do more either. Same goes for everyone else on your team who is involve in the delivery of that feature.
 
 Mailchimp, who invest heavily into usability don't highlight the rows. The checkbox state is enough:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-We'll follow their lead and avoid the extra effort. This doesn't mean the enhancement is never needed. It simply means to do the minimum, then test to see if the investment is worth the cost.
+We'll follow their lead and avoid the extra effort. This doesn't mean the enhancement isn't. It simply means to do the minimum, then test to see if the investment is worth the cost. We might well find out that users don't need it at all.
 
 ## Submit buttons
 
@@ -223,11 +213,9 @@ With a form like this, the same logic doesn't necessarily follow. Users who wish
 
 Moreover, placing the buttons at the bottom of a long list doesn't aid discoverability. For these reasons, it makes sense to place the buttons at the top.
 
-We might also duplicate the buttons at the bottom of the form. If the list is long, which might be unavoidable, then making users scroll back to the top seems lazy on our part.
+[There is another option though. We can use CSS to enhance the buttons so that they are *sticky*. That is they will stay on screen even if users scroll. This is not something to do haphazardly though. Using sticky elements take up space and can be visually noisy, particuarly if users are in browsing mode.
 
-There is another option though. We can use CSS to enhance the buttons so that they are *sticky*. That is they will stay on screen even if users scroll. This is not something to do haphazardly though. Using sticky elements take up space and can be visually noisy, particuarly if users are in browsing mode.
-
-If you want to test this, make sure you do so on a wide range of browsers, screen sizes and users, performing different tasks: browsing and editing.
+If you want to test this, make sure you do so on a wide range of browsers, screen sizes and users, performing different tasks: browsing and editing.]
 
 ### The multiple submit button problem
 

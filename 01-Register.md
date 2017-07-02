@@ -53,9 +53,9 @@ Some go one one step further and replace labels with placeholders. As we know al
 - Some screen readers don't announce them.
 - Some browsers don't translate them.
 
-I've counted 7 additional problems which you can read about more deeply in Placeholders Are Problematic[^].
+I've counted 7 additional problems which you can read about more deeply in Placeholders Are Problematic[^1].
 
-Content isn't an enhancement[^]. Therefore, if a hint helps users we should make sure it's readily accessible. We can do this by placing it outside the field below the label.
+Content isn't an enhancement. If a hint helps we should make sure it's readily accessible. We can do this by placing it outside the field and below the label.
 
 This is how it looks in the registration form, but we'll use this pattern throughout the book.
 
@@ -179,7 +179,7 @@ Passwords are generally short, hard to remember and easy to crack, even if they 
 - one lowercase letter
 - one number
 
-Where possible we want to ask users something that is easy to remember and more secure. Passphrases are easier to remember. They are considered more secure due to their length and the fact you don't need to write them down.
+Where possible we want to ask users something that is easy to remember and more secure. Passphrases[^2] are easier to remember. They are considered more secure due to their length and the fact you don't need to write them down.
 
 A passphrase is a series of words such as ‘monkeysinmygarden’. The only downside is that this approach is unfamiliar and unfamiliarity, especially with passwords causes anxiety.
 
@@ -199,9 +199,11 @@ If required fields are the norm, and optional fields aren't then it's the option
 
 ## Label position
 
-You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left. The only so-called advantage of this is that it reduces the height. However, we already know that it's unwise to focus on reducing the height of a form through UI.
+You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left. The only so-called advantage of this is that it reduces the overall height of the form. We already know that it's unwise to focus on reducing the height of a form through interface design.
 
-There are practical reasons to avoid left-aligned labels. On small screens that are oriented in portrait (such as mobile phones) there is no room anyway. And for those using screen magnifiers there is far more chance of the label disappearing off screen.
+In Label Placement in Forms[^3], Matteo Penzo's eye tracking research showed that labels above the field are easier to read and faster to complete. Though it must be said it's probably not a big a deal. The time to understand the question and type takes far longer than reading the label.
+
+Moreover, there are practical reasons to avoid left-aligned labels. On small screens that are oriented in portrait (such as mobile phones) there is no room anyway. And for those using screen magnifiers there is far more chance of the label disappearing off screen.
 
 Also, for labels that contain a lot of text will wrap onto multiple lines, disrupting the form's visual rhythm. Whilst we should strive to keep labels and hints terse, this is not always possible and so it's wise to use a pattern that is accomodates to the varying length of content.
 
@@ -554,19 +556,15 @@ With these considerations out of the way, here's a list of tips for designing er
 - Be consistent. Use the same tone, the same words and the same punctuation.
 - Test your messages with users.
 
-### How to be forgiving
+### Be forgiving
 
-There are little things we can do to help users fill out forms without causing an error message to show. We should be flexible by allowing spaces, uppercase and lowercase letters depending on the field.
+There are some things we can do to stop users seeing errors unnecessarily. We can forgive users for typing extra spaces. If they type ‘John ’ we can trim automatically trim that to ‘John’. We can also ignore uppercase and lowercase letters and other characters depending on the field.
 
-If someone types an extra space in an email address at the end, we can trim that for them with a little bit of code. Don't put that burden on the user where ever possible.
-
-Jared Spool makes a joke about this in Design is Metrically Opposed[^], at 42 minutes in. He says ‘it takes one line of code to trim brackets and dashes from a telephone number, but it takes 10 lines to tell the user they typed something wrong’.
-
-Not to mention the added burden on the user. Consider this with each and every form validation rule you have to write.
+Jared Spool makes a joke about this in Design is Metrically Opposed[^], at 42 minutes in. He says ‘it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong’.
 
 ### Restoring values
 
-When the form is submitted with an error, we should restore whatever the user typed back into the fields. Otherwise users have to frustratingly type the same thing again. This is something that is easy to forget, creates a huge burden on the user but fortunately just as is easy to solve.
+If an error is caught on the server—therefore causing a page refresh—we should ensure whatever the user typed is restored. Otherwise users have to type the same thing again which many just won't do. Avoid unnecessary drop outs by making this part of your workflow.
 
 ### Validation component
 
@@ -609,31 +607,31 @@ Notes:
 
 ## Summary
 
-In this chapter we've solved most of the fundamental problems we face in designing forms. In some respects, this chapter has been as much about what not to do as it has about what it is we should.
-
-Notes:
+In this chapter we've solved most of the fundamental problems we face when designing forms. In some respects, this chapter has been as much about what not to do as it has about what it is we should. Here are the many takeaways:
 
 1. Always use a clear and readily accessible label.
-2. Avoid techniques that defy the first tule.
-3. Use the Question Protocol to find ways to remove fields.
-4. Use the right type of form control to provide field-specific keyboards.
-5. Show errors when the user takes explicit action through submit.
-6. Write errors in the active voice, and ensure those errors are specific and consistent.
+2. Avoid techniques, however ‘trendy’, that defy the first rule.
+3. Use the Question Protocol to find ways to remove fields, thus reducing the effort needed by the user.
+4. Use the right type of form control to provide field-specific keyboards to speed up the process.
+5. Show errors on submit, keeping users in control and avoiding the problem with instant validation.
+6. Write errors in the active voice and ensure they are specific, consistent and helpful.
 
 In upcoming chapters, we'll build on the foundations we've laid here in order to solve more complex problems. In doing so we'll need to explore a host of other patterns at our disposal.
 
 ## Footnotes
 
-[^1]: Placeholder article
+[^1]: https://adamsilver.io/articles/placeholders-are-problematic/
 [^2]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
-[^3]: Number 5 in https://uxplanet.org/10-rules-for-efficient-form-design-e13dc1fb0e03#.r3ic58br2
-[^3]: https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23)
-[^4]:https://medium.com/@cjforms/the-idea-that-left-aligned-labels-have-slower-completion-times-is-incorrect-e1461f47242b#.dvl3en9g4
-[^5]:https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p
+[^3]: http://www.uxmatters.com/mt/archives/2006/07/label-placement-in-forms.php
+[^cjbuttons]: http://www.effortmark.co.uk/seven-basic-best-practices-buttons/
+[^position?]: http://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
+[^errorsonly]:https://www.smashingmagazine.com/2012/06/form-field-validation-errors-only-approach/
+
 [^6]:http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
 [^lukesays]: https://twitter.com/lukew/status/872861520811614208?s=09
-[^position]: http://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
 [^cjerrors]: http://www.effortmark.co.uk/avoid-embarrassed-error-messages/
-[^cjbuttons]: http://www.effortmark.co.uk/seven-basic-best-practices-buttons/
 [^gdserrorguidacne]: https://paper.dropbox.com/doc/Error-messages-fifEJpOYMGjRy0lHTmthb
-[^errorsonly]:https://www.smashingmagazine.com/2012/06/form-field-validation-errors-only-approach/
+
+
+[^]:https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p
+[^]: https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23

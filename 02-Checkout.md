@@ -1,48 +1,44 @@
 # Checkout
 
-In 2008 I worked on Boots.com. They wanted a single-page checkout with the trendiest of techniques from that era including accordions, AJAX and client-side validation.
+In 2008 I worked on Boots.com. They asked us to design a single-page checkout. This included the trendiest of techniques from that era: accordions, AJAX and client-side validation.
 
-Each step (delivery address, delivery options and card details) had an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened, with a sliding transition.
+Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened.
 
-It looked a little like this:
+It looked like this:
 
 ![Single-page accordion](./images/boots1.png)
 
-Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the the accordion panels were painful and distracting. Inevitably, the client asked us to make changes.
+Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the the accordion was a distraction. Inevitably, the client asked us to make changes.
 
-We redesigned it so that each panel became its own page removing the need for accordions and AJAX. However, we kept the client-side validation to avoid an unnecessary trip to the server.
+We redesigned it so that each panel became its own page removing the need for an accordion and AJAX. However, we kept the client-side validation to avoid an unnecessary trip to the server.
 
-It looked a little like this:
+It looked like this:
 
 ![Multiple pages, no accordion](./images/boots2.png)
 
-This version converted much better. Although I can’t remember the exact numbers, I do know that the client was happy.
+This converted much better. I can’t remember the exact numbers but I know that the client was happy.
 
-Six years later (2014), when I was at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I made a note of the numbers. The result was an extra 2 million orders a year. That’s *orders*, not revenue.
+Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I made a note of the numbers. The result was an extra 2 million orders a year. That’s *orders*, not revenue.
 
 Here are some of the mobile-first designs we used:
 
 ![Just Eat checkout](./images/justeat.png)
 
-A couple of years later (2016), Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern in its own right known as One Thing Per Page. Apart from the resulting numbers there is a lot of rationale behind the pattern which we’ll get to shortly.
+A couple of years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern  known as One Thing Per Page[^]. Apart from the numbers there is a strong rationale behind the pattern, which we’ll get to shortly.
 
-Before we do that though, let’s take a look at exactly what this pattern is.
+First, we'll take a look at exactly what this pattern is.
 
 ## What is One Thing Per Page?
 
-One Thing Per Page is not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer.
+One Thing Per Page is not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer. Similarly, it’s not about having a single form field on each page either (although, again, it could).
 
-Similarly, it’s not about having a single form field on each page either (although, again, it could).
-
-This pattern is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own.
-
-For example, instead of placing the address form on the same page as the delivery options and payment forms, we put it on a dedicated page of its own.
+This pattern is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own. For example, instead of placing the address form on the same page as the delivery options and payment forms, we put it on a separate page.
 
 An address form has multiple fields, but it’s a single, tangible question that is being asked of the user. It makes sense to tackle this question on one screen.
 
-Next we’ll take a look at why the pattern is so good.
+Next we’ll look at why the pattern is so good.
 
-## Why it works
+## Why is it so good?
 
 Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s nice to understand the rationale behind it.
 

@@ -94,9 +94,10 @@ We can apply the same principles to our checkout process:
 
 1. Delivery address
 2. Delivery options
-3. Payment
-4. Check and confirm
-5. Order confirmation
+3. Delivery notes
+4. Payment
+5. Check and confirm
+6. Order confirmation
 
 Just like the car salesperson, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt for record keeping.
 
@@ -171,7 +172,7 @@ We're designing a form for people to complete easily. Making the postcode field 
 
 As a postcode consists of approximately 8 characters this field should indicate this through the width by being smaller than the others as shown. We can apply the same principles to other fields, where the length of the field is known.
 
-### Capture+ enhancement
+### Capture+
 
 Capture+[^] is a Javascript plugin that allows users to search for their address quickly and easily. Instead of manually typing each part of the address in 5 separate boxes, it offers users a single text box.
 
@@ -185,6 +186,8 @@ Enhancing a textbox with a script like this isn't free. We either hand off respo
 
 ## Delivery options
 
+This page allows users to choose between free standard and next day delivery.
+
 What it looks like:
 
 ![Delivery options](./images/?.png)
@@ -192,45 +195,70 @@ What it looks like:
 HTML:
 
 ```html
-<form>
+<form novalidate>
 	<fieldset>
 		<legend>Delivery options</legend>
 		<div>
 		    <input type="radio" name="option" id="option1" value="Standard" checked>
-		    <label for="option1">UK Standard (Free, 2-3 days)</label>
+		    <label for="option1">Standard (Free, 2-3 days)</label>
 		</div>
 		<div>
 		    <input type="radio" name="option" id="option2" value="Premium">
-		    <label for="option2">UK Premium (£6, Next day)</label>
+		    <label for="option2">Premium (£6, Next day)</label>
 		</div>
 	</fieldset>
+	<input type="submit" value="Next">
 </form>
 ```
 
-### Grouping controls with fieldset and legend
+### Grouping controls with `fieldset` and `legend`
 
-This is the first time we've encountered fields that needs grouping. This is because we have several form fields that relate to the same piece of information.
+This is the first field that needs grouping. This is because we have several form fields that form part of the same question. Each input represents a choice and they are grouped by being wrapped inside a `fieldset`. The group is given a description courtesy of the `legend`.
 
-As you can see in the code above, we wrap each of the form fields inside a `fieldset`, with a `legend` element that provides a description for those options.
+Like the label, the legend provides a description both visually and for those using a screen reader. In most screen readers, the legend is read out in combination with the radio button label. Something like *Delivery options, Standard (Free, 2-3 days)*.
 
-Combining the fieldset and legend is an important inclusive form pattern. Visually the text provides an overarching description for the group. And in most screen readers, this results in the legend's text being read out with the radio button's label. For example *Delivery options, UK Standard (Free, 2-3 days)*.
+It may be tempting to group all fields like this. Chapter one's registration form could, in theory, be wrapped in a fieldset and legend. Whilst this is valid, it creates unnecessary noise to those fields that are perfectly understandable without this treatment.
 
-You might think that all fields can be grouped in some way. For example, we could wrap the entire registration form from the previous chapter in a `fieldset` and `legend`.
-
-Whilst this is valid, it creates unnecessary noise to fields that are fully understandable anyway. As Heydon Pickering says in Inclusive Design Patterns[^], *it's easy to think of patterns as "right" and "wrong"* but, as with most design decisions, we should apply solutions based on the context of the problem.
+As Heydon Pickering says in Inclusive Design Patterns[^], *it's easy to think of patterns as ‘right’ and ‘wrong’* but, as with most design decisions, we should apply solutions based on the context of the problem.
 
 ### Provide a sensible default
 
-The first radio button has a `checked` attribute. This automatically selects the first delivery option without needing the user to do so.
-
-This has two benefits as there is:
+The first radio button has a `checked` attribute. This selects the first delivery option without needing the user to do so. This has two benefits as there is:
 
 - less work for the user to do
-- no chance of causing validation errors
+- no chance of causing errors
 
-In this situation it's vital that we put the most common choice first, which in this case we have assumed to be the cheapest.
+Deciding which option to mark as checked is normally the first item in the list, with the first item also being the most common choice. In this case we've assumed this to be the cheapest. What we shouldn't do is defualt the most expensive and least common choice.
 
-What we should never do, however, is automically select the most expensive and least common option.
+Whilst providing a default doesn't always make sense, we should look to use one where ever possible because it improves task completition time.
+
+## Delivery notes
+
+Delivery notes are useful, when users can't guarantee they're going to be available to take a large package which doesn't fit through the letter box. A delivery note allows the user to guide the delivery person as to best course of action, such as leaving it with the next door neighbour.
+
+What it looks like:
+
+![Delivery notes](./images/?.png)
+
+HTML:
+
+```HTML
+<form novalidate>
+	<div class="field">
+	    <label for="notes">
+	    	<span class="field-label">Delivery notes</span>
+	    	<span class="field-hint">Tell the delivery person what to do if you're not in. Such as leave it with the next door neighbour.</span>
+	    </label>
+	    <textarea id="notes" name="notes"></textarea>
+  </div>
+</form>
+```
+
+This is the first time we've needed a `textarea`. A textarea is similar to a textbox except that it's a lot bigger and allows users to type many lines of text in a single field. This is a better option for the type of information we're asking for.
+
+A textarea can take an endless amount of text, but quite often the equipment on the delivery person has a limited amount of characters to describe the note. For this reason we're going to want to ensure users don't type too many characters.
+
+- validatin - yes, but not enough. Max length indicator countdown.
 
 ## Payment
 

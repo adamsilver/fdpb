@@ -254,11 +254,20 @@ HTML:
 </form>
 ```
 
-This is the first time we've needed a `textarea`. A textarea is similar to a textbox except that it's a lot bigger and allows users to type many lines of text in a single field. This is a better option for the type of information we're asking for.
+This is the first time we've needed a `textarea`. A textarea is similar to a textbox except that it allows users to type many lines of text. This makes it a better option for the type of information it will contain.
 
-A textarea can take an endless amount of text, but quite often the equipment on the delivery person has a limited amount of characters to describe the note. For this reason we're going to want to ensure users don't type too many characters.
+A textarea can take an endless amount of text, but quite often the equipment the delivery person uses has a limited amount of characters to expose the note. For this reason we want to ensure users don't type too many characters.
 
-- validatin - yes, but not enough. Max length indicator countdown.
+To do this, we're going to create a component that provides instant feedback. In chapter one we bemoaned instant feedback due to the array of problems it introduces. But this isn't validation so much but a warning.
+
+Of course, we'll want to setup a validation rule that doesn't allow users to enter more than a certain number of characters, but this doesn't help users avoid wasting potentially a lot of time constructing a delivery note.
+
+### Characters remaining component
+
+TODO
+
+```JS
+```
 
 ## Payment
 

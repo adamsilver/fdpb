@@ -1,6 +1,6 @@
 # Outline
 
-## Register
+## 1. Register
 
 - Labels
 - Placeholders
@@ -38,7 +38,7 @@
 	- Restoring values
 	- Validation component
 
-## Checkout
+## 2. Checkout
 
 - One Thing Per page
 - Flow and order
@@ -50,6 +50,9 @@
 	- Fieldset and legend
 	- Radio buttons
 	- Smart defaults
+- Delivery notes
+	- Textarea
+	- Character count indicator
 - Payment
 	- Valid From not needed
 	- Number fields
@@ -69,7 +72,7 @@
 - Second time experience
 - Checkout specific layout
 
-## Book flight
+## 3. Book flight
 
 - Flow and order
 - Choose destination
@@ -97,7 +100,7 @@
 	- Enhancing
 	- Limit seat selection
 
-## Login
+## 4. Login
 
 - Provide a password hint
 - Non-standard username and password fields
@@ -111,7 +114,7 @@
 - Forgotten password
 - One form per page
 
-## Inbox Management
+## 5. Inbox Management
 
 - Representing lists of things
 - Enabling row selection
@@ -134,7 +137,7 @@
 - Success message
 - Confirming and undo
 
-## Search
+## 6. Search
 
 - Introduction
 - Search

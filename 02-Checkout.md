@@ -146,7 +146,7 @@ HTML:
     <label for="postcode">
     	<span class="field-label">Recipient postcode</span>
     </label>
-    <input type="text" id="postcode" name="poscode">
+    <input type="text" id="postcode" name="postcode">
   </div>
   <input type="submit" value="Next">
 </form>
@@ -169,6 +169,8 @@ The mobile field has `type=tel`. This will display a telephone-specific keyboard
 Designers are obsessed with clean lines and everything looking uniform. In the case of the delivery form, we might be tempted to give it the same width as the other fields. It's hard to argue aginst the beauty of such a design, but we're not installing a minimalist art display.
 
 We're designing a form for people to complete easily. Making the postcode field wide is a cognitive burden on the user. This is because the width of the field gives users a clue as to the length of the content required for input.
+
+Baymard Institute's study[^44] found that *if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.*
 
 As a postcode consists of approximately 8 characters this field should indicate this through the width by being smaller than the others as shown. We can apply the same principles to other fields, where the length of the field is known.
 
@@ -250,17 +252,18 @@ HTML:
 	    	<span class="field-hint">Tell the delivery person what to do if you're not in. Such as leave it with the next door neighbour.</span>
 	    </label>
 	    <textarea id="notes" name="notes"></textarea>
-  </div>
+  	</div>
+  	<input type="submit" value="Next">
 </form>
 ```
 
 This is the first time we've needed a `textarea`. A textarea is similar to a textbox except that it allows users to type many lines of text. This makes it a better option for the type of information it will contain.
 
-A textarea can take an endless amount of text, but quite often the equipment the delivery person uses has a limited amount of characters to expose the note. For this reason we want to ensure users don't type too many characters.
+A `textarea` can contain infinite characters, but quite often the equipment the delivery person uses has a limited amount of characters to expose the note. And if there is a lot of information for driver to read, then it will slow down their efficiency in delivery the item. Therefore we want to ensure users don't type too many characters.
 
-To do this, we're going to create a component that provides instant feedback. In chapter one we bemoaned instant feedback due to the array of problems it introduces. But this isn't validation so much but a warning.
+To do this, we'll create a component that provides this information instantly, as the user types. In chapter one, Registration, we bemoaned instant feedback due to the array of problems it introduces. But this was specifically to do with validation.
 
-Of course, we'll want to setup a validation rule that doesn't allow users to enter more than a certain number of characters, but this doesn't help users avoid wasting potentially a lot of time constructing a delivery note.
+This is about warning users about how many characters they have remaining. This stops the user wasting time constructing a delivery note, that ultimately can't be stored and used.
 
 ### Characters remaining component
 
@@ -278,29 +281,53 @@ What it looks like:
 HTML:
 
 ```html
-<form>
-  TBD
+<form novalidate>
+	<div class="field">
+		<label for="nameoncard">
+			<span class="field-label">Name on card</span>
+		</label>
+		<input type="text" id="nameoncard" name="nameoncard">
+	</div>
+	<div class="field">
+		<label for="cardnumber">
+			<span class="field-label">Card number</span>
+		</label>
+		<input type="number" id="cardnumber" name="cardnumber">
+	</div>
+	<div class="field">
+		<label for="expiry">
+			<span class="field-label">Expiry date</span>
+		</label>
+		<input type="number" id="expiry" name="expiry">
+	</div>
+	<div class="field">
+		<label for="security">
+			<span class="field-label">Security code</span>
+		</label>
+		<input type="number" id="security" name="security">
+	</div>
+	<input type="submit" value="Next">
 </form>
 ```
 
 ### Field size
 
-Again the size of the fields vary depending on their known lengths. Baymard institute usability study[^44] found that if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.
+- do we say it again or not?
 
 ### We don't need to ask for it
 
-You may have noticed that the payment form does not contain a *Valid From* field but does contain *Name On Card*. When we designed the payment form for Kidly we had to take into account the following:
+You may have noticed that the payment form does not contain a *Valid From* field but does contain *Name On Card*. When we designed the payment form for Kidly we considered the following:
 
-- What did our payment provider need to take payment?
+- What did our payment provider require to process payments?
 - What did we want to keep for our own records?
 
-So I spoke to Oyvind Valland, CTO of Kidly about this to jog my memory. Here's what he said:
+Øyvind Valland, CTO of Kidly, explains the thinking behind the decision. He says:
 
 > We don't need to ask for Valid From. Only a handful of debit cards show those and it provides more hassle for the customer to enter, than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
 
 > Name on card is something we do ask for but I do not believe stripe uses it for verification. If I remember correctly, only the numerics contained in card details are used for verification. That is, house numbers are used, but not street names.
 
-So I asked Oyvind why we have street name in the billing address field. Here's what he said:
+But why did we ask for street name as part of the billing address? Here's what he says:
 
 > In order to verify card details I think the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is very handy in any situation where you have to query what's happened. Besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
 
@@ -312,7 +339,7 @@ Proving assumptions are correct or otherwise, is an essential weapon in a design
 
 Generally speaking, dates are hard. But, fortunately, an expiry date is straightforward to design and easy to use. We offer users a single text box that closely matches the format found on their own physical credit card. This reduces the cognitive burden for users as they can just copy what they see.
 
-> "Be conservative in what you send; be liberal in what you accept."
+> ‘Be conservative in what you send; be liberal in what you accept.’
 
 We can forgive users for entering a slash as we can easily strip that out on the server. We do the hard work so users don't have to. Additionally, we still give users a hint, so that users who are more careful and anxious&mdash;those that read all instructions&mdash;they will feel at ease and empowered at the same time.
 
@@ -352,23 +379,25 @@ As this is the most common scenario we mark the checkbox as checked by default, 
 To do this we'll need a little Javascript.
 
 ```javascript
-	var checkbox = document.getElementById('TheID');
-	var billingAddressContainer = document.getElementById('etc');
-	checkbox.addEventListener('click', onCheckboxClick, false);
+var checkbox = document.getElementById('TheID');
+var billingAddressContainer = document.getElementById('etc');
+checkbox.addEventListener('click', onCheckboxClick, false);
 
-	function onCheckboxClick(e) {
-		if(checkbox.checked) {
-			billingAddressContainer.classList.add('hidden');
-			// aria to do
-		} else {
-			billingAddressContainer.classList.remove('hidden');
-			// aria to do
-		}
+function onCheckboxClick(e) {
+	if(checkbox.checked) {
+		billingAddressContainer.classList.add('billingAddress-isHidden');
+		// aria to do
+	} else {
+		billingAddressContainer.classList.remove('billingAddress-isHidden');
+		// aria to do
 	}
+}
 ```
 
 ```CSS
-	// .enhanced .billingAddress-isHidden { display: none }
+.enhanced .billingAddress-isHidden {
+	display: none;
+}
 ```
 
 When the checkbox is checked we hide the billing address and ensure screen readers know to ignore the fields. When it is unchecked we show the billing address.
@@ -458,7 +487,7 @@ By all means get users to sign up, by giving them genuine value, but do so on th
 
 ## Progress indicators
 
-Age old advice would tell you that we should give users knowledge of where they are in the process. But this is not necessarily the case. There is little data that shows including one is valuable.
+Traditional advice says we should give users knowledge of their progress within a particular process. But this is not necessarily the case. There is little data that shows including one is valuable.
 
 ![Progress indicator](./images/Progress_indicators_2.png)
 
@@ -471,7 +500,7 @@ GDS say that they:
 - make it hard to write good labels
 - make it hard to handle conditional sections
 
-For these reasons, it's better to start without one, and test to see if one is actually needed. It's much easier to add features down the line than it is to remove them. Less costly that way and easier to measure.
+For these reasons, it's better to start without one, and test to see if one is actually needed. It's much easier to add features down the line than it is to remove them. It's cheaper and easier to measure impact.
 
 If something is questionable, then by including it, it acts as visual noise and makes the page slower.
 

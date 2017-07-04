@@ -512,7 +512,7 @@ HTML:
 <div class="field">
   <label for="blah">
     <span class="field-label">Email address</span>
-    <span class="field-error">The email address is invalid</span>
+    <span class="field-error">Provide an email address</span>
   </label>
 </div>
 ```
@@ -639,7 +639,7 @@ FormValidator.prototype.showInlineErrors = function() {
 };
 
 FormValidator.prototype.showInlineError = function (error) {
-  var errorSpan = '<span class="error"><span>Error:</span> '+error.message+'</span>';
+  var errorSpan = '<span class="field-error"><span>Error:</span> '+error.message+'</span>';
   var fieldContainer = $("#" + error.fieldName).parents(".field");
   var label = fieldContainer.find('label');
   var legend = fieldContainer.find("legend");
@@ -653,7 +653,7 @@ FormValidator.prototype.showInlineError = function (error) {
 };
 
 FormValidator.prototype.removeInlineErrors = function () {
-  $(this.form).find(".field .error").remove();
+  $(this.form).find(".field .field-error").remove();
 };
 
 FormValidator.prototype.addValidator = function(fieldName, rules) {
@@ -696,15 +696,28 @@ To create an instance for the registration we'd need something like this:
 
 ```JS
 var validator = new FormValidator(form);
-validator.addValidator('email', [{
-	method: function( ) {},
-	message: 'Do this'
-}]);
-validator.addValidator('password', [{
-	method: function( ) {},
-	message: 'Do this'
-}]);
+```
 
+Then add rules to validate the email field:
+
+```JS
+validator.addValidator('email', [{
+  method: function(field) {
+    return field.value.trim().length > 0;
+  },
+  message: 'Enter your email address.'
+},{
+	method: function(field) {
+    return (field.value.indexOf('@') > -1);
+  },
+	message: 'You need to enter the “at” symbol in the email address.'
+}, ...]);
+```
+
+Then add rules to validate the password field:
+
+```JS
+validator.addValidator('password', [...]);
 ```
 
 Notes:
@@ -719,12 +732,11 @@ Notes:
 
 In this chapter we've solved most of the fundamental problems we face when designing forms. In some respects, this chapter has been as much about what not to do as it has about what it is we should. Here are the many takeaways:
 
-1. Always use a clear and readily accessible label.
-2. Avoid techniques, however ‘trendy’, that defy the first rule.
-3. Use the Question Protocol to find ways to remove fields, thus reducing the effort needed by the user.
-4. Use the right type of form control to provide field-specific keyboards to speed up the process.
-5. Show errors on submit, keeping users in control and avoiding the problem with instant validation.
-6. Write errors in the active voice and ensure they are specific, consistent and helpful.
+- Always use a clear and readily accessible label. Avoid techniques, however ‘trendy’, that defy this rule.
+- Use the Question Protocol to find ways to remove fields, thus reducing the effort needed by the user.
+- Use the right type of form control to provide field-specific keyboards to speed up the process.
+- Show errors on submit, keeping users in control and avoiding the problem with instant validation.
+- Write errors in the active voice and ensure they are specific, consistent and helpful.
 
 In upcoming chapters, we'll build on the foundations we've laid here in order to solve more complex problems. In doing so we'll need to explore a host of other patterns at our disposal.
 

@@ -454,12 +454,12 @@ They serve many purposes and without one, it leaves users confused. In the case 
 
 The GDS service manual states[^4] each service must have a confirmation page with the following:
 
-* a reference number (if there is one)
-* details of what happens next and when
-* contact details for the service
-* links to information or services that users are likely to need next
-* a link to your feedback page, where users can tell you what they think of the service
-* a way for users to save a record of the transaction (for example, as a PDF)
+- a reference number (if there is one)
+- details of what happens next and when
+- contact details for the service
+- links to information or services that users are likely to need next
+- a link to your feedback page, where users can tell you what they think of the service
+- a way for users to save a record of the transaction (for example, as a PDF)
 
 Whilst GDS isn't selling something to its users, all of this is applicable to us here. But there's more for us to take into consideration...
 

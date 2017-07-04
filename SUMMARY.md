@@ -7,5 +7,4 @@
 * [4. Login](04-Login.md)
 * [5. Inbox](05-Inbox-Management.md)
 * [6. Filter](06-Search.md)
-* [7. Upload form](07.md)
-* [8. Really long form](08.md)
+* [7. Really long and complex form](07.md)

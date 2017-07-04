@@ -40,11 +40,9 @@ Many forms omit labels in order to save space but this is the worst thing we can
 
 ## Placeholders and hints
 
-The `placeholder` attribute is used to store additional text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as the password field.
+The `placeholder` attribute is used to store additional text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as the password field. Unlike labels, placeholders are optional.
 
-Unlike labels, placeholders are optional. Designers find them appeaing due to their minimal aesthetic and the fact they save space.
-
-Some go one one step further and replace labels with placeholders. As we know already this is problematic. But actually, placeholders are problematic in their own right. Here's some reasons why:
+Placeholders appeal to designers because of their minimal aesthetic and the fact they save space. Some go one one step further and replace labels with placeholders. As we know already this is problematic. But actually, placeholders are problematic in their own right. Here's why:
 
 - It disappears when the user types making it easy to forget.
 - It's often mistaken for a value, meaning users skip the field causing an error.
@@ -692,28 +690,40 @@ FormValidator.prototype.getErrors = function() {
 };
 ```
 
+Notes:
+
+- It listens to the form's `submit` event.
+- On submit, it clears any errors and validates the form.
+- The validate method steps through each validator that has been added (more on this shortly).
+- Each validator rule that fails will be added to the `errors` collection.
+- If there are errors, it prevents submission to server and shows the errors in the collection as per the above specification.
+
 To create an instance for the registration we'd need something like this:
 
 ```JS
 var validator = new FormValidator(form);
 validator.addValidator('email', [{
-	method: function( ) {},
-	message: 'Do this'
+ 	method: function(field) {
+    	return field.value.trim().length > 0;
+	},
+	message: 'Enter your email address.'
+},{
+	method: function(field) {
+    	return (field.value.indexOf('@') > -1);
+  	},
+	message: 'Enter the ‘at’ symbol in the email address.'
 }]);
-validator.addValidator('password', [{
-	method: function( ) {},
-	message: 'Do this'
-}]);
+/* TODO: add a validator for the password field */
 
 ```
 
 Notes:
 
-- Rule structure
-- Validate on submit
-- Display errors
-- Hide errors
-- Focus errors
+- Each validator takes the field name as the first parameter and an array of rules as the second.
+- Rules are made up of two properties: method and message.
+- The message is the error message, which it uses to populate the summary and in context messages.
+- The method has a field parameter and we can interrogate the field to test that it passes some logic. If it passes the method should return true, otherwise false.
+- It's up to each method to be as forgiving as possible. The email validator, for example, trims the value before checking length.
 
 ## Summary
 

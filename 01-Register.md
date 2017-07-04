@@ -101,7 +101,7 @@ Cool interfaces don't make users feel awesome. Obvious, inclusive and robust int
 
 Reducing the height of forms is a noble goal if done right. But using float labels creates problems for an unconvincing gain. We could remove all the whitespace and decrease font size to 5px which also reduces the height but creates an awful experience.
 
-Forms expert, Luke Wobrelski[^lukew] hasn't got any data at scale that shows shaving pixels in forms increases conversion or usability. In anycase they don't actually save space because floating labels need space to move into.
+Forms expert, Luke Wobrelski[^2] hasn't got any data at scale that shows shaving pixels in forms increases conversion or usability. In anycase they don't actually save space because floating labels need space to move into.
 
 Besides, scanning a form is not the only user need. Users have to read instructions, fill them in and fix errors too. Floating labels are problem because:
 
@@ -109,7 +109,7 @@ Besides, scanning a form is not the only user need. Users have to read instructi
 - They are hard to read due to poor contrast and small text
 - Like placeholders, they may be mistaken for a value
 
-I've counted nine problems in total, which you can read about in Floating Labels Are Problematic[^].
+I've counted nine problems in total, which you can read about in Floating Labels Are Problematic[^3].
 
 Decluttering a UI is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases so are hints.
 
@@ -156,7 +156,7 @@ By removing the first and last name fields, we've halved the size of the form. A
 
 ### Do we need to ask for a password?
 
-Medium.com have implemented a no password sign in[^]. A no password sign-in works by leveraging the security of email accounts (that do have a password) by sending the user a login link.
+Medium.com have implemented a no password sign in[^4]. A no password sign-in works by leveraging the security of email accounts (that do have a password) by sending the user a login link.
 
 If we were to use this technique, this would reduce our registration form down to a single field. But this may be an over simplification. Users are less familiar with this approach, although that is not a reason in itself to avoid improving the experience.
 
@@ -177,7 +177,7 @@ Passwords are generally short, hard to remember and easy to crack, even if they 
 - one lowercase letter
 - one number
 
-Where possible we want to ask users something that is easy to remember and more secure. Passphrases[^2] are easier to remember. They are considered more secure due to their length and the fact you don't need to write them down.
+Where possible we want to ask users something that is easy to remember and more secure. Passphrases[^5] are easier to remember. They are considered more secure due to their length and the fact you don't need to write them down.
 
 A passphrase is a series of words such as ‘monkeysinmygarden’. The only downside is that this approach is unfamiliar and unfamiliarity, especially with passwords causes anxiety.
 
@@ -199,7 +199,7 @@ If required fields are the norm, and optional fields aren't then it's the option
 
 You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left. The only so-called advantage of this is that it reduces the overall height of the form. We already know that it's unwise to focus on reducing the height of a form through interface design.
 
-In Label Placement in Forms[^3], Matteo Penzo's eye tracking research showed that labels above the field are easier to read and faster to complete. Though it must be said it's probably not a big a deal. The time to understand the question and type takes far longer than reading the label.
+In Label Placement in Forms[^6], Matteo Penzo's eye tracking research showed that labels above the field are easier to read and faster to complete. Though it must be said it's probably not a big a deal. The time to understand the question and type takes far longer than reading the label.
 
 Moreover, there are practical reasons to avoid left-aligned labels. On small screens that are oriented in portrait (such as mobile phones) there is no room anyway. And for those using screen magnifiers there is far more chance of the label disappearing off screen.
 
@@ -220,7 +220,7 @@ If you want to have a focus style that is more in keeping with your design syste
 There's a few things to notice about the label:
 
 - The label is specific. It says ‘Email address’. Some sites will label this field as ‘Username’ which is ambiguous. We should design specific labels where possible.
-- The label uses sentence case because as John Saito explains in Making a Case for Letter Case[^], it's easier to read, friendlier and easier to spot Nouns.
+- The label uses sentence case because as John Saito explains in Making a Case for Letter Case[^7], it's easier to read, friendlier and easier to spot Nouns.
 - There is no need for a hint as the label is enough.
 
 ### Input type email
@@ -309,9 +309,9 @@ When it comes to submit buttons there are three design considerations:
 
 ### Visual design
 
-The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned to differentiate them amongst other words. For those using a mouse the cursor will change to a hand on hover. This is because, unlike buttons, links have weak affordance[^].
+The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned to differentiate them amongst other words. For those using a mouse the cursor will change to a hand on hover. This is because, unlike buttons, links have weak affordance[^8].
 
-In *Resilient Web Design*, Jeremy Keith discusses the idea of material honesty. He says:
+In Resilient Web Design[^9], Jeremy Keith discusses the idea of material honesty. He says:
 
 > One material should not be used as a substitute for another. Otherwise the end result is deceptive.
 
@@ -321,7 +321,7 @@ So it follows, buttons shouldn't look like links and they shouldn't use the hand
 
 ### Placement
 
-The primary action should be placed where users are naturally going to look for it. Eye tracking testing[^] shows that users naturally and intuitively look directly below the last field which makes sense from a flow perspective. This also helps users who zoom in as a right-aligned button would disappear off-screen easily.
+The primary action should be placed where users are naturally going to look for it. Eye tracking testing[^10] shows that users naturally and intuitively look directly below the last field which makes sense from a flow perspective. This also helps users who zoom in as a right-aligned button would disappear off-screen easily.
 
 ### Label
 
@@ -363,7 +363,7 @@ Another problem with triggering feedback `onblur` is that some users switch wind
 
 []()
 
-These are just a few of the problems with inline validation. The others are documented in Inline Validation is Problematic[^].
+These are just a few of the problems with inline validation. The others are documented in Inline Validation is Problematic[^11].
 
 If users really do find lots of error hard to deal with, then we can minimise this by:
 
@@ -371,7 +371,7 @@ If users really do find lots of error hard to deal with, then we can minimise th
 - Ensuring fields have clear guidance—we've done this too.
 - Ensuring errors are presented clearly—we'll do this shortly.
 - Using One Thing Per Page—we'll discuss this in the next chapter.
-- Using Errors-only approach[^errorsonly].
+- Using Errors-only approach[^12].
 
 In any case, designing a ‘perfect’ inline validation experience is nigh on impossible.
 
@@ -404,7 +404,7 @@ This is less invasive than inline validation but it still has the following prob
 
 Instant feedback causes the interface to update even though the user didn't take explicit action. This creates a jarring, disruptive and ambiguous experience. Instead, we'll give users respect by putting them firmly in control. To do this, we'll provide feedback when they explicitly submit the form.
 
-To design inclusively, we must first consider the experience without Javascript, which is far more common than most people think[^].
+To design inclusively, we must first consider the experience without Javascript, which is far more common than most people think[^13].
 
 > ‘There is no creativity without constraint’
 
@@ -521,7 +521,7 @@ The registration form only contains a simple text box, but in upcoming chapters 
 
 ### How to write errors
 
-Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^].
+Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^14].
 
 A good error message is easy to understand and easy to fix. Whilst it's often backwards to design an interface without first knowing the content, in this case, it's hard to design the messages without understanding the interface.
 
@@ -558,7 +558,7 @@ With these considerations out of the way, here's a list of tips for designing er
 
 There are some things we can do to stop users seeing errors unnecessarily. We can forgive users for typing extra spaces. If they type ‘John ’ we can trim automatically trim that to ‘John’. We can also ignore uppercase and lowercase letters and other characters depending on the field.
 
-Jared Spool makes a joke about this in Design is Metrically Opposed[^], at 42 minutes in. He says ‘it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong’.
+Jared Spool makes a joke about this in Design is Metrically Opposed[^15], at 42 minutes in. He says ‘it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong’.
 
 ### Restoring values
 
@@ -743,17 +743,17 @@ In upcoming chapters, we'll build on the foundations we've laid here in order to
 ## Footnotes
 
 [^1]: https://adamsilver.io/articles/placeholders-are-problematic/
-[^2]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
-[^3]: http://www.uxmatters.com/mt/archives/2006/07/label-placement-in-forms.php
-[^cjbuttons]: http://www.effortmark.co.uk/seven-basic-best-practices-buttons/
-[^position?]: http://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
-[^errorsonly]:https://www.smashingmagazine.com/2012/06/form-field-validation-errors-only-approach/
-
-[^6]:http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
-[^lukesays]: https://twitter.com/lukew/status/872861520811614208?s=09
-[^cjerrors]: http://www.effortmark.co.uk/avoid-embarrassed-error-messages/
-[^gdserrorguidacne]: https://paper.dropbox.com/doc/Error-messages-fifEJpOYMGjRy0lHTmthb
-
-
-[^]:https://uxdesign.cc/design-better-forms-96fadca0f49c#.iy0c5in6p
-[^]: https://medium.com/ux-ui-ia-case-studies/masked-passwords-security-questions-captcha-and-other-unusable-security-1f018ad01378#.w8ws8yo23
+[^2]: https://twitter.com/lukew/status/872861520811614208?s=09
+[^3]: https://adamsilver.io/articles/floating-labels-are-problematic/
+[^4]: https://blog.medium.com/signing-in-to-medium-by-email-aacc21134fcd
+[^5]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
+[^6]: http://www.uxmatters.com/mt/archives/2006/07/label-placement-in-forms.php
+[^7]: https://medium.com/@jsaito/making-a-case-for-letter-case-19d09f653c98
+[^8]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn742466%28v=vs.85%29.aspx
+[^9]: https://resilientwebdesign.com/
+[^10]: http://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
+[^11]: https://medium.com/simple-human/inline-validation-is-problematic-399dd01d436f
+[^12]: https://www.smashingmagazine.com/2012/06/form-field-validation-errors-only-approach/
+[^13]: https://kryogenix.org/code/browser/everyonehasjs.html
+[^14]: http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
+[^15]: https://vimeo.com/138359368

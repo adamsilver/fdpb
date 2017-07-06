@@ -273,20 +273,28 @@ For those that don't look up, they'll get feedback then and can take action to r
 
 ### Characters remaining component
 
-TODO
+What it looks like:
 
-```JS
+[]()
+
+The Javascript:
+
+```javascript
 function CharactersIndicator(field, options) {
 	this.field = $(field);
+	this.status = $('<div class="indicator" role="alert" aria-live="polite" />');
+	this.setOptions(options);
+	this.updateStatus(this.options.maxLength);
+	this.field.parent().append(this.status);
+	this.field.on("keydown", $.proxy(this, 'onFieldChange'));
+};
+
+CharactersIndicator.prototype.setOptions = function(options) {
 	this.options = {
 		maxLength: 100,
 		message: 'You have %count% characters remaining.',
-		status: $('<div class="indicator" role="alert" aria-live="polite" />')
 	};
 	this.options = $.extend(this.options, options);
-	this.updateStatus(this.options.maxLength);
-	this.field.parent().append(this.options.status);
-	this.field.on("keydown", $.proxy(this, 'onFieldChange'));
 };
 
 CharactersIndicator.prototype.onFieldChange = function(e) {
@@ -296,13 +304,15 @@ CharactersIndicator.prototype.onFieldChange = function(e) {
 
 CharactersIndicator.prototype.updateStatus = function(remaining) {
 	var message = this.options.message.replace(/%count%/, remaining);
-	this.options.status.html(message);
+	this.status.html(message);
 };
 ```
 
 Notes:
 
--
+- It creates a status which will tell users how many characters remain and place it below the field.
+- The status has a `role="status"` and `aria-live="polite"` which ensures the updates are read out by screen readers. Polite just means that the announcement won't happen until the user stops typing, meaning they aren't rudely interrupted.
+- As the user types, the status box is updated with a message.
 
 ## Payment
 

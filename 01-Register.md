@@ -757,3 +757,8 @@ In upcoming chapters, we'll build on the foundations we've laid here in order to
 [^13]: https://kryogenix.org/code/browser/everyonehasjs.html
 [^14]: http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
 [^15]: https://vimeo.com/138359368
+
+## TODO
+
+- [Placement/position](http://adrianroselli.com/2017/01/avoid-messages-under-fields.html)
+-Caroline book: search for "Use error messages that respect the effort the user is making."

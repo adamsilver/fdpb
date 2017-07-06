@@ -348,9 +348,17 @@ HTML:
 		</label>
 		<input type="number" id="security" name="security">
 	</div>
+  <div class="field">
+    <input type="checkbox" id="sameAsDelivery" name="sameAsDelivery">
+    <label for="security">
+      <span class="field-label">My billing address is the same as my delivery address</span>
+    </label>
+  </div>
 	<input type="submit" value="Next">
 </form>
 ```
+
+https://about.futurelearn.com/blog/your-courses-my-courses-personal-pronouns
 
 ### Field size
 

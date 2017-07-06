@@ -54,7 +54,7 @@
 	- Character count indicator
 - Payment
 	- Valid From not needed
-	- Number fields
+	- Number field
 	- Expiry date field
 		- dates
 	- CVC field

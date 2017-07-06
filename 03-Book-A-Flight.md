@@ -1,6 +1,6 @@
 # Book A Flight
 
-In this chapter, we'll design a flight booking system. At first this might seem like a bit of a *niche* problem, especially when compared to *A Registration Form* and *Checkout*. However, this chapter encourages us to solve several interesting topics that are transferable to other problem domains.
+In this chapter, we'll design a flight booking system. At first this might seem like a bit of a *niche* problem, especially when compared to *A Registration Form* and *Checkout*. However, this chapter encourages us to solve several interesting patterns that are transferable to other problem domains.
 
 Here are the main steps in our flow:
 
@@ -10,27 +10,23 @@ Here are the main steps in our flow:
 4. Confirming flight
 5. Choosing a seat
 
-There are other steps, like providing passenger name and passport information, as well as paying out but we'll leave those out as we have covered the majority of those problems in chapter 2, *Checkout*.
+There are other steps, like providing passenger passport details and payment. However, we covered those off thoroughly in chapter 2, *Checkout*.
 
-## 1. Choose origin/desination
+## 1. Choose destination
 
-The first thing users need to do is select a destination (and an origin). Without this information we can't search for relevant flights. The destination field could be one of the following:
+The first thing users need to do is select an origin and destination (both consist of the same problems and will use the same pattern.) We need this information to search for flights. There are three *native* field types at our disposal:
 
 - radio buttons
 - select box
-- text box
+- search box
 
-We'll discuss each in turn.
+### Radio buttons
 
-### Radio Buttons
+Radio buttons show choices clearly and are generally well-understood and accessible by default. However, they are less suitable when they consist of many choices. We could have hundreds, if not thousands of destinations.
 
-Radio buttons are great because the choices are exposed, and they are generally well understood and accessible by default. However, they are less suitable when there are many choices to choose from.
+Radio buttons, in this case, create a long and unweildly page. Some browsers provide a native search facility (activated by `CMD+F`) allowing allows users to *jump* to the option quickly. But most users don't know about this. And we shouldn't rely on an inconspicuous browser feature to fix issues in our own design.
 
-We could have hundreds, if not thousands of destinations. Using radio buttons will create a very long and heavy page. Some browsers provide a native search facility which can be activated by `CMD+F` which allows users to *jump* to the option quickly.
-
-But most users don't know about this, and we shouldn't rely on an inconspicuous browser feature to fix issues in our own design. We can do better.
-
-### Select Box
+### Select box
 
 Designers often use `select` boxes because they save space. However, as Luke Wobrelski states: *Dropdowns Should be the UI of Last Resort*[^]. Here's why:
 
@@ -42,11 +38,9 @@ Designers often use `select` boxes because they save space. However, as Luke Wob
 - they hide choices behind an unnecessary extra click
 - they are not easily searchable
 
-Again, we can do better.
+### Search box
 
-### Text Box
-
-A text box (`input type="search"`) is another option. The search type enhances the functionality of a regular text box (`input type="text"`) by allowing the user to clear the contents of the field&mdash;either by tapping the *X* or pressing the escape key.
+A text box (`input type="search"`) is another option. The search type enhances the functionality of a regular text box (`input type="text"`) by allowing the user to clear the contents of the field&mdash;either by tapping the <kbd>x</kbd> or pressing <kbd>escape</kbd>.
 
 ![Image here](/etc/)
 

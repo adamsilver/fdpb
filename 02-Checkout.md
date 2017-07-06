@@ -243,7 +243,7 @@ HTML:
 	<div class="field">
 	    <label for="notes">
 	    	<span class="field-label">Delivery notes</span>
-	    	<span class="field-hint">Tell the delivery person what to do if you're not in. Such as leave it with the next door neighbour.</span>
+	    	<span class="field-hint">Tell the delivery person what to do if you're not in. Such as leave it with the next door neighbour. No more than 150 characters.</span>
 	    </label>
 	    <textarea id="notes" name="notes"></textarea>
   	</div>
@@ -251,7 +251,7 @@ HTML:
 </form>
 ```
 
-This is the first time we've encountered a `textarea` like this. There are some special things to note.
+The HTML is remarkably similar to most of the other fields we've discussed so far including the hint pattern. But this is the first time we've seen a `textarea`. There are some special things to note.
 
 ### Textarea
 
@@ -259,22 +259,50 @@ A `textarea` is like a text box except that it allows many lines of text, and ty
 
 However the problem with a textarea is that it seemingly takes an infinite amount of characters. But the Question Protocol, as discussed in chapter 1 tells us that we need to know what it is we're doing with a piece of information before we can determine how we design it for the interface.
 
-In the case of the delivery note, the device they carry on their person has a limited amount of space to fit the note and they don't have the inclination or ability to scroll through it. For this reason we must limit the amount of text the user types.
+In this case, the device that shows the notes has a limited amount of space to fit the note into. And it doesn't allow scrolling. Even if it did, a lot of text to wade through could cause a lot of wasted time. We need to limit the amount of text that can be entered.
 
-TODO: look at maxlength support? and the problem with it?
+### Limiting characters
 
------
+The `maxlength` attribute limits the amount of text users can enter. However, support is either lacking or buggy[^caniuse]. Worse though, is that `maxlength` literally prevents the user from entering too many characters.
 
-To do this, we'll create a component that provides this information instantly, as the user types. In chapter one, Registration, we bemoaned instant feedback due to the array of problems it introduces. But this was specifically to do with validation.
+This is a problem because some users solely focus on the keyboard whilst typing. When they finally look up at the screen, they'll realise the system ignored paragraphs of text they spent ages entering. This causes frustration and a distrust in the service.
 
-This is about warning users about how many characters they have remaining. This stops the user wasting time constructing a delivery note, that ultimately can't be stored and used.
+Instead, we'll need to create a custom component that indicates to users how many characters they have left. Importantly, the component won't interupt users and it won't stop the user entering too many characters.
+
+For those that don't look up, they'll get feedback then and can take action to reduce the characters. For those that miss the feedback entirely, validation will look after them.
 
 ### Characters remaining component
 
 TODO
 
 ```JS
+function CharactersIndicator(field, options) {
+	this.field = $(field);
+	this.options = {
+		maxLength: 100,
+		message: 'You have %count% characters remaining.',
+		status: $('<div class="indicator" role="alert" aria-live="polite" />')
+	};
+	this.options = $.extend(this.options, options);
+	this.updateStatus(this.options.maxLength);
+	this.field.parent().append(this.options.status);
+	this.field.on("keydown", $.proxy(this, 'onFieldChange'));
+};
+
+CharactersIndicator.prototype.onFieldChange = function(e) {
+	var remaining = this.options.maxLength - this.field.val().length;
+	this.updateStatus(remaining);
+};
+
+CharactersIndicator.prototype.updateStatus = function(remaining) {
+	var message = this.options.message.replace(/%count%/, remaining);
+	this.options.status.html(message);
+};
 ```
+
+Notes:
+
+-
 
 ## Payment
 

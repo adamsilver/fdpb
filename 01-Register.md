@@ -51,7 +51,7 @@ Placeholders appeal to designers because of their minimal aesthetic and the fact
 - Some screen readers don't announce them.
 - Some browsers don't translate them.
 
-I've counted 7 additional problems which you can read about more deeply in Placeholders Are Problematic[^1].
+I've counted 13 problems in total which you can read in Placeholders Are Problematic[^1].
 
 Content isn't an enhancement. If a hint helps we should make sure it's readily accessible. We can do this by placing it outside the field and below the label.
 
@@ -109,7 +109,7 @@ Besides, scanning a form is not the only user need. Users have to read instructi
 - They are hard to read due to poor contrast and small text
 - Like placeholders, they may be mistaken for a value
 
-I've counted nine problems in total, which you can read about in Floating Labels Are Problematic[^3].
+I've counted 9 problems in total, which you can read in Floating Labels Are Problematic[^3].
 
 Decluttering a UI is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases so are hints.
 

@@ -48,7 +48,6 @@
 	- Capture+
 - Delivery options
 	- Fieldset and legend
-	- Radio buttons
 	- Smart defaults
 - Delivery notes
 	- Textarea

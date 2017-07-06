@@ -46,13 +46,11 @@ Whilst this pattern often bares wonderful and delicious fruit (or orders and con
 
 Like Ryan Holiday describes in The Obstacle Is The Way, remember the first time you saw a complicated algebra equation? It was a jumble of symbols and unknowns. But when you stopped to break it down and isolate the parts, all that was left was the answer.
 
-![Algebraic equation](./images/algebra.png)
-
 It’s the same for users trying to complete a form or anything else for that matter. If there is less stuff on screen, and only one choice to make, friction is reduced to a minimum. Therefore users stay on task.
 
 ### 2. It's easy to fix errors
 
-When users are filling in a small form, errors are caught and presented early. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up.
+When users fill in a small form, errors are caught and presented early. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up.
 
 ### 3. Pages load faster
 
@@ -66,9 +64,9 @@ If users submit information frequently, we can save it in a more granular fashio
 
 A large form takes longer to complete. If it takes too long, then a page timeout may cause the information to be lost, causing tremendous frustration.
 
-Alternatively, the computer freezes, which was the case for Daniel, the leading character in *I, Daniel Blake*. With declining health and having never used a computer before, his computer freezes and his data is lost. In the end, he gives up.
+Alternatively, the computer freezes, which was the case for Daniel, the leading character in *I, Daniel Blake*. With declining health and having never used a computer before, his computer freezes and his data lost. In the end, he gives up.
 
-I've actually counted eleven more reasons which you can read about in Better Form Design: One Thing Per Page[^].
+I've counted 16 problems in total, which you can read about in Better Form Design: One Thing Per Page[^].
 
 This inconspicuous and humble UX pattern is flexible, performant and inclusive by design. It truly embraces the web, making things easy for high and low confidence users.
 
@@ -76,21 +74,19 @@ Having lots (or everything) on one page, may give an illusion of simplicity, but
 
 If we consider a task as a transaction that a user wants to complete, breaking it down into multiple steps makes sense. It’s as if we’re using the very building blocks of the web as a form of progressive disclosure. And the metaphor behind pages provides a subconscious sense of moving forward.
 
-I’ve not come across a design pattern that has as many benefits as this one. It’s like compound interest, it just keeps on giving. This is one of those cases where simple is just that. Simple.
-
-Needless to say we'll the checkout flow using this design pattern. Before we design each page, we'll first think about flow and order.
+We'll use this approach to design the checkout flow.
 
 ## Flow and order
 
-In Forms That Work[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a logical order:
+In Forms That Work[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order:
 
 > Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
-> Think about buying a car. You’re just browsing, getting a sense of what is available. A salesperson comes along and starts to ask you how you’ll pay. Would you answer? Or would you think, “If that person doesn’t stop annoying me, then I’m out of here”?
+> Think about buying a car. You’re just browsing, getting a sense of what is available. A salesperson comes along and starts to ask you how you’ll pay. Would you answer? Or would you think, “If that person doesn’t stop annoying me, I’m out of here”?
 
 > Now think about the point where you’ve told the salesperson which car you want to buy. Now it’s appropriate to start negotiating about payment. It would be quite odd if the salesperson did **not** do so.
 
-We can apply the same principles to our checkout process:
+We can apply the same principles to the steps in checkout:
 
 1. Delivery address
 2. Delivery options
@@ -99,7 +95,7 @@ We can apply the same principles to our checkout process:
 5. Check and confirm
 6. Order confirmation
 
-Just like the car salesperson, we'll be asking for the right information at the right time. The *Check details* page acts as a final check of contracts and the confirmation acts as sales receipt for record keeping.
+Just like the car salesperson, we'll ask for the right information at the right time. The *Check and confirm* step acts as a final check of contracts and the confirmation acts as sales receipt for record keeping.
 
 ## Delivery address
 
@@ -152,27 +148,27 @@ HTML:
 </form>
 ```
 
-We've used the same field pattern from the first chapter with a label and optional hint for each field. But there are few specific things to point out.
+We've used the same field pattern from the first chapter with a label and optional hint for each field. But there are some specific things to note.
 
 ### Mobile field
 
-As we discussed in the first chapter, Registration, we know how important it is to tell users why we're asking them for information. Users may wonder why it is we're asking for this, particularly when they're ordering online.
+In the first chapter, we discussed just how important it was to tell users, on occasion, why it is we're asking for particular information. Why is it, then, are we asking for the user's phone number, especially when they're ordering online?
 
-But we know that our couriers offer real-time text messages on the day of delivery. And so we're telling our users this openly. This builds trust, reduces friction and promotes this useful feature all at the same time.
+The courier who is fulfilling delivery actually offers real-time text messages on the day of delivery. So we tell the users this through by using the hint pattern. This builds trust, reduces friction and promotes the feature, all at the same time.
 
-The mobile field has `type=tel`. This will display a telephone-specific keyboard on various mobile devices making it easier to input their phone number.
+The mobile input uses `type=tel`. This displays a telephone-specific on-screen keyboard on mobile. This makes it far easier to enter their phone number.
 
 ![On-screen device keyboard](./images/?.png)
 
 ### Postcode field
 
-Designers are obsessed with clean lines and everything looking uniform. In the case of the delivery form, we might be tempted to give it the same width as the other fields. It's hard to argue aginst the beauty of such a design, but we're not installing a minimalist art display.
+Designers are obsessed with clean lines and matching widths. In the case of the delivery form, we might be tempted to give each field the same width. It's hard to argue aginst the beauty of such a design, but we're not installing a minimalist art display.
 
-We're designing a form for people to complete easily. Making the postcode field wide is a cognitive burden on the user. This is because the width of the field gives users a clue as to the length of the content required for input.
+We're designing a form for people to complete easily. Making the postcode field wide (to match the others) is a cognitive burden on the user. This is because the width of the field gives users a clue as to the length of the content required.
 
 Baymard Institute's study[^44] found that *if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.*
 
-As a postcode consists of approximately 8 characters this field should indicate this through the width by being smaller than the others as shown. We can apply the same principles to other fields, where the length of the field is known.
+As a postcode consists of approximately 8 characters, field should have width to match as shown above. This rule doesn't apply just to the postcode, we can use the same technique on other fields where the length of field is known.
 
 ### Capture+
 
@@ -180,15 +176,11 @@ Capture+[^] is a Javascript plugin that allows users to search for their address
 
 ![Capture+ enhancement](./images/?.png)
 
-As the user types the first line of their address, suggestions appear from which users can select. This drastically reduces the amount of keystrokes and reduces the chance of typos.
+As the user types the first line of their address, suggestions appear from which to select. This reduces the amount of keystrokes and the chance of typos. If Capture+ doesn't recognise an address, the user can change the interface back to a standard address form giving users choice.
 
-In the event that the component doesn't recognise a user's address, we offer the ability to change the interface back to a standard address form. In doing this we conform to the fourth of Heni Swans wonderful UX principles: give people the ability to choose.
-
-Enhancing a textbox with a script like this isn't free. We either hand off responsibility to the plugin and hope that they considered accessibility or we write our own. in the next chapter, we'll look at what it takes to design and code an inclusive autocomplete component such as this.
+This type of Javascript enhancement comes with many design considerations. We could choose to abdicate responsibility for these by handing then over to the plugin. But in all likeliness they haven't considered the accessibility implications of doing so. We'll look at these implications in the next chapter by designing and building our own inclusive autocomplete component.
 
 ## Delivery options
-
-This page allows users to choose between free standard and next day delivery.
 
 What it looks like:
 
@@ -213,30 +205,32 @@ HTML:
 </form>
 ```
 
-### Grouping controls with `fieldset` and `legend`
+This is the first time we've encountered a field that consists of multiple inputs for the same question in the form of radio buttons. There are some special things to note.
 
-This is the first field that needs grouping. This is because we have several form fields that form part of the same question. Each input represents a choice and they are grouped by being wrapped inside a `fieldset`. The group is given a description courtesy of the `legend`.
+### Using `fieldset` and `legend`
 
-Like the label, the legend provides a description both visually and for those using a screen reader. In most screen readers, the legend is read out in combination with the radio button label. Something like *Delivery options, Standard (Free, 2-3 days)*.
+To group multiple inputs together, we need to use the fieldset and legend elements. Each input represents a choice and the grouping is achieved by wrapping it inside a fieldset. The legend describes this grouping, in much the same way as the label describes the input.
 
-It may be tempting to group all fields like this. Chapter one's registration form could, in theory, be wrapped in a fieldset and legend. Whilst this is valid, it creates unnecessary noise to those fields that are perfectly understandable without this treatment.
+Like the label, the legend provides a description both visually and for those using a screen reader. In most screen readers, the legend is read out in combination with the radio button's label. Something like *Delivery options, Standard (Free, 2-3 days)*.
 
-As Heydon Pickering says in Inclusive Design Patterns[^], *it's easy to think of patterns as ‘right’ and ‘wrong’* but, as with most design decisions, we should apply solutions based on the context of the problem.
+It may be tempting to group all fields in form like this. Chapter one's registration form could, in theory, be wrapped in a fieldset and legend. Whilst this is valid, it creates unnecessary noise to those fields that are perfectly understandable without this treatment.
+
+As Heydon Pickering says in Inclusive Design Patterns[^], *it's easy to think of patterns as ‘right’ and ‘wrong’*. As with most design decisions, we should apply solutions based on the context of the problem, not by blindly following a blanket rule.
 
 ### Provide a sensible default
 
-The first radio button has a `checked` attribute. This selects the first delivery option without needing the user to do so. This has two benefits as there is:
+The first radio button has a `checked` attribute. This selects the first delivery option automatically. This has two benefits as there is:
 
 - less work for the user to do
 - no chance of causing errors
 
-Deciding which option to mark as checked is normally the first item in the list, with the first item also being the most common choice. In this case we've assumed this to be the cheapest. What we shouldn't do is defualt the most expensive and least common choice.
-
-Whilst providing a default doesn't always make sense, we should look to use one where ever possible because it improves task completition time.
+Where possible the first radio button should be checked. This is because the most common choice should normally come first. In this case, we've sensibly assumed this to be the cheapest option.
 
 ## Delivery notes
 
-Delivery notes are useful, when users can't guarantee they're going to be available to take a large package which doesn't fit through the letter box. A delivery note allows the user to guide the delivery person as to best course of action, such as leaving it with the next door neighbour.
+Imagine you've ordered your thing and it's on the way. You're excited to receive it. But then, it was too big to fit through the letter box and you weren't there to answer the knock at the door. This is where delivery notes can help.
+
+A delivery note tells the delivery person what to do in this event. It might be preferable to leave it with a neighbour for example, or by leaving it in the recycling bin, which works surprisingly well I might add.
 
 What it looks like:
 
@@ -257,9 +251,19 @@ HTML:
 </form>
 ```
 
-This is the first time we've needed a `textarea`. A textarea is similar to a textbox except that it allows users to type many lines of text. This makes it a better option for the type of information it will contain.
+This is the first time we've encountered a `textarea` like this. There are some special things to note.
 
-A `textarea` can contain infinite characters, but quite often the equipment the delivery person uses has a limited amount of characters to expose the note. And if there is a lot of information for driver to read, then it will slow down their efficiency in delivery the item. Therefore we want to ensure users don't type too many characters.
+### Textarea
+
+A `textarea` is like a text box except that it allows many lines of text, and typically takes more content. (Remember, the size of the field should afford its requirements.)
+
+However the problem with a textarea is that it seemingly takes an infinite amount of characters. But the Question Protocol, as discussed in chapter 1 tells us that we need to know what it is we're doing with a piece of information before we can determine how we design it for the interface.
+
+In the case of the delivery note, the device they carry on their person has a limited amount of space to fit the note and they don't have the inclination or ability to scroll through it. For this reason we must limit the amount of text the user types.
+
+TODO: look at maxlength support? and the problem with it?
+
+-----
 
 To do this, we'll create a component that provides this information instantly, as the user types. In chapter one, Registration, we bemoaned instant feedback due to the array of problems it introduces. But this was specifically to do with validation.
 

@@ -9,3 +9,5 @@
 Don't be fooled by its simple appearance though. There's a lot of ground to cover and patterns that will emerge. Patterns we'll either use directly or as a foundation to build new patterns when needed.
 
 Refer to inclusive principles in this from heydon that i can refer to.
+
+Refer to the principles from GDS to do the same thing.

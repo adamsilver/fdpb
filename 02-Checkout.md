@@ -349,57 +349,56 @@ HTML:
 		<input type="number" id="security" name="security">
 	</div>
   <div class="field">
-    <input type="checkbox" id="sameAsDelivery" name="sameAsDelivery">
-    <label for="security">
-      <span class="field-label">My billing address is the same as my delivery address</span>
-    </label>
+    <fieldset>
+		<legend>
+			<span class="field-legend">Is your billing address the same as delivery?</span>
+		</legend>
+		<div class="field-checkbox">
+			<label for="things">
+				<input type="checkbox" name="things" value="" id="things" checked>
+				Yes, it's the same
+			</label>
+		</div>
+	</fieldset>
   </div>
 	<input type="submit" value="Next">
 </form>
 ```
 
-https://about.futurelearn.com/blog/your-courses-my-courses-personal-pronouns
+### Question Protocol
 
-### Field size
+When we designed the payment form for Kidly, we used the Question Protocol from chapter 1 to guide us. You may note that the form doesn't contain *Valid from* but does contain *Name on card*. This is because we asked ourselves the following questions:
 
-- do we say it again or not?
+- What does Stripe[^], our payment provider need to process payment?
+- What do we want for our records and why?
 
-### We don't need to ask for it
-
-You may have noticed that the payment form does not contain a *Valid From* field but does contain *Name On Card*. When we designed the payment form for Kidly we considered the following:
-
-- What did our payment provider require to process payments?
-- What did we want to keep for our own records?
-
-Øyvind Valland, CTO of Kidly, explains the thinking behind the decision. He says:
+Øyvind Valland, Chief of Technology at Kidly, explains our thinking:
 
 > We don't need to ask for Valid From. Only a handful of debit cards show those and it provides more hassle for the customer to enter, than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
 
-> Name on card is something we do ask for but I do not believe stripe uses it for verification. If I remember correctly, only the numerics contained in card details are used for verification. That is, house numbers are used, but not street names.
+> Name on card is something we do ask for but I do not believe Stripe uses it for verification. Only the numerics contained in card details are used for verification. That is, house numbers are used, but not street names.
 
-But why did we ask for street name as part of the billing address? Here's what he says:
+I wondered, then, why it is we ask for street name. Øyvind explains:
 
-> In order to verify card details I think the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is very handy in any situation where you have to query what's happened. Besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
+> In order to verify card details the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is handy in any situation where you have to query what's happened. Besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
 
-Oyvind is not a designer per se, but his input into the design is of vital importance. This goes to show the importance of designing as a team[^] and that by following the Question Protocol, mentioned in A Registration Form, we can decide what it is we must ask and what it is we want to ask and why.
-
-Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
+Øyvind is not a designer per se, but his input into the design process is so important. This is why one of favourite inspirational quotes is *Design is a team sport*[^]. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
 
 ### Expiry date
 
-Generally speaking, dates are hard. But, fortunately, an expiry date is straightforward to design and easy to use. We offer users a single text box that closely matches the format found on their own physical credit card. This reduces the cognitive burden for users as they can just copy what they see.
+Generally speaking, dates are hard. But, as far as dates go, an expiry date is on the easy end of the spectrum. It's a simple text box that closely matches the format found on the card itself. Making things match like this reduces the cognitive burden on the user. They just copy what they see.
 
 > ‘Be conservative in what you send; be liberal in what you accept.’
 
-We can forgive users for entering a slash as we can easily strip that out on the server. We do the hard work so users don't have to. Additionally, we still give users a hint, so that users who are more careful and anxious&mdash;those that read all instructions&mdash;they will feel at ease and empowered at the same time.
+One of the core principles we defined in chapter 1 was to be forgiving of bad input where possible. In the case of an expiry date, we can forgive users for entering a slash (or not entering a slash). We should do the hard work so users don't have to.
 
-You'll also notice the expiry date uses `input type="number"`. For supporting browsers, users cant't type a slash; it will be ignored. On mobile, an on-screen numeric keyboard will be shown making it easier still. This is what it looks like:
+The expiry uses `input type="number"`. Supporting browsers, will actually ignore the slash altogether. On mobile, the on-screen keyboard makes this easy by showing a numeric keyboard:
 
 ![Numeric keyboard](./images/numeric-keyboard.png)
 
 And for people who use the keyboard on desktop, may use the up and down arrows to increment and decrement the field without the pain of selecting/deleting/typing etc.
 
-Some browsers may also show little increment and decrement buttons on these inputs, known rather oddly as spin buttons. They are quite ugly, small and ahrd to use&mdash;we can hide them with CSS:
+Some browsers show increment and decrement buttons when focussed an a number input. These are called, rather oddly, as spinners. The problem is that they are small and hard to use. Frankly, they are useless in the case of entering an expiry date. We'll hide them with CSS:
 
 ```CSS
 input::-webkit-outer-spin-button,
@@ -412,36 +411,23 @@ input::-webkit-inner-spin-button {
 
 ### Security number
 
-You'll notice above that we have once again used the hint pattern for the security number. In this case the label may be ambiguous on it's own. Not everyone knows what a security number is. Sometimes it's referred to as a CVC number.
+The label is good but a little ambiguous on its own. Not everyone knows what a security number is. Sometimes it's referred to as a ‘CVC’ number which stands for Card Verification Code. We should avoid acronyms where possible because they:
 
-I've just looked it up and this stands for Card Verification Code. First, avoid acryonyms[^] because users shouldn't have to know what they mean. Second, in providing a hint we have an opportunity to tell users what it is and more importantly where to find it.
+- Make people feel stupid
+- Etc
+- Etc
 
-Telling users *This is the last 3 digits on the back of your card* keeps things simple.
+But acronyms aside, the hint tells users exactly where to find the answer. Telling users *This is the last 3 digits on the back of your card* keeps things simple. That's all they need to know in this case.
 
 ### Billing address reveal
 
-To validate a card, it needs an associated address. For most users the billing address is the same as the delivery address. The user has already provided this and so we can improve the experience here.
+To process the card, we need the associated address that card is registered to. For most users this is the same as their delivery address. The user already gave us this information earlier. So we can use this to enhance the experience.
 
-Instead of always exposing a billing address form, we provide users a checkbox asking them to confirm if their billing address is the same as their delivery address.
+To do this, we'll add an extra form field, as counterintuitive as that may sound. Instead of exposing the billing address fields, we give users a checkbox asking them if their billing address and delivery address are the same. This is the most common scenario, so we default it to checked.
 
-As this is the most common scenario we mark the checkbox as checked by default, and hide the billing address form. If the billing address *is* different, the user can uncheck the checkbox and fill out the form from there.
-
-To do this we'll need a little Javascript.
+With Javascript available, we hide the billing address fields. Unchecking the checkbox reveals them for the user to fill out accordingly. Here's the relevant Javascript:
 
 ```javascript
-var checkbox = document.getElementById('TheID');
-var billingAddressContainer = document.getElementById('etc');
-checkbox.addEventListener('click', onCheckboxClick, false);
-
-function onCheckboxClick(e) {
-	if(checkbox.checked) {
-		billingAddressContainer.classList.add('billingAddress-isHidden');
-		// aria to do
-	} else {
-		billingAddressContainer.classList.remove('billingAddress-isHidden');
-		// aria to do
-	}
-}
 ```
 
 ```CSS
@@ -450,19 +436,21 @@ function onCheckboxClick(e) {
 }
 ```
 
-When the checkbox is checked we hide the billing address and ensure screen readers know to ignore the fields. When it is unchecked we show the billing address.
+The billing address fields looks and functions exactly the same as the delivery address fields. This is important. In using the same pattern in multiple places, we improve the familiarity of the interface requiring less effort on the part of the user.
 
-You'll also notice that the billing address form looks and functions exactly the same as the delivery address. This is important. In using the same pattern in multiple places, not only do we get to reuse the same solutions in the same way, but users become familiar with them too.
+## Check and confirm
 
-Familiarity is an important UX principle because familiar is easy and requires less effort from the user.
+You may be wondering why we even have this page. It's an extra page, an extra click and after all we're trying to get users to purchase. We've discussed several times already about the importance of removing fields to remove friction.
 
-## Check Details Page
+But we've also seen that adding an extra question can, on occasion, help the user, as was the case with the billing address checkbox. The same principles apply for this page.
+
+...
 
 What it looks like:
 
 ![Check details](./images/?.png)
 
-You may be wondering why we even have this page. It's an extra page, an extra click and afterall we're trying to get users to buy stuff!
+
 
 TODO: BUTTON TEXT Don't mislead etc.
 
@@ -472,15 +460,13 @@ Even the most sophisticated validation mechanism cannot eradicate the chance of 
 
 For example, take Mary (I made her up), a mother of two, one of which is a baby. It's late at night and shes tired and stressed. To make it worse she's ran out of nappies.
 
-She goes online, adds them to her basket, and goes to checkout. But she ordered the wrong nappies and used the wrong card. Both the nappies and the card are valid. But she needed different nappies and she wants to use a different card&mdash;one that is not in the red.
+She goes online, adds them to her basket, and goes to checkout. But she ordered the wrong nappies and used the wrong card. Both the nappies and the card are valid. But she needed different nappies and she wanted to use a different card&mdash;one that is not in the red.
 
-Having spent a lot of time filling out a lot of information to complete the order, it's only human and respectful to give her the chance to review her order and make amends where necessary.
+Having spent a lot of time answering all the questions needed to complete the order, it's only human and respectful to give Mary the chance to review her order and make amends where necessary.
 
-Not only that but it saves the business a lot of time and money too. If she makes the wrong order then she'll need to return them. This is costly and time-consuming, especially if the business offers free returns.
+This saves the business a lot of time and money too. If she makes the wrong order then she'll need to return it. This is costly and time-consuming, especially if the business offers free returns.
 
-By removing this step, it makes users anxious and therefore drop out. We should strive for clarity over brevity every time. Providing a check page like this employs this principle.
-
-### Amending their order
+### Amending the order
 
 Each section in the flow is represented in the check page. They can edit any of those sections easily by clicking "change". When they do, they are taken to the dedicated page.
 
@@ -607,3 +593,4 @@ https://www.uie.com/jared-live/#design-opposed (42 mins)
 [^west]: (https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/)
 [^44]: (http://baymard.com/blog/form-field-usability-matching-user-expectations)
 [^4]: (https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/)
+[^^]: https://about.futurelearn.com/blog/your-courses-my-courses-personal-pronouns for the address payment field

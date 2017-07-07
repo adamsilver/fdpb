@@ -440,23 +440,15 @@ With Javascript available, we hide the billing address fields. Unchecking the ch
 
 ## Check and confirm
 
-You may be wondering why we even have this page. It's an extra page, an extra click and after all we're trying to get users to purchase. We've discussed several times already about the importance of removing fields to remove friction.
-
-But we've also seen that adding an extra question can, on occasion, help the user, as was the case with the billing address checkbox. The same principles apply for this page.
-
-...
-
 What it looks like:
 
 ![Check details](./images/?.png)
 
+Some checkout flows don't have a ‘Check and confirm’ page. After all, it's an extra page and slows down time to completion. But completion time is a dangerous metric in which to infer a well-designed experience. Particularly if it's the *only* metric.
 
+There is little worse than submitting an order when the user didn't expect it. The text in the submit button shouldn't be ‘Continue’ as this implies there are further steps when there aren't, leading to this exact problem.
 
-TODO: BUTTON TEXT Don't mislead etc.
-
-However, in a checkout flow, there is nothing worse than submitting an order that the user didn't expect. Or equally, submitting the *wrong* order.
-
-Even the most sophisticated validation mechanism cannot eradicate the chance of human error. Even if everything *looks* right and is formatted correctly, it doesn't mean mistakes aren't present.
+Similarly submitting an order with an honest mistake in it is frustrating. Even the most sophisticated validation mechanism cannot eradicate human error. Even if everything *looks* right and is formatted correctly, it doesn't mean mistakes aren't present.
 
 For example, take Mary (I made her up), a mother of two, one of which is a baby. It's late at night and shes tired and stressed. To make it worse she's ran out of nappies.
 

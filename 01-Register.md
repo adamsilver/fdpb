@@ -71,7 +71,7 @@ HTML:
 </div>
 ```
 
-The hint is inside a `span` so that we can style it differently. You'll notice that it's inside the `label`. This makes sure that it is read out by screen readers. We could have placed the hint outside of the `label` using ARIA:
+The hint is inside a `span` so that we can style it differently. It's also inside the `label`. This makes sure that it is read out by screen readers. We could have placed the hint outside of the `label` using ARIA:
 
 ```HTML
 <div class="field">
@@ -85,7 +85,7 @@ However the first rule of ARIA is *Don't use ARIA*. The specification states:
 
 > ‘If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.’
 
-In this case, a label allows us to provide the behaviour using the natural HTML semantics. But this isn't just about following the standard. Whilst ARIA support gets better and better, it's never as good as plain HTML.
+In this case, a label allows us to provide the behaviour using native HTML semantics. This isn't just about following the standard. Whilst ARIA support gets better and better, it's never as good as plain HTML.
 
 ## Floating labels
 
@@ -197,7 +197,7 @@ If required fields are the norm, and optional fields aren't then it's the option
 
 ## Label position
 
-You'll notice that we've placed the label and hint above the field. The alternative is to place labels to the left. The only so-called advantage of this is that it reduces the overall height of the form. We already know that it's unwise to focus on reducing the height of a form through interface design.
+The label and hint is positioned above the field. The alternative (for those that read left to right at least) is left-aligned. The supposed advantage is that it reduces the overall height of the form. We already know that it's unwise to focus soley on reducing the height of a form through interface jiggery.
 
 In Label Placement in Forms[^6], Matteo Penzo's eye tracking research showed that labels above the field are easier to read and faster to complete. Though it must be said it's probably not a big a deal. The time to understand the question and type takes far longer than reading the label.
 
@@ -515,13 +515,15 @@ HTML:
 </div>
 ```
 
-Like the hint pattern we discussed earlier, we place the error inside the label too, providing broad support for those using screen readers. This means, that when the user focuses the field the error will be read out along with the label.
+Like the hint pattern discussed earlier, we place the error inside the label (above the field) for the same reasons. It gives broad support for screen readers. That is, it will be read out with the label (and hint) when focussed.
 
-The registration form only contains a simple text box, but in upcoming chapters we'll discuss how to show errors for groups of fields such as radio buttons. Spoiler alert: Injecting the error into a radio button's label doesn't work.
+As is often the case with inclusive patterns like this, there is yet another benefit for placing the error above the field. In Avoid Messages Under Fields[^], Adrian Roselli explains that doing so is problematic because the browser's auto-complete feature obscures them and on-screen keyboards may also obscure them.
+
+Quick note: The registration form contains two text boxes. In the next chapter we'll look at how to inject errors for groups of fields such as radio buttons. Spoiler alert: injecting the error into the label doesn't work.
 
 ### How to write errors
 
-Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^14].
+Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^15].
 
 A good error message is easy to understand and easy to fix. Whilst it's often backwards to design an interface without first knowing the content, in this case, it's hard to design the messages without understanding the interface.
 
@@ -558,7 +560,7 @@ With these considerations out of the way, here's a list of tips for designing er
 
 There are some things we can do to stop users seeing errors unnecessarily. We can forgive users for typing extra spaces. If they type ‘John ’ we can trim automatically trim that to ‘John’. We can also ignore uppercase and lowercase letters and other characters depending on the field.
 
-Jared Spool makes a joke about this in Design is Metrically Opposed[^15], at 42 minutes in. He says ‘it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong’.
+Jared Spool makes a joke about this in Design is Metrically Opposed[^16], at 42 minutes in. He says ‘it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong’.
 
 ### Restoring values
 
@@ -755,10 +757,6 @@ In upcoming chapters, we'll build on the foundations we've laid here in order to
 [^11]: https://medium.com/simple-human/inline-validation-is-problematic-399dd01d436f
 [^12]: https://www.smashingmagazine.com/2012/06/form-field-validation-errors-only-approach/
 [^13]: https://kryogenix.org/code/browser/everyonehasjs.html
-[^14]: http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
-[^15]: https://vimeo.com/138359368
-
-## TODO
-
-- [Placement/position](http://adrianroselli.com/2017/01/avoid-messages-under-fields.html)
--Caroline book: search for "Use error messages that respect the effort the user is making."
+[^14]: http://adrianroselli.com/2017/01/avoid-messages-under-fields.html
+[^15]: http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
+[^16]: https://vimeo.com/138359368

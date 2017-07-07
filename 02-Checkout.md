@@ -417,13 +417,15 @@ The label is good but a little ambiguous on its own. Not everyone knows what a s
 - Etc
 - Etc
 
-But acronyms aside, the hint tells users exactly where to find the answer. Telling users *This is the last 3 digits on the back of your card* keeps things simple. That's all they need to know in this case.
+Acronyms aside, the hint tells users exactly where to find the answer making things clear. That's all they need to know anyway.
 
-### Billing address reveal
+### Billing address
 
-To process the card, we need the associated address that card is registered to. For most users this is the same as their delivery address. The user already gave us this information earlier. So we can use this to enhance the experience.
+The billing address is a replica of the delivery address which we designed earlier. Using the same component makes the interface familiar. Familiarity is an important quality of an interface.
 
-To do this, we'll add an extra form field, as counterintuitive as that may sound. Instead of exposing the billing address fields, we give users a checkbox asking them if their billing address and delivery address are the same. This is the most common scenario, so we default it to checked.
+To process the card, we need its registered address. For most users this is the same as the delivery address. The user already provided this information, so we can use this to enhance the experience.
+
+To do this, we'll add an extra field, as counterintuitive as that may sound. Instead of exposing the billing address, we'll ask users if their billing address and delivery address are the same. This is the most common scenario, so we default it to checked.
 
 With Javascript available, we hide the billing address fields. Unchecking the checkbox reveals them for the user to fill out accordingly. Here's the relevant Javascript:
 
@@ -435,8 +437,6 @@ With Javascript available, we hide the billing address fields. Unchecking the ch
 	display: none;
 }
 ```
-
-The billing address fields looks and functions exactly the same as the delivery address fields. This is important. In using the same pattern in multiple places, we improve the familiarity of the interface requiring less effort on the part of the user.
 
 ## Check and confirm
 
@@ -468,15 +468,15 @@ This saves the business a lot of time and money too. If she makes the wrong orde
 
 ### Amending the order
 
-Each section in the flow is represented in the check page. They can edit any of those sections easily by clicking "change". When they do, they are taken to the dedicated page.
+Each section in the flow is represented in the check page. They can edit any of those sections easily by clicking *change*. When they do, they are taken to the dedicated page.
 
 ![Reference One Thing Per Page Smashing Screenshot](./images/?.png)
 
-This is one of the great things about One Thing Per Page. It allows users to jump back and forth easily. Page loads are fast, and each page has zero noise, providing the user with just what they asked for to make the necessary change.
+This is one benefit of using the One Thing Per Page approach. It allows users to jump back and forth easily. Page loads are fast, and each page has minimal noise, providing the user with just what they asked for to make the necessary change.
 
-For example, if they want to update their delivery option to "Next Day" then they simply choose it, and the system should update that, and take the user right back to the Check pages for a final review.
+For example, if they want to update their delivery option to "Next Day" then they simply choose it, and the system should update that, and take the user right back to the for another final review.
 
-This is an important aspect of designing a Checkout flow using One Thing Per Page. As we collect information, we don't have to ask for it again and can send users to the most advanced step at any time reducing friction and in all likeliness, increasing conversion.
+As we collect information, we don't have to ask for it again and can send users to the most advanced step at any time reducing friction and increasing conversion.
 
 ## Confirmation page
 
@@ -497,17 +497,15 @@ The GDS service manual states[^4] each service must have a confirmation page wit
 - a link to your feedback page, where users can tell you what they think of the service
 - a way for users to save a record of the transaction (for example, as a PDF)
 
-Whilst GDS isn't selling something to its users, all of this is applicable to us here. But there's more for us to take into consideration...
+Whilst GDS isn't selling something to its users, all of this is applicable here. But there's other things to consider.
 
-After the user places an order, their experience is, in many respects, just beginning. We need to continue the relationship, provide users with what they need and so forth.
+After the user places an order, their experience is, in many respects, just beginning. We need to continue the relationship and provide users with what they need and so forth.
 
 Much like the Check page, a user may have made a mistake so giving them a way to cancel the order is important. If we do this online, we make this quick for the user, and cheap for the business.
 
-If users aren't signed in, this is a perfect opportunity to have users sign up by explaining the value they may get in doing so. It's up to you and your business to provide value though.
+If users aren't signed in, this is a good opportunity to have users sign up by explaining the value they may get in doing so. It's up to the business to provide value though.
 
 Perhaps it's money off their next order, but it can be something more simple, like offering the capability to track orders or enjoying a speedier checkout experience next time.
-
-We'll discuss the merits of being able to checkout anonymously next.
 
 ## Guest checkout
 
@@ -515,11 +513,9 @@ Sometimes, online shops force users to sign up before they are able to place an 
 
 It puts unnecessary friction up front, for no gain at this point in time. Remember when we said earlier that we would offer a faster checkout experience next time? That's because we have the user's details in order to do this.
 
-But the first time they place an order, we don't have those details. This is why we religiously ask ourselves *why are we asking for it?*
+But the first time they place an order, we don't have those details. This is why we religiously ask ourselves *why are we asking for it?* In this case, why are we asking users to register first? The answer to that question is invariably uncompelling.
 
-In this case, why are we asking users to register first? The answer to that question is invariably uncompelling.
-
-By all means get users to sign up, by giving them genuine value, but do so on the confirmation page. We should always be looking to lower barriers, and we can only do that by asking ourselves these questions on a regular basis.
+By all means get users to sign up, by giving them genuine value, but do so at the end of a journey. The ease of the journey itself should build trust in the process (if we design it right).
 
 ## Progress indicators
 

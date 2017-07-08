@@ -325,28 +325,28 @@ HTML:
 ```html
 <form novalidate>
 	<div class="field">
-		<label for="nameoncard">
+		<label for="ccname">
 			<span class="field-label">Name on card</span>
 		</label>
-		<input type="text" id="nameoncard" name="nameoncard">
+		<input type="text" id="ccname" name="ccname" autocomplete="cc-name">
 	</div>
 	<div class="field">
 		<label for="cardnumber">
 			<span class="field-label">Card number</span>
 		</label>
-		<input type="number" id="cardnumber" name="cardnumber">
+		<input type="number" id="cardnumber" name="cardnumber" autocomplete="cc-number">
 	</div>
 	<div class="field">
-		<label for="expiry">
+		<label for="expdate">
 			<span class="field-label">Expiry date</span>
 		</label>
-		<input type="number" id="expiry" name="expiry">
+		<input type="number" id="expdate" name="expdate" autocomplete="cc-exp">
 	</div>
 	<div class="field">
-		<label for="security">
+		<label for="cvc">
 			<span class="field-label">Security code</span>
 		</label>
-		<input type="number" id="security" name="security">
+		<input type="number" id="cvc" name="cvc" autocomplete="cc-csc">
 	</div>
   <div class="field">
     <fieldset>
@@ -364,6 +364,23 @@ HTML:
 	<input type="submit" value="Next">
 </form>
 ```
+
+Card details are among the most commonly corrected fields in forms. There are a many things we can do to design a better experience.
+
+### Browser autocomplete
+
+In Improve Billing Form UX[^], Margarita Klubochkina explains that the browser's autocomplete behaviour speeds up the form filling process:
+
+> Nowadays almost every popular browser has an autofill feature, allowing the users to store their card data in the browser and to fill out form fields more quickly. Since iOS 8, mobile Safari users can scan their card’s information with the iPhone’s camera and fill in [the] fields automatically.’
+
+Both autofill and card-scanning work only with forms that use `autocomplete` for HTML5-supporting browsers and `name` for browsers without support.
+
+Our form uses the following attributes for each field:
+
+- Name on card: cc-name and ccname
+- Card number: cc-number and cardnumber
+- Expiry date: cc-exp and expdate
+- Security number: cc-csc and cvc
 
 ### Question Protocol
 
@@ -531,11 +548,7 @@ In later chapters, we'll look at how to solve a really really long form by showi
 
 ## Smart defaults
 
-As we've already discussed, checking checkboxes and radio buttons by default helps users. But we can do more. A lot more. Particularly for those who are order for a second time.
-
-As we have stored their information from the previous order, we can send them all the to the Check Details page again giving the users the chance to review and make amends.
-
-In this case we've reduced the number of interaction points to potentially one. This is the mark of a friction-free checkout experience.
+We can speed things up drastically for those ordering for a second time. This is because we have their information on record. This means we can bypass all the steps by sending the user directly to the *Check and confirm* page for a final review. For most users, this means reducing interaction points to one.
 
 ## Order summary
 
@@ -543,15 +556,19 @@ What it looks like:
 
 ![Order summary panel](./images/?.png)
 
-When we go shopping in a physical shop we have everything we need through the experience. It's all close to hand. Even when we line up to pay, we can still see everything we're buying.
+Picture the experience of shopping in a real world physical shop. No computer in-sight. You walk in, you pick items to buy and place them in your basket. When you decide to go to the till, you can see everything you're buying, even as the assistant scans each item.
 
-The order summary panel provides this functionality digitally. Including it throughout the checkout process keeps users informed and in control. Which in turn builds trust and keeps them moving.
+To mimic this behaviour, we provide a view of the order and all the details of the order throughout the checkout flow. This builds trust, keeps users in control and upholds the forward momentum.
 
-Not including one puts the user at a severe disdavantage and as soon as they forget what they are buying and the choices they've made they are likely to drop out.
+Not including a summary is akin to dumping a basket of products into a black hole, and the assistant then telling you how much to pay. This is a burden on the user as they are forced to remember what they picked up. This causes anxiety and eventual drop out.
 
-On small screens we put the order summary below the form. On bigger screens we have an opportunity put it beside the form as follows:
+On small screens we put the order summary below the form. On bigger screens we have an opportunity to place it beside the form:
 
 ![Order summary panel](./images/?.png)
+
+## Checkout header
+
+TODO
 
 ## Summary
 
@@ -561,17 +578,9 @@ Most designers overcomplicate things by putting too much on a page. But by makin
 
 We'll draw on these techniques further in upcoming chapters.
 
-## TODO
-
-CVC number disappearing due to another error. Means the user fixes the error and resubmits. If you have to clear this for security, first find out why, and second if so, then tell the user to reenter and why so they don't get pissed off.
-https://www.uie.com/jared-live/#design-opposed (42 mins)
-
---- DIFFERENT HEADERS IN CHECKOUT
-
 ## Footnotes
 
-[^autocomplete fields attribute]: (https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/)
-[^west]: (https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/)
-[^44]: (http://baymard.com/blog/form-field-usability-matching-user-expectations)
-[^4]: (https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/)
-[^^]: https://about.futurelearn.com/blog/your-courses-my-courses-personal-pronouns for the address payment field
+[^1]: https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/
+[^2]: https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/
+[^3]: http://baymard.com/blog/form-field-usability-matching-user-expectations
+[^4]: https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/

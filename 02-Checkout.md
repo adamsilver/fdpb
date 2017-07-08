@@ -403,7 +403,7 @@ I wondered, then, why it is we ask for street name. Øyvind explains:
 
 ### Expiry date
 
-Generally speaking, dates are hard. But, as far as dates go, an expiry date is on the easy end of the spectrum. It's a simple text box that closely matches the format found on the card itself. Making things match like this reduces the cognitive burden on the user. They just copy what they see.
+As far as dates go, an expiry date is at the easy end of the spectrum. It's a text box that closely matches the format found on the card. Making things match like this reduces the cognitive burden on the user. They just copy what they see.
 
 > ‘Be conservative in what you send; be liberal in what you accept.’
 
@@ -486,7 +486,7 @@ For example, if they want to update their delivery option to "Next Day" then the
 
 As we collect information, we don't have to ask for it again and can send users to the most advanced step at any time reducing friction and increasing conversion.
 
-## Confirmation page
+## Confirmation pages
 
 What it looks like:
 
@@ -519,7 +519,7 @@ This creates an unnecessary burden on the users up front for no gain to the user
 
 By all means ask users to register, by giving genuine value, but do so at the end of a journey. The journey itself should build trust if we design it well.
 
-## Progress indicators
+## Progress bars
 
 Traditional advice says we should give users knowledge of their progress within a particular process. But this is not necessarily the case. There is little data that shows including one is of much value.
 

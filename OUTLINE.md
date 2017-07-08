@@ -51,25 +51,26 @@
 	- Smart defaults
 - Delivery notes
 	- Textarea
-	- Character count indicator
+	- Character count warning
 - Payment
-	- Valid From not needed
-	- Number field
-	- Expiry date field
-		- dates
-	- CVC field
-		- size
-		- hint
+	- Autocomplete
+	- Question Protocol
+	- Expiry date
+		- Dates
+		- Number input
+	- CVC field hint
 	- Billing address
+		- Reuse
+		- Reveal
 - Check and confirm
 	- Question Protocol
-	- Amending an order
-- Confirmation
-- Order summary panel
+	- Amending details
+- Confirmation pages
 - Guest checkout
 - Progress bars
 - Second time experience
-- Checkout specific layout
+- Order summary
+- Checkout specific header
 
 ## 3. Book flight
 

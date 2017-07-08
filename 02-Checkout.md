@@ -168,17 +168,17 @@ We're designing a form for people to complete easily. Making the postcode field 
 
 Baymard Institute's study[^44] found that *if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.*
 
-As a postcode consists of approximately 8 characters, field should have width to match as shown above. This rule doesn't apply just to the postcode, we can use the same technique on other fields where the length of field is known.
+As a postcode consists of approximately 8 characters, the field should have width to match as shown above. This rule doesn't apply just to the postcode, we can use the same technique on other fields where the length of field is known.
 
 ### Capture+
 
-Capture+[^] is a Javascript plugin that allows users to search for their address quickly and easily. Instead of manually typing each part of the address in 5 separate boxes, it offers users a single text box.
+Capture+[^] is a third party API and plugin that allows users to search for their address easily. Instead of manually typing each part of the address in 5 separate boxes, it offers users a single text box.
 
-![Capture+ enhancement](./images/?.png)
+![Capture+](./images/?.png)
 
-As the user types the first line of their address, suggestions appear from which to select. This reduces the amount of keystrokes and the chance of typos. If Capture+ doesn't recognise an address, the user can change the interface back to a standard address form giving users choice.
+As the user types the first line of their address, suggestions appear from which to select. This reduces the amount of keystrokes and the chance of typos. If no address is found, the user can change the interface back to the regular form giving users choice.
 
-This type of Javascript enhancement comes with many design considerations. We could choose to abdicate responsibility for these by handing then over to the plugin. But in all likeliness they haven't considered the accessibility implications of doing so. We'll look at these implications in the next chapter by designing and building our own inclusive autocomplete component.
+This type of Javascript enhancement comes with many design considerations. We could abdicate our responsibility by handing it over to the plugin. But in all likeliness they haven't considered the accessibility implications of doing so. We'll look at these implications in the next chapter by designing and building our own inclusive autocomplete component.
 
 ## Delivery options
 
@@ -411,29 +411,28 @@ input::-webkit-inner-spin-button {
 
 ### Security number
 
-The label is good but a little ambiguous on its own. Not everyone knows what a security number is. Sometimes it's referred to as a ‘CVC’ number which stands for Card Verification Code. We should avoid acronyms where possible because they:
+This number is found on the back of the card. It's not obvious what it is or where to find it. It's not labelled and sometimes it's part of a larger number.
 
-- Make people feel stupid
-- Etc
-- Etc
+This makes ‘Security number’ ambiguous on its own. It doesn't help matters that some sites refer to this as ‘CVC number’ which, by the way, stands for ‘card verification number’. We should avoid acronyms because they make people feel stupid and are generally hard to understand.
 
-Acronyms aside, the hint tells users exactly where to find the answer making things clear. That's all they need to know anyway.
+Telling users where to find this information in the form of a hint makes things obvious and requires little effort on behalf of the user.
 
 ### Billing address
 
 The billing address is a replica of the delivery address which we designed earlier. Using the same component makes the interface familiar. Familiarity is an important quality of an interface.
 
-To process the card, we need its registered address. For most users this is the same as the delivery address. The user already provided this information, so we can use this to enhance the experience.
+To process the card, we need its registered address. For most users this is the same as the delivery address. The user already provided this information earlier, so we can use this to enhance the experience.
 
 To do this, we'll add an extra field, as counterintuitive as that may sound. Instead of exposing the billing address, we'll ask users if their billing address and delivery address are the same. This is the most common scenario, so we default it to checked.
 
-With Javascript available, we hide the billing address fields. Unchecking the checkbox reveals them for the user to fill out accordingly. Here's the relevant Javascript:
+With Javascript available, we hide the billing address. Unchecking the checkbox reveals it accordingly.
 
 ```javascript
+function AddressRevealer() {}
 ```
 
 ```CSS
-.enhanced .billingAddress-isHidden {
+.enhanced .address-isHidden {
 	display: none;
 }
 ```
@@ -444,27 +443,27 @@ What it looks like:
 
 ![Check details](./images/?.png)
 
-Some checkout flows don't have a ‘Check and confirm’ page. After all, it's an extra page and slows down time to completion. But completion time is a dangerous metric in which to infer a well-designed experience. Particularly if it's the *only* metric.
+Checkout flows are often designed not to have this page. After all, it's an extra page and slows down time to completion. But completion time is a dangerous metric in which to infer a well-designed experience. Particularly if it's the *only* metric.
 
-There is little worse than submitting an order when the user didn't expect it. The text in the submit button shouldn't be ‘Continue’ as this implies there are further steps when there aren't, leading to this exact problem.
+There is little worse than submitting an order when the user didn't expect it. The button text shouldn't be ‘Continue’ as this implies there are further steps when there aren't, leading to this exact problem.
 
-Similarly submitting an order with an honest mistake in it is frustrating. Even the most sophisticated validation mechanism cannot eradicate human error. Even if everything *looks* right and is formatted correctly, it doesn't mean mistakes aren't present.
+Similarly submitting an errorneous order is frustrating and time consuming. Even the most sophisticated validation mechanism cannot eradicate human error. Even if everything *looks* right and is formatted correctly, there could still be mistakes.
 
-For example, take Mary (I made her up), a mother of two, one of which is a baby. It's late at night and shes tired and stressed. To make it worse she's ran out of nappies.
+For example, take Mary (I made her up), a mother of two, one is a baby. It's late, the baby is up, screaming obviously and naturally, Mary is tired and stressed. To make things worse she's ran out of nappies.
 
-She goes online, adds them to her basket, and goes to checkout. But she ordered the wrong nappies and used the wrong card. Both the nappies and the card are valid. But she needed different nappies and she wanted to use a different card&mdash;one that is not in the red.
+She adds them to her basket and hits ‘Checkout’. But she ordered the wrong nappies and used the wrong card. Both the nappies and the card are valid. But she needed different nappies and she wanted to use a different card&mdash;one that is not in the red.
 
-Having spent a lot of time answering all the questions needed to complete the order, it's only human and respectful to give Mary the chance to review her order and make amends where necessary.
+Having spent a lot of time filling out the forms, it's only human and respectful to give Mary the chance to review her order and make amends where necessary.
 
-This saves the business a lot of time and money too. If she makes the wrong order then she'll need to return it. This is costly and time-consuming, especially if the business offers free returns.
+This saves the business a lot of time and money. If she makes the wrong order then she'll need to return it. This is costly and time-consuming, especially if the business offers free returns.
 
 ### Amending the order
 
-Each section in the flow is represented in the check page. They can edit any of those sections easily by clicking *change*. When they do, they are taken to the dedicated page.
+What it looks like:
 
 ![Reference One Thing Per Page Smashing Screenshot](./images/?.png)
 
-This is one benefit of using the One Thing Per Page approach. It allows users to jump back and forth easily. Page loads are fast, and each page has minimal noise, providing the user with just what they asked for to make the necessary change.
+Each step is represented in the ‘Check and confirm’ page. The user can check and amend each step by clicking *change*. Using One Thing Per Page enables users to jump back and forth easily. Page loads are fast, and each page has minimal noise which makes amends focussed.
 
 For example, if they want to update their delivery option to "Next Day" then they simply choose it, and the system should update that, and take the user right back to the for another final review.
 
@@ -476,11 +475,9 @@ What it looks like:
 
 ![Confirm screen](./images/?.png)
 
-Technically, there is no form on this page, but confirmation pages are common at the end of a long form process and they are very much needed.
+Confirmation pages are essential especially as part of a multi-step form flow. A confirmation page serves many purposes. Without one, users are left confused. In the case of buying something, they may wonder whether their order was submitted successfully.
 
-They serve many purposes and without one, it leaves users confused. In the case of buying something, they may wonder whether their order went through successfully or not.
-
-The GDS service manual states[^4] each service must have a confirmation page with the following:
+The Government Digital Services’ (GDS) service manual[^] says each service must have a confirmation page with the following:
 
 - a reference number (if there is one)
 - details of what happens next and when
@@ -489,29 +486,25 @@ The GDS service manual states[^4] each service must have a confirmation page wit
 - a link to your feedback page, where users can tell you what they think of the service
 - a way for users to save a record of the transaction (for example, as a PDF)
 
-Whilst GDS isn't selling something to its users, all of this is applicable here. But there's other things to consider.
+Whilst GDS isn't selling products, much of this is applicable to the checkout flow. We give users an order number and details of what happens next. We also tell them what to do if they don't receive the order and give them a way to cancel it there and then if they spot a mistake.
 
-After the user places an order, their experience is, in many respects, just beginning. We need to continue the relationship and provide users with what they need and so forth.
+After placing the order, their experience is, in many respects, just beginning. The confirmation page is an opportunity to show how caring the business is even after a sale.
 
-Much like the Check page, a user may have made a mistake so giving them a way to cancel the order is important. If we do this online, we make this quick for the user, and cheap for the business.
-
-If users aren't signed in, this is a good opportunity to have users sign up by explaining the value they may get in doing so. It's up to the business to provide value though.
-
-Perhaps it's money off their next order, but it can be something more simple, like offering the capability to track orders or enjoying a speedier checkout experience next time.
+For those who used guest checkout (more on this later), the confirmation page is a good place to ask users to register. We might offer users a discount off their next order. Or more simply by offering users a faster experience next time (because we've got their details).
 
 ## Guest checkout
 
-Sometimes, online shops force users to sign up before they are able to place an order. As Jared Spool explains in The 300 Million Dollar Button[^], this is just about the worst thing we can do.
+As Jared Spool explains in The 300 Million Dollar Button[^], forcing users to register, before being able to checkout is just about the worst thing we can do.
 
-It puts unnecessary friction up front, for no gain at this point in time. Remember when we said earlier that we would offer a faster checkout experience next time? That's because we have the user's details in order to do this.
+Earlier, on the confirmation page we told users that if they signed up they would have a faster checkout experience next time around. This is because we would have most of their details on record. But the first time they place an order, we don't have the details.
 
-But the first time they place an order, we don't have those details. This is why we religiously ask ourselves *why are we asking for it?* In this case, why are we asking users to register first? The answer to that question is invariably uncompelling.
+This creates an unnecessary burden on the users up front for no gain to the user. Where is the user need? Using the Question Protocol forces us to ask ourselves why. The answer to this question is invariably uncompelling.
 
-By all means get users to sign up, by giving them genuine value, but do so at the end of a journey. The ease of the journey itself should build trust in the process (if we design it right).
+By all means ask users to register, by giving genuine value, but do so at the end of a journey. The journey itself should build trust if we design it well.
 
 ## Progress indicators
 
-Traditional advice says we should give users knowledge of their progress within a particular process. But this is not necessarily the case. There is little data that shows including one is valuable.
+Traditional advice says we should give users knowledge of their progress within a particular process. But this is not necessarily the case. There is little data that shows including one is of much value.
 
 ![Progress indicator](./images/Progress_indicators_2.png)
 
@@ -524,17 +517,17 @@ GDS say that they:
 - make it hard to write good labels
 - make it hard to handle conditional sections
 
-For these reasons, it's better to start without one, and test to see if one is actually needed. It's much easier to add features down the line than it is to remove them. It's cheaper and easier to measure impact.
+It's better to start without one, and test to see what problems bare out. It's easier and cheaper to add features later than it is to remove them after the fact.
 
-If something is questionable, then by including it, it acts as visual noise and makes the page slower.
+Not having one makes for a cleaner, lighter and more focussed page which should makes things easier for the user. Having meticulously designed every detail the checkout should hopefully be so fast that there is no reason to wonder *how much is left*.
 
-Also, if we follow the previous guidance, then we'll have already ensured that we're asking the essential questions, with clear labels and error messages. In which case, checking out should be so quick and friction-free anyway.
-
-If, however, research shows you need one, go with a simple version first:
+If research shows you need one, consider a simple version first:
 
 ![Local Image](./images/Progress_indicators_1.png)
 
 This progress indicator may well be enough and doesn't suffer from many of the challenges and problems of a more verbose, traditional indicator.
+
+In later chapters, we'll look at how to solve a really really long form by showing progress.
 
 ## Smart defaults
 

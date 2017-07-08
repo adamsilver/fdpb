@@ -732,7 +732,7 @@ Notes:
 
 ## Summary
 
-In this chapter we've solved most of the fundamental problems we face when designing forms. In some respects, this chapter has been as much about what not to do as it has about what it is we should. Here are the many takeaways:
+In this chapter we've solved most of the fundamental problems we face when designing forms. In some respects, this chapter has been as much about what not to do as it has about what it is we should. Here are the main takeaways:
 
 - Always use a clear and readily accessible label. Avoid techniques, however ‘trendy’, that defy this rule.
 - Use the Question Protocol to find ways to remove fields, thus reducing the effort needed by the user.

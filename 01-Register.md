@@ -1,6 +1,6 @@
 # A Registration Form
 
-We're going to begin our adventure with a simple registration form. We'll use this simple form, to ahem, form the foundations on which to solve more complex forms later.
+We'll begin our adventure into form design with a humble registration form. We'll use this seemingly simple form, to ahem, form the foundations on which to solve more complex forms later. Choosing such a simple form to start with should make it easier to tease out some of the most important aspects of sound form design thinking.
 
 ## How it might look
 
@@ -22,7 +22,7 @@ HTML:
 </form>
 ```
 
-It contains four fields and a submit button. Each field has a label. Labels are where our analysis begins.
+This form, at least for now, contains just four fields and a submit button. Each field has a label, which is where the analysis begins.
 
 ## Labels
 
@@ -732,7 +732,7 @@ Notes:
 
 ## Summary
 
-In this chapter we've solved most of the fundamental problems we face when designing forms. In some respects, this chapter has been as much about what not to do as it has about what it is we should. Here are the main takeaways:
+In this chapter we solved most of the fundamental problems we face when designing any form, not just registration. In some respects, this chapter has been as much about what not to do as it has about what it is we should. Here are the main takeaways:
 
 - Always use a clear and readily accessible label. Avoid techniques, however ‘trendy’, that defy this rule.
 - Use the Question Protocol to find ways to remove fields, thus reducing the effort needed by the user.

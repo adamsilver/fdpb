@@ -1,42 +1,44 @@
 # Book A Flight
 
-In this chapter, we'll design a flight booking system. At first this might seem like a bit of a *niche* problem, especially when compared to *A Registration Form* and *Checkout*. However, this chapter encourages us to solve several interesting patterns that are transferable to other problem domains.
+In this chapter, we'll design a service that allows users to book a flight. At first this seems a bit *niche*, especially when compared to the previous chapters, *A Registration Form* and *Checkout*. However, this chapter encourages the exploration of several more complex patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket of hotel room.
 
-Here are the main steps in our flow:
+Here are the main steps in the flow:
 
 1. Choose origin/destination
 2. Choose departure/return date
 3. Choose passengers
-4. Confirming flight
-5. Choosing a seat
+4. Choose flight
+5. Choose seat
 
-There are other steps, like providing passenger passport details and payment. However, we covered those off thoroughly in chapter 2, *Checkout*.
+After step 5, the user will go onto payment but we've covered the topic of payment in the previous chapter.
 
-## 1. Choose destination
+## 1. Choose origin/destination
 
-The first thing users need to do is select an origin and destination (both consist of the same problems and will use the same pattern.) We need this information to search for flights. There are three *native* field types at our disposal:
+The first thing users need to do is select an origin and destination (both consist of the same problems and will use the same pattern.) Without knowing this information, we can't search for flights. The question is how are we going present a list of destinations?
 
-- radio buttons
-- select box
-- search box
+One aspect of being a thoughtful designer is considering the materials that are offered natively. This is because, generally speaking, native controls are familiar and fully accessible by default. It's also far less work to produce such controls. Remember Less But Better by the famous minimalist design Deiter Rams.
 
-### Radio buttons
-
-Radio buttons show choices clearly and are generally well-understood and accessible by default. However, they are less suitable when they consist of many choices. We could have hundreds, if not thousands of destinations.
-
-Radio buttons, in this case, create a long and unweildly page. Some browsers provide a native search facility (activated by `CMD+F`) allowing allows users to *jump* to the option quickly. But most users don't know about this. And we shouldn't rely on an inconspicuous browser feature to fix issues in our own design.
+There are 3 native controls in particular that could work well for choosing a destination. We'll explore those now.
 
 ### Select box
 
-Designers often use `select` boxes because they save space. However, as Luke Wobrelski states: *Dropdowns Should be the UI of Last Resort*[^]. Here's why:
+Designers often use `select` boxes because they save space. But interface usability is about far more than saving space. Select boxes are problematic because:
 
-- some users find them hard to close
-- some users try to type into them
-- some users confuse focused options with selected ones
-- users aren't able to pinch-zoom options on devices
-- they have limited hierarchy control
-- they hide choices behind an unnecessary extra click
-- they are not easily searchable
+- some users find them hard to close.
+- some users try to type into them.
+- some users confuse focused options with selected ones.
+- users aren't able to pinch-zoom options on devices.
+- they have limited hierarchy control.
+- they hide choices behind an unnecessary extra click.
+- they are not easily searchable.
+
+Usability expert, Luke Wobrelski, goes as far to state that *Dropdowns Should be the UI of Last Resort*[^]. We'll take heed of his experience.
+
+### Radio buttons
+
+Unlike select boxes, radio buttons present choices clearly and are generally well-understood and accessible by default. However, they are less suitable when they consist of many choices. That is, we could have hundreds, if not thousands of destinations.
+
+Radio buttons, in this case, create pages that are long and unweildly. Some browsers provide a native search facility (activated by <kbd>CMD+F</kbd>) allowing users to *jump* to the option quickly. But most users aren't aware of this. Moreover we shouldn't rely on an inconspicuous browser feature to fix holes in our own design.
 
 ### Search box
 
@@ -47,7 +49,7 @@ A text box (`input type="search"`) is another option. The search type enhances t
 HTML:
 
 ```html
-<div>
+<div class="field">
 	<label for="destination">Destination</label>
 	<input type="search" name="destination" id="destination">
 </div>
@@ -55,21 +57,15 @@ HTML:
 
 This design works well when the results of the input are completely dynamic and vast in size and breadth. For example, searching for products on Amazon. But for this service, we have a finite amount of destinations that we know in advance.
 
-If we let users search unassisted, they will likely be met with a screen  displaying a message: *we don't fly to that destination*.
-
-![Image here](/etc/)
-
-Once again, we can do better.
+If we let users search unassisted, they may end up seeing a message: *we don't fly to that destination*.
 
 ### Autocomplete
 
 What we really need is a text box and select box rolled into one. As the user types a destination, suggestions appear beneath allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations.
 
-Up until recently there has been no such element for us to use. HTML5 gave us `datalist` but unfortuntely, it's too buggy[^caniuse] for us to use, especially for the open web.
+HTML5 provides `datalist` which does just this. Unfortunately, it's so buggy[^] that it's untenable to use it as part of a fully inclusive a robust solution for the open web. We'll have to design a custom component.
 
-If you have fine control over the design and usage of the component, you may still decide to use one. This book is about designing robust, and inclusive experiences, and so we don't have the luxury of this choice.
-
-Our remaining option is to build a custom component ourselves. When we build a custom component there are rules we need to follow[^alice barlett talk bruce lawson?]. A custom component must:
+When we build a custom component there are rules we need to follow[^alice barlett talk bruce lawson?]. A custom component must:
 
 - be focusable with the keyboard
 - be operable with the keyboard
@@ -85,7 +81,7 @@ Here's how it looks before we enhance it:
 HTML:
 
 ```html
-<div>
+<div class="field">
 	<label for="destination">Destination</label>
 	<select name="destination" id="destination">
 		<option value="">Select</option>
@@ -96,7 +92,7 @@ HTML:
 </div>
 ```
 
-Here is the enhanced custom combobox:
+Here is the enhanced autocomplete component:
 
 ![Image here](/etc/)
 

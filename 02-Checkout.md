@@ -578,20 +578,18 @@ Also tell users they are in the checkout flow. This is what we did for Kidly:
 
 ## Summary
 
-In this chapter we've used One Thing Per Page to reduce the cognitive burden of filling out a relatively long form. Out of this, there have been many important notes to think about, all of which contribute to a friction-free and respectful experience. Here are the main takeaways:
+In this chapter we used One Thing Per Page to reduce the cognitive burden of filling out a relatively long form. From here, we navigated our way through a host of smaller details which collectively contribute to a friction-free and respectful user experience. Here are the main takeaways:
 
-- Use One Thing Per Page to break down a complex process.
 - Ask questions in a sensible order.
-- Use the right input type for the field in question to display a context-specific on-screen keyboard.
-- The width of the field should match the expectation of input. For example, a post code requires just a few characters so make the width smaller than other fields.
-- Use the fieldset and legend elements for radio buttons and checkboxes to give the answers important context.
-- Leverage the autocomplete functionality found in browsers to speed up the form filling process.
+- The width of the field should match the type of input.
+- Use `fieldset` and `legend` elements to give checkboxes and radio buttons context for the choices therein.
+- Leverage autocomplete to speed up the form filling process.
 - Adding extra questions is not always a bad thing. Time to completion is not the only metric.
-- Give users the chance to check their answers before making a purchase. Keep them in control.
-- Use a confirmation to continue the relationship. This is just the beginning.
-- Don't force users to sign up before checking out, that's the worst thing you can do.
-- Don't assume progress bars improve the experience.
-- Use smart defaults and already stored information to drastically reduce effort and conversion rates.
+- Allow users to check their answers before final submission.
+- Use a confirmation page to give users important information and to continue the relationship that has just begun.
+- Forcing users to register before checkout is one of the worst things we can do.
+- Progress bars don't always improve the experience and may clutter the interface unnecessarily.
+- Use smart defaults and stored data to drastically reduce effort and increase conversion.
 
 ## Footnotes
 

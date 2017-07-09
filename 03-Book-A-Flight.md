@@ -206,7 +206,7 @@ We already discussed this in *Checkout* when we designed the expiry date field. 
 
 People find it easy to remember certain dates, such as date of birth. It's often slower and harder to find this date (using a calendar, for example) than it is to type numbers into a text box unassisted.
 
-This is why GDS suggests three *separate* text boxes on their own; one for day, month and year. Why three? To avoid the formatting issues we discussed earlier. Here's what it looks like:
+This is why GDS suggests three *separate* text boxes on their own; one for day, month and year. Why three? To avoid the formatting issues we discussed earlier. Here's How it might look:
 
 ![GDS date of birth](./images/gds-dob.png)
 
@@ -258,11 +258,11 @@ With the advent of mobile browsers, HTML5 gave us `input type="date"` which enha
 
 Also, when browsers release improvements to native controls, our users get them immediately; they don't have to wait for us to deploy code, freeing us up to solve other problems instead.
 
-The input is well supported on mobile. Here's what it looks like:
+The input is well supported on mobile. Here's How it might look:
 
 ![Mobile native date control](./images/mobile-date.png)
 
-Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although it's on the way. Here's what it looks like in Chrome:
+Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although it's on the way. Here's How it might look in Chrome:
 
 ![Desktop native date control](./images/desktop-date.png)
 
@@ -323,7 +323,7 @@ To plug the gap, you can choose from a plethora of existing accessibile solution
 
 #### Custom Calendar Control Component
 
-What it looks like:
+How it might look:
 
 ![Date widget](./images/date-widget.png)
 
@@ -415,7 +415,7 @@ Next, users must choose how many people are travelling. Typically, passengers fa
 - Children, aged between 2 and 15 years old
 - Infants, who are under 2 years old
 
-For each category we'll want a form field that uses the hint pattern from chapter 1, *Register*. Here's what it looks like:
+For each category we'll want a form field that uses the hint pattern from chapter 1, *Register*. Here's How it might look:
 
 ![Passengers](./images/choose-passengers.png)
 
@@ -536,7 +536,7 @@ In a similar vein to picking dates, it makes sense to pick a seat&mdash;visually
 
 Up to now, we have just presented form fields in a simple manner. In this case, however, we can help visual users in particular by presenting the checkboxes as if they were seats on a plane. That is, laid in in rows.
 
-What it looks like:
+How it might look:
 
 ![Image](./images/image.png)
 

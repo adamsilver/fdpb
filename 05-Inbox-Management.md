@@ -78,7 +78,7 @@ Wherever possible we should avoid solutions that exclude people. Inclusivity is 
 
 To allow users to select and action multiple emails at once, we'll need to add a checkbox to each item in the list.
 
-What it looks like:
+How it might look:
 
 ![Inbox](./images/inbox.png)
 
@@ -337,7 +337,7 @@ Here's the HTML:
 
 On small screens we'll need to tweak the layout and behaviour. As there is no room to present all the items, we'll hide them behind a tradional menu that expands and collapses.
 
-This is what it looks like:
+This is How it might look:
 
 ![Menu](./images/etc.png)
 
@@ -408,7 +408,7 @@ In checkout, for example, the user ends up on a dedicated confirmation screen. W
 
 Instead, we'll need a success message at the top of the page, much like the error message alert panel we designed in chapter one.
 
-Here's what it looks like:
+Here's How it might look:
 
 ![etc](./images/etc.png)
 

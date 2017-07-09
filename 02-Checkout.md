@@ -24,7 +24,7 @@ Here are some of the mobile-first designs we used:
 
 ![Just Eat checkout](./images/justeat.png)
 
-A couple of years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern  known as One Thing Per Page[^]. Apart from the numbers there is a strong rationale behind the pattern, which we’ll get to shortly.
+A couple of years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a GDS design pattern called One Thing Per Page[^1]. Apart from the numbers there is a strong rationale behind the pattern, which we’ll get to shortly.
 
 First, we'll take a look at exactly what this pattern is.
 
@@ -66,7 +66,7 @@ A large form takes longer to complete. If it takes too long, then a page timeout
 
 Alternatively, the computer freezes, which was the case for Daniel, the leading character in *I, Daniel Blake*. With declining health and having never used a computer before, his computer freezes and his data lost. In the end, he gives up.
 
-I've counted 16 problems in total, which you can read about in Better Form Design: One Thing Per Page[^].
+I've counted 16 problems in total, which you can read about in Better Form Design: One Thing Per Page[^2].
 
 This inconspicuous and humble UX pattern is flexible, performant and inclusive by design. It truly embraces the web, making things easy for high and low confidence users.
 
@@ -78,7 +78,7 @@ We'll use this approach to design the checkout flow.
 
 ## Flow and order
 
-In Forms That Work[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order:
+In Forms That Work[^3], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order:
 
 > Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
@@ -99,7 +99,7 @@ Just like the car salesperson, we'll ask for the right information at the right 
 
 ## Delivery address
 
-What it looks like:
+How it might look:
 
 ![Delivery form](./images/?.png)
 
@@ -162,17 +162,19 @@ The mobile input uses `type=tel`. This displays a telephone-specific on-screen k
 
 ### Postcode field
 
-Designers are obsessed with clean lines and matching widths. In the case of the delivery form, we might be tempted to give each field the same width. It's hard to argue aginst the beauty of such a design, but we're not installing a minimalist art display.
+Designers are obsessed with clean lines and symmetry. In Write Less Damn Code[^4], Heydon Pickering jokingly points out that was the reason some people added ‘XHTML 1.1 Compliant’ banners just to ensure the height of the navigation bar matches the height of the content perfectly.
+
+In the case of the delivery form, we might be tempted to give each field the same width. It's hard to argue aginst the beauty of such a design, but we're not installing a minimalist art display.
 
 We're designing a form for people to complete easily. Making the postcode field wide (to match the others) is a cognitive burden on the user. This is because the width of the field gives users a clue as to the length of the content required.
 
-Baymard Institute's study[^44] found that *if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.*
+Baymard Institute's study[^5] found that *if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.*
 
 As a postcode consists of approximately 8 characters, the field should have width to match as shown above. This rule doesn't apply just to the postcode, we can use the same technique on other fields where the length of field is known.
 
 ### Capture+
 
-Capture+[^] is a third party API and plugin that allows users to search for their address easily. Instead of manually typing each part of the address in 5 separate boxes, it offers users a single text box.
+Capture+[^6] is a third party API and plugin that allows users to search for their address easily. Instead of manually typing each part of the address in 5 separate boxes, it offers users a single text box.
 
 ![Capture+](./images/?.png)
 
@@ -182,7 +184,7 @@ This type of Javascript enhancement comes with many design considerations. We co
 
 ## Delivery options
 
-What it looks like:
+How it might look:
 
 ![Delivery options](./images/?.png)
 
@@ -215,7 +217,7 @@ Like the label, the legend provides a description both visually and for those us
 
 It may be tempting to group all fields in form like this. Chapter one's registration form could, in theory, be wrapped in a fieldset and legend. Whilst this is valid, it creates unnecessary noise to those fields that are perfectly understandable without this treatment.
 
-As Heydon Pickering says in Inclusive Design Patterns[^], *it's easy to think of patterns as ‘right’ and ‘wrong’*. As with most design decisions, we should apply solutions based on the context of the problem, not by blindly following a blanket rule.
+As Heydon Pickering says in Inclusive Design Patterns[^7], *it's easy to think of patterns as ‘right’ and ‘wrong’*. As with most design decisions, we should apply solutions based on the context of the problem, not by blindly following a blanket rule.
 
 ### Provide a sensible default
 
@@ -232,7 +234,7 @@ Imagine you've ordered your thing and it's on the way. You're excited to receive
 
 A delivery note tells the delivery person what to do in this event. It might be preferable to leave it with a neighbour for example, or by leaving it in the recycling bin, which works surprisingly well I might add.
 
-What it looks like:
+How it might look:
 
 ![Delivery notes](./images/?.png)
 
@@ -263,7 +265,7 @@ In this case, the device that shows the notes has a limited amount of space to f
 
 ### Limiting characters
 
-The `maxlength` attribute limits the amount of text users can enter. However, support is either lacking or buggy[^caniuse]. Worse though, is that `maxlength` literally prevents the user from entering too many characters.
+The `maxlength` attribute limits the amount of text users can enter. However, support is either lacking or buggy[^8]. Worse though, is that `maxlength` literally prevents the user from entering too many characters.
 
 This is a problem because some users solely focus on the keyboard whilst typing. When they finally look up at the screen, they'll realise the system ignored paragraphs of text they spent ages entering. This causes frustration and a distrust in the service.
 
@@ -273,7 +275,7 @@ For those that don't look up, they'll get feedback then and can take action to r
 
 ### Characters remaining component
 
-What it looks like:
+How it might look:
 
 []()
 
@@ -316,7 +318,7 @@ Notes:
 
 ## Payment
 
-What it looks like:
+How it might look:
 
 ![Payment](./images/?.png)
 
@@ -369,7 +371,7 @@ Card details are among the most commonly corrected fields in forms. There are a 
 
 ### Browser autocomplete
 
-In Improve Billing Form UX[^], Margarita Klubochkina explains that the browser's autocomplete behaviour speeds up the form filling process:
+In Improve Billing Form UX[^9], Margarita Klubochkina explains that the browser's autocomplete behaviour speeds up the form filling process:
 
 > Nowadays almost every popular browser has an autofill feature, allowing the users to store their card data in the browser and to fill out form fields more quickly. Since iOS 8, mobile Safari users can scan their card’s information with the iPhone’s camera and fill in [the] fields automatically.’
 
@@ -386,7 +388,7 @@ Our form uses the following attributes for each field:
 
 When we designed the payment form for Kidly, we used the Question Protocol from chapter 1 to guide us. You may note that the form doesn't contain *Valid from* but does contain *Name on card*. This is because we asked ourselves the following questions:
 
-- What does Stripe[^], our payment provider need to process payment?
+- What does Stripe[^10], our payment provider need to process payment?
 - What do we want for our records and why?
 
 Øyvind Valland, Chief of Technology at Kidly, explains our thinking:
@@ -399,7 +401,7 @@ I wondered, then, why it is we ask for street name. Øyvind explains:
 
 > In order to verify card details the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is handy in any situation where you have to query what's happened. Besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
 
-Øyvind is not a designer per se, but his input into the design process is so important. This is why one of favourite inspirational quotes is *Design is a team sport*[^]. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
+Øyvind is not a designer per se, but his input into the design process is so important. This is why one of favourite inspirational quotes is *Design is a team sport*[^11]. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
 
 ### Expiry date
 
@@ -456,7 +458,7 @@ function AddressRevealer() {}
 
 ## Check and confirm
 
-What it looks like:
+How it might look:
 
 ![Check details](./images/?.png)
 
@@ -476,7 +478,7 @@ This saves the business a lot of time and money. If she makes the wrong order th
 
 ### Amending the order
 
-What it looks like:
+How it might look:
 
 ![Reference One Thing Per Page Smashing Screenshot](./images/?.png)
 
@@ -488,13 +490,13 @@ As we collect information, we don't have to ask for it again and can send users 
 
 ## Confirmation pages
 
-What it looks like:
+How it might look:
 
 ![Confirm screen](./images/?.png)
 
 Confirmation pages are essential especially as part of a multi-step form flow. A confirmation page serves many purposes. Without one, users are left confused. In the case of buying something, they may wonder whether their order was submitted successfully.
 
-The Government Digital Services’ (GDS) service manual[^] says each service must have a confirmation page with the following:
+The Government Digital Services’ (GDS) service manual[^12] says each service must have a confirmation page with the following:
 
 - a reference number (if there is one)
 - details of what happens next and when
@@ -511,7 +513,7 @@ For those who used guest checkout (more on this later), the confirmation page is
 
 ## Guest checkout
 
-As Jared Spool explains in The 300 Million Dollar Button[^], forcing users to register, before being able to checkout is just about the worst thing we can do.
+As Jared Spool explains in The 300 Million Dollar Button[^13], forcing users to register, before being able to checkout is just about the worst thing we can do.
 
 Earlier, on the confirmation page we told users that if they signed up they would have a faster checkout experience next time around. This is because we would have most of their details on record. But the first time they place an order, we don't have the details.
 
@@ -552,7 +554,7 @@ We can speed things up drastically for those ordering for a second time. This is
 
 ## Order summary
 
-What it looks like:
+How it might look:
 
 ![Order summary panel](./images/?.png)
 
@@ -593,7 +595,16 @@ In this chapter we've used One Thing Per Page to reduce the cognitive burden of 
 
 ## Footnotes
 
-[^1]: https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/
-[^2]: https://www.smashingmagazine.com/2017/03/world-wide-web-not-wealthy-western-web-part-1/
-[^3]: http://baymard.com/blog/form-field-usability-matching-user-expectations
-[^4]: https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/
+[^1]: https://designnotes.blog.gov.uk/2015/07/03/one-thing-per-page/
+[^2]: https://www.smashingmagazine.com/2017/05/better-form-design-one-thing-per-page/
+[^3]: http://www.formsthatwork.com/
+[^4]: https://www.youtube.com/watch?v=tzfHlEFd2Fk
+[^5]: http://baymard.com/blog/form-field-usability-matching-user-expectations
+[^6]: http://www.pcapredict.com/en-gb/address-capture-software/
+[^7]: https://www.smashingmagazine.com/inclusive-design-patterns/
+[^8]: http://caniuse.com/#feat=maxlength
+[^9]: https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/
+[^10]: https://stripe.com/gb
+[^11]: https://nordnet.design/design-is-a-team-sport-231a602fc072
+[^12]: https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/
+[^13]: https://articles.uie.com/three_hund_million_button/

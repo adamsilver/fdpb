@@ -2,7 +2,7 @@
 
 We're going to begin our adventure with a simple registration form. We'll use this simple form, to ahem, form the foundations on which to solve more complex forms later.
 
-## What it looks like
+## How it might look
 
 ![Registration Form](./images/.png)
 
@@ -29,14 +29,14 @@ It contains four fields and a submit button. Each field has a label. Labels are 
 Each field needs an associated label because:
 
 - sighted users can see the instructions.
-- visually-impaired users can hear the instructions  using a screen reader
+- visually-impaired users can hear the instructions  using a screen reader.
 - motor-impaired users can more easily move focus to the field due to the larger hit area. (Clicking the label moves focus to the field.)
 
 To *connect* an input to a label, the `id` and `for` attributes must match and contain a unique value. Forgetting to do so, means ignoring the needs of those with visual and motor impairments.
 
 As we're designing for people, we'll use the diversity of people as constraints. Constraints that ultimately lead to the creation of inclusive form patterns that work.
 
-Many forms omit labels in order to save space but this is the worst thing we can do. In upcoming chapters we'll discuss situations where we'll have to resist the natural temptation to exclude them.
+Many forms omit labels in order to save space but as inclusive form designers this is, just about, the worst thing we can do. In later chapters we'll discuss situations where we'll resist the natural temptation to exclude them.
 
 ## Placeholders and hints
 
@@ -464,7 +464,7 @@ Conventionally speaking, we should style errors in red. But to support those who
 
 As is often the case with inclusive design patterns, what helps a minority of users often helps everyone else too. In this case a prominent heading helps everyone, not just those with poor vision.
 
-Here's what it looks like:
+Here's How it might look:
 
 []()
 
@@ -502,7 +502,7 @@ This allows us to reuse the same component and the same location on the screen r
 
 #### 3. Show in-context error messages
 
-What it looks like:
+How it might look:
 
 HTML:
 

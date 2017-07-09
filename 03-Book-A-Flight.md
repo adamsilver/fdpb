@@ -143,7 +143,7 @@ In Atomic Design[^] speak this *molecule* is made up of three atoms:
 - Menu
 - Status box
 
-This HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can use with their mouse, (on-screen) keyboard and screen readers.
+This HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with their mouse, (on-screen) keyboard and screen readers.
 
 Here's a run down of the attributes:
 

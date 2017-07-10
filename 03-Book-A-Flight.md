@@ -181,28 +181,30 @@ This code is available on the complimentary demo website[^]. If it's not suitabl
 
 ## Choosing dates
 
-Dates are hard[^]. There is no getting away from this fact. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of a UI.
+Dates are hard[^]. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally, and sometimes still to this day, websites use three select boxes for a date of birth field; one for day, month and year. We already know select boxes are problematic, but one of their redeeming qualities is that they stop the user entering wrong information.
-
-In the case of picking dates, however, even *this* is not the case. Users can, for example, select *31 February 2017*, which will result in a validation error.
+Traditionally we've used 3 select boxes to capture someone's date of birth&mdash;one for day, month and year. Even though we discussed the problems with select boxes earlier, one of their redeeming qualities is that they stop users entering wrong information. However, even *this* doesn't hold up in the case of dates. Users can, for example, select *31 February 2017*, which will result in a validation error.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-So why use select boxes instead of a simple textbox? Mostly because it stops the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes; others with dashes. It's really hard to determine, meaning we can't be as forgiving with what we accept as we are with other fields.
+So why use select boxes instead of a simple textbox? This is because it stops the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes, others with dashes. It's really hard to work out, meaning we can't be as forgiving as we'd like to be.
 
-Before we can design a date control, we first need to understand what type of date we're asking for. Like GDS says *the way you should ask users for dates depends on the types of date you’re asking for*.
+Before designing a date field, we first need to understand what type of date it is. Like GDS says *the way you should ask users for dates depends on the types of date you’re asking for*.
 
 ### Dates from documents
 
-We already discussed this in *Checkout* when we designed the expiry date field. If you haven't read it yet, I'll wait here until you have. Back? Let's continue.
+The expiry date as discussed in chapter 2 is a good example of this. We presented a simple textbox, that expects a number matching the same format as found on the ‘document’, in this case a debit card. These dates are normally straightforward, because users copy what they see, there's less room for interpretation.
 
 ### Memorable dates
 
-People find it easy to remember certain dates, such as date of birth. It's often slower and harder to find this date (using a calendar, for example) than it is to type numbers into a text box unassisted.
+Dates that are easy to remember, such as date of birth, need a different course of treatment. The defacto thinking is that date pickers are easier for all sorts of dates.
 
-This is why GDS suggests three *separate* text boxes on their own; one for day, month and year. Why three? To avoid the formatting issues we discussed earlier. Here's How it might look:
+It's often slower and harder to enter a memorable date in this manner, than it would be to simply type a few numbers into a text box unassisted. Even a well-designed custom date picker requires far more interactions to get the job done.
+
+Once again GDS have a excellent guidance. They suggest 3 *separate* text boxes&mdash;one for day, month and year. This is mostly to avoid the formatting issues we discussed before.
+
+How it might look:
 
 ![GDS date of birth](./images/gds-dob.png)
 
@@ -226,48 +228,46 @@ HTML:
 </fieldset>
 ```
 
-Like radio buttons, this uses the fieldset and legend to group the three text boxes together so that users know the month is in relation to date of birth.
+This field uses the `fieldset` and `legend` elements to group the 3 text boxes together. Without it, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous on its own without the context of ‘Date of birth’, for example.
 
 The `pattern` attribute is there to trigger the numeric keyboard on iPhones as some versions won't automatically show it even though the *type* should be all we need[^CHECK GDS SERVICE MANUAL FOR DATES].
 
-As there are three separate boxes for one field, some websites automatically advance the user to the next field automically using Javascript. This is a usability problem because it:
+Some websites, design this type of field to automatically move focus from box to box using Javascript. Don't do this becaues:
 
-- makes mistakes harder to fix. I may make a mistake in the first box, but my cursor is now in the second box.
-- Screen readers have trouble http://www.freedomscientific.com/Training/Surfs-Up/Forms.htm
+- mistakes are harder to fix. Someone may make a mistake for ‘Day’, but the cursor is now located in ‘Month’. This breaks the X of Inclusive Design Principles, keep users in control.
+- screen readers have trouble http://www.freedomscientific.com/Training/Surfs-Up/Forms.htm
 
-### Calendar control
+### Date picker
 
-When booking a flight, which is the case for us, it's helpful to have some context to help users choose a date. People often orientate themselves by day and week when booking flights. For this reason, we'll want to offer users a more convenient solution than three separate text boxes.
+In our case, users are trying to book a flight. It's neither a memorable date, nor is it a date found in a document. Therefore, it's a good idea to give users a helping hand as they try to find a date.
 
-Interfaces that try to solve too many problems at once often cause problems for users. For example, if we try and convey price and availability inside a calendar, this could cause information overload. Instead, we'll only let users pick a date. And later, we'll help them pick a flight.
+When booking flights, we, people that is, often orientate ourselves around day and week. To mimic this, we'll need a more convenient solution than three text boxes. We need to use a date picker.
+
+Interfaces that try to solve too many problems at once cause problems. If we tried to convey price and availability inside a calendar, for example, this could cause information overload, and probably result in a busy interface that doesn't work very well, unless the user has a super-sized screen.
+
+Instead, we'll let users pick a date. And later, we'll help them pick a flight by providing price and availability information later on.
 
 #### Input Type Date
 
-Up until recently, we were left to create our own custom calendar control using Javascript. We already know how hard it is to design and build a custom component because we did just that with the autocomplete component above. Wherever possible, we should let the browser do the work for us.
+Up until recently, we were left to create our own one using Javascript. We already know how hard this is, because we went through the pain of doing so earlier with the autocomplete component.
+As we know already, where possible, we should let the browser do the work for us.
 
-With the advent of mobile browsers, HTML5 gave us `input type="date"` which enhances a text box into a calendar control. This is good because they are:
-
-- cost effective&mdash;they save us design and development time
-- performant (as users don't need to download and execute custom code)
-- familiar because native apps/different websites will use the same interface
-- accessible by default
-
-Also, when browsers release improvements to native controls, our users get them immediately; they don't have to wait for us to deploy code, freeing us up to solve other problems instead.
+With the birth of mobile browsers HTML5 gave us `input type="date"`. This is cost effective as it saves design and development time. They are performant as there is no code to download and execute. They are familiar, because every website or app that uses it will have the same interface. As is the case with most native controls, they also happen to be accessible too. And when browsers release improvements, users get them immediately, without waiting for us to deploying code. This frees up our time to solve other problems. It's whole bunch of win.
 
 The input is well supported on mobile. Here's How it might look:
 
 ![Mobile native date control](./images/mobile-date.png)
 
-Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although it's on the way. Here's How it might look in Chrome:
+Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although it's on the way.
 
 ![Desktop native date control](./images/desktop-date.png)
 
 If you're concerned about it looking different across browsers, don't be. User's either don't notice or don't care which Nicholas Zakas beautifully demonstrates in BLAH BLAH[^]. If you're still not convinced you should take a look at Do Websites Needs To Look The Same In Every Browser[^].
 
-Here's the HTML:
+HTML:
 
 ```HTML
-<div>
+<div class="field">
 	<label for="date">Flight date</label>
 	<input type="date" name="date" id="date">
 </div>

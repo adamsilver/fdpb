@@ -50,31 +50,33 @@ HTML:
 
 ```html
 <div class="field">
-	<label for="destination">Destination</label>
+	<label for="destination">
+		<span class="field-label">Destination</span>
+	</label>
 	<input type="search" name="destination" id="destination">
 </div>
 ```
 
 This design works well when the results of the input are completely dynamic and vast in size and breadth. For example, searching for products on Amazon. But for this service, we have a finite amount of destinations that we know in advance.
 
-If we let users search unassisted, they may end up seeing a message: *we don't fly to that destination*.
+If we let users search unassisted, they may end up seeing a message: *we don't fly to that destination*, which seems a bit unnecessary.
 
 ### Autocomplete
 
-What we really need is a text box and select box rolled into one. As the user types a destination, suggestions appear beneath allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations.
+We really need a control with the features of a search box and select box rolled into one. As the user types a destination, suggestions appear allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations.
 
-HTML5 provides `datalist` which does just this. Unfortunately, it's so buggy[^] that it's untenable to use it as part of a fully inclusive a robust solution for the open web. We'll have to design a custom component.
+HTML5 provides `datalist` which does just this. Unfortunately, it's so buggy[^] that it's impossible to design a robust solution for consumption on the open web.
 
-When we build a custom component there are rules we need to follow[^alice barlett talk bruce lawson?]. A custom component must:
+We'll have to design a custom component. To do this, we'll need to follow some important rules[^alice barlett talk bruce lawson?]. A custom component must:
 
 - be focusable with the keyboard
 - be operable with the keyboard
 - work with assistive devices
 - work without Javascript
 
-To solve the last problem we need to decide on what the core experience will be. Will it be a text box or select box? On balance, it seems prudent for us to use the select box. But you may take a different tact depending on the context of your own problem.
+To solve the last problem we need to decide on what the core experience should be&mdash;a text box or a select box. In this case, it seems prudent to use the select box. At least, a select box eradicates the chance of seeing errors after submission. But as always it depends on the context of the specific problem.
 
-Here's how it looks before we enhance it:
+How it looks (before enhancement):
 
 ![Image here](/etc/)
 
@@ -82,7 +84,9 @@ HTML:
 
 ```html
 <div class="field">
-	<label for="destination">Destination</label>
+	<label for="destination">
+		<span class="field-label">Destination</span>
+	</label>
 	<select name="destination" id="destination">
 		<option value="">Select</option>
 		<option value="france">France</option>
@@ -92,7 +96,7 @@ HTML:
 </div>
 ```
 
-Here is the enhanced autocomplete component:
+How it looks (after enhancement):
 
 ![Image here](/etc/)
 
@@ -137,11 +141,11 @@ HTML:
 </div>
 ```
 
-In Atomic Design[^] speak this *molecule* is made up of three atoms:
+There are three main elements to this:
 
-- Text box
-- Menu
-- Status box
+- Text box: to type into
+- Menu: to choose a suggestion from
+- Status box: to announce to screen readers what's been selected
 
 This HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with their mouse, (on-screen) keyboard and screen readers.
 

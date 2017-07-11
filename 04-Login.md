@@ -1,30 +1,29 @@
 # A Login Form
 
-> As a user I want to login so that
-> —Nobody ever
+> ‘As a user I want to login so that’&mdash;Nobody ever
 
-In chapter 3 *Book A Flight*, we *ahem*, navigated our way through the complicated world of custom form controls. I don't know about you, but I could certainly do with a short intermission. And I can't think of a better way to do that, than with the inocuous and ubiquitous login form.
+In the previous chapter, we navigated our way through the treacherous world of custom form components. I don't know about you, but I could do with an intermission. I can't think of a better way to do that, than with the inocuous and ubiquitous login form.
 
-Most sites have login forms but almost as many sites have login forms that cause problems for users. The rise of social login hasn't helped matters either. In this chapter we're going to discuss these issues and look to design solutions accordingly.
+Most sites have login forms but almost as many of them have UX failures. Social login hasn't helped matters either. And even without the need for custom form components there's plenty of issues to analyse and solve accordingly.
 
-A login form:
+How it looks:
 
 ![Login](./images/login.png)
 
 HTML:
 
 ```html
-<form>
+<form novalidate>
   <div class="field">
   	<label for="email">
-  		<span class="label">Email address</span>
+  		<span class="field-label">Email address</span>
   	</label>
   	<input type="email" id="email" name="email">
   </div>
   <div class="field">
   	<label for="password">
-  		<span class="label">Password</span>
-  		<span class="hint">Must contain at least 8 characters with 1 uppercase letter and a number.</span>
+  		<span class="field-label">Password</span>
+  		<span class="field-hint">Must contains 8+ characters with at least 1 number and 1 uppercase letter.</span>
   	</label>
   	<input type="password" id="password" name="password">
   </div>
@@ -32,31 +31,27 @@ HTML:
 </form>
 ```
 
-If you're reading this book in order, you'll notice how similar this form is to the form we settled on in chapter 1 *Registration*. We have the same fields with the same field types. And we have the exact same password hint.
+The sign in form is the counterpart to the registration form we designed in chapter 1. It's remarkably similar and contains the same fields. We even have the exact same hint. In fact, the main difference is the submit button's text.
 
-In fact everything is pretty much indentical except for the labelling of the password field and the button text. This text is more appropriate in this context.
+All too often, login forms omit hint text. That is, they don't tell users what password rules they need to abide by. Shamefully, I use the same password for most sites, and I'll modify it where I must to adhere to the rules of the site in question.
 
-Too often login forms forgo hint text. That is they don't tell users what password rules they need to abide by. Shamefully, but like many people, I use the same or similar passwords for lots of sites although writing this now has prompted me to sort that out.
+For example, imagine my password is *password*. On a site that requires a capital letter, I'll capitalise the first letter: *Password*. And if the site forces me to include a number, then it will be *password1*.
 
-In anycase, imagine my password is *password*. On a site that requires a capital letter, I'll probably create a password of *Password*. And if the site forces me to include a number, then it will be *password1*.
+The point is, if there is a hint to inform me of the rules, then I won't have to submit the form just to find out through an error message. Doing so is both slower and unnecessary.
 
-The point is, if there is a hint to inform me of the rules, then I won't have to submit the form to find out. Doing so is frustrating, slower and unnecessary.
+Often we omit hints like these due to ‘security reasons’. But if a hacker wants to find out the rules, then all they need to do is register themselves.
 
-Often these rules are omitted due to "security reasons". But if a hacker  wants to find out the password rules then all they need to do is sign up for an account themselves.
+The short of it is, include a useful hint, even on a login form. Give users a chance to avoid an error. If, like some users, they ignore the hint, our robust and fully inclusive validation pattern will come to their rescue.
 
-Don't do this. Instead give users a chance by providing a hint. And if, like some users, they ignore the hint our fully inclusive validation routine will kick in.
+## Non-standard username and password fields
 
-## Non standard username and password fields
+Some services, like the flight booking service we designed in the previus chapter, may ask users to sign in with something other than an email and password. I've often seen them ask for a booking reference number, for example.
 
-Some services, like the flight booking service we designed in chapter 3 may not ask users to sign in with their email and password credentials. Instead, they may ask for a booking reference number, for example.
+Similarly, banks typically ask for a pin number instead of a password. In both cases, use explicit field labels. If it's a pin number say so. And tell users what the format it is and where they might find it (it it is printed on a document).
 
-Similarly, some banks ask for a pin number instead of a password. In either case, don't use ambiguous labels. If it's a pin or reference number say so. And also tell users where they might find it.
+All of this allows the user to think less, keeping their energy levels high and ready to do the thing they actually want to do. Remember they have no inclination to log in. They want the feature that lies behind it.
 
-This is exactly what we did in chapter 2 *Checkout* when we asked users for the security number on the back of their credit card. If something is out of the ordinary or testing shows that people may struggle, provide an obvious hint.
-
-In doing so users have to think less.
-
-## The username and password doesn't match problem
+## The ‘username and password doesn't match’ problem
 
 If the user enters an incorrect username or password, many sites will show an error saying *The username and password doesn't match*. Put simply, this is bad and as Jared Spool explains in Design Is Metrically Opposed[^]:
 

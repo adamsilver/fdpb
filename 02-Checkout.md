@@ -432,9 +432,11 @@ input::-webkit-inner-spin-button {
 
 This number is found on the back of the card. It's not obvious what it is or where to find it. It's not labelled and sometimes it's part of a larger number.
 
-This makes ‘Security number’ ambiguous on its own. It doesn't help matters that some sites refer to this as ‘CVC number’ which, by the way, stands for ‘card verification number’. We should avoid acronyms because they make people feel stupid and are generally hard to understand.
+[]()
 
-Telling users where to find this information in the form of a hint makes things obvious and requires little effort on behalf of the user.
+This makes ‘Security number’ ambiguous on its own. It doesn't help that sometimes it's referred to as ‘CVC’ which, by the way, stands for ‘card verification number’. Acryonyms are an act of exlusivity because not everyone understands them. They can make people feel stupid.
+
+Acronyms aside, telling users where to find it, using a hint makes things obvious and requires little effort on behalf of the user.
 
 ### Billing address
 

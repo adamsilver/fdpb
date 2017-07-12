@@ -719,3 +719,4 @@ TODO: Summary
 [^dateshard]:(http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time)
 [^calendarscreenreader]:(https://ux.stackexchange.com/questions/60884/best-way-for-date-field-for-visually-impaired-users)
 [^calendarw3ariaspec]:(https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/)
+[alice bartlett steve faulkner]:https://www.paciellogroup.com/blog/2014/09/web-components-punch-list/

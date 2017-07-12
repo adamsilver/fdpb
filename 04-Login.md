@@ -151,6 +151,8 @@ Finally, put login forms in context of the flow in which they have been triggere
 
 Some nice login forms, like banks ask users for certain letters or numbers from a password or security pin. To do this they'll use Javascript to automatically move focus when the user enters the characters.
 
+https://www.usability.gov/what-and-why/glossary/auto-tabbing.html
+
 This is bad because:
 
 - it goes against keeping users in control
@@ -158,6 +160,26 @@ This is bad because:
 - most fields don't have this treatment, so it's inconsistent
 - it's frustrating, as a convention we know that when we're finished we should press tab, so we do. But in this case it will move users to the next next field.
 - This is particularly difficult for screen readers.
+
+https://ux.stackexchange.com/questions/22508/auto-advance-to-next-field
+
+I was looking into that myself this morning. I found Léonie Watson voicing an opinion on the W3C WAI mailing list:
+
+> Speaking as a screen reader/keyboard user, I strongly dislike having  auto-tab functionality imposed on me. It is unexpected, and based on a  flawed assumption that it is helpful.
+>
+> It's worth noting that it takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
+
+https://lists.w3.org/Archives/Public/w3c-wai-ig/2015AprJun/0168.html (edited)
+
+
+[3:42] 
+And some BBC guidance had the same opinion:
+
+> Focus or context must not automatically change during user input.
+>
+> It can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it. For example, moving to the next control or to a validation error message during input.”
+
+http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
 
 ## Footnotes
 

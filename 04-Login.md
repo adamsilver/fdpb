@@ -131,7 +131,7 @@ However, the form is short and so we can place the forgotten password link after
 
 ![Forgot password link](./images/forgot-password-link.png)
 
-## Don't put two forms together on same page
+## Avoid putting two forms together on the same page
 
 Some sites put the registration and login forms on the same page. Putting them on the same page is problematic for many of the reasons most of which we discussed in One Thing Per Page.
 
@@ -146,6 +146,18 @@ In this chapter we have covered the main problems associated with login forms. M
 If you're going to provide social login capabilites consider the tradeoffs, implement one at a time, and ensure users aren't penalised if they sign up using different mechanisms.
 
 Finally, put login forms in context of the flow in which they have been triggered. It's intuitive and keeps users focussed on the task at hand.
+
+## The problem with automatically moving focus
+
+Some nice login forms, like banks ask users for certain letters or numbers from a password or security pin. To do this they'll use Javascript to automatically move focus when the user enters the characters.
+
+This is bad because:
+
+- it goes against keeping users in control
+- this is unfamiliar and takes learning
+- most fields don't have this treatment, so it's inconsistent
+- it's frustrating, as a convention we know that when we're finished we should press tab, so we do. But in this case it will move users to the next next field.
+- This is particularly difficult for screen readers.
 
 ## Footnotes
 

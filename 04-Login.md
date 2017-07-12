@@ -63,13 +63,13 @@ Instead, tell users which field is problematic and allow them to fix it easily.
 
 ## Contextual login forms
 
-Some sites have all-access areas and login-only areas. Quite often login form pages are designed without considering the context in which they are being used.
+Some sites have all-access areas and login-only areas. Often login form pages are designed without considering the context in which they are being used. To explain, we'll use checkout as an example. And for purposes of demonstration, we'll ignore that forcing users to login beforehand is an anti-pattern.
 
-To demonstrate the problem, we'll ignore for the moment, that forcing users to login before checking out is an anti-pattern. Imagine a basket (or shopping cart page if you're linguistically american). On there is a *checkout* button.
+Take a shopping basket page. Below the basket details, there is a *checkout* button. Clicking it, takes the user to beginning of the checkout flow. However, if they are logged out, they're prompted to login. 
 
-Clicking *Checkout* takes the user to the beginning of the checkout flow. If the user is logged out they are prompted to login first. A checkout flow, is often designed to streamline the process. To do this checkout flows have a minimalist layout.
+As discussed in chapter 2, we provide a checkout specific layout with a minimal header to streamline that process. We should ensure the login form should be given the same treatment, as the user should still feel as though they are in checkout. After all this is what they clicked.
 
-If the user went to checkout, then even though the user is presented with a login form, they should still feel as though they are in checkout. This is what we did for Kidly:
+This is what we did for Kidly:
 
 ![Forced to login](./images/kidly-login.png)
 
@@ -154,3 +154,5 @@ Finally, put login forms in context of the flow in which they have been triggere
 https://conversionxl.com/social-login/
 
 https://blog.loginradius.com/2014/01/understanding-benefits-social-login-add-value-website/
+
+Crappy bank login

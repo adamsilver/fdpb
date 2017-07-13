@@ -65,7 +65,7 @@ Instead, tell users which field is problematic and allow them to fix it easily.
 
 Some sites have all-access areas and login-only areas. Often login form pages are designed without considering the context in which they are being used. To explain, we'll use checkout as an example. And for purposes of demonstration, we'll ignore that forcing users to login beforehand is an anti-pattern.
 
-Take a shopping basket page. Below the basket details, there is a *checkout* button. Clicking it, takes the user to beginning of the checkout flow. However, if they are logged out, they're prompted to login. 
+Take a shopping basket page. Below the basket details, there is a *checkout* button. Clicking it, takes the user to beginning of the checkout flow. However, if they are logged out, they're prompted to login.
 
 As discussed in chapter 2, we provide a checkout specific layout with a minimal header to streamline that process. We should ensure the login form should be given the same treatment, as the user should still feel as though they are in checkout. After all this is what they clicked.
 
@@ -117,25 +117,45 @@ The "Connections" section shows Facebook and Twitter options. Users can connect 
 
 If you're going to provide social login capabilities, then first work out why. If the why is compelling, then be sure to make this seamless for users and make the choices clear.
 
-## Forgot Password Placement
+## ‘Forgotten password’ placement
 
-One aspect of inclusivity is honouring people's interaction preferences. Some users prefer using the keyboard. Some prefer the mouse. Some use them both interchangeably.
+One aspect of inclusivity is honouring people's interaction preferences. Some users prefer using the keyboard. Some prefer the mouse. Some use both interchangeably.
 
-When using forms or more broadly websites, the *tab* allows users to move focus. By default links and form controls gain focus with the tab key. This switching between forms and links is a source of disruption. Unlike forms mode, a web page allows users to move freely between links and form controls.
+When using forms, or more broadly websites, the <kbd>tab<kbd> key  moves focus between focusable elements, mainly links and form controls. This means users can move freely between links and forms.
 
-This means that if you place a forgotten password link between the username and password fields, some users may tab to the link, instead of the expected password field.
+This interchange between forms and links can be a source of disruption depending on the way we design. Specifically, if the ‘Forgotten password’ link is placed between the username and password fields then the natural flow is broken.
 
-Or perhaps the forgotten password link may appear straight after the password field. Both of these may make some sense from a visual design perspective. Offering a solution to a problem in context of the problem is an act of good contextual design.
+When inside a form, the user expects the tab to move to the next field, but instead focus is on the link. The user starts typing, and nothing happens, and they realise they need to tab again, or use the mouse to be sure.
 
-However, the form is short and so we can place the forgotten password link after the form itself.
+Alternatively, we put the link after the password field. Both of these may make some sense from a visual design perspective. Offering a solution to a problem in context of the problem is an act of good contextual design.
+
+However, the primary action of logging in should come before the secondary action of dealing with a forgotten password. Placing it after the submit button is the right thing to do here.
 
 ![Forgot password link](./images/forgot-password-link.png)
 
-## Avoid putting two forms together on the same page
+## Auto-tabbing between fields
 
-Some sites put the registration and login forms on the same page. Putting them on the same page is problematic for many of the reasons most of which we discussed in One Thing Per Page.
+Some niche login forms, such as banks, ask users for certain characters of a password, memorable word or security pin. They'll then present 3 text boxes or worse, 3 select boxes from which to choose these letters.
 
-As we know the registration form is similar to the login form. Putting them together makes it harder to differentiate. It's also confusing for users that have ended up on this page having clicked a specific call to action such as *login*.
+![Image]()
+
+There is no reason to have 3 separate boxes, much less 3 separate select boxes, but in doing so, they decide to auto-tab between the fields. What this means is focus is moved to the next field automatically as the user enters a pre-determined number of characters.
+
+BBC's UX guidance[^] says *it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.*
+
+And, Leonie Watson, accessibility expert, and someone that uses a screen reader and keyboard says:
+
+> I strongly dislike having  auto-tab functionality imposed on me. It is unexpected, and based on a  flawed assumption that it is helpful. It's worth noting that it takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
+
+This point of view is hardly surprising as this functionality makes assumptions on behalf of the users and takes control away. In doing so, it makes for an unfamilar experience that breaks a fundamental interactive convention on the web.
+
+## One form per page
+
+
+In previous chapters, we've leveraged One Thing Per Page in the context of form fields. But the same applies to placing two forms on the same page. And it consists of much of the same rationale.
+
+Some sites put the registration and login forms on the same page.
+The registration and login forms are remarkably similiar. Putting them together makes them harder to differentiate. It's also confusing for users that have ended up on this page having clicked a specific call to action such as *login*.
 
 Instead keep things separate and offer a small link before or after the login form allowing users to register.
 
@@ -147,40 +167,6 @@ If you're going to provide social login capabilites consider the tradeoffs, impl
 
 Finally, put login forms in context of the flow in which they have been triggered. It's intuitive and keeps users focussed on the task at hand.
 
-## The problem with automatically moving focus
-
-Some nice login forms, like banks ask users for certain letters or numbers from a password or security pin. To do this they'll use Javascript to automatically move focus when the user enters the characters.
-
-https://www.usability.gov/what-and-why/glossary/auto-tabbing.html
-
-This is bad because:
-
-- it goes against keeping users in control
-- this is unfamiliar and takes learning
-- most fields don't have this treatment, so it's inconsistent
-- it's frustrating, as a convention we know that when we're finished we should press tab, so we do. But in this case it will move users to the next next field.
-- This is particularly difficult for screen readers.
-
-https://ux.stackexchange.com/questions/22508/auto-advance-to-next-field
-
-I was looking into that myself this morning. I found Léonie Watson voicing an opinion on the W3C WAI mailing list:
-
-> Speaking as a screen reader/keyboard user, I strongly dislike having  auto-tab functionality imposed on me. It is unexpected, and based on a  flawed assumption that it is helpful.
->
-> It's worth noting that it takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
-
-https://lists.w3.org/Archives/Public/w3c-wai-ig/2015AprJun/0168.html (edited)
-
-
-[3:42] 
-And some BBC guidance had the same opinion:
-
-> Focus or context must not automatically change during user input.
->
-> It can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it. For example, moving to the next control or to a validation error message during input.”
-
-http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
-
 ## Footnotes
 
 [^facebook]:(https://developers.facebook.com/docs/facebook-login/multiple-providers)
@@ -189,4 +175,10 @@ https://conversionxl.com/social-login/
 
 https://blog.loginradius.com/2014/01/understanding-benefits-social-login-add-value-website/
 
-Crappy bank login
+[]:https://www.usability.gov/what-and-why/glossary/auto-tabbing.html
+
+[]:http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
+
+[^]: https://lists.w3.org/Archives/Public/w3c-wai-ig/2015AprJun/0168.html
+
+[^]: https://ux.stackexchange.com/questions/22508/auto-advance-to-next-field

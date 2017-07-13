@@ -112,6 +112,7 @@
 	- Choice paralysis
 	- Seamless interchange
 - Forgotten password
+- Auto-tabbing
 - One form per page
 
 ## 5. Inbox Management

@@ -1,6 +1,6 @@
 # Book A Flight
 
-In this chapter, we'll design a service that allows users to book a flight. At first this seems a bit *niche*, especially when compared to the previous chapters, *A Registration Form* and *Checkout*. However, this chapter encourages the exploration of several more complex patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket of hotel room.
+In this chapter, we'll design a service that allows users to book a flight. At first this seems a bit *niche*, especially when compared to the two previous chapters, *A Registration Form* and *Checkout*. However, this chapter encourages the exploration of several more complex patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket of hotel room.
 
 Here are the main steps in the flow:
 
@@ -10,19 +10,19 @@ Here are the main steps in the flow:
 4. Choose flight
 5. Choose seat
 
-After step 5, the user will go onto payment but we've covered the topic of payment in the previous chapter.
+After step 5, the user will go to pay. I've left it out as we covered payment in the previous chapter.
 
 ## 1. Choose origin/destination
 
 The first thing users need to do is select an origin and destination (both consist of the same problems and will use the same pattern.) Without knowing this information, we can't search for flights. The question is how are we going present a list of destinations?
 
-One aspect of being a thoughtful designer is considering the materials that are offered natively. This is because, generally speaking, native controls are familiar and fully accessible by default. It's also far less work to produce such controls. Remember Less But Better by the famous minimalist design Deiter Rams.
+One aspect of being a thoughtful designer is considering the materials that are offered natively. This is because, generally speaking, native controls are familiar and fully accessible. It's also far less work to use them than it is to build our own, as we'll see shortly. This is what comes to mind when reading Deiter Rams famous quote ‘Less but better’.
 
 There are 3 native controls in particular that could work well for choosing a destination. We'll explore those now.
 
 ### Select box
 
-Designers often use `select` boxes because they save space. But interface usability is about far more than saving space. Select boxes are problematic because:
+Designers often use `select` boxes because they save space. But interface design is about far more than just saving space. Select boxes are problematic because:
 
 - some users find them hard to close.
 - some users try to type into them.
@@ -65,7 +65,7 @@ If we let users search unassisted, they may end up seeing a message: *we don't f
 
 We really need a control with the features of a search box and select box rolled into one. As the user types a destination, suggestions appear allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations.
 
-HTML5 provides `datalist` which does just this. Unfortunately, it's so buggy[^] that it's impossible to design a robust solution for consumption on the open web.
+HTML5 provides `datalist` which does exactly this. Unfortunately, it's so buggy[^] that it's impossible to design a robust solution for use on the open web.
 
 We'll have to design a custom component. To do this, we'll need to follow some important rules[^alice barlett talk bruce lawson?]. A custom component must:
 
@@ -74,7 +74,7 @@ We'll have to design a custom component. To do this, we'll need to follow some i
 - work with assistive devices
 - work without Javascript
 
-To solve the last problem we need to decide on what the core experience should be&mdash;a text box or a select box. In this case, it seems prudent to use the select box. At least, a select box eradicates the chance of seeing errors after submission. But as always it depends on the context of the specific problem.
+To solve the last problem we need to decide on what the experience should be here. A text box or a select box. In this case, it seems prudent to use the select box. At least, a select box removes the chance of seeing errors after submission.
 
 How it looks (before enhancement):
 

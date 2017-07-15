@@ -595,7 +595,7 @@ Dates that are easy to remember, such as date of birth, need a different design 
 
 It's often slower and harder to enter a memorable date in this manner, than it would be to type a few numbers into a text box unassisted. Even a well-designed custom date picker requires far more effort to get the job done.
 
-Once again GDS have a excellent guidance. They suggest 3 *separate* text boxes&mdash;one for day, month and year. This is mostly to avoid the formatting issues we discussed before.
+GDS have a excellent guidance here too. They suggest 3 *separate* text boxes&mdash;one for day, month and year. This is mostly to avoid the formatting issues we discussed before.
 
 How it might look:
 
@@ -621,41 +621,46 @@ HTML:
 </fieldset>
 ```
 
-This field uses the `fieldset` and `legend` elements to group the 3 text boxes together. Without it, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous on its own without the context of ‘Date of birth’, for example.
+This field uses the `fieldset` and `legend` elements to group the 3 inputs together. Without it, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous on their own.
 
-The `pattern` attribute is there to trigger the numeric keyboard on iPhones as some versions won't automatically show it even though the *type* should be all we need[^CHECK GDS SERVICE MANUAL FOR DATES].
+Some versions of iOS ignore `type="number"` and therefore won't show the numeric keyboard. The `pattern` attribute fixes this problem[^filament].
 
-Some websites, design this type of field to automatically move focus from box to box using Javascript. Don't do this becaues:
-
-- mistakes are harder to fix. Someone may make a mistake for ‘Day’, but the cursor is now located in ‘Month’. This breaks the X of Inclusive Design Principles, keep users in control.
-- screen readers have trouble http://www.freedomscientific.com/Training/Surfs-Up/Forms.htm
+Some websites, design this type of field to automatically tab to the next box once the correct amount of characters have been typed. This is a problem for users, which we'll be discussing in more detail in the next chapter.
 
 ### Date picker
 
-In our case, users are trying to book a flight. It's neither a memorable date, nor is it a date found in a document. Therefore, it's a good idea to give users a helping hand as they try to find a date.
+In the case of booking a flight users are nither dealing with a memorable date nor one found in a document. When booking flights, we often orientate ourselves around day and week. To mimic this, we'll need a more convenient solution than three text boxes. We need to use a date picker.
 
-When booking flights, we, people that is, often orientate ourselves around day and week. To mimic this, we'll need a more convenient solution than three text boxes. We need to use a date picker.
+Interfaces that try to solve too many problems at once cause problems. If we tried to convey, for example, price and availability, inside a calendar, this would result in a busy interface that doesn't work very well. That is, unless the user has a super-sized screen.
 
-Interfaces that try to solve too many problems at once cause problems. If we tried to convey price and availability inside a calendar, for example, this could cause information overload, and probably result in a busy interface that doesn't work very well, unless the user has a super-sized screen.
+To begin with, we'll let users pick a date, without the context of price and availability. Then later, we'll give them the extra context that they'll need to choose the right flight.
 
-Instead, we'll let users pick a date. And later, we'll help them pick a flight by providing price and availability information later on.
+#### Date input
 
-#### Input Type Date
+Before HTML5, we had to build our own date picker using Javascript. We know this is hard because we had to consider the host of requirements needed to produce a fully inclusive autocomplete component just earlier.
 
-Up until recently, we were left to create our own one using Javascript. We already know how hard this is, because we went through the pain of doing so earlier with the autocomplete component.
-As we know already, where possible, we should let the browser do the work for us.
+Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;have `input type="date"`. This is useful for many reasons:
 
-With the birth of mobile browsers HTML5 gave us `input type="date"`. This is cost effective as it saves design and development time. They are performant as there is no code to download and execute. They are familiar, because every website or app that uses it will have the same interface. As is the case with most native controls, they also happen to be accessible too. And when browsers release improvements, users get them immediately, without waiting for us to deploying code. This frees up our time to solve other problems. It's whole bunch of win.
+- We don't need to spend time designing and developing our own.
+- They are performant because they are provided by the browser.
+- They are familiar because every website (and native app) will use the same interface.
+- They are accessible by default.
+- When browsers release improvements, users receive them immediately.
+- All of which, frees us to solve other problems.
 
-The input is well supported on mobile. Here's How it might look:
+Here's how it looks on mobile:
 
 ![Mobile native date control](./images/mobile-date.png)
 
-Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although it's on the way.
+Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although it's on the way at the time of writing.
 
 ![Desktop native date control](./images/desktop-date.png)
 
-If you're concerned about it looking different across browsers, don't be. User's either don't notice or don't care which Nicholas Zakas beautifully demonstrates in BLAH BLAH[^]. If you're still not convinced you should take a look at Do Websites Needs To Look The Same In Every Browser[^].
+If you're concerned about it looking different across browsers, don't be. User's don't notice, and for those that do, they don't care. In Progressive Enhancement 2.0[^], Nicholas Zakas demonstrates this to the audience at X mins in.
+
+Nobody cares about your website as much as you do. But if you're still not convinced take a look at this dedicated website Do Websites Needs To Look The Same In Every Browser[^] just to be sure.
+
+We'll deal with browsers that don't suppor the date input in a moment. But for now, let's start implementing the field.
 
 HTML:
 
@@ -677,17 +682,17 @@ HTML:
 ::-webkit-calendar-picker-indicator
 ```
 
-We can use these pseudo selectors to style these things where we think it helps and tweak the styles and turn things off like "spinners".
+We can use these pseudo selectors to style these things where we think it helps and tweak the styles and turn off the "spinners".
 
-So far this works really well. We do have one remaining issue to address. That's browsers that don't support `input type="date"`.
+This works really well but we do need to think about browsers that lack support.
 
 #### Date input unsupported
 
-Browsers that don't support the date input will degrade gracefully into a simple text box, which may be sufficient. This is one of the many beautys of progressive enhancement, we can choose to degrade gracefully, or, we can decide to plug the gap.
+Browsers that don't support the date input will degrade gracefully into a simple text box, which may be sufficient. This is one of the advantages of Progressive Enhancement. We can choose to degrade gracefully, or, we can decide to provide a more enhanced fallback.
 
-For us, choosing dates is integral to booking a flight online. As much as a text box can work, we'll want to do better. We'll once again want to design and build our own custom component.
+As choosing dates is integral to booking a flight online, the degraded solution isn't really that acceptable. We'll need to design our own date picker when the date input isn't supported.
 
-We'll first need to detect the browser *doesn't* support the native date input. Only then do we want to execute our custom component.
+First, we need to detect a lack of support:
 
 ```Javascript
 function supportsDateInput() {
@@ -704,13 +709,11 @@ if(!supportsDateInput()) {
 In future we may find that:
 
 - research shows that our own widget performs better than the native input
-- support is drastically improved and that hardly any of our users have an unsupported browser
+- support is broad enough to worry less about the rapidly diminishing users using unsupported browsers.
 
-In both of these cases we may choose to remove our custom component altogether, giving us less to maintain, and give users faster experiences.
+In both cases we may choose to remove the custom date picker, giving us less to maintain, and give users faster experiences.
 
-To plug the gap, you can choose from a plethora of existing accessibile solutions[^]. Or we can be bold and design our own.
-
-#### Custom Calendar Control Component
+#### Date picker component
 
 How it might look:
 

@@ -151,7 +151,7 @@ There are three component parts:
 
 The HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with a mouse, keyboard and screen reader interchangeably.
 
-Text box attributes:
+Text box notes:
 
 - `role="combobox"` to announce that they are interacting with an autocomplete control, not a regular text box.
 - `aria-autocomplete="list"` to announce that in using this autocomplete, a list will appear from which the user can choose.
@@ -159,12 +159,12 @@ Text box attributes:
 - `aria-owns="combobox-options"` connects the text box to the menu by `id`.
 - `autocomplete="off"` stops browsers showing their suggestions and interfering with those offered the component itself.
 
-Option attributes:
+Option notes:
 
 - `role="option"` to announce it as an option in the list.
 - `aria-selected` to indicate the selected option.
 
-Status box attributes:
+Status box notes:
 
 - `aria-role="status" announces the status. For example, *2 results available.*
 - `aria-live="polite" announces the status when the user stops typing. Ensuring they aren't interrupted.
@@ -529,7 +529,6 @@ Autocomplete.prototype.createButton = function() {
 };
 
 Autocomplete.prototype.onButtonClick = function(e) {
-	window.clearTimeout(this.timeout);
 	this.clearOptions();
 	var options = this.getAllOptions();
 	this.buildOptions(options);
@@ -563,38 +562,38 @@ Autocomplete.prototype.isElementVisible = function(container, element) {
 };
 ```
 
-There's a lot of Javascript here, but the main things to note are:
+Notes:
 
-- replace select box with a text box and menu as above.
-- listen as the user types. If options match, display them in the menu.
+- Replace the select box with a text box, menu and status.
+- Listen as the user types. If options match, display them in the menu.
 - Pressing <kbd>up</kbd> or <kbd>down</kbd> moves between options
 - Pressing <kbd>enter</kbd> or <kbd>space</kbd>, or clicking with the mouse populates the text box with the option and closes the options
 - Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form, like normal.
 - Clicking the button, reveals all the options, like a select box.
-- Pressing <kbd>escape</kbd> hides the options
+- Pressing <kbd>escape</kbd> hides the options.
 
 ## Choosing dates
 
 Dates are hard[^]. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally we've used 3 select boxes to capture someone's date of birth&mdash;one for day, month and year. Even though we discussed the problems with select boxes earlier, one of their redeeming qualities is that they stop users entering wrong information. However, even *this* doesn't hold up in the case of dates. Users can, for example, select *31 February 2017*, which will result in a validation error.
+Traditionally we've used 3 select boxes to capture someone's date of birth&mdash;one for day, month and year. One of the select boxes' redeeming qualities is that they stop users entering wrong information. However, even *this* doesn't hold up in the case of dates. Users can, for example, select *31 February 2017*, which will result in a error.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-So why use select boxes instead of a simple textbox? This is because it stops the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes, others with dashes. It's really hard to work out, meaning we can't be as forgiving as we'd like to be.
+But why use select boxes? Because they stop the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes, others with dashes.We can't know what the user intended, and so we can't be forgiving like we otherwise would like.
 
-Before designing a date field, we first need to understand what type of date it is. Like GDS says *the way you should ask users for dates depends on the types of date you’re asking for*.
+We can certainly do better than 3 select boxes. But, before designing a date field, we first need to understand what type of date it is. Like Goverment Digital Services (GDS) says in the service manual, *the way you should ask users for dates depends on the types of date you’re asking for*.
 
 ### Dates from documents
 
-The expiry date as discussed in chapter 2 is a good example of this. We presented a simple textbox, that expects a number matching the same format as found on the ‘document’, in this case a debit card. These dates are normally straightforward, because users copy what they see, there's less room for interpretation.
+The expiry date, as discussed in chapter 2, is a good example of this. We presented a simple textbox, that expects a number matching the same format as found on the ‘document’, in this case a debit card. These dates are normally easy, because users simply copy what they see.
 
 ### Memorable dates
 
-Dates that are easy to remember, such as date of birth, need a different course of treatment. The defacto thinking is that date pickers are easier for all sorts of dates.
+Dates that are easy to remember, such as date of birth, need a different design approach. The defacto thinking is that date pickers are easier for all sorts of dates.
 
-It's often slower and harder to enter a memorable date in this manner, than it would be to simply type a few numbers into a text box unassisted. Even a well-designed custom date picker requires far more interactions to get the job done.
+It's often slower and harder to enter a memorable date in this manner, than it would be to type a few numbers into a text box unassisted. Even a well-designed custom date picker requires far more effort to get the job done.
 
 Once again GDS have a excellent guidance. They suggest 3 *separate* text boxes&mdash;one for day, month and year. This is mostly to avoid the formatting issues we discussed before.
 

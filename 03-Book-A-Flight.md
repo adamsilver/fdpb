@@ -712,29 +712,22 @@ In this case, we can remove all of the Javascript, giving users a faster experie
 
 #### Date picker component
 
-Having detected support, we'll need to design the date picker itself.
+Having detected support, we need to design the date picker component itself.
 
 How it might look:
 
 ![Date widget](./images/date-widget.png)
 
-A run down of the design and behaviour:
+Notes:
 
-- Use big buttons for good tap targets. Fine motor skills.
-
-- When displaying the calendar, display it inline below the text input. Overlays are complicated beasts that obscure parts of the screen, so we'll want to avoid those and keep things simple. Also on mobile, a dialog is a bit of an anti-pattern as the estate available to the overlay is often less than utilising the main page itself.
-
-- Hitting the previous month should show the previous month and select the first day of that month. Same for hitting next month.
-
-- Some date pickers will allow users to jump to the next and previous years. For most airlines though, they only offer flights within the next 12 months. Following the lead here, there is no need to provide this functionality.
-
-- Once focus is set on the grid, the user can use arrow keys to move about to select a date. We avoid making the cells part of the tab sequence as it's too much for users to wade through.
-
-- When focussed within the Date Picker, pressing `escape` should hide it.
-
-- Pressing enter/space should select the date and close the picker.
-
-- Make back/previous buttons to be naturally focusable.
+- Use big buttons making it easy to tap with a finger or mouse.
+- When displaying the calendar, display it inline below the text input. Dialogs obscure other parts of the interface. On mobile, a dialog is an anti-pattern in some respects because it takes up the entire screen.
+- Pressing *previous* shows the previous month and selects the first day of that month.
+- Pressing *next* shows the next month and selects the first day of the month.
+- Once focus is on the grid, the arrow keys allow the user to move freely between days and weeks.
+- The days are not part of the standard tab sequence because this would make it hard for those who want to leave the date picker.
+- When the date picker is in focus pressing <kbd>escape</kbd> hides the date picker and moves focus to the button.
+- Pressing <kbd>enter</kbd> or <kbd>space</kbd> selects the date and hides the picker and moves focus to the text box.
 
 HTML:
 

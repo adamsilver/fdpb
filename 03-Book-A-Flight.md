@@ -686,13 +686,11 @@ We can use these pseudo selectors to style these things where we think it helps 
 
 This works really well but we do need to think about browsers that lack support.
 
-#### Date input unsupported
+#### Browsers that don't support date inputs
 
-Browsers that don't support the date input will degrade gracefully into a simple text box, which may be sufficient. This is one of the advantages of Progressive Enhancement. We can choose to degrade gracefully, or, we can decide to provide a more enhanced fallback.
+Browsers that don't support date inputs will degrade into a text box, which may be sufficient. This is one of the advantages of Progressive Enhancement. We can choose to degrade gracefully, or, we can decide to provide a more enhanced fallback.
 
-As choosing dates is integral to booking a flight online, the degraded solution isn't really that acceptable. We'll need to design our own date picker when the date input isn't supported.
-
-First, we need to detect a lack of support:
+As choosing dates is integral to booking a flight online, the degraded solution isn't really suitable. We'll build another custom component to choose a date. But before we do we need to detect support:
 
 ```Javascript
 function supportsDateInput() {
@@ -702,18 +700,19 @@ function supportsDateInput() {
 }
 
 if(!supportsDateInput()) {
-	// code to create and use a custom calendar widget
+	// use custom component
 }
 ```
 
-In future we may find that:
+Jeremy Keith explains that the web is a continuum. By that he means, that it's constantly changing. New browsers come out all the time, all of them have different features and capabilities. For us, this means that we decided to provide a custom date picker as a fall back because there isn't a lot of desktop support.
 
-- research shows that our own widget performs better than the native input
-- support is broad enough to worry less about the rapidly diminishing users using unsupported browsers.
+In future this may not be the case and then we may change our approach. In the future, where support is more broad, we might choose to not support the rapidly diminishing number of users on unsupported browsers.
 
-In both cases we may choose to remove the custom date picker, giving us less to maintain, and give users faster experiences.
+In this case, we can remove all of the Javascript, giving users a faster experience and giving ourselves less to maintain.
 
 #### Date picker component
+
+Having detected support, we'll need to design the date picker itself.
 
 How it might look:
 

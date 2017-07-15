@@ -67,14 +67,16 @@ We really need a control with the features of a search box and select box rolled
 
 HTML5 provides `datalist` which does exactly this. Unfortunately, it's so buggy[^] that it's impossible to design a robust solution for use on the open web.
 
-We'll have to design a custom component. To do this, we'll need to follow some important rules[^alice barlett talk bruce lawson?]. A custom component must:
+We'll have to design a custom component. To do this, we'll need to follow some important rules[^]:
 
 - be focusable with the keyboard
 - be operable with the keyboard
 - work with assistive devices
 - work without Javascript
 
-To solve the last problem we need to decide on what the experience should be here. A text box or a select box. In this case, it seems prudent to use the select box. At least, a select box removes the chance of seeing errors after submission.
+To solve the last problem we need to talk about Progressive Enhancement. Progressive Enhancement is about providing a baseline core experience for everyone. Then, where possible, creating a better, enhanced experience for those using a more capable browser.
+
+The enhanced experience will be an autocomplete. But what will the core experience be: a text box or a select box. In this case, it seems prudent to use a select box. At least, a select box removes the chance of seeing a lack of results after submission and a round trip to the server.
 
 How it looks (before enhancement):
 
@@ -103,85 +105,473 @@ How it looks (after enhancement):
 HTML:
 
 ```html
-<div class="combobox">
-	<input
-		type="text"
-		name="destination"
-		id="destination"
-		autocomplete="off"
-		role="combobox"
-		aria-owns="combobox-options"
-		aria-autocomplete="list"
-		aria-expanded="true"
-		class="combobox-textbox"
-	>
-	<ul
-		id="combobox-options"
-		role="listbox"
-		class="combobox-options combobox-options-isHidden"
+<div class="field">
+	<label for="destination">
+		<span class="field-label">Destination</span>
+	</label>
+	<div class="autocomplete">
+		<input
+			type="text"
+			name="destination"
+			id="destination"
+			autocomplete="off"
+			role="combobox"
+			aria-owns="combobox-options--destination"
+			aria-autocomplete="list"
+			aria-expanded="true"
+			class="autocomplete-textBox"
 		>
-		<li
-			id="combobox-option--0"
-			role="option">
-			France
-		</li>
-		<li
-			id="combobox-option--1"
-			role="option"
-			aria-selected="true">
-			Germany
-		</li>
-	</ul>
-	<div
-		aria-live="polite"
-		aria-atomic="true"
-		role="status"
-		class="combobox-status">
+		<ul
+			id="autocomplete-options--destination"
+			role="listbox"
+			class="autocomplete-options autocomplete-options-isHidden"
+			>
+			<li	role="option">
+				France
+			</li>
+			<li role="option" aria-selected="true">
+				Germany
+			</li>
+		</ul>
+		<div
+			aria-live="polite"
+			aria-atomic="true"
+			role="status"
+			class="autocomplete-status">
+		</div>
 	</div>
 </div>
 ```
 
-There are three main elements to this:
+There are three component parts:
 
-- Text box: to type into
-- Menu: to choose a suggestion from
-- Status box: to announce to screen readers what's been selected
+- A text box
+- A menu of which to choose a suggestion
+- A status box to announce changes to screen reader users
 
-This HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with their mouse, (on-screen) keyboard and screen readers.
+The HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with a mouse, keyboard and screen reader interchangeably.
 
-Here's a run down of the attributes:
+Text box attributes:
 
-The text box has:
-
-- `role="combobox"` so that assistive devices know what it is, as opposed to a regular text box, for example.
-- `aria-autocomplete="list"` so that assistive devices may explain that a list of choices will appear from which the user can choose.
-- `aria-expanded` so that assistive devices may indicate the menu is showing or not.
+- `role="combobox"` to announce that they are interacting with an autocomplete control, not a regular text box.
+- `aria-autocomplete="list"` to announce that in using this autocomplete, a list will appear from which the user can choose.
+- `aria-expanded` to indicate the menu is showing or not.
 - `aria-owns="combobox-options"` connects the text box to the menu by `id`.
-- `aria-activedescendant` identifies the active option using the `id` of the menu option. This is because the options in the menu aren't focusable with the keyboard. In a composite widget like this, focus should stay in the text box, so that uses may carry on typing, even if they are 'focussed' on an option within the menu.
-- `autocomplete="off"` stops browsers providing their own suggestions and interfering with those offered by our own.
+- `autocomplete="off"` stops browsers showing their suggestions and interfering with those offered the component itself.
 
-Each option has:
+Option attributes:
 
-- `role="option"` to explain what it is.
-- `id` to tie up with `aria-activedescendant` explained above.
-- `aria-selected` to indicate which option is active.
+- `role="option"` to announce it as an option in the list.
+- `aria-selected` to indicate the selected option.
 
-The status box has:
+Status box attributes:
 
-- `aria-role="status" to provide a status such as *2 results are available. France (1 of 2) is selected*
-- `aria-live="polite" to announce the status when the user stops typings as opposed to interupting them.
-- `aria-atomic="true"` means that assistive devices announce the entirety of the status. The reason for this is so that we can update just the number perhaps, which is perhaps more efficient in Javascript, than injecting a large lump of text, but so that the user doesn't hear "2".
+- `aria-role="status" announces the status. For example, *2 results available.*
+- `aria-live="polite" announces the status when the user stops typing. Ensuring they aren't interrupted.
+- `aria-atomic="true"` means the entire status will be announced, even if Javascript was to optimise what's injected.
 
-The Javascript specification is as follows:
+```Javascript
+function Autocomplete(control) {
+	this.control = control;
+	this.controlId = control.id;
+	this.container = $(control).parent();
+	this.wrapper = $('<div class="autocomplete"></div>');
+	this.container.append(this.wrapper);
+	this.createTextBox();
+	this.createButton();
+	this.createOptionsUl();
+	this.removeSelectBox();
+	this.createStatusBox();
+	this.setupKeys();
+	$(document).on('click', $.proxy(this, 'onDocumentClick'));
+};
 
-- listen to keyup events on the text box.
-- display options if and when they match.
-- if an option matches, hide options
-- if user presses up or down, 'focus' the option
-- if an option is 'focussed', when the user presses spacebar or enter, put the value in the textbox and close the suggestions, otherwise enter should implicitly submit the form (like normal).
-- if the user clicks an option, put value in text box, and move focus back to the text box.
+Autocomplete.prototype.onDocumentClick = function(e) {
+	if(!$.contains(this.container[0], e.target)) {
+        this.hideOptions();
+    }
+};
 
-This code is available on the complimentary demo website[^]. If it's not suitable for your needs, you can use the above specification to guide you.
+Autocomplete.prototype.setupKeys = function() {
+	this.keys = {
+		enter: 13,
+		esc: 27,
+		space: 32,
+		up: 38,
+		down: 40,
+		tab: 9
+   };
+};
+
+Autocomplete.prototype.addTextBoxEvents = function() {
+	this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'));
+	this.textBox.on('keydown', $.proxy(function(e) {
+		switch (e.keyCode) {
+			// this ensures that when users tabs away
+			// from textbox that the normal tab sequence
+			// is adhered to. We hide the options, which
+			// removes the ability to focus the options
+			case this.keys.tab:
+				this.hideOptions();
+				break;
+		}
+	}, this));
+};
+
+Autocomplete.prototype.addSuggestionEvents = function() {
+	this.optionsUl.on('click', 'li', $.proxy(this, 'onSuggestionClick'));
+	this.optionsUl.on('keydown', $.proxy(this, 'onSuggestionsKeyDown'));
+};
+
+Autocomplete.prototype.onTextBoxKeyUp = function(e) {
+	switch (e.keyCode) {
+		case this.keys.esc:
+			// we ignore when users presses escape
+			break;
+		case this.keys.up:
+			// we ignore when the user presses up when on textbox
+			break;
+		case this.keys.down:
+			// we want to handle this one
+			this.onTextBoxDownPressed(e);
+			break;
+		case this.keys.tab:
+			this.hideOptions();
+			break;
+		case this.keys.enter:
+			// we ignore when the user presses enter here,
+			// otherwise the menu will show briefly before
+			// submission completes
+			break;
+		default:
+			// show suggestion
+			this.onTextBoxType(e);
+	}
+};
+
+Autocomplete.prototype.onSuggestionsKeyDown = function(e) {
+	switch (e.keyCode) {
+		case this.keys.up:
+			// want to highlight previous option
+			this.onSuggestionUpArrow(e);
+			break;
+		case this.keys.down:
+			// want to highlight next suggestion
+			this.onSuggestionDownArrow(e);
+			break;
+		case this.keys.enter:
+			// want to select the suggestion
+			this.onSuggestionEnter(e);
+			break;
+		case this.keys.space:
+			// want to select the suggestion
+			this.onSuggestionSpace(e);
+			break;
+		case this.keys.esc:
+			// want to hide options
+			this.onSuggestionEscape(e);
+			break;
+		case this.keys.tab:
+			this.hideOptions();
+			break;
+		default:
+			this.textBox.focus();
+	}
+};
+
+Autocomplete.prototype.onTextBoxType = function(e) {
+	if(this.textBox.val().trim().length > 0) {
+		var options = this.getOptions(this.textBox.val().trim().toLowerCase());
+		if(options.length > 0) {
+			this.buildOptions(options);
+			this.showOptionsPanel();
+		} else {
+			this.hideOptions();
+			this.clearOptions();
+		}
+		this.updateStatus(options.length);
+	}
+};
+
+Autocomplete.prototype.onSuggestionEscape = function(e) {
+	this.clearOptions();
+	this.hideOptions();
+	this.focusTextBox();
+};
+
+Autocomplete.prototype.isShowingMenu = function() {
+	return this.textBox.attr('aria-expanded', 'true');
+};
+
+Autocomplete.prototype.focusTextBox = function() {
+	this.textBox.focus();
+};
+
+Autocomplete.prototype.onSuggestionClick = function(e) {
+	this.textBox.val($(e.currentTarget).text());
+	this.hideOptions();
+	this.focusTextBox();
+};
+
+Autocomplete.prototype.onSuggestionEnter = function(e) {
+	if(this.isOptionSelected()) {
+		this.selectOption();
+	}
+	e.preventDefault();
+};
+
+Autocomplete.prototype.onSuggestionSpace = function(e) {
+	if(this.isOptionSelected()) {
+		this.selectOption();
+		e.preventDefault();
+	}
+};
+
+Autocomplete.prototype.selectOption = function() {
+	this.textBox.val(this.getActiveOption().text());
+	this.focusTextBox();
+	this.hideOptions();
+};
+
+Autocomplete.prototype.onTextBoxDownPressed = function(e) {
+	var option;
+	var options;
+	// No chars typed
+	if(this.textBox.val().trim().length === 0) {
+		options = this.getAllOptions();
+		this.buildOptions(options);
+		this.showOptionsPanel();
+	// Chars typed
+	} else {
+		options = this.getOptions(this.textBox.val().trim());
+		if(options.length > 0) {
+			this.buildOptions(options);
+			this.showOptionsPanel();
+		}
+	}
+	option = this.getFirstOption();
+	if(option[0]) {
+		this.highlightOption(option);
+	}
+};
+
+Autocomplete.prototype.onSuggestionDownArrow = function(e) {
+	var option = this.getNextOption();
+	if(option[0]) {
+		this.highlightOption(option);
+	}
+	e.preventDefault();
+};
+
+Autocomplete.prototype.onSuggestionUpArrow = function(e) {
+	if(this.isOptionSelected()) {
+		option = this.getPreviousOption();
+		if(option[0]) {
+			this.highlightOption(option);
+
+		} else {
+			this.focusTextBox();
+			this.hideOptions();
+		}
+	}
+	e.preventDefault();
+};
+
+Autocomplete.prototype.isFirstOptionSelected = function() {
+	var selectedOption = this.getActiveOption();
+};
+
+Autocomplete.prototype.isOptionSelected = function() {
+	return this.activeOptionId;
+};
+
+Autocomplete.prototype.getActiveOption = function() {
+	return $('#'+this.activeOptionId);
+};
+
+Autocomplete.prototype.getFirstOption = function() {
+	return this.optionsUl.find('li').first();
+};
+
+Autocomplete.prototype.getPreviousOption = function() {
+	return $('#'+this.activeOptionId).prev();
+};
+
+Autocomplete.prototype.getNextOption = function() {
+	return $('#'+this.activeOptionId).next();
+};
+
+Autocomplete.prototype.highlightOption = function(option) {
+	if(this.activeOptionId) {
+		var activeOption = this.getOptionById(this.activeOptionId);
+		activeOption.removeClass('autocomplete-option-isActive');
+		activeOption.attr('aria-selected', 'false');
+	}
+
+	option.addClass('autocomplete-option-isActive');
+	option.attr('aria-selected', 'true');
+
+	if(!this.isElementVisible(option.parent(), option)) {
+		option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
+	}
+
+	this.activeOptionId = option[0].id;
+	option.focus();
+};
+
+Autocomplete.prototype.getOptionById = function(id) {
+	return $('#'+id);
+};
+
+Autocomplete.prototype.showOptionsPanel = function() {
+	this.optionsUl.removeClass('autocomplete-options-isHidden');
+	this.optionsUl.attr('aria-hidden', 'false');
+	this.textBox.attr('aria-expanded', 'true');
+	this.textBox.attr('tabindex', '0');
+};
+
+Autocomplete.prototype.hideOptions = function() {
+	this.optionsUl.addClass('autocomplete-options-isHidden');
+	this.optionsUl.attr('aria-hidden', 'true');
+	this.textBox.attr('aria-expanded', 'false');
+	this.activeOptionId = null;
+	this.clearOptions();
+	this.textBox.removeAttr('tabindex', '-1');
+};
+
+Autocomplete.prototype.clearOptions = function() {
+	this.optionsUl.empty();
+};
+
+Autocomplete.prototype.getOptions = function(value) {
+	var options = [];
+	var selectOptions = this.control.options;
+	var text;
+	for(var i = 0; i < selectOptions.length; i++) {
+		text = $(selectOptions[i]).text();
+		if(text.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+			options.push(text);
+		}
+	}
+	return options;
+};
+
+Autocomplete.prototype.getAllOptions = function() {
+	var options = [];
+	var selectOptions = this.control.options;
+	var text;
+	for(var i = 0; i < selectOptions.length; i++) {
+		options.push($(selectOptions[i]).text());
+	}
+	return options;
+};
+
+Autocomplete.prototype.buildOptions = function(options) {
+	this.clearOptions();
+	this.activeOptionId = null;
+	for(var i = 0; i < options.length; i++) {
+		this.optionsUl.append(this.getOptionHtml(i, options[i]));
+	}
+	this.optionsUl.scrollTop(this.optionsUl.scrollTop());
+};
+
+Autocomplete.prototype.buildAllOptions = function() {
+	this.clearOptions();
+	this.activeOptionId = null;
+	var options = this.control.options;
+	for(var i = 0; i < options.length; i++) {
+		this.optionsUl.append(this.getOptionHtml(i, $(options[i]).text()));
+	}
+};
+
+Autocomplete.prototype.getOptionHtml = function(i, text) {
+	return '<li tabindex="-1" class="autocomplete-option" aria-selected="false" role="option" id="autocomplete-option--' + i + '">' + text + '</li>';
+};
+
+Autocomplete.prototype.createStatusBox = function() {
+	this.status = $('<div aria-live="polite" role="status" aria-atomic="true" class="autocomplete-status" />');
+	this.wrapper.append(this.status);
+};
+
+Autocomplete.prototype.updateStatus = function(resultCount) {
+	if(resultCount === 0) {
+		this.status.text('No results.');
+	} else {
+		this.status.text(resultCount + ' results available.');
+	}
+	window.setTimeout(function() {
+		this.status.text('');
+	}.bind(this), 1000);
+};
+
+Autocomplete.prototype.removeSelectBox = function() {
+	$(this.control).remove();
+};
+
+Autocomplete.prototype.createTextBox = function() {
+	this.textBox = $('<input autocapitalize="none" class="autocomplete-textBox" type="text" autocomplete="off">');
+	this.textBox.attr('aria-owns', this.getOptionsId());
+	this.textBox.attr('aria-autocomplete', 'list');
+	this.textBox.attr('role', 'combobox');
+	this.textBox.prop('id', this.controlId);
+	this.wrapper.append(this.textBox);
+	this.addTextBoxEvents();
+};
+
+Autocomplete.prototype.getOptionsId = function() {
+	return 'autocomplete-options--'+this.controlId;
+};
+
+Autocomplete.prototype.createButton = function() {
+	this.button = $('<button class="autocomplete-button" type="button" tabindex="-1">&#9662;</button>');
+	this.wrapper.append(this.button);
+	this.button.on('click', $.proxy(this, 'onButtonClick'));
+};
+
+Autocomplete.prototype.onButtonClick = function(e) {
+	window.clearTimeout(this.timeout);
+	this.clearOptions();
+	var options = this.getAllOptions();
+	this.buildOptions(options);
+	this.updateStatus(options.length);
+	this.showOptionsPanel();
+	this.textBox.focus();
+};
+
+Autocomplete.prototype.createOptionsUl = function() {
+	this.optionsUl = $('<ul id="'+this.getOptionsId()+'" role="listbox" class="autocomplete-options autocomplete-options-isHidden" aria-hidden="true"></ul>');
+	this.wrapper.append(this.optionsUl);
+	this.addSuggestionEvents();
+};
+
+Autocomplete.prototype.isElementVisible = function(container, element) {
+	var containerHeight = $(container).height();
+	var elementTop = $(element).offset().top;
+	var containerTop = $(container).offset().top;
+	var elementPaddingTop = parseInt($(element).css('padding-top'), 10);
+	var elementPaddingBottom = parseInt($(element).css('padding-bottom'), 10);
+	var elementHeight = $(element).height() + elementPaddingTop + elementPaddingBottom;
+    var visible;
+
+    if ((elementTop - containerTop < 0) || (elementTop - containerTop + elementHeight > containerHeight)) {
+		visible = false;
+    }
+    else {
+		visible = true;
+    }
+    return visible;
+};
+```
+
+There's a lot of Javascript here, but the main things to note are:
+
+- replace select box with a text box and menu as above.
+- listen as the user types. If options match, display them in the menu.
+- Pressing <kbd>up</kbd> or <kbd>down</kbd> moves between options
+- Pressing <kbd>enter</kbd> or <kbd>space</kbd>, or clicking with the mouse populates the text box with the option and closes the options
+- Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form, like normal.
+- Clicking the button, reveals all the options, like a select box.
+- Pressing <kbd>escape</kbd> hides the options
 
 ## Choosing dates
 

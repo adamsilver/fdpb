@@ -576,26 +576,26 @@ Notes:
 
 Dates are hard[^]. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally we've used 3 select boxes to capture someone's date of birth&mdash;one for day, month and year. One of the select boxes' redeeming qualities is that they stop users entering wrong information. However, even *this* doesn't hold up in the case of dates. Users can, for example, select *31 February 2017*, which will result in a error.
+Traditionally 3 select boxes have been used to input a date&mdash;one for day, month and year. One of the redeeming qualities of select boxes is that they stop users entering wrong information. However, in the case of dates, even *this* doesn't hold up. This is because users can, for example, select *31 February 2017*, which is invalid.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-But why use select boxes? Because they stop the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes, others with dashes.We can't know what the user intended, and so we can't be forgiving like we otherwise would like.
+But why use select boxes? Because they stop the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes, others with dashes.We can't know what the user intended, and so we can't be forgiving like we otherwise would like to be.
 
-We can certainly do better than 3 select boxes. But, before designing a date field, we first need to understand what type of date it is. Like Goverment Digital Services (GDS) says in the service manual, *the way you should ask users for dates depends on the types of date you’re asking for*.
+However, we can do better than select boxes. But, before designing a date field, we first need to understand what type of date it is. Like Goverment Digital Services (GDS) says in the service manual, *the way you should ask users for dates depends on the types of date you’re asking for*.
 
 ### Dates from documents
 
-The expiry date, as discussed in chapter 2, is a good example of this. We presented a simple textbox, that expects a number matching the same format as found on the ‘document’, in this case a debit card. These dates are normally easy, because users simply copy what they see.
+GDS says *If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.*
+
+This is the approach we took for expiry date, in chapter 2. We gave users a text box that expects a number matching that found on their debit card. Users simply copy what they see.
 
 ### Memorable dates
 
-Dates that are easy to remember, such as date of birth, need a different design approach. The defacto thinking is that date pickers are easier for all sorts of dates.
+Dates that are easy to remember, such as date of birth, need a different tact. The defacto thinking is that date pickers are always better than manually typing numbers. But this is not true. It's often slower and harder to enter a memorable date in this manner, than it would be to type numbers into a text box unassisted.
 
-It's often slower and harder to enter a memorable date in this manner, than it would be to type a few numbers into a text box unassisted. Even a well-designed custom date picker requires far more effort to get the job done.
-
-GDS have a excellent guidance here too. They suggest 3 *separate* text boxes&mdash;one for day, month and year. This is mostly to avoid the formatting issues we discussed before.
+GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. And the main reason to separate this single question into 3 inputs is due to the formatting issues we discussed above.
 
 How it might look:
 
@@ -623,30 +623,33 @@ HTML:
 
 This field uses the `fieldset` and `legend` elements to group the 3 inputs together. Without it, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous on their own.
 
-Some versions of iOS ignore `type="number"` and therefore won't show the numeric keyboard. The `pattern` attribute fixes this problem[^filament].
+Some versions of iOS ignore `type="number"` and therefore won't show the numeric keyboard. Fortunately, the `pattern` attribute fixes this problem[^filament].
 
-Some websites, design this type of field to automatically tab to the next box once the correct amount of characters have been typed. This is a problem for users, which we'll be discussing in more detail in the next chapter.
+#### Auto-tabbing
 
-### Date picker
+Some websites automatically move focus from one box to the other, once the correct *amount* of characters have been typed. This is a usability failure, which we'll discuss in the next chapter.
 
-In the case of booking a flight users are nither dealing with a memorable date nor one found in a document. When booking flights, we often orientate ourselves around day and week. To mimic this, we'll need a more convenient solution than three text boxes. We need to use a date picker.
+### Finding dates in a calendar
 
-Interfaces that try to solve too many problems at once cause problems. If we tried to convey, for example, price and availability, inside a calendar, this would result in a busy interface that doesn't work very well. That is, unless the user has a super-sized screen.
+In the case of booking a flight users are niether dealing with a memorable date nor one found in a document. When booking flights, we often orientate ourselves around day and week. To mimic this, we'll need a more convenient solution than three text boxes. We need to use a date picker.
 
-To begin with, we'll let users pick a date, without the context of price and availability. Then later, we'll give them the extra context that they'll need to choose the right flight.
+Interfaces that try to solve too many problems at once cause problems. If we try to convey, for example, price and availability, inside a calendar, this would result in a busy interface that doesn't work  well&mdash;unless the user has a super-sized screen. But not everyone has one of those.
+
+To begin with, we'll let users pick a date, without the context of price and availability. Then later, we'll give them the extra context that they'll need to choose the right flight. This leans on the One Thing Per Approach approach we used in the previous chapter.
 
 #### Date input
 
-Before HTML5, we had to build our own date picker using Javascript. We know this is hard because we had to consider the host of requirements needed to produce a fully inclusive autocomplete component just earlier.
+Before HTML5, we had to build our own date picker using Javascript. We know this is hard because we had to consider the host of requirements needed to produce a fully inclusive autocomplete component.
 
-Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;have `input type="date"`. This is useful for many reasons:
+Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;have `input type="date"`. This is useful because:
 
 - We don't need to spend time designing and developing our own.
 - They are performant because they are provided by the browser.
 - They are familiar because every website (and native app) will use the same interface.
 - They are accessible by default.
 - When browsers release improvements, users receive them immediately.
-- All of which, frees us to solve other problems.
+
+All of the reasons above, makes space for us to solve other more [pressing problems. The overused phrase is *don't reinvent the wheel*.
 
 Here's how it looks on mobile:
 
@@ -656,11 +659,7 @@ Desktop browser support is not as good. Chrome and Edge work well but Firefox, f
 
 ![Desktop native date control](./images/desktop-date.png)
 
-If you're concerned about it looking different across browsers, don't be. User's don't notice, and for those that do, they don't care. In Progressive Enhancement 2.0[^], Nicholas Zakas demonstrates this to the audience at X mins in.
-
-Nobody cares about your website as much as you do. But if you're still not convinced take a look at this dedicated website Do Websites Needs To Look The Same In Every Browser[^] just to be sure.
-
-We'll deal with browsers that don't suppor the date input in a moment. But for now, let's start implementing the field.
+If you're concerned about it looking different across browsers, don't be. In Progressive Enhancement 2.0[^], Nicholas Zakas proves that users don't notice the differences between browser implementations. Nobody cares about your website as much as you do and rather officially websites do not need to look the same in every browser[^].
 
 HTML:
 
@@ -682,11 +681,9 @@ HTML:
 ::-webkit-calendar-picker-indicator
 ```
 
-We can use these pseudo selectors to style these things where we think it helps and tweak the styles and turn off the "spinners".
+These pseudo selectors allow developers to tweak or hide native components of a date field in webkit.
 
-This works really well but we do need to think about browsers that lack support.
-
-#### Browsers that don't support date inputs
+#### Browsers lacking support for date inputs
 
 Browsers that don't support date inputs will degrade into a text box, which may be sufficient. This is one of the advantages of Progressive Enhancement. We can choose to degrade gracefully, or, we can decide to provide a more enhanced fallback.
 
@@ -736,8 +733,8 @@ HTML:
 	<label for="date">Flight date</label>
 	<div class="datepicker">
 		<input type="date" name="date" id="date">
-		<button type="button">Choose date</button>
-		<div class="datepicker-calendar">
+		<button type="button" aria-expanded="false">Choose date</button>
+		<div class="datepicker-calendar" aria-hidden="true">
 			// html here
 		</div>
 	</div>
@@ -776,66 +773,65 @@ Here's the Javascript:
 Do I put all the JS in? It's complex.
 ```
 
-#### The final trade off
+#### A trade off
 
-In cases where:
+In cases where user hasn't got JS and there is no support for date input.
 
-- user hasn't got JS; and
-- there is no support for date input
+Users are left to type into a textbox lacking instructions. We can't give users a hint, for example "dd/mm/yyyy", because it will show when the browser *does* support the native date input and when the user will be assisted.
 
-Users are left to type into a textbox lacking instructions. We can't put in a placeholder that says type "dd/mm/yyyy" because it will show when the browser *does* support the native date input and when the user will be assisted.
+![]()
 
-We are left to rely on error messaging. The best error messages are those that don't appear, but in this case we can't get around it, unless we make the optimisitic experience worse. That is we add a placeholder that makes dealing with the native date input confusing.
+We are left to rely on error messaging. The best error messages are those that don't need to be shown. In this case, however, we can't get around it, unless we make the optimisitic experience worse. That is we add a placeholder that makes dealing with the native date input confusing.
 
 We hope that we have endeavoured to provide the best experience where possible with the best degraded experience where necessary. In this case there is nothing more we can do, and I think that's okay.
 
-With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
+With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that we should write in plain language. Hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
 
 ## Choosing passengers
 
 Next, users must choose how many people are travelling. Typically, passengers fall under three categories:
 
 - Adults: aged 16 and over.
-- Children, aged between 2 and 15 years old
-- Infants, who are under 2 years old
+- Children: aged between 2 and 15 years old
+- Infants: who are under 2 years old
 
-For each category we'll want a form field that uses the hint pattern from chapter 1, *Register*. Here's How it might look:
+How it might look:
 
 ![Passengers](./images/choose-passengers.png)
 
 HTML:
 
 ```HTML
-<div>
-    <label for="adult-passengers">
-    	<span class="label">How many adults are flying?</span>
-    	<span class="hint">Aged 16 years and over</span>
+<div class="field">
+    <label for="adults">
+    	<span class="field-label">How many adults are flying?</span>
+    	<span class="field-hint">Aged 16 years and over</span>
     </label>
-    <input type="number" id="adult-passengers" name="adult-passengers">
+    <input type="number" id="adults" name="adults">
 </div>
-<div>
-    <label for="adult-children">
-    	<span class="label">How many children are flying?</span>
-    	<span class="hint">Aged between 2 and 15 years old</span>
+<div class="field">
+    <label for="children">
+    	<span class="field-label">How many children are flying?</span>
+    	<span class="field-hint">Aged between 2 and 15 years old</span>
     </label>
-    <input type="number" id="adult-children" name="adult-children">
+    <input type="number" id="children" name="children">
 </div>
-<div>
-    <label for="adult-infants">
-    	<span class="label">How many adults are flying?</span>
-    	<span class="hint">Under 2 years old</span>
+<div class="field">
+    <label for="infants">
+    	<span class="field-label">How many adults are flying?</span>
+    	<span class="field-hint">Under 2 years old</span>
     </label>
-    <input type="number" id="adult-infants" name="adult-infants">
+    <input type="number" id="infants" name="infants">
 </div>
 ```
 
-TODO: maxlength=9?
+For the umpteenth
 
-We already discussed the benefits of using a number field in chapter 2, *Checkout*, but we'll want to make additional improvements
+We already discussed the benefits of using a number field in chapter 2, but in the case of passengers we'll want to make some necessary usability improvements.
 
-It's the type of form field that is the most interesting part of this discussion. Websites once again used the `select` box containing options one through nine. We'll be avoiding that of course and we'll use the number field, which we already discussed at length in *Checkout*.
+In *Checkout*, we turned off the native increment and decrement buttons because they are hard to use due to their size. In any case, having the ability to increment or decrement wasn't necessary.
 
-In *Checkout*, we turned off the native increment and decrement buttons because they look a little odd and they are hard to click. Having increment buttons was unnecessary in that case.
+In the case of passengers though it is very useful. In Use Dropdowns As a Last Resort[^] which we referenced earlier, one alternative to drop down menus is a stepper. This is just a fancy word for increment and decrement.
 
 However, in this case, selecting the amount of passengers is a vital aspect of booking flights. It's often easier for many users to tap an increment button a couple times, as opposed to tapping on the field and typing in a digit.
 
@@ -906,11 +902,15 @@ TODO?: LUKEW steppers: https://www.lukew.com/ff/entry.asp?1950
 
 ## Confirming a flight
 
-If there are flights matching the users preferences, the page will display a list of flights represented by radio buttons. Radio buttons are perfectly suited here, because we can fit price, time and any other pertinent information inside the related label.
+Having collected all the information necessary, the system is in a position to offer a list of available flights matching the users preferences.
+
+We represent each choice as a radio button. They are perfectly suited because they allow us to add as much information, such as price and time easily inside the label.
+
+How it might look:
 
 ![Image](./images/image.png)
 
-Clicking *continue*, saves their flight time and sends them to the next step.
+Clicking *next*, saves their flight time and sends them to the next step.
 
 ## Choosing a seat
 
@@ -918,7 +918,7 @@ Next, the user needs to choose a seat. If more than one passenger is travelling,
 
 In a similar vein to picking dates, it makes sense to pick a seat&mdash;visually at least&mdash;in the context of where that seat is located. As a user I want to know where the seat is located so that I can choose an appropriate seat for me and my wife, for example.
 
-Up to now, we have just presented form fields in a simple manner. In this case, however, we can help visual users in particular by presenting the checkboxes as if they were seats on a plane. That is, laid in in rows.
+Up to now, we have just presented form fields in a simple manner. In this case, however, we can help visual users in particular by presenting the checkboxes as if they were seats on a plane, laid out in rows.
 
 How it might look:
 
@@ -929,7 +929,7 @@ HTML:
 ```HTML
 <fieldset>
 	<legend>
-		Choose 2 seats
+		Choose 2 seats (WORDS)
 	</legend>
 	<fieldset>
 		<legend>First class</legend>
@@ -992,7 +992,7 @@ HTML:
 
 Everything here should look familiar as we used the same constructs for radio buttons before. The only difference is the nested fieldset, which we'll discuss next.
 
-## Nested fieldsets
+### Nested fieldsets
 
 It may not be obvious, but the preferences we have collected from users so far has subtly influenced the interface we have given our users. Specifically, we didn't ask the user whether they wanted to travel first class or economy, which reduced friction upfront.
 
@@ -1000,11 +1000,11 @@ The downside is that we now have to present both categorisations on a single scr
 
 The outermost fieldset represents the overarching question *What seat do you want?* and the inner fieldset represents the categorisation: either first class or economy.
 
-It would be prudent to ask users this quesion upfront, so that we can reduce the complexity of the experience, and HTML alike. This is particularly useful for screen reader or keyboard users. But really it helps all users, by increasing speed of the page and finally, reducing options for users.
+It would be prudent to ask users this quesion upfront, so that we can reduce the complexity of the experience, and HTML alike. This is particularly useful for screen reader and keyboard users. But really it helps all users, by increasing speed of the page and finally, reducing options for users.
 
 In anycase, most users will choose economy meaning we can use a smart default here. The tiny bit of added friction upfront, is a small price to pay for the reduced complexity during this step. As with everything though, test the experience with users.
 
-Here's what the simplified version looks like:
+Here's how a simplified version might look:
 
 ![Image](./images/image.png)
 
@@ -1079,7 +1079,7 @@ If there is just one passenger travelling, we should change the inputs to radio 
 
 To crystalise this information for users, we should include this information a hint explaining they can only select X users.
 
-If Javascript is available and the browser is capable, we can enhance the experience so that users don't experience an error. That is, *You can only select 2 seats*. We can do this by disabling all seats as soon as the maximum amount have been selected.
+If Javascript is available and the browser is capable, we can enhance the experience so that users don't experience an error. That is, *You can only select 2 seats*. We can do this by disabling all seats as soon as the maximum amount have been selected. (Is this good?).
 
 Here's what that script looks like:
 

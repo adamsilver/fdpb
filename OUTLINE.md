@@ -76,18 +76,20 @@
 
 - Flow and order
 - Choose destination
-	- radio buttons
-	- select boxes
-	- text box
-	- Autocomplete
+	- Radio buttons
+	- Select boxes
+	- Text box
+	- Autocomplete component
 - Dates
 	- Select boxes
 	- Types of date
-		- Documents
-		- Memorable
+		- Dates from documents
+		- Memorable dates
 		- Calendar
 			- Date input
 			- Enhancement
+			- Date picker component
+			- A trade off
 - Passengers
 	- Classification
 	- Number field

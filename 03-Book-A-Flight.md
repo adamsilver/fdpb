@@ -587,9 +587,9 @@ However, we can do better than select boxes. But, before designing a date field,
 
 ### Dates from documents
 
-GDS says *If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.*
+GDS says *if you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.*
 
-This is the approach we took for expiry date, in chapter 2. We gave users a text box that expects a number matching that found on their debit card. Users simply copy what they see.
+This is what we do for expiry date, in chapter 2. We gave users a text box that expects a number matching that found on their debit card. Users simply copy what they see.
 
 ### Memorable dates
 
@@ -604,24 +604,29 @@ How it might look:
 HTML:
 
 ```HTML
-<fieldset>
-    <legend>Date of birth</legend>
-	<div>
-		<label for="day">Day (DD)</label>
-		<input type="number" name="day" id="day" pattern="[0-9]*">
-	</div>
-	<div>
-		<label for="month">Month (MM)</label>
-		<input type="number" name="month" id="month" pattern="[0-9]*">
-	</div>
-	<div>
-		<label for="year">Year (YYYY)</label>
-		<input type="number" name="year" id="year" pattern="[0-9]*">
-	</div>
-</fieldset>
+<div class="field">
+	<fieldset>
+		<legend>
+			<span class="field-legend">Date of birth</span>
+			<span class="field-hint">DD MM YYYY</span>
+		</legend>
+		<div class="field-dayWrapper">
+			<label for="day">Day</label>
+			<input class="field-dayBox" type="number" pattern="[0-9]*" name="day" value="" id="day" min="0" max="31">
+		</div>
+		<div class="field-monthWrapper">
+			<label for="month">Month</label>
+			<input class="field-monthBox" type="number" pattern="[0-9]*" name="month" value="" id="month" min="0" max="12">
+		</div>
+		<div class="field-yearWrapper">
+			<label for="year">Year</label>
+			<input class="field-yearBox" type="number" pattern="[0-9]*" name="year" value="" id="year" min="0" max="2050">
+		</div>
+	</fieldset>
+</div>
 ```
 
-This field uses the `fieldset` and `legend` elements to group the 3 inputs together. Without it, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous on their own.
+This field uses the `fieldset` and `legend` elements to group the 3 inputs together. Without it, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous.
 
 Some versions of iOS ignore `type="number"` and therefore won't show the numeric keyboard. Fortunately, the `pattern` attribute fixes this problem[^filament].
 
@@ -664,35 +669,27 @@ If you're concerned about it looking different across browsers, don't be. In Pro
 HTML:
 
 ```HTML
-<div class="field">
-	<label for="date">Flight date</label>
-	<input type="date" name="date" id="date">
+<div class="field ">
+	<label for="departureDate">
+		<span class="field-label">Departure date</span>
+	</label>
+	<input class="field-textBox" type="date" id="departureDate" name="departureDate">
 </div>
-```
 
-```CSS
-::-webkit-datetime-edit
-::-webkit-datetime-edit-fields-wrapper
-::-webkit-datetime-edit-text
-::-webkit-datetime-edit-month-field
-::-webkit-datetime-edit-day-field
-::-webkit-datetime-edit-year-field
-::-webkit-inner-spin-button
-::-webkit-calendar-picker-indicator
 ```
-
-These pseudo selectors allow developers to tweak or hide native components of a date field in webkit.
 
 #### Browsers lacking support for date inputs
 
-Browsers that don't support date inputs will degrade into a text box, which may be sufficient. This is one of the advantages of Progressive Enhancement. We can choose to degrade gracefully, or, we can decide to provide a more enhanced fallback.
+Browsers that don't support date inputs will degrade into a text box, which may be sufficient. This is one of the advantages of Progressive Enhancement. We can choose to degrade gracefully. Or, we can decide to provide a more enhanced fallback.
 
-As choosing dates is integral to booking a flight online, the degraded solution isn't really suitable. We'll build another custom component to choose a date. But before we do we need to detect support:
+As choosing dates is integral to booking a flight online, the degraded solution isn't really suitable. We'll build a custom date picker component, but only when browsers don't support the native date input. To do this, we need to detect support
 
 ```Javascript
 function supportsDateInput() {
-	var el = document.createElement('input')
-	el.type = "date"
+	var el = document.createElement('input');
+	try {
+		el.type = "date";
+	} catch(e) {}
 	return el.type == "date";
 }
 
@@ -701,15 +698,15 @@ if(!supportsDateInput()) {
 }
 ```
 
-Jeremy Keith explains that the web is a continuum. By that he means, that it's constantly changing. New browsers come out all the time, all of them have different features and capabilities. For us, this means that we decided to provide a custom date picker as a fall back because there isn't a lot of desktop support.
+Jeremy Keith explains that the web is a *continuum*. He means that the web is constantly changing. New browsers come out all the time, all of them have different features and capabilities. At any particular moment in time, we need to think about what level of support or optimisation makes sense for a given feature.
 
-In future this may not be the case and then we may change our approach. In the future, where support is more broad, we might choose to not support the rapidly diminishing number of users on unsupported browsers.
+At time of writing, desktop browser support is lacking. And so we've decided to plug the gap. But as the web is a continuum, the future will influence our decision to change tacts.
 
-In this case, we can remove all of the Javascript, giving users a faster experience and giving ourselves less to maintain.
+For example, when desktop browser support is more broad, we may choose not to suppor the rapidly diminishing number of users that will see the degraded text box.  Pracitically speaking this means removing all of the Javascript, giving users a faster experience and ourselves less to maintain.
 
 #### Date picker component
 
-Having detected support, we need to design the date picker component itself.
+Having detected support, we'll need to design the date picker component itself.
 
 How it might look:
 
@@ -729,8 +726,8 @@ Notes:
 HTML:
 
 ```HTML
-<div>
-	<label for="date">Flight date</label>
+<div class="field">
+	<label for="date">Departure date</label>
 	<div class="datepicker">
 		<input type="date" name="date" id="date">
 		<button type="button" aria-expanded="false">Choose date</button>
@@ -749,23 +746,15 @@ Even our calendar widget is screen reader friendly, it's probably not useful to 
 
 Here's a run down of the attributes:
 
-- The button has a type of `button` so that it doesn't submit the form. It's responsible for showing the calendar. It's specifically not a link, as it doesn't navigate.
-
+- The button has a type of `button` so that it doesn't submit the form. It's responsible for showing the calendar.
 - `aria-hidden` tells readers whether it's showing or not.
-
-- The table has a `role="grid"` so that screen readers know how to navigate this element i.e. with up, down, left and right arrows.
-
-- The table also has a `aria-labelledby` matching the ID of the element with the visual decription. In the illustration, "April 2017".
-
-- Each week row has a `role="row"` so that screen readers can navigate.
-
-- Each day cell has a `role="gridcell"` for the same reason. They also have `aria-label` to read out the full date, as the number is only enough visually. Much like the autocomplete component each day is like an option and so needs an ID to tie in with `aria-activedescendant` on the table itself. Same goes for `aria-selected`.
-
-- Each column heading has a `role="columnheading"`. Each day is abbreviated for space and convention as we need this to work nicely on small screens. Using the `abbr` element allows the abbreviation to be expanded upon in supporting browsers and assistive technology.
-
+- Each cell represents a day and also has `aria-label` to read out the full date, as the number is only enough visually.
+- aria-selected?
+- Each heading is abbreviated for space and convention as we need this to work well on small screens. Using `abbr`, enables the abbreviation to be expanded upon in supporting browsers and assistive technology using the title attribute.
+- Live region for switching between months.
 (((In 200X, somebody wrote [Abbr hatrick](https://alistapart.com/article/hattrick), stating that whilst not many browsers support it, eventually they will. The prediction came true. And it's the same approach we can take more broadly.)))
 
-- Live region? Do I need?
+-
 
 Here's the Javascript:
 
@@ -775,9 +764,9 @@ Do I put all the JS in? It's complex.
 
 #### A trade off
 
-In cases where user hasn't got JS and there is no support for date input.
+In cases where users don't have Javascript and there is no support for date input, users are left to type into a text box. A text box that lacks instructions.
 
-Users are left to type into a textbox lacking instructions. We can't give users a hint, for example "dd/mm/yyyy", because it will show when the browser *does* support the native date input and when the user will be assisted.
+We can't give users a hint, for example "dd/mm/yyyy", because it will show when the browser *does* support the native date input and when the user will be assisted.
 
 ![]()
 
@@ -825,7 +814,7 @@ HTML:
 </div>
 ```
 
-For the umpteenth
+TODO?: LUKEW steppers: https://www.lukew.com/ff/entry.asp?1950
 
 We already discussed the benefits of using a number field in chapter 2, but in the case of passengers we'll want to make some necessary usability improvements.
 
@@ -838,7 +827,7 @@ However, in this case, selecting the amount of passengers is a vital aspect of b
 For this reason we'll create our own using Javascript. After the Javascript executes the HTML will look like this:
 
 ```HTML
-<div>
+<div class="field">
     <label for="adult-passengers">
     	<span class="label">How many adults are flying?</span>
     	<span class="hint">Aged 16 years and over</span>
@@ -847,7 +836,7 @@ For this reason we'll create our own using Javascript. After the Javascript exec
     <input type="number" id="adult-passengers" name="adult-passengers">
     <button type="button" tabindex="-1" aria-label="Increment">+</button>
 </div>
-<div>
+<div class="field">
     <label for="adult-children">
     	<span class="label">How many children are flying?</span>
     	<span class="hint">Aged between 2 and 15 years old</span>
@@ -855,7 +844,7 @@ For this reason we'll create our own using Javascript. After the Javascript exec
     <button type="button" tabindex="-1" aria-label="Decrement">-</button>
     <input type="number" id="adult-children" name="adult-children">
 </div>
-<div>
+<div class="field">
     <label for="adult-infants">
     	<span class="label">How many adults are flying?</span>
     	<span class="hint">Under 2 years old</span>
@@ -867,38 +856,36 @@ For this reason we'll create our own using Javascript. After the Javascript exec
 ```
 
 ```JS
-function InputNumberButtons(input) {
+function SpinnerButtons(input) {
 	this.input = input;
 	this.createDecrementButton();
 	this.createIncrementButton();
 }
 
-InputNumberButtons.prototype.createDecrementButton = function() {
+SpinnerButtons.prototype.createDecrementButton = function() {
 	// create button
 	// listen to event
 };
 
-InputNumberButtons.prototype.createIncrementButton = function() {
+SpinnerButtons.prototype.createIncrementButton = function() {
 	// create button
 	// listen to event
 };
 
-InputNumberButtons.prototype.increment = function() {
+SpinnerButtons.prototype.increment = function() {
 	// get value
 	// parseInt
 	// plus one
 	// set input value
 };
 
-InputNumberButtons.prototype.decrement = function() {
+SpinnerButtons.prototype.decrement = function() {
 	// get value
 	// parseInt
 	// minus one
 	// set input value
 };
 ```
-
-TODO?: LUKEW steppers: https://www.lukew.com/ff/entry.asp?1950
 
 ## Confirming a flight
 
@@ -909,6 +896,11 @@ We represent each choice as a radio button. They are perfectly suited because th
 How it might look:
 
 ![Image](./images/image.png)
+
+HTML
+
+```HTML
+```
 
 Clicking *next*, saves their flight time and sends them to the next step.
 

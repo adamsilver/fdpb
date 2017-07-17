@@ -66,15 +66,25 @@ A large form takes longer to complete. If it takes too long, then a page timeout
 
 Alternatively, the computer freezes, which was the case for Daniel, the leading character in *I, Daniel Blake*. With declining health and having never used a computer before, his computer freezes and his data lost. In the end, he gives up.
 
-I've counted 16 problems in total, which you can read about in Better Form Design: One Thing Per Page[^2].
+I've counted 16 problems in total, which you can read in Better Form Design: One Thing Per Page[^2].
 
-This inconspicuous and humble UX pattern is flexible, performant and inclusive by design. It truly embraces the web, making things easy for high and low confidence users.
+But is One Thing Per Page always suitable?
 
-Having lots (or everything) on one page, may give an illusion of simplicity, but like algebraic equations, they are difficult to deal with unless they are broken down.
+Not always. Caroline Jarrett, who first wrote about One Thing Per Page in 2015, makes this quite clear. She explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
 
-If we consider a task as a transaction that a user wants to complete, breaking it down into multiple steps makes sense. It’s as if we’re using the very building blocks of the web as a form of progressive disclosure. And the metaphor behind pages provides a subconscious sense of moving forward.
+However, conversely, she also goes onto explain that “questions that naturally ‘go together’ from the point of view of designers… don’t need to be on the same page to work for users.”
 
-We'll use this approach to design the checkout flow.
+She provides an enlightening example when, for GOV.UK Verify, they tested putting “Create a username” on one page and “Create a password” on the next.
+
+Like most designers, Caroline thought that putting these two form fields on separate pages would be overkill. In reality, users weren’t bothered by this at all.
+
+The key point is to *start* with One Thing Per Page and then, through research, find out whether grouping fields together is better.
+
+That is not to say you’ll always end up combining screens together—in my experience, the best results come from splitting things apart, period.
+
+In summary, this pattern is flexible, performant and inclusive by design. It truly embraces the web, making things easy for high and low confidence users. Having many things per page may give an illusion of simplicity, but like algebraic equations, they are difficult to deal with unless they are broken down.
+
+If we consider a task as a transaction that users want to complete, breaking it down into multiple steps makes sense. It’s as if we’re using the very building blocks of the web as a form of progressive disclosure. And the metaphor behind pages provides a subconscious sense of moving forward. We'll use this approach going forward.
 
 ## Flow and order
 

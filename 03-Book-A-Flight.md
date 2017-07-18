@@ -562,40 +562,42 @@ Autocomplete.prototype.isElementVisible = function(container, element) {
 };
 ```
 
+The first thing this does is to replace the select box with a text box, down arrow button, suggestions panel and status box. Then as the user types it shows suggestions to the user.
+
 Notes:
 
-- Replace the select box with a text box, menu and status.
-- Listen as the user types. If options match, display them in the menu.
-- Pressing <kbd>up</kbd> or <kbd>down</kbd> moves between options
-- Pressing <kbd>enter</kbd> or <kbd>space</kbd>, or clicking with the mouse populates the text box with the option and closes the options
-- Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form, like normal.
-- Clicking the button, reveals all the options, like a select box.
+- Pressing <kbd>up</kbd> or <kbd>down</kbd> moves focus to the option.
+- Pressing <kbd>enter</kbd>, <kbd>space</kbd> or clicking the option populates the text box and hides the suggestions.
+- Pressing <kbd>enter</kbd> when focus is within the text box submits the form (like normal).
+- Clicking the down arrow button, reveals all the possible options.
 - Pressing <kbd>escape</kbd> hides the options.
 
 ## Choosing dates
 
 Dates are hard[^]. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally 3 select boxes have been used to input a date&mdash;one for day, month and year. One of the redeeming qualities of select boxes is that they stop users entering wrong information. However, in the case of dates, even *this* doesn't hold up. This is because users can, for example, select *31 February 2017*, which is invalid.
+Traditionally we've used 3 select boxes to capture dates&mdash;one for day, month and year. One of the redeeming qualities of select boxes is that they stop users entering wrong information. In the case of dates, even *this* doesn't hold up. This is because in combination a user can, for example, choose *31 February 2017* which is, of course, invalid.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-But why use select boxes? Because they stop the system needing to handle a plethora of different formats. Some dates start with month; others with day. Some delimit dates with slashes, others with dashes.We can't know what the user intended, and so we can't be forgiving like we otherwise would like to be.
+The remaining reason to use select boxes is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We can't determine the intention accurately. In turn this means we can't be forgiving as we would otherwise like to be. We can do better than select boxes.
 
-However, we can do better than select boxes. But, before designing a date field, we first need to understand what type of date it is. Like Goverment Digital Services (GDS) says in the service manual, *the way you should ask users for dates depends on the types of date you’re asking for*.
+But before we get to that, let's take a step back. Before we can design an optimal date field, we'll need to first understand what type of date we're expecting users to enter. Goverment Digital Services (GDS) talks about this in the service manual[^]. It says *the way you should ask for dates depends on the types of date you’re asking for*.
+
+Let's now discuss the 3 types of dates and see which one best suits our use case.
 
 ### Dates from documents
 
 GDS says *if you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.*
 
-This is what we do for expiry date, in chapter 2. We gave users a text box that expects a number matching that found on their debit card. Users simply copy what they see.
+This is exactly the approach we took for expiry date, in chapter 2. We gave users a text box that expects a number matching that found on their card. Users simply copy what they see.
 
 ### Memorable dates
 
 Dates that are easy to remember, such as date of birth, need a different tact. The defacto thinking is that date pickers are always better than manually typing numbers. But this is not true. It's often slower and harder to enter a memorable date in this manner, than it would be to type numbers into a text box unassisted.
 
-GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. And the main reason to separate this single question into 3 inputs is due to the formatting issues we discussed above.
+GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. Why 3 boxes? Because it solves the formatting issues we discussed before.
 
 How it might look:
 
@@ -612,23 +614,23 @@ HTML:
 		</legend>
 		<div class="field-dayWrapper">
 			<label for="day">Day</label>
-			<input class="field-dayBox" type="number" pattern="[0-9]*" name="day" value="" id="day" min="0" max="31">
+			<input class="field-dayBox" type="number" pattern="[0-9]*" name="day" id="day" min="0" max="31">
 		</div>
 		<div class="field-monthWrapper">
 			<label for="month">Month</label>
-			<input class="field-monthBox" type="number" pattern="[0-9]*" name="month" value="" id="month" min="0" max="12">
+			<input class="field-monthBox" type="number" pattern="[0-9]*" name="month" id="month" min="0" max="12">
 		</div>
 		<div class="field-yearWrapper">
 			<label for="year">Year</label>
-			<input class="field-yearBox" type="number" pattern="[0-9]*" name="year" value="" id="year" min="0" max="2050">
+			<input class="field-yearBox" type="number" pattern="[0-9]*" name="year" id="year" min="0" max="2050">
 		</div>
 	</fieldset>
 </div>
 ```
 
-This field uses the `fieldset` and `legend` elements to group the 3 inputs together. Without it, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous.
+This field uses the `fieldset` and `legend` elements to group the 3 inputs together. Like any other input that uses the fieldset, it provides context for the labels within. In this case, without ‘Date of birth’, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous.
 
-Some versions of iOS ignore `type="number"` and therefore won't show the numeric keyboard. Fortunately, the `pattern` attribute fixes this problem[^filament].
+Some versions of iOS won't show the numeric keyboard, even if you use `type="number"`. The `pattern` attribute fixes this problem[^filament] which is why we've included it in each of the inputs above.
 
 #### Auto-tabbing
 
@@ -638,38 +640,38 @@ Some websites automatically move focus from one box to the other, once the corre
 
 In the case of booking a flight users are niether dealing with a memorable date nor one found in a document. When booking flights, we often orientate ourselves around day and week. To mimic this, we'll need a more convenient solution than three text boxes. We need to use a date picker.
 
-Interfaces that try to solve too many problems at once cause problems. If we try to convey, for example, price and availability, inside a calendar, this would result in a busy interface that doesn't work  well&mdash;unless the user has a super-sized screen. But not everyone has one of those.
+Interfaces that try to solve too many problems at once cause problems. If we try to convey, for example, price and availability, inside a calendar, this would result in a busy interface that overloads the user. That is, unless the user has a super-sized screen, but not everyone has one of those.
 
-To begin with, we'll let users pick a date, without the context of price and availability. Then later, we'll give them the extra context that they'll need to choose the right flight. This leans on the One Thing Per Approach approach we used in the previous chapter.
+We'll use the One Thing Per Page technique by first letting users choose a date, without the context of price and availability. Then later, we'll give them the extra context they need to choose the right flight for them.
 
 #### Date input
 
-Before HTML5, we had to build our own date picker using Javascript. We know this is hard because we had to consider the host of requirements needed to produce a fully inclusive autocomplete component.
+Before HTML5, we always had to build our own date picker using Javascript. We know this is an complex endeavour  because we had to consider the host of requirements needed to create an inclusive autocomplete component above.
 
 Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;have `input type="date"`. This is useful because:
 
-- We don't need to spend time designing and developing our own.
+- We don't need to spend time designing and developing our own component.
 - They are performant because they are provided by the browser.
-- They are familiar because every website (and native app) will use the same interface.
+- They are familiar because every website (and native app for that matter) will use the same interface.
 - They are accessible by default.
-- When browsers release improvements, users receive them immediately.
+- When browsers release improvements, users get them quickly.
 
-All of the reasons above, makes space for us to solve other more [pressing problems. The overused phrase is *don't reinvent the wheel*.
+All of these reasons make time and headspace to solve other more pressing problems. The overused phrase is *don't reinvent the wheel*.
 
 Here's how it looks on mobile:
 
 ![Mobile native date control](./images/mobile-date.png)
 
-Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support, although it's on the way at the time of writing.
+Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support at time of writing.
 
 ![Desktop native date control](./images/desktop-date.png)
 
-If you're concerned about it looking different across browsers, don't be. In Progressive Enhancement 2.0[^], Nicholas Zakas proves that users don't notice the differences between browser implementations. Nobody cares about your website as much as you do and rather officially websites do not need to look the same in every browser[^].
+If you're concerned about it looking different in different browsers you'd needn't be. In Progressive Enhancement 2.0[^], Nicholas Zakas proves that users don't notice the differences between browser implementations. Nobody cares about your website as much as you do and rather officially websites do not need to look the same in every browser[^].
 
 HTML:
 
 ```HTML
-<div class="field ">
+<div class="field">
 	<label for="departureDate">
 		<span class="field-label">Departure date</span>
 	</label>
@@ -678,11 +680,13 @@ HTML:
 
 ```
 
-#### Browsers lacking support for date inputs
+#### What about browsers that lacking support?
 
-Browsers that don't support date inputs will degrade into a text box, which may be sufficient. This is one of the advantages of Progressive Enhancement. We can choose to degrade gracefully. Or, we can decide to provide a more enhanced fallback.
+Browsers that don't support date inputs will degrade into a text box, which may be sufficient. This is one of the many advantages of Progressive Enhancement. We can choose to degrade gracefully. Or, we can decide to provide a more enhanced fallback.
 
-As choosing dates is integral to booking a flight online, the degraded solution isn't really suitable. We'll build a custom date picker component, but only when browsers don't support the native date input. To do this, we need to detect support
+As choosing dates is integral to booking a flight online, the degraded solution isn't really as good as we'd like. Choosing a date should be as easy as possible for as many people as possible who are using the flight booking service. Perhaps this will change in the future as support for the native input gets better. But more on this shortly.
+
+For now, we'll create a date picker component. The first problem though, is that we don't want browsers who support the native input to show users the custom component. In which case, we'll need to detect support:
 
 ```Javascript
 function supportsDateInput() {
@@ -698,30 +702,21 @@ if(!supportsDateInput()) {
 }
 ```
 
-Jeremy Keith explains that the web is a *continuum*. He means that the web is constantly changing. New browsers come out all the time, all of them have different features and capabilities. At any particular moment in time, we need to think about what level of support or optimisation makes sense for a given feature.
+#### What about the future?
 
-At time of writing, desktop browser support is lacking. And so we've decided to plug the gap. But as the web is a continuum, the future will influence our decision to change tacts.
+Jeremy Keith often talks about the web being a *continuum*. This means the web is constantly changing. New browsers come out all the time, all of them have different features and capabilities. At any particular moment in time, we need to think about what level of support or optimisation makes sense for a given feature.
 
-For example, when desktop browser support is more broad, we may choose not to suppor the rapidly diminishing number of users that will see the degraded text box.  Pracitically speaking this means removing all of the Javascript, giving users a faster experience and ourselves less to maintain.
+As we said earlier, desktop browser support for the native input is lacking. And as choosing a date is so integral to the flow, we've decided to plug the gap. At least for now. In future, things may change, and support is likely to improve drastically at which point we can change tacts.
+
+We may choose not to support the rapidly diminishing number of users that would otherwise experience the degraded text box. Pracitically speaking this means removing all of the Javascript, giving users a faster experience and ourselves less to maintain.
 
 #### Date picker component
 
-Having detected support, we'll need to design the date picker component itself.
+Having now detected support, we'll need to design the date picker component itself.
 
 How it might look:
 
 ![Date widget](./images/date-widget.png)
-
-Notes:
-
-- Buttons should have large tap targets making it easy to press with a finger or mouse.
-- The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway.
-- Pressing *previous* shows the previous month and selects the first day of the preview month.
-- Pressing *next* shows the next month and selects the first day of the next month.
-- Once focus is on the grid, the arrow keys let the user move freely between days and weeks.
-- Only the selected day is in the natural tab sequence. This is because for those relying on the <kbd>tab</kbd> key would have to tab ~30 times in order to leave the calendar and would it make it hard to move focus to the selected day.
-- Pressing <kbd>escape</kbd> hides the date picker and moves focus to the button.
-- Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date into the text box, hides the calendar and moves focus into the text box.
 
 HTML:
 
@@ -737,6 +732,17 @@ HTML:
 	</div>
 </div>
 ```
+
+Notes:
+
+- Buttons should have large tap targets making it easy to press with a finger or mouse.
+- The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway.
+- Pressing *previous* shows the previous month and selects the first day of the preview month.
+- Pressing *next* shows the next month and selects the first day of the next month.
+- Once focus is on the grid, the arrow keys let the user move freely between days and weeks.
+- Only the selected day is in the natural tab sequence. This is because for those relying on the <kbd>tab</kbd> key would have to tab ~30 times in order to leave the calendar and would it make it hard to move focus to the selected day.
+- Pressing <kbd>escape</kbd> hides the date picker and moves focus to the button.
+- Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date into the text box, hides the calendar and moves focus into the text box.
 
 In addition to the `input` there is a `button` which toggles the calendar's visibility, and of course the calendar itself. Both are injected with Javascript, as they only work when Javascript is available.
 

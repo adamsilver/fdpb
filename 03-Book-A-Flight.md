@@ -143,10 +143,10 @@ HTML:
 </div>
 ```
 
-There are three component parts:
+There are 3 component parts:
 
 - A text box
-- A menu of which to choose a suggestion
+- A menu to show suggestions
 - A status box to announce changes to screen reader users
 
 The HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with a mouse, keyboard and screen reader interchangeably.
@@ -718,25 +718,123 @@ How it might look:
 
 ![Date widget](./images/date-widget.png)
 
+Notes:
+
+- Buttons should have large tap targets making it easy to press with a finger or mouse.
+- The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway. 
+
 HTML:
 
 ```HTML
 <div class="field">
-	<label for="date">Departure date</label>
+	<label for="departureDate">
+		<span class="field-label">Departure date</span>
+	</label>
 	<div class="datepicker">
-		<input type="date" name="date" id="date">
-		<button type="button" aria-expanded="false">Choose date</button>
-		<div class="datepicker-calendar" aria-hidden="true">
-			// html here
+		<input class="field-textBox" type="text" id="departureDate" name="departureDate" value="">
+		<button class="datepicker-toggleButton" type="button" aria-expanded="true">Choose</button>
+		<div class="datepicker-wrapper" aria-hidden="false">
+			<div class="datepicker-calendar">
+				<div class="datepicker-actions">
+					<button aria-label="Previous month" type="button" class="datepicker-back">&lt;</button>
+					<div role="status" aria-live="polite" aria-atomic="true" class="datepicker-title">July 2017</div>
+					<button aria-label="Next month" type="button" class="datepicker-next">&gt;</button>
+				</div>
+				<table role="grid">
+					<thead>
+						<tr>
+							<th><abbr title="Sunday">Sun</abbr></th>
+							<th><abbr title="Monday">Mon</abbr></th>
+							<th><abbr title="Tuesday">Tue</abbr></th>
+							<th><abbr title="Wednesday">Wed</abbr></th>
+							<th><abbr title="Thursday">Thu</abbr></th>
+							<th><abbr title="Friday">Fri</abbr></th>
+							<th><abbr title="Saturday">Sat</abbr></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="calendarControl-previousMonthDay">25</td>
+							<td class="calendarControl-previousMonthDay">26</td>
+							<td class="calendarControl-previousMonthDay">27</td>
+							<td class="calendarControl-previousMonthDay">28</td>
+							<td class="calendarControl-previousMonthDay">29</td>
+							<td class="calendarControl-previousMonthDay">30</td>
+							<td tabindex="-1" aria-selected="false" aria-label="1 July, 2017" data-date="Sat Jul 01 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_1" class="datepicker-day">1</td>
+						</tr>
+						<tr>
+							<td tabindex="-1" aria-selected="false" aria-label="2 July, 2017" data-date="Sun Jul 02 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_2" class="datepicker-day">2</td>
+							<td tabindex="-1" aria-selected="false" aria-label="3 July, 2017" data-date="Mon Jul 03 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_3" class="datepicker-day">3</td>
+							<td tabindex="-1" aria-selected="false" aria-label="4 July, 2017" data-date="Tue Jul 04 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_4" class="datepicker-day">4</td>
+							<td tabindex="-1" aria-selected="false" aria-label="5 July, 2017" data-date="Wed Jul 05 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_5" class="datepicker-day">5</td>
+							<td tabindex="-1" aria-selected="false" aria-label="6 July, 2017" data-date="Thu Jul 06 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_6" class="datepicker-day">6</td>
+							<td tabindex="-1" aria-selected="false" aria-label="7 July, 2017" data-date="Fri Jul 07 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_7" class="datepicker-day">7</td>
+							<td tabindex="-1" aria-selected="false" aria-label="8 July, 2017" data-date="Sat Jul 08 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_8" class="datepicker-day">8</td>
+						</tr>
+						<tr>
+							<td tabindex="-1" aria-selected="false" aria-label="9 July, 2017" data-date="Sun Jul 09 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_9" class="datepicker-day">9</td>
+							<td tabindex="-1" aria-selected="false" aria-label="10 July, 2017" data-date="Mon Jul 10 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_10" class="datepicker-day">10</td>
+							<td tabindex="-1" aria-selected="false" aria-label="11 July, 2017" data-date="Tue Jul 11 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_11" class="datepicker-day">11</td>
+							<td tabindex="-1" aria-selected="false" aria-label="12 July, 2017" data-date="Wed Jul 12 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_12" class="datepicker-day">12</td>
+							<td tabindex="-1" aria-selected="false" aria-label="13 July, 2017" data-date="Thu Jul 13 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_13" class="datepicker-day">13</td>
+							<td tabindex="-1" aria-selected="false" aria-label="14 July, 2017" data-date="Fri Jul 14 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_14" class="datepicker-day">14</td>
+							<td tabindex="-1" aria-selected="false" aria-label="15 July, 2017" data-date="Sat Jul 15 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_15" class="datepicker-day">15</td>
+						</tr>
+						<tr>
+							<td tabindex="-1" aria-selected="false" aria-label="16 July, 2017" data-date="Sun Jul 16 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_16" class="datepicker-day">16</td>
+							<td tabindex="-1" aria-selected="false" aria-label="17 July, 2017" data-date="Mon Jul 17 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_17" class="datepicker-day">17</td>
+							<td tabindex="0" aria-selected="true" aria-label="18 July, 2017" data-date="Tue Jul 18 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_18" class="datepicker-day datepicker-day-isToday datepicker-day-isSelected">18</td>
+							<td tabindex="-1" aria-selected="false" aria-label="19 July, 2017" data-date="Wed Jul 19 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_19" class="datepicker-day">19</td>
+							<td tabindex="-1" aria-selected="false" aria-label="20 July, 2017" data-date="Thu Jul 20 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_20" class="datepicker-day">20</td>
+							<td tabindex="-1" aria-selected="false" aria-label="21 July, 2017" data-date="Fri Jul 21 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_21" class="datepicker-day">21</td>
+							<td tabindex="-1" aria-selected="false" aria-label="22 July, 2017" data-date="Sat Jul 22 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_22" class="datepicker-day">22</td>
+						</tr>
+						<tr>
+							<td tabindex="-1" aria-selected="false" aria-label="23 July, 2017" data-date="Sun Jul 23 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_23" class="datepicker-day">23</td>
+							<td tabindex="-1" aria-selected="false" aria-label="24 July, 2017" data-date="Mon Jul 24 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_24" class="datepicker-day">24</td>
+							<td tabindex="-1" aria-selected="false" aria-label="25 July, 2017" data-date="Tue Jul 25 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_25" class="datepicker-day">25</td>
+							<td tabindex="-1" aria-selected="false" aria-label="26 July, 2017" data-date="Wed Jul 26 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_26" class="datepicker-day">26</td>
+							<td tabindex="-1" aria-selected="false" aria-label="27 July, 2017" data-date="Thu Jul 27 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_27" class="datepicker-day">27</td>
+							<td tabindex="-1" aria-selected="false" aria-label="28 July, 2017" data-date="Fri Jul 28 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_28" class="datepicker-day">28</td>
+							<td tabindex="-1" aria-selected="false" aria-label="29 July, 2017" data-date="Sat Jul 29 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_29" class="datepicker-day">29</td>
+						</tr>
+						<tr>
+							<td tabindex="-1" aria-selected="false" aria-label="30 July, 2017" data-date="Sun Jul 30 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_30" class="datepicker-day">30</td>
+							<td tabindex="-1" aria-selected="false" aria-label="31 July, 2017" data-date="Mon Jul 31 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_31" class="datepicker-day">31</td>
+							<td class="calendarControl-nextMonthDay">1</td>
+							<td class="calendarControl-nextMonthDay">2</td>
+							<td class="calendarControl-nextMonthDay">3</td>
+							<td class="calendarControl-nextMonthDay">4</td>
+							<td class="calendarControl-nextMonthDay">5</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
 ```
 
+There are 3 component parts:
+
+- The text box
+- The toggle button
+- The calendar
+
+Text box notes:
+
+- This is a standard text box. The user can type directly into it if they wish, or they can use the date picker. Using the date picker populates the text box automatically.
+
+Toggle button notes:
+
+- `type="button"` ensures the form is not submitted.
+- `aria-expanded="false"` announces to screen reader users if the calendar is showing or not. Clicking the button sets the attribute to `true`. 
+
+
+
+
 Notes:
 
-- Buttons should have large tap targets making it easy to press with a finger or mouse.
-- The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway.
 - Pressing *previous* shows the previous month and selects the first day of the preview month.
 - Pressing *next* shows the next month and selects the first day of the next month.
 - Once focus is on the grid, the arrow keys let the user move freely between days and weeks.

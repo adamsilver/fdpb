@@ -721,7 +721,7 @@ How it might look:
 Notes:
 
 - Buttons should have large tap targets making it easy to press with a finger or mouse.
-- The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway. 
+- The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway.
 
 HTML:
 
@@ -815,11 +815,13 @@ HTML:
 </div>
 ```
 
-There are 3 component parts:
+There are 5 component parts:
 
-- The text box
-- The toggle button
-- The calendar
+- Text box
+- Toggle button
+- Calendar header
+- Calendar grid
+- Day cell
 
 Text box notes:
 
@@ -828,13 +830,36 @@ Text box notes:
 Toggle button notes:
 
 - `type="button"` ensures the form is not submitted.
-- `aria-expanded="false"` announces to screen reader users if the calendar is showing or not. Clicking the button sets the attribute to `true`. 
+- `aria-expanded="false"` announces to screen reader users if the calendar is showing or not. Clicking the button sets the attribute to `true` and displays the calendar.
 
+Calendar header notes:
 
+- The heading is inside a live region. When the user navigates between months, the new month and year is announced accordingly.
+- The header also houses the previous and next month buttons.
 
+Calendar grid notes:
+
+- `aria-hidden="true"` ensures the calendar is not perceivable to screen readers. For visual users, this is achieved by the fact it's not visible.
+- The table has `role="grid"` so that the screen reader treats the table as a special grid widget. In JAWS, for example, this means the arrow keys can be used to navigate between days. More on this shortly.
+- The thead contains the column headings representing each day of the week. The day is abbreviated and uses the `abbr` element which saves space but gives assistive technology the change to announce the day of the week in full.
+- The tbody contains the days organised in weeks which are represented in table rows.
+
+Calendar cell notes:
+
+- `tabindex="-1" allows us to set focus programmatically. More on this shortly. The selected day has `tabindex="0"` so that it appears in the standard tab sequence.
+- ????`aria-selected` allows the selected state to be announced. This is set to true when the cell is selected.
+- ???? ID
+- `aria-label` enables screen readers to announce the full day. Without it, the cell's value is ambiguous.
+
+Javascript:
+
+```JS
+Put code here
+```
 
 Notes:
 
+- Pressing *choose* toggles the calendar's visibility.
 - Pressing *previous* shows the previous month and selects the first day of the preview month.
 - Pressing *next* shows the next month and selects the first day of the next month.
 - Once focus is on the grid, the arrow keys let the user move freely between days and weeks.
@@ -842,40 +867,19 @@ Notes:
 - Pressing <kbd>escape</kbd> hides the date picker and moves focus to the button.
 - Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date into the text box, hides the calendar and moves focus into the text box.
 
-In addition to the `input` there is a `button` which toggles the calendar's visibility, and of course the calendar itself. Both are injected with Javascript, as they only work when Javascript is available.
-
-We use a button (with type `button`) as opposed to a link because it's not navigation. The type button ensures the button doesn't submit the form.
-
-Even our calendar widget is screen reader friendly, it's probably not useful to them[^calendarscreenreader]. But we don't assume. Visual users may benefit from it also. One important aspect about inclusive design is giving users choice. We don't assume. Please just a handful of people we may not know about is good practice. Remember we write the component once, and we can reuse it many times over.
-
-Here's a run down of the attributes:
-
-- The button has a type of `button` so that it doesn't submit the form. It's responsible for showing the calendar.
-- `aria-hidden` tells readers whether it's showing or not.
-- Each cell represents a day and also has `aria-label` to read out the full date, as the number is only enough visually.
-- aria-selected?
-- Each heading is abbreviated for space and convention as we need this to work well on small screens. Using `abbr`, enables the abbreviation to be expanded upon in supporting browsers and assistive technology using the title attribute.
-- Live region for switching between months.
-
-TODO: In 200X, somebody wrote [Abbr hatrick](https://alistapart.com/article/hattrick), stating that whilst not many browsers support it, eventually they will. The prediction came true. And it's the same approach we can take more broadly.
-
-Here's the Javascript:
-
-```JS
-Do I put all the JS in? It's complex.
-```
+Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to inclusive principle number X, by giving users choice.
 
 #### A small trade off
 
-In cases where users don't have Javascript and there is no support for date input, users are left to type into a text box. A text box that lacks instructions.
+Most designers would stop here. After all that's everyone covered right? Not quite. There are still a small amount of users that won't have support for the native input, but also don't have Javascript available. In this case, those users will be left to enter a date into a text box unassisted.
 
-We can't give users a hint, for example "dd/mm/yyyy", because it will show when the browser *does* support the native date input and when the user will be assisted.
+The problem is that the text box lacks instructions regarding format. Unfortunately, we can't explain this with a hint, because it will show even when the browser *does* support the native date input and when the user will be assisted. This is problematic, because the format is different.
 
 ![]()
 
-We are left to rely on error messaging. The best error messages are those that don't need to be shown. In this case, however, we can't get around it, unless we make the optimisitic experience worse. That is we add a placeholder that makes dealing with the native date input confusing.
+We can be forgiving to an extent, in that we can allow dashes, slashes, dots and spaces as delimitters. But we'll need to make sure users enter in the format of DD/MM/YYYY. For those that unfortunately make a mistake, a well written error message will have to be used. The best error message is one the user never has to see, but in this case we have to endure this trade off.
 
-We hope that we have endeavoured to provide the best experience where possible with the best degraded experience where necessary. In this case there is nothing more we can do, and I think that's okay.
+---
 
 With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that we should write in plain language. Hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
 
@@ -1184,6 +1188,10 @@ Here's what that script looks like:
 ## Summary
 
 TODO: Summary
+
+## TODO
+
+- In 200X, somebody wrote [Abbr hatrick](https://alistapart.com/article/hattrick), stating that whilst not many browsers support it, eventually they will. The prediction came true. And it's the same approach we can take more broadly.
 
 ## Footnotes
 

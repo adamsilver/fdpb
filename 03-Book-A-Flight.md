@@ -714,14 +714,14 @@ How it might look:
 
 Notes:
 
-- Use big buttons making it easy to tap with a finger or mouse.
-- When displaying the calendar, display it inline below the text input. Dialogs obscure other parts of the interface. On mobile, a dialog is an anti-pattern in some respects because it takes up the entire screen.
-- Pressing *previous* shows the previous month and selects the first day of that month.
-- Pressing *next* shows the next month and selects the first day of the month.
-- Once focus is on the grid, the arrow keys allow the user to move freely between days and weeks.
-- The days are not part of the standard tab sequence because this would make it hard for those who want to leave the date picker.
-- When the date picker is in focus pressing <kbd>escape</kbd> hides the date picker and moves focus to the button.
-- Pressing <kbd>enter</kbd> or <kbd>space</kbd> selects the date and hides the picker and moves focus to the text box.
+- Buttons should have large tap targets making it easy to press with a finger or mouse.
+- The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway.
+- Pressing *previous* shows the previous month and selects the first day of the preview month.
+- Pressing *next* shows the next month and selects the first day of the next month.
+- Once focus is on the grid, the arrow keys let the user move freely between days and weeks.
+- Only the selected day is in the natural tab sequence. This is because for those relying on the <kbd>tab</kbd> key would have to tab ~30 times in order to leave the calendar and would it make it hard to move focus to the selected day.
+- Pressing <kbd>escape</kbd> hides the date picker and moves focus to the button.
+- Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date into the text box, hides the calendar and moves focus into the text box.
 
 HTML:
 
@@ -752,9 +752,8 @@ Here's a run down of the attributes:
 - aria-selected?
 - Each heading is abbreviated for space and convention as we need this to work well on small screens. Using `abbr`, enables the abbreviation to be expanded upon in supporting browsers and assistive technology using the title attribute.
 - Live region for switching between months.
-(((In 200X, somebody wrote [Abbr hatrick](https://alistapart.com/article/hattrick), stating that whilst not many browsers support it, eventually they will. The prediction came true. And it's the same approach we can take more broadly.)))
 
--
+TODO: In 200X, somebody wrote [Abbr hatrick](https://alistapart.com/article/hattrick), stating that whilst not many browsers support it, eventually they will. The prediction came true. And it's the same approach we can take more broadly.
 
 Here's the Javascript:
 
@@ -762,7 +761,7 @@ Here's the Javascript:
 Do I put all the JS in? It's complex.
 ```
 
-#### A trade off
+#### A small trade off
 
 In cases where users don't have Javascript and there is no support for date input, users are left to type into a text box. A text box that lacks instructions.
 

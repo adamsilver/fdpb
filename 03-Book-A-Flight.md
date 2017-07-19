@@ -898,22 +898,19 @@ HTML:
 ```HTML
 <div class="field">
     <label for="adults">
-    	<span class="field-label">How many adults are flying?</span>
-    	<span class="field-hint">Aged 16 years and over</span>
+    	<span class="field-label">How many adults, 16 years and over, are flying?</span>
     </label>
     <input type="number" id="adults" name="adults">
 </div>
 <div class="field">
     <label for="children">
-    	<span class="field-label">How many children are flying?</span>
-    	<span class="field-hint">Aged between 2 and 15 years old</span>
+    	<span class="field-label">How many children, aged between 2 and 15 years old, are flying?</span>
     </label>
     <input type="number" id="children" name="children">
 </div>
 <div class="field">
     <label for="infants">
-    	<span class="field-label">How many adults are flying?</span>
-    	<span class="field-hint">Under 2 years old</span>
+    	<span class="field-label">How many infants, under 2 years old, are flying?</span>
     </label>
     <input type="number" id="infants" name="infants">
 </div>
@@ -921,44 +918,43 @@ HTML:
 
 TODO?: LUKEW steppers: https://www.lukew.com/ff/entry.asp?1950
 
-We already discussed the benefits of using a number field in chapter 2, but in the case of passengers we'll want to make some necessary usability improvements.
+In chapter 2 we disabled the spinner. Spinners, also known as steppers, allow users to increase increase or decrease the value by a constant amount. They are great for making small adjustments. Luke Wobrelkski says, in the same article:
 
-In *Checkout*, we turned off the native increment and decrement buttons because they are hard to use due to their size. In any case, having the ability to increment or decrement wasn't necessary.
+> When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-In the case of passengers though it is very useful. In Use Dropdowns As a Last Resort[^] which we referenced earlier, one alternative to drop down menus is a stepper. This is just a fancy word for increment and decrement.
-
-However, in this case, selecting the amount of passengers is a vital aspect of booking flights. It's often easier for many users to tap an increment button a couple times, as opposed to tapping on the field and typing in a digit.
-
-For this reason we'll create our own using Javascript. After the Javascript executes the HTML will look like this:
+The problem with the native spinner is that it's small and hard to use. We can enhance the interface by injecting large buttons next to the input. Having done so the HTML might look like this:
 
 ```HTML
 <div class="field">
-    <label for="adult-passengers">
-    	<span class="label">How many adults are flying?</span>
-    	<span class="hint">Aged 16 years and over</span>
+    <label for="adults">
+    	<span class="field-label">How many adults, 16 years and over, are flying?</span>
     </label>
     <button type="button" tabindex="-1" aria-label="Decrement">-</button>
-    <input type="number" id="adult-passengers" name="adult-passengers">
+    <input type="number" id="adults" name="adults">
     <button type="button" tabindex="-1" aria-label="Increment">+</button>
 </div>
 <div class="field">
-    <label for="adult-children">
-    	<span class="label">How many children are flying?</span>
-    	<span class="hint">Aged between 2 and 15 years old</span>
+    <label for="children">
+    	<span class="field-label">How many children, between 2 and 15 years old, are flying?</span>
     </label>
     <button type="button" tabindex="-1" aria-label="Decrement">-</button>
-    <input type="number" id="adult-children" name="adult-children">
+    <input type="number" id="children" name="children">
+    <button type="button" tabindex="-1" aria-label="Increment">+</button>
 </div>
 <div class="field">
-    <label for="adult-infants">
-    	<span class="label">How many adults are flying?</span>
-    	<span class="hint">Under 2 years old</span>
+    <label for="infants">
+    	<span class="field-label">How many infants, under 2 years old, are flying?</span>
     </label>
     <button type="button" tabindex="-1" aria-label="Decrement">-</button>
-    <input type="number" id="adult-infants" name="adult-infants">
+    <input type="number" id="infants" name="infants">
     <button type="button" tabindex="-1" aria-label="Increment">+</button>
 </div>
 ```
+
+Notes:
+
+- Remove the buttons from tab sequence so that the natural flow and order of form controls is not disturbed by the enhancement.
+- We use a label so that plain language is used instead of symbols.
 
 ```JS
 function SpinnerButtons(input) {
@@ -991,6 +987,8 @@ SpinnerButtons.prototype.decrement = function() {
 	// set input value
 };
 ```
+
+The script injects two buttons. The buttons mimic the behaviour of the native spinner by decrementing and incrementing the value of the input by 1 respectively.
 
 ## Confirming a flight
 
@@ -1086,8 +1084,6 @@ HTML:
 	</fieldset>
 </fieldset>
 ```
-
-Everything here should look familiar as we used the same constructs for radio buttons before. The only difference is the nested fieldset, which we'll discuss next.
 
 ### Nested fieldsets
 

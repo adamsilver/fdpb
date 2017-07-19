@@ -427,7 +427,7 @@ The expiry uses `input type="number"`. Supporting browsers, will actually ignore
 
 And for people who use the keyboard on desktop, may use the up and down arrows to increment and decrement the field without the pain of selecting/deleting/typing etc.
 
-Some browsers show increment and decrement buttons when focussed an a number input. These are called, rather oddly, as spinners. The problem is that they are small and hard to use. Frankly, they are useless in the case of entering an expiry date. We'll hide them with CSS:
+Some browsers show increment and decrement buttons when focussed an a number input. These are called, rather oddly, as spinners. The problem is that they are small and hard to use. More importantly though, they aren't helpful in the case of entering an expiry date. We can hide them with a little CSS:
 
 ```CSS
 input::-webkit-outer-spin-button,

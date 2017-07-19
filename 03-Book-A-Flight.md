@@ -1018,6 +1018,8 @@ Each flight is represented as a radio button. In fact the age old rule that we s
 
 In this case though, the entire screen is about choosing a flight. Hiding the choices behind a menu is both unnecessary and constraining. There is quite a lot of information to store inside the label. This is another benefit of using radio buttons as opposed to select boxes. We can format a number of elements inside the label giving us flexibility to indicate price and time differences.
 
+Showing the options makes the flight times and prices easy to compare against themselves.
+
 ## Choosing a seat
 
 Next, the user needs to choose a seat. If more than one passenger is travelling, they'll be able to select more than one seat. In this case we'll want to use checkboxes to represent each seat.

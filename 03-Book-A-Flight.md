@@ -956,55 +956,67 @@ How it might look:
 The buttons are removed from the tab sequence using `tabindex="-1"`. This ensures the natural flow and order of form elements is undisturbed by these extra buttons. The buttons use iconography and although the best icon is text, these icons are well understood and keep the interface clear. For those using screen readers, we add `aria-label="Increment"` so the interface is just as clear audibly as it is visually.
 
 ```JS
-function SpinnerButtons(input) {
-	this.input = input;
+function Stepper(input) {
+	this.input = $(input);
+	this.container = this.input.parent();
+	this.wrapper = $('<div class="stepper"></div>');
+	this.wrapper.append(this.input);
+	this.container.append(this.wrapper);
 	this.createDecrementButton();
 	this.createIncrementButton();
+	this.wrapper.on('click', '.stepper-decrementButton', $.proxy(this, 'onDecrementClick'));
+	this.wrapper.on('click', '.stepper-incrementButton', $.proxy(this, 'onIncrementClick'));
 }
 
-SpinnerButtons.prototype.createDecrementButton = function() {
-	// create button
-	// listen to event
+Stepper.prototype.createDecrementButton = function() {
+	this.decrementButton = $('<button tabindex="-1" aria-label="Decrement" class="stepper-decrementButton" type="button">&#45;</button>');
+	this.wrapper.prepend(this.decrementButton);
 };
 
-SpinnerButtons.prototype.createIncrementButton = function() {
-	// create button
-	// listen to event
+Stepper.prototype.createIncrementButton = function() {
+	this.incrementButton = $('<button tabindex="-1" aria-label="Increment" class="stepper-incrementButton" type="button">&#43;</button>');
+	this.wrapper.append(this.incrementButton);
 };
 
-SpinnerButtons.prototype.increment = function() {
-	// get value
-	// parseInt
-	// plus one
-	// set input value
+Stepper.prototype.getInputValue = function() {
+	var val = parseInt(this.input.val(), 10);
+	if(isNaN(val)) {
+		val = 0;
+	}
+	return val;
 };
 
-SpinnerButtons.prototype.decrement = function() {
-	// get value
-	// parseInt
-	// minus one
-	// set input value
+Stepper.prototype.onDecrementClick = function(e) {
+	var val = this.getInputValue();
+	this.input.val(val-1);
+};
+
+Stepper.prototype.onIncrementClick = function(e) {
+	var val = this.getInputValue();
+	this.input.val(val+1);
 };
 ```
 
-The script injects two buttons. The buttons mimic the behaviour of the native spinner by decrementing and incrementing the value of the input by 1 respectively.
+The script injects two buttons. The buttons mimic the behaviour of the native spinner by decreasing or increasing the input's value by 1.
 
 ## Confirming a flight
 
-Having collected all the information necessary, the system is in a position to offer a list of available flights matching the users preferences.
-
-We represent each choice as a radio button. They are perfectly suited because they allow us to add as much information, such as price and time easily inside the label.
+Every step unto this point has had the sole purpose of collecting information from the user so that we can show them some available flights. We have the pertinent information now so we can present the flights accordingly.
 
 How it might look:
 
 ![Image](./images/image.png)
 
-HTML
+HTML:
 
 ```HTML
+<div class="field">
+</div>
 ```
 
-Clicking *next*, saves their flight time and sends them to the next step.
+Each flight is represented as a radio button. In fact the age old rule that we shouldn't show more than 7 radio buttons at a time is actually nonsense. As with many design problems, the answer is it depends. That rule was born out of putting so much in a single screen, that having a single question take up that much room may cause a problem.
+
+In this case though, the entire screen is about choosing a flight. Hiding the choices behind a menu is both unnecessary and constraining. There is quite a lot of information to store inside the label. This is another benefit of using radio buttons as opposed to select boxes. We can format a number of elements inside the label giving us flexibility to indicate price and time differences.
 
 ## Choosing a seat
 

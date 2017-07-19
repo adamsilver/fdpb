@@ -871,25 +871,23 @@ Whilst screen reader users *can* operate the calendar, it's not especially usefu
 
 #### A small trade off
 
-Most designers would stop here. After all that's everyone covered right? Not quite. There are still a small amount of users that won't have support for the native input, but also don't have Javascript available. In this case, those users will be left to enter a date into a text box unassisted.
+Most designers would stop here. After all that's everyone covered right? Not quite. There are still users that don't use a browser that supports the native input; and that, for some reason Javascript isn't available[^]. Those falling under this category, allbeit an edge case, will have to type a date into a text box unassisted.
 
-The problem is that the text box lacks instructions regarding format. Unfortunately, we can't explain this with a hint, because it will show even when the browser *does* support the native date input and when the user will be assisted. This is problematic, because the format is different.
+The problem is that the field lacks instructions regarding the expected format. We can't explain this with a hint because it will show to those using a browser that *does* support the date input. This is problematic, because the format is different.
 
 ![]()
 
-We can be forgiving to an extent, in that we can allow dashes, slashes, dots and spaces as delimitters. But we'll need to make sure users enter in the format of DD/MM/YYYY. For those that unfortunately make a mistake, a well written error message will have to be used. The best error message is one the user never has to see, but in this case we have to endure this trade off.
+We can mitigate the risk by forgiving users for delimitting the date with slashes, periods and spaces. But typing the year first, for example, *will* cause an error. A well written error message will have to handle this case. Fortunatley, this shouldn't happen too often.
 
----
-
-With design there is always a tradeoff. I consider myself to care about everyone, but when you design for everyone you may end up designing for noone. For example, someone who considers themself an "intellect" may love reading complex high brow paragraphs of text, but we know that we should write in plain language. Hemmingway says we should write for grade 6 or less if possible because it's easy to read for everyone. Can't please em all.
+This is one of those occasions whereby a good solution for most, is less than ideal for a small number of people. This is a trade off that we have to make sometimes.
 
 ## Choosing passengers
 
-Next, users must choose how many people are travelling. Typically, passengers fall under three categories:
+Next, users choose how many people are travelling and under which category:
 
-- Adults: aged 16 and over.
-- Children: aged between 2 and 15 years old
-- Infants: who are under 2 years old
+- Adults (aged 16 and over)
+- Children (aged between 2 and 15 years old)
+- Infants (who are under 2 years old)
 
 How it might look:
 

@@ -916,13 +916,15 @@ HTML:
 </div>
 ```
 
-TODO?: LUKEW steppers: https://www.lukew.com/ff/entry.asp?1950
-
-In chapter 2 we disabled the spinner. Spinners, also known as steppers, allow users to increase increase or decrease the value by a constant amount. They are great for making small adjustments. Luke Wobrelkski says, in the same article:
+In chapter 2 we disabled the spinner. Spinners, also known as steppers, let users increase or decrease the value by a constant amount. They are great for making small adjustments. Luke Wobrelkski says, in the same article:
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-The problem with the native spinner is that it's small and hard to use. We can enhance the interface by injecting large buttons next to the input. Having done so the HTML might look like this:
+The problem with the native spinner is that it's small and hard to use. We can enhance the interface by injecting large buttons next to the input.
+
+How it might look:
+
+[!]()
 
 ```HTML
 <div class="field">
@@ -951,10 +953,7 @@ The problem with the native spinner is that it's small and hard to use. We can e
 </div>
 ```
 
-Notes:
-
-- Remove the buttons from tab sequence so that the natural flow and order of form controls is not disturbed by the enhancement.
-- We use a label so that plain language is used instead of symbols.
+The buttons are removed from the tab sequence using `tabindex="-1"`. This ensures the natural flow and order of form elements is undisturbed by these extra buttons. The buttons use iconography and although the best icon is text, these icons are well understood and keep the interface clear. For those using screen readers, we add `aria-label="Increment"` so the interface is just as clear audibly as it is visually.
 
 ```JS
 function SpinnerButtons(input) {

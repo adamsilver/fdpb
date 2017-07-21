@@ -953,7 +953,9 @@ How it might look:
 </div>
 ```
 
-The buttons are removed from the tab sequence using `tabindex="-1"`. This ensures the natural flow and order of form elements is undisturbed by these extra buttons. The buttons use iconography and although the best icon is text, these icons are well understood and keep the interface clear. For those using screen readers, we add `aria-label="Increment"` so the interface is just as clear audibly as it is visually.
+The buttons are removed from the tab sequence using `tabindex="-1"`. This ensures we don't disturb the natural flow and order of form elements. The buttons use iconography and although the best icon is text, these icons are well understood and keep the interface clean. For those using screen readers, we add `aria-label="Increment"` so the interface makes sense audibly.
+
+Here's the Javascript:
 
 ```JS
 function Stepper(input) {
@@ -1001,7 +1003,7 @@ The script injects two buttons. The buttons mimic the behaviour of the native sp
 
 ## Confirming a flight
 
-Every step unto this point has had the sole purpose of collecting information from the user so that we can show them some available flights. We have the pertinent information now so we can present the flights accordingly.
+Up to now, we've simply been storing the user's preferences in order to determine which flights to show them. Now we have all the information we need, the user can select a flight from the list of results.
 
 How it might look:
 
@@ -1011,16 +1013,49 @@ HTML:
 
 ```HTML
 <div class="field">
+	<fieldset>
+		<legend>
+			<span class="field-legend">Flights on Friday 19 June 2019</span>
+		</legend>
+		<div class="field-radioButton">
+			<label for="flight">
+				<input type="radio" name="flight" value="" id="flight" >
+				Departing at 7:20am. Arriving at 10:30am. £169.
+			</label>
+		</div>
+		<div class="field-radioButton">
+			<label for="flight1">
+				<input type="radio" name="flight" value="" id="flight1" >
+				Departing at 12:20pm. Arriving at 14:30pm. £125.
+			</label>
+		</div>
+		<div class="field-radioButton">
+			<label for="flight1">
+				<input type="radio" name="flight" value="" id="flight1" >
+				Departing at 18:20pm. Arriving at 20:30pm. £99.
+			</label>
+		</div>
+	</fieldset>
 </div>
 ```
 
-Each flight is represented as a radio button. In fact the age old rule that we shouldn't show more than 7 radio buttons at a time is actually nonsense. As with many design problems, the answer is it depends. That rule was born out of putting so much in a single screen, that having a single question take up that much room may cause a problem.
+Notes:
+
+- The flights for the chosen day use radio buttons.
+- The user can go back and forth between days using pagination.
+- The important information is within the label for each radio button.
+
+## Choosing a seat
+
+<!--
+Each flight is represented as a radio button. The age old rule that we shouldn't show more than 7 radio buttons at a time is actually nonsense. As with many design problems, the answer is it depends. That rule was born out of putting so much in a single screen, that having a single question take up that much room may cause a problem.
 
 In this case though, the entire screen is about choosing a flight. Hiding the choices behind a menu is both unnecessary and constraining. There is quite a lot of information to store inside the label. This is another benefit of using radio buttons as opposed to select boxes. We can format a number of elements inside the label giving us flexibility to indicate price and time differences.
 
 Showing the options makes the flight times and prices easy to compare against themselves.
+-->
 
-## Choosing a seat
+
 
 Next, the user needs to choose a seat. If more than one passenger is travelling, they'll be able to select more than one seat. In this case we'll want to use checkboxes to represent each seat.
 

@@ -1217,6 +1217,8 @@ Perhaps we don't need to ask it up front. Perhaps we can just let users select a
 
 Aha, that's not going to work though. Having talked this through with this sheet of paper, I realise why we're asking for that information upfront. It's because the age of the passenger influences the price of the ticket. The price of the ticket influences the choice the user makes.
 
+Also disabling the seat sucks. It means the user has to unselect the selected seat first before choosing the one they want. Meaning we force an order on the user unnecessarily.
+
 Unfortunately, this time we'll have to leave it in. But as always, it's vital we know why.
 
 If there is just one passenger travelling, we should change the inputs to radio buttons. This way, the affordance itself tells users they can only choose one seat.

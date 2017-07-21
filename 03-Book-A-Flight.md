@@ -1136,17 +1136,17 @@ Showing the options makes the flight times and prices easy to compare against th
 
 ### Nested fieldsets
 
-It may not be obvious, but the preferences we have collected from users so far has subtly influenced the interface we have given our users. Specifically, we didn't ask the user whether they wanted to travel first class or economy, which reduced friction upfront.
+The preferences we've collected from users earlier in the process have influenced the interface we have designed. Specifically, we didn't ask the user whether they wanted to travel first class or economy.
 
-The downside is that we now have to present both categorisations on a single screen. To expose this categorisation both visually and semantically, we need a nested fieldset.
+This reduced the friction upfront, in exchange for something a little more complicated later. Later is now, and what it means is that we need to present both categorisations of seats in one screen.
 
-The outermost fieldset represents the overarching question *What seat do you want?* and the inner fieldset represents the categorisation: either first class or economy.
+To do this in a way that works both visually and audibly we need to use nested fielsets. The outermost legend represents *What seat do you want?* and the innermost legend represents the categorisation.
 
-It would be prudent to ask users this quesion upfront, so that we can reduce the complexity of the experience, and HTML alike. This is particularly useful for screen reader and keyboard users. But really it helps all users, by increasing speed of the page and finally, reducing options for users.
+It's smart to ask users this quesion earlier, so we can reduce the complexity of the experience here for everyone regardless of interaction preferences.
 
-In anycase, most users will choose economy meaning we can use a smart default here. The tiny bit of added friction upfront, is a small price to pay for the reduced complexity during this step. As with everything though, test the experience with users.
+In any case, most users will choose economy meaning we can use a smart default here. The tiny bit of added friction upfront, is probably a small price to pay for the reduced complexity at this point.
 
-Here's how a simplified version might look:
+How the simplified version might look:
 
 ![Image](./images/image.png)
 
@@ -1155,7 +1155,7 @@ HTML:
 ```HTML
 <fieldset>
 	<legend>
-		Choose 2 seats
+		Choose seats
 	</legend>
 	<div class="row">
 		<div class="seat">
@@ -1178,13 +1178,13 @@ HTML:
 </fieldset>
 ```
 
-This looks good as is and I would encourage you to test this with users before adding style enhancements. But my spidey sense tells me that we can improve the experience by hiding the checkboxes and styling the labels to look like seats in a plane.
+This works well. But if user feedback shows further improvements are necessary we might consider adding a few style enhancements. To do this we can hide the checkboxes and make the labels look like seats on a plane.
 
-This saves space giving our design a better chance of working on smaller screens, *without* needing a horizontal scroll bar or having the seats wrap. It should also help to show those seats that are in the isle and those that are by the window.
+This saves space which is particularly useful on small screens meaning we don't need to give users the horizontal scroll bar or having seats wrap onto two lines.
 
-The important thing to note here though, is that we shouldn't hide the labels unless Javascript is available and capable to manage focus. Without this, keyboard users won't know where the cursor is.
+We shouldn't hide the labels without Javascript because we need Javascript to manage to the focus. That is, keyboard users won't know where the focus is because the checkboxes receive focus, not the labels.
 
-To fix this, we can listen to the focus event of each checkbox, and when it fires, we add a highlight to the label. When it blurs, remove the highlight. We don't need to do anything for assistive devices here because they will use the form like normal.
+To fix this, we listen to the focus event of each checkbox and add a highlight to the label. When it blurs we remove the highlight giving the illusion of focus. We don't need to do anything for assistive devices here because they will use the form like normal.
 
 ```CSS
 https://codepen.io/siiron/pen/MYXZWg
@@ -1204,6 +1204,8 @@ CheckboxLabelHighlighter.prototype.onCheckboxBlur = function(e) {
 	$(e.target).removeClass('seat-isFocussed');
 }
 ```
+
+HERE
 
 ## Limiting seat selection
 

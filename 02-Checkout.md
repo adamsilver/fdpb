@@ -202,17 +202,21 @@ HTML:
 
 ```html
 <form novalidate>
-	<fieldset>
-		<legend>Delivery options</legend>
-		<div>
-		    <input type="radio" name="option" id="option1" value="Standard" checked>
-		    <label for="option1">Standard (Free, 2-3 days)</label>
-		</div>
-		<div>
-		    <input type="radio" name="option" id="option2" value="Premium">
-		    <label for="option2">Premium (£6, Next day)</label>
-		</div>
-	</fieldset>
+	<div class="field">
+		<fieldset>
+			<legend>
+				<span class="field-legend">Delivery options</span>
+			</legend>
+			<div class="field-radioButton">
+			    <input type="radio" name="option" id="option1" value="Standard" checked>
+			    <label for="option1">Standard (Free, 2-3 days)</label>
+			</div>
+			<div class="field-radioButton">
+			    <input type="radio" name="option" id="option2" value="Premium">
+			    <label for="option2">Premium (£6, Next day)</label>
+			</div>
+		</fieldset>
+	</div>
 	<input type="submit" value="Next">
 </form>
 ```

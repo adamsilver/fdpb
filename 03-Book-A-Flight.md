@@ -4,15 +4,15 @@ In this chapter, we'll design a service that allows users to book a flight. At f
 
 Here are the main steps in the flow:
 
-1. Choose origin/destination
-2. Choose departure/return date
+1. Choose origin (and destination)
+2. Choose departure (and return) date
 3. Choose passengers
 4. Choose flight
 5. Choose seat
 
 After step 5, the user will go to pay. I've left it out as we covered payment in the previous chapter.
 
-## 1. Choose origin/destination
+## 1. Choose origin (and destination)
 
 The first thing users need to do is select an origin and destination (both consist of the same problems and will use the same pattern.) Without knowing this information, we can't search for flights. The question is how are we going present a list of destinations?
 
@@ -572,7 +572,7 @@ Notes:
 - Clicking the down arrow button, reveals all the possible options.
 - Pressing <kbd>escape</kbd> hides the options.
 
-## Choosing dates
+## 2. Choose departure (and return) date
 
 Dates are hard[^]. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of an interface.
 
@@ -881,7 +881,7 @@ We can mitigate the risk by forgiving users for delimitting the date with slashe
 
 This is one of those occasions whereby a good solution for most, is less than ideal for a small number of people. This is a trade off that we have to make sometimes.
 
-## Choosing passengers
+## 3. Choose passengers
 
 Next, users choose how many people are travelling and under which category:
 
@@ -1001,7 +1001,7 @@ Stepper.prototype.onIncrementClick = function(e) {
 
 The script injects two buttons. The buttons mimic the behaviour of the native spinner by decreasing or increasing the input's value by 1.
 
-## Confirming a flight
+## 4. Choose flight
 
 Up to now, we've simply been storing the user's preferences in order to determine which flights to show them. Now we have all the information we need, the user can select a flight from the list of results.
 
@@ -1041,27 +1041,18 @@ HTML:
 
 Notes:
 
-- The flights for the chosen day use radio buttons.
+- Each flight is represented as a radio button.
 - The user can go back and forth between days using pagination.
-- The important information is within the label for each radio button.
+- The date of the flight is part of the legend to give context to the radio buttons.
+- Each radio button contains departure time, arrival time and price, giving users all the information they need in order to make an informed decision.
 
-## Choosing a seat
-
-<!--
-Each flight is represented as a radio button. The age old rule that we shouldn't show more than 7 radio buttons at a time is actually nonsense. As with many design problems, the answer is it depends. That rule was born out of putting so much in a single screen, that having a single question take up that much room may cause a problem.
-
-In this case though, the entire screen is about choosing a flight. Hiding the choices behind a menu is both unnecessary and constraining. There is quite a lot of information to store inside the label. This is another benefit of using radio buttons as opposed to select boxes. We can format a number of elements inside the label giving us flexibility to indicate price and time differences.
-
-Showing the options makes the flight times and prices easy to compare against themselves.
--->
-
-
+## 5. Choose seat
 
 Next, the user needs to choose a seat. If more than one passenger is travelling, they'll be able to select more than one seat. In this case we'll want to use checkboxes to represent each seat.
 
-In a similar vein to picking dates, it makes sense to pick a seat&mdash;visually at least&mdash;in the context of where that seat is located. As a user I want to know where the seat is located so that I can choose an appropriate seat for me and my wife, for example.
+As a user I want to know where the seat is located so that I can choose an appropriate seat for my wife and I based on our requirements and preferences.
 
-Up to now, we have just presented form fields in a simple manner. In this case, however, we can help visual users in particular by presenting the checkboxes as if they were seats on a plane, laid out in rows.
+Up to now, we've displayed form fields in a natural stacking manner. In this case, however, we can help sighted users by showing the checkboxes as if they were seats on a plane laid out in rows.
 
 How it might look:
 
@@ -1132,6 +1123,16 @@ HTML:
 	</fieldset>
 </fieldset>
 ```
+
+ids starting with numbers?
+
+### Breaking the age old rule
+
+Each flight is represented as a radio button. The age old rule that we shouldn't show more than 7 radio buttons at a time is actually nonsense. As with many design problems, the answer is it depends. That rule was born out of putting so much in a single screen, that having a single question take up that much room may cause a problem.
+
+In this case though, the entire screen is about choosing a flight. Hiding the choices behind a menu is both unnecessary and constraining. There is quite a lot of information to store inside the label. This is another benefit of using radio buttons as opposed to select boxes. We can format a number of elements inside the label giving us flexibility to indicate price and time differences.
+
+Showing the options makes the flight times and prices easy to compare against themselves.
 
 ### Nested fieldsets
 

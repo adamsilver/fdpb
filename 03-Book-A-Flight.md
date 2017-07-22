@@ -1187,7 +1187,26 @@ Savvy users might realise they need to deselect their previously chosen seat bef
 Javascript:
 
 ```JS
-JS here
+function SeatLimiter(max) {
+	this.max = max;
+	this.checkboxes = $('');
+	this.checkboxes.on('click', $.proxy(this, 'onCheckboxClick'));
+}
+
+SeatLimiter.prototype.onCheckboxClick = function(e) {
+	this.check(e.target);
+};
+
+SeatLimiter.prototype.check = function(checkbox) {
+	var checked = this.checkboxes.filter(':checked');
+	if(checked.length >= this.max) {
+		if(checkbox !== this.checked[0]) {
+			this.checked[0].checked = false;
+		} else {
+			this.checked[1].checked = false;
+		}
+	}
+};
 ```
 
 ## Summary

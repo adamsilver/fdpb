@@ -99,7 +99,8 @@
 	- Visual design
 	- Checkboxes
 	- Nested fieldsets
-	- Enhancing
+	- Simplify the interface
+	- Hiding the labels
 	- Limit seat selection
 
 ## 4. Login

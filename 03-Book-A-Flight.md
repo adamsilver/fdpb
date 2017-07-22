@@ -1047,122 +1047,29 @@ Notes:
 
 ## 5. Choose seat
 
-Next, the user needs to choose a seat. If more than one passenger is travelling, they can select more than one seat. So we'll need to represent each seat as a checkbox, not a radio button.
-
-As a user, I want to know the location of the seat so that I can choose an appropriate seat for my wife and I based on our  preferences.
-
-Up to now, we've displayed form fields in a natural stacking manner. In this case, however, we can help sighted users laying out the checkboxes in rows, just like they are on an actual plane.
+Next, the user needs to choose a seat. If more than 1 passenger is travelling, they can select more than 1 seat. So we'll need to represent each seat as a checkbox. Conversely, if 1 passenger is travelling use radio buttons.
 
 How it might look:
 
 ![Image](./images/image.png)
 
-HTML:
+Up to now, we've displayed form fields in a stacked manner. This time though, we've laid out the checkboxes in rows, just like they are on the plane. This meets the need that *as a user, I want to know the location of the seat, so that I can choose preferential seats*.
 
-```HTML
-<fieldset>
-	<legend>
-		<span class="field-legend">Seating</span>
-		<span class="field-hint">Select two seats</span>
-	</legend>
-	<fieldset>
-		<legend>
-			<span class="field-legend">First class</span>
-		</legend>
-		<div class="row">
-			<div class="field-checkbox">
-				<label for="S1A">
-					<input type="checkbox" name="seat" value="1A" id="S1A">
-					1A
-				</label>
-			</div>
-			<div class="field-checkbox">
-				<label for="S1B">
-					<input type="checkbox" name="seat" value="1B" id="S1B">
-					1B
-				</label>
-			</div>
-			<div class="field-checkbox">
-				<label for="S1C">
-					<input type="checkbox" name="seat" value="1C" id="S1C">
-					1C
-				</label>
-			</div>
-			<div class="field-checkbox">
-				<label for="S1D">
-					<input type="checkbox" name="seat" value="1D" id="S1D">
-					1D
-				</label>
-			</div>
-		</div>
-		<div class="row">
-			...
-		</div>
-	</fieldset>
-	<fieldset>
-		<legend>
-			<span class="field-legend">Economy class</span>
-		</legend>
-		<div class="row">
-			<div class="field-checkbox">
-				<label for="S9A">
-					<input type="checkbox" name="seat" value="9A" id="S9A">
-					9A
-				</label>
-			</div>
-			<div class="field-checkbox">
-				<label for="S9B">
-					<input type="checkbox" name="seat" value="9B" id="S9B">
-					9B
-				</label>
-			</div><div class="field-checkbox">
-				<label for="S9C">
-					<input type="checkbox" name="seat" value="9C" id="S9C">
-					9C
-				</label>
-			</div><div class="field-checkbox">
-				<label for="S9D">
-					<input type="checkbox" name="seat" value="9D" id="S9D">
-					9D
-				</label>
-			</div><div class="field-checkbox">
-				<label for="S9E">
-					<input type="checkbox" name="seat" value="9E" id="S9E">
-					9E
-				</label>
-			</div><div class="field-checkbox">
-				<label for="S9F">
-					<input type="checkbox" name="seat" value="9F" id="S9F">
-					9F
-				</label>
-			</div>
-		</div>
-		<div class="row">
-			...
-		</div>
-	</fieldset>
-</fieldset>
-```
+### Breaking the rules
 
-### Breaking the age old rule
+There are many seats on a plane, and therefore there are many checkboxes or radio buttons. Traditional advice is to use radio buttons where there are less than 7 choices, otherwise use a select box. This makes some sense in the context of a long an unweildly form.
 
-Each flight is represented as a radio button. The age old rule that we shouldn't show more than 7 radio buttons at a time is actually nonsense. As with many design problems, the answer is it depends. That rule was born out of putting so much in a single screen, that having a single question take up that much room may cause a problem.
-
-In this case though, the entire screen is about choosing a flight. Hiding the choices behind a menu is both unnecessary and constraining. There is quite a lot of information to store inside the label. This is another benefit of using radio buttons as opposed to select boxes. We can format a number of elements inside the label giving us flexibility to indicate price and time differences.
-
-Showing the options makes the flight times and prices easy to compare against themselves.
+We don't have that. We have one dedicated screen solely for choosing seats. Using radio buttons makes the seats easy to compare and select. This sort of interface just isn't possible with a select box, proving that, on occasion rules are made to be broken.
 
 ### Nested fieldsets
 
-The preferences we've collected from users earlier in the process have influenced the interface we have designed. Specifically, we didn't ask the user whether they wanted to travel first class or economy.
+The preferences collected up to now have influenced the design of the interface. Specifically, we didn't ask users whether they wanted to travel first class or economy.
 
-This reduced the friction upfront, in exchange for something a little more complicated later. Later is now, and what it means is that we need to present both categorisations of seats in one screen.
+This reduced the friction upfront in exchange for something more complicated later. Later is now, and it means we need to present both categorisations of seats at the same time.
 
-To do this in a way that works both visually and audibly we need to use nested fielsets. The outermost legend represents *What seat do you want?* and the innermost legend represents the categorisation.
+To do this in a way that works both visually and audibly we need to use nested fielsets. The innermost legends represents the categorisation.
 
-It's smart to ask users this quesion earlier, so we can reduce the complexity of the experience here for everyone regardless of interaction preferences.
-
-In any case, most users will choose economy meaning we can use a smart default here. The tiny bit of added friction upfront, is probably a small price to pay for the reduced complexity at this point.
+If we ask the users this question earlier on in the gathering process, it reduces friction at this stage, whether they are sighted mouse users, or those using screen readers with a keyboard. In any case, we can default to economy and allow users to change this at any time, using the same approach we did in chapter 2.
 
 How the simplified version might look:
 
@@ -1173,22 +1080,46 @@ HTML:
 ```HTML
 <fieldset>
 	<legend>
-		Choose seats
+		<span class="field-legend">Choose seats</span>
+		<span class="field-hint">Hint about seating numbers to know what's what</span>
 	</legend>
 	<div class="row">
-		<div class="seat">
-			<input type="checkbox" name="seat" id="1A">
-			<label for="1A">1A</label>
+		<div class="field-checkbox">
+			<label for="S9A">
+				<input type="checkbox" name="seat" value="9A" id="S9A">
+				9A
+			</label>
 		</div>
-		<div class="seat">
-			<input type="checkbox" name="seat" id="1B">
-			<label for="1B">1B</label>
+		<div class="field-checkbox">
+			<label for="S9B">
+				<input type="checkbox" name="seat" value="9B" id="S9B">
+				9B
+			</label>
 		</div>
-		<div class="seat">
-			<input type="checkbox" name="seat" id="a3">
-			<label for="a3">A3</label>
+		<div class="field-checkbox">
+			<label for="S9C">
+				<input type="checkbox" name="seat" value="9C" id="S9C">
+				9C
+			</label>
 		</div>
-		...
+		<div class="field-checkbox">
+			<label for="S9D">
+				<input type="checkbox" name="seat" value="9D" id="S9D">
+				9D
+			</label>
+		</div>
+		<div class="field-checkbox">
+			<label for="S9E">
+				<input type="checkbox" name="seat" value="9E" id="S9E">
+				9E
+			</label>
+		</div>
+		<div class="field-checkbox">
+			<label for="S9F">
+				<input type="checkbox" name="seat" value="9F" id="S9F">
+				9F
+			</label>
+		</div>
 	</div>
 	<div class="row">
 		...
@@ -1196,7 +1127,9 @@ HTML:
 </fieldset>
 ```
 
-This works well. But if user feedback shows further improvements are necessary we might consider adding a few style enhancements. To do this we can hide the checkboxes and make the labels look like seats on a plane.
+
+
+This works well. But if feedback shows improvements are necessary we might consider adding a few style enhancements. To do this we can hide the checkboxes and make the labels look like seats on a plane.
 
 This saves space which is particularly useful on small screens meaning we don't need to give users the horizontal scroll bar or having seats wrap onto two lines.
 
@@ -1244,13 +1177,6 @@ Unfortunately, this time we'll have to leave it in. But as always, it's vital we
 If there is just one passenger travelling, we should change the inputs to radio buttons. This way, the affordance itself tells users they can only choose one seat.
 
 To crystalise this information for users, we should include this information a hint explaining they can only select X users.
-
-If Javascript is available and the browser is capable, we can enhance the experience so that users don't experience an error. That is, *You can only select 2 seats*. We can do this by disabling all seats as soon as the maximum amount have been selected. (Is this good?).
-
-Here's what that script looks like:
-
-```JS
-```
 
 ## Summary
 

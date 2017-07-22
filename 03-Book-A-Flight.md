@@ -1184,11 +1184,18 @@ Savvy users might realise they need to deselect their previously chosen seat bef
 
 ## Summary
 
-TODO: Summary
+This chapter picked up where we left off from chapter 2 by continuing to use One Thing Per Page screen space to design innovative and helpful interfaces for booking a flight online. We also used the summary pattern and smart defaults to reduce friction where possible.
 
-## TODO
+But, crucially, we broke new ground in designing progressively-enhanced, custom form components:
 
-- In 200X, somebody wrote [Abbr hatrick](https://alistapart.com/article/hattrick), stating that whilst not many browsers support it, eventually they will. The prediction came true. And it's the same approach we can take more broadly.
+- Autocomplete to make selection from a long list fast.
+- Date picker, formatted as a calendar to make date finding easy.
+- Stepper to make small adjustments to the amount of passengers effortless.
+- Seat chooser that makes picking seats as close to real life as possible.
+
+All of the components are fully inclusive. We made sure of this by designing them to be focusable and operable with the keyboard and screen readers. We used ARIA attributes where necessary and ensured the components work well on small and big screens alike.
+
+Whilst each of these components were designed with a flight booking service in-mind, all of them are transferable to other problem domains such as booking a cinema ticket or a hotel room.
 
 ## Footnotes
 

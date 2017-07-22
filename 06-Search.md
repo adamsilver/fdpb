@@ -105,6 +105,8 @@ The only thing that differs is the location of the filter. On big screens we mig
 
 ### Separate submission from selection
 
+‘Use checkboxes and radio buttons only to change settings, not as action buttons’ https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/
+
 We've talked about this before[^?] but we're going to want to stay true to familar conventions by ensuring submission is separate from selection. Like select boxes, we shouldn't submit a form when the user checks a radio button for example.
 
 A good reason for this is that the user may want to choose several facets before submission. For example, if they're searching for a pair of shoes they may want to select the size and colour at the same time. Doing this with two diseparate interactions is wasteful of their time and puts unnecessary load on the server.

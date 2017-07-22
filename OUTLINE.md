@@ -96,12 +96,15 @@
 	- Custom incremement/decrement
 - Choose flight
 - Choose seat
-	- Visual design
-	- Checkboxes
+	- Radios versus checkboxes
+	- Visual layout
+	- Breaking the 7 choice rule
 	- Nested fieldsets
 	- Simplify the interface
-	- Hiding the labels
-	- Limit seat selection
+	- Hint
+	- Taken seats
+	- Hide the checkboxes
+	- Limiting seat selection
 
 ## 4. Login
 

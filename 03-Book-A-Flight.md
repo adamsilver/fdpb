@@ -9,8 +9,7 @@ Here are the main steps in the flow:
 3. Choose passengers
 4. Choose flight
 5. Choose seat
-
-After step 5, the user will go to pay. I've left it out as we covered payment in the previous chapter.
+6. Payment (already covered in chapter 2)
 
 ## 1. Choose origin (and destination)
 
@@ -1043,16 +1042,16 @@ Notes:
 
 - Each flight is represented as a radio button.
 - The user can go back and forth between days using pagination.
-- The date of the flight is part of the legend to give context to the radio buttons.
+- The legend contains the flight date giving context to each of the radio buttons in the group.
 - Each radio button contains departure time, arrival time and price, giving users all the information they need in order to make an informed decision.
 
 ## 5. Choose seat
 
-Next, the user needs to choose a seat. If more than one passenger is travelling, they'll be able to select more than one seat. In this case we'll want to use checkboxes to represent each seat.
+Next, the user needs to choose a seat. If more than one passenger is travelling, they can select more than one seat. So we'll need to represent each seat as a checkbox, not a radio button.
 
-As a user I want to know where the seat is located so that I can choose an appropriate seat for my wife and I based on our requirements and preferences.
+As a user, I want to know the location of the seat so that I can choose an appropriate seat for my wife and I based on our  preferences.
 
-Up to now, we've displayed form fields in a natural stacking manner. In this case, however, we can help sighted users by showing the checkboxes as if they were seats on a plane laid out in rows.
+Up to now, we've displayed form fields in a natural stacking manner. In this case, however, we can help sighted users laying out the checkboxes in rows, just like they are on an actual plane.
 
 How it might look:
 
@@ -1063,26 +1062,37 @@ HTML:
 ```HTML
 <fieldset>
 	<legend>
-		Choose 2 seats (WORDS)
+		<span class="field-legend">Seating</span>
+		<span class="field-hint">Select two seats</span>
 	</legend>
 	<fieldset>
-		<legend>First class</legend>
+		<legend>
+			<span class="field-legend">First class</span>
+		</legend>
 		<div class="row">
-			<div class="seat">
-				<input type="checkbox" name="seat" id="1A">
-				<label for="1A">1A</label>
+			<div class="field-checkbox">
+				<label for="S1A">
+					<input type="checkbox" name="seat" value="1A" id="S1A">
+					1A
+				</label>
 			</div>
-			<div class="seat">
-				<input type="checkbox" name="seat" id="1B">
-				<label for="1B">1B</label>
+			<div class="field-checkbox">
+				<label for="S1B">
+					<input type="checkbox" name="seat" value="1B" id="S1B">
+					1B
+				</label>
 			</div>
-			<div class="seat">
-				<input type="checkbox" name="seat" id="1C">
-				<label for="1C">1C</label>
+			<div class="field-checkbox">
+				<label for="S1C">
+					<input type="checkbox" name="seat" value="1C" id="S1C">
+					1C
+				</label>
 			</div>
-			<div class="seat">
-				<input type="checkbox" name="seat" id="1D">
-				<label for="1D">1D</label>
+			<div class="field-checkbox">
+				<label for="S1D">
+					<input type="checkbox" name="seat" value="1D" id="S1D">
+					1D
+				</label>
 			</div>
 		</div>
 		<div class="row">
@@ -1090,31 +1100,41 @@ HTML:
 		</div>
 	</fieldset>
 	<fieldset>
-		<legend>Economy class</legend>
+		<legend>
+			<span class="field-legend">Economy class</span>
+		</legend>
 		<div class="row">
-			<div class="seat">
-				<input type="checkbox" name="seat" id="9A">
-				<label for="9A">9A</label>
+			<div class="field-checkbox">
+				<label for="S9A">
+					<input type="checkbox" name="seat" value="9A" id="S9A">
+					9A
+				</label>
 			</div>
-			<div class="seat">
-				<input type="checkbox" name="seat" id="9B">
-				<label for="9B">9B</label>
-			</div>
-			<div class="seat">
-				<input type="checkbox" name="seat" id="9C">
-				<label for="9C">9C</label>
-			</div>
-			<div class="seat">
-				<input type="checkbox" name="seat" id="9D">
-				<label for="9D">9D</label>
-			</div>
-			<div class="seat">
-				<input type="checkbox" name="seat" id="9E">
-				<label for="9E">9E</label>
-			</div>
-			<div class="seat">
-				<input type="checkbox" name="seat" id="9F">
-				<label for="9F">9F</label>
+			<div class="field-checkbox">
+				<label for="S9B">
+					<input type="checkbox" name="seat" value="9B" id="S9B">
+					9B
+				</label>
+			</div><div class="field-checkbox">
+				<label for="S9C">
+					<input type="checkbox" name="seat" value="9C" id="S9C">
+					9C
+				</label>
+			</div><div class="field-checkbox">
+				<label for="S9D">
+					<input type="checkbox" name="seat" value="9D" id="S9D">
+					9D
+				</label>
+			</div><div class="field-checkbox">
+				<label for="S9E">
+					<input type="checkbox" name="seat" value="9E" id="S9E">
+					9E
+				</label>
+			</div><div class="field-checkbox">
+				<label for="S9F">
+					<input type="checkbox" name="seat" value="9F" id="S9F">
+					9F
+				</label>
 			</div>
 		</div>
 		<div class="row">
@@ -1123,8 +1143,6 @@ HTML:
 	</fieldset>
 </fieldset>
 ```
-
-ids starting with numbers?
 
 ### Breaking the age old rule
 
@@ -1208,6 +1226,8 @@ CheckboxLabelHighlighter.prototype.onCheckboxBlur = function(e) {
 HERE
 
 ## Limiting seat selection
+
+and instead of this, just deselect the previous choice, instead of disabling. Do the undo for them basically with a little enhancement.
 
 We purposely asked users how many passengers are flying. Much like the previous point, this has also influenced our interface, and perhaps unnecessarily so.
 

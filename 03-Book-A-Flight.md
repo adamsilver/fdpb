@@ -1134,11 +1134,11 @@ Notes:
 
 ### Hiding the checkboxes
 
-On small screens each seat takes up a lot of space and might cause either a horizontal scroll bar or the seats to wrap onto 2 lines. If user feedback proves this to be problematic we might consider hiding the checkboxes.
+On small screens each seat takes up a lot of space and might cause  a horizontal scroll bar to appear or the seats to wrap over 2 lines. If user feedback proves this to be a problem, we might consider hiding the checkboxes.
 
-Hiding the checkboxes without Javascript is dangerous. This is because pressing <kbd>tab</kbd> moves focus to the checkboxes&mdash;not the labels. If we hide the checkboxes, then the interface will appear broken as tabbing will do nothing. We also need to reimplement the disabled states for seats that are unavailable.
+Hiding the checkboxes without Javascript is dangerous. This is because pressing <kbd>tab</kbd> moves focus to the checkbox&mdash;not the label. Hiding the checkboxes breaks the interface, because tabbing to a hidden input doesn't give feedback to the user.
 
-We need to fix this with Javascript by listening to the focus and blur events. When the user moves focus to the visually hidden checkbox, we add a CSS class to the associated label giving users the illusion that it is focussed.
+We can fix this by listening to `focus` and `blur` events. When the user moves focus to the visually hidden checkbox, we add a CSS class to the associated label giving users the illusion that it is focussed.
 
 We hide the checkbox with CSS but only when the Javascript is available, indicated by the `enhanced` class:
 
@@ -1155,6 +1155,8 @@ We hide the checkbox with CSS but only when the Javascript is available, indicat
 }
 
 ```
+
+Javascript:
 
 ```JS
 function SeatEnhancer() {
@@ -1174,13 +1176,19 @@ SeatEnhancer.prototype.onCheckboxBlur = function(e) {
 
 ### Limiting seat selection
 
-We said earlier if just 1 passenger is travelling use radio buttons. This naturally stops the user from selecting more than one. In the case of checkboxes, the user can select more than the allocated amount, showing an error once they submit.
+Earlier we said to use radio buttons if 1 passenger is travelling. This naturally stops users from selecting more than 1 seat. In the case of checkboxes, the user can select more than their quota which results in an error once submitted.
 
-User testing may show that most users don't see an error and for those that do, it's not a problem that causes significant friction. If, however, testing shows this to be a problem we could do something about this by limiting seat selection.
+User testing may prove this not to be a problem and therefore doesn't need any further consideration. In the event that it does prove problematic, we could solve this by limiting the amount of seats the user can select using Javascript.
 
-We could stop the user selecting extra seats with a Javascript enhancement that disables the remaining checkboxes once the user has reached their quota. However, if the user has reached their quota and clicks another seat nothing happens creating a disagreable experience.
+To do this we could disable the remaining checkboxes once the user reaches their quota. However, if the user has reaches their quota and clicks another seat nothing happens creating a disagreable experience because their is no feedback.
 
-Savvy users might realise they need to deselect their previously chosen seat before selecting another. Less savvy users might not. We can do the hard work for savvy and less savvy users by automatically performing this action with Javascript.
+Savvy users might realise they need to deselect their previously chosen seat before selecting another. Less savvy users might not. We can do the hard work for savvy and less savvy users alike by automatically performing this action for them.
+
+Javascript:
+
+```JS
+JS here
+```
 
 ## Summary
 

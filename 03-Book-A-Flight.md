@@ -9,15 +9,15 @@ Here are the main steps in the flow:
 3. Choose passengers
 4. Choose flight
 5. Choose seat
-6. Payment (already covered in chapter 2)
+6. Payment (covered in chapter 2)
 
 ## 1. Choose origin (and destination)
 
-The first thing users need to do is select an origin and destination (both consist of the same problems and will use the same pattern.) Without knowing this information, we can't search for flights. The question is how are we going present a list of destinations?
+First users have to choose an origin and destination (both consist of the same problems and will use the same pattern.) Without knowing this information, we can't search for flights. The question is how are we going present a list of destinations?
 
 One aspect of being a thoughtful designer is considering the materials that are offered natively. This is because, generally speaking, native controls are familiar and fully accessible. It's also far less work to use them than it is to build our own, as we'll see shortly. This is what comes to mind when reading Deiter Rams famous quote ‘Less but better’.
 
-There are 3 native controls in particular that could work well for choosing a destination. We'll explore those now.
+There are 3 native form controls that could work for choosing a destination. We'll explore those now.
 
 ### Select box
 
@@ -31,17 +31,17 @@ Designers often use `select` boxes because they save space. But interface design
 - they hide choices behind an unnecessary extra click.
 - they are not easily searchable.
 
-Usability expert, Luke Wobrelski, goes as far to state that *Dropdowns Should be the UI of Last Resort*[^]. We'll take heed of his experience.
+Usability expert, Luke Wobrelski, even states that the select box should be the ‘UI of last resort’[^1]. We'll take heed of his experience.
 
 ### Radio buttons
 
-Unlike select boxes, radio buttons present choices clearly and are generally well-understood and accessible by default. However, they are less suitable when they consist of many choices. That is, we could have hundreds, if not thousands of destinations.
+Unlike select boxes, radio buttons present choices clearly, are generally well-understood and are accessible. However, they are less suitable when they consist of many choices. We could have hundreds of destinations on offer, creating long and unweildly pages.
 
-Radio buttons, in this case, create pages that are long and unweildly. Some browsers provide a native search facility (activated by <kbd>CMD+F</kbd>) allowing users to *jump* to the option quickly. But most users aren't aware of this. Moreover we shouldn't rely on an inconspicuous browser feature to fix holes in our own design.
+Some browsers have a native search facility (activated by <kbd>CMD+F</kbd>) allowing users to *jump* to the option quickly. But most users aren't aware of this. Moreover we shouldn't rely on an inconspicuous browser feature to fix holes in our own interface.
 
 ### Search box
 
-A text box (`input type="search"`) is another option. The search type enhances the functionality of a regular text box (`input type="text"`) by allowing the user to clear the contents of the field&mdash;either by tapping the <kbd>x</kbd> or pressing <kbd>escape</kbd>.
+A text box (`input type="search"`) is another option. The search type enhances the functionality of a regular text box (`input type="text"`) by letting the user clear the contents of the field&mdash;either by tapping the ‘x’ or pressing <kbd>escape</kbd>.
 
 ![Image here](/etc/)
 
@@ -56,26 +56,24 @@ HTML:
 </div>
 ```
 
-This design works well when the results of the input are completely dynamic and vast in size and breadth. For example, searching for products on Amazon. But for this service, we have a finite amount of destinations that we know in advance.
-
-If we let users search unassisted, they may end up seeing a message: *we don't fly to that destination*, which seems a bit unnecessary.
+This design works well when submission yields potentially a huge amount of dynamic results. For example, searching for products on Amazon[^2]. But for this service, we have a finite amount of destinations that we know in advance. And if we leave users to search unassisted, this could result in a ‘no results’ which seems a bit unnecessary.
 
 ### Autocomplete
 
-We really need a control with the features of a search box and select box rolled into one. As the user types a destination, suggestions appear allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations.
+We really need a control with the features of a search box and select box rolled into one. As the user types a destination, suggestions appear allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations and avoids users having to type the destination without any typos.
 
-HTML5 provides `datalist` which does exactly this. Unfortunately, it's so buggy[^] that it's impossible to design a robust solution for use on the open web.
+HTML5's `datalist` promises exactly this functionality but it's so buggy[^3] that we're not able to rely on it, especially if we want to create a robust and inclusive design for consumption on the general web.
 
-We'll have to design a custom component. To do this, we'll need to follow some important rules[^]:
+We'll have to design a custom component. To do this, we'll need to follow Steve Faulkner's ‘punch list’[^4]. It should:
 
-- be focusable with the keyboard
-- be operable with the keyboard
-- work with assistive devices
-- work without Javascript
+- be focusable with the keyboard.
+- be operable with the keyboard.
+- work with assistive devices.
+- work without Javascript.
 
-To solve the last problem we need to talk about Progressive Enhancement. Progressive Enhancement is about providing a baseline core experience for everyone. Then, where possible, creating a better, enhanced experience for those using a more capable browser.
+To solve the last problem we need to talk about Progressive Enhancement. Progressive Enhancement is about providing a core experience for everyone. Then, if possible and necessary, creating a better, enhanced experience for those using a more capable browser.
 
-The enhanced experience will be an autocomplete. But what will the core experience be: a text box or a select box. In this case, it seems prudent to use a select box. At least, a select box removes the chance of seeing a lack of results after submission and a round trip to the server.
+The enhanced experience will be an autocomplete. But what will the core experience be: a text box or a select box. In this case, it seems prudent to use a select box. At least a select box removes the chance of seeing a lack of results after submission and therefore saves users a server round trip.
 
 How it looks (before enhancement):
 
@@ -148,25 +146,25 @@ There are 3 component parts:
 - A menu to show suggestions
 - A status box to announce changes to screen reader users
 
-The HTML, in combination with CSS and Javascript will display suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with a mouse, keyboard and screen reader interchangeably.
+The HTML in combination with CSS and Javascript displays suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with a mouse, keyboard and screen reader interchangeably.
 
 Text box notes:
 
-- `role="combobox"` to announce that they are interacting with an autocomplete control, not a regular text box.
-- `aria-autocomplete="list"` to announce that in using this autocomplete, a list will appear from which the user can choose.
-- `aria-expanded` to indicate the menu is showing or not.
+- `role="combobox"` announces that they are using an autocomplete control, not a regular text box.
+- `aria-autocomplete="list"` denotes that, a list will appear from which the user can choose.
+- `aria-expanded` indicates the state. That is whether it's showing or not.
 - `aria-owns="combobox-options"` connects the text box to the menu by `id`.
-- `autocomplete="off"` stops browsers showing their suggestions and interfering with those offered the component itself.
+- `autocomplete="off"` stops browsers showing their own suggestions and interfering with those offered by our component.
 
 Option notes:
 
-- `role="option"` to announce it as an option in the list.
-- `aria-selected` to indicate the selected option.
+- `role="option"` announces it as an option in the list.
+- `aria-selected` indicates the state. That is whether it's selected or not.
 
 Status box notes:
 
 - `aria-role="status" announces the status. For example, *2 results available.*
-- `aria-live="polite" announces the status when the user stops typing. Ensuring they aren't interrupted.
+- `aria-live="polite" ensures the announcement doesn't interrupt the user. It waits until the user stops typing.
 - `aria-atomic="true"` means the entire status will be announced, even if Javascript was to optimise what's injected.
 
 ```Javascript
@@ -561,28 +559,28 @@ Autocomplete.prototype.isElementVisible = function(container, element) {
 };
 ```
 
-The first thing this does is to replace the select box with a text box, down arrow button, suggestions panel and status box. Then as the user types it shows suggestions to the user.
+The script replaces the select box with a text box and adds down arrow button, suggestions panel and status box. Then as the user types it shows suggestions to the user.
 
 Notes:
 
 - Pressing <kbd>up</kbd> or <kbd>down</kbd> moves focus to the option.
 - Pressing <kbd>enter</kbd>, <kbd>space</kbd> or clicking the option populates the text box and hides the suggestions.
-- Pressing <kbd>enter</kbd> when focus is within the text box submits the form (like normal).
+- Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form (like normal).
 - Clicking the down arrow button, reveals all the possible options.
 - Pressing <kbd>escape</kbd> hides the options.
 
 ## 2. Choose departure (and return) date
 
-Dates are hard[^]. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of an interface.
+Dates are hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally we've used 3 select boxes to capture dates&mdash;one for day, month and year. One of the redeeming qualities of select boxes is that they stop users entering wrong information. In the case of dates, even *this* doesn't hold up. This is because in combination a user can, for example, choose *31 February 2017* which is, of course, invalid.
+Traditionally we've used 3 select boxes to capture dates&mdash;one for day, month and year. One of the redeeming qualities of select boxes is that they stop users entering wrong information. In the case of dates, even *this* doesn't hold up. This is because a user can, for example, select *31 February 2017* which is invalid.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-The remaining reason to use select boxes is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We can't determine the intention accurately. In turn this means we can't be forgiving as we would otherwise like to be. We can do better than select boxes.
+The remaining reason to use select boxes is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We can't determine the user's intent accurately. In turn this means we can't be forgiving, as we would otherwise like to be. We can do better than select boxes.
 
-But before we get to that, let's take a step back. Before we can design an optimal date field, we'll need to first understand what type of date we're expecting users to enter. Goverment Digital Services (GDS) talks about this in the service manual[^]. It says *the way you should ask for dates depends on the types of date you’re asking for*.
+But before we get to that, let's take a step back. Before we can design an optimal date field, we'll need to first understand what type of date we're expecting users to enter. Goverment Digital Services (GDS) talks about this in the service manual[^6]. It says *the way you should ask for dates depends on the types of date you’re asking for*.
 
 Let's now discuss the 3 types of dates and see which one best suits our use case.
 
@@ -1226,19 +1224,30 @@ Whilst each of these components were designed with a flight booking service in-m
 
 ## Footnotes
 
-https://codepen.io/siiron/pen/MYXZWg
+[^1]: http://www.lukew.com/ff/entry.asp?1950
+[^2]: https://www.amazon.co.uk
+[^3]: http://caniuse.com/#feat=datalist
+[^4]: https://www.paciellogroup.com/blog/2014/09/web-components-punch-list/
+[^5]: http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
+[^6]: https://www.gov.uk/service-manual
 
-[^luke]:(http://www.lukew.com/ff/entry.asp?1950)
+
+
+## Other stuff?
+
 [^]:(https://www.nngroup.com/articles/drop-down-menus-use-sparingly/)
 [^]:(https://www.slideshare.net/cjforms/design-patterns-in-government-2016)
-[^buggy]:(http://caniuse.com/#feat=datalist)
+
 [^GDS type]:(https://alphagov.github.io/accessible-typeahead/)
 [^leonie]:(http://ljwatson.github.io/design-patterns/autocomplete/)
 [^ppk]:(https://medium.com/samsung-internet-dev/making-input-type-date-complicated-a544fd27c45a)
 [^exampledatepickers]:(http://www.webaxe.org/accessible-date-pickers/)
-[^dateshard]:(http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time)
 [^calendarscreenreader]:(https://ux.stackexchange.com/questions/60884/best-way-for-date-field-for-visually-impaired-users)
 [^calendarw3ariaspec]:(https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/)
-[alice bartlett steve faulkner]:https://www.paciellogroup.com/blog/2014/09/web-components-punch-list/
+
 
 https://tink.uk/screen-reader-support-for-disabled-read-only-form-fields/
+
+https://codepen.io/siiron/pen/MYXZWg
+https://codepen.io/anon/pen/NvKJmw
+

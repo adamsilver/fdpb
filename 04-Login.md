@@ -1,16 +1,14 @@
 # A Login Form
 
-> ‘As a user I want to login so that’&mdash;Nobody ever
+*As a user I want to login so that*, said nobody ever. Nobody wants to login in. They just have to for reasons of security. If everyone could access everyone elses things, it's safe to say there would be a problem.
 
 In the previous chapter, we navigated our way through the treacherous world of custom form components. I don't know about you, but I could do with an intermission. I can't think of a better way to do that, than with the inocuous and ubiquitous login form.
 
-Most sites have login forms but almost as many of them have UX failures. Social login hasn't helped matters either. And even without the need for custom form components there's plenty of issues to analyse and solve accordingly.
+Most sites have login forms but almost as many of them have UX failures. Social login hasn't helped matters either. Even for such a ubiquitous and simple form there's surprisingly a lot of issues that crop up. We'll disect each one of those, and solve them accordingly.
 
-How it looks:
+How it might look:
 
 ![Login](./images/login.png)
-
-HTML:
 
 ```html
 <form novalidate>

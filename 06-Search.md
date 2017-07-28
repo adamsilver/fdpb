@@ -4,7 +4,7 @@ I'm an organised person. Even as I boy I remember being this way. But, I've alwa
 
 As a boy, I rarely lost things, but when I did, I just had to shout in the general direction of the resident search engine 'Where's my...' and the search engine would tell me.
 
-By search engine, I mean my mum. Mum knew where everything was. Not just my stuff. Everyone's. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to almost any question I had.
+By search engine, I mean mum. Mum knew where everything was. Not just my stuff. Everyone's. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to almost any question I had.
 
 If I could go back in time and accelerate my nerdyness a little bit, I might have nicknamed her Google.
 
@@ -12,11 +12,11 @@ Sometimes when I asked mum questions, she would ask me questions in return. Ques
 
 I'd tell her and she would give me the answer. These questions are filters on a large set of results.
 
-I'm a dad now, and as much as I try not to, I own more things. It's hard to be a minimalist with a wife and child. Even if I meticulously organise our things it's hard to remember where everything is.
+Now I'm a dad&mdash;as much as I try not to&mdash;I own more things. It's hard to be a minimalist with a wife and two children. Even if I meticulously organise our things it's hard to remember where everything is.
 
-Sometimes I'm left to peruse each cupboard one by one. And of course when I need said thing and can't find it, I become anxious. If I really want it and know it exists I'll perservere. If not, I'll give up.
+Sometimes I'm left to peruse each cupboard one by one. And of course when I need said thing and can't find it, I become anxious. If I really want it and know it exists I'll persevere. If not, I'll give up.
 
-In this chapter we're going to ensure that finding things is easy. Just like mum we'll want the interface to answer questions accurately, quickly and as humanly as possible.
+In this chapter we're going to ensure that finding things is easy. Just like mum we'll want our interface to answer questions accurately, quickly and as humanly as possible.
 
 ## Search
 
@@ -24,11 +24,11 @@ The first thing to ask ourselves is *do we need search?*
 
 Kidly is a start-up that houses *the best stuff for your baby all in one place*. They wanted to create something great with a lot of wonderful features. Naturally, they were also eager to launch.
 
-Deciding what to cut from the large backlog of work quickly became an essential skill. Launching an MVP within a reasonable timeframe meant having a critical understanding on the value each feature would provide our users.
+Deciding what to cut from the large backlog of work quickly became an essential skill. Launching an MVP within a reasonable timeframe meant having a critical understanding of the value each feature would give our beloved users.
 
-We knew that our product range would be small, at least to start with. This meant we could scrap the ability to search. Instead we could really on a well organised navigation system.
+We knew the product range would be small, at least to start with. This meant we could scrap search and rely on a well-organised navigation system.
 
-This freed up a lot of our time and attention to solve more important problems. Nurturing a do-less mindset is something that benefits everyone because it encourages momentum, keeps the team focussed on the most essential thing for users with a product that maximises the value of the delivery effort.
+This freed up a lot of our time and energy to solve more important problems. Nurturing a do-less mindset is something that benefits everyone because it encourages momentum, keeps the team focussed on the most essential thing for users with a product that maximises the value of the delivery effort.
 
 This wouldn't be a particulary useful chapter on search if we decided to scrap the feature altogether so we'll assume we need it and design accordingly.
 
@@ -38,9 +38,9 @@ Throughout previous chapters we've easily been able to reuse components across d
 
 Search is typically located in the header. This is because a user may want to search at any time. The problem is that the header is premium real estate. That is, there isn't much room available and it's highly sought after.
 
-We can't just keep adding features into the header as not only does this push  page content down, but it diminishes the value of the header. If everything is important, nothing is. And on mobile, there's even less room.
+We can't just keep adding features into the header as not only does this push the main content furthe down the page, but it diminishes the value of the header. If everything is important, nothing is. And on mobile, there's even less room.
 
-Designers are often seduced by novel patterns that save space[^hamburgerdeepdesign]. But generally speaking, hiding content behind a toggle, carousel, modal or what have you is a waste of time for both design and user.
+Designers are often seduced by novel patterns that save space[^hamburgerdeepdesign]. But generally speaking, hiding content behind a toggle, carousel, modal or what have you is a waste of time&mdash;both ours as designers, and for users. It's a waste of time for users because they don't appreciate having to reveal things all the time.
 
 In our case though, the size of the header is something we'll want to say as small as possible. In all likelinesss, we'll have to collapse the search behind some sort of toggle.
 
@@ -52,11 +52,9 @@ There is no room within the header to reveal the search form&mdash;that's why we
 
 [!]()
 
-The button in the header will then be responsible for toggling the form's visibility. When the search form is displayed we should automatically move focus to it. Not only does this save users a click, but it means screen readers will know they can immediately start their search.
+The button in the header will then be responsible for toggling the form's visibility. When the search form is displayed we should automatically move focus to it. Not only does this save users a click, but screen readers will announce that they can immediately start searching.
 
 Lastly, we often use a magnifying glass icon to save more space but the best icon is text[^] so avoid an icon whereever possible. Text is fully inclusive out of the box and removes any ambiguity in meaning.
-
-HTML:
 
 ```HTML
 ```
@@ -67,7 +65,7 @@ Having designed the interface, next we should consider the search functionality 
 
 In *Content and Design Are Inseparable Work Partners* Jared Spool explains that *content is the thing the user wants right now*. All too often search is limited to products or articles or videos. That is, the stuff stored in the database.
 
-But users want more than that. As Jared says, they might be looking for a returns policy. But the returns policy doesn't reside in the database so a search yields no results. Useless.
+But users want more than that. As Jared says, they might be looking for a returns policy. But the returns policy doesn't reside in the database so a search yields no results.* Useless.
 
 The label and optional hint should make it obvious to users what they can search for. If you must only show products, then tell users that it's a product search.
 
@@ -81,21 +79,21 @@ Depending on the broadness of a search and the volume of content available, resu
 
 Filters, also known as facet navigation or guided navigation lets users refine a set of results by selecting particular attributes. The cool word for these attributes is meta data. This just means information about the information. For example, the information is *trousers* and the meta data is *black in colour*.
 
-The beauty of a filter is that it allows users to find what they want using their own mental model, rather than a predefined one that can't possibly work for all users in all scenarios.
+The beauty of a filter is that it allows users to find what they want using their own mental model, rather than a predefined one that can't possibly work for all users in all scenarios. Once again, giving users choice is a primary act of designing inclusive interfaces.
 
 ### A link filter
 
-Some filters are actually just organised lists of links as follows:
+Some filters are actually lists of links as follows:
 
 [!https://asset.uie.com/articles/img/faceted_search/BuzzillionsKMWorld.jpg](from UIE)
 
-Links are offered for facets that have results. That's one of the advantages. If there are no Kodak cameras then there would be no link. This is one of the advantages of this approach.
+Links are offered for facets that have results. That's one of the advantages. If there are no Kodak cameras then there would be no link.
 
 In *Resilient Web Design* Jeremy Keith talks about the idea of Material Honesty. He says *one material should not be used as a substitute for another. Otherwise the end result is deceptive.* In this case we want our links to look like links as that's what they are.
 
-The problem is that some designers make links look like radio buttons. They'll use background images to make it appear as though the user is clicking a radio button. The problem is that it's not a radio button and doesn't have the functionality of a radio button.
+The problem is that some designers make links look like radio buttons. They'll use background images to make it appear as though the user is clicking a radio button. The problem is that it's not a radio button and doesn't have the functionality of a radio button. And they due to the custom imagery, the radio buttons always look a little off (or completely different) to the ones provided be browsers natively.
 
-Avoid this whereever possible.
+Avoid this wherever possible.
 
 ### Radio buttons and checkboxes
 
@@ -125,7 +123,7 @@ Or we might say find me products that are red or large. Meaning that the results
 
 Choosing *or* is good because it guarantees that results will be returned but I wonder about the value here. Why would a user search for something that is red or black, for example?
 
-The right answer will always be based on your situation and can't be generalised.
+The right answer always ‘depends’.
 
 ### Do you need to refresh results with AJAX?
 
@@ -137,11 +135,11 @@ AJAX is often used to patch over websites that have bad performance, normally be
 - Needs to design loading and success states
 - More code, more testing, more chance of problems
 - Increases the chance of memory leaks
-- battery?
+- Draings battery on mobile devices
 
 AJAX is useful when you want to make a small update to the screen with the majority of the page staying the same. When filtering, the main feature of the page itself changes. Both the results and the filter itself.
 
-In this case, not only does it defeat the point, but it may well make the page slower. You've been warned.
+In this case, not only does it defeat the point, but it may well make the page slower.
 
 ### Dos and Don'ts
 

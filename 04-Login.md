@@ -1,10 +1,12 @@
 # A Login Form
 
-*As a user I want to login so that*, said nobody ever. Nobody wants to login in. They just have to for reasons of security. If everyone could access everyone elses things, it's safe to say there would be a problem.
+‘As a user I want to sign in so that...’ said nobody, ever.
 
-In the previous chapter, we navigated our way through the treacherous world of custom form components. I don't know about you, but I could do with an intermission. I can't think of a better way to do that, than with the inocuous and ubiquitous login form.
+Nobody *wants* to log (or sign) in to your service. They're forced to for security reasons. Otherwise, everyone could access everyone elses stuff. It would be like nobody having locks on their front door.
 
-Most sites have login forms but almost as many of them have UX failures. Social login hasn't helped matters either. Even for such a ubiquitous and simple form there's surprisingly a lot of issues that crop up. We'll disect each one of those, and solve them accordingly.
+Most sites have login forms, but almost as many of them have usability failures in some form or other. Social login, like signing in with Facebook, complicates matters further. For such a ubiquitous and seemingly simple feature, it's surprising how many issues crop up from site to site.
+
+This chapter is dedicated to disecting and remedying each of these issues one by one. By process of elimination, users will be left with a pleasant login form that just works.
 
 How it might look:
 
@@ -21,7 +23,7 @@ How it might look:
   <div class="field">
   	<label for="password">
   		<span class="field-label">Password</span>
-  		<span class="field-hint">Must contains 8+ characters with at least 1 number and 1 uppercase letter.</span>
+  		<span class="field-hint">Must contain 8+ characters with at least 1 number and 1 uppercase letter.</span>
   	</label>
   	<input type="password" id="password" name="password">
   </div>
@@ -29,35 +31,43 @@ How it might look:
 </form>
 ```
 
-The sign in form is the counterpart to the registration form we designed in chapter 1. It's remarkably similar and contains the same fields. We even have the exact same hint. In fact, the main difference is the submit button's text.
+The login form is the counterpart to the registration form we designed in chapter 1. As such, it's remarkably similar. It contains the same fields, and even has the same hint. In fact, the only difference is the button text. Instead of *Register*, we label the button with ‘Sign in’.
 
-All too often, login forms omit hint text. That is, they don't tell users what password rules they need to abide by. Shamefully, I use the same password for most sites, and I'll modify it where I must to adhere to the rules of the site in question.
+Why *not* ‘Log in’? ‘Log in’ is jargon. ‘Sign in’ feels more human. Think about it, when you go to a spa or a hospital, you *sign in*, you're never asked to *log in*. We should design words to be as human as possible, making the experience friendly and familiar at the same time.
 
-For example, imagine my password is *password*. On a site that requires a capital letter, I'll capitalise the first letter: *Password*. And if the site forces me to include a number, then it will be *password1*.
+## Provide a hint
 
-The point is, if there is a hint to inform me of the rules, then I won't have to submit the form just to find out through an error message. Doing so is both slower and unnecessary.
+Most login forms don't tell users what the password rules are, like they do in the registration form. This is in the name of security, but more on that in a moment.
 
-Often we omit hints like these due to ‘security reasons’. But if a hacker wants to find out the rules, then all they need to do is register themselves.
+Shamefully, I use the same password for most sites, and I'll tweak it to adhere to the rules of the site in question. For example, imagine my password is *password*. On a site that requires a capital letter, I'll capitalise the first letter: *Password*. And if the site forces me to include a number, then I'll add the number to the end: *password1*.
 
-The short of it is, include a useful hint, even on a login form. Give users a chance to avoid an error. If, like some users, they ignore the hint, our robust and fully inclusive validation pattern will come to their rescue.
+Most people have accounts to many different sites with many different password rules, making passwords difficult to remember. Without a hint, I'm left to guess the rules of this particular site. Normally, I'd have to submit the form to find out what the error is.
 
-## Non-standard username and password fields
+Most error messages are lacking too which we'll talk about shortly. The point is that by providing a hint, users have far more chance in getting their password right without having to submit and wait for feedback. Doing *that* is slower and unnecessary.
 
-Some services, like the flight booking service we designed in the previus chapter, may ask users to sign in with something other than an email and password. I've often seen them ask for a booking reference number, for example.
-
-Similarly, banks typically ask for a pin number instead of a password. In both cases, use explicit field labels. If it's a pin number say so. And tell users what the format it is and where they might find it (it it is printed on a document).
-
-All of this allows the user to think less, keeping their energy levels high and ready to do the thing they actually want to do. Remember they have no inclination to log in. They want the feature that lies behind it.
+Often we omit hints due to ‘security reasons’. But if a hacker wanted to find out the rules then they would simply register themselves in seconds.
 
 ## The ‘username and password doesn't match’ problem
 
-If the user enters an incorrect username or password, many sites will show an error saying *The username and password doesn't match*. Put simply, this is bad and as Jared Spool explains in Design Is Metrically Opposed[^]:
+It is widely known that most people forget their username and password. And as we just discussed omitting a hint makes matters worse. But worse still, when a user enters their credentials incorrectly, many sites will show an error saying *The username and password doesn't match*.
+
+Put simply, this is bad and as Jared Spool explains in Design Is Metrically Opposed[^]:
 
 > We know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.*
 
 Hackers don't do this and even if they did most sites let you sign up for one account. This means if they want to find out, all they have to do is sign up for an account themselves with that username.
 
-Instead, tell users which field is problematic and allow them to fix it easily.
+The problem for users is that they're often left with no other course of remediation other than to reset their password which is a tedious thing to have to do and easily increases drop outs.
+
+Like with any other form, tell users what went wrong so they can fix the issues easily.
+
+## Non-standard username and password fields
+
+Some services, like the flight booking service we designed previously, could ask users to log in with something other than an email and password. A booking reference number, for example.
+
+Similarly, banks often ask for a pin number instead of a password. In both cases, use explicit labels. If it's a pin number say so. And tell users what the format it is and where they might find it (if it is printed on a document, for example.)
+
+All of this allows the user to think less, keeping their energy levels high and ready to do the thing they actually want to do. Remember they have no inclination to log in. They want the feature that lies behind it.
 
 ## Contextual login forms
 
@@ -117,13 +127,13 @@ If you're going to provide social login capabilities, then first work out why. I
 
 ## ‘Forgotten password’ placement
 
+With the above usability failures already addressed, the hope is that users won't need to use this feature. However, we cannot eliminate the human's ability to forget, so we have to give users the ability to reset their password. It's in the matter of how.
+
 One aspect of inclusivity is honouring people's interaction preferences. Some users prefer using the keyboard. Some prefer the mouse. Some use both interchangeably.
 
-When using forms, or more broadly websites, the <kbd>tab<kbd> key  moves focus between focusable elements, mainly links and form controls. This means users can move freely between links and forms.
+When using forms, or more broadly, websites, pressing <kbd>tab<kbd>  moves focus between focusable elements&mdash;mainly links and form controls. This interchange between forms and links can be a source of disruption depending on the way we design. Specifically, placing the ‘Forgotten password’ link between the username and password fields disrupts the natural flow of filling in a form.
 
-This interchange between forms and links can be a source of disruption depending on the way we design. Specifically, if the ‘Forgotten password’ link is placed between the username and password fields then the natural flow is broken.
-
-When inside a form, the user expects the tab to move to the next field, but instead focus is on the link. The user starts typing, and nothing happens, and they realise they need to tab again, or use the mouse to be sure.
+When inside a form, the user expects the <kbd>tab</kbd> to move to the next field, but instead focus moves to the link. The user starts typing, and nothing happens, and they realise they need to tab again. Or they lose trust, and switch the more explicit mouse.
 
 Alternatively, we put the link after the password field. Both of these may make some sense from a visual design perspective. Offering a solution to a problem in context of the problem is an act of good contextual design.
 

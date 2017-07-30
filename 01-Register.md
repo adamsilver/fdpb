@@ -65,7 +65,7 @@ HTML:
 <div class="field">
   <label for="password">
     <span class="field-label">Password</span>
-    <span class="field-hint">Must contains 8+ characters with at least 1 number and 1 uppercase letter.</span>
+    <span class="field-hint">Must contain 8+ characters with at least 1 number and 1 uppercase letter.</span>
   </label>
   <input type="password" id="password" name="password">
 </div>
@@ -76,7 +76,7 @@ The hint is inside a `span` so that we can style it differently. It's also insid
 ```HTML
 <div class="field">
   <label for="password">Password</label>
-  <p class="field-hint" id="passwordhint">Must contains 8+ characters with at least 1 number and 1 uppercase letter.</p>
+  <p class="field-hint" id="passwordhint">Must contain 8+ characters with at least 1 number and 1 uppercase letter.</p>
   <input type="password" id="password" name="password" aria-describedby="passwordhint">
 </div>
 ```

@@ -108,10 +108,10 @@
 
 ## 4. Login
 
-- Provide a password hint
-- Non-standard username and password fields
+- Password hint
 - The username and password doesn't match
-- Contextual login forms
+- Non-standard username and password fields
+- Provide context
 - Social login
 	- Privacy
 	- Choice

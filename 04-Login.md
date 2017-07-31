@@ -115,7 +115,7 @@ The last problem is that some users may not remember which method they chose to 
 
 ![Login form](./images/kidly-error.png)
 
-I think we could have done a better job with this. Again, Medium.com solves this elegantly. In fact it's so elegant that users have no idea. As a user I shouldn't have to remember which one I signed up with.
+I think we could have done better with this. Again, Medium.com solves this elegantly. In fact it's so elegant that users have no idea. As a user I shouldn't have to remember which one I signed up with.
 
 And Facebook, for example, knows what my email is. If I sign in with my email and have already signed up with Facebook, then Medium.com logs me in automatically. It's seamless. They just merge my accounts without me knowing. The only way I realise this is if I visit the settings page:
 
@@ -127,25 +127,27 @@ If you're going to provide social login capabilities, then first work out why. I
 
 ## ‘Forgotten password’ placement
 
-Even though we've addressed several usability failures often found in login forms, users are still prone to forget their password. Sites solve this problem by giving users the ability to reset their password securely. To do this, we typically add a ‘Forgotten password’ link to the login screen.
+As human-beings we're prone to forgetting something. We, as the saying goes, *only human*. I use a password manager[^] to avoid having to remember, but they aren't infallible. If you don't remember to add the details into the password manager, then you're in the same boat as everyone else. Plus not everybody uses a password manager.
+
+Sites offer users a ‘Forgotten password’ link on the login screen which gives users the chance to ‘reset’ their password by following a few simple steps. The feature itself isn't the problem, it's the placement of the link which can cause unnecessary friction for users.
 
 Honouring people's interaction preferences is a cornerstone of inclusive design. Some prefer the keyboard. Some prefer the mouse. Some use both interchangeably.
 
-When using forms, or more broadly, websites, pressing <kbd>tab<kbd>  moves focus to the next focusable element. Naturally, and with no developer intervention, links and form controls are focusable. The fact that we can move freely between links and form controls this way is a source of disruption depending on the task.
+When using forms, or more broadly, websites, pressing <kbd>tab<kbd>  moves focus to the next focusable element. Naturally, and with no  intervention, links and form controls are focusable.
 
-When interacting with a login form, or any form for that matter, the main task is filling out each field and then submitting it. Placing  the ‘Forgotten password’ link between the username and password fields disrupts the natural flow of filling in a form.
+When interacting with a login form, or any form for that matter, the main task is filling out each field and then submitting it. Placing  the ‘Forgotten password’ link between the username and password fields disrupts the natural flow of filling in a form. Even placing the link between the password field and the submit button causes the same level of disruption.
 
-When inside a form, the user expects the <kbd>tab</kbd> to move to the next field, but instead focus moves to the link. The user starts typing, and nothing happens, and they realise they need to tab again. Or they lose trust, and switch to using the mouse which doesn't suffer from this problem.
+When inside a form, the user expects the <kbd>tab</kbd> to move to the next field, but instead focus moves to the link. And when they do, they start typing, and nothing happens. Eventually they realise they need to tab again. Alternatively, they lose trust, and switch to using the mouse which is a little more explicit. What you click is what becomes focussed.
 
-Alternatively, we put the link after the password field. Both of these may make some sense from a visual design perspective. Offering a solution to a problem in context of the problem is an act of good contextual design.
+Whilst placing the link in close proximity to the password field makes some sense from a visual perspective we can a little better. The primary need of the login form is to login. This means the fields and the submit button should come first with the seconday action (reseting the password) shluld come right after it.
 
-However, the primary action of logging in should come before the secondary action of dealing with a forgotten password. Placing it after the submit button is the right thing to do here.
+It's still in context and works visually without fighting for attention and without disturbing the forms natural flow.
 
 ![Forgot password link](./images/forgot-password-link.png)
 
 ## Auto-tabbing between fields
 
-Some niche login forms, such as banks, ask users for certain characters of a password, memorable word or security pin. They'll then present 3 text boxes or worse, 3 select boxes from which to choose these letters.
+Some niche login forms, such as those found on bank sites, ask users for certain characters of a password, memorable word or security pin. They'll then present 3 text boxes or worse, 3 select boxes from which to choose from.
 
 ![Image]()
 
@@ -155,40 +157,40 @@ BBC's UX guidance[^] says *it can be disorienting and hinder users from verifyin
 
 And, Leonie Watson, accessibility expert, and someone that uses a screen reader and keyboard says:
 
-> I strongly dislike having  auto-tab functionality imposed on me. It is unexpected, and based on a  flawed assumption that it is helpful. It's worth noting that it takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
+> I strongly dislike having auto-tab functionality imposed on me. It is unexpected, and based on a flawed assumption that it is helpful. It's worth noting that it takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
 
-This point of view is hardly surprising as this functionality makes assumptions on behalf of the users and takes control away. In doing so, it makes for an unfamilar experience that breaks a fundamental interactive convention on the web.
+This point of view is unsurprising considering that the solution itself is founded on assumptions. Assumptions that take control away and explicitly moves away from convention. These are two qualities we want to adhere to as priority, not move away from.
 
 ## One form per page
 
+Some sites put the registration and login forms on the same page beside each other (or below one another on small screens). In previous chapters, we leveraged One Thing Per Page to put one question on a page. Similarly we can apply this rule to the entire form.
 
-In previous chapters, we've leveraged One Thing Per Page in the context of form fields. But the same applies to placing two forms on the same page. And it consists of much of the same rationale.
+The registration and login forms are remarkably similiar. Putting them together makes them hard to differentiate. It's also confusing for users to be presented with a registration form, having clicking a specific call to action such as *login*.
 
-Some sites put the registration and login forms on the same page.
-The registration and login forms are remarkably similiar. Putting them together makes them harder to differentiate. It's also confusing for users that have ended up on this page having clicked a specific call to action such as *login*.
+Give each form a separate and offer a link before or after the login form allowing users to register or vice versa.
 
-Instead keep things separate and offer a small link before or after the login form allowing users to register.
+[!]()
 
 ## Summary
 
-In this chapter we have covered the main problems associated with login forms. Most sites have a login form. Don't let unfounded security holes stop you designing a friction-free login experience.
+In this chapter we covered the main problems associated with login forms. Most sites have a login form. Don't let unfounded security holes stop you designing a friction-free login experience.
 
-If you're going to provide social login capabilites consider the tradeoffs, implement one at a time, and ensure users aren't penalised if they sign up using different mechanisms.
+If you're going to provide social login capabilites consider the tradeoffs, implement one at a time, and ensure users aren't penalised for signing up with one or another.
 
 Finally, put login forms in context of the flow in which they have been triggered. It's intuitive and keeps users focussed on the task at hand.
+
+### Things to avoid
+
+- Auto tabbing
+- Ambiguous error messages
+- Omitting hints
 
 ## Footnotes
 
 [^facebook]:(https://developers.facebook.com/docs/facebook-login/multiple-providers)
-
-https://conversionxl.com/social-login/
-
-https://blog.loginradius.com/2014/01/understanding-benefits-social-login-add-value-website/
-
-[]:https://www.usability.gov/what-and-why/glossary/auto-tabbing.html
-
-[]:http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
-
+[^]: https://conversionxl.com/social-login/
+[^]: https://blog.loginradius.com/2014/01/understanding-benefits-social-login-add-value-website/
+[^]:https://www.usability.gov/what-and-why/glossary/auto-tabbing.html
+[^]:http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
 [^]: https://lists.w3.org/Archives/Public/w3c-wai-ig/2015AprJun/0168.html
-
 [^]: https://ux.stackexchange.com/questions/22508/auto-advance-to-next-field

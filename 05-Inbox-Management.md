@@ -76,8 +76,6 @@ How it might look:
 
 ![Inbox](./images/inbox.png)
 
-HTML:
-
 ```
 <ul class="inbox">
 	<li>
@@ -94,9 +92,9 @@ HTML:
 
 Unlike all other fields in the book so far, the checkbox has a label missing. We can add a label, but the contents of the label will duplicate the contents of the link.
 
-We can't wrap the anchor in the label either as there will be 2 operations occupying the same space. That is, the label selects the checkbox and the link navigates.
+We can't wrap the anchor in the label either as there will be 2 interactive elements occuping the same space. That is, the label selects the checkbox and the link navigates to the email.
 
-We have three options to help us solve this problem, each with their own set of tradeoffs:
+We have three options available to us that will solve the problem. Each of them have tradeoffs:
 
 - Use ARIA attributes to connect the information to the checkbox.
 - Create a separate `label` and duplicate the information.

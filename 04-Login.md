@@ -127,13 +127,15 @@ If you're going to provide social login capabilities, then first work out why. I
 
 ## ‘Forgotten password’ placement
 
-With the above usability failures already addressed, the hope is that users won't need to use this feature. However, we cannot eliminate the human's ability to forget, so we have to give users the ability to reset their password. It's in the matter of how.
+Even though we've addressed several usability failures often found in login forms, users are still prone to forget their password. Sites solve this problem by giving users the ability to reset their password securely. To do this, we typically add a ‘Forgotten password’ link to the login screen.
 
-One aspect of inclusivity is honouring people's interaction preferences. Some users prefer using the keyboard. Some prefer the mouse. Some use both interchangeably.
+Honouring people's interaction preferences is a cornerstone of inclusive design. Some prefer the keyboard. Some prefer the mouse. Some use both interchangeably.
 
-When using forms, or more broadly, websites, pressing <kbd>tab<kbd>  moves focus between focusable elements&mdash;mainly links and form controls. This interchange between forms and links can be a source of disruption depending on the way we design. Specifically, placing the ‘Forgotten password’ link between the username and password fields disrupts the natural flow of filling in a form.
+When using forms, or more broadly, websites, pressing <kbd>tab<kbd>  moves focus to the next focusable element. Naturally, and with no developer intervention, links and form controls are focusable. The fact that we can move freely between links and form controls this way is a source of disruption depending on the task.
 
-When inside a form, the user expects the <kbd>tab</kbd> to move to the next field, but instead focus moves to the link. The user starts typing, and nothing happens, and they realise they need to tab again. Or they lose trust, and switch the more explicit mouse.
+When interacting with a login form, or any form for that matter, the main task is filling out each field and then submitting it. Placing  the ‘Forgotten password’ link between the username and password fields disrupts the natural flow of filling in a form.
+
+When inside a form, the user expects the <kbd>tab</kbd> to move to the next field, but instead focus moves to the link. The user starts typing, and nothing happens, and they realise they need to tab again. Or they lose trust, and switch to using the mouse which doesn't suffer from this problem.
 
 Alternatively, we put the link after the password field. Both of these may make some sense from a visual design perspective. Offering a solution to a problem in context of the problem is an act of good contextual design.
 

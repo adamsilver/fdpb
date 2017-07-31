@@ -109,6 +109,7 @@
 ## 4. Login
 
 - Password hint
+- Use explicit labels
 - The username and password doesn't match
 - Non-standard username and password fields
 - Provide context

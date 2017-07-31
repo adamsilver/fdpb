@@ -2,11 +2,11 @@
 
 ‘As a user I want to sign in so that...’ said nobody, ever.
 
-Nobody *wants* to log (or sign) in to your service. They're forced to for security reasons. Otherwise, everyone could access everyone elses stuff. It would be like nobody having locks on their front door.
+Nobody *wants* to log (or sign) in to your service. They're forced to for security reasons. Otherwise, everyone could access everyone elses stuff. It would be like nobody having locks on their front doors. Bad.
 
-Most sites have login forms, but almost as many of them have usability failures in some form or other. Social login, like signing in with Facebook, complicates matters further. For such a ubiquitous and seemingly simple feature, it's surprising how many issues crop up from site to site.
+Most sites have login forms, but almost as many of them have usability failures in some form or other. Social login complicates matters further but more on this shortly.
 
-This chapter is dedicated to disecting and remedying each of these issues one by one. By process of elimination, users will be left with a pleasant login form that just works.
+For such a ubiquitous and seemingly simple feature, it's surprising how many issues occur. This chapter is dedicated to disecting and remedying each of these issues one by one. By process of elimination, users will be left with a pleasant login form that just works.
 
 How it might look:
 
@@ -47,6 +47,10 @@ Most error messages are lacking too which we'll talk about shortly. The point is
 
 Often we omit hints due to ‘security reasons’. But if a hacker wanted to find out the rules then they would simply register themselves in seconds.
 
+## Use explicit labels
+
+If the username is actually an email address, then the label should explicitly state this. So many sites expect an email address, but ask for a username.
+
 ## The ‘username and password doesn't match’ problem
 
 It is widely known that most people forget their username and password. And as we just discussed omitting a hint makes matters worse. But worse still, when a user enters their credentials incorrectly, many sites will show an error saying *The username and password doesn't match*.
@@ -75,15 +79,13 @@ Some sites have all-access areas and login-only areas. Often login form pages ar
 
 Take a shopping basket page. Below the basket details, there is a *checkout* button. Clicking it, takes the user to beginning of the checkout flow. However, if they are logged out, they're prompted to login.
 
-As discussed in chapter 2, we provide a checkout specific layout with a minimal header to streamline that process. We should ensure the login form should be given the same treatment, as the user should still feel as though they are in checkout. After all this is what they clicked.
-
-This is what we did for Kidly:
+As discussed in chapter 2, we used a checkout-specific layout&mdash;one with a minimal header to streamline that process. The login form should be given the same treatment, as the user should feel like they are in checkout, having clicked *checkout* after all.
 
 ![Forced to login](./images/kidly-login.png)
 
-This reinforces that the user is midway through a process and helps them focus. That's the reason for the dedicated checkout layout in the first place.
+This reinforces that the user is midway through a process and helps them focus. That's the reason for the checkout layout exists in the first place.
 
-Conversely, Tesco don't do this. When the user adds a product to their basket, they are taken somewhere else, that feels more out of context which is disorientating.
+Conversely, Tesco don't do this. When the user adds a product to their basket, they are taken prompted to login&mdash;somewhere out of context which feels somewhat disorientating.
 
 ![Forced to login](./images/tesco-logged-out.png)
 
@@ -93,41 +95,52 @@ Conversely, Tesco don't do this. When the user adds a product to their basket, t
 
 Up until recently, most sites only offered people the standard username and password approach to login. Many sites today still do this.
 
-However, more sites are offering users the ability to sign in with Facebook or Twitter for example. This saves users typing&mdash;if they are logged into Facebook already then there they are instantly logged into to the site.
+However, more sites are offering users the ability to sign in with Facebook or Twitter for example. This saves users typing&mdash;if they are logged into Facebook already then there they are instantly logged into your site.
 
-Also, they don't have to spend time signing up and remembering yet another set of credentials. And some sites will integrate with your social media account. For example, Medium.com, a social media site for reading and writing articles, will post to Facebook automitically for example.
+Also, they don't have to spend time registering and remembering another set of credentials. And some sites will integrate with your social media account. For example, Medium.com, a social media site for reading and writing articles, will post to Facebook automitically for example. Those who spend a lot of time socialisiing on Facebook will be pleased to automate this sort of thing.
 
-For those who spend a lot of time socialisiing on Facebook, they'll be pleased to automate some of these things.
+However, social login is not all good. There's a few things to consider and to design for:
 
-However, with choice comes choice *paralysis*. If there are many ways to login then users have to spend time and energy *deciding*. There is also a question and concern over privacy.
+- There are privacy concerns
+- Seamless interchange
+- Choice breed choice paralysis
 
-To make the choices obvious, you can do this by clearly setting out the options. This is what we did for Kidly:
+### Privacy concerns
 
-![Login form](./images/kidly-login.png)
+There is also a question and concern over privacy.
 
-To try and mitigate concerns over privacy, it's important to tell users how their credentials will or won't be used. I think we could have done a better job on this at Kidly.
-
-Medium.com make this clear by telling users that they *won't post without asking*.
+To try and mitigate privacy concerns, it's important to tell users how their credentials will or won't be used. Medium.com make this clear by telling users that they *won't post without asking*.
 
 ![Medium Login](./images/medium-login.png)
 
-The last problem is that some users may not remember which method they chose to sign up. At Kidly, if we detected that they had signed up with a different choice then we told them with an error message.
+### Seamless interchange
+
+Some people may not remember which method they used to register. At Kidly, if we detected that they had signed up with a different method, we simply told them with an error message:
 
 ![Login form](./images/kidly-error.png)
 
-I think we could have done better with this. Again, Medium.com solves this elegantly. In fact it's so elegant that users have no idea. As a user I shouldn't have to remember which one I signed up with.
+Medium.com solves this seamlessly without needing to resort to error messages. In fact it's so seamless that users have no idea. As a user I shouldn't have to remember which method I used to sign up with.
 
-And Facebook, for example, knows what my email is. If I sign in with my email and have already signed up with Facebook, then Medium.com logs me in automatically. It's seamless. They just merge my accounts without me knowing. The only way I realise this is if I visit the settings page:
+Facebook, for example, knows what my email is. If I sign in with my email and have already signed up with Facebook, then Medium.com logs me in automatically. They just merge my accounts without me knowing. The only way I realise this is if I visit the settings page:
 
 ![Medium settings page](./images/medium-settings.png)
 
-The "Connections" section shows Facebook and Twitter options. Users can connect or disconnect their social media logins easily here. But only if they're interested in doing so.
+The ‘Connections’ section shows Facebook and Twitter options. Users can connect or disconnect their social media logins easily here. But only if they're interested in doing so.
+
+### Choice versus choice paralysis
+
+‘They aren’t many laws in psychology, but here’s one you should know’
+-- https://medium.com/@userfocus/10-findings-from-psychology-that-every-user-researcher-should-know-9900973ec186
+
+However, with choice comes choice *paralysis*. If there are many ways to login then users have to spend time and energy *deciding*. To make the choices obvious, lay out the choices clearly:
+
+![Login form](./images/kidly-login.png)
 
 If you're going to provide social login capabilities, then first work out why. If the why is compelling, then be sure to make this seamless for users and make the choices clear.
 
 ## ‘Forgotten password’ placement
 
-As human-beings we're prone to forgetting something. We, as the saying goes, *only human*. I use a password manager[^] to avoid having to remember, but they aren't infallible. If you don't remember to add the details into the password manager, then you're in the same boat as everyone else. Plus not everybody uses a password manager.
+As human-beings we're prone to forgetting something just at the moment we most need to remember it. As the saying goes, * we're only human*. I use a password manager[^] to avoid having to remember, but password managers aren't infallible. If you don't remember to add your credentials into the password manager, then you're in the same position as anyone else. And, not everybody uses a password manager.
 
 Sites offer users a ‘Forgotten password’ link on the login screen which gives users the chance to ‘reset’ their password by following a few simple steps. The feature itself isn't the problem, it's the placement of the link which can cause unnecessary friction for users.
 

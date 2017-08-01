@@ -1,12 +1,12 @@
 # A Login Form
 
-‘As a user I want to sign in so that...’ said nobody, ever.
+‘As a user I want to sign in so that I can...’ said nobody, ever!
 
-Nobody *wants* to log (or sign) in to your service. They're forced to for security reasons. Otherwise, everyone could access everyone elses stuff. It would be like nobody having locks on their front doors. Bad.
+Nobody *wants* to log in to your service. They're forced to for security reasons. Without this security measure, everyone has access to everyone else's stuff. It's like nobody having locks on their front doors. Bad.
 
-Most sites have login forms, but almost as many of them have usability failures in some form or other. Social login complicates matters further but more on this shortly.
+Whilst most sites have login forms, almost as many of them have usability failures in some form or other. Social login, which we'll talk about in detail shortly, complicates matters further.
 
-For such a ubiquitous and seemingly simple feature, it's surprising how many issues occur. This chapter is dedicated to disecting and remedying each of these issues one by one. By process of elimination, users will be left with a pleasant login form that just works.
+For such a ubiquitous and seemingly simple feature, it's surprising how many issues occur. This chapter is dedicated to disecting and remedying each of the issues one by one. By process of elimination, we should leave users with a pleasant login form that just works.
 
 How it might look:
 
@@ -31,59 +31,55 @@ How it might look:
 </form>
 ```
 
-The login form is the counterpart to the registration form we designed in chapter 1. As such, it's remarkably similar. It contains the same fields, and even has the same hint. In fact, the only difference is the button text. Instead of *Register*, we label the button with ‘Sign in’.
+The login form is the counterpart to the registration form we designed in chapter 1. As such, it's remarkably similar. It contains the same fields, and even has the same hint. In fact, the only difference is the button text.
 
-Why *not* ‘Log in’? ‘Log in’ is jargon. ‘Sign in’ feels more human. Think about it, when you go to a spa or a hospital, you *sign in*, you're never asked to *log in*. We should design words to be as human as possible, making the experience friendly and familiar at the same time.
+## Button content
+
+The button is labelled as ‘Sign in’ as opposed to ‘Log in’. Why *not* ‘Log in’? ‘Log in’ is jargon and relates to something computery, something digital. ‘Sign in’ is the same thing, but more human. When you visit a spa or hotel, you're asked to *sign in*, not *log in*. We should design words to be as human as possible, making the experience friendly and familiar regardless of the medium.
 
 ## Provide a hint
 
-Most login forms don't tell users what the password rules are, like they do in the registration form. This is in the name of security, but more on that in a moment.
+Most login forms don't tell users what the password rules are(like they do when registering). This is usually in the name of security, but more on that in a moment.
 
-Shamefully, I use the same password for most sites, and I'll tweak it to adhere to the rules of the site in question. For example, imagine my password is *password*. On a site that requires a capital letter, I'll capitalise the first letter: *Password*. And if the site forces me to include a number, then I'll add the number to the end: *password1*.
+Many times I've used the same password across different sites. When necessary I'll tweak it to pass the validation rules specific to those sites the deviate from the norm. For example, imagine my password is *password*. If a site requires a capital letter, I'll capitalise the first letter to *Password*. And if the site forces me to include a number, then I'll add the number to the end: *password1*.
 
-Most people have accounts to many different sites with many different password rules, making passwords difficult to remember. Without a hint, I'm left to guess the rules of this particular site. Normally, I'd have to submit the form to find out what the error is.
+Most people have accounts across many sites with many different password rules. This makes passwords hard to remember. Without supplying users with a hint, they're left to guess the rules. To find out if the guess works, they have to submit and hope for a useful error message (more on that shortly).
 
-Most error messages are lacking too which we'll talk about shortly. The point is that by providing a hint, users have far more chance in getting their password right without having to submit and wait for feedback. Doing *that* is slower and unnecessary.
+The point is that by providing a hint, users have significantly more chance in getting their password right without having to submit and wait for feedback, which is slow and totally unnecessary.
 
-Often we omit hints due to ‘security reasons’. But if a hacker wanted to find out the rules then they would simply register themselves in seconds.
+Often we omit hints due to ‘security reasons’. But if a hacker wanted to find out the rules then they can register for an account themselves, with little effort.
 
 ## Use explicit labels
 
-If the username is actually an email address, then the label should explicitly state this. So many sites expect an email address, but ask for a username.
+When we designed the registration form in chapter 1, we asked users for their email address, not the more generic *username*. As such, we've labelled the field as *email address*. Many sites create a problem here, by expecting the user's email address but labelling the field as a username.
 
 ## The ‘username and password doesn't match’ problem
 
-It is widely known that most people forget their username and password. And as we just discussed omitting a hint makes matters worse. But worse still, when a user enters their credentials incorrectly, many sites will show an error saying *The username and password doesn't match*.
-
-Put simply, this is bad and as Jared Spool explains in Design Is Metrically Opposed[^]:
+Many users forget their username and password. As we discussed just before, omitting a hint makes matters worse. But worse still, is when a user enters their credentials incorrectly, only to be shown an error which states *The username and password doesn't match*. Put simply, this is awful and Jared Spool comically explains the issue in Design Is Metrically Opposed[^]:
 
 > We know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.*
 
-Hackers don't do this and even if they did most sites let you sign up for one account. This means if they want to find out, all they have to do is sign up for an account themselves with that username.
+Hackers don't actually hack this way. But even if they did most sites let you sign up for one account. This means if they want to find out, all they have to do is sign up for an account themselves with that username.
 
-The problem for users is that they're often left with no other course of remediation other than to reset their password which is a tedious thing to have to do and easily increases drop outs.
+The problem for users is that they're often left with no other course of remediation other than to reset their password which is a tedious thing to have to do and is a cause for drop outs.
 
-Like with any other form, tell users what went wrong so they can fix the issues easily.
+Like with any other form, we must explicitly tell users what went wrong so they can fix the issue with as little stress as possible.
 
 ## Non-standard username and password fields
 
-Some services, like the flight booking service we designed previously, could ask users to log in with something other than an email and password. A booking reference number, for example.
-
-Similarly, banks often ask for a pin number instead of a password. In both cases, use explicit labels. If it's a pin number say so. And tell users what the format it is and where they might find it (if it is printed on a document, for example.)
-
-All of this allows the user to think less, keeping their energy levels high and ready to do the thing they actually want to do. Remember they have no inclination to log in. They want the feature that lies behind it.
+Some online services may ask users to sign in using other credentials as opposed to the more traditional email and password. Many airlines ask users to access their account by supplying a booking reference, for example. Similarly, banks often ask for a pin number. In either case use an explicit label that explains what it is, and where they might find it.
 
 ## Contextual login forms
 
-Some sites have all-access areas and login-only areas. Often login form pages are designed without considering the context in which they are being used. To explain, we'll use checkout as an example. And for purposes of demonstration, we'll ignore that forcing users to login beforehand is an anti-pattern.
+Some sites have all-access areas and login-only areas. Often login form pages are designed without considering the context in which they are being used. To explain, we'll use checkout as an example. And for purposes of demonstration, we'll ignore that forcing users to login before checkout is an anti-pattern.
 
 Take a shopping basket page. Below the basket details, there is a *checkout* button. Clicking it, takes the user to beginning of the checkout flow. However, if they are logged out, they're prompted to login.
 
-As discussed in chapter 2, we used a checkout-specific layout&mdash;one with a minimal header to streamline that process. The login form should be given the same treatment, as the user should feel like they are in checkout, having clicked *checkout* after all.
+As discussed in chapter 2, we used a checkout-specific layout&mdash;one with a minimal header to streamline that process. The login form should be given the same treatment. That is the login form should use the checkout-specific layout&mdash;after all, the user clicked *checkout* in the first place.
 
 ![Forced to login](./images/kidly-login.png)
 
-This reinforces that the user is midway through a process and helps them focus. That's the reason for the checkout layout exists in the first place.
+This reinforces that the user is midway through a process and helps them focus. That's the reason the checkout layout exists in the first place.
 
 Conversely, Tesco don't do this. When the user adds a product to their basket, they are taken prompted to login&mdash;somewhere out of context which feels somewhat disorientating.
 
@@ -93,17 +89,11 @@ Conversely, Tesco don't do this. When the user adds a product to their basket, t
 
 ## Social Login
 
-Up until recently, most sites only offered people the standard username and password approach to login. Many sites today still do this.
+Up until recently, most sites only offered people the standard username and password approach to login. Many sites still do. However, more sites are offering the ability to sign in with social networks such as Facebook or Twitter. This saves users typing&mdash;if they are logged into Facebook already, then they're instantly logged into your site.
 
-However, more sites are offering users the ability to sign in with Facebook or Twitter for example. This saves users typing&mdash;if they are logged into Facebook already then there they are instantly logged into your site.
+Also, they don't have to spend time registering and remembering another set of credentials. And some sites will integrate with your social media account. For example, Medium.com, a social media site for reading and writing articles, will post to Facebook automatically, for example. Those who spend a lot of time socialisiing on Facebook will be pleased to automate this process.
 
-Also, they don't have to spend time registering and remembering another set of credentials. And some sites will integrate with your social media account. For example, Medium.com, a social media site for reading and writing articles, will post to Facebook automitically for example. Those who spend a lot of time socialisiing on Facebook will be pleased to automate this sort of thing.
-
-However, social login is not all good. There's a few things to consider and to design for:
-
-- There are privacy concerns
-- Seamless interchange
-- Choice breed choice paralysis
+Social login, however, is not without it's problems. There are issues of privacy, there is the problem of remembering which mechanism the user chose to sign up with. And there is the fact that choice breeds choice paralysis. Next, we'll discuss each of these problems one by one.
 
 ### Privacy concerns
 
@@ -199,6 +189,8 @@ Finally, put login forms in context of the flow in which they have been triggere
 - Omitting hints
 
 ## Footnotes
+
+TODO: https://sessioncam.com/reducing-dropout-during-your-online-checkout-process/
 
 [^facebook]:(https://developers.facebook.com/docs/facebook-login/multiple-providers)
 [^]: https://conversionxl.com/social-login/

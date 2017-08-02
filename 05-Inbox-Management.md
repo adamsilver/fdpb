@@ -58,7 +58,7 @@ How it might look:
 </ul>
 ```
 
-Here's the HTML without any form controls. We'll add those in shortly. Interestingly, the act of writing the HTML exposes another design problem. The content is wrapped in a link which is not something we can do with tables&mdash;it's semantically invalid.
+Here's the HTML without any form controls. We'll add those in shortly. Interestingly, the act of writing the HTML exposes another problem. The content is wrapped in a link which is not something we can do with tables&mdash;it's semantically invalid.
 
 As designers, we should have a deep understanding of the materials we use to build artifacts. For example, a chair designer should intimately know how wood can be used to craft chairs. In our case the materials are HTML, CSS, Javascript. And the artefacts are web pages.
 
@@ -94,58 +94,46 @@ Unlike all other fields in the book so far, the checkbox has a label missing. We
 
 We can't wrap the anchor in the label either as there will be 2 interactive elements occuping the same space. That is, the label selects the checkbox and the link navigates to the email.
 
-We have three options available to us that will solve the problem. Each of them have tradeoffs:
+We have 3 options available to us that will solve the problem. Each of them have tradeoffs:
 
-- Use ARIA attributes to connect the information to the checkbox.
-- Create a separate `label` and duplicate the information.
+- Use ARIA to connect the content to the checkbox.
+- Duplicate the content inside a hidden label.
 - Wrap the contents in a `label` and associate it with the checkbox.
 
-### Use ARIA attributes
+### Use ARIA to connect the content to the checkbox.
 
-We could use `aria-describedby` or `aria-labelledby` to associate the information in the list item with the label. However, there are two problems.
+We could use `aria-describedby` or `aria-labelledby` to associate the information in the list item with the label. However, there are 2 problems:
 
-First, there is less support for ARIA attributes than there is labels. This is because ARIA came along relatively late in the day[^]. Browsers and assistive technology that came before it won't understand the attributes.
-
-It's worth noting again, that the first rule of ARIA is not to use ARIA. Support is intertwined with inclusivity. If we can provide the same functionality natively without ARIA we should.
-
-Secondly, the size of the hit area is smaller. You'll recall from the first chapter that increasing the hit area helps those with fine motor impairments. We don't want to lose this feature if possible.
+- ARIA has less support than using a label element. This is because ARIA came along relatively late in the day[^]. Browsers and assistive technology that came before it will ignore it. It's worth noting again, that the first rule of ARIA is not to use ARIA. Support is intertwined with inclusivity. If we can provide the same functionality natively without ARIA we should.
+- Secondly, the size of the hit area is reduced. You'll recall from the first chapter that increasing the hit area helps those with fine motor impairments. We don't want to lose this feature if possible. And ARIA is an enhancement for those using screen readers. It doesn't affect the visual interaction.
 
 ### Duplicate the contents inside a hidden label
 
-We could duplicate the contents inside of a separate label. The problem is that the label needs to be visually hidden. This causes  HTML bloat. And the extra noise could cause problems for those using a screen reader. Two problems we want to avoid.
+We could duplicate the contents inside of a separate label. The problem is that the label needs to be visually hidden. This causes HTML bloat. And the extra noise could cause problems for those using a screen reader. Two problems we want to avoid.
 
 ### Wrap the contents in a label
 
-Instead of duplicating the contents inside a hidden label, we could wrap the contents in a label. Labels have excellent support and so there is no need for ARIA. By the same token, the entire row becomes clickable which maximises the hit area.
+Instead of duplicating the contents inside a hidden label, we could wrap the contents in a label. Labels have excellent support and so there is no need for ARIA. By the same token, the entire row becomes clickable which maximises the hit area. So far so good, but this solution introduces other problems.
 
-So far so good, but this solution introduces some other problems:
+A label can't contain a link because you can't have two interactive elements occupying the same space. We'd have to remove the link, losing the ability to view the email in detail.
 
-A label can't contain a link because you can't have two interactive elements occupying the same space in the interface. We'd have to remove the link, losing the ability to view the email in detail.
-
-We might consider using *modes*. We could place a separate button on the page that switches the mode between "read" mode and "edit" mode.
-Read mode will make the row a link and hide the checkbox. Edit mode will have a checkbox and will make the row a label.
+We might consider using *modes*. That is, a separate button, when clicked, switches the mode from ‘read’ mode and ‘edit’ mode. Read mode converts the row into a link and hides the checkbox. Edit mode shows a checkbox and converts the contents into a label.
 
 ![Modes](./images/modes.png)
 
-Modes work well, particulary if one mode is used far less. But if users are using both modes equally, then it might be undesirable to have to switch all the time.
+Modes work well, particulary if one mode is used far less. But if users are using both modes equally, then it might be undesirable to have to switch. Instead, we could add a *view* link at the end of each "row". The problem is that the most of the row is a label. Clicking it ticks the checkbox, instead of viewing the email. This may be undesirable.
 
-Instead, we could add a *view* link at the end of each "row". The problem is that the most of the row is a label. Clicking it ticks the checkbox, instead of viewing the email. This seems somewhat undesirable.
-
-However, explicit actions are good. That's because dedicated actions are obvious and obvious is something that makes users feel awesome.
-
-We don't have to limit the row to contain just a *view* link. We can put the other actions within the row too.
+However, explicit actions are good. That's because dedicated actions are obvious and obvious is something that makes users feel awesome. We don't have to limit the row to contain just a *view* link. We can put the other actions within the row too.
 
 ![Actions in rows](./images/actions-in-rows.png)
 
-This works quite well. For those that want to quickly delete a single email, clicking the button is quicker than clicking the checkbox and then hitting the action button.
+This works well. For those that want to quickly delete a single email, clicking the button is quicker than clicking the checkbox and then hitting the action button.
 
-The trade off is that the interface is full of buttons. [Only user testing can tell us which is best. I don't have any personal experience to draw on with regards to an inbox with multiple buttons, so we'll have to make a decision.]
+The trade off is that the interface is full of buttons. Only user testing can tell us which is best. I don't have any personal experience to draw on with regards to an inbox with multiple buttons, so we'll have to make a decision.
 
 ### Which to choose?
 
-Much to our collective frustration, *perfect* rarely exists in the design world. And in this case, there's probably not a *perfect* answer either. We'll duplicate the label and visually hide it. A bit of duplication never hurt anyone, and more importantly we have rationalised why we've made the choices we have.
-
-HTML:
+Much to our collective frustration, *perfect* rarely exists in the design world. And in this case, there's probably not a *perfect* answer either. We'll duplicate the label and visually hide it. A bit of duplication seems to be the less of all the evils, and more importantly we have rationalised our decision thoroughly.
 
 ```HTML
 <fieldset class="inbox">
@@ -175,17 +163,15 @@ We can hide the visually duplicated label with CSS:
 
 ## Highlighting rows
 
-When a user clicks a checkbox it becomes checked. The user knows this because a tick (or check) appears inside the box. We might be tempted to use Javascript to highlight the entire row which is a reasonable feature to progressively enhance.
+When a user clicks a checkbox it becomes checked. The user knows this because a tick or *check* appears. We could use Javascript to highlight the row&mdash;a reasonable feature to progressively enhance. As designers and developers, or more broadly speaking: humans, we are often tempted to do more. We think more is better. We also think doing more is a symbol of hardwork. In fact it's so easy to do more. Your peers will cheer you on when you say you suggest it.
 
-As designers and developers, or more broadly speaking: humans, we are often tempted to do more. We think more is better. We also think doing more is a sign hardwork. In fact it's so easy to do more. Your peers will cheer you on when you say you want to do *more*.
-
-But what if you don't need more? If you don't do more you can spend time solving other problems that need you. If you don't do more the developers won't need to do more either. Same goes for everyone else on your team who is involve in the delivery of that feature.
+But what if you don't need more? If you don't do more you can spend time solving other problems that need you. If you don't do more the developers won't need to do more either. Same goes for everyone else on your team who is involved in the delivery of that feature.
 
 Mailchimp, who invest heavily into usability don't highlight the rows. The checkbox state is enough:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-We'll follow their lead and avoid the extra effort. This doesn't mean the enhancement isn't. It simply means to do the minimum, then test to see if the investment is worth the cost. We might well find out that users don't need it at all.
+We'll follow their lead and avoid the extra effort. This doesn't mean the enhancement isn't necessary. It simply means to do the minimum, then test to see if the investment is worth the cost. We might well find that users don't need it and that the checkbox itself provides the affordance adequately.
 
 ## Submit buttons
 
@@ -199,29 +185,25 @@ We have a form that enables the selection of an email, but no actions to apply t
 
 ### Button location
 
-Traditionally, submit buttons are placed after the form fields. Up to now this is exactly what we've done. This made sense, as users typically have to answer the questions from top to bottom. And once they have finished answering the questions they can submit.
+Traditionally, submit buttons are placed after form fields. Up to now this is exactly what we've done. This made sense, as users typically have to answer the questions from top to bottom. And they submit once they've finished filling out the form.
 
-With a form like this, the same logic doesn't necessarily follow. Users who wish to select and act on individual emails will probably not step through each and every checkbox.
+With a form like this, the same logic doesn't necessarily follow. Users who wish to select and act on individual emails will probably not step through each and every checkbox. Moreover, placing the buttons at the bottom of a long list doesn't aid discovery of that action. For these reasons, it makes sense to place the buttons at the top.
 
-Moreover, placing the buttons at the bottom of a long list doesn't aid discoverability. For these reasons, it makes sense to place the buttons at the top.
+[There is another option though. We can use CSS to enhance the buttons so that they are *sticky*. That is they will stay on screen even if users scroll. This is not something to do haphazardly though. Sticky elements take up space and can be visually noisy when trying to read the content.]
 
-[There is another option though. We can use CSS to enhance the buttons so that they are *sticky*. That is they will stay on screen even if users scroll. This is not something to do haphazardly though. Using sticky elements take up space and can be visually noisy, particuarly if users are in browsing mode.
-
-If you want to test this, make sure you do so on a wide range of browsers, screen sizes and users, performing different tasks: browsing and editing.]
+[If you want to test this, make sure you do so on a wide range of browsers, screen sizes and users, performing different tasks: browsing and editing.]
 
 ### The multiple submit button problem
 
-All our forms, up to now, have had a single submit button. Having once choice wherever possible makes it easier for users as it requires less thinking. However, our inbox has multiple actions and therefore many submit buttons.
+All our forms, up to now, have had a single button. Having one choice wherever possible makes it easier for users as it requires less thinking. However, our inbox has multiple actions and therefore multiple buttons.
 
-Multiple submit buttons are problematic due to the way *implicit* submission works with the keyboard. You may have realised you can submit a form by pressing *enter*, when the focus is within a field (as opposed to a button).
-
-If the user does press enter, then the form will submit as if the user had **pressed the first button**. This is the *implicit* bit. This is something that wherever possible we should design out of a system. That is explore alternative ways to provide the functionality without combining forms.
+Multiple buttons are problematic due to the way *implicit* submission works with the keyboard. You may have realised you can submit a form by pressing <kbd>enter</kbd>, when the focus is within a field. If the user presses <kbd>enter</kbd>, then the form will submit as if the user had pressed the *first* button&mdash;this is the *implicit* bit. Where possible, we should design multiple actions out of a single interface. We should exhaust alternative solutions to provide the functionality by separating forms and tasks.
 
 For example, consider the following form that combines *save* and *delete* actions:
 
 ![Save and delete form combined](./images/save-and-delete-form-combined.png)
 
-In this case we might consider splitting up the forms into two. One for saving and one for deleting. To make this work we would need to consider the end to end experience&mdash;not just the form in isolation.
+In this case we might consider splitting up the forms into two. One for saving and one for deleting. To make this work we need to consider the end to end experience&mdash;not just the form in isolation.
 
 Our inbox *could* be designed differently. For example, we could have the actions first. Clicking an action takes the user to a dedicated form where the user selects which emails to apply to the action.
 

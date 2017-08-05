@@ -43,7 +43,7 @@ On balance, an unordered list is preferential. This is not to say tables are bad
 
 How it might look:
 
-![Inbox](./images/inbox.png)
+![Inbox with one checkbox selected and the actions exposed](./images/inbox.png)
 
 ```HTML
 <ul class="inbox">
@@ -219,80 +219,39 @@ Also, a form consisting of a single checkbox group, doesn't make implicit submis
 
 In any case, if a user did implicitly submit the form, we can mitigate the danger in two ways. First by putting the least invasive action first (such as archive). Secondly by letting users undo their action. This is useful experience regardless and we'll be talking about this more shortly.
 
-### Disabling buttons before selection
+### Disabling and hiding the submit buttons before selection
 
-Theoritically the user shouldn't perform an action until they select at least one checkbox. It's this idea that can tempt us to disable the action buttons until the user selects a checkbox.
+You may think it's a good idea to disable (or hide) the buttons until users selects at least one email. But we already discussed the problems with disabling submit buttons in the first chapter.  similarly, hiding the buttons makes the actions less discoverable. A clean interface is good, but not at the cost of clarity.
 
-In chapter one, however, we discussed the associated problems with disabling buttons until a form is valid. Our inbox doesn't look like a traditional form but it suffers from the same problems as any other.
+### Housing the buttons in a menu
 
-Like all the other forms we've designed so far, we'll ensure the buttons are always enabled.
-
-### Hiding buttons before selection
-
-Our interface is filling up quickly. And we haven't really considered other UI elements that may make up the inbox.
-
-We're not always selecting an email for bulk actioning. For this reason we might consider hiding the buttons until the user selects at least one checkbox.
-
-Both Mailchimp and Gmail do exactly this. Still, whenever we hide piece of UI, we rely on users discovering functionality.
-
-Sometimes this is worth it, sometimes it's not. Like most things in design, it depends.
-
-One good reason to hide the buttons is because users are not always interacting with the inbox. They may simply be browsing and reading their inbox. Why clutter the UI in this case? It may prove distracting.
-
-One bad reason to hide is that it's extra work and requires discovery.
-
-One principle we've followed throughout this book, is doing the simplest thing first and testing. It makes little since to do the hardest thing first and delete. This is far more costly and time-consuming. It's risky.
-
-We'll stick to ever-present buttons and keep in mind to test how this works. We can always hide them later if user testing shows it's a problem.
-
-Having multiple action buttons on small screens may prove tricky. This is something we'll be discussing shortly.
-
-## Menu
-
-Just before we decided that the buttons would always be visible, but we didn't go into any detail as to how they would look.
-
-We could show the buttons like this:
+On big screens with plenty of space, laying out the buttons horizontally is easy. However, an inbox may have other features and there may not be space&mdash;even on big screens&mdash;to present them comfortably. Moreover, on small screens there may not be enough room to present the buttons without them dominating the interface. Dominance is a quality that we should use sparingly. After all, if everything dominates, nothing does.
 
 ![Buttons in a row above table](./images/etc.png)
 
-Naturally, this works on big screens with plenty of space. On small screens they would stack which is okay excusing the fact they would dominate the screen. Dominance is a quality we need to use sparingly. If everything dominates, nothing does.
+To keep the interface clean but still discoverable we can hide the options behind a menu. There are 2 ways to create a menu. The first is by using a select box. The second is to create a custom menu using ARIA.
 
-Similarly if there are other UI elements, there may not be space to present them comfortably—even on big screens. In this case it's useful to hide the actions behind a menu.
+### Select box menu
 
-There are two options:
+Select boxes are a menu of sorts. They present items for selection (like a menu) and they are useful because browsers supply them to us for free. Even though select boxes look like menus and behave in a similar fashion, they *aren't* menus.
 
-- Select box
-- Responsive ARIA menu
-
-### Select box
-
-We know select boxes are problematic because we discussed them in chapter 3 *Book a Flight*. But, we'll discuss again here because they are often used as a replacement for menus.
-
-They are a menu of sorts. They present items for selection (like a menu). And as they are provided by the browser, for free, they require no extra work.
-
-However, select boxes look like menus and act a little like a menu, they aren't menus. Select boxes are for input. Menus are for taking action. This is why a select box like this must always have an accompanying button (to submit the choice).
-
-Moreover, select boxes that submit onchange are a problem for users that use keyboards and screen readers[^]. On Chrome Windows, for example, the form is submitted as soon as the user moves to the first option, making it hard (or impossible) to select the second.
-
-This is not a browser bug, it's just that some browsers are more forgiving and wait until the user presses *space* or *enter* to make the submission. The real problem is that a control that is meant for input has been used to create a menu like thing.
-
-All other forms up to now have kept selection/input and submission separate. This is something that WCAG2.0 also recommends[^]:
+Select boxes are for input. Menus are for taking action. That's why select boxes&mdash;like any other input&mdash;must come with an accompany submit button to submit that choice. Not only is this by convention, but it's also in the WCAG2.0 specifcation:
 
 > “Changing the setting of any user interface component does not automatically cause a change of context”
 
-Lastly, we want to display the actions on big screens where there is enough room to do so. A select box, however, always starts in a collapsed state. We'd have to write Javascript to change the interface.
+Select boxes that submit the selection `onchange` using Javascript create problems for those using a screen readers and keyboards. On Chrome (Windows), for example, the form is submitted as soon as the user moves to the first option. This makes it hard (or impossible) to select the second option.
 
-The server-side would also have to recognise input from button actions as well as input from the select box.
+This is not a browser bug per se. It's just that some browsers are more forgiving than others. That is, they wait until you press <kbd>space</kbd> or <kbd>enter</kbd> before making the submission allowing the user to use the arrow keys to move through all the options. Forgetting about those using a less forgiving browser or only caring about those who use a mouse is an act of exclusivity.
 
-Instead, we'll construct a true and responsive menu using ARIA next.
+Also, a select box is always collapsed. However, on larger screens&mdash;when there is enough space&mdash;we would want to show all the buttons making them more convenient to press. Creating two significantly different experiences is an adaptive approach to design and thereofre is one that goes against responsive design principles.
+
+Finally, the server would have to recognise and handle the data that comes from the select box *or* the submit buttons. Insead we'll construct a responsive menu enriched with ARIA and a little bit of Javascript.
 
 ### Responsive ARIA Menu
 
-Our menu will be responsive. It will work well on small screens and big screens. Here's what it will look like on big screens:
+By default the menu will consist of 3 submit buttons. On small screens, without any intervention from us, they'll just stack. This is fine on big screens and acceptable on small screens. But we'll improve a little on small screens when there isn't enough space.
 
 ![Menu](./images/etc.png)
-
-Here's the HTML:
 
 ```HTML
 <div role="menubar">
@@ -302,22 +261,21 @@ Here's the HTML:
 </div>
 ```
 
-#### Notes
+The `role="menubar"` and `role="menuitem"` tells screen reader users that they are interacting with a menu including how many items there are.
 
-- The role menubar and menuitem indicates that the user has entered a menu and will announce how many menuitems there are.
-- Submit buttons are focusable using the tab key. On this occasion we'll disable this functionality as a menu should be navigable using the arrow keys. The advantage is that users don't have to move through every menu item to leave the menu. This is useful enhancement, especially where there are many menu items.
-- To do this, each button is given a tabindex of -1, except the first. This makes the menu items unfocusable with the tab key but allows us to programmatically set focus when the user presses the arrow keys.
-- We don't set the tabindex on the first button so that the user can tab into the menu. Once the user is within the menu we give the first button a tabindex of -1 to match the others.
-- Pressing right on a menu item moves to the next item (on loop).
-- Pressing left on a menu item moves to the previous item (on loop).
+Submit buttons are naturally focusable by pressing <kbd>tab</kbd>. However, the submit buttons make up the menu. This means the menu itself should make up one tab stop, and navigating the items should happen via the arrow keys. The advantage to users is that they can leave the menu by pressing <kbd>tab</kbd> once as opposed to having to move through each of the items. This is particularly useful for large menus.
 
-On small screens we'll need to tweak the layout and behaviour. As there is no room to present all the items, we'll hide them behind a tradional menu that expands and collapses.
+When Javascript is available to handle the keyboard interactions we suppress the natural tab stops by giving each button a tabindex of -1, except for the first one. If we gave the first one the same attribute, users wouldn't be able to focus the menu at all. With Javascript, we detect when the user presses the arrow keys and programmatically moves focus to the next button.
 
-This is How it might look:
+Once the user enters the menu, the first button is also given a tabindex of -1 to match the others. On tabbing away from the menu everything is reset to the original state.
+
+Pressing <kbd>right</kbd> or <kbd>left</kbd> moves to the next (or previous) item (on loop).
+
+#### Collapsible menu enhancement
+
+On small screens the the items are collpased behind a more tradional looking menu. The user can expand and collaps it as they please.
 
 ![Menu](./images/etc.png)
-
-HTML:
 
 ```HTML
 <button aria-haspopup="true" aria-expanded="false">
@@ -331,35 +289,29 @@ HTML:
 </div>
 ```
 
-#### Notes
-
-- The aria-haspopup property indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
-- The <span> inside the button contains the unicode point for a black down-pointing small triangle. This convention indicates visually what aria-haspopup does non-visually — that pressing the button will reveal something below it. The aria-hidden="true" attribution prevents screen readers from announcing “down pointing triangle” or similar. Thanks to aria-haspopup, it’s not needed in the non-visual context.
-- The aria-haspopup property is complemented by aria-expanded. This tells the user whether the menu is currently in an open (expanded) or closed (collapsed) state by toggling between true and false values.
-The menu itself takes the (aptly named) menu role. It takes descendants with the menuitem role.
-- The role is now menu instead of menubar. Menu is used because it expands and collapses. A menubar is ever present.
-- Pressing the button, shows the menu and moves focus to the first menu item.
-- Pressing down on a menu item moves to the next item (on loop).
-- Pressing up on a menu item moves to the previous item (on loop).
-- Pressing escape on a menu moves to the menu button and closes the menu.
-- All menuitems's have a tabindex of -1. It's the single menu button that is focusable by the tab key making this aspect slightly more straightforward to code.
-
-There final Javascript:
+- The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
+- The `<span>` inside the button contains the unicode for a black down-pointing small triangle. Conventionally, this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"`attribution prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
+- The `aria-haspopup` property is complemented by `aria-expanded`. This tells the user whether the menu is currently in an expanded or (collapsed state by toggling between true and false values.
+The menu itself takes the (aptly named) `menu` role. It takes descendants with the menuitem role.
+- The `role is now set to `menu` instead of `menubar` because in this case it expands and collapses. A `menubar` is always present.
+- Pressing the button, shows the menu and moves focus to the first `menuitem`.
+- Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop) as before.
+- Pressing <kbd>escape</kbd> on a `menuitem` moves to the menu button and closes the menu.
+- All `menuitems`s have `tabindex="-1"` for the same reasons as discussed above.
 
 ```JS
+Put it here
 ```
 
 ## Select all
 
-Users may want to archive all emails in their inbox for example. Rather than having to endlessly select each checkbox manually, we can offer users the convenience of a button, and let scripting do the heavy lifting.
+Users may want to perform an action on every email in their inbox. To save the user having to select each checkbox manually, we offer them the convenience of a button that does it for them. This feature is usually offered as an Javascript enhancement. That is, for those without Javascript they are left to once again select each checkbox one by one.
 
-This would become an additional action but separate to the action menu itself. Or perhaps it should be in the same menu with a separator?
+But actually we can offer this functionality for those who lack Javascript. All that happens is that the user presses the button which posts back to the server and after the page refreshes all the items are marked as selected. Then we can enhance the experience with Javascript to do the same thing faster without a refresh.
 
-This feature is often provided as an enhancement but we might consider offering it to users without Javascript too. Providing a button that refreshes the page with all checkboxes checked is straightforward and doesn't have to rely on Javascript.
+Often an interface will have a checkbox to represent *select all*. Even though it's become convention it's not really the right element for the job, semantically speaking. Like the select box, the checkbox is another form of input. It's not for automating or performing actions on an interface.
 
-We can then enhance the experience using Javascript, meaning users don't have to wait for the page to refresh.
-
-Often a user interface will have a checkbox to represent *select all*. Even though it's become convention it's not really the right element for the job, semanticall speaking.
+----
 
 Instead, we'll use the already available button and enrich it with a little ARIA.
 
@@ -384,11 +336,9 @@ In checkout, for example, the user ends up on a dedicated confirmation screen. W
 
 Instead, we'll need a success message at the top of the page, much like the error message alert panel we designed in chapter one.
 
-Here's How it might look:
+How it might look:
 
 ![etc](./images/etc.png)
-
-HTML:
 
 ```HTML
 <div role="alert" class="success">

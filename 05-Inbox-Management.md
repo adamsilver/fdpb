@@ -229,7 +229,7 @@ On big screens with plenty of space, laying out the buttons horizontally is easy
 
 ![Buttons in a row above table](./images/etc.png)
 
-To keep the interface clean but still discoverable we can hide the options behind a menu. There are 2 ways to create a menu. The first is by using a select box. The second is to create a custom menu using ARIA.
+To keep the interface clean but still discoverable we can hide the options behind a menu. There are 2 ways to create a menu. The first is by using a `select` box. The second is to create a responsive menu using ARIA.
 
 ### Select box menu
 
@@ -243,13 +243,13 @@ Select boxes that submit the selection `onchange` using Javascript create proble
 
 This is not a browser bug per se. It's just that some browsers are more forgiving than others. That is, they wait until you press <kbd>space</kbd> or <kbd>enter</kbd> before making the submission allowing the user to use the arrow keys to move through all the options. Forgetting about those using a less forgiving browser or only caring about those who use a mouse is an act of exclusivity.
 
-Also, a select box is always collapsed. However, on larger screens&mdash;when there is enough space&mdash;we would want to show all the buttons making them more convenient to press. Creating two significantly different experiences is an adaptive approach to design and thereofre is one that goes against responsive design principles.
+Also, a select box is always collapsed. However, on larger screens&mdash;when there is enough space&mdash;we would want to show all the buttons making them more convenient to press. Creating two significantly different experiences is an adaptive approach to design and therefore, is one that goes against responsive design principles.
 
-Finally, the server would have to recognise and handle the data that comes from the select box *or* the submit buttons. Insead we'll construct a responsive menu enriched with ARIA and a little bit of Javascript.
+Finally, the server would have to recognise and handle the data that comes from the select box and the submit buttons. Insead we'll construct a responsive menu enriched with ARIA and a little Javascript.
 
-### Responsive ARIA Menu
+### Responsive menu using ARIA
 
-By default the menu will consist of 3 submit buttons. On small screens, without any intervention from us, they'll just stack. This is fine on big screens and acceptable on small screens. But we'll improve a little on small screens when there isn't enough space.
+With no menu element provided in HTML, we're left to create our own menu component enriched with ARIA:
 
 ![Menu](./images/etc.png)
 
@@ -261,7 +261,7 @@ By default the menu will consist of 3 submit buttons. On small screens, without 
 </div>
 ```
 
-The `role="menubar"` and `role="menuitem"` tells screen reader users that they are interacting with a menu including how many items there are.
+The menu takes the (aptly named) `menubar` role. It takes descendants with the `menuitem` role. This allows screen readers to announce the interface as a menu consisting of 3 items.
 
 Submit buttons are naturally focusable by pressing <kbd>tab</kbd>. However, the submit buttons make up the menu. This means the menu itself should make up one tab stop, and navigating the items should happen via the arrow keys. The advantage to users is that they can leave the menu by pressing <kbd>tab</kbd> once as opposed to having to move through each of the items. This is particularly useful for large menus.
 
@@ -273,7 +273,7 @@ Pressing <kbd>right</kbd> or <kbd>left</kbd> moves to the next (or previous) ite
 
 #### Collapsible menu enhancement
 
-On small screens the the items are collpased behind a more tradional looking menu. The user can expand and collaps it as they please.
+On small screens, the menu items will stack beneath each other. We can enhance this a little further to collapse the menu items behind a traditional menu.
 
 ![Menu](./images/etc.png)
 
@@ -290,10 +290,9 @@ On small screens the the items are collpased behind a more tradional looking men
 ```
 
 - The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
-- The `<span>` inside the button contains the unicode for a black down-pointing small triangle. Conventionally, this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"`attribution prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
-- The `aria-haspopup` property is complemented by `aria-expanded`. This tells the user whether the menu is currently in an expanded or (collapsed state by toggling between true and false values.
-The menu itself takes the (aptly named) `menu` role. It takes descendants with the menuitem role.
-- The `role is now set to `menu` instead of `menubar` because in this case it expands and collapses. A `menubar` is always present.
+- The `<span>` inside the button contains the unicode for a black down-pointing small triangle. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"`attribution prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
+- The `aria-haspopup` property is complemented by `aria-expanded`. This tells users whether the menu is currently in an expanded or collapsed state by toggling between true and false values.
+- The `role is now set to `menu` instead of `menubar` because it now expands and collapses. Conversely a `menubar` is always visible.
 - Pressing the button, shows the menu and moves focus to the first `menuitem`.
 - Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop) as before.
 - Pressing <kbd>escape</kbd> on a `menuitem` moves to the menu button and closes the menu.
@@ -330,11 +329,9 @@ update aria-pressed to true
 
 When the submits the form successfully, the page will refresh and the emails disappear from their inbox. It's wise to notify users of this action as without a clear message the user is left to wonder if it worked. This is particularly the case if they have marked many emails in an inbox full of emails.
 
-Like error messgaes, success messages promote trust and calm. It leaves the user feeling good and in control. Two qualities that make the user feel awesome as they get close to Inbox Zero.
+Like error messgaes, success messages promote trust and instill calm. It leaves the user feeling good and in control. Two qualities that encourage the user to get to inbox zero.
 
-In checkout, for example, the user ends up on a dedicated confirmation screen. We could have a confirmation screen, but it seems a bit long-winded to use this approach for managing an inbox.
-
-Instead, we'll need a success message at the top of the page, much like the error message alert panel we designed in chapter one.
+In checkout, for example, the user ends on a confirmation screen. We could have a confirmation screen, but it seems a bit long-winded to use this approach for managing an inbox. Instead, we show a success message at the top of the page.
 
 How it might look:
 

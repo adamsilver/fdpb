@@ -273,7 +273,7 @@ Pressing <kbd>right</kbd> or <kbd>left</kbd> moves to the next (or previous) ite
 
 #### Collapsible menu enhancement
 
-On small screens, the menu items will stack beneath each other. We can enhance this a little further to collapse the menu items behind a traditional menu.
+On small screens, the menu items will stack beneath each other. We can enhance this a little further to collapse the menu items behind a traditional menu when there is no room to show them.
 
 ![Menu](./images/etc.png)
 
@@ -289,6 +289,7 @@ On small screens, the menu items will stack beneath each other. We can enhance t
 </div>
 ```
 
+- By using Javascript we can detect when there isn't enough space and convert the mark-up into a collapsible menu.
 - The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
 - The `<span>` inside the button contains the unicode for a black down-pointing small triangle. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"`attribution prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
 - The `aria-haspopup` property is complemented by `aria-expanded`. This tells users whether the menu is currently in an expanded or collapsed state by toggling between true and false values.
@@ -299,7 +300,7 @@ On small screens, the menu items will stack beneath each other. We can enhance t
 - All `menuitems`s have `tabindex="-1"` for the same reasons as discussed above.
 
 ```JS
-Put it here
+Use matchmedia.
 ```
 
 ## Select all

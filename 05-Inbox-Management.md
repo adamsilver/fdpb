@@ -197,19 +197,21 @@ It's all well and good allowing users to select multiple emails, but our interfa
 
 ### Button location
 
-Traditionally, submit buttons are placed after form fields. Up to now this is exactly what we've done. This made sense, as users typically have to answer the questions from top to bottom. And they submit once they've finished filling out the form.
+Traditionally, submit buttons are placed after form fields. Up to now this is exactly what we've done. This made sense, as users typically have to answer the questions from top to bottom. And they submit once they've filled out the form entirely.
 
-With a form like this, the same logic doesn't necessarily follow. Users who wish to select and act on individual emails will probably not step through each and every checkbox. Moreover, placing the buttons at the bottom of a long list doesn't aid discovery of that action. For these reasons, it makes sense to place the buttons at the top.
+Users who wish to select and act on individual emails won't necessarily step through each and every checkbox. Having buttons at the bottom of a long list doesn't aid discovery of that functionality either. This is why we place them at the top.
 
-[There is another option though. We can use CSS to enhance the buttons so that they are *sticky*. That is they will stay on screen even if users scroll. This is not something to do haphazardly though. Sticky elements take up space and can be visually noisy when trying to read the content.]
+### Implicit submission and multiple submit buttons
 
-[If you want to test this, make sure you do so on a wide range of browsers, screen sizes and users, performing different tasks: browsing and editing.]
+TODO
 
-### The multiple submit button problem
 
-All our forms, up to now, have had a single button. Having one choice wherever possible makes it easier for users as it requires less thinking. However, our inbox has multiple actions and therefore multiple buttons.
+Where possible we should avoid forms needing to contains multiple submit buttons. And using modes, something we considered earlier, encourages this. However, our inbox, however, requires them. The problem with multiple buttons relates to *implicit* submission and it's worth being aware of it.
 
-Multiple buttons are problematic due to the way *implicit* submission works with the keyboard. You may have realised you can submit a form by pressing <kbd>enter</kbd>, when the focus is within a field. If the user presses <kbd>enter</kbd>, then the form will submit as if the user had pressed the *first* button&mdash;this is the *implicit* bit. Where possible, we should design multiple actions out of a single interface. We should exhaust alternative solutions to provide the functionality by separating forms and tasks.
+Implicit submission lets users press <kbd>enter</kbd> while a field is focussed. Doing so behaves as though the user pressed the first submit button as placed in the HTML. This is a problem when there are multiple buttons because by the nature of it being implicit, it's *not* explicit.
+
+
+
 
 For example, consider the following form that combines *save* and *delete* actions:
 

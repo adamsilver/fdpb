@@ -203,33 +203,21 @@ Users who wish to select and act on individual emails won't necessarily step thr
 
 ### Implicit submission and multiple submit buttons
 
-TODO
+Implicit submission allows the user to press <kbd>enter</kbd> while a field is focussed. In doing so the form is submitted as if the user pressed the first button in the HTML. When there is a single submit button this is not an issue. When there are multiple, it's not obvious which action will be taken.
 
+Where possible, we should try and split forms so that they have a single, and therefore intuitive action. It's normally easy to design solutions for this. For example, if you have a form that allows a user to update or delete the record, you can just have two separate forms:
 
-Where possible we should avoid forms needing to contains multiple submit buttons. And using modes, something we considered earlier, encourages this. However, our inbox, however, requires them. The problem with multiple buttons relates to *implicit* submission and it's worth being aware of it.
+![](.)
 
-Implicit submission lets users press <kbd>enter</kbd> while a field is focussed. Doing so behaves as though the user pressed the first submit button as placed in the HTML. This is a problem when there are multiple buttons because by the nature of it being implicit, it's *not* explicit.
+Our inbox is a special case. As such it's not quite so obvious as to how we might split out the actions into separate forms. One way, would be for users to first select an action (such as ‘Bulk deletion’). Clicking it takes the user to a dedicated interface in which to select the emails and apply the action
 
+![Click action link -> present checkboxes (with submit at bottom) ->confirm action](.)
 
+This could work. On the other this approach seems a little long winded in the case of an inbox. At least in putting the buttons first in the flow, users (those who use screen readers and those more abled) have an opportunity to discover the multitude of available actions.
 
+Also, a form consisting of a single checkbox group, doesn't make implicit submission all that useful. Conversely, a search form&mdash;one that consists of a text box and submit button&mdash;would benefit greatly from implicit submission, as users can take the efficient route pressing <kbd>enter</kbd>.
 
-For example, consider the following form that combines *save* and *delete* actions:
-
-![Save and delete form combined](./images/save-and-delete-form-combined.png)
-
-In this case we might consider splitting up the forms into two. One for saving and one for deleting. To make this work we need to consider the end to end experience&mdash;not just the form in isolation.
-
-Our inbox *could* be designed differently. For example, we could have the actions first. Clicking an action takes the user to a dedicated form where the user selects which emails to apply to the action.
-
-I wouldn't mind seeing this approach in user testing to find out, but lets assume that this is long winded and unintuitive in the case of an inbox.
-
-By putting the buttons first in the flow users have an opportunity to see or hear the actions on offer, and it might stop users using the keyboard to submit a form whilst focussed on the checkbox.
-
-The other thing is, the interface doesn't really afford that of implicit submission, because it's a list of checkboxes. Unlike say a search form, where users type and submit without moving to the button.
-
-Despite this, the user could still submit with *enter*. In this case we can ensure the first submit button is the least dangerous and destructive one. That is make sure that the *delete selected emails* action is not first.
-
-We'll shortly discuss the ability to undo actions like this, but mitigation is a fruitful first step regardless.
+In any case, if a user did implicitly submit the form, we can mitigate the danger in two ways. First by putting the least invasive action first (such as archive). Secondly by letting users undo their action. This is useful experience regardless and we'll be talking about this more shortly.
 
 ### Disabling buttons before selection
 

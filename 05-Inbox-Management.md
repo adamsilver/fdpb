@@ -90,50 +90,62 @@ How it might look:
 </ul>
 ```
 
-Unlike all other fields in the book so far, the checkbox has a label missing. We can add a label, but the contents of the label will duplicate the contents of the link.
+Unlike all other fields in the book so far, the checkbox has a label missing. In *almost* all cases, a visible label should be placed with the checkbox. However, this is a bit of a special case because the interface handles two disperate jobs. That is, to view emails and to *manage* them too.
 
-We can't wrap the anchor in the label either as there will be 2 interactive elements occuping the same space. That is, the label selects the checkbox and the link navigates to the email.
+In this case we can probably get away without having visible labels. In fact having a visible label in this interface interfers with the navigation behaviour of the row itself. We can't have a `label` and a link occupy the same space.
 
-We have 3 options available to us that will solve the problem. Each of them have tradeoffs:
+There are 2 solutions:
 
-- Use ARIA to connect the content to the checkbox.
-- Duplicate the content inside a hidden label.
-- Wrap the contents in a `label` and associate it with the checkbox.
+- Use modes
+- Visually hide the label
 
-### Use ARIA to connect the content to the checkbox.
+### Use modes
 
-We could use `aria-describedby` or `aria-labelledby` to associate the information in the list item with the label. However, there are 2 problems:
+As we said before, our interface is a little complicated because it's trying to do 2 jobs. Instead we could split these jobs out and use modes. Affectively this means have two interfaces. One that is read-only and one that is for management.
 
-- ARIA has less support than using a label element. This is because ARIA came along relatively late in the day[^]. Browsers and assistive technology that came before it will ignore it. It's worth noting again, that the first rule of ARIA is not to use ARIA. Support is intertwined with inclusivity. If we can provide the same functionality natively without ARIA we should.
-- Secondly, the size of the hit area is reduced. You'll recall from the first chapter that increasing the hit area helps those with fine motor impairments. We don't want to lose this feature if possible. And ARIA is an enhancement for those using screen readers. It doesn't affect the visual interaction.
-
-### Duplicate the contents inside a hidden label
-
-We could duplicate the contents inside of a separate label. The problem is that the label needs to be visually hidden. This causes HTML bloat. And the extra noise could cause problems for those using a screen reader. Two problems we want to avoid.
-
-### Wrap the contents in a label
-
-Instead of duplicating the contents inside a hidden label, we could wrap the contents in a label. Labels have excellent support and so there is no need for ARIA. By the same token, the entire row becomes clickable which maximises the hit area. So far so good, but this solution introduces other problems.
-
-A label can't contain a link because you can't have two interactive elements occupying the same space. We'd have to remove the link, losing the ability to view the email in detail.
-
-We might consider using *modes*. That is, a separate button, when clicked, switches the mode from ‘read’ mode and ‘edit’ mode. Read mode converts the row into a link and hides the checkbox. Edit mode shows a checkbox and converts the contents into a label.
+When in read-mode there are no forms and no checkboxes. Clicking the row takes the user to the email. When in manage-mode, the row becomes the `label` and therefore clicking it activates the checkbox, just like it does in all the other forms we've designed so far.
 
 ![Modes](./images/modes.png)
 
-Modes work well, particulary if one mode is used far less. But if users are using both modes equally, then it might be undesirable to have to switch. Instead, we could add a *view* link at the end of each "row". The problem is that the most of the row is a label. Clicking it ticks the checkbox, instead of viewing the email. This may be undesirable.
+Modes work well, particulary if one is used a lot more than the other. But if both are used equally, then having to switch between them is somewhat undesirable. This seems applicable to our inbox interface. Instead we can visually hide the label.
 
-However, explicit actions are good. That's because dedicated actions are obvious and obvious is something that makes users feel awesome. We don't have to limit the row to contain just a *view* link. We can put the other actions within the row too.
+### Visually hide the label
 
-![Actions in rows](./images/actions-in-rows.png)
+There are two ways to create a hidden label. One of the simpler and least verbose ways is to use `aria-labelledby`:
 
-This works well. For those that want to quickly delete a single email, clicking the button is quicker than clicking the checkbox and then hitting the action button.
+```
+<ul class="inbox">
+	<li>
+		<input type="checkbox" name="email" aria-labelledby="e1_recipient e1_subject e1_date">
+		<a href="/emails/1/">
+			<div class="inbox-recipient" id="e1_recipient">From Heydon Pickering</div>
+			<div class="inbox-subject" id="e1_subject">Subject: Buttons</div>
+			<div class="inbox-date" id="e1_date">19/09/2017</div>
+		</a>
+	</li>
+	...
+</ul>
+```
 
-The trade off is that the interface is full of buttons. Only user testing can tell us which is best. I don't have any personal experience to draw on with regards to an inbox with multiple buttons, so we'll have to make a decision.
+The downside is that there is less support for ARIA than there is if we were to use the native equivalent of a `label`. Using a label  means duplicating the contents and visually hiding the label with CSS.
 
-### Which to choose?
+```
+<ul class="inbox">
+	<li>
+		<input type="checkbox" name="email" aria-labelledby="e1_recipient e1_subject e1_date">
+		<a href="/emails/1/">
+			<div class="inbox-recipient" id="e1_recipient">From Heydon Pickering</div>
+			<div class="inbox-subject" id="e1_subject">Subject: Buttons</div>
+			<div class="inbox-date" id="e1_date">19/09/2017</div>
+		</a>
+	</li>
+	...
+</ul>
+```
 
-Much to our collective frustration, *perfect* rarely exists in the design world. And in this case, there's probably not a *perfect* answer either. We'll duplicate the label and visually hide it. A bit of duplication seems to be the less of all the evils, and more importantly we have rationalised our decision thoroughly.
+Duplicating the contents bloats the HTML which can diminish the experience for many users since many operations will take longer. Assistive technology users especially may find their software unresponsive.
+
+Much to our frustration, *perfect* rarely exists in design. On balance, using a visually hidden label creates a little bit of a bloat in exchange for a more inclusive experience. In fact having a visually hidden label is an opportunity to improve the experience for screen reader users. Note below that the label reads *From Heydon Pickering about Buttons (19 September 2017)* which works better audibly.
 
 ```HTML
 <fieldset class="inbox">
@@ -141,7 +153,7 @@ Much to our collective frustration, *perfect* rarely exists in the design world.
 	<ul>
 		<li>
 			<input type="checkbox" name="email" id="email1" value="1">
-			<label for="email1">Heydon Pickering, Buttons, 19/09/2017</label>
+			<label for="email1">From Heydon Pickering about Buttons (19 September 2017)</label>
 			<a href="/emails/1/">
 				<div class="inbox-recipient">Heydon Pickering</div>
 				<div class="inbox-subject">Subject: Buttons</div>
@@ -153,25 +165,31 @@ Much to our collective frustration, *perfect* rarely exists in the design world.
 </fieldset>
 ```
 
-We can hide the visually duplicated label with CSS:
+Here's the CSS to visually hide the label.
 
 ```CSS
 .inbox label {
-	// visually hidden
+	position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding:0 !important;
+    border:0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden;
 }
 ```
 
 ## Highlighting rows
 
-When a user clicks a checkbox it becomes checked. The user knows this because a tick or *check* appears. We could use Javascript to highlight the row&mdash;a reasonable feature to progressively enhance. As designers and developers, or more broadly speaking: humans, we are often tempted to do more. We think more is better. We also think doing more is a symbol of hardwork. In fact it's so easy to do more. Your peers will cheer you on when you say you suggest it.
+The deal with human-computer interaction is that when the human does something, the computer should respond. In this case, clicking a checkbox makes a little tick appear (and disappear) accordingly. In all likeliness this is enough, though we could highlight the entire row using Javascript.
 
-But what if you don't need more? If you don't do more you can spend time solving other problems that need you. If you don't do more the developers won't need to do more either. Same goes for everyone else on your team who is involved in the delivery of that feature.
+As designers, we're tempted to do more than the minimum. We think that more is better. We think that more is a symbol of hard work. It's actually a lot easier to do more than it is to do less. Constantly striving for less in a world that pats you on the back for doing more is very hard work indeed.
 
-Mailchimp, who invest heavily into usability don't highlight the rows. The checkbox state is enough:
+If thorough and diverse testing shows a highlight is really needed then go ahead. But, by not highlighting the row, we have less work to do and the interface becomes as performant as possible.
+
+Mailchimp, known for their usability prowess don't bother highlighting the rows, the checkbox is enough.
 
 ![Mailchimp List](./images/mailchimp-list.png)
-
-We'll follow their lead and avoid the extra effort. This doesn't mean the enhancement isn't necessary. It simply means to do the minimum, then test to see if the investment is worth the cost. We might well find that users don't need it and that the checkbox itself provides the affordance adequately.
 
 ## Submit buttons
 

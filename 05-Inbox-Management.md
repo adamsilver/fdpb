@@ -185,21 +185,15 @@ The deal with human-computer interaction is that when the human does something, 
 
 As designers, we're tempted to do more than the minimum. We think that more is better. We think that more is a symbol of hard work. It's actually a lot easier to do more than it is to do less. Constantly striving for less in a world that pats you on the back for doing more is very hard work indeed.
 
-If thorough and diverse testing shows a highlight is really needed then go ahead. But, by not highlighting the row, we have less work to do and the interface becomes as performant as possible.
+If thorough and diverse testing shows a highlight is really needed then go ahead. But, by not highlighting the row, we have less work to do and the interface is as performant as possible.
 
-Mailchimp, known for their usability prowess don't bother highlighting the rows, the checkbox is enough.
+Mailchimp, known for their usability prowess don't bother highlighting the rows. The checkbox is enough.
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
 ## Submit buttons
 
-We have a form that enables the selection of an email, but no actions to apply to it. We need to add buttons for delete, archive, and marking spam. There are a few design considersatons:
-
-- Button location
-- The multiple submit problem
-- Disabling buttons before selection
-- Hiding buttons before selection
-- Menu design
+It's all well and good allowing users to select multiple emails, but our interface is lacking the ability to action them. Unlike other forms in this book, the inbox is a little bit different. Firstly it's not a simple matter of placing a button at the end of the form. Secondly this form contains multiple submit buttons. We're going to discuss all this and more now.
 
 ### Button location
 

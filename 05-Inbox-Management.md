@@ -293,7 +293,7 @@ Notes:
 
 - The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
 - The `<span>` contains the unicode character representing a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
-- The `aria-haspopup` property is complemented by `aria-expanded` which tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
+- The `aria-haspopup` attribute is complemented by `aria-expanded` which tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
 - The role is now set to `menu` instead of `menubar` because it now expands and collapses. Conversely a `menubar` is always visible.
 - Pressing the button shows the menu and moves focus to the first `menuitem`.
 - Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop) as before.
@@ -304,42 +304,42 @@ Notes:
 
 ## Select all
 
-Sometimes users may want to select every email in their inbox before applying the action. Rather than having to select each email manually, we can create a more convenient way of doing this. One way of giving users this capability is through an additional and *special* checkbox at the top of the list. Clicking it marks the checkbox and every other checkbox at the same time.
+Users may want to, for example, archive every email in their inbox. Rather than having to select each manually, we can create a more convenient method. One way to service this functionality is through a *special* checkbox&mdash;placed at the top, in vertical alignment with the other checkboxes to create a visual connection. Clicking it marks the checkbox and every other checkbox at the same time.
+
+[!Checkbox mailchimp?](.)
+
+Arguably, this out-of-the-box input has all the ingredients of an accessible control; it’s screen reader and keyboard accessible. It communicates through it's label and change of state. It's label would be *Select all* and it's state would be announced as *checked* or *unchecked*. Without JavaScript, we’ve handled state, and screen readers are able to give feedback to users.
+
+Despite our natural inclination to lean on native technology. And despite the fact that this type of control is accessible by mouse, touch, keyboard and assitive technology, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to make sense and give clarity as to their affordance.
+
+The trouble with using checkboxes&mdash;much like using a select box as a menu&mdash;is that they associated with collecting data for submission. Ultimately users expect toggle buttons to be buttons and checkboxes as a vessel for input.
+
+Instead we'll create a true toggle button. HTML doesn't have a toggle button, it just has `button`. This generic button of type button (not submit) should be your go-to element for changing anything with Javascript. That is except for changing location which is the responsibility of links.
+
+```HTML
+<button type="button" aria-pressed="true">Select all</button>
+```
+
+```JS
+Put code here
+```
+
+Notes:
+
+- The `aria-pressed` attribute tells the user the state of the button by toggling between `true` and `false` values, much like the checkbox did through being `checked`.
+- Pressing the button marks all the checkboxes as checked or unchecked depending on the existing state.
 
 ---
 
-Users may want to perform an action on every email in their inbox. To save the user having to select each checkbox manually, we offer them the convenience of a button that does it for them. This feature is usually offered as an Javascript enhancement. That is, for those without Javascript they are left to once again select each checkbox one by one.
-
-But actually we can offer this functionality for those who lack Javascript. All that happens is that the user presses the button which posts back to the server and after the page refreshes all the items are marked as selected. Then we can enhance the experience with Javascript to do the same thing faster without a refresh.
-
-Often an interface will have a checkbox to represent *select all*. Even though it's become convention it's not really the right element for the job, semantically speaking. Like the select box, the checkbox is another form of input. It's not for automating or performing actions on an interface.
-
-----
-
-Instead, we'll use the already available button and enrich it with a little ARIA.
-
-```HTML
-<button aria-pressed="false">Select all</button>
-```
-
-And the Javascript:
-
-```JS
-Loop through all checkboxes and check them
-update aria-pressed to true
-```
-
 ## Success messages
 
-When the submits the form successfully, the page will refresh and the emails disappear from their inbox. It's wise to notify users of this action as without a clear message the user is left to wonder if it worked. This is particularly the case if they have marked many emails in an inbox full of emails.
+Then the user submits the form, the selected checkboxes should disappear from the interface. Telling users this all happened successfuly is a respectful thing to do. Otherwise users are left to ponder what happened, if at all.
 
-Like error messgaes, success messages promote trust and instill calm. It leaves the user feeling good and in control. Two qualities that encourage the user to get to inbox zero.
-
-In checkout, for example, the user ends on a confirmation screen. We could have a confirmation screen, but it seems a bit long-winded to use this approach for managing an inbox. Instead, we show a success message at the top of the page.
+Giving users a success message instills calm and reduces anxiety. This is why we provided a confirmation page at the end of the checkout process in chapter 2. Giving users a dedicated confirmation screen for our inbox is unnecessarily long winded. A success message at the top of the page in context is fine.
 
 How it might look:
 
-![etc](./images/etc.png)
+![Success](.)
 
 ```HTML
 <div role="alert" class="success">
@@ -347,12 +347,11 @@ How it might look:
 </div>
 ```
 
-### Notes
+Notes:
 
-- The role of alert means the panel is announced immediately for those using screen readers
-- The message stays on screen. It doesn't automatically hide. This is a poor experience. It either hangs around for too long, or it disappears before the user had a chance to read it.
-- Without a Javascript, navigating away will dismiss the message.
-- With Javascript, we can enrich the experience by adding a dismiss button. Clicking it will hide the message.
+- The role of alert ensures screen readers announce the message immediately.
+- The message is always visible (it doesn't automatically disappear after a few seconds). A message that disappears automatically takes away control and creates a poor experience for those that either don't read quickly or who got distracted by life at the crucial moment.
+- If you want to let users dismiss the message in order to clean up the interface, then we can enhance this by added a button with Javascript. Clicking it closes the message.
 
 ### Confirming versus undo
 
@@ -374,24 +373,9 @@ TODO
 
 ## Footnotes
 
-TODO
+[^]:Blah
 
-## Other considerations
+## TODO
 
 - Selecting all, but spanning several pages (Gmail)
 - Hover vs click (for aria menu)
-- checkbox indeterminate state.
-
-
-
-
-## Notes
-
-The advantage to users is that they can leave the menu by pressing <kbd>tab</kbd> once as opposed to having to move through each of the items. This is particularly useful for large menus.
-
-When Javascript is available to handle the keyboard interactions we suppress the natural tab stops by giving each button a tabindex of -1, except for the first one. If we gave the first one the same attribute, users wouldn't be able to focus the menu at all. With Javascript, we detect when the user presses the arrow keys and programmatically moves focus to the next button.
-
-Once the user enters the menu, the first button is also given a tabindex of -1 to match the others. On tabbing away from the menu everything is reset to the original state.
-
-Pressing <kbd>right</kbd> or <kbd>left</kbd> moves to the next (or previous) item (on loop).
-

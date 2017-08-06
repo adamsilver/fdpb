@@ -233,19 +233,21 @@ To keep the interface clean but still discoverable we can hide the options behin
 
 ### Select box menu
 
-Select boxes are a menu of sorts. They present items for selection (like a menu) and they are useful because browsers supply them to us for free. Even though select boxes look like menus and behave in a similar fashion, they *aren't* menus.
+Select boxes are a menu of sorts. They present items for selection (like a menu) and they're an attractive option because browsers supply them for free. Even though select boxes look like menus and behave a little like them, they *aren't* menus.
 
-Select boxes are for input. Menus are for taking action. That's why select boxes&mdash;like any other input&mdash;must come with an accompany submit button to submit that choice. Not only is this by convention, but it's also in the WCAG2.0 specifcation:
+Select boxes are for input. That's why (forms that contain) select boxes&mdash;like any other input&mdash;must be accompanied by a submit button (to submit the choice). Not only is this by convention, but it's also in WCAG2.0:
 
-> “Changing the setting of any user interface component does not automatically cause a change of context”
+> Changing the setting of any user interface component does not automatically cause a change of context.
 
-Select boxes that submit the selection `onchange` using Javascript create problems for those using a screen readers and keyboards. On Chrome (Windows), for example, the form is submitted as soon as the user moves to the first option. This makes it hard (or impossible) to select the second option.
+This coincides with inclusive design principle 4, *give control*. Select boxes that automatically submit the form `onchange` *takes away control*. Unsuprisingly then, this causes problems. In this case, screen reader and keyboard users. On Chrome (Windows), for example, the form is submitted as soon as the user moves to the next option when pressing <kbd>down</kbd>. Getting to the option after that is either hard or impossible[^].
 
-This is not a browser bug per se. It's just that some browsers are more forgiving than others. That is, they wait until you press <kbd>space</kbd> or <kbd>enter</kbd> before making the submission allowing the user to use the arrow keys to move through all the options. Forgetting about those using a less forgiving browser or only caring about those who use a mouse is an act of exclusivity.
+This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones wait until you press <kbd>space</kbd> or <kbd>enter</kbd> before submission. This lets users move through the options with the arrow keys. As we know, not all browsers are alike or implement the specification in the same way. Therefore, forgetting about people who use a less forgiving browser is an act of exclusivity.
 
-Also, a select box is always collapsed. However, on larger screens&mdash;when there is enough space&mdash;we would want to show all the buttons making them more convenient to press. Creating two significantly different experiences is an adaptive approach to design and therefore, is one that goes against responsive design principles.
+This information easily discredits the use of a select box as a menu. However, there are other problems worth noting. A select box is always collapsed but when there is enough space (on big screens) we want to expose the options making them easier to scan and select. We could use Javascript to create vastly different experiences on small and big screens, but this is an adaptive approach to design and goes against the very foundation of responsive design[^].
 
-Finally, the server would have to recognise and handle the data that comes from the select box and the submit buttons. Insead we'll construct a responsive menu enriched with ARIA and a little Javascript.
+[!Show adapative layout differences](.)
+
+Practically, this creates more work for us, and a more computationally heavy interface for the browser. It also adds complexity on the server because it has to be aware of two different interface components (select boxes or submit buttons) that transmit data in different ways to essentially perform the same goal.
 
 ### Responsive menu using ARIA
 

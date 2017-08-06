@@ -304,6 +304,8 @@ Notes:
 
 ## Select all
 
+Sometimes users may want to perform these bulk actions to every single email in their inbox. Rather than having to select each email manually, we offer the convenience of a button that automates it for them.
+
 Users may want to perform an action on every email in their inbox. To save the user having to select each checkbox manually, we offer them the convenience of a button that does it for them. This feature is usually offered as an Javascript enhancement. That is, for those without Javascript they are left to once again select each checkbox one by one.
 
 But actually we can offer this functionality for those who lack Javascript. All that happens is that the user presses the button which posts back to the server and after the page refreshes all the items are marked as selected. Then we can enhance the experience with Javascript to do the same thing faster without a refresh.

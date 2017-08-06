@@ -304,7 +304,9 @@ Notes:
 
 ## Select all
 
-Sometimes users may want to perform these bulk actions to every single email in their inbox. Rather than having to select each email manually, we offer the convenience of a button that automates it for them.
+Sometimes users may want to select every email in their inbox before applying the action. Rather than having to select each email manually, we can create a more convenient way of doing this. One way of giving users this capability is through an additional and *special* checkbox at the top of the list. Clicking it marks the checkbox and every other checkbox at the same time.
+
+---
 
 Users may want to perform an action on every email in their inbox. To save the user having to select each checkbox manually, we offer them the convenience of a button that does it for them. This feature is usually offered as an Javascript enhancement. That is, for those without Javascript they are left to once again select each checkbox one by one.
 

@@ -225,11 +225,15 @@ You may think it's a good idea to disable (or hide) the buttons until users sele
 
 ### Housing the buttons in a menu
 
-On big screens with plenty of space, laying out the buttons horizontally is easy. However, an inbox may have other features and there may not be space&mdash;even on big screens&mdash;to present them comfortably. Moreover, on small screens there may not be enough room to present the buttons without them dominating the interface. Dominance is a quality that we should use sparingly. After all, if everything dominates, nothing does.
+On big screens, or responsively speaking, when there is space, laying out the buttons horizontally is fine. However, an inbox may have other features and there may not be enough space (even on big screens) to present them comfortably.
 
-![Buttons in a row above table](./images/etc.png)
+[Blah](.)
 
-To keep the interface clean but still discoverable we can hide the options behind a menu. There are 2 ways to create a menu. The first is by using a `select` box. The second is to create a responsive menu using ARIA.
+Similarly, on small screens the buttons are likely to stack beneath each other pushing the inbox itself down the page. Having the buttons dominate the interface like this is problematic. *Dominance* is a quality we should use sparingly. After all, if everything dominates, nothing does. The inbox should take center stage with the menu taking a more subtle role in the interface.
+
+![Blah](.)
+
+To keep the interface clean but easy to scan we hide the options behind a menu button. There are 2 ways to create a menu. The first is by using a `select` box which as we'll find out isn't a true menu. The second is by building a true menu using HTML, CSS and Javascript.
 
 ### Select box menu
 
@@ -247,35 +251,25 @@ This information easily discredits the use of a select box as a menu. However, t
 
 [!Show adapative layout differences](.)
 
-Practically, this creates more work for us, and a more computationally heavy interface for the browser. It also adds complexity on the server because it has to be aware of two different interface components (select boxes or submit buttons) that transmit data in different ways to essentially perform the same goal.
+Practically speaking, this creates more work for us, and a more computationally heavy interface for the browser to render. It also adds complexity on the server because it has to be ready to handle the way select boxes and submit buttons transmit data to essentially perform the same task. The select box will send `selectName="value"` and the buttons send `buttonName="value"`.
 
-### Responsive menu using ARIA
+### A true menu
 
-With no menu element provided in HTML, we're left to create our own menu component enriched with ARIA:
-
-![Menu](./images/etc.png)
+HTML doesn't have a ‘menu’ element so we need to build our own. The basic HTML looks like this:
 
 ```HTML
 <div role="menubar">
-	<input role="menuitem" type="submit" name="archive" value="Archive">
-	<input role="menuitem" type="submit" name="delete" value="Delete">
-	<input role="menuitem" type="submit" name="spam" value="Mark as spam">
+  <input role="menuitem" type="submit" name="archive" value="Archive">
+  <input role="menuitem" type="submit" name="delete" value="Delete">
+  <input role="menuitem" type="submit" name="spam" value="Mark as spam">
 </div>
 ```
 
-The menu takes the (aptly named) `menubar` role. It takes descendants with the `menuitem` role. This allows screen readers to announce the interface as a menu consisting of 3 items.
+The menu takes the (aptly named) `menubar` role indicating this element contains a menu items. That's why each submit button is given a role of `menuitem`, letting screen readers announce the component as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved in using ARIA is to denote this grouping for those using screen readers.
 
-Submit buttons are naturally focusable by pressing <kbd>tab</kbd>. However, the submit buttons make up the menu. This means the menu itself should make up one tab stop, and navigating the items should happen via the arrow keys. The advantage to users is that they can leave the menu by pressing <kbd>tab</kbd> once as opposed to having to move through each of the items. This is particularly useful for large menus.
+On small screens, the menu items stack beneath each other as there is no room to present them next to each other. Javascript is used to detect when the screen is small to then enhance the component into a traditional collapsed menu with all the expected interactive qualities which I'll explain shortly.
 
-When Javascript is available to handle the keyboard interactions we suppress the natural tab stops by giving each button a tabindex of -1, except for the first one. If we gave the first one the same attribute, users wouldn't be able to focus the menu at all. With Javascript, we detect when the user presses the arrow keys and programmatically moves focus to the next button.
-
-Once the user enters the menu, the first button is also given a tabindex of -1 to match the others. On tabbing away from the menu everything is reset to the original state.
-
-Pressing <kbd>right</kbd> or <kbd>left</kbd> moves to the next (or previous) item (on loop).
-
-#### Collapsible menu enhancement
-
-On small screens, the menu items will stack beneath each other. We can enhance this a little further to collapse the menu items behind a traditional menu when there is no room to show them.
+How it might look:
 
 ![Menu](./images/etc.png)
 
@@ -291,19 +285,22 @@ On small screens, the menu items will stack beneath each other. We can enhance t
 </div>
 ```
 
-- By using Javascript we can detect when there isn't enough space and convert the mark-up into a collapsible menu.
-- The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
-- The `<span>` inside the button contains the unicode for a black down-pointing small triangle. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"`attribution prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
-- The `aria-haspopup` property is complemented by `aria-expanded`. This tells users whether the menu is currently in an expanded or collapsed state by toggling between true and false values.
-- The `role is now set to `menu` instead of `menubar` because it now expands and collapses. Conversely a `menubar` is always visible.
-- Pressing the button, shows the menu and moves focus to the first `menuitem`.
-- Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop) as before.
-- Pressing <kbd>escape</kbd> on a `menuitem` moves to the menu button and closes the menu.
-- All `menuitems`s have `tabindex="-1"` for the same reasons as discussed above.
-
 ```JS
-Use matchmedia.
+Put it here
 ```
+
+Notes:
+
+- The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
+- The `<span>` contains the unicode character representing a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
+- The `aria-haspopup` property is complemented by `aria-expanded` which tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
+- The role is now set to `menu` instead of `menubar` because it now expands and collapses. Conversely a `menubar` is always visible.
+- Pressing the button shows the menu and moves focus to the first `menuitem`.
+- Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop) as before.
+- Pressing <kbd>escape</kbd> on a `menuitem` moves focus to the menu button and closes the menu.
+- All `menuitems`s have `tabindex="-1"` which means pressing <kbd>tab</kbd> won't move focus to the buttons. We purposely let users use the arrow keys to traverse the menu because this saves the user having to wade through each of the menu items to get to the next interface component. Pressing <kbd>tab</kbd> once achieves this and mimics the behaviour of menus found in standard computer software.
+
+---
 
 ## Select all
 
@@ -380,3 +377,17 @@ TODO
 - Selecting all, but spanning several pages (Gmail)
 - Hover vs click (for aria menu)
 - checkbox indeterminate state.
+
+
+
+
+## Notes
+
+The advantage to users is that they can leave the menu by pressing <kbd>tab</kbd> once as opposed to having to move through each of the items. This is particularly useful for large menus.
+
+When Javascript is available to handle the keyboard interactions we suppress the natural tab stops by giving each button a tabindex of -1, except for the first one. If we gave the first one the same attribute, users wouldn't be able to focus the menu at all. With Javascript, we detect when the user presses the arrow keys and programmatically moves focus to the next button.
+
+Once the user enters the menu, the first button is also given a tabindex of -1 to match the others. On tabbing away from the menu everything is reset to the original state.
+
+Pressing <kbd>right</kbd> or <kbd>left</kbd> moves to the next (or previous) item (on loop).
+

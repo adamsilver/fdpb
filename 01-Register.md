@@ -103,15 +103,15 @@ Ultimately, this book is about designing forms that work. Forms that don't drive
 
 ## The Question Protocol
 
-Nobody wants to use forms. They are not a source of entertainment. People just want the end result. Paying off their debts, receiving some new shoes, or receving a new tax disc so they avoid fines and save money.
+Nobody wants to use forms. They are not a source of entertainment. People just want the end result. Paying off their debts, receiving some new shoes, or receving a new tax disc so they avoid fines and save money or some of the reasons why people will use a form.
 
-When we put a form in front of someone we have to make sure that there are good reasons for doing so. Why then, are we suggesting people register? Perhaps it's because in doing so the user will get:
+When we put a form in front of someone we have to make sure that there are good reasons for doing so. Why then, are we suggesting people register? As we're looking at patterns as opposed to building a service as a whole, we'll have to consider some reasonably common reasons. Perhaps it's because the user will get:
 
-- a faster checkout
-- order tracking
-- a 10% discount
+- A faster checkout experience next time.
+- Order tracking without having to make a phone call.
+- A 10% discount as a reward for handing over details.
 
-It's not just the form itself though. It's the questions within the form that need justification too. Government Digital Services’ (GDS) Question Protocol suggests that before starting design, make a list of the information you need from users. Then, only add a question if you know:
+It's not just the form itself that needs justification. The questions within the form have just as much to answer for. Government Digital Services’ (GDS) Question Protocol suggests that before starting the design process, to make a list of the information we need from users. Then, only add a question if you know:
 
 - that you need the information to deliver the service
 - why you need the information
@@ -120,82 +120,65 @@ It's not just the form itself though. It's the questions within the form that ne
 - how you’ll check the information is accurate
 - how to keep the information up to date and secure
 
-Asking these questions ensures we justify the existence of each question. And in doing so urges us to explore more simpler ways of getting users to fill out forms.
-
-For the registration form, we might want to ask ourselves:
+Asking these questions urges us to justify the existence of each question. And in doing so nudges us to explore more simpler ways of getting users to fill out forms. For the registration form, we might want to ask ourselves:
 
 - Do we need to ask for their first and last name?
-- Do we need to ask for a password?
-- Assuming we do, are there better ways of asking for it?
+- Do we need to ask for a password? And, assuming we do, are there better ways of asking for it?
 
 ### Do we need to ask for their first and last name?
 
-Users don't need to tell us their name to register for an account. The minimum they need to do is provide an email and password. And maybe not even a password is needed (more on this shortly).
+Users don't need to tell us their name to register for an account. The minimum they need to do is provide an email and password. And maybe not even that but more on this shortly. If at some stage we do need their name, we should ask for it then, in context. For example, asking for their name during checkout is required because the product needs to be addressed to a human being.
 
-If at some stage we do need their name, we should ask for it then, in context. For example, asking for their name during checkout is required as part of a delivery address form.
-
-By removing the first and last name fields, we've halved the size of the form. A simple question, a simple answer and a better experience. This *naturally* reduces the height of the form without resorting to problematic design patterns such as those discussed earlier.
+By removing the first and last name fields, we halve the size of the form. A simple question, a simple answer and a better experience all because we followed the Question Protocol. This, by the way, *naturally* reduces the height of the form without resorting to novel patterns that introduce usability problems.
 
 ### Do we need to ask for a password?
 
-Medium.com have implemented a no password sign in[^4]. A no password sign-in works by leveraging the security of email accounts (that do have a password) by sending the user a login link.
+Medium.com implemented a ‘no password’ sign in[^4]. A no password sign-in works by leveraging the security of email accounts (that do have a password) by sending the user a login link. If we were to use this technique, this would reduce the registration form down just 1 field. But maybe this an over simplification.
 
-If we were to use this technique, this would reduce our registration form down to a single field. But this may be an over simplification. Users are less familiar with this approach, although that is not a reason in itself to avoid improving the experience.
+Users are less familiar with this approach, although that is not a reason in itself to avoid improving the experience. More importantly when people login, they have to switch to their email account (which also requires logging in to). For those that know their password, or use a password manager, this switching is actually a slower than a more traditional login experience.
 
-More importantly when people login, they have to switch to their email account (which also requires logging in to). For those that know their password, or use a password manager, this switching is actually a lot slower.
+This shows that designing a form in isolation is not a sensible approach to design. The Question Protocol makes us think about the journey as a whole. This discussion isn't about proving that one technique is better than the other. It simply shows that merely having to tink about it probably causes us to design better experiences in the end.
 
-This shows that designing a form in isolation is not a sensible approach to design. The Question Protocol helps us think about the journey as a whole.
-
-This discussion doesn't show that one approach is better than the other necessarily. It simply proves that discussion and analysis is a good thing and makes us conscious of our decisions and the effect they have on users.
-
-We'll keep the password field making the experience familar and straightforward for most users. Moving away from convention is something we should do through testing. Otherwise we may end up exchanging one set of problems for another.
+For now, we'll stick with the password field which the safer option for most users thanks to it's more familiar appearance. And after all, moving away from convention is something we should do confidently through user testing and research. Without doing that, the we might just be exchanging one set of problems for another.
 
 ### Are there better ways of asking for a password?
 
-Passwords are generally short, hard to remember and easy to crack, even if they adhere to the following rules:
+Passwords are generally short, hard to remember and easy to crack, even if they are forced to meet the following rules:
 
 - eight characters
 - one uppercase letter
 - one lowercase letter
 - one number
 
-Where possible we want to ask users something that is easy to remember and more secure. Passphrases[^5] are easier to remember. They are considered more secure due to their length and the fact you don't need to write them down.
+Where possible we want to ask users something that is easy to remember and more secure. Passphrases[^5] are easier to remember. They are considered more secure due to their length and the fact you don't need to write them down. But what is a passphrase?
 
-A passphrase is a series of words such as ‘monkeysinmygarden’. The only downside is that this approach is unfamiliar and unfamiliarity, especially with passwords causes anxiety.
+A passphrase is a series of words such as ‘monkeysinmygarden’ (I'm sorry but that was the first thing that came to mind). The only downside with passphrases is that like the ‘no password’ sign in, it's unfamiliar. Unfamiliarity, particularly when it comes to passwords may cause anxiety for users, that are already worried about interntet security.
 
-Again, we shouldn't discount this technique because it's new, but we should explore the validity of the approach with users before making the decision either way.
-
-We'll stick to a more traditional password field that requires a set of complex rules. In doing so we'll look at ways to make this approach easy to use.
+Again, we shouldn't discount this technique because it's new or unfamiliar, but we should explore the validity of the approach with users before making the call. We'll stick to a more traditional password field that requires a set of complex rules. In doing so we'll look at ways to make this common approach better for users.
 
 ## Marking required fields
 
-Traditionally, we've marked required fields using an asterisk. A legend, above the form would explain the meaning behind it. I'm not entirely sure how this came to be, but having a layer of abstraction puts cognitive strain on the user.
+Traditionally, we've marked required fields using an asterisk. A legend, above the form explains its meaning. I'm not entirely sure how this came to be, but having a layer of abstraction puts cognitive strain on the user. Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains it.*
 
-Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains things.*
+The Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In *Required versus optional fields* Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.*
 
-As we've seen, the Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In *Required versus optional fields* Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.*
-
-If required fields are the norm, and optional fields aren't then it's the optional fields we should think about marking. In this case put the words optional (in brackets) and inside the label to ensure it is fully accessible.
+If required fields are the norm, and optional fields aren't, then it's the optional fields we should think about marking. In this case put the word *optional*, in brackets, inside the label to ensure it is read out as part of the label. This way the meaning is in context of the field in question.
 
 ## Label position
 
-The label and hint is positioned above the field. The alternative (for those that read left to right at least) is left-aligned. The supposed advantage is that it reduces the overall height of the form. We already know that it's unwise to focus soley on reducing the height of a form through interface jiggery.
+The label and hint is positioned above the field. The alternative (for those that read left to right at least) is left-aligned labels. The supposed advantage is that it reduces the overall height of the form. We already know that it's unwise to focus soley on reducing the height of a form through interface jiggery, but let's take a look at some research anyway.
 
-In Label Placement in Forms[^6], Matteo Penzo's eye tracking research showed that labels above the field are easier to read and faster to complete. Though it must be said it's probably not a big a deal. The time to understand the question and type takes far longer than reading the label.
+In Label Placement in Forms[^6], Matteo Penzo's eye tracking research showed that labels above the field are easier to read and faster to complete. Though it must be said it's probably not a big a deal. The time to understand the question and type, takes far longer than reading the label.
 
-Moreover, there are practical reasons to avoid left-aligned labels. On small screens that are oriented in portrait (such as mobile phones) there is no room anyway. And for those using screen magnifiers there is far more chance of the label disappearing off screen.
+Moreover, there are practical reasons to avoid left-aligned labels. On small screens that are oriented in portrait (such as mobile phones) there is no space anyway. And for those using screen magnifiers there is more chance of the label disappearing off screen.
 
-Also, for labels that contain a lot of text will wrap onto multiple lines, disrupting the form's visual rhythm. Whilst we should strive to keep labels and hints terse, this is not always possible and so it's wise to use a pattern that is accomodates to the varying length of content.
+Also, labels that contain a lot of text will wrap onto multiple lines, disrupting the form's visual rhythm. Whilst we should strive to keep labels and hints terse, this is not always possible and so it's a good move to use a pattern that accomodates the varying length of content found in different forms.
 
 ## Focus styles
 
-By default, and without any effort on our part, browsers give active form fields a focus style in the form of an outline. This is helpful in its own right, but especially so for those using keyboards.
+By default, and without any effort on our part, browsers give active form fields a focus style in the form of an outline. This is helpful in its own right, but especially so for those using keyboards. Some designers dislike the default styling chosen by browsers, so much so that they often ask the resident developer to remove it. This is an inclusive design anti pattern that we must avoid[^http://www.outlinenone.com/]. If you want to have a focus style that is more in keeping with your brand, then you can, but whatever you do, don't just remove it.
 
-Some designers dislike the default styling that the browser vendors chose. So much so that they often ask their developer to remove it altogether. This is an inclusive design anti pattern that we must avoid.
-
-If you want to have a focus style that is more in keeping with your design system, then be sure to replace it with something more suitable, but do not remove it.
-
-![blah]()
+![blah](.)
 
 ## Email field
 

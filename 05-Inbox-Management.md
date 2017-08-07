@@ -326,16 +326,12 @@ Put code here
 
 Notes:
 
-- The `aria-pressed` attribute tells the user the state of the button by toggling between `true` and `false` values, much like the checkbox did through being `checked`.
-- Pressing the button marks all the checkboxes as checked or unchecked depending on the existing state.
-
----
+- The `aria-pressed` attribute tells the user the state of the button by toggling between `true` and `false` values.
+- Pressing the button marks all the checkboxes as checked. Pressing it from a second time unchecks them back to their original state.
 
 ## Success messages
 
-Then the user submits the form, the selected checkboxes should disappear from the interface. Telling users this all happened successfuly is a respectful thing to do. Otherwise users are left to ponder what happened, if at all.
-
-Giving users a success message instills calm and reduces anxiety. This is why we provided a confirmation page at the end of the checkout process in chapter 2. Giving users a dedicated confirmation screen for our inbox is unnecessarily long winded. A success message at the top of the page in context is fine.
+When the user submits the form, the emails marked for action will disppear from the inbox. Like error messages, success messages communicate success. It's an obvious thing to do that gives users respect. Without a message, the user is left to wonder if what they intended, did indeed happen and gives users a positive anxiety-reducing feeling of calm.
 
 How it might look:
 
@@ -349,23 +345,21 @@ How it might look:
 
 Notes:
 
-- The role of alert ensures screen readers announce the message immediately.
-- The message is always visible (it doesn't automatically disappear after a few seconds). A message that disappears automatically takes away control and creates a poor experience for those that either don't read quickly or who got distracted by life at the crucial moment.
-- If you want to let users dismiss the message in order to clean up the interface, then we can enhance this by added a button with Javascript. Clicking it closes the message.
+- `role="alert"` ensures that screen readers announce the message immediately as soon as the page loads.
+- Crucially, the message is always visible. Some websites will hide this sort of message after some time has elapsed (a few seconds or what have you), but you shouldn't do this as this takes control away from the user to read it (and perhaps dismiss it) in their own time.
+- If you want to let users dismiss the message, then add a button with Javascript so that pressing it hides the message.
 
 ### Confirming versus undo
 
-Roads have speed bumps in order to slow drivers down to keep them safe. In much the same way we can slow users down and keep them safe by asking them to confirm their action:
+As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can achieve the same thing in an interface by asking users to confirm their action:
 
 ![Are you sure](./images/etc.png)
 
-This works okay for infrequent tasks. But for tasks that are performed frequently, this is a frustrating source of friction.
-
-Instead we might offer users an undo feature. This is Gmail's:
+This is fine for tasks that are performed infrequently but it quickly gets tedious when they need to be invoked more often. To continue with the driving analogy, it's a bit like putting speed bumps on motorways. The alternative is to perform the action immediately and offer users the ability to undo their action.
 
 ![Undo](./images/undo.png)
 
-To do this, the success messgae needs to contain a button with the words *Undo*. Clicking it will undo their previous action and restore the emails back into their inbox.
+Clicking *undo* reverses the previous action, in this case restoring the emails back into the inbox. If only we could *undo* road accidents.
 
 ## Summary
 

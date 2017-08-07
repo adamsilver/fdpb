@@ -594,11 +594,11 @@ Also tell users they are in the checkout flow. This is what we did for Kidly:
 
 ## Summary
 
-In this chapter we used One Thing Per Page to reduce the cognitive burden of filling out a relatively long form. From here, we navigated our way through a host of smaller details which collectively contribute to a friction-free and respectful user experience. Here are the main takeaways:
+In this chapter we used One Thing Per Page to reduce the cognitive burden of filling out a relatively long form. We then made our way through a host of smaller details which collectively contribute to a friction-free and respectful experience. Here are the main takeaways:
 
 - Ask questions in a sensible order.
 - The width of the field should match the type of input.
-- Use `fieldset` and `legend` elements to give checkboxes and radio buttons context for the choices therein.
+- Use `fieldset` and `legend` elements to give checkboxes and radio buttons context for the choices within the group.
 - Leverage autocomplete to speed up the form filling process.
 - Adding extra questions is not always a bad thing. Time to completion is not the only metric.
 - Allow users to check their answers before final submission.

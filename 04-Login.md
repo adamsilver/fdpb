@@ -176,11 +176,11 @@ Give each form a separate and offer a link before or after the login form allowi
 
 ## Summary
 
-In this chapter we covered the main problems associated with login forms. Most sites have a login form. Don't let unfounded security holes stop you designing a friction-free login experience.
+In this chapter we covered the main problems associated with login forms. One major point of contention is that of security. In the name of security we often degrade the experience without actually increasing security at all.
 
-If you're going to provide social login capabilites consider the tradeoffs, implement one at a time, and ensure users aren't penalised for signing up with one or another.
+We also looked at giving users choice serviced by social media login capabilities and the assocatiated trade-offs and ways if mitigating the increased friction. In particular, letting users interchange between different login modalities.
 
-Finally, put login forms in context of the flow in which they have been triggered. It's intuitive and keeps users focussed on the task at hand.
+Finally, we ensured that the login form we design has the context of the flow for which it has been triggered. Not only is this intuitive but it keeps users focussed on the task they started in the first place.
 
 ### Things to avoid
 

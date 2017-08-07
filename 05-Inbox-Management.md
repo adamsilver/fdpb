@@ -193,7 +193,7 @@ Mailchimp, known for their usability prowess don't bother highlighting the rows.
 
 ## Submit buttons
 
-It's all well and good allowing users to select multiple emails, but our interface is lacking the ability to action them. Unlike other forms in this book, the inbox is a little bit different. Firstly it's not a simple matter of placing a button at the end of the form. Secondly this form contains multiple submit buttons. We're going to discuss all this and more now.
+It's all well and good allowing users to select multiple emails, but our interface is lacking the ability to action them. Unlike the forms in previous chapters, an inbox is a bit different. Firstly it's not a simple matter of placing a button at the end of the form. Secondly this form contains multiple submit buttons. We're going to discuss all this and more now.
 
 ### Button location
 
@@ -223,7 +223,7 @@ In any case, if a user did implicitly submit the form, we can mitigate the dange
 
 You may think it's a good idea to disable (or hide) the buttons until users selects at least one email. But we already discussed the problems with disabling submit buttons in the first chapter.  similarly, hiding the buttons makes the actions less discoverable. A clean interface is good, but not at the cost of clarity.
 
-### Housing the buttons in a menu
+### Creating a menu
 
 On big screens, or responsively speaking, when there is space, laying out the buttons horizontally is fine. However, an inbox may have other features and there may not be enough space (even on big screens) to present them comfortably.
 
@@ -363,13 +363,14 @@ Clicking *undo* reverses the previous action, in this case restoring the emails 
 
 ## Summary
 
-TODO
+In this chapter we began by choosing the right way to present a collection of emails and the impact of combining 2 features (reading email and managing it) into 1 interface. We then realised that multi-select forms are very different to the more standard forms discussed in previous chapters. Therefore it caused is to think differently about how to design the interface from a visual and interactive stand point. This first consisted of how to present and interact with an action menu. And second, how to give users feedback after successfully applying one of those actions.
+
+### Things to avoid
+
+- Using checkboxes and select boxes for functionality beside collecting data.
+- Highlighting entire rows without first testing with users.
+- Disabling and hiding submit buttons until the form becomes valid.
 
 ## Footnotes
 
 [^]:Blah
-
-## TODO
-
-- Selecting all, but spanning several pages (Gmail)
-- Hover vs click (for aria menu)

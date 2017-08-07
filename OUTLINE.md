@@ -125,20 +125,17 @@
 ## 5. Inbox Management
 
 - Representing lists of things
-- Enabling row selection
-	- Use aria-describedby
-	- Wrap contents in label
-	- Hidden label
-	- Choosing the best tradeoff
+- Enabling selection
+	- Use modes
+	- Visually hidden labels
 - Highlighting selected rows
 - Submit buttons
 	- Placement
-	- Multiple submit problem
-	- Disabling buttons
-	- Hiding buttons
-- Menu design
-	- select box
-	- responsive aria component
+	- Implicit submission and multiple submit buttons
+	- Disabling and hiding buttons
+	- Menus
+		- A select box menu
+		- A true menu
 - Select all
 	- Checkbox with indeterminate
 	- Button pressed

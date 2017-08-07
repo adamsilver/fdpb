@@ -681,7 +681,7 @@ HTML:
 
 Browsers that don't support date inputs will degrade into a text box, which may be sufficient. This is one of the many advantages of Progressive Enhancement. We can choose to degrade gracefully. Or, we can decide to provide an enhanced fallback.
 
-As choosing dates is integral to booking a flight, the degraded solution isn't as good as we'd like. Choosing a date should be easy for as many people as possible. We may change tacts, in the future, once support for date inputs improve, but more on this shortly. Right now though, we'll create a date picker component. 
+As choosing dates is integral to booking a flight, the degraded solution isn't as good as we'd like. Choosing a date should be easy for as many people as possible. We may change tacts, in the future, once support for date inputs improve, but more on this shortly. Right now though, we'll create a date picker component.
 
 The first problem we need to solve is to ensure we only give users the our component when their browser doesn't support the native input. That is, we'll need to feature detect this capability:
 
@@ -1212,7 +1212,7 @@ SeatLimiter.prototype.check = function(checkbox) {
 
 ## Summary
 
-This chapter picked up where we left off from chapter 2 by continuing to use One Thing Per Page, giving us the space to design innovative and helpful interfaces for booking a flight. Crucially, we broke new ground by designing the following progressively-enhanced, custom form components:
+In this chapter we continued using the One Thing Per Page pattern from chapter 2 which gave us the screen space to create innovative interfaces for booking a flight. We then broke new ground by designing the following progressively-enhanced, custom form components:
 
 - Autocomplete, to make selection from a long list fast.
 - Date picker, formatted as a calendar, to make date finding easy.

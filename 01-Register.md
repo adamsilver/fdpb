@@ -180,45 +180,40 @@ By default, and without any effort on our part, browsers give active form fields
 
 ![blah](.)
 
-## Email field
+## The email field
 
-There's a few things to notice about the label:
+On first glance, this field looks simple and yet, a lot of thought has gone into its construction and design. Firstly the label text explicitly asks for ‘Email address’ where some sites may choose the more ambiguous ‘Username’. That is, unless the site really is asking for a username. Where possible ask users for their email address as it's unique and is normally used for communication.
 
-- The label is specific. It says ‘Email address’. Some sites will label this field as ‘Username’ which is ambiguous. We should design specific labels where possible.
-- The label uses sentence case because as John Saito explains in Making a Case for Letter Case[^7], it's easier to read, friendlier and easier to spot Nouns.
-- There is no need for a hint as the label is enough.
+The text itself is in sentence case because as John Saito explains in *Making a Case of Letter Case[^7], sentence case, in comparison with title case, is generally easier to read, friendlier and makes it easier to spot nouns.
 
-### Input type email
+### Email input
 
-HTML5 gave us the `email` input which improves the experience for those using a supporting browser. Nowadays that most.
+HTML5 gave us `input type="email"` improving the experience for those using supporting browsers. Nowadays that most. On focussing the field on a mobile device, for example, spawns an on-screen keyboard which is specifically designed to help users enter an email address. This is because it displays readily accessible ‘@’ and ‘.’ characters which every email needs.
 
-Using this field on a mobile phone, for example, will show a *dedicated* on-screen keyboard with readily accessible ‘@’ and ‘.’ symbols which every email address needs.
+![Email keyboard](.)
 
-![Put image here of email keyboard]()
+Non-supporting browsers fall back to a standard text field which is Progressive Enhancement in action. One of the main advantages of Progressive Enhancement is that it improves the experience for some without degrading the experience for those using less capable browsers.
 
-Non-supporting browsers will fall back to a standard text field. This is one of the many advantages of progressive enhancement. Progressive enhancement improves the experience where possible without hurting others.
+Progressive Enhancement itself is an earmark of Inclusive Design. As such, we'll use this design approach to solve many problems in this book.
 
-Progressive Enhancement is a cornerstone of Inclusive Design, a technique that we'll be using throughout this book.
+## The password field
 
-## Password field
+The label for the password field reads ‘Password’ which is okay. But unlike the email field by which the label provided enough clarity, ‘Password’ is a little unclear on its own. That's why we've used the hint pattern to tell users what constitutes a valid password for this particular site.
 
-The password label is ‘Password’. However, the label is not enough information on its own. So we can use the hint pattern to explain the rules that constitute a valid password.
+### Password input
 
-### Input type password
+Quite intuitively, the password field uses the `input type="password"`. When the user types it visually replaces each character with a circle. This is a security measure that guards against ‘over the shoulder’ lurking.
 
-A password should use the `password` input type. It will show a circle for each character the user types. This is a security measure that guards against ‘over the shoulder spying’.
+The problem with obscuring the value is that it's hard to fix typos. Because of this, it's often easier to delete the whole entry and start over. Another consideration is that most of the time, people don't lurk over your shoulder as you type your password. This fact, however, won't stop users feeling anxious if we were to veer off from convention by showing the password in plain text.
 
-The problem is that it's hard to fix typos as the value is obscured. Because of this, it's often easier to delete the whole entry and start over.
+Because this input increases the likeliness of creating a password with a typo, many registration forms have a confirm password field. This extra field is there as a precautionary measure and requires the user to type the same password twice. This is unfortunate because the user has to do even more work.
 
-Also, most of the time, people aren't lurking over our shoulder. Regardless, people would feel anxious if we were to show the password in plain text.
+### A password reveal component
 
-For all these reasons it's a good idea to have a password reveal. It's no less secure, and it gives users choice to see what it is they've typed.
+A password reveal component, as they are typically known, gives users the best of both worlds. The field starts of as a regular password input with obscured characters. But gives users a button, that when pressed, converts the input into a regular text box which reveals the password. Clicking it again, converts back into a password field.
 
-Being able to check their password, also means we don't have to add an extra ‘Confirm password’ field which reduces effort.
-
-### Password reveal component
-
-Some browsers provide this behaviour natively. If you're crafting your own solution then you'll want to supress this:
+This lets users get the benefit of being able to check and fix typos whilst simultaneously giving them a feeling of security and control.
+Some browsers provide this behaviour natively so if you're crafting your own solution then you can suppress this with CSS:
 
 ```css
 input[type=password]::-ms-reveal {
@@ -262,7 +257,7 @@ PasswordReveal.prototype.hidePassword = function() {
 };
 ```
 
-The script creates a `button` that when clicked changes the input type to `text`. And when clicked again, back to `password`.
+The script creates a `button` that when clicked toggles the input type between `text` and `password`.
 
 ## Submit buttons
 

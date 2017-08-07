@@ -1,6 +1,6 @@
 # A Registration Form
 
-We'll begin our adventure into form design with a humble registration form. We'll use this seemingly simple form, to ahem, form the foundations on which to solve more complex forms later. Choosing such a simple form to start with should make it easier to tease out some of the most important aspects of sound form design thinking.
+We'll begin our adventure into form design with a humble registration form. We'll use this seemingly simple form, to well, form the foundation on which to solve more complex forms later. Choosing such a simple form to start with makes it easier to tease out some of the most important qualities found in well-designed forms.
 
 ## How it might look
 
@@ -22,44 +22,38 @@ HTML:
 </form>
 ```
 
-This form, at least for now, contains just four fields and a submit button. Each field has a label, which is where the analysis begins.
+The form contains just 4 fields and a submit button. Each field has a label, which is where our analysis begins.
 
 ## Labels
 
 Each field needs an associated label because:
 
 - sighted users can see the instructions.
-- visually-impaired users can hear the instructions  using a screen reader.
-- motor-impaired users can more easily move focus to the field due to the larger hit area. (Clicking the label moves focus to the field.)
+- visually-impaired users can hear the instructions using a screen reader.
+- motor-impaired users can more easily move focus to the field thanks to the larger hit area. This is because clicking the label moves focus to the field.
 
 To *connect* an input to a label, the `id` and `for` attributes must match and contain a unique value. Forgetting to do so, means ignoring the needs of those with visual and motor impairments.
 
-As we're designing for people, we'll use the diversity of people as constraints. Constraints that ultimately lead to the creation of inclusive form patterns that work.
+As we're designing for people, we'll use the diversity of people as constraints. Constraints that ultimately lead to the creation of inclusive form patterns.
 
-Many forms omit labels in order to save space but as inclusive form designers this is, just about, the worst thing we can do. In later chapters we'll discuss situations where we'll resist the natural temptation to exclude them.
+Many forms omit labels in order to save space but as the budding form designers that we are, this is just about the worst thing we can do. In later chapters we'll consider scenarios where we'll have to resist the natural temptation to exclude them normally in the name of minimalist design.
 
 ## Placeholders and hints
 
-The `placeholder` attribute is used to store additional text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as the password field. Unlike labels, placeholders are optional.
+The `placeholder` attribute is used to store additional text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as a password field. Unlike labels, placeholders are optional.
 
-Placeholders appeal to designers because of their minimal aesthetic and the fact they save space. Some go one one step further and replace labels with placeholders. As we know already this is problematic. But actually, placeholders are problematic in their own right. Here's why:
+Placeholders appeal to designers because of their minimal aesthetic and the fact they save space. Some go one one step further and replace labels with placeholders. As we know already, excluding labels is problematic. But actually, placeholders are problematic in their own right. Here's why:
 
-- It disappears when the user types making it easy to forget.
-- It's often mistaken for a value, meaning users skip the field causing an error.
-- They lack sufficient contrast making them hard to read.
+- They disappear when the user types making the hint easy to forget.
+- Users often mistake placeholder text for a value causing them to  skip the field which causes an error later on.
+- They lack sufficient contrast making them hard-to-read.
 - Some browsers don't support them.
 - Some screen readers don't announce them.
 - Some browsers don't translate them.
 
-I've counted 13 problems in total which you can read in Placeholders Are Problematic[^1].
+Content, even that which is considered to be a hint is not an enhancement. If a hint helps the user fill out the form we should make sure it's readily accessible. Instead of using the placeholder attribute, place a hint below the label. This is how it might look:
 
-Content isn't an enhancement. If a hint helps we should make sure it's readily accessible. We can do this by placing it outside the field and below the label.
-
-This is how it looks in the registration form, but we'll use this pattern throughout the book.
-
-![]()
-
-HTML:
+![Hint pattern](.)
 
 ```HTML
 <div class="field">
@@ -71,7 +65,7 @@ HTML:
 </div>
 ```
 
-The hint is inside a `span` so that we can style it differently. It's also inside the `label`. This makes sure that it is read out by screen readers. We could have placed the hint outside of the `label` using ARIA:
+The hint is inside a `span` so that we can style it differently to the label itself. It's placed inside the `label` which ensures that, like a hint-less label, it's read out by screen readers. We could have placed the hint outside of the `label` using ARIA:
 
 ```HTML
 <div class="field">
@@ -81,43 +75,31 @@ The hint is inside a `span` so that we can style it differently. It's also insid
 </div>
 ```
 
-However the first rule of ARIA is *Don't use ARIA*. The specification states:
+Even though we can use ARIA to achieve the same behaviour, the first rule of ARIA is *Don't use ARIA*. Here's how the specification puts it:
 
 > ‘If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.’
 
-In this case, a label allows us to provide the behaviour using native HTML semantics. This isn't just about following the standard. Whilst ARIA support gets better and better, it's never as good as plain HTML.
+In this case, the native `label` lets us provide the same behaviour without having to sprinkle extra semantic attributes just for screen readers. Even though ARIA support continues to improve, it's never as good as using native elements. And in this particular case, adding a hint inside the label further increases the hit area. Adding an ARIA attribute doesn't mimick this behaviour.
 
 ## Floating labels
 
-Floating labels work by putting the label inside the field to begin with—like a placeholder. But, when the user starts typing the label moves out of the box to ‘float’ above the field.
-
-Designers like this approach because they supposedly:
+Floating labels work by putting the label inside the field to begin with—like a placeholder. But, when the user starts typing the label moves out of the box to ‘float’ above the field. Designers like this approach because they supposedly:
 
 - make forms cool
 - reduce the height of forms
 - make forms easier to scan
 
-Cool interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do that. So we'll forget that one.
+Cool interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do. Reducing the height of forms is a noble goal if done right. But using float labels introduces problems for an unconvincing gain. Facetiously, we could remove all the whitespace and decrease the font size to 5px which also reduces the height. But in a similar vein this doesn't create a better experience.
 
-Reducing the height of forms is a noble goal if done right. But using float labels creates problems for an unconvincing gain. We could remove all the whitespace and decrease font size to 5px which also reduces the height but creates an awful experience.
+Forms expert, Luke Wobrelski[^2] hasn't got any data at scale that shows shaving pixels in forms increases conversion or usability. In anycase they don't actually save space because floating labels need space to move into. And besides, scanning a form is not the only user need. Users have to read and understand instructions, fill them in and fix errors. Floating labels are problem because:
 
-Forms expert, Luke Wobrelski[^2] hasn't got any data at scale that shows shaving pixels in forms increases conversion or usability. In anycase they don't actually save space because floating labels need space to move into.
+- There is no space for a hint. The label and hint are one and the same.
+- They are hard to read due to poor contrast and small text.
+- And like placeholders, they may be mistaken for a value.
 
-Besides, scanning a form is not the only user need. Users have to read instructions, fill them in and fix errors too. Floating labels are problem because:
+Decluttering an interface is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases so are hints. Employing a pattern that is both problematic and constraining at the same time is not a recipe we'll use to cook up delicious forms. More importantly I won't be using this cooking analogy anywhere else in the book.
 
-- There is no space for hint. The label and hint are one and the same
-- They are hard to read due to poor contrast and small text
-- Like placeholders, they may be mistaken for a value
-
-I've counted 9 problems in total, which you can read in Floating Labels Are Problematic[^3].
-
-Decluttering a UI is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases so are hints.
-
-Employing a pattern that is both problematic and constraining at the same time, is not a recipe we'll use to cook up delicious forms. More importantly I won't be using this analogy going forward.
-
-Ultimately, this book is about designing forms that work. Forms that don't drive users crazy. Forms that have as little friction as possible.
-
-And so, we'll use a pattern that has an ever present, high-contrast and easy to read label and hint. We'll leave placeholders and floating labels to our competitors and use better techniques to reduce the size of forms.
+Ultimately, this book is about designing forms that work. Forms that don't drive users crazy. Forms that have as little friction as possible. So we'll use a pattern that has an ever present, high-contrast and easy-to-read label and hint. We'll explore more practical techniques to reduce the size of forms. One way of doing this is by using the Question Protocol.
 
 ## The Question Protocol
 

@@ -1,6 +1,6 @@
 # Outline
 
-## 1. Register
+## 1. Register (6500)
 
 - Labels
 - Placeholders
@@ -38,7 +38,7 @@
 	- Restoring values
 	- Validation component
 
-## 2. Checkout
+## 2. Checkout (5500)
 
 - One Thing Per page
 - Flow and order
@@ -72,7 +72,7 @@
 - Order summary
 - Checkout specific header
 
-## 3. Book flight
+## 3. Book flight (7000)
 
 - Flow and order
 - Choose destination
@@ -106,7 +106,7 @@
 	- Hide the checkboxes
 	- Limiting seat selection
 
-## 4. Login
+## 4. Login (500)
 
 - Password hint
 - Use explicit labels
@@ -122,7 +122,7 @@
 - Auto-tabbing
 - One form per page
 
-## 5. Inbox Management
+## 5. Inbox Management (4000)
 
 - Representing lists of things
 - Enabling selection
@@ -142,7 +142,7 @@
 - Success message
 - Confirming and undo
 
-## 6. Search
+## 6. Search (2000)
 
 - Introduction
 - Search

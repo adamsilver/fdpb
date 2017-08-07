@@ -261,33 +261,25 @@ The script creates a `button` that when clicked toggles the input type between `
 
 ## Submit buttons
 
-When it comes to submit buttons there are three design considerations:
-
-- Visual design
-- Placement
-- Label
+Designing a submit button requires us to consider 3 main aspects: Visual design, placement and text.
 
 ### Visual design
 
-The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned to differentiate them amongst other words. For those using a mouse the cursor will change to a hand on hover. This is because, unlike buttons, links have weak affordance[^8].
+The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned to differentiate them amongst other words. When hovering with the mouse cursor will change to a hand. This is because, unlike buttons, links have weak affordance[^8].
 
-In Resilient Web Design[^9], Jeremy Keith discusses the idea of material honesty. He says:
+In Resilient Web Design[^9], Jeremy Keith discusses the idea of material honesty. He says that *one material should not be used as a substitute for another. Otherwise the end result is deceptive.* Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not.
 
-> One material should not be used as a substitute for another. Otherwise the end result is deceptive.
-
-Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not. Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked.
-
-So it follows, buttons shouldn't look like links and they shouldn't use the hand cursor. Instead we should make them look like buttons.
+Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later which buttons can't do. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons.
 
 ### Placement
 
-The primary action should be placed where users are naturally going to look for it. Eye tracking testing[^10] shows that users naturally and intuitively look directly below the last field which makes sense from a flow perspective. This also helps users who zoom in as a right-aligned button would disappear off-screen easily.
+The primary action should be placed where users are naturally going to look for it. Eye tracking tests[^10] show that users naturally and intuitively look directly below the last field. This makes sense when we consider the form's flow and rythm. This also helps users who zoom in, as a right-aligned button would disappear off-screen more easily.
 
 ### Label
 
-The word *submit* is probably a bad name for a submit button. The word(s) should describe the specific action being taken and because it's an action it should be a verb.
+The word *submit* is probably a bad name for a submit button. The word(s) should describe the specific action being taken. And, because it's an action it should be a verb.
 
-We should aim to use as few words as possible because they are quicker to read. But not at the cost of clarity. If you need two words to make the action clear then use sentence case.
+We should aim to use as few words as possible because it makes reading faster. But we shouldn't remove words at the cost of clarity. If you need two words to make the action clear then do so and use sentence case like we do for the field labels.
 
 The exact words may need matching to your brand's tone of voice but don't exchange clarity for cuteness. In our case ‘Register’ works well.
 

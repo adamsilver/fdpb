@@ -22,11 +22,11 @@ HTML:
 </form>
 ```
 
-The form contains just 4 fields and a submit button. Each field has a label, which is where our analysis begins.
+The form contains just 4 fields and a submit button with each field having an associated label. Labels are where our analysis begins.
 
 ## Labels
 
-Each field needs an associated label because:
+Labels describe the requirements for the form control. Each field needs an associated label because:
 
 - sighted users can see the instructions.
 - visually-impaired users can hear the instructions using a screen reader.
@@ -34,24 +34,31 @@ Each field needs an associated label because:
 
 To *connect* an input to a label, the `id` and `for` attributes must match and contain a unique value. Forgetting to do so, means ignoring the needs of those with visual and motor impairments.
 
-As we're designing for people, we'll use the diversity of people as constraints. Constraints that ultimately lead to the creation of inclusive form patterns.
+Seeing as we're designing for people, we should use the *diversity* of people as constraints. These constraints ultimately lead to the creation of form patterns that work well for a diverse set of user needs.
 
-Many forms omit labels in order to save space but as the budding form designers that we are, this is just about the worst thing we can do. In later chapters we'll consider scenarios where we'll have to resist the natural temptation to exclude them normally in the name of minimalist design.
+Many designers omit labels in order to save space but as the budding form designer that you are, you should be aware that this is just about the worst thing you can do. In later chapters we'll discuss scenarios where we'll need to resist the natural temptation to exclude them&mdash;something that is normall done in the name of minimalist design.
 
 ## Placeholders and hints
 
-The `placeholder` attribute is used to store additional text that acts as a hint for the field. This is particularly useful for fields that have complex rules such as a password field. Unlike labels, placeholders are optional.
+The `placeholder` attribute is used to store additional content that provides extra clarification for the field beyond its label. This is particularly useful for fields that have complex rules such as the password field (discussed shortly). Hints, unlike labels, are optional and should be used only when necessary, not as a mattter of course.
 
-Placeholders appeal to designers because of their minimal aesthetic and the fact they save space. Some go one one step further and replace labels with placeholders. As we know already, excluding labels is problematic. But actually, placeholders are problematic in their own right. Here's why:
+Placeholders appeal to designers because of their minimal aesthetic and the fact they save space. This is because placeholder text is placed *inside* the field. It's given a ‘greyed out’ aesthetic so that it looks different to real values.
+
+![Hint pattern](.)
+
+Sometimes, designers use placeholders in place of labels which we know is a usability failure. But even if they are used in addition to labels, they are still problematic. Here's why:
 
 - They disappear when the user types making the hint easy to forget.
-- Users often mistake placeholder text for a value causing them to  skip the field which causes an error later on.
-- They lack sufficient contrast making them hard-to-read.
+- Users often mistake the text for a value causing them to skip the field, only to be shown an error after submission.
+- The grey text lacks sufficient contrast making them hard-to-read.
 - Some browsers don't support them.
 - Some screen readers don't announce them.
 - Some browsers don't translate them.
+- Long placeholder text may be cut off.
 
-Content, even that which is considered to be a hint is not an enhancement. If a hint helps the user fill out the form we should make sure it's readily accessible. Instead of using the placeholder attribute, place a hint below the label. This is how it might look:
+That's a lot of problems for something that looks so innocent. The majority of the time browser vendors make the right design decisions for native behaviour, but not always. Sadly, placeholders are an example of this. The thing is, content&mdash;even a hint&mdash;should not be considered an enhancement. If a hint helps the user answer the question, then it should be readily available.
+
+Instead of using a placeholder to store the hint, we can simply add the hint as an extra element inside the `label`. Something like this:
 
 ![Hint pattern](.)
 
@@ -65,7 +72,7 @@ Content, even that which is considered to be a hint is not an enhancement. If a 
 </div>
 ```
 
-The hint is inside a `span` so that we can style it differently to the label itself. It's placed inside the `label` which ensures that, like a hint-less label, it's read out by screen readers. We could have placed the hint outside of the `label` using ARIA:
+The hint is placed inside a `span` so that we can style it differently to the label. It's placed inside the `label` to so that screen readers will announce it. As is often the case, there are many ways to achieve the same design. One alternative approach is to use a separate element (such as a `p`) as follows:
 
 ```HTML
 <div class="field">
@@ -75,31 +82,29 @@ The hint is inside a `span` so that we can style it differently to the label its
 </div>
 ```
 
-Even though we can use ARIA to achieve the same behaviour, the first rule of ARIA is *Don't use ARIA*. Here's how the specification puts it:
+Here we've used the `aria-describedby` attribute to connect the hint to the field by referencing the `id`. Whilst this has visual and audibe parity with a label, this solution is not created equal. Crucially, the first rule of ARIA is *Don't use ARIA*. The specification states:
 
-> ‘If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.’
+> If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.
 
-In this case, the native `label` lets us provide the same behaviour without having to sprinkle extra semantic attributes just for screen readers. Even though ARIA support continues to improve, it's never as good as using native elements. And in this particular case, adding a hint inside the label further increases the hit area. Adding an ARIA attribute doesn't mimick this behaviour.
+This is important and it's not a merely an academic endeavour. In this case, a `label` gives users a better experience with less effort. It's better because  placing the hint inside the label further increases the hit area. ARIA is for assistive technology, not for browser behaviour. It's less effort because the semantics the label provides the behaviour automatically.
 
-## Floating labels
+## Float labels
 
-Floating labels work by putting the label inside the field to begin with—like a placeholder. But, when the user starts typing the label moves out of the box to ‘float’ above the field. Designers like this approach because they supposedly:
+Float labels are a bit of a hybrid between a label and a placeholder. The label is placed inside the field, and then when the user starts typing, the label floats above the field, hence the name. Designes like this approach because because supposedly they reduce the height of the form and therefore make the forms easier to scan. There is also the added bonus that the animation is fancy.
 
-- make forms cool
-- reduce the height of forms
-- make forms easier to scan
+![Float label](.)
 
-Cool interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do. Reducing the height of forms is a noble goal if done right. But using float labels introduces problems for an unconvincing gain. Facetiously, we could remove all the whitespace and decrease the font size to 5px which also reduces the height. But in a similar vein this doesn't create a better experience.
+The thing is, fancy interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do. Reducing the height of forms is a noble goal if done right. But using float labels introduces problems for an unconvincing gain. Facetiously, we could remove all the whitespace and decrease the font size to 5px which also reduces the height. But rather obviously, this doesn't create a better experience.
 
-Forms expert, Luke Wobrelski[^2] hasn't got any data at scale that shows shaving pixels in forms increases conversion or usability. In anycase they don't actually save space because floating labels need space to move into. And besides, scanning a form is not the only user need. Users have to read and understand instructions, fill them in and fix errors. Floating labels are problem because:
+Forms expert, Luke Wobrelski[^2] hasn't got any data at scale that shows shaving pixels in forms increases conversion or usability. In anycase float labels don't actually save space because the label needs space to move into. Besides, scanning a form is not the only user need. Users have to read and understand instructions, fill them in and fix errors. Float labels are problematic because:
 
 - There is no space for a hint. The label and hint are one and the same.
 - They are hard to read due to poor contrast and small text.
-- And like placeholders, they may be mistaken for a value.
+- Like placeholders, they may be mistaken for a value.
 
-Decluttering an interface is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases so are hints. Employing a pattern that is both problematic and constraining at the same time is not a recipe we'll use to cook up delicious forms. More importantly I won't be using this cooking analogy anywhere else in the book.
+Decluttering an interface is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases so are hints. Employing a pattern that moves away from convention, but that is both problematic and constraining too is not a recipe we'll use to cook up delicious forms. More importantly that's the start and end of the cooking analogy.
 
-Ultimately, this book is about designing forms that work. Forms that don't drive users crazy. Forms that have as little friction as possible. So we'll use a pattern that has an ever present, high-contrast and easy-to-read label and hint. We'll explore more practical techniques to reduce the size of forms. One way of doing this is by using the Question Protocol.
+Ultimately, this book is about designing forms that work. Forms that don't drive users crazy. And forms that have as little friction as possible. So we'll use labels (and hints) that are readily available, high-contrast and easy-to-read. In any case, there are far more practical techniques to reduce the size of forms which we'll be exploring throughout the book. One way of doing this is by using the Question Protocol.
 
 ## The Question Protocol
 
@@ -141,7 +146,7 @@ This shows that designing a form in isolation is not a sensible approach to desi
 
 For now, we'll stick with the password field which the safer option for most users thanks to it's more familiar appearance. And after all, moving away from convention is something we should do confidently through user testing and research. Without doing that, the we might just be exchanging one set of problems for another.
 
-### Are there better ways of asking for a password?
+### Are there better ways to ask for a password?
 
 Passwords are generally short, hard to remember and easy to crack, even if they are forced to meet the following rules:
 
@@ -152,31 +157,31 @@ Passwords are generally short, hard to remember and easy to crack, even if they 
 
 Where possible we want to ask users something that is easy to remember and more secure. Passphrases[^5] are easier to remember. They are considered more secure due to their length and the fact you don't need to write them down. But what is a passphrase?
 
-A passphrase is a series of words such as ‘monkeysinmygarden’ (I'm sorry but that was the first thing that came to mind). The only downside with passphrases is that like the ‘no password’ sign in, it's unfamiliar. Unfamiliarity, particularly when it comes to passwords may cause anxiety for users, that are already worried about interntet security.
+A passphrase is a series of words such as ‘monkeysinmygarden’ (I'm sorry but that was the first thing that came to mind). The only downside with passphrases is that like the ‘no password’ sign in, it's unfamiliar. Unfamiliarity, particularly when it comes to passwords can cause anxiety for users, that are already worried about online privacy and security.
 
 Again, we shouldn't discount this technique because it's new or unfamiliar, but we should explore the validity of the approach with users before making the call. We'll stick to a more traditional password field that requires a set of complex rules. In doing so we'll look at ways to make this common approach better for users.
 
 ## Marking required fields
 
-Traditionally, we've marked required fields using an asterisk. A legend, above the form explains its meaning. I'm not entirely sure how this came to be, but having a layer of abstraction puts cognitive strain on the user. Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains it.*
+Traditionally, we've marked required fields using an asterisk. A legend, usually placed above the form explains its meaning. I'm not entirely sure how this came to be, but having a layer of abstraction (between the symbol and the meaning) puts cognitive strain on the user. Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains it.*
 
-The Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In *Required versus optional fields* Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.*
+The Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In Required Versus Optional Fields[^] Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.*
 
-If required fields are the norm, and optional fields aren't, then it's the optional fields we should think about marking. In this case put the word *optional*, in brackets, inside the label to ensure it is read out as part of the label. This way the meaning is in context of the field in question.
+If required fields are the norm, and optional fields aren't, then it's the optional fields we should think about marking in some way. In this case put the word *optional*, in brackets, inside the label to ensure it is read out as part of the label. This way the information is obvious in context of the field.
 
 ## Label position
 
-The label and hint is positioned above the field. The alternative (for those that read left to right at least) is left-aligned labels. The supposed advantage is that it reduces the overall height of the form. We already know that it's unwise to focus soley on reducing the height of a form through interface jiggery, but let's take a look at some research anyway.
+The label and hint have purposely been positioned above the field. The alternative (for those that read left to right at least) is left-aligned labels. The supposed advantage is that it reduces the overall height of the form. We already know that it's unwise to focus soley on reducing the height of a form through interface jiggery, but let's take a look at some research anyway.
 
-In Label Placement in Forms[^6], Matteo Penzo's eye tracking research showed that labels above the field are easier to read and faster to complete. Though it must be said it's probably not a big a deal. The time to understand the question and type, takes far longer than reading the label.
+In Label Placement in Forms[^6], Matteo Penzo's eye tracking research showed that labels above the field are easier to read and faster to complete. Though it must be said it's probably not a big deal. After all, the time to understand the question and enter the answer, takes far longer than reading the label.
 
-Moreover, there are practical reasons to avoid left-aligned labels. On small screens that are oriented in portrait (such as mobile phones) there is no space anyway. And for those using screen magnifiers there is more chance of the label disappearing off screen.
+Moreover, there are practical reasons to avoid left-aligned labels. On small screens, oriented in portrait (such as mobile phones) there is no space anyway. And for those using screen magnifiers there is more chance of the label disappearing off screen.
 
-Also, labels that contain a lot of text will wrap onto multiple lines, disrupting the form's visual rhythm. Whilst we should strive to keep labels and hints terse, this is not always possible and so it's a good move to use a pattern that accomodates the varying length of content found in different forms.
+And, labels that contain lots of text will wrap onto multiple lines, disrupting the form's visual rhythm. Whilst we should strive to keep labels and hints terse, this is not always possible and so it's a good move to use a pattern that accomodates the varying length of content found in different forms.
 
 ## Focus styles
 
-By default, and without any effort on our part, browsers give active form fields a focus style in the form of an outline. This is helpful in its own right, but especially so for those using keyboards. Some designers dislike the default styling chosen by browsers, so much so that they often ask the resident developer to remove it. This is an inclusive design anti pattern that we must avoid[^http://www.outlinenone.com/]. If you want to have a focus style that is more in keeping with your brand, then you can, but whatever you do, don't just remove it.
+By default, and without any effort on our part, browsers give active form fields a focus style in the form of an outline. This is helpful in its own right, but especially for keyboard users. Some designers dislike the default styling chosen by browsers, so much so that they often ask the developer to remove it. This is an inclusive design anti pattern that we must avoid[^http://www.outlinenone.com/]. If you want to have a focus style that is more in keeping with your brand, then do so. Just don't remove it entirely.
 
 ![blah](.)
 
@@ -281,13 +286,11 @@ The word *submit* is probably a bad name for a submit button. The word(s) should
 
 We should aim to use as few words as possible because it makes reading faster. But we shouldn't remove words at the cost of clarity. If you need two words to make the action clear then do so and use sentence case like we do for the field labels.
 
-The exact words may need matching to your brand's tone of voice but don't exchange clarity for cuteness. In our case ‘Register’ works well.
+The exact words may need matching to your brand's tone of voice but don't exchange clarity for cuteness. In our case ‘Register’ is fine.
 
 ## Validation
 
-We've put in a lot of effort to create a well designed registration form. Despite these efforts, we cannot eradicate human error. People make mistakes and it's our job to make sure that fixing them is easy.
-
-To design a great validation experience we need to consider:
+We've put in a lot of effort to create a well-designed registration form. Despite these efforts, we cannot eradicate human error. That is, people make mistakes and it's our job to make sure that fixing them is easy. To design a great validation experience we need to consider:
 
 - When to give feedback
 - How to show errors
@@ -297,27 +300,25 @@ To design a great validation experience we need to consider:
 
 ### When to give feedback
 
-We can either give users feedback instantly or when they submit by pressing submit or through implicit submission. Implicit submission is when the user presses <kbd>enter</kbd> while focus is within a field. There are 3 flavours of instant feedback. We'll discuss each of these first.
+We can either give users feedback instantly (as they type) or when they submit by pressing submit or through implicit submission. Implicit submission is when the user presses <kbd>enter</kbd> while focus is within a field. There are 3 flavours of instant feedback. We'll discuss each of these now.
 
 #### Inline validation
 
 The first type of instant feedback is inline validation. This informs users whether what they type is valid as they type. The theory is that it’s easier to fix errors as soon as they occur. However, there are several problems with this approach.
 
-For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted causing them to switch mental contexts—entering information and fixing it.
+For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted causing them to switch mental contexts. That is, entering information and fixing it.
 
-[]()
+![Pic](.)
 
-We could wait until the user types enough characters before showing an error. But this means the only way in which a user will get feedback is after they have completed the field successfully which is pointless.
-
-We could provide feedback when the user leaves the field (`onblur`) but this is too late. The user has already started to prepare for (and to fill out) the next field.
+We could wait until the user types enough characters before showing an error. But this means the only way in which a user will get feedback is after they have completed the field successfully which is pointless. Alternatively, we could provide feedback when the user leaves the field (`onblur`) but this is too late. The user has already started to prepare for (and to fill out) the next field.
 
 Another problem with triggering feedback `onblur` is that some users switch windows or use a password manager to help fill out forms. But doing so will cause an error to show prematurely before the user finishes.
 
-[]()
+![Pic](.)
 
-These are just a few of the problems with inline validation. The others are documented in Inline Validation is Problematic[^11].
+These are just a few of the many problems with inline validation. The others are documented in Inline Validation is Problematic[^11].
 
-If users really do find lots of error hard to deal with, then we can minimise this by:
+If research shows that users find lots of errors hard to deal with, then we can minimise this by:
 
 - Removing unnecessary fields—we've done this already.
 - Ensuring fields have clear guidance—we've done this too.
@@ -327,54 +328,50 @@ If users really do find lots of error hard to deal with, then we can minimise th
 
 In any case, designing a ‘perfect’ inline validation experience is nigh on impossible.
 
-#### Disabling the submit button until valid
+#### Disabling the submit button until the form is valid
 
-Another form of instant feedback is by disabling the submit button until the form is valid. The user types like normal, and when all the fields becomes valid, the submit button is enabled.
+Another form of instant feedback is where the submit button is disabled until the form is valid. The user types like normal, and when all the fields becomes valid, the submit button is enabled.
 
-Whilst instant, this feedback is ambiguous and suffers from two main problems. Firstly, disabled buttons are afforded by being ‘greyed out’, but this is hard to read.
+Whilst this feedback is instant, it's also ambiguous and suffers from two  problems. First, disabled buttons are afforded by being ‘greyed out’, but this makes the button hard-to-read.
 
-Secondly, and more importantly, if there is an error, the user won't be told why. They're left to guess which fields are erroneous, and even worse they won't know how to fix it.
+Secondly, and more crucially, if there is an error, the user won't know why. Instead, they're left to guess which fields are erroneous and need their attention.
 
 #### Checklist affirmation pattern
 
-The last type of instant feedback is what we might call checklist affirmation. Like inline validation, it provides feedback as the user types. Except, instead of showing *errors* it marks each rule as correct.
+The last type of instant feedback is what we might call checklist affirmation. Like inline validation, it provides feedback as the user types. Except, instead of showing *errors* it marks each rule as correct. Mailchimp's sign up form uses this technique:
 
-Mailchimp's sign up form uses this technique:
+![MC](.)
 
-[]()
-
-This is less invasive than inline validation but it still has the following problems:
+This is certainly less invasive than inline validation but it still has the following problems:
 
 - It only checks the formatting. That is, it may appear that the user has completed the field successfully but the server might catch another problem.
 - It creates an inconsistent experience. This is because other (less complex) fields won't have this behaviour.
 - On-screen keyboards, such as those found on mobile may obscure the rules causing the user to scroll to check what's going on.
 - It's still a form of distraction. The interface is updating as the user is working on a particular task.
-- Low confidence users or those that don't touch type won't notice the feedback.
+- Low confidence users or those that don't touch-type may not notice the feedback.
 - The rules take up a lot of space which may give the perception the task is bigger than it is.
 
 #### On submit
 
 Instant feedback causes the interface to update even though the user didn't take explicit action. This creates a jarring, disruptive and ambiguous experience. Instead, we'll give users respect by putting them firmly in control. To do this, we'll provide feedback when they explicitly submit the form.
 
-To design inclusively, we must first consider the experience without Javascript, which is far more common than most people think[^13].
+To design inclusively, we must first consider the experience without Javascript, which is more common than you may think[^13].
 
 > ‘There is no creativity without constraint’
 
-Constraints help us solve problems. When we accept constraints, we narrow our focus, often to the user's advantage. In this case, we can only validate forms on submit anyway.
+Constraints help us solve problems. When we accept constraints, we narrow our focus, often to the user's advantage. In this case, because we're thinking about the ‘Javascript off’ solution, we can only validate forms on submit.
 
-Interestingly, I've found that, generally speaking, the best experiences are those that don't rely on Javascript. On a recent project, we only performed validation on the server side, and nobody noticed.
+Interestingly, I've found that the best experiences are those that don't rely on Javascript. On a recent project, we only performed validation on the server side, and nobody noticed and we conducted user research weekly so would have expected this to come up in some way. This is not to say client-side validation is *bad*. It's just that something that may appear to be problematic from a designer's point of view, may not be a problem at all for users.
 
-This is not to say client-side validation is *bad*. It's just that something that may appear to be problematic from a designer's point of view, may not be a problem at all for users. But, without testing we can't be sure.
+Client-side validation typically only checks the format. At some point we're going to need to comapre the data to that stored in a database. Registering a new account, for example, needs to ensure the email address doesn't already exist in the database.
 
-Client-side validation typically only checks the format. At some point we're going to need to check information in a database. To register, for example, we'll need to ensure nobody enters an email address that already exists in the database.
-
-By designing first without Javascript we reach a wider audience, and expose scenarios that we may have otherwise forgotten, had we jumped head first into the all-singing and all-dancing fancy-pants solution.
+By designing first without Javascript we reach a wider audience, and expose scenarios that we may have otherwise forgotten, had we jumped head-first into the all-singing and all-dancing fancy-pants solution.
 
 If some errors can only be caught on the server, if we're not careful we could end up with two error summaries—one generated on the server and one generated on the client.
 
-[]()
+![Two summaries](.)
 
-As already noted, by validating on submit we create a consistent experience whether errors are caught on the server or the client. And it puts users in control and saves us having to second guess when users expect feedback.
+As already noted, by validating `onsubmit` we create a consistent experience whether errors are caught on the server or the client. And it puts users in control and saves us having to second guess when users expect feedback.
 
 ### How to show errors
 

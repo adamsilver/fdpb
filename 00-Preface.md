@@ -1,20 +1,32 @@
 # Introduction
 
-I can remember the first time I dabbled in web design. It was 2000 and one of the modules on my AVCE ICT course was ‘web design’. It mostly consisted of copying other people's code via *view source* and make small changes.
+I remember my first experiences with web design. It was 2000 and one of the modules on my AVCE ICT course was ‘web design’. Class mostly consisted of copying other people's code via *view source* and make small changes.
 
-I built up an intimate relationship with most elements. The complex ones were framesets and tables because we used those to design interesting layouts. Links were easy, you just pointed the `href` at the page and everything worked, but forms were different. Forms were special.
+I built up a fair understanding of most elements. The complex ones were framesets and tables because we used those to design interesting layouts. Links were easy, you just pointed the `href` at the page and everything worked, but forms were different. They were special.
 
-*View source* didn't work. I mean it did work, to an extent. But only in that it rendered the form in the browser. Submitting the form did nothing. I became obsessed with trying to get a form to submit and do *something*. I even remember trying to copy Amazon's add-to-basket HTML code. How stupid I felt. Eventually I realised I needed a server which opened an entirely new world of problems that I needed to learn how to solve.
+*View source* didn't work. I mean it did work, to an extent. But only in that it rendered the form in the browser. Submitting the form did nothing. I became obsessed with trying to get the form to do *something*. I remember trying to copy Amazon's add-to-basket form in the hope that I could build my own ecommerce store. After an embarassing amount of time I learned that I was missing a little thing called a *server*. This opened up a brand new ‘can of worms’.
 
-In those days if you were a web developer, you did the whole lot. Databases, servers, HTML and design. Today they call this *full stack*. I realised quickly back then that I was way more interested with the interaction and experience side of things than I was databases. I quickly transitioned and most often had job titles of Front-end Developer.
+In those days as a web developer you were responsible for many facets: databases, servers, HTML and design. Nowadays they have a special term called *full stack*. I realised quickly back then that I was far more concerned with the interaction and experience side of things than I was databases. I quickly specialised as a Front-end Developer.
 
-My obsession with forms never really stopped. I've always worked on highly interactive websites. And it's hard to have much interaction unless a form is involved in some form or other. From e-commerce sites to rich administrative back office sites I've had to design and build forms.
+My obsession with forms never subsided and I've always found myself working on highly interactive websites, not just those that present information. From ecommerce websites to administrative applications, forms have always played a major role. If you're reading this book, it's probably the same for you.
 
 ## Evaluation by problem
 
-I started with 50 principles, email to smashing/a list apart.
+When I first had the idea to write a book about form design, it started as a list of ~50 principles with a chapter for each one. As I tried to write each one, I found it jarring and I never really knew why. Then I read Heydon Pickering's book Inclusive Design Patterns where he mentioned this exact problem.
+
+In short, when we're in the workplace and we're trying to design something, we don't start with the principles and make the design match those. It's the other way around. We orientate ourselves around a problem and apply various applicable principles to those. Specifically, we often apply the same principles to many different problems. 
+
+Trying to discuss principles in the abstract simply isn't practical. Having discovered Heydon's lightbulb moment, I quickly changed course and sketched out several chapters that would encompass the ~50 principles by solving real world problems. The result is this book.
 
 ## Principles
+
+Just because the page isn't designed around principles, doesn't mean we're not designing to them. Principles still have a solid place in this book and we'll refer to many throughout. This book aims to produce and define several reusable patterns. Any design system is usually founded on principles and this book is no different.
+
+- Read Alla book
+- lay out the principles
+
+---
+
 
 When designing solutions to problems, including those revolving around forms we need to have principles and morals. What are we without those anyway?
 

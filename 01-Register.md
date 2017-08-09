@@ -353,37 +353,29 @@ This is certainly less invasive than inline validation but it still has the foll
 
 #### Validating `onsubmit`
 
-As we've seen, instant feedback updates the interface without the user taking explicit action. Unsurprisingly then, this creates a jarrying, disruptive and confusing experience. Instead, we'll give users feedback when they explicitly expect to get it: on submit. In doing so, our design passes principle 4, *give control*.
+As we've seen, instant feedback updates the interface without the user taking explicit action. Unsurprisingly then, this creates a jarring, disruptive and confusing experience. Instead, we'll give users feedback when they explicitly expect to get it: on submit. In doing so, our design passes principle 4, *give control*.
 
-We haven't just arrived here by eliminating other techniques, though that's surely enough reason on its own. It's also about understanding how the platform (*the web*) works. The way it works becomes *convention*. When we design things conventionally, users understand how those things work without having to exert extra effort. We can go against convention, but only if we have a really good reason to do so.
+There's more to validating onsubmit than it simply being better than the other techniques. Validating onsubmit is a convention. It's just the way forms have been designed to work on the web. We can veer away from convention but only if we have a really good reason to do so.
 
-Javascript lets us bypass convention. In fact, the 3 *instant feedback* examples above all require Javascript to function. Without Javascript we're left to look at what the browser gives us natively for free. This is good because constraints guide design.
+One way of bypassing convention is by using Javascript. In fact, the 3 *instant feedback* techniques above require it to work. Without Javascript, we're left to rely on what browsers give us for free. This is good because constraints like this are important in design.
 
-> ‘There is no creativity without constraint’
+> There is no creativity without constraint
 
-Without constraint, there can't be any creativity. As we discussed earlier, the needs of users act as constraints. But so does the way in which the platform works. One assumption that designers make is that Javascript is always available and therefore relying on it is okay. This assumption is wrong. Blah designed an excellent poster entitled Everyone Has Javascript, Right[^13] that shows all the points of failure. Here are the main ones:
+Without constraint, we can't be creative. As we discussed earlier, the needs of users act as constraints, but so does the way in which the platform works. One assumption that designers make is that Javascript is always available and therefore relying on it is okay. This assumption is wrong. Blah designed an excellent poster entitled Everyone Has Javascript, Right[^13] that shows all the points of failure. Here are the main ones:
 
-- 
 -
-- 
+-
+-
 
-Considering these additional problems, we realise that designing for the ‘Javascript off’ scenario is vital, and this is one of the cornerstones of how Progressive Enhancement works. When we consider this scenario, we're only able to validate forms `onsubmit`.
+Considering these additional problems, we realise that designing for ‘Javascript off’ is crucial. This is afterall an important aspect to Progressive Enhancement because when (not if) the enhancement fails this is the experience they'll get. Having explored the problem from a completely different angle, the answer is to validate onsubmit.
 
-Interestingly, I've often found that the best experiences (not just ones including forms) don't need any Javascript. On one project I worked on we only performed validation on the server. We conducted thorough and regular research on the service and we received no complaints and spooted no issues. This is not to say client-side validation is *bad*. It's just that something that may appear to be problematic from a designer's point of view, may not be a problem for users.
+Interestingly, I've frequently found that good experiences don't need Javascript. For example, on a large-scale Government project we only performed validation on the server. Having conducted frequent and thorough user research we never found this to be a problem. This is not to say client-side validation is *bad*, far from it. It's just that something that may appear to be problematic from the point of view of a designer, may not be a problem for users.
 
-Client-side validation typically only checks the format. At some point we're going to need to comapre the data to that stored in a database. Registering a new account, for example, needs to ensure the email address doesn't already exist in the database.
+Also, Javascript validation tends to check format. At some point we need to hit the server and run further checks. For example, checking that an email address has not been used to create another account already. By first designing without the enhancement, not only do we reach a wider audience by default, but we expose scenarios that we may have otherwise missed.
 
-By designing first without Javascript we reach a wider audience, and expose scenarios that we may have otherwise forgotten, had we jumped head-first into the all-singing and all-dancing fancy-pants solution.
+### Displaying errors
 
-If some errors can only be caught on the server, we could end up with two error summaries—one generated on the server and one generated on the client
-
-![Two summaries](.)
-
-As already noted, by validating `onsubmit` we create a consistent experience whether errors are caught on the server or the client. And it puts users in control and saves us having to second guess when users expect feedback.
-
-### How to show errors
-
-When the user submits an erroneous form we'll need to inform the user by:
+Having decided *when* to submit, the next thing to consider is how to present errors. The important thing is that users know immediately that they have errors to fix and that remedying them is as pain free as possible. I've been practicing these techniques ever since implemented Boots.com with the help of the RNIB. The approach consists of 3 disprate techniques that together form a robust experience. They are:
 
 - Changing the page title.
 - Displaying an error summary.

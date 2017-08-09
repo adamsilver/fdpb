@@ -1,12 +1,14 @@
 # Introduction
 
-My initial experiences designing websites consisted of copying other people code and making tiny changes until something broke, then reverting that change and carrying on again.
+I can remember the first time I dabbled in web design. It was 2000 and one of the modules on my AVCE ICT course was ‘web design’. It mostly consisted of copying other people's code via *view source* and make small changes.
 
-Back then, we used tables for layout, a little sprinkly of CSS and pinch of Javascript normally for some useless affects that made me feel cool. Lest I forget framesets. All of these things are about output. There was little meaningful interaction that took place on the web back then.
+I built up an intimate relationship with most elements. The complex ones were framesets and tables because we used those to design interesting layouts. Links were easy, you just pointed the `href` at the page and everything worked, but forms were different. Forms were special.
 
-That was until people started using forms, mostly contact forms. Forms had me confused, because when I cut and pasted the code for them&mdash;just like I did with everything else&mdash;they didn't work. The user could type stuff in, but when they submitted it, nothing happened. Just an error.
+*View source* didn't work. I mean it did work, to an extent. But only in that it rendered the form in the browser. Submitting the form did nothing. I became obsessed with trying to get a form to submit and do *something*. I even remember trying to copy Amazon's add-to-basket HTML code. How stupid I felt. Eventually I realised I needed a server which opened an entirely new world of problems that I needed to learn how to solve.
 
-Eventually I realised to process forms and do things like send an email, add to basket, process payments etc, I needed a *server*. After I learnt about servers, which still confuse me a little today, I could then leverage the power of forms to do something meaningful. I could design interactive websites that allow users to do all sorts of things, from uploading images, to commenting on people's blog posts.
+In those days if you were a web developer, you did the whole lot. Databases, servers, HTML and design. Today they call this *full stack*. I realised quickly back then that I was way more interested with the interaction and experience side of things than I was databases. I quickly transitioned and most often had job titles of Front-end Developer.
+
+My obsession with forms never really stopped. I've always worked on highly interactive websites. And it's hard to have much interaction unless a form is involved in some form or other. From e-commerce sites to rich administrative back office sites I've had to design and build forms.
 
 ## Evaluation by problem
 

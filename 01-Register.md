@@ -351,23 +351,31 @@ This is certainly less invasive than inline validation but it still has the foll
 - Low confidence users or those that don't touch-type may not notice the feedback.
 - The rules take up a lot of space which may give the perception the task is bigger than it is.
 
-#### On submit
+#### Validating `onsubmit`
 
-Instant feedback causes the interface to update even though the user didn't take explicit action. This creates a jarring, disruptive and ambiguous experience. Instead, we'll give users respect by putting them firmly in control. To do this, we'll provide feedback when they explicitly submit the form.
+As we've seen, instant feedback updates the interface without the user taking explicit action. Unsurprisingly then, this creates a jarrying, disruptive and confusing experience. Instead, we'll give users feedback when they explicitly expect to get it: on submit. In doing so, our design passes principle 4, *give control*.
 
-To design inclusively, we must first consider the experience without Javascript, which is more common than you may think[^13].
+We haven't just arrived here by eliminating other techniques, though that's surely enough reason on its own. It's also about understanding how the platform (*the web*) works. The way it works becomes *convention*. When we design things conventionally, users understand how those things work without having to exert extra effort. We can go against convention, but only if we have a really good reason to do so.
+
+Javascript lets us bypass convention. In fact, the 3 *instant feedback* examples above all require Javascript to function. Without Javascript we're left to look at what the browser gives us natively for free. This is good because constraints guide design.
 
 > ‘There is no creativity without constraint’
 
-Constraints help us solve problems. When we accept constraints, we narrow our focus, often to the user's advantage. In this case, because we're thinking about the ‘Javascript off’ solution, we can only validate forms on submit.
+Without constraint, there can't be any creativity. As we discussed earlier, the needs of users act as constraints. But so does the way in which the platform works. One assumption that designers make is that Javascript is always available and therefore relying on it is okay. This assumption is wrong. Blah designed an excellent poster entitled Everyone Has Javascript, Right[^13] that shows all the points of failure. Here are the main ones:
 
-Interestingly, I've found that the best experiences are those that don't rely on Javascript. On a recent project, we only performed validation on the server side, and nobody noticed and we conducted user research weekly so would have expected this to come up in some way. This is not to say client-side validation is *bad*. It's just that something that may appear to be problematic from a designer's point of view, may not be a problem at all for users.
+- 
+-
+- 
+
+Considering these additional problems, we realise that designing for the ‘Javascript off’ scenario is vital, and this is one of the cornerstones of how Progressive Enhancement works. When we consider this scenario, we're only able to validate forms `onsubmit`.
+
+Interestingly, I've often found that the best experiences (not just ones including forms) don't need any Javascript. On one project I worked on we only performed validation on the server. We conducted thorough and regular research on the service and we received no complaints and spooted no issues. This is not to say client-side validation is *bad*. It's just that something that may appear to be problematic from a designer's point of view, may not be a problem for users.
 
 Client-side validation typically only checks the format. At some point we're going to need to comapre the data to that stored in a database. Registering a new account, for example, needs to ensure the email address doesn't already exist in the database.
 
 By designing first without Javascript we reach a wider audience, and expose scenarios that we may have otherwise forgotten, had we jumped head-first into the all-singing and all-dancing fancy-pants solution.
 
-If some errors can only be caught on the server, if we're not careful we could end up with two error summaries—one generated on the server and one generated on the client.
+If some errors can only be caught on the server, we could end up with two error summaries—one generated on the server and one generated on the client
 
 ![Two summaries](.)
 

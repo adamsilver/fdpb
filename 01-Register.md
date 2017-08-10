@@ -355,53 +355,46 @@ This is certainly less invasive than inline validation but it still has the foll
 
 As we've seen, instant feedback updates the interface without the user taking explicit action. Unsurprisingly then, this creates a jarring, disruptive and confusing experience. Instead, we'll give users feedback when they explicitly expect to get it: on submit. In doing so, our design passes principle 4, *give control*.
 
-There's more to validating onsubmit than it simply being better than the other techniques. Validating onsubmit is a convention. It's just the way forms have been designed to work on the web. We can veer away from convention but only if we have a really good reason to do so.
+There's more to validating onsubmit than it simply being better than the other techniques. Validating onsubmit is a convention. It's just the way forms have been designed to work on the web. We can bypass convention but only if we have a really good reason to do so.
 
 One way of bypassing convention is by using Javascript. In fact, the 3 *instant feedback* techniques above require it to work. Without Javascript, we're left to rely on what browsers give us for free. This is good because constraints like this are important in design.
 
 > There is no creativity without constraint
 
-Without constraint, we can't be creative. As we discussed earlier, the needs of users act as constraints, but so does the way in which the platform works. One assumption that designers make is that Javascript is always available and therefore relying on it is okay. This assumption is wrong. Blah designed an excellent poster entitled Everyone Has Javascript, Right[^13] that shows all the points of failure. Here are the main ones:
+Without constraint, we can't be creative. As discussed earlier, the needs of users act as constraints, but so does the way in which a platform works. One assumption that designers make is that Javascript is always available and therefore relying on it is okay. This assumption is wrong. Blah designed an excellent poster entitled Everyone Has Javascript, Right[^13] that shows all the points of failure. Here are the main ones:
 
--
--
--
+- If someone interacts with the page before Javascript has loaded
+- On a train and connection goes away before the Javascript loads
+- The request for Javascript failed
+- The corporate firewall or mobile operator blocked the script
+- Do they have an extension that inteferes with your script
+- Does the browser support the Javascript you've written
 
-Considering these additional problems, we realise that designing for ‘Javascript off’ is crucial. This is afterall an important aspect to Progressive Enhancement because when (not if) the enhancement fails this is the experience they'll get. Having explored the problem from a completely different angle, the answer is to validate onsubmit.
+Considering these additional problems, we realise that designing for ‘Javascript off’ is crucial. This is afterall an important aspect to Progressive Enhancement because when (not if) the enhancement fails this is the experience they'll get. Having explored the problem from a completely different angle, the answer still, is to validate onsubmit`.
 
-Interestingly, I've frequently found that good experiences don't need Javascript. For example, on a large-scale Government project we only performed validation on the server. Having conducted frequent and thorough user research we never found this to be a problem. This is not to say client-side validation is *bad*, far from it. It's just that something that may appear to be problematic from the point of view of a designer, may not be a problem for users.
+Interestingly, I've frequently found that good experiences don't need Javascript. For example, on a large-scale Government digital service we only performed validation on the server. Having conducted frequent and thorough user research we never found this to be a problem. This is not to say client-side validation is *bad*, far from it. It's just that something that may appear to be problematic from the point of view of a designer, may not be a problem for users.
 
-Also, Javascript validation tends to check format. At some point we need to hit the server and run further checks. For example, checking that an email address has not been used to create another account already. By first designing without the enhancement, not only do we reach a wider audience by default, but we expose scenarios that we may have otherwise missed.
+Also, Javascript validation tends to only check format. At some point we need to hit the server and run further checks. For example, checking that an email address has not been used to create another account already. By first designing without Javascript, not only do we reach *the widest possible audience*, but we expose scenarios that we may have otherwise missed.
 
 ### Displaying errors
 
-Having decided *when* to submit, the next thing to consider is how to present errors. The important thing is that users know immediately that they have errors to fix and that remedying them is as pain free as possible. I've been practicing these techniques ever since implemented Boots.com with the help of the RNIB. The approach consists of 3 disprate techniques that together form a robust experience. They are:
+Having decided *when* to submit, our next consideration is presenting the errors. Crucially, users need to be alerted that something has not only gone wrong but that they have the right information in the right place to remedy the problem. There are 3 disparate techniques which I've used since 2008 when I worked with the Royal National Institute of Blind People (RNIB) to design the validation experience for Boots.com.
 
-- Changing the page title.
-- Displaying an error summary.
-- Displaying an in-context error.
+#### Change the title
 
-#### Changing the page title
+When a page loads, the `title` element is the first available piece of information. It appears in the browser's tab bar for sighted users and it's the first thing a screen reader will announce, crucial for those who use one. Before submitting the form the title will probably be something like *Register for [awesome service]*.
 
-When a page loads, the `title` is read out first by screen readers. So we'll update the title to read ‘Errors in - ’ or similar. On one project, the Royal National Institute of Blind People (RNIB) suggested we prepend ‘Retry — ’ which tested well. As the experience became familiar, this shorter prompt proved informative and terse.
+When there are errors we should prepend the title with *There's a problem -* or a useful alternative *Retry -*.  The latter is useful for a service that is often used and so as the experience gets more familiar the shorter response is informative and terse.
 
-Changing the `title` is mostly for those using screen readers. However, for those multi-tasking and switching between tabs, the title acts as a notification of sorts.
-
-[]()
-
-To change the title on the server, we'll need to update the `title` element:
+[!](.)
 
 ```HTML
-<title>Retry - Title</title>
+<title>Retry - Register for [awesome service]</title>
 ```
 
-To apply the same behaviour in Javascript we need to prepend the text to the documents `title` property:
+Admittedly, changing the title is mostly for screen readers but that doesn't mean it's presence for sighted users is redundant. For those who multi-task by switching between tabs, the prepended status acts as a psuedo notification of sorts.
 
-```Javascript
-document.title = 'Retry - ' + document.title;
-```
-
-#### 2. Displaying an error summary
+#### Show an error summary
 
 Next, we'll provide an error summary at the top of the page, so that when the page refreshes, the error is shown without having to scroll.
 
@@ -409,33 +402,27 @@ Next, we'll provide an error summary at the top of the page, so that when the pa
 
 We'll apply the same functionality for errors caught on the client. But this time, we'll need to move focus to the error summary to ensure users see it. More on this later.
 
-Conventionally speaking, we should style errors in red. But to support those who can't see (the full range of) colour, we'll need to ensure the summary is prominent without it. We'll use a short but prominent heading to do this.
+Conventionally speaking, we should style errors in red. But to support those who can't see (the full range of) colour, we'll make sure the summary is prominent without it by using a short heading and placing it near the top of the screen.
 
-As is often the case with inclusive design patterns, what helps a minority of users often helps everyone else too. In this case a prominent heading helps everyone, not just those with poor vision.
-
-Here's How it might look:
-
-[]()
-
-HTML:
+[!](.)
 
 ```html
 <div class="errorSummary" role="alert">
-  <h2 tabindex="-1">Fix the following errors</h2>
+  <h2 tabindex="-1">There's a problem</h2>
   <ul>
-    <li><a href="#emailaddress">Provide an email address.</a></li>
-    <li><a href="#password">The password must contain an uppercase letter.</a></li>
+    <li><a href="#emailaddress">Enter an email address</a></li>
+    <li><a href="#password">The password must contain an uppercase letter</a></li>
   </ul>
 </div>
 ```
 
 Notes:
 
-- `role="alert"` ensures the summary is read out first when the page loads.
-- The `tabindex` allows us to programmatically set focus to the element when an error is caught on the client. This means we can bring the summary into view. When focus is set, the heading will be read out prompting the user to take action.
-- Each error message is an internal anchor that sets focus to the field.
+- `role="alert"` ensures that a screen reader announces the problem when the page loads.
+- The `tabindex` is for Javascript. It lets us move focus to the summary when the user submits the form lower down the page.
+- Each error message represented by a link, moves focus to the erroneous field.
 
-For those without Javascript support, or for errors that can only be handled on the server, the server will render the summary. When the page loads without errors the summary should be hidden. To do this, the server will need to apply an extra class:
+When the page loads for the first time *without* errors the summary panel should be empty and hidden. This ensures that we can inject errors from the server or the client to the same location.
 
 ```HTML
 <div class="errorSummary errorSummary-isHidden">
@@ -447,28 +434,26 @@ For those without Javascript support, or for errors that can only be handled on 
 }
 ```
 
-This allows us to reuse the same component and the same location on the screen regardless and ensures only one summary will ever be shown.
+#### 3. Show in-context errors
 
-#### 3. Show in-context error messages
+As the user moves through an erroneous form we don't want them to have to scroll up and down. *Up* to check the error and *down* to fix it. We also want screen readers to announce the error message as the user enters the erroneous field. This ensures that users have the information they need as they need it. We can achieve all this by simply injecting an error message into the label. This is the same approach we took earlier to give users hints.
 
-How it might look:
-
-HTML:
+[!In context errror](.)
 
 ```html
 <div class="field">
   <label for="blah">
     <span class="field-label">Email address</span>
-    <span class="field-error">Provide an email address</span>
+    <span class="field-error">Enter an email address</span>
   </label>
 </div>
 ```
 
 Like the hint pattern discussed earlier, we place the error inside the label (above the field) for the same reasons. It gives broad support for screen readers. That is, it will be read out with the label (and hint) when focussed.
 
-As is often the case with inclusive patterns like this, there is yet another benefit for placing the error above the field. In Avoid Messages Under Fields[^], Adrian Roselli explains that doing so is problematic because the browser's auto-complete feature obscures them and on-screen keyboards may also obscure them.
+As is often the case with inclusive patterns like this, there is yet another benefit for placing the error above the field. In Avoid Messages Under Fields[^], Adrian Roselli explains that doing so is problematic because the browser's auto-complete and on-screen keyboards obscure them.
 
-Quick note: The registration form contains two text boxes. In the next chapter we'll look at how to inject errors for groups of fields such as radio buttons. Spoiler alert: injecting the error into the label doesn't work.
+*Note: The registration form contains text boxes. In the next chapter we'll look at how to handle other form controls such as radio buttons. The spoiler here is that injecting the error into a label doesn't work.*
 
 ### How to write errors
 

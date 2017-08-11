@@ -4,14 +4,13 @@ In this chapter, we'll design a flight booking service. At first this may seem a
 
 Here are the main steps in the flow:
 
-1. Choose origin (and destination)
-2. Choose departure (and return) date
-3. Choose passengers
-4. Choose flight
-5. Choose seat
-6. Payment (covered in chapter 2)
+1. Choosing where to fly
+2. Choosing when to fly
+3. Choosing passengers
+4. Choosing flight
+5. Choosing where to sit
 
-## 1. Choose origin (and destination)
+## 1. Choosing where to fly
 
 First users have to choose an origin and destination. That is a place in which to fly from and to. Without knowing this information the service can't offer any useful flights. What's the best way of asking users for this information?
 
@@ -538,48 +537,43 @@ Autocomplete.prototype.isElementVisible = function(container, element) {
 };
 ```
 
-The script replaces the select box with a text box and adds down arrow button, suggestions panel and status box. Then as the user types it shows suggestions to the user.
+The script replaces the select box with a text box and adds a down arrow button, suggestions panel and status box. Then as the user types it shows suggestions to the user.
 
 Notes:
 
-- Pressing <kbd>up</kbd> or <kbd>down</kbd> moves focus to the option.
-- Pressing <kbd>enter</kbd>, <kbd>space</kbd> or clicking the option populates the text box and hides the suggestions.
+- When focus is within the text box, pressing <kbd>down</kbd> moves focus to the first option in the panel.
+- When an option is focussed, pressing <kbd>down</kbd> moves focus to the next option. Pressing <kbd>up</kbd> moves focus to the previous option.
+- When an option is focused, pressing <kbd>enter</kbd> or <kbd>space</kbd> or clicking/tapping the option populates the text box with the value and closes the menu.
 - Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form (like normal).
 - Clicking the down arrow button, reveals all the possible options.
-- Pressing <kbd>escape</kbd> hides the options.
+- Pressing <kbd>escape</kbd> closes the menu.
 
-## 2. Choose departure (and return) date
+## 2. Choosing when to fly
 
 Dates are hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally we've used 3 select boxes to capture dates&mdash;one for day, month and year. One of the redeeming qualities of select boxes is that they stop users entering wrong information. In the case of dates, even *this* doesn't hold up. This is because a user can, for example, select *31 February 2017* which is invalid.
+Traditionally we've used 3 select boxes to capture dates&mdash;one for day, month and year. One of the redeeming qualities of select boxes is that they stop users entering wrong information. In the case of dates, even *this* doesn't hold up. That's because a user can, for example, select *31 February 2017* which is invalid.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-The remaining reason to use select boxes is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We can't determine the user's intent accurately. In turn this means we can't be forgiving, as we would otherwise like to be. We can do better than select boxes.
+The remaining reason to use select boxes is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We simply can't accurately determine the user's intent. And so, we can't be as forgiving, as we would otherwise like to be.
 
-But before we get to that, let's take a step back. Before we can design an optimal date field, we'll need to first understand what type of date we're expecting users to enter. Goverment Digital Services (GDS) talks about this in the service manual[^6]. It says *the way you should ask for dates depends on the types of date you’re asking for*.
-
-Let's discuss the 3 types of dates and see which one best fits our need.
+With that said, before we can design the date component, we need to first understand what type of date we're asking users for. Goverment Digital Services (GDS) talks about this in the service manual[^6]. It says *the way you should ask for dates depends on the types of date you’re asking for*. There are 3 main types of date. We'll explore each one now to determine which one best fits the need.
 
 ### Dates from documents
 
 GDS says *if you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.*
 
-We took this exact approach when we designed the expiry date field, in chapter 2. We gave users a text box that expects a number matching the format on their card. Users simply copy what they see.
+We applied this guidance to the expiry date field, in chapter 2. We gave users a text box that expects a number matching the format on their card. Users simply copy what they see.
 
 ### Memorable dates
 
-The defacto thinking is that date pickers are always better than manually entering numbers for a date. But for dates that are easy to remember, such as date of birth, this isn't true. It's often slower and harder to enter a memorable date in this manner, than it would be to type numbers into a text box unassisted.
+The defacto thinking is that date pickers are always better than manually entering numbers. But for dates that are easy to remember, such as date of birth, this isn't true. It's often slower and harder to enter a memorable date through a date picker, than it would be to type numbers directly into a text box unassisted.
 
-GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. Why 3 boxes? Because it solves the formatting issues we discussed before.
-
-How it might look:
+GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. Why 3 boxes? Because it solves the formatting issues we discussed before. Here's how it might look:
 
 ![GDS date of birth](./images/gds-dob.png)
-
-HTML:
 
 ```HTML
 <div class="field">
@@ -604,25 +598,23 @@ HTML:
 </div>
 ```
 
-This field uses the `fieldset` and `legend` elements to group the 3 inputs together. Like any other input that uses the fieldset, it provides context for the labels within. In this case, without ‘Date of birth’, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous.
+This field uses the `fieldset` and `legend` elements to group the inputs together. Like any other input that uses the fieldset, it provides context for the labels within. In this case, without ‘Date of birth’, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous.
 
 Some versions of iOS won't show the numeric keyboard, even if you use `type="number"`. The `pattern` attribute fixes this problem[^7] which is why we've included it in each of the inputs above.
 
-#### Auto-tabbing
-
-Some websites automatically move focus from one field to the other, once the correct *amount* of characters have been entered. This is a usability failure, which we'll discuss in the next chapter.
-
 ### Finding dates in a calendar
 
-In the case of booking a flight, users are neither dealing with a memorable date nor one found in a document. When booking flights, we often orientate ourselves around day and week. To mimic this, we'll need a more convenient solution than 3 text boxes. We need a calendar, or what's commonly known as a date picker.
+In the case of booking a flight, users are neither dealing with a memorable date nor one found in a document. Booking a flight normally revolves around some date in the future. We often conceptulise dates by the Gregorian calendar. That is that there are 12 months (or 52 weeks) in a year. And each week consists of 7 days.
 
-Interfaces that try to solve too many problems at once cause problems. The primary need for the calendar is to select a date. If we try to convey, for example, price and availability inside the calendar too, this would result in a busy interface that overloads the user. Unless the user has a super-sized screen, but not everyone has one of those.
+Designing an interface that maps to a user's mental model helps in this case because the users is trying to find a date. It's neither memorable, nor is it a date found on a standard document. Therefore what we need is a calendar, or what is commonly known as a date picker.
 
-Instead, we'll first let users choose a date unencumbered, without the distraction of price and availability. Then later, we'll give them the extra context they need to choose the right flight for them.
+Interfaces that try to solve too many problems at once cause problems. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, results in a busy interface that likely overloads the user. It's also not very practical from a design perspective.
+
+One aspect of designing inclusively is considering those who use different sized screens and devices. Responsive Design encourages us to design for small and large screens alike. For these reasons, we'll let users first choose a date without the distraction of price and availability. Then later, we'll let them choose the right flight by giving the extra information they need.
 
 #### Date input
 
-Before HTML5, we always had to build our own date picker using Javascript. We know this is a complex task because we had to consider the breadth of requirements when we creates the autocomplete component earlier.
+Before HTML5, we always had to build our own date picker using Javascript. We know this is a difficult task because we've just tackled the breadth of requirements to create the autocomplete component.
 
 Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;have `input type="date"`. This is useful because:
 
@@ -630,21 +622,17 @@ Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;have `input
 - They are performant because they are provided by the browser.
 - They are familiar because every website (and native app for that matter) will use the same interface.
 - They are accessible by default.
-- Users receive improvements as soon as the browser makes release them.
+- Users receive improvements as soon as the browser vendors release them.
 
-All of which give us back time and headspace to solve other, more pressing problems. The overused phrase is *don't reinvent the wheel*.
-
-Here's how it looks on mobile:
+All of which give us back time and headspace to solve other, more pressing problems. The overused phrase is *don't reinvent the wheel*. Here's how the native date input looks on mobile:
 
 ![Mobile native date control](./images/mobile-date.png)
 
-Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support at time of writing.
+Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support (at time of writing).
 
 ![Desktop native date control](./images/desktop-date.png)
 
-If you're concerned about it looking different in different browsers you'd needn't be. In Progressive Enhancement 2.0, at 16 minutes in[^8], Nicholas Zakas proves that users don't notice the differences between browser implementations. Nobody cares about your website as much as you do and rather officially websites do not need to look the same in every browser[^9].
-
-HTML:
+If you're concerned about it looking different in different browsers you needn't be. In Progressive Enhancement 2.0, at 16 minutes in[^8], Nicholas Zakas proves that users don't notice the differences between browser implementations. Nobody cares about your website as much as you do and officially websites do not need to look the same in every browser[^9].
 
 ```HTML
 <div class="field">
@@ -656,13 +644,13 @@ HTML:
 
 ```
 
-#### What about browsers that lack support?
+#### What about browsers lacking support?
 
-Browsers that don't support date inputs will degrade into a text box, which may be sufficient. This is one of the many advantages of Progressive Enhancement. We can choose to degrade gracefully. Or, we can decide to provide an enhanced fallback.
+Browsers that don't support date inputs will degrade into a text box, which may be sufficient. Progressive Enhancement lets us choose to either degrade gracefully or to provide a better fallback with Javascript through feature detection.
 
-As choosing dates is integral to booking a flight, the degraded solution isn't as good as we'd like. Choosing a date should be easy for as many people as possible. We may change tacts, in the future, once support for date inputs improve, but more on this shortly. Right now though, we'll create a date picker component.
+As choosing dates is integral to booking a flight, the degraded solution isn't as good as we'd like it to be. Choosing a date should be easy for as many people as possible. We may change tacts in the future, once support for date inputs improve, but more on this shortly. First we'll create a date picker component.
 
-The first problem we need to solve is to ensure we only give users the our component when their browser doesn't support the native input. That is, we'll need to feature detect this capability:
+First we need to ensure we only give users the component when their browser doesn't support the date input. That is, we'll need to feature detect this capability:
 
 ```Javascript
 function supportsDateInput() {
@@ -680,17 +668,15 @@ if(!supportsDateInput()) {
 
 #### What about the future?
 
-Jeremy Keith often talks about the web being a *continuum*[^10]. What he's means is, web is constantly changing. New browsers are relaeased frequently. All of them have varying features and capabilities. At any particular moment in time, we need to think about what level of support (or optimisation) makes sense for a given feature.
+Jeremy Keith often talks about the web being a *continuum*[^10]. What he's means is, web is constantly changing. New browsers are released frequently. All of them have varying features and capabilities. At any particular moment in time, we need to think about what level of support (or optimisation) makes sense for a given feature.
 
-As we said earlier, desktop browser support for the native input is lacking. And as choosing a date is so integral to the flow, we've decided to plug the gap (for now, at least.) In future, things might change&mdash;support is likely to improve. At which point we can change tacts.
+As we said earlier, desktop browser support for the native input is lacking. As choosing a date is crucial, we've decided to plug the gap (for now, at least). In future, things could change. When support improves, we can change tacts.
 
-We may choose not to support the rapidly diminishing number of users that would otherwise experience the degraded text box. Practically speaking this means removing the Javascript, giving users a faster experience and ourselves less to maintain.
+We may choose not to support the rapidly diminishing number of users that would otherwise experience the degraded text box. Practically speaking this means removing the Javascript. This gives users a faster experience and us less to maintain.
 
 #### Date picker component
 
-Having now detected support, we'll need to design the date picker component itself.
-
-How it might look:
+Having now detected support, we'll need to design the date picker component itself. Here's how it might look:
 
 ![Date widget](./images/date-widget.png)
 
@@ -698,8 +684,6 @@ Notes:
 
 - Buttons should have large tap[^] targets making it easy to press with a finger or mouse.
 - The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway.
-
-HTML:
 
 ```HTML
 <div class="field">
@@ -791,7 +775,7 @@ HTML:
 </div>
 ```
 
-There are 5 component parts:
+The date picker is made up of 5 parts:
 
 - Text box
 - Toggle button
@@ -805,24 +789,24 @@ Text box notes:
 
 Toggle button notes:
 
-- `type="button"` ensures the form is not submitted.
-- `aria-expanded="false"` announces to screen reader users if the calendar is showing or not. Clicking the button sets the attribute to `true` and displays the calendar.
+- The `type` attribute is set to `button` which stops it from submitting the form like a regular submit button.
+- The `aria-expanded` attribute tells users whether the date picker is showing or not by toggling between `true` and `false` values.
 
 Calendar header notes:
 
-- The heading is inside a live region. When the user navigates between months, the new month and year is announced accordingly.
-- The header also houses the previous and next month buttons.
+- The heading is inside a live region. This ensures that when the user navigates between months, the date is announced.
+- The header also contains the previous and next month buttons.
 
 Calendar grid notes:
 
-- `aria-hidden="true"` ensures the calendar is not perceivable to screen readers. For visual users, this is achieved by the fact it's not visible.
-- The table has `role="grid"` so that the screen reader treats the table as a special grid widget. In JAWS, for example, this means the arrow keys can be used to navigate between days. More on this shortly.
-- The thead contains the column headings representing each day of the week. The day is abbreviated and uses the `abbr` element which saves space but gives assistive technology the change to announce the day of the week in full.
-- The tbody contains the days organised in weeks which are represented in table rows.
+- The `aria-hidden` attribute is set to true which means it is not perceivable to screen readers. Visual users experience the same thing as it's not actually visible.
+- The table has a role of `grid` so that the screen reader treats the table as a special widget. In JAWS, for example, this means the arrow keys can be used to navigate between days. More on this shortly.
+- The `thead` contains the column headings representing each day of the week. The days are abbreviated and use the `abbr` element. This saves space whilst letting screen readers announce them in full.
+- The `tbody` contains the days organised by week which are represented as table `row`s.
 
 Calendar cell notes:
 
-- `tabindex="-1" allows us to set focus programmatically. More on this shortly. The selected day has `tabindex="0"` so that it appears in the standard tab sequence.
+- The `tabindex` is set to `-1` which allows the focus to be set programmatically but that it's not in the standard tab sequence. This is dicussed more later. ROVING.
 - ????`aria-selected` allows the selected state to be announced. This is set to true when the cell is selected.
 - ???? ID
 - `aria-label` enables screen readers to announce the full day. Without it, the cell's value is ambiguous.
@@ -836,28 +820,28 @@ Put code here
 Notes:
 
 - Pressing *choose* toggles the calendar's visibility.
-- Pressing *previous* shows the previous month and selects the first day of the preview month.
+- Pressing *previous* shows the previous month and selects the first day of the previes month.
 - Pressing *next* shows the next month and selects the first day of the next month.
-- Once focus is on the grid, the arrow keys let the user move freely between days and weeks.
-- Only the selected day is in the natural tab sequence. This is because for those relying on the <kbd>tab</kbd> key would have to tab ~30 times in order to leave the calendar and would it make it hard to move focus to the selected day.
-- Pressing <kbd>escape</kbd> hides the date picker and moves focus to the button.
-- Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date into the text box, hides the calendar and moves focus into the text box.
+- When the grid is focussed, the arrow keys let the user move freely between days and weeks. Pressing <kbd>left</kbd> moves to the previous day. Pressing <kbd>right</kbd> moves to the next day. Pressing <kbd>up</kbd> moves to the same day in the previous week. Pressing <kbd>down</kbd> moves to the same day in the next week.
+- Only the selected day is in the natural tab sequence. This is because for those who tab would have to tab ~30 times in order to leave the calendar. This makes it hard to move focus to the selected day or to leave the component entirely.
+- Pressing <kbd>escape</kbd> hides the calendar and moves focus to the button.
+- Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date and sets focus to text box, then hides the calendar.
 
-Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to inclusive principle number X, by giving users choice.
+Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to principle 5, *give users choice*.
 
 #### A small trade off
 
 Most designers would stop here. After all that's everyone covered right? Not quite. Some still use a browser without support for the native date input; and that, Javascript isn't available. Those falling under this category, albeit a minority, will have to type a date into a text box unassisted.
 
-The problem is that there aren't any instructions regarding the expected format. We can't explain this with a hint because it will show to those using a browser that *does* support the date input. This is problematic, because the format is different.
+The problem is that there aren't any instructions regarding the expected format. We can't explain this with a hint because it will show to those using a browser that *does* support the date input. This is problematic because the format is different.
 
 ![]()
 
 We can mitigate the risk by forgiving users for delimitting the date with slashes, periods and spaces. But typing the year first, for example, *will* cause an error. A well written error message will have to handle this case. Fortunatley, this shouldn't happen too often.
 
-This is one of those occasions whereby a good solution for most, is less than ideal for a minority. This is a trade off that we have to make sometimes but at least it's still accessible. Interesting this points out a vital difference between accessible interfaces and inclusive ones. This experience is accessible but it's lacking inclusivity.
+This is one of those occasions where a good solution for most, is less than ideal for a minority. This is a trade off that we have to make sometimes. Fortunately it's still accessible. Interesting this points out a vital difference between accessible interfaces and inclusive ones. This experience is accessible but it's lacking at the inclusive level. [Consider explaining this more.]
 
-## 3. Choose passengers
+## 3. Choosing passengers
 
 Next, users need to enter the amount of people flying. ‘People’ fall under 3 catgories:
 
@@ -868,8 +852,6 @@ Next, users need to enter the amount of people flying. ‘People’ fall under 3
 How it might look:
 
 ![Passengers](./images/choose-passengers.png)
-
-HTML:
 
 ```HTML
 <div class="field">
@@ -892,15 +874,13 @@ HTML:
 </div>
 ```
 
-In chapter 2 we disabled the spinner. Spinners, also known as steppers, let users increase or decrease the value by a constant amount. They are great for making small adjustments. In the same article we referenced earlier, Luke Wobrelkski says:
+In chapter 2 we disabled the spinner. Spinners, also known as steppers, let users increase or decrease the value by a constant amount. They are great for making small adjustments. In the same article, referenced earlier, Luke Wobrelkski says:
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-The problem with the native spinner is that it's small and hard to use. We can enhance the interface by injecting large buttons next to the input.
+The problem with the native spinner is that it's small and hard to use. We can enhance the interface by injecting large buttons next to the input. Here's how it might look:
 
-How it might look:
-
-[!]()
+[!](.)
 
 ```HTML
 <div class="field">
@@ -929,7 +909,7 @@ How it might look:
 </div>
 ```
 
-Adding `tabindex="-1"` removes the buttons from the tab sequence. This ensures we don't disturb the natural flow and order of form elements. The buttons use symbols and although the best icon is text, these icons are well understood and keep the interface clean. For those using screen readers, we add `aria-label="Increment"` so the interface makes sense audibly.
+Adding `tabindex="-1"` (not necessarily good, more testing/research) removes the buttons from the tab sequence. This ensures we don't disturb the natural flow and order of form elements. The buttons use symbols and although the best icon is text, these icons are well understood and keep the interface clean. For those using screen readers, we add `aria-label="Increment"` so the interface makes sense audibly.
 
 Javascript:
 
@@ -977,15 +957,11 @@ Stepper.prototype.onIncrementClick = function(e) {
 
 The script injects two buttons. The buttons mimic the behaviour of the native spinner by decreasing or increasing the input's value by 1.
 
-## 4. Choose flight
+## 4. Choosing a flight
 
-Up to now, we've simply been gathering preferences in order to determine which flights to show. Now we have what we need, the user can select a flight from the list of results.
-
-How it might look:
+Up to now, we've simply been gathering preferences in order to determine which flights to show. Now we gathered what we need to, the user can select a flight from the list of results. Here's how it might look:
 
 ![Image](./images/image.png)
-
-HTML:
 
 ```HTML
 <div class="field">
@@ -1019,38 +995,30 @@ Notes:
 
 - Each flight is represented as a radio button.
 - The user can go back and forth between days using pagination.
-- The legend contains the flight date giving context to each of the radio buttons in the group.
+- The `legend` contains the flight date giving context to each of the radio buttons in the group.
 - Each radio button contains departure time, arrival time and price, giving users all the information they need in order to make an informed decision.
 
-## 5. Choose seat
+## 5. Choosing where to sit
 
-Next, the user needs to choose a seat. If more than 1 passenger is travelling, they can select more than 1 seat. So we'll need to represent each seat as a checkbox. Conversely, if 1 passenger is travelling we'd use radio buttons.
-
-How it might look:
+Next, the user needs to choose a seat. If more than 1 passenger is travelling, they can select more than 1 seat. So we'll need to represent each seat as a checkbox. Conversely, if 1 passenger is travelling we'd use radio buttons because with a group of radio buttons, you can only select one. Here's how it might look:
 
 ![Image](./images/image.png)
 
-Up to now, we've displayed form fields in a stacked manner. This time though, we've laid out the checkboxes in rows, just like they are on the plane. This meets the need that *as a user, I want to know the location of the seat, so that I can choose preferential seats*. Shortly, we'll look at how we can meet the same need for those using screen readers.
+Up to now, we've displayed form fields in a stacked manner. This time though, we've laid out the checkboxes in rows, just like they are on the plane. This ensures that *as a user, I can choose a seat that meets my preferences*. Shortly, we'll look at how we can meet the same need for those using screen readers.
 
 ### Breaking the rules
 
-There are many seats on a plane, therefore there are many checkboxes or radio buttons we need to show. Traditional advice suggests using radio buttons where there are less than 7 choices, otherwise use a select box. This makes some sense in the context of a long an unweildly form.
+There are many seats on a plane, therefore there are many checkboxes or radio buttons we need to show. Traditional advice suggests we can only use radio buttons where there are less than 7 choices, otherwise we should use a select box. This makes some sense in the context of a long an unweildly form.
 
-Fortunately, we don't have that problem because we have a dedicated screen solely for choosing seats. Using radio buttons makes the seats easy to compare and select. This sort of interface just isn't possible with a select box, proving that as with everything in design, *it depends*.
+Fortunately, we don't have that problem because we have a dedicated screen solely for choosing seats. Using radio buttons makes the seats easy to compare and select. This sort of interface just isn't possible with a select box, proving that as with so many things in design, *it depends*.
 
 ### Nested fieldsets
 
 The preferences collected up to now have influenced the design of the interface. Specifically, we didn't ask users whether they wanted to travel first class or economy. This reduced the friction upfront in exchange for a more complicated interface now.
 
-We've had to present both first class and economy seats using a nested fieldset. The innermost legends represents the categorisation helping sighted and visually-impaired users equally.
-
-Asking users to specify this preference in the ‘gathering’ process, reduces the complexity at this stage. To offset the added friction upfront we can default the selection to economy and let users change this using the patterns from chapter 2.
-
-How it might look:
+We've had to present both first class and economy seats using a nested fieldset. The innermost legend represents the categorisation for both sighted and visually-impaired users. But asking users to specify their preference in the ‘gathering’ stage, reduces the complexity at this stage. To offset the added friction upfront we can default the selection to economy and let users change this using the patterns from chapter 2. This is how it might look:
 
 ![Image](./images/image.png)
-
-HTML:
 
 ```HTML
 <div class="field field--seats">
@@ -1106,16 +1074,19 @@ HTML:
 
 Notes:
 
-- The hint informs screen reader users what the label means in relation to seat location. Without it the fields lack clarity.
-- Seats that aren't available are disabled.
+- The hint tells screen reader users what the label means in relation to seat location. Without it the fields lack clarity.
+- Seats that aren't available are disabled. Disabled fields are ignored. That is you can't tab to them, and screen readers won't announce them.
 
 ### Hiding the checkboxes
 
-On small screens each seat eats into the minimal space available potentially causing a horizontal scroll bar to appear or the seats to wrap over 2 lines. If user feedback proves this to be a problem, we might consider hiding the checkboxes.
+On small screens each seat eats into the minimal space available potentially causing either a horizontal scroll bar to appear or the seats to wrap over 2 lines. If user feedback proves this to be a problem, we could decide to save space by hiding the checkboxes.
 
-Hiding the checkboxes without Javascript is dangerous. This is because pressing <kbd>tab</kbd> moves focus to the checkbox&mdash;not the label. Hiding the checkboxes breaks the interface, because tabbing to a hidden input doesn't provide feedback.
+Hiding the checkboxes without Javascript is dangerous. That's because pressing <kbd>tab</kbd> moves focus to the checkbox&mdash;not the label. Hiding the checkboxes breaks the interface, because tabbing to a hidden input doesn't provide feedback.
 
 We can fix this by listening to `focus` and `blur` events. When the user moves focus to the visually hidden checkbox, we add a CSS class to the associated label giving users the illusion that it is in focus.
+
+[!Focus](.)
+
 
 ```CSS
 .enhanced .field-seatCheckbox {
@@ -1130,9 +1101,7 @@ We can fix this by listening to `focus` and `blur` events. When the user moves f
 }
 ```
 
-We hide the checkbox with CSS but only when the Javascript is available, indicated by the `enhanced` class which is added in the `head` of the document:
-
-Adding the enhanced class:
+The CSS is only applied once we know Javascript is available to manage the pseudo focus states. This is achieved by adding a class of `enhanced` in the head of the document:
 
 ```JS
 document.documentElement.className = 'enhanced';
@@ -1158,13 +1127,9 @@ SeatEnhancer.prototype.onCheckboxBlur = function(e) {
 
 Earlier we said to use radio buttons if 1 passenger is travelling. This naturally stops users from selecting more than 1 seat. In the case of checkboxes, the user can select more than their quota which results in an error once submitted.
 
-User testing may prove this not to be a problem and therefore doesn't need any further consideration. However, if it does, we could limit the amount of seats they can select using Javascript.
+User testing may prove this not to be a problem and therefore doesn't need any further consideration. If it does, we could limit the amount of seats they can select using Javascript. To do this we could disable the remaining checkboxes once the user reaches their quota. However, if the user has reached their quota and clicks another seat nothing happens creating a disagreable experience.
 
-To do this we could disable the remaining checkboxes once the user reaches their quota. However, if the user has reaches their quota and clicks another seat nothing happens creating a disagreable experience because their is no feedback.
-
-Savvy users might realise they need to deselect their previously chosen seat before selecting another. Less savvy users might not. We can do the hard work in code by automatically performing this action for them.
-
-Javascript:
+Savvy users might realise they need to deselect their previously chosen seat before selecting another. Less savvy users might not. Instead, we can do the hard work so users don't have to, by doing this automatically using Javascript:
 
 ```JS
 function SeatLimiter(max) {
@@ -1200,7 +1165,7 @@ In this chapter we continued using the One Thing Per Page pattern from chapter 2
 
 All of the components are fully inclusive. We made sure of this by designing them to be focusable and operable with keyboards and screen readers. We used ARIA attributes where necessary and ensured the components work well on small and big screens alike.
 
-Whilst each of these components were designed with a flight booking service in-mind, all of them are transferable to other problem domains such as booking a cinema ticket or a hotel room.
+Whilst each of these components are designed with a flight booking service in-mind, all of them are transferable to other similar problem domains such as booking a cinema ticket or a hotel room.
 
 ## Footnotes
 

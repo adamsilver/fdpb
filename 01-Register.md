@@ -459,58 +459,56 @@ As is often the case with inclusive patterns like this, there is yet another ben
 
 Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^15].
 
-A good error message is easy to understand and easy to fix. Whilst it's often backwards to design an interface without first knowing the content, in this case, it's hard to design the messages without understanding the interface.
+> Content is the user experience
 
-As we've just designed the interface, we already know that errors might appear in two places: the summary and next to the field. What this means is we need to ensure the error message works well regardless of these two locations. That is, ‘You need to enter the “at” symbol.’ is ambiguous when it appears in the summary but works when next to the field.
+A good error message is easy to understand. Whilst it's often backwards to design an interface without first knowing the content, in this case, it's hard to design the messages without understanding the interface.
 
-[]()
-
-Maintaining two different messages for each error is a lot more work and for little gain. To solve this, we'll design messages that works in both cases. For example, ‘You need to enter the “at” symbol in the email address.’.
-
-We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisey and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to [answer this question.]’ may be better as it sounds softer but it has more words. Tricky.
-
-To help answer the question of pleasantries, we might consider how frequently the system is being used by the same user. For users who use a system every day, removing ‘You need to’ gets straight to the point and may be better. For less frequent users it may come across rude. Without testing it's hard to know.
-
-Regardless of the chosen approach, there's bound to be some repetition. Often when testing validation, we'll submit the form without entering anything. This, of course, presents a long list of errors:
+As we've just designed the interface, we already know that errors  appear in 2 places: the summary and next to the field. This means we need to ensure the content works in context of both locations. That is, ‘Enter an “at” symbol.’ is ambiguous inside the summary, but is perfectly acceptable, better even, next to the field (where the label provides the context.)
 
 []()
 
-The repetition is obvious in this worst case scenario. And, as content designers, we might freak out and try fix this cardinal sin. But in reality how often do users submit a long form that is full of errors? Most users aren't trying to break the interface.
+Maintaining 2 versions of the same message is a hard sell for small gain. Instead, we'll design the content to work in both: ‘Your email address needs an “at” symbol.’.
 
-With these considerations out of the way, here's a list of tips for designing error messages:
+We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisy and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to [answer this question.]’ may be better as it sounds softer but it has more words. Tricky.
+
+We might consider how frequently the system is being used by the same user. For users who use a system every day, removing ‘You need to’ gets straight to the point for someone who has an intimate relationship with a system. Though, it may come across as rude for those using the system infrequently. Without testing it's hard to know.
+
+Regardless of the chosen approach, there's bound to be some repetition. Often when testing validation, we'll submit the form without entering anything which exposes the repetition in the messages in all their glory:
+
+[]()
+
+This, presents a long list of errors. Through this, somewhat artificial scenario, the repetition of words looks like a glaring oversight. As content designers this could freak us out. But how often do users submit a long form without entering a single field? Most users aren't trying to break the interface.
+
+Here's some more practical considerations:
 
 - Use punctuation. Some errors have clauses and contain several sentences.
-- Be specific. If the system knows why something is wrong, then it should say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user to find out why.
+- Be specific. If the system knows exactly why something went wrong say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and requires less thinking.
 - Use the active voice. For example, ‘Enter your name’ not ‘Your name must have an entry’.
 - Don't blame the user.
 - Use plain language. Error messages are not an opportunity to promote your quirky brand's tone of voice. Keep it simple and obvious.
-- Be human, avoid jargon. Avoid being cutesy and avoid words like *invalid*, *unrecognised* (which is passive) and *mandatory*.
-- Understandable out of context. A message of ‘You need to answer this.’ works when it's next to the field, but it's useless when inside the summary.
-- Be terse. Don't be overly chatty, particularly on a system that is used frequently.
+- Be human, avoid jargon. Avoid avoid words like *invalid*, *unrecognised* and *mandatory*.
+- Makes sense on its own.
+- Be terse. Don't be overly chatty, particularly on a frequently used system.
 - Be consistent. Use the same tone, the same words and the same punctuation.
 - Test your messages with users.
 
-### Be forgiving
+### Be forgiving and restore values
 
-There are some things we can do to stop users seeing errors unnecessarily. We can forgive users for typing extra spaces. If they type ‘John ’ we can trim automatically trim that to ‘John’. We can also ignore uppercase and lowercase letters and other characters depending on the field.
+The best problems are the ones users don't have to even know about. We can forgive users for typing extra spaces. If they type ‘John ’ we can trim it to ‘John’. We can also ignore upper or lowercase letters depending on the field.
 
 Jared Spool makes a joke about this in Design is Metrically Opposed[^16], at 42 minutes in. He says ‘it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong’.
 
-### Restoring values
-
-If an error is caught on the server—therefore causing a page refresh—we should ensure whatever the user typed is restored. Otherwise users have to type the same thing again which many just won't do. Avoid unnecessary drop outs by making this part of your workflow.
+When an error occurs and the page is refreshed, we should restore whatever it is the user typed. Making users re-type the same information twice is something some just won't do, nor should they have to.
 
 ### Validation component
 
-There are concerns about the support and uniformity of HTML5 form validation. To achieve all of the functionality we've discussed so far and to grant ourselves the flexibility to design *whatever it is we need* we'll build our own implementation.
-
-To do this, we'll first need to ‘turn off’ HTML5 form validation for browsers that support it. We can do this by adding `novalidate` to the form element:
+There are concerns about the support and uniformity of HTML5 form validation. Our approach validation requries a custom implementation. To grant us this flexibility, we'll need to turn off HTML5 form validation in browsers that support it:
 
 ```HTML
 <form novalidate>
 ```
 
-Then we'll need to create a reusable component using Javascript:
+This enables us to create a reusable and custom validation solution in Javascript:
 
 ```JS
 function FormValidator(form, options) {
@@ -670,9 +668,9 @@ In this chapter we solved most of the fundamental problems we face when designin
 
 - Always use a clear and readily accessible label. Avoid techniques, however ‘trendy’, that defy this rule.
 - Use the Question Protocol to find ways to remove fields, thus reducing the effort needed by the user.
-- Use the right type of form control to provide field-specific keyboards to speed up the process.
-- Show errors on submit, keeping users in control and avoiding the problem with instant validation.
-- Write errors in the active voice and ensure they are specific, consistent and helpful.
+- Use the right type of form control to give mobile users a better on-screen keyboard.
+- Show errors on submit to keep users in control.
+- Write consistent errors in plain language that is specific to the problem.
 
 In upcoming chapters, we'll build on the foundations we've laid here in order to solve more complex problems. In doing so we'll need to explore a host of other patterns at our disposal.
 

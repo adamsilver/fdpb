@@ -959,7 +959,7 @@ The script injects two buttons. The buttons mimic the behaviour of the native sp
 
 ## 4. Choosing a flight
 
-Up to now, we've simply been gathering preferences in order to determine which flights to show. Now we gathered what we need to, the user can select a flight from the list of results. Here's how it might look:
+Before now, we've been in the ‘gathering’ stage. That is we've been *gathering* the user's preferences so that we can show them flights that match those preferences. Now we have what we need, we can show them a list of results. Here's how it might look:
 
 ![Image](./images/image.png)
 
@@ -991,32 +991,35 @@ Up to now, we've simply been gathering preferences in order to determine which f
 </div>
 ```
 
-Notes:
-
-- Each flight is represented as a radio button.
-- The user can go back and forth between days using pagination.
-- The `legend` contains the flight date giving context to each of the radio buttons in the group.
-- Each radio button contains departure time, arrival time and price, giving users all the information they need in order to make an informed decision.
+The user can move freely between days by clicking *previous* or *next* respectively. Each flight is represented as a radio button. The label contains the time of departure and arrival, as well as the price of the ticket. Together this gives both visual and screen reader users all the information they need to be able to choose a preferential flight.
 
 ## 5. Choosing where to sit
 
-Next, the user needs to choose a seat. If more than 1 passenger is travelling, they can select more than 1 seat. So we'll need to represent each seat as a checkbox. Conversely, if 1 passenger is travelling we'd use radio buttons because with a group of radio buttons, you can only select one. Here's how it might look:
+The way in which we let users choose a seat depends on how many passengers are travelling. If one passenger is travelling we should use radio buttons to represent each seat. Conversely, if more than one passenger is travelling checkboxes are appropriate. Here's how it might look:
 
-![Image](./images/image.png)
+![Image showing radios/checkboxes](./images/image.png)
 
-Up to now, we've displayed form fields in a stacked manner. This time though, we've laid out the checkboxes in rows, just like they are on the plane. This ensures that *as a user, I can choose a seat that meets my preferences*. Shortly, we'll look at how we can meet the same need for those using screen readers.
+Before now, we've simply ‘stacked’ form fields beneath one an other. This time though, we've laid them out in rows, like they are on the plane. Matching the inteface to helps users model the interface to real life, making it easier to select their seat of choice. Shortly, we'll look at how we can meet the same needs for screen reader users.
 
 ### Breaking the rules
 
-There are many seats on a plane, therefore there are many checkboxes or radio buttons we need to show. Traditional advice suggests we can only use radio buttons where there are less than 7 choices, otherwise we should use a select box. This makes some sense in the context of a long an unweildly form.
+There are many seats on a plane, therefore there are many checkboxes or radio buttons we need to show. Traditional advice says to use radio buttons where there are less than 7 choices, otherwise use a select box. We love rules like this as rules help us think less. And this rule makes sense in most contexts whereby a long list of radio buttons produces a long and unweildly form.
 
-Fortunately, we don't have that problem because we have a dedicated screen solely for choosing seats. Using radio buttons makes the seats easy to compare and select. This sort of interface just isn't possible with a select box, proving that as with so many things in design, *it depends*.
+But rules are made to be broken. We don't have this problem, partially because we're asking One Thing Per Page. And we're also presenting several radio buttons per row. Exposing them like this makes the options easy to compare and easy to select. This interface just isn't possible with a select box. This speaks to the greatest design rule ever said, *it depends*.
 
 ### Nested fieldsets
 
-The preferences collected up to now have influenced the design of the interface. Specifically, we didn't ask users whether they wanted to travel first class or economy. This reduced the friction upfront in exchange for a more complicated interface now.
+The information we've collected up to now has influenced the interface. As we never asked users *how* they wanted to travel: first class or economy&mdash;it's added some complexity in choosing a seat. Not only do we need to present seats in rows but that we need to group them into first class and economy.
 
-We've had to present both first class and economy seats using a nested fieldset. The innermost legend represents the categorisation for both sighted and visually-impaired users. But asking users to specify their preference in the ‘gathering’ stage, reduces the complexity at this stage. To offset the added friction upfront we can default the selection to economy and let users change this using the patterns from chapter 2. This is how it might look:
+---
+
+The radio buttons would
+
+Reducing friction upfront has introduced a lot of complexity here. The trade-off simply isn't worth it. Asking this question earlier drastically simplifies the interface which we have to build and people have to use.
+
+Most users will choose economy class and so we can use *smart defaults* (as discussed in chapter 2) to mitigate the added friction.
+
+However, in this case, reducing friction upfront has introduced some complexity here. Complexity that we need to address now. This complexity manifests itself in nested fieldsets and to present those nested fieldsets visually as groups. Here's how it looks with the accompanying mark-up:
 
 ![Image](./images/image.png)
 
@@ -1071,6 +1074,12 @@ We've had to present both first class and economy seats using a nested fieldset.
 	</fieldset>
 </div>
 ```
+
+The innermost `legend` represents
+
+The innermost legend represents the categorisation for both sighted and visually-impaired users. But asking users to specify their preference in the ‘gathering’ stage, reduces the complexity at this stage. To offset the added friction upfront we can default the selection to economy and let users change this using the patterns from chapter 2. This is how it might look:
+
+
 
 Notes:
 

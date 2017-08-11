@@ -13,35 +13,29 @@ On the web there are several elements that represent lists:
 - unordered lists (`<ul>`)
 - ordered lists (`ol`)
 
-We can't discuss the merit of each of these until we orientate ourselves around a specific problem that needs solving. To do this, we'll design an inbox. The aim of course is to achieve a zen-like state of Inbox Zero[^].
+It's hard to discuss the merits of each type unless we orientate ourselves a specific problem. To do this, we'll design an inbox. The aim of course is to achieve a zen-like state of Inbox Zero[^]. To get to Inbox Zero our interace must enable users to delete, archive and mark emails as spam. But not just one at a time. In bulk.
 
-To get to Inbox Zero our interace must enable users to delete, archive and mark emails as spam. But not just one at a time. In bulk.
-
-Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists that need to be operated on in bulk.
+Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists that may need to be managed like this.
 
 ## Everything is list
 
 Semantically speaking, everything is a list. The things on the page are a list of things on the page. Pedanticism aside, we need to decide what type of list is best for our inbox.
 
-Tables work when representing two-dimensional data. In our case, rows represent emails and columns represent recipient, subject and date sent. Interestingly, Gmail omits table headings, suggesting that tables are less appropriate in this case.
+Tables work when representing two-dimensional data. In our case, rows represent emails and columns describe that data: recipient, subject and date sent, for example. Interestingly, Gmail omits table headings which suggests that tables are less appropriate here.
 
-We could represent rows as list items and (at least in big screens) visually present them as columns. This brings us to the first problem. Tables aren't especially responsive.
+We could represent rows as list items and (at least in big screens) visually present them as columns. This brings us to the first problem. Tables aren't especially responsive. Tables are semantically tied to the way they look. That is it's hard to make tables not *look* like tables. There are some solutions, but they are not cross-browser. However, striving to make tables (or any other element) not look like a table is materially dishonest[^].
 
-Tables are semantically tied to the way they look. Meaning it's hard to make tables not *look* like tables. There are some solutions, but they are not particularly cross-browser. However, striving to make tables (or any other element) not look like a table is materially dishonest[^].
+Tables *are* a good choice when data needs contextual information to make it useful or if the data in those rows need comparing.  For example, *23* is ambiguous without *goals scored* and *Lionel Messi* as column and row headings respectively. And we might also be interested in comparing Lionel Messi's statistics in comparison with Cristiano Ronaldo's.
 
-Tables *are* a good choice when the data needs contextual information to make it useful. For example, *23* is ambiguous without *goals scored* and *Lionel Messi* as column and row headings respectively.
-
-Our inbox, however, is seemingly less tabular. It's a list of emails that if read out as ‘From Heydon, subject: Buttons, 19/09/2017 at 9am’ would be quite readable. You might even argue that the verbosity of having column headings is something that hinders, as opposed to helps the experience. Mailchimp, which is not an inbox, has a similar interface to Gmail but uses list items:
+Our inbox, however, is seemingly less tabular. It's a list of emails that if read out as ‘From Heydon, subject: Buttons, 19/09/2017 at 9am’ would be quite readable. You might even argue that the verbosity of having column headings is something that hinders, as opposed to helps the experience. Mailchimp, which has a similar interface to Gmail uses list items:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-It looks the same, but the advantage of list items over table rows is that they are maleable. We can style them differently and more appropriatelty for small and big screens alike. Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the ‘right’ solution present itself.
+The advantage over tables is that they are maleable. We can style them differently and more appropriatelty for small and big screens alike. Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the ‘right’ solution present itself.
 
-This may seem a bit out of place in a book about form patterns but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface on their own.
+This may seem a bit out of place in a book about forms but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface on their own.
 
-On balance, an unordered list is preferential. This is not to say tables are bad. We can't classify elements as *good* and *bad*. We simply need to understand their meaning, their behaviour and their constraints. It's better to classify elements as *appropriate* or *inappropriate* for the given problem.
-
-How it might look:
+On balance, an unordered list is preferential. This is not to say tables are bad. We can't classify elements as *good* and *bad*. We simply need to understand their meaning, their behaviour and their constraints. It's better to classify elements as *appropriate* or *inappropriate* for the given problem. Here's how the inbox might look:
 
 ![Inbox with one checkbox selected and the actions exposed](./images/inbox.png)
 
@@ -58,21 +52,17 @@ How it might look:
 </ul>
 ```
 
-Here's the HTML without any form controls. We'll add those in shortly. Interestingly, the act of writing the HTML exposes another problem. The content is wrapped in a link which is not something we can do with tables&mdash;it's semantically invalid.
+We'll add the form controls shortly. Interestingly, the act of constructing the HTML exposes another problem. The content is wrapped in a link which is not something we can do with tables&mdash;it's semantically invalid.
 
 As designers, we should have a deep understanding of the materials we use to build artifacts. For example, a chair designer should intimately know how wood can be used to craft chairs. In our case the materials are HTML, CSS, Javascript. And the artefacts are web pages.
 
 > ‘If you can solve a problem with a simpler solution lower in the stack, you should.’—Derek Featherstone
 
-Gmail uses tables and yet the entire row is clickable. Google's developers use Javascript. But, as we've previously discussed, this is an act of exclusivity.
-
-Wherever possible we should avoid solutions that exclude people. Inclusivity is really just a set of constraints that guide us to create robust, and therefore, better experiences.
+Gmail uses tables and yet the entire row is clickable. Google's developers use Javascript to fix this. But, as we've previously discussed, this is an act of exclusivity because not everybody has Javascript. Besides if we can fix this problem without excluding people we should. Inclusivity is really just a set of constraints that guide us to create robust, and therefore, better experiences for all.
 
 ## Enabling selection
 
-To allow users to select and action multiple emails at once, we'll need to add a checkbox to each item in the list.
-
-How it might look:
+To allow users to select and action multiple emails at once, we'll need to add a checkbox next to each email. How it might look:
 
 ![Inbox](./images/inbox.png)
 
@@ -92,12 +82,7 @@ How it might look:
 
 Unlike all other fields in the book so far, the checkbox has a label missing. In *almost* all cases, a visible label should be placed with the checkbox. However, this is a bit of a special case because the interface handles two disperate jobs. That is, to view emails and to *manage* them too.
 
-In this case we can probably get away without having visible labels. In fact having a visible label in this interface interfers with the navigation behaviour of the row itself. We can't have a `label` and a link occupy the same space.
-
-There are 2 solutions:
-
-- Use modes
-- Visually hide the label
+In this case we can probably get away without having visible labels. In fact having a visible label in this interface interfers with the navigation behaviour of the row itself. We can't have a `label` and a link occupying the same space. Fortunately, there are 2 solutions. The first is to use modes, the second is to hide the label.
 
 ### Use modes
 

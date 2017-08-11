@@ -125,26 +125,26 @@ How it might look after enhancement:
 </div>
 ```
 
-The enhanced autocomplete component is made from 3 parts. The text box lets users type where they want to go. The suggestions menu displays options matching what they type. Selecting one completes the field. The status box ensures that screen reader users know that the options have been filtered.
+The enhanced autocomplete component is made up of 3 separate parts. The text box and menu, let's users type and select their destination.The status box is for screen reader users. As the suggestions change it will say things like *2 destinations available*.
 
 Text box notes:
 
-- `role="combobox"` tells screen reader users that this is an autocomplete control, not just a regular text box.
-- `aria-autocomplete="list"` explains that a list will appear from which the user can choose.
-- `aria-expanded` indicates whether the menu is showing or not.
-- `aria-owns="combobox-options"` connects the text box to the menu by `id`.
-- `autocomplete="off"` stops browsers showing their own suggestions which will interfer with those offered by the component.
+- The role is set to `combobox` indicating that this control is more than just a regular text box.
+- The `aria-autocomplete` attribute indicates that a list of options will appear from which the user can choose.
+- The `aria-expanded` attributes tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
+- [CHECK]The `aria-owns` creates a relationship between the text box and the menu by specifiying the menu's `id`.
+- The `autocomplete` attribute is set to `off` to stop browsers making their own suggestions interfering with those offered by the component itself.
 
-Option notes:
+Options notes:
 
-- `role="option"` announces the element as an option as the user navigates through the list.
-- `aria-selected` indicates whether the item is selected or not.
+- The menu's role is set to `list` indicating that it contains a list of items. This is complimented by each item having a role of `option`.
+- The `aria-selected` attribute tells users whether the option is selected or not by toggling between values `true` and `false`.
 
 Status box notes:
 
-- `aria-role="status" announces the status. For example, *2 results available.*
-- `aria-live="polite" ensures the announcement doesn't interrupt the user. It waits until the user stops typing.
-- `aria-atomic="true"` means the entire status will be announced, even if Javascript was to optimise what's injected.
+- The role is set to `status` to tell users that *2 results are available* for example.
+- The `aria-live` attribute ensures the screen reader doesn't interrupt the user as they type. Instead it waits until they stop typing.
+- [CHECK] The `aria-atomic` attribute is set to true which ensures the entirety of the message is announced, even if just a small part of the status was injected by Javascript.
 
 ```Javascript
 function Autocomplete(control) {

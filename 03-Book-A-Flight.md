@@ -1,6 +1,6 @@
 # Book A Flight
 
-In this chapter, we'll design a flight booking service. At first this may seem a bit *niche*, especially when compared to the two previous chapters, *A Registration Form* and *Checkout*. However, this chapter encourages the exploration of several more complex patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket of hotel room.
+In this chapter, we'll design a flight booking service. At first this may seem a bit *niche*, especially when compared to the two previous chapters, *A Registration Form* and *Checkout*. However, this chapter encourages the exploration of several more complex patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or hotel room.
 
 Here are the main steps in the flow:
 
@@ -13,11 +13,11 @@ Here are the main steps in the flow:
 
 ## 1. Choose origin (and destination)
 
-First users have to choose an origin and destination (both consist of the same problems and will use the same pattern.) Without knowing this information, we can't search for flights. The question is how are we going present a list of destinations?
+First users have to choose an origin and destination (both consist of the same problems and therefore use the same pattern.) Without knowing this information, we can't search for flights. The question is, how are we going to show a list of destinations?
 
-One aspect of being a thoughtful designer is considering the materials that are offered natively. This is because, generally speaking, native controls are familiar and fully accessible. It's also far less work to use them than it is to build our own, as we'll see shortly. This is what comes to mind when reading Deiter Rams famous quote ‘Less but better’.
+One aspect of being a thoughtful designer is considering the materials that are offered natively by the browser. This is because, generally speaking, native controls are familiar and fully accessible. It's also far less work to use them than it is to build our own. This is what comes to mind when reading Deiter Rams famous quote ‘Less but better’.
 
-There are 3 native form controls that could work for choosing a destination. We'll explore those now.
+There are 3 native form controls that may work for this. Let's explore each in turn.
 
 ### Select box
 
@@ -31,21 +31,19 @@ Designers often use `select` boxes because they save space. But interface design
 - they hide choices behind an unnecessary extra click.
 - they are not easily searchable.
 
-Usability expert, Luke Wobrelski, even states that the select box should be the ‘UI of last resort’[^1]. We'll take heed of his experience.
+Usability expert, Luke Wobrelski, even states that the select box should be the ‘UI of last resort’[^1] and so we'll take heed of his advice here too.
 
 ### Radio buttons
 
-Unlike select boxes, radio buttons present choices clearly, are generally well-understood and are accessible. However, they are less suitable when they consist of many choices. We could have hundreds of destinations on offer, creating long and unweildly pages.
+Radio buttons, unlike select boxes, are generally well understood and easy to use. The fact that they aren't hidden behind a menu is a big plus. But, they are less suitable when there are lots of choices. An airline could flight to hundreds of destinations, which if using radio buttons would create a long and unweildly interface.
 
-Some browsers have a native search facility (activated by <kbd>CMD+F</kbd>) allowing users to *jump* to the option quickly. But most users aren't aware of this. Moreover we shouldn't rely on an inconspicuous browser feature to fix holes in our own interface.
+Some browsers have a native search facility (activated by <kbd>CMD+F</kbd>). This lets users *jump* to the option quickly. But most users aren't aware of this functionality, nor should they have to be. We can do better.
 
 ### Search box
 
-A text box (`input type="search"`) is another option. The search type enhances the functionality of a regular text box (`input type="text"`) by letting the user clear the contents of the field&mdash;either by tapping the ‘x’ or pressing <kbd>escape</kbd>.
+A text box (`input type="search"`) is another option. The search type enhances the the regular text box (`input type="text"`) by letting users clear the contents of the field&mdash;either by tapping the ‘x’ or pressing <kbd>escape</kbd>.
 
 ![Image here](/etc/)
-
-HTML:
 
 ```html
 <div class="field">
@@ -56,15 +54,15 @@ HTML:
 </div>
 ```
 
-This design works well when submission yields potentially a huge amount of dynamic results. For example, searching for products on Amazon[^2]. But for this service, we have a finite amount of destinations that we know in advance. And if we leave users to search unassisted, this could result in a ‘no results’ which seems a bit unnecessary.
+This works when submission yields a huge amount of dynamic results such as searching for a product on Amazon[^2]. But airlines have a finite list of destinations that we know *in advance* of users making the search. Leaving users to search unassisted increases the risk of a ‘no results’.
 
 ### Autocomplete
 
-We really need a control with the features of a search box and select box rolled into one. As the user types a destination, suggestions appear allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations and avoids users having to type the destination without any typos.
+We really need a better form control. One that let's users search but with assistance. We need the flexibility and usability of a text box combined with the assistance of a select box. There are many names for a control like this such as *type ahead*, *predictive search* and *autocomplete* but more importantly how do they work?
 
-HTML5's `datalist` promises exactly this functionality but it's so buggy[^3] that we're not able to rely on it, especially if we want to create a robust and inclusive design for consumption on the general web.
+As the user types a destination, suggestions appear below allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations and avoids users having to type the destination perfectly (without typos).
 
-We'll have to design a custom component. To do this, we'll need to follow Steve Faulkner's ‘punch list’[^4]. It should:
+HTML5's `datalist` gives us exactly what we want but it's so buggy[^3] that unfortunately we can't use it. This is especially the case for us, because we're designing interfaces that can be used by all regardless of their choice of browser. Instead we need to step into the world of custom components. Accessibility expert, Steve Faulkner has what he calls a ‘punch list’ [^4] to help us design a robust and fully inclusive custom form component. It consists of 4 rules stating that it should:
 
 - be focusable with the keyboard.
 - be operable with the keyboard.
@@ -73,13 +71,11 @@ We'll have to design a custom component. To do this, we'll need to follow Steve 
 
 To solve the last problem we need to talk about Progressive Enhancement. Progressive Enhancement is about providing a core experience for everyone. Then, if possible and necessary, creating a better, enhanced experience for those using a more capable browser.
 
-The enhanced experience will be an autocomplete. But what will the core experience be: a text box or a select box. In this case, it seems prudent to use a select box. At least a select box removes the chance of seeing a lack of results after submission and therefore saves users a server round trip.
+The enhanced experience will be an autocomplete. But will the core experience be a text box or a select box? In this case, it seems prudent to use a select box. At least a select box removes the chance of seeing a lack of results after submission and therefore saves users a server round trip.
 
 How it looks (before enhancement):
 
 ![Image here](/etc/)
-
-HTML:
 
 ```html
 <div class="field">
@@ -98,8 +94,6 @@ HTML:
 How it looks (after enhancement):
 
 ![Image here](/etc/)
-
-HTML:
 
 ```html
 <div class="field">
@@ -143,7 +137,7 @@ HTML:
 There are 3 component parts:
 
 - A text box
-- A menu to show suggestions
+- A suggestions menu
 - A status box to announce changes to screen reader users
 
 The HTML in combination with CSS and Javascript displays suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with a mouse, keyboard and screen reader interchangeably.

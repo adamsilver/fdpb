@@ -13,11 +13,9 @@ Here are the main steps in the flow:
 
 ## 1. Choose origin (and destination)
 
-First users have to choose an origin and destination (both consist of the same problems and therefore use the same pattern.) Without knowing this information, we can't search for flights. The question is, how are we going to show a list of destinations?
+First users have to choose an origin and destination. That is a place in which to fly from and to. Without knowing this information the service can't offer any useful flights. What's the best way of asking users for this information?
 
-One aspect of being a thoughtful designer is considering the materials that are offered natively by the browser. This is because, generally speaking, native controls are familiar and fully accessible. It's also far less work to use them than it is to build our own. This is what comes to mind when reading Deiter Rams famous quote ‘Less but better’.
-
-There are 3 native form controls that may work for this. Let's explore each in turn.
+As designers, we should try and use the features that are native to the browser. This is because, generally speaking, they are are familiar (due to convention) and fully accessible. They also require far less work to design and build. Browsers offer 3 suitable controls. Let's look at each of them next.
 
 ### Select box
 
@@ -31,49 +29,42 @@ Designers often use `select` boxes because they save space. But interface design
 - they hide choices behind an unnecessary extra click.
 - they are not easily searchable.
 
-Usability expert, Luke Wobrelski, even states that the select box should be the ‘UI of last resort’[^1] and so we'll take heed of his advice here too.
+Usability expert, Luke Wobrelski, even goes as far to say that select boxes should be the ‘UI of Last Resort’[^1]. Unsurprisngly then, we'll search for a better way.
 
 ### Radio buttons
 
-Radio buttons, unlike select boxes, are generally well understood and easy to use. The fact that they aren't hidden behind a menu is a big plus. But, they are less suitable when there are lots of choices. An airline could flight to hundreds of destinations, which if using radio buttons would create a long and unweildly interface.
+Radio buttons, unlike select boxes, are generally well-understood and easy-to-use. Radio buttons are exposed by defualt making them easier to discover and scan. They are also flexible because we can put formatted content inside the label. This is something we'll be looking at later in the chapter.
 
-Some browsers have a native search facility (activated by <kbd>CMD+F</kbd>). This lets users *jump* to the option quickly. But most users aren't aware of this functionality, nor should they have to be. We can do better.
+The problem with labels, however, is that they're not suitable when there are many of them. An airline could fly to hundreds of destinations. Using radio buttons create a long and unweildly interface, that the user is forced to peruse.
 
 ### Search box
 
-A text box (`input type="search"`) is another option. The search type enhances the the regular text box (`input type="text"`) by letting users clear the contents of the field&mdash;either by tapping the ‘x’ or pressing <kbd>escape</kbd>.
+A search box (`input type="search"`) is a standard text box with some extras. It lets users clear the contents of the field, either by tapping the x or pressing <kbd>escape</kbd>. With a regular text box you have to select the text and then press <kbd>delete</kbd>. Here's how it looks:
 
 ![Image here](/etc/)
 
-```html
-<div class="field">
-	<label for="destination">
-		<span class="field-label">Destination</span>
-	</label>
-	<input type="search" name="destination" id="destination">
-</div>
-```
-
-This works when submission yields a huge amount of dynamic results such as searching for a product on Amazon[^2]. But airlines have a finite list of destinations that we know *in advance* of users making the search. Leaving users to search unassisted increases the risk of a ‘no results’.
+This is a useful approach for searching large amounts of dynamic data such as searching for a product on Amazon[^2]. But airlines have a finite amount of destinations which we also know *in advance* of users searching. If we were to let users search unassisted like this, they could end up with no results due to typos.
 
 ### Autocomplete
 
-We really need a better form control. One that let's users search but with assistance. We need the flexibility and usability of a text box combined with the assistance of a select box. There are many names for a control like this such as *type ahead*, *predictive search* and *autocomplete* but more importantly how do they work?
+What we really need is a control that let's users filter a long list of destinations quickly. We need the flexibility of a text box combined with the assistance of a select box. What need an autocomplete control. Autocomplete controls may also be known as *type ahead* or *predictive search* but we let's settle on *autocomplete* for communication purposes.
 
-As the user types a destination, suggestions appear below allowing them to autocomplete the field. This saves time scrolling through a plethora of destinations and avoids users having to type the destination perfectly (without typos).
+Autocomplete controls work by suggesting, in this case, destinations, as the user starts typing. As suggestions appear, the user selects one to *complete* automatically, hence the name. This saves users from having to scroll a long list and is forgiving if they make small typos.
 
-HTML5's `datalist` gives us exactly what we want but it's so buggy[^3] that unfortunately we can't use it. This is especially the case for us, because we're designing interfaces that can be used by all regardless of their choice of browser. Instead we need to step into the world of custom components. Accessibility expert, Steve Faulkner has what he calls a ‘punch list’ [^4] to help us design a robust and fully inclusive custom form component. It consists of 4 rules stating that it should:
+HTML5 introduced the `datalist` element which when combined with a text box gives us the behaviour we want. Unfortunately, it's not ready for prime time due to its many bugs[^3]. It may be a reasonable option for you, if you're building something only to be consumed in a specific browser that you can control. But otherwise, you'll need to create a custom component.
+
+Now we're about to enter new territory here. Designing custom components is a lot harder than using a native form control. To help guide us, accessibility expert, Steve Faulkner has what he calls a ‘punch list’[^4]. Essentially it's a list of rules which state that a custom component should:
 
 - be focusable with the keyboard.
 - be operable with the keyboard.
 - work with assistive devices.
 - work without Javascript.
 
-To solve the last problem we need to talk about Progressive Enhancement. Progressive Enhancement is about providing a core experience for everyone. Then, if possible and necessary, creating a better, enhanced experience for those using a more capable browser.
+To solve the last problem we need to talk about Progressive Enhancement. We briefly skimmed the approach in chapter 1 but it's worth talking about it a little more here. Progressive Enhancement is about giving everyone a core experience. Then, if possible and necessary, creating a better, ‘enhanced’ experience for those using a more capable browser.
 
-The enhanced experience will be an autocomplete. But will the core experience be a text box or a select box? In this case, it seems prudent to use a select box. At least a select box removes the chance of seeing a lack of results after submission and therefore saves users a server round trip.
+In this case, the enhanced experience is the autocomplete itself, but we need to think about users who due to no fault of their own won't be able to get it. The core experience will have to be either a text box or a select box. On balance a select box seems more appropriate here as it stops users having to endure page refresh that delivers no results.
 
-How it looks (before enhancement):
+How it might look before enhancement:
 
 ![Image here](/etc/)
 
@@ -91,7 +82,7 @@ How it looks (before enhancement):
 </div>
 ```
 
-How it looks (after enhancement):
+How it might look after enhancement:
 
 ![Image here](/etc/)
 

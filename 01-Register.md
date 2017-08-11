@@ -197,7 +197,7 @@ HTML5 gave us `input type="email"` improving the experience for those using supp
 
 ![Email keyboard](.)
 
-Non-supporting browsers fall back to a standard text field which is Progressive Enhancement in action. One of the main advantages of Progressive Enhancement is that it improves the experience for some without degrading the experience for those using less capable browsers.
+Non-supporting browsers fall back to a standard text field which is Progressive Enhancement in action. One of the main advantages of Progressive Enhancement is that it improves the experience for some without degrading the experience for others. By others I mean those using less capable browsers. Not everyone has the ability to choose their browser. Sometimes it's imposed by the device or corporate computer systems.
 
 Progressive Enhancement itself is an earmark of Inclusive Design. As such, we'll use this design approach to solve many problems in this book.
 

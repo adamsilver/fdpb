@@ -125,26 +125,20 @@ How it might look after enhancement:
 </div>
 ```
 
-There are 3 component parts:
-
-- A text box
-- A suggestions menu
-- A status box to announce changes to screen reader users
-
-The HTML in combination with CSS and Javascript displays suggestions beneath the text box as the user types. All the attributes are necessary in order to build an inclusive component that users can operate with a mouse, keyboard and screen reader interchangeably.
+The enhanced autocomplete component is made from 3 parts. The text box lets users type where they want to go. The suggestions menu displays options matching what they type. Selecting one completes the field. The status box ensures that screen reader users know that the options have been filtered.
 
 Text box notes:
 
-- `role="combobox"` announces that they are using an autocomplete control, not a regular text box.
-- `aria-autocomplete="list"` denotes that, a list will appear from which the user can choose.
-- `aria-expanded` indicates the state. That is whether it's showing or not.
+- `role="combobox"` tells screen reader users that this is an autocomplete control, not just a regular text box.
+- `aria-autocomplete="list"` explains that a list will appear from which the user can choose.
+- `aria-expanded` indicates whether the menu is showing or not.
 - `aria-owns="combobox-options"` connects the text box to the menu by `id`.
-- `autocomplete="off"` stops browsers showing their own suggestions and interfering with those offered by our component.
+- `autocomplete="off"` stops browsers showing their own suggestions which will interfer with those offered by the component.
 
 Option notes:
 
-- `role="option"` announces it as an option in the list.
-- `aria-selected` indicates the state. That is whether it's selected or not.
+- `role="option"` announces the element as an option as the user navigates through the list.
+- `aria-selected` indicates whether the item is selected or not.
 
 Status box notes:
 

@@ -12,25 +12,29 @@ This converted much better. Although I can't remember the exact numbers, the cli
 
 ![Just Eat checkout](./images/justeat.png)
 
-A couple of years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Apart from the numbers there is a strong rationale behind the pattern, which we’ll get to shortly. First, we'll take a look at exactly what this pattern is.
+A couple of years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Apart from the numbers there is a strong rationale behind the pattern, which we’ll discuss shortly. First, we'll take a look at exactly what this pattern is.
 
-## What is One Thing Per Page?
+## One Thing Per Page
 
-One Thing Per Page is not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer. Similarly, it’s not about having a single form field on each page either (although, again, it could).
+One Thing Per Page is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own. For example, instead of placing the address form on the same page as the delivery options and payment forms, we put it on a separate page.
 
-This pattern is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own. For example, instead of placing the address form on the same page as the delivery options and payment forms, we put it on a separate page.
+It's not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer. Similarly, it’s not about having a single form field on each page either (although, it absolutely could).
 
-An address form has multiple fields, but it’s a single, tangible question that is being asked of the user. It makes sense to tackle this question on one screen.
+This doesn't mean you'll always end up with one question per page. Caroline Jarrett, who first wrote about the pattern in 2015 explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
 
-Next we’ll look at why the pattern is so good.
+However, she also explains that “questions that naturally ‘go together’ from the point of view of designers, don’t need to be on the same page to work for users.” She provides an enlightening example when, for GOV.UK Verify, they tested putting “Create a username” on one page and “Create a password” on the next.
 
-## Why is it so good?
+Like most designers, Caroline thought that putting these two form fields on separate pages would be overkill. In reality, users weren’t bothered by this at all. The point is to at least start with One Thing Per Page and then, through research, find out whether grouping fields together improves the experience.
 
-Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s nice to understand the rationale behind it.
+That is not to say you’ll always end up combining screens together — in my experience, the best results come from splitting things apart, period.
+
+### Why is it so good?
+
+Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s useful to understand why it works well. Here are the main reasons:
 
 ### 1. It reduces cognitive load
 
-Like Ryan Holiday describes in The Obstacle Is The Way, remember the first time you saw a complicated algebra equation? It was a jumble of symbols and unknowns. But when you stopped to break it down and isolate the parts, all that was left was the answer.
+Like Ryan Holiday describes in The Obstacle Is The Way[^], remember the first time you saw a complicated algebra equation? It was a jumble of symbols and unknowns. But when you stopped to break it down and isolate the parts, all that was left was the answer.
 
 It’s the same for users trying to complete a form or anything else for that matter. If there is less stuff on screen, and only one choice to make, friction is reduced to a minimum. Therefore users stay on task.
 

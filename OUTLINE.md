@@ -1,6 +1,6 @@
 # Outline
 
-## 1. A registration form (6500)
+## 1. A registration form (7500)
 
 - Introduction
 - Describing the field
@@ -40,7 +40,7 @@
 	- Validation component
 - Summary
 
-## 2. A checkout flow (5500)
+## 2. A checkout flow (6000)
 
 - Introduction
 - One Thing Per page
@@ -78,7 +78,7 @@
 - Checkout specific header
 - Summary
 
-## 3. A flight booking service (7000)
+## 3. A flight booking service (8000)
 
 - Introduction
 - Flow and order

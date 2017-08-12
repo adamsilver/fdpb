@@ -50,7 +50,7 @@ What we really need is a control that let's users filter a long list of destinat
 
 Autocomplete controls work by suggesting, in this case, destinations, as the user starts typing. As suggestions appear, the user selects one to *complete* automatically, hence the name. This saves users from having to scroll a long list and is forgiving if they make small typos.
 
-HTML5 introduced the `datalist` element which when combined with a text box gives us the behaviour we want. Unfortunately, it's not ready for prime time due to its many bugs[^3]. It may be a reasonable option for you, if you're building something only to be consumed in a specific browser that you can control. But otherwise, you'll need to create a custom component.
+HTML5 introduced the `datalist` element which when combined with a text box gives the desired behaviour. Unfortunately, it's not ready for prime time due to its many bugs[^3]. It may be a reasonable option for you, if you're building something only to be consumed in a specific browser that you can control. But otherwise, you'll need to create a custom component.
 
 Now we're about to enter new territory here. Designing custom components is a lot harder than using a native form control. To help guide us, accessibility expert, Steve Faulkner has what he calls a ‘punch list’[^4]. Essentially it's a list of rules which state that a custom component should:
 
@@ -600,7 +600,7 @@ GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, 
 
 This field uses the `fieldset` and `legend` elements to group the inputs together. Like any other input that uses the fieldset, it provides context for the labels within. In this case, without ‘Date of birth’, ‘Day’, ‘Month’ and ‘Year’ would be ambiguous.
 
-Some versions of iOS won't show the numeric keyboard, even if you use `type="number"`. The `pattern` attribute fixes this problem[^7] which is why we've included it in each of the inputs above.
+Some versions of iOS don't show the numeric keyboard, even if you use `type="number"`. The `pattern` attribute fixes this problem[^7] which is why we've included it in each of the inputs above.
 
 ### Finding dates with a calendar
 
@@ -682,7 +682,7 @@ Having now detected support, we'll need to design the date picker component itse
 
 Notes:
 
-- Buttons should have large tap[^] targets making it easy to press with a finger or mouse.
+- Buttons should have large tap[^11] targets making it easy to press with a finger or mouse.
 - The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway.
 
 ```HTML
@@ -891,7 +891,7 @@ Having discussed number inputs in chapter 2, we know that some browsers natively
 
 Notes:
 
-- Whilst the best icons are text[^], the button text uses universally understood minus and plus symbols. This keeps the interface clean and in balance.
+- Whilst the best icons are text[^12], the button text uses universally understood minus and plus symbols. This keeps the interface clean and in balance.
 - The `aria-label` describes the symbol with text for those using screen readers. Instead of hearing ‘Button, minus symbol’ they'll hear ‘Button, increment’ or similar.
 
 ```JS
@@ -982,7 +982,7 @@ Each flight is represented as a radio button. The label contains departure time,
 
 ## 5. Choosing where to sit
 
-In Checkboxes Are Never Round[^], Daniel De Laney says that *interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show&mdash;it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.*
+In Checkboxes Are Never Round[^13], Daniel De Laney says that *interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show&mdash;it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.*
 
 What Daniel is essentially saying that radio buttons tell us that we can select one of something; and checkboxes tell us that we can select *more than one* of something. Therefore if one person is travelling use radio buttons, otherwise use checkboxes. Here's how it might look for the latter:
 
@@ -1253,7 +1253,7 @@ Notes:
 
 ## Summary
 
-In this chapter we continued using One Thing Per Page to give us the maximum screen space to create innovative interfaces that let users book a flight easily. We then broke new ground by designing 4  progressively-enhanced, fully inclusive custom form components:
+This chapter continued where we left off from the previous: By using One Thing Per Page, we gained the maximum screen estate available to us to create simple interfaces. As much as we tried to use native form controls, we realised that it was necessary to break new ground by designing 4 custom form components from scratch.
 
 - An autocomplete component lets users search through a long list of destinations quickly and accurately.
 - A date picker lets users find a date in the future that matches a user's mental model of time using the Gregorian calendar.
@@ -1263,11 +1263,10 @@ In this chapter we continued using One Thing Per Page to give us the maximum scr
 ### Things to avoid
 
 - Using radio buttons instead of checkboxes and vice versa
-- Using select boxes when better form controls exist
-- Letting users do the hardwork when we can do it for them by thoughtful interface enhancements
-- Half enhancing an interface with CSS that can break the interface for some users.
-- Adding a lot of complexity later when a tiny bit of friction upfront drastically reduces it.
-- Being blinded by rules and ignoring the specific context of the problem at hand.
+- Using select boxes when better alternatives exist
+- Letting users do the hardwork when it's possible to design more thoughtful experiences through progressive enhancement.
+- Adding signficant complexity later in a flow, when a little friction upfront could drastically reduce it.
+- Following age-old rules without considering the context of the problem.
 
 ## Footnotes
 
@@ -1276,22 +1275,11 @@ In this chapter we continued using One Thing Per Page to give us the maximum scr
 [^3]: http://caniuse.com/#feat=datalist
 [^4]: https://www.paciellogroup.com/blog/2014/09/web-components-punch-list/
 [^5]: http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
-[^6]: https://www.gov.uk/service-manual
+[^6]: https://www.gov.uk/service-manual/design/dates
 [^7]: http://html5doctor.com/html5-forms-input-types/#input-number
 [^8]: https://www.youtube.com/watch?v=hdTxeR90_1E
 [^9]: http://dowebsitesneedtolookexactlythesameineverybrowser.com/
 [^10]: https://adactio.com/journal/6692
-
-## Other stuff?
-
-[^]:(https://www.nngroup.com/articles/drop-down-menus-use-sparingly/)
-[^]:(https://www.slideshare.net/cjforms/design-patterns-in-government-2016)
-
-[^GDS type]:(https://alphagov.github.io/accessible-typeahead/)
-[^leonie]:(http://ljwatson.github.io/design-patterns/autocomplete/)
-[^ppk]:(https://medium.com/samsung-internet-dev/making-input-type-date-complicated-a544fd27c45a)
-[^exampledatepickers]:(http://www.webaxe.org/accessible-date-pickers/)
-[^calendarscreenreader]:(https://ux.stackexchange.com/questions/60884/best-way-for-date-field-for-visually-impaired-users)
-[^calendarw3ariaspec]:(https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/)
-https://tink.uk/screen-reader-support-for-disabled-read-only-form-fields/
-
+[^11]: https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately
+[^12]: https://thomasbyttebier.be/blog/the-best-icon-is-a-text-label
+[^13]: http://danieldelaney.net/checkboxes/?utm_source=designernews

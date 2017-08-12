@@ -4,11 +4,9 @@
 
 Nobody *wants* to log in to your service. They're forced to for security reasons. Without this security measure, everyone has access to everyone else's stuff. It's like nobody having locks on their front doors. Bad.
 
-Whilst most sites have login forms, almost as many of them have usability failures in some form or other. Social login, which we'll talk about in detail shortly, complicates matters further.
+Whilst most sites have login forms, almost as many of them have usability failures in some form or other. Social login, which we'll talk about shortly, complicates matters further.
 
-For such a ubiquitous and seemingly simple feature, it's surprising how many issues occur. This chapter is dedicated to disecting and remedying each of the issues one by one. By process of elimination, we should leave users with a pleasant login form that just works.
-
-How it might look:
+For such a ubiquitous and seemingly simple feature, it's surprising how many issues occur. In this chapter we'll disect and remedy each issue one by one. By process of elimination, we should leave users with a pleasant login form that just works. How it might look:
 
 ![Login](./images/login.png)
 
@@ -55,7 +53,7 @@ When we designed the registration form in chapter 1, we asked users for their em
 
 ## The ‘username and password doesn't match’ problem
 
-Many users forget their username and password. As we discussed just before, omitting a hint makes matters worse. But worse still, is when a user enters their credentials incorrectly, only to be shown an error which states *The username and password doesn't match*. Put simply, this is awful and Jared Spool comically explains the issue in Design Is Metrically Opposed[^]:
+Many users forget their username and password. As we discussed just before, omitting a hint makes matters worse. But worse still, is when a user enters their credentials incorrectly, only to be shown an error which states *The username and password doesn't match*. Put simply, this is awful and Jared Spool comically explains the issue in Design Is Metrically Opposed[^1]:
 
 > We know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.*
 
@@ -130,7 +128,7 @@ If you're going to provide social login capabilities, then first work out why. I
 
 ## ‘Forgotten password’ placement
 
-As human-beings we're prone to forgetting something just at the moment we most need to remember it. As the saying goes, * we're only human*. I use a password manager[^] to avoid having to remember, but password managers aren't infallible. If you don't remember to add your credentials into the password manager, then you're in the same position as anyone else. And, not everybody uses a password manager.
+As human-beings we're prone to forgetting something just at the moment we most need to remember it. As the saying goes, * we're only human*. I use a password manager[^2] to avoid having to remember, but password managers aren't infallible. If you don't remember to add your credentials into the password manager, then you're in the same position as anyone else. And, not everybody uses a password manager.
 
 Sites offer users a ‘Forgotten password’ link on the login screen which gives users the chance to ‘reset’ their password by following a few simple steps. The feature itself isn't the problem, it's the placement of the link which can cause unnecessary friction for users.
 
@@ -156,7 +154,7 @@ Some niche login forms, such as those found on bank sites, ask users for certain
 
 There is no reason to have 3 separate boxes, much less 3 separate select boxes, but in doing so, they decide to auto-tab between the fields. What this means is focus is moved to the next field automatically as the user enters a pre-determined number of characters.
 
-BBC's UX guidance[^] says *it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.*
+BBC's UX guidance[^3] says *it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.*
 
 And, Leonie Watson, accessibility expert, and someone that uses a screen reader and keyboard says:
 
@@ -176,26 +174,24 @@ Give each form a separate and offer a link before or after the login form allowi
 
 ## Summary
 
-In this chapter we covered the main problems associated with login forms. One major point of contention is that of security. In the name of security we often degrade the experience without actually increasing security at all.
+In this chapter we covered the main problems associated with login forms. We looked at some of the usability failures that typically occur in the name of security and how in reality, it doesn't actually stop hackers at all.
 
-We also looked at giving users choice serviced by social media login capabilities and the assocatiated trade-offs and ways if mitigating the increased friction. In particular, letting users interchange between different login modalities.
-
-Finally, we ensured that the login form we design has the context of the flow for which it has been triggered. Not only is this intuitive but it keeps users focussed on the task they started in the first place.
+We continued by looking at how social login behaviour introduces trade-offs and how we can mitigate some of the inherent problems with it. Finally we ensured that login forms are always surfaced in the context of which the user triggered it ensuring the experience is both intuitive and momentum building.
 
 ### Things to avoid
 
-- Auto tabbing
-- Ambiguous error messages
-- Omitting hints
+- Using Javascript to auto tab between fields
+- Using ambiguous error messages and actively not helping users in the name of security
+- Employing social login for the sake it
+- Putting more than one form per page
+- Messing up keyboad flow by placing other focusable elements (typically links) inbetween form controls.
 
 ## Footnotes
 
-TODO: https://sessioncam.com/reducing-dropout-during-your-online-checkout-process/
+[^designopposed]:
+[^passwordmanager]:
+[^3]:http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
 
-[^facebook]:(https://developers.facebook.com/docs/facebook-login/multiple-providers)
-[^]: https://conversionxl.com/social-login/
-[^]: https://blog.loginradius.com/2014/01/understanding-benefits-social-login-add-value-website/
-[^]:https://www.usability.gov/what-and-why/glossary/auto-tabbing.html
-[^]:http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
-[^]: https://lists.w3.org/Archives/Public/w3c-wai-ig/2015AprJun/0168.html
-[^]: https://ux.stackexchange.com/questions/22508/auto-advance-to-next-field
+## Other bits?
+
+TODO: https://sessioncam.com/reducing-dropout-during-your-online-checkout-process/

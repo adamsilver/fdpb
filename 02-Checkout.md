@@ -1,32 +1,18 @@
 # Checkout
 
-In 2008 I worked on Boots.com. They asked us to design a single-page checkout. This included the trendiest of techniques from that era: accordions, AJAX and client-side validation.
-
-Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened.
-
-It looked like this:
+In 2008 I worked on Boots.com. They asked us to design a single-page checkout. This included the trendiest of techniques from that era: accordions, AJAX and client-side validation. Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened. It looked like this:
 
 ![Single-page accordion](./images/boots1.png)
 
-Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the the accordion was a distraction. Inevitably, the client asked us to make changes.
-
-We redesigned it so that each panel became its own page removing the need for an accordion and AJAX. However, we kept the client-side validation to avoid an unnecessary trip to the server.
-
-It looked like this:
+Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the the accordion was a distraction. Inevitably, Boots asked us to make changes. We redesigned it so that each panel became its own page removing the need for an accordion and AJAX. However, we kept the client-side validation to avoid an unnecessary trip to the server. It looked like this:
 
 ![Multiple pages, no accordion](./images/boots2.png)
 
-This converted much better. I can’t remember the exact numbers but I know that the client was happy.
-
-Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I made a note of the numbers. The result was an extra 2 million orders a year. That’s *orders*, not revenue.
-
-Here are some of the mobile-first designs we used:
+This converted much better. Although I can't remember the exact numbers, the client was happy with the results. Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I noted the numbers. The result was an extra 2 million orders a year. That’s *orders*, not revenue. This was calculated based on the increase to weekly orders. Here are some of the mobile designs:
 
 ![Just Eat checkout](./images/justeat.png)
 
-A couple of years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a GDS design pattern called One Thing Per Page[^1]. Apart from the numbers there is a strong rationale behind the pattern, which we’ll get to shortly.
-
-First, we'll take a look at exactly what this pattern is.
+A couple of years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Apart from the numbers there is a strong rationale behind the pattern, which we’ll get to shortly. First, we'll take a look at exactly what this pattern is.
 
 ## What is One Thing Per Page?
 
@@ -98,12 +84,13 @@ In Forms That Work[^3], Caroline Jarett and Gerry Gafney explain the importance 
 
 We can apply the same principles to the steps in checkout:
 
-1. Delivery address
-2. Delivery options
-3. Delivery notes
-4. Payment
-5. Check and confirm
-6. Order confirmation
+1. Contact details
+2. Delivery address
+3. Delivery options
+4. Delivery notes
+5. Payment
+6. Check and confirm
+7. Order confirmation
 
 Just like the car salesperson, we'll ask for the right information at the right time. The *Check and confirm* step acts as a final check of contracts and the confirmation acts as sales receipt for record keeping.
 
@@ -525,7 +512,7 @@ Whilst GDS isn't selling products, much of this is applicable to the checkout fl
 
 After placing the order, their experience is, in many respects, just beginning. The confirmation page is an opportunity to show how caring the business is even after a sale.
 
-For those who used guest checkout (more on this later), the confirmation page is a good place to ask users to register. We might offer users a discount off their next order. Or more simply by offering users a faster experience next time (because we've got their details).
+For those who used guest checkout (more on this shortly), the confirmation page is a good place to ask users to register. We might offer users a discount off their next order. Or more simply by offering users a faster experience next time (because we've got their details).
 
 ## Guest checkout
 

@@ -1,12 +1,8 @@
 # A Registration Form
 
-We'll begin our adventure into form design with a humble registration form. We'll use this seemingly simple form, to well, form the foundation on which to solve more complex forms later. Choosing such a simple form to start with makes it easier to tease out some of the most important qualities found in well-designed forms.
-
-## How it might look
+Our forms adventure begins with a humble registration form. This seemingly simple form, will well, form the foundations on which to solve more complex forms later. Choosing such a simple form to start with makes it easier to tease out some of the most important qualities found in well-designed forms. Here it is:
 
 ![Registration Form](./images/.png)
-
-HTML:
 
 ```html
 <form>
@@ -22,7 +18,7 @@ HTML:
 </form>
 ```
 
-The form contains just 4 fields and a submit button with each field having an associated label. Labels are where our analysis begins.
+The form contains just 4 fields and a submit button with each field having an associated label. Labels describe are where our analysis begins.
 
 ## Labels
 
@@ -264,11 +260,11 @@ PasswordReveal.prototype.hidePassword = function() {
 
 The script creates a `button` that when clicked toggles the input type between `text` and `password`.
 
-## Submit buttons
+## A submit button
 
 Designing a submit button requires us to consider 3 main aspects: Visual design, placement and text.
 
-### Visual design
+### Buttons aren't links
 
 The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned to differentiate them amongst other words. When hovering with the mouse cursor will change to a hand. This is because, unlike buttons, links have weak affordance[^8].
 
@@ -276,17 +272,31 @@ In Resilient Web Design[^9], Jeremy Keith discusses the idea of material honesty
 
 Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later which buttons can't do. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons.
 
-### Placement
+We should still give users feedback when they hover, but we can do so through other style properties such as background colour, border or shadow.
 
-The primary action should be placed where users are naturally going to look for it. Eye tracking tests[^10] show that users naturally and intuitively look directly below the last field. This makes sense when we consider the form's flow and rythm. This also helps users who zoom in, as a right-aligned button would disappear off-screen more easily.
+```CSS
+input[type=submit] {
+	background: red;
+}
 
-### Label
+input[type=submit]:hover {
+	background: green;
+}
+```
 
-The word *submit* is probably a bad name for a submit button. The word(s) should describe the specific action being taken. And, because it's an action it should be a verb.
+### Where to position the submit button
 
-We should aim to use as few words as possible because it makes reading faster. But we shouldn't remove words at the cost of clarity. If you need two words to make the action clear then do so and use sentence case like we do for the field labels.
+Most forms position the button at the foot of the form. This is because, generally speaking, users fill out the fields first before submitting. At the bottom is certainly a good start but should we align it left, right or center?
 
-The exact words may need matching to your brand's tone of voice but don't exchange clarity for cuteness. In our case ‘Register’ is fine.
+To answer this question we need to think about where users are naturally going to look it for it. Think about the form's natural flow and rhythm. The user has been reading from top to bottom with the fields aligned left. Therefore it makes sense that the button is positioned the in the same way: aligned left. Eye tracking tests[^10] show this is exactly the case. This also helps users who zoom-in: a right-aligned label disappears off screen reasily.
+
+### Button text
+
+The word *submit* is an ambiguous way to label a submit button. The word(s) should describe the specific action being taken. And, because it's an action it should be a verb.
+
+We should aim to use as few words as possible because it makes reading faster. But we shouldn't remove words at the cost of clarity. If you need two words to make the action clear then do so and use sentence case like we do for labels.
+
+The exact words may need matching to your brand's tone of voice but don't exchange clarity for cuteness. In this case ‘Register’ is fine.
 
 ## Validation
 
@@ -295,8 +305,7 @@ We've put in a lot of effort to create a well-designed registration form. Despit
 - When to give feedback
 - How to show errors
 - How to write errors
-- How to be forgiving
-- Restoring values
+- Be forgiving and restore values
 
 ### When to give feedback
 

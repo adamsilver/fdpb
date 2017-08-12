@@ -1,10 +1,10 @@
 # Inbox Management
 
-My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones.
+My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are a tricky thing to manage. On the web, there are some conventions that have emerged over the years.
 
-Despite her obsession, the world is full of lists. There is even a list of great people[^]. But lists are a tricky thing to manage. On the web, there are some conventions that have emerged over the years.
+In this chapter, we're going to make sure list management is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to a digitally managed list. Before getting to *management*, we first need to focus on the *list*. Any big problem benefits from being broken down like this.
 
-In this chapter, we're going to make sure list management is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to a digitally managed list.
+## What do you mean by list?
 
 On the web there are several elements that represent lists:
 
@@ -17,7 +17,7 @@ It's hard to discuss the merits of each type unless we orientate ourselves a spe
 
 Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists that may need to be managed like this.
 
-## Everything is list
+### Everything is list
 
 Semantically speaking, everything is a list. The things on the page are a list of things on the page. Pedanticism aside, we need to decide what type of list is best for our inbox.
 
@@ -60,7 +60,7 @@ As designers, we should have a deep understanding of the materials we use to bui
 
 Gmail uses tables and yet the entire row is clickable. Google's developers use Javascript to fix this. But, as we've previously discussed, this is an act of exclusivity because not everybody has Javascript. Besides if we can fix this problem without excluding people we should. Inclusivity is really just a set of constraints that guide us to create robust, and therefore, better experiences for all.
 
-## Enabling selection
+## Marking email for action
 
 To allow users to select and action multiple emails at once, we'll need to add a checkbox next to each email. How it might look:
 
@@ -164,7 +164,7 @@ Here's the CSS to visually hide the label.
 }
 ```
 
-## Highlighting rows
+### Highlighting marked emails
 
 The deal with human-computer interaction is that when the human does something, the computer should respond. In this case, clicking a checkbox makes a little tick appear (and disappear) accordingly. In all likeliness this is enough, though we could highlight the entire row using Javascript.
 
@@ -176,7 +176,7 @@ Mailchimp, known for their usability prowess don't bother highlighting the rows.
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-## Submit buttons
+## An action menu
 
 It's all well and good allowing users to select multiple emails, but our interface is lacking the ability to action them. Unlike the forms in previous chapters, an inbox is a bit different. Firstly it's not a simple matter of placing a button at the end of the form. Secondly this form contains multiple submit buttons. We're going to discuss all this and more now.
 

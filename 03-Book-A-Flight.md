@@ -36,7 +36,7 @@ Radio buttons, unlike select boxes, are generally well-understood and easy-to-us
 
 The problem with labels, however, is that they're not suitable when there are many of them. An airline could fly to hundreds of destinations. Using radio buttons create a long and unweildly interface, that the user is forced to peruse.
 
-### Search box
+### Search input
 
 A search box (`input type="search"`) is a standard text box with some extras. It lets users clear the contents of the field, either by tapping the x or pressing <kbd>escape</kbd>. With a regular text box you have to select the text and then press <kbd>delete</kbd>. Here's how it looks:
 
@@ -44,7 +44,7 @@ A search box (`input type="search"`) is a standard text box with some extras. It
 
 This is a useful approach for searching large amounts of dynamic data such as searching for a product on Amazon[^2]. But airlines have a finite amount of destinations which we also know *in advance* of users searching. If we were to let users search unassisted like this, they could end up with no results due to typos.
 
-### Autocomplete
+### An autocomplete component
 
 What we really need is a control that let's users filter a long list of destinations quickly. We need the flexibility of a text box combined with the assistance of a select box. What need an autocomplete control. Autocomplete controls may also be known as *type ahead* or *predictive search* but we let's settle on *autocomplete* for communication purposes.
 
@@ -602,7 +602,7 @@ This field uses the `fieldset` and `legend` elements to group the inputs togethe
 
 Some versions of iOS won't show the numeric keyboard, even if you use `type="number"`. The `pattern` attribute fixes this problem[^7] which is why we've included it in each of the inputs above.
 
-### Finding dates in a calendar
+### Finding dates with a calendar
 
 In the case of booking a flight, users are neither dealing with a memorable date nor one found in a document. Booking a flight normally revolves around some date in the future. We often conceptulise dates by the Gregorian calendar. That is that there are 12 months (or 52 weeks) in a year. And each week consists of 7 days.
 
@@ -723,22 +723,10 @@ Notes:
 							<td tabindex="-1" aria-selected="false" aria-label="1 July, 2017" data-date="Sat Jul 01 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_1" class="datepicker-day">1</td>
 						</tr>
 						<tr>
-							<td tabindex="-1" aria-selected="false" aria-label="2 July, 2017" data-date="Sun Jul 02 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_2" class="datepicker-day">2</td>
-							<td tabindex="-1" aria-selected="false" aria-label="3 July, 2017" data-date="Mon Jul 03 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_3" class="datepicker-day">3</td>
-							<td tabindex="-1" aria-selected="false" aria-label="4 July, 2017" data-date="Tue Jul 04 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_4" class="datepicker-day">4</td>
-							<td tabindex="-1" aria-selected="false" aria-label="5 July, 2017" data-date="Wed Jul 05 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_5" class="datepicker-day">5</td>
-							<td tabindex="-1" aria-selected="false" aria-label="6 July, 2017" data-date="Thu Jul 06 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_6" class="datepicker-day">6</td>
-							<td tabindex="-1" aria-selected="false" aria-label="7 July, 2017" data-date="Fri Jul 07 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_7" class="datepicker-day">7</td>
-							<td tabindex="-1" aria-selected="false" aria-label="8 July, 2017" data-date="Sat Jul 08 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_8" class="datepicker-day">8</td>
+							...
 						</tr>
 						<tr>
-							<td tabindex="-1" aria-selected="false" aria-label="9 July, 2017" data-date="Sun Jul 09 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_9" class="datepicker-day">9</td>
-							<td tabindex="-1" aria-selected="false" aria-label="10 July, 2017" data-date="Mon Jul 10 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_10" class="datepicker-day">10</td>
-							<td tabindex="-1" aria-selected="false" aria-label="11 July, 2017" data-date="Tue Jul 11 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_11" class="datepicker-day">11</td>
-							<td tabindex="-1" aria-selected="false" aria-label="12 July, 2017" data-date="Wed Jul 12 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_12" class="datepicker-day">12</td>
-							<td tabindex="-1" aria-selected="false" aria-label="13 July, 2017" data-date="Thu Jul 13 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_13" class="datepicker-day">13</td>
-							<td tabindex="-1" aria-selected="false" aria-label="14 July, 2017" data-date="Fri Jul 14 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_14" class="datepicker-day">14</td>
-							<td tabindex="-1" aria-selected="false" aria-label="15 July, 2017" data-date="Sat Jul 15 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_15" class="datepicker-day">15</td>
+							...
 						</tr>
 						<tr>
 							<td tabindex="-1" aria-selected="false" aria-label="16 July, 2017" data-date="Sun Jul 16 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_16" class="datepicker-day">16</td>
@@ -750,13 +738,7 @@ Notes:
 							<td tabindex="-1" aria-selected="false" aria-label="22 July, 2017" data-date="Sat Jul 22 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_22" class="datepicker-day">22</td>
 						</tr>
 						<tr>
-							<td tabindex="-1" aria-selected="false" aria-label="23 July, 2017" data-date="Sun Jul 23 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_23" class="datepicker-day">23</td>
-							<td tabindex="-1" aria-selected="false" aria-label="24 July, 2017" data-date="Mon Jul 24 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_24" class="datepicker-day">24</td>
-							<td tabindex="-1" aria-selected="false" aria-label="25 July, 2017" data-date="Tue Jul 25 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_25" class="datepicker-day">25</td>
-							<td tabindex="-1" aria-selected="false" aria-label="26 July, 2017" data-date="Wed Jul 26 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_26" class="datepicker-day">26</td>
-							<td tabindex="-1" aria-selected="false" aria-label="27 July, 2017" data-date="Thu Jul 27 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_27" class="datepicker-day">27</td>
-							<td tabindex="-1" aria-selected="false" aria-label="28 July, 2017" data-date="Fri Jul 28 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_28" class="datepicker-day">28</td>
-							<td tabindex="-1" aria-selected="false" aria-label="29 July, 2017" data-date="Sat Jul 29 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_29" class="datepicker-day">29</td>
+							...
 						</tr>
 						<tr>
 							<td tabindex="-1" aria-selected="false" aria-label="30 July, 2017" data-date="Sun Jul 30 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_30" class="datepicker-day">30</td>
@@ -843,13 +825,7 @@ This is one of those occasions where a good solution for most, is less than idea
 
 ## 3. Choosing passengers
 
-Next, users need to enter the amount of people flying. ‘People’ fall under 3 catgories:
-
-- Adults (aged 16 and over)
-- Children (aged between 2 and 15 years old)
-- Infants (who are under 2 years old)
-
-How it might look:
+Users need to specify how many adults, children and infants are flying on the trip. Categorisations are based on age and will affect the price of the ticket. How it might look:
 
 ![Passengers](./images/choose-passengers.png)
 
@@ -874,11 +850,15 @@ How it might look:
 </div>
 ```
 
-In chapter 2 we disabled the spinner. Spinners, also known as steppers, let users increase or decrease the value by a constant amount. They are great for making small adjustments. In the same article, referenced earlier, Luke Wobrelkski says:
+Each category is represented by a separate field. As we're asking users for an *amount* of something&mdash;in this case passengers&mdash;the number input makes sense.
+
+### A stepper component
+
+Spinners, also known as steppers, let users increase or decrease the value by a constant amount. They are great for making small adjustments in quantity. In the same article, referenced earlier, Luke Wobrelkski says:
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-The problem with the native spinner is that it's small and hard to use. We can enhance the interface by injecting large buttons next to the input. Here's how it might look:
+Having discussed number inputs in chapter 2, we know that some browsers natively provide steppers. The problem though is that they are tiny and therefore hard to click. And mobile browsers don't show the steppers at all, because they expose a numeric keyboard. Instead, we can disabled the browser spinners and enhance the interface with our own large buttons.
 
 [!](.)
 
@@ -887,31 +867,32 @@ The problem with the native spinner is that it's small and hard to use. We can e
     <label for="adults">
     	<span class="field-label">How many adults, 16 years and over, are flying?</span>
     </label>
-    <button type="button" tabindex="-1" aria-label="Decrement">-</button>
+    <button type="button" aria-label="Decrement">-</button>
     <input type="number" id="adults" name="adults">
-    <button type="button" tabindex="-1" aria-label="Increment">+</button>
+    <button type="button" aria-label="Increment">+</button>
 </div>
 <div class="field">
     <label for="children">
     	<span class="field-label">How many children, between 2 and 15 years old, are flying?</span>
     </label>
-    <button type="button" tabindex="-1" aria-label="Decrement">-</button>
+    <button type="button" aria-label="Decrement">-</button>
     <input type="number" id="children" name="children">
-    <button type="button" tabindex="-1" aria-label="Increment">+</button>
+    <button type="button" aria-label="Increment">+</button>
 </div>
 <div class="field">
     <label for="infants">
     	<span class="field-label">How many infants, under 2 years old, are flying?</span>
     </label>
-    <button type="button" tabindex="-1" aria-label="Decrement">-</button>
+    <button type="button" aria-label="Decrement">-</button>
     <input type="number" id="infants" name="infants">
-    <button type="button" tabindex="-1" aria-label="Increment">+</button>
+    <button type="button" aria-label="Increment">+</button>
 </div>
 ```
 
-Adding `tabindex="-1"` (not necessarily good, more testing/research) removes the buttons from the tab sequence. This ensures we don't disturb the natural flow and order of form elements. The buttons use symbols and although the best icon is text, these icons are well understood and keep the interface clean. For those using screen readers, we add `aria-label="Increment"` so the interface makes sense audibly.
+Notes:
 
-Javascript:
+- Whilst the best icons are text[^], the button text uses universally understood minus and plus symbols. This keeps the interface clean and in balance.
+- The `aria-label` describes the symbol with text for those using screen readers. Instead of hearing ‘Button, minus symbol’ they'll hear ‘Button, increment’ or similar.
 
 ```JS
 function Stepper(input) {
@@ -955,11 +936,15 @@ Stepper.prototype.onIncrementClick = function(e) {
 };
 ```
 
-The script injects two buttons. The buttons mimic the behaviour of the native spinner by decreasing or increasing the input's value by 1.
+Notes:
+
+- The script prepends and appends the decrement and increment buttons respectively.
+- Clicking *increment* increases the value by 1.
+- Clicking *decrement* decreases the value by 1.
 
 ## 4. Choosing a flight
 
-Before now, we've been in the ‘gathering’ stage. That is we've been *gathering* the user's preferences so that we can show them flights that match those preferences. Now we have what we need, we can show them a list of results. Here's how it might look:
+Up to now, we've merely been collecting user's information. All with the goal in letting users choose a particular flight. Now we have what we need we can display a list of flights from which the user may choose. Here's how it might look:
 
 ![Image](./images/image.png)
 
@@ -991,21 +976,25 @@ Before now, we've been in the ‘gathering’ stage. That is we've been *gatheri
 </div>
 ```
 
-The user can move freely between days by clicking *previous* or *next* respectively. Each flight is represented as a radio button. The label contains the time of departure and arrival, as well as the price of the ticket. Together this gives both visual and screen reader users all the information they need to be able to choose a preferential flight.
+The user specified a specific date in which to fly. Therefore we're showing flights that match that date specifically. However, we give users the freedom to move back and forth between days conforming to principle 5, *offer choice*.
+
+Each flight is represented as a radio button. The label contains departure time, arrival time and ticket price which is everything they need to make their selection. This is one of the nice things about radio buttons, they grant you the flexibility to add as much information to the label with the flexibility to lay out the information hierarchically [TODO: Label html and style].
 
 ## 5. Choosing where to sit
 
-The way in which we let users choose a seat depends on how many passengers are travelling. If one passenger is travelling we should use radio buttons to represent each seat. Conversely, if more than one passenger is travelling checkboxes are appropriate. Here's how it might look:
+In Checkboxes Are Never Round[^], Daniel De Laney says that *interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show&mdash;it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.*
+
+Specifically radio buttons are for selecting one of something and checkboxes are for selecting one or more of somethng. Therefore if the user specificed just one person is travelling we should use radio buttons, otherwise checkboxes are appropriate. Here's how it might look:
 
 ![Image showing radios/checkboxes](./images/image.png)
 
-Before now, we've simply ‘stacked’ form fields beneath one an other. This time though, we've laid them out in rows, like they are on the plane. Matching the inteface to helps users model the interface to real life, making it easier to select their seat of choice. Shortly, we'll look at how we can meet the same needs for screen reader users.
+Before now, we've simply ‘stacked’ form fields beneath one an other. But here we've laid them out in rows a bit like they are on a plane. Matching a user's real-life mental model makes it easier to make a selection at least for sighted users. Those using screen readers need good content, which we'll discuss shortly.
 
-### Breaking the rules
+### Breaking the 7 choice rule
 
-There are many seats on a plane, therefore there are many checkboxes or radio buttons we need to show. Traditional advice says to use radio buttons where there are less than 7 choices, otherwise use a select box. We love rules like this as rules help us think less. And this rule makes sense in most contexts whereby a long list of radio buttons produces a long and unweildly form.
+There are many seats on a plane, therefore there are many inputs we need to show on screen. Traditional advice says radio buttons should be used when there are less than 7 choices. If there are more, use a select box. Rules make decision making easier: they allow us to think less. In the context of a long form this rule makes sense. But rules are made to be broken, and when we don't think our designs aren't as good as they might be.
 
-But rules are made to be broken. We don't have this problem, partially because we're asking One Thing Per Page. And we're also presenting several radio buttons per row. Exposing them like this makes the options easy to compare and easy to select. This interface just isn't possible with a select box. This speaks to the greatest design rule ever said, *it depends*.
+Our problem is a little different. Choosing a seat is a niche interaction and therefore needs more of a special treatment. In any case, we don't have the same problem as a standard form, mostly because we're using One Thing Per Page from chapter 2. We're also presenting seats in rows. All of which makes the experience better. A select box just won't work. This speaks to one of the greatest design proverbs, *it depends*.
 
 ### Nested fieldsets
 

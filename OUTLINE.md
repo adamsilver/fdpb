@@ -96,13 +96,12 @@
 	- A stepper component
 - 4. Choosing a flight
 - 5. Choosing where to sit
-	- Affordance: Checkboxes are never round
-	- Breaking the 7 choice rule
-	- Nested fieldsets and simplifying the experience
-	- Hint TODO
-	- Taken seats
-	- Hide the checkboxes
-	- Limiting seat selection
+	- Design considersations
+		- affordance
+		- layout
+		- nested fieldsets
+		- disabling unavailable seats
+	- Enhancing the interface
 
 ## 4. A login form (500)
 

@@ -984,31 +984,110 @@ Each flight is represented as a radio button. The label contains departure time,
 
 In Checkboxes Are Never Round[^], Daniel De Laney says that *interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show&mdash;it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.*
 
-Specifically radio buttons are for selecting one of something and checkboxes are for selecting one or more of somethng. Therefore if the user specificed just one person is travelling we should use radio buttons, otherwise checkboxes are appropriate. Here's how it might look:
+What Daniel is essentially saying that radio buttons tell us that we can select one of something; and checkboxes tell us that we can select *more than one* of something. Therefore if one person is travelling use radio buttons, otherwise use checkboxes. Here's how it might look for the latter:
 
-![Image showing radios/checkboxes](./images/image.png)
+![Image](./images/image.png)
 
-Before now, we've simply ‘stacked’ form fields beneath one an other. But here we've laid them out in rows a bit like they are on a plane. Matching a user's real-life mental model makes it easier to make a selection at least for sighted users. Those using screen readers need good content, which we'll discuss shortly.
+There are many seats on a plane, therefore there are many inputs on-screen. Traditional advice says radio buttons should be used when there are less than 7 choices, otherwise use a select box. Rules make decision-making easier as they require us to think less. In the context of a long form with many questions the rule makes sense. But there are always exceptions to rules. When we accept rules without thinking about the specific context of the problem, the resulting solution may suffer.
 
-### Breaking the 7 choice rule
+Our context is different. Choosing a seat is a niche interaction and therefore benefits from special treatment. Also, we don't have the same problem as a standard form because we're using One Thing Per Page from chapter 2. This lets us use the majority of the screen to design something better. As it goes with so many things in design, *it depends*.
 
-There are many seats on a plane, therefore there are many inputs we need to show on screen. Traditional advice says radio buttons should be used when there are less than 7 choices. If there are more, use a select box. Rules make decision making easier: they allow us to think less. In the context of a long form this rule makes sense. But rules are made to be broken, and when we don't think our designs aren't as good as they might be.
+Before now, we've ‘stacked’ form fields beneath one an other. Here we've laid them out in rows a bit like they are on a plane. Designing the interface based on a user's mental model makes choosing a seat easier on screen, at least for sighted users. To conform to principle 1&mdash;*provide a comparable experience*&mdash;we need to resort to visually hidden text that screen readers announce as users navigates the available seats. Now's a good time to construct the HTML:
 
-Our problem is a little different. Choosing a seat is a niche interaction and therefore needs more of a special treatment. In any case, we don't have the same problem as a standard form, mostly because we're using One Thing Per Page from chapter 2. We're also presenting seats in rows. All of which makes the experience better. A select box just won't work. This speaks to one of the greatest design proverbs, *it depends*.
+```
+<fieldset>
+	<legend>
+		Choose seats (WORDS)
+	</legend>
+	<fieldset>
+		<legend>First class</legend>
+		<div class="plane-row">
+			<div class="plane-seat">
+				<label for="S1A">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
+					1A <span class="plane-seatDescripion">Window</span>
+				</label>
+			</div>
+			<div class="plane-seat">
+				<label for="S1B">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
+					1B <span class="plane-seatDescripion">Isle</span>
+				</label>
+			</div>
+			<div class="plane-seat">
+				<label for="S1C">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
+					1C <span class="plane-seatDescripion">Isle</span>
+				</label>
+			</div>
+			<div class="plane-seat">
+				<label for="S1D">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
+					1D <span class="plane-seatDescripion">Window</span>
+				</label>
+			</div>
+		</div>
+		<div class="plane-row">...</div>
+	</fieldset>
+	<fieldset>
+		<legend>Economy class</legend>
+		<div class="plane-row">
+			<div class="plane-seat">
+				<label for="S1A">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
+					1A <span class="plane-seatDescripion">Window</span>
+				</label>
+			</div>
+			<div class="plane-seat">
+				<label for="S1B">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
+					1B
+				</label>
+			</div>
+			<div class="plane-seat">
+				<label for="S1C">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
+					1C <span class="plane-seatDescripion">Isle</span>
+				</label>
+			</div>
+			<div class="plane-seat">
+				<label for="S1D">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
+					1D <span class="plane-seatDescripion">Isle</span>
+				</label>
+			</div>
+			<div class="plane-seat">
+				<label for="S1E">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1E" id="S1E">
+					1E
+				</label>
+			</div>
+			<div class="plane-seat">
+				<label for="S1F">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1F" id="S1F">
+					1F <span class="plane-seatDescripion">Window</span>
+				</label>
+			</div>
+		</div>
+		<div class="plane-row">...</div>
+	</fieldset>
+</fieldset>
+```
 
-### Nested fieldsets
+Screen readers will announce the seat description text as it's part of the label. Sighted users don't need it so we hide this with CSS:
 
-The information we've collected up to now has influenced the interface. As we never asked users *how* they wanted to travel: first class or economy&mdash;it's added some complexity in choosing a seat. Not only do we need to present seats in rows but that we need to group them into first class and economy.
+```CSS
+.plane-seatDescription {
+	position: absolute;
+	left: -9999em;
+}
+```
 
----
+You'll notice the use of nested fieldsets. We have to use nested fieldsets to give context to which seat belongs to which class: first class or economy. The way in which we've asked for information before this step, has influenced the complexity of this screen. That is, we didn't ask users how they want to travel, and therefore we need to present all this information on this screen.
 
-The radio buttons would
+If, for example, we asked users how they wanted to travel beforehand, we could simplify the experience drastically. The added friction upfront, drastically improves things later. In doing so, there is no need to present so many seats, and there is no need for the nested fieldset and the added confusion that may bring to screen reader users.
 
-Reducing friction upfront has introduced a lot of complexity here. The trade-off simply isn't worth it. Asking this question earlier drastically simplifies the interface which we have to build and people have to use.
-
-Most users will choose economy class and so we can use *smart defaults* (as discussed in chapter 2) to mitigate the added friction.
-
-However, in this case, reducing friction upfront has introduced some complexity here. Complexity that we need to address now. This complexity manifests itself in nested fieldsets and to present those nested fieldsets visually as groups. Here's how it looks with the accompanying mark-up:
+To mitigate this extra, albeit tiny bit of friction we can use smart defaults (as discussed in chapter 2) by simply marking *economy* by default. After all, this is the most common choice for users. Here's how the simplified experience looks:
 
 ![Image](./images/image.png)
 
@@ -1017,153 +1096,178 @@ However, in this case, reducing friction upfront has introduced some complexity 
 	<fieldset>
 		<legend>
 			<span class="field-legend">Choose seats</span>
-			<span class="field-hint">Seat numbers represent the row where 1 is at the front of the plane. Seats run from A-F where A and F are window seats, C and D are isle seats.</span>
 		</legend>
-		<div class="row">
-			<div class="field-checkbox">
+		<div class="plane-row">
+			<div class="plane-seat">
 				<label for="S1A">
-					<input type="checkbox" class="field-seatCheckbox" name="seat" value="1A" id="S1A">
-					1A
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
+					1A <span class="plane-seatDescripion">Window</span>
 				</label>
 			</div>
-			<div class="field-checkbox">
+			<div class="plane-seat">
 				<label for="S1B">
-					<input type="checkbox" class="field-seatCheckbox" name="seat" value="1B" id="S1B">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
 					1B
 				</label>
 			</div>
-			<div class="field-checkbox">
+			<div class="plane-seat">
 				<label for="S1C">
-					<input type="checkbox" class="field-seatCheckbox" name="seat" value="1C" id="S1C">
-					1C
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
+					1C <span class="plane-seatDescripion">Isle</span>
 				</label>
 			</div>
-			<div class="field-checkbox">
+			<div class="plane-seat">
 				<label for="S1D">
-					<input type="checkbox" class="field-seatCheckbox" name="seat" value="1D" id="S1D">
-					1D
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
+					1D <span class="plane-seatDescripion">Isle</span>
 				</label>
 			</div>
-			<div class="field-checkbox">
+			<div class="plane-seat">
 				<label for="S1E">
-					<input type="checkbox" class="field-seatCheckbox" name="seat" value="1E" id="S1E">
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1E" id="S1E">
 					1E
 				</label>
 			</div>
-			<div class="field-checkbox">
+			<div class="plane-seat">
 				<label for="S1F">
-					<input type="checkbox" class="field-seatCheckbox" name="seat" value="1F" id="S1F">
-					1F
+					<input type="checkbox" class="plane-checkbox" name="seat" value="1F" id="S1F">
+					1F <span class="plane-seatDescripion">Window</span>
 				</label>
 			</div>
 		</div>
-		<div class="row">
+		<div class="plane-row">
 			...
 		</div>
 	</fieldset>
 </div>
 ```
 
-The innermost `legend` represents
+Note: Unavailble seats are makred as disabled (by setting a disabled) attribute on the checkbox). Disabled controls aren't perceivable. That is, you can't tab to them and screen readers won't announce them.
 
-The innermost legend represents the categorisation for both sighted and visually-impaired users. But asking users to specify their preference in the ‘gathering’ stage, reduces the complexity at this stage. To offset the added friction upfront we can default the selection to economy and let users change this using the patterns from chapter 2. This is how it might look:
+### Enhancing the interface
 
+Visually presenting seats by row may cause seats to wrap (or cause a horizontal scroll bar) on small screens. Whilst this is certainly accessible, it's not ideal. If user research shows this to be a problem for users, we may look at ways of saving space.
 
+We can save space by hiding the checkboxes and making the seats look clickable. Hiding the checkboxes through CSS alone is dangerous because pressing <kbd>tab</kbd> moves focus to the checkbox, not the label. This breaks the interface because as a user tabs to the hidden checkbox, there is no feedback to know which, if any checkbox is focussed.
 
-Notes:
-
-- The hint tells screen reader users what the label means in relation to seat location. Without it the fields lack clarity.
-- Seats that aren't available are disabled. Disabled fields are ignored. That is you can't tab to them, and screen readers won't announce them.
-
-### Hiding the checkboxes
-
-On small screens each seat eats into the minimal space available potentially causing either a horizontal scroll bar to appear or the seats to wrap over 2 lines. If user feedback proves this to be a problem, we could decide to save space by hiding the checkboxes.
-
-Hiding the checkboxes without Javascript is dangerous. That's because pressing <kbd>tab</kbd> moves focus to the checkbox&mdash;not the label. Hiding the checkboxes breaks the interface, because tabbing to a hidden input doesn't provide feedback.
-
-We can fix this by listening to `focus` and `blur` events. When the user moves focus to the visually hidden checkbox, we add a CSS class to the associated label giving users the illusion that it is in focus.
+To fix this problem we need to use Javascript by listening to `focus` and `blur` events. As the user moves focus to the visually hidden checkbox, a class is added to the associated and crucially, *visible* label giving users the illusion that it is focussed. Here's how it looks:
 
 [!Focus](.)
 
 
 ```CSS
-.enhanced .field-seatCheckbox {
+.enhanced .plane-seat input {
 	position: absolute;
 	left: -9999em;
 	top: 0;
 }
 
-.field-seatCheckbox-isFocussed {
-	border: 2px solid #000;
-	border-top: none;
+.enhanced .plane-seat-isFocussed label {
+	/* etc */
 }
 ```
 
-The CSS is only applied once we know Javascript is available to manage the pseudo focus states. This is achieved by adding a class of `enhanced` in the head of the document:
+The CSS is applied once we know Javascript is available to manage the pseudo focus states. This is achieved by adding a class of `enhanced` to the document element:
 
 ```JS
 document.documentElement.className = 'enhanced';
 ```
 
-```JS
-function SeatEnhancer() {
-	var checkboxes = $('.field-seatCheckbox');
-	checkboxes.on('focus', $.proxy(this, 'onCheckboxFocus'));
-	checkboxes.on('blur', $.proxy(this, 'onCheckboxBlur'));
-}
+While we're at it we may want to consider limiting how many seats users can select based on how many passengers are flying. Radio buttons don't need this treatment as the user won't be able to select more than one. In the case of checkboxes, the user may select more than their quota. In doing so they'll get an error once they submit.
 
-SeatEnhancer.prototype.onCheckboxFocus = function(e) {
-	$(e.target).addClass('field-seatCheckbox-isFocussed');
-};
+Without user research we don't know if this is a problem or not. If research proves it is one, we can limit the selection through Javascript. One way to do this is to disable the reamining seats as soon as they reach the limit. But what if the user wants to choose another seat as a replacement? If we disable the remaining seats the interface won't respond.
 
-SeatEnhancer.prototype.onCheckboxBlur = function(e) {
-	$(e.target).removeClass('field-seatCheckbox-isFocussed');
-};
-```
-
-### Limiting seat selection
-
-Earlier we said to use radio buttons if 1 passenger is travelling. This naturally stops users from selecting more than 1 seat. In the case of checkboxes, the user can select more than their quota which results in an error once submitted.
-
-User testing may prove this not to be a problem and therefore doesn't need any further consideration. If it does, we could limit the amount of seats they can select using Javascript. To do this we could disable the remaining checkboxes once the user reaches their quota. However, if the user has reached their quota and clicks another seat nothing happens creating a disagreable experience.
-
-Savvy users might realise they need to deselect their previously chosen seat before selecting another. Less savvy users might not. Instead, we can do the hard work so users don't have to, by doing this automatically using Javascript:
+Savvy users may realise the need to deselect their currently selected seat before selecting another. Less savvy users, however, might not. Instead, we should do the hard work so users don't have to, again by enhancing the interaction with Javascript. That is, as if the user has reached their quota and selects another seat, the script should uncheck the previous selection automatically. Here's the final script:
 
 ```JS
-function SeatLimiter(max) {
+function SeatEnhancer(max) {
 	this.max = max;
-	this.checkboxes = $('');
+	this.checkboxes = $('.plane-seat input');
+	this.checkboxes.on('focus', $.proxy(this, 'onCheckboxFocus'));
+	this.checkboxes.on('blur', $.proxy(this, 'onCheckboxBlur'));
 	this.checkboxes.on('click', $.proxy(this, 'onCheckboxClick'));
 }
 
-SeatLimiter.prototype.onCheckboxClick = function(e) {
-	this.check(e.target);
+SeatEnhancer.prototype.onCheckboxFocus = function(e) {
+	$(e.target).parents('.plane-seat').addClass('plane-seat-isFocussed');
 };
 
-SeatLimiter.prototype.check = function(checkbox) {
-	var checked = this.checkboxes.filter(':checked');
-	if(checked.length >= this.max) {
-		if(checkbox !== this.checked[0]) {
-			this.checked[0].checked = false;
+SeatEnhancer.prototype.onCheckboxBlur = function(e) {
+	$(e.target).parents('.plane-seat').removeClass('plane-seat-isFocussed');
+};
+
+SeatEnhancer.prototype.onCheckboxClick = function(e) {
+	if(this.getCheckedSeats().length > this.max) {
+		var last = this.getLastCheckedSeat();
+		this.markAsUnchecked(last);
+		last[0].checked = false;
+	}
+
+	var checkbox = $(e.target);
+	if(checkbox[0].checked) {
+		this.markAsChecked(checkbox);
+		this.lastChecked = checkbox;
+	} else {
+		this.markAsUnchecked(checkbox);
+		if(this.lastChecked) {
+			if(checkbox[0] == this.lastChecked[0]) {
+				this.lastChecked = null;
+			}
+		}
+	}
+
+};
+
+SeatEnhancer.prototype.markAsChecked = function(checkbox) {
+	checkbox.parents('.plane-seat').addClass('plane-seat-isSelected');
+};
+
+SeatEnhancer.prototype.markAsUnchecked = function(checkbox) {
+	checkbox.parents('.plane-seat').removeClass('plane-seat-isSelected');
+};
+
+SeatEnhancer.prototype.getLastCheckedSeat = function() {
+	if(this.lastChecked) {
+		return this.lastChecked;
+	} else {
+		var checked = this.getCheckedSeats();
+		if(checked.length) {
+			return $(checked[checked.length-1]);
 		} else {
-			this.checked[1].checked = false;
+			return null;
 		}
 	}
 };
+
+SeatEnhancer.prototype.getCheckedSeats = function() {
+	return this.checkboxes.filter(':checked');
+};
+
 ```
+
+Notes:
+
+- The script listens to the focus and blur events on the checkboxes.
+- When the user focuses a checkbox a class is added enabling us to style the seat in a focus state. When the user blurs the field the class is removed.
+- If the user selects a seat beyond their quota, the previously chosen seat is unchecked automatically.
 
 ## Summary
 
-In this chapter we continued using the One Thing Per Page pattern from chapter 2 which gave us the screen space to create innovative interfaces for booking a flight. We then broke new ground by designing the following progressively-enhanced, custom form components:
+In this chapter we continued using One Thing Per Page to give us the maximum screen space to create innovative interfaces that let users book a flight easily. We then broke new ground by designing 4  progressively-enhanced, fully inclusive custom form components:
 
-- Autocomplete, to make selection from a long list fast.
-- Date picker, formatted as a calendar, to make date finding easy.
-- Stepper to make small adjustments to the amount of passengers effortless.
-- Seat chooser that makes picking seats as close to real life as possible.
+- An autocomplete component lets users search through a long list of destinations quickly and accurately.
+- A date picker lets users find a date in the future that matches a user's mental model of time using the Gregorian calendar.
+- A stepper component lets users make small adjustments to an amount of passengers effortlessly.
+- A seat chooser that makes seat selection as easy as possible, even on mobile.
 
-All of the components are fully inclusive. We made sure of this by designing them to be focusable and operable with keyboards and screen readers. We used ARIA attributes where necessary and ensured the components work well on small and big screens alike.
+### Things to avoid
 
-Whilst each of these components are designed with a flight booking service in-mind, all of them are transferable to other similar problem domains such as booking a cinema ticket or a hotel room.
+- Using radio buttons instead of checkboxes and vice versa
+- Using select boxes when better form controls exist
+- Letting users do the hardwork when we can do it for them by thoughtful interface enhancements
+- Half enhancing an interface with CSS that can break the interface for some users.
+- Adding a lot of complexity later when a tiny bit of friction upfront drastically reduces it.
+- Being blinded by rules and ignoring the specific context of the problem at hand.
 
 ## Footnotes
 
@@ -1189,10 +1293,5 @@ Whilst each of these components are designed with a flight booking service in-mi
 [^exampledatepickers]:(http://www.webaxe.org/accessible-date-pickers/)
 [^calendarscreenreader]:(https://ux.stackexchange.com/questions/60884/best-way-for-date-field-for-visually-impaired-users)
 [^calendarw3ariaspec]:(https://www.w3.org/TR/2009/WD-wai-aria-practices-20090224/)
-
-
 https://tink.uk/screen-reader-support-for-disabled-read-only-form-fields/
-
-https://codepen.io/siiron/pen/MYXZWg
-https://codepen.io/anon/pen/NvKJmw
 

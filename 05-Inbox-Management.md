@@ -2,20 +2,15 @@
 
 My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are a tricky thing to manage. On the web, there are some conventions that have emerged over the years.
 
-In this chapter, we're going to make sure list management is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to a digitally managed list. Before getting to *management*, we first need to focus on the *list*. Any big problem benefits from being broken down like this.
+In this chapter we're going to make list management is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to a digitally managed list. Before getting to the *management* part, we'll first focus on the design of the *list* itself.
 
-## What do you mean by list?
+## Using the right list for the job
 
-On the web there are several elements that represent lists:
+HTML gives us 4 different elements that are used as a way to structure lists. Tables (`<table>`) house tabular data a bit like an excel spreadsheet. A description list (`<dl>`) formely known as a definiton list is for key-value pairs. An ordered list (`<ol>`) which is for a list whereby the order matters, like a list of cooking instructions. Finally an unordered list (`<ul>`) represents a list of things where order doesn't matter.
 
-- tabular data (`<table>`)
-- description lists (formely known as *definition lists*) (`<dl>`)
-- unordered lists (`<ul>`)
-- ordered lists (`ol`)
+It's hard to discuss the merits of each list element without first orientating ourselves around a specific problem. We'll be designing an inbox, which is a list of *emails*. The aim, of course, is to achieve a zen-like state of Inbox Zero[^]. To get there, the interface must let users delete, archive and mark emails as spam. But not just one at a time, in bulk.
 
-It's hard to discuss the merits of each type unless we orientate ourselves a specific problem. To do this, we'll design an inbox. The aim of course is to achieve a zen-like state of Inbox Zero[^]. To get to Inbox Zero our interace must enable users to delete, archive and mark emails as spam. But not just one at a time. In bulk.
-
-Whilst this chapter is about email, the principles and design patterns are applicable to most, if not all types of lists that may need to be managed like this.
+Whilst this chapter is specifically about an inbox, the design patterns herein are transferable to all types of lists taht need managing in bulk.
 
 ### Everything is list
 

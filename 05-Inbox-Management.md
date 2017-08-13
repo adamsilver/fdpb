@@ -20,7 +20,7 @@ Tables work when representing two-dimensional data. In our case, rows represent 
 
 Alternatively we construct each email as a list item. On big screens, we could still style the information into columns. This brings us to the first problem. Tables aren't especially responsive. Tables are semantically tied to the way they look. That is, it's hard to make tables not *look* like tables. There are some ways to make tables work on small screens but they aren't simple and they don't work well cross-browser. However, striving to make tables (or any other element) not look like a table is materially dishonest[^].
 
-Tables *are* a good choice when data needs contextual information to make it useful or if the data in those rows need comparing or sorting or summarising (as totals).  For example, *23* is ambiguous without *goals scored* and *Lionel Messi* as column and row headings respectively. And we might also be interested in comparing Lionel Messi's statistics in comparison with Cristiano Ronaldo's.
+Tables *are* a good choice when data needs contextual information to make it useful or if the data in those rows need comparing or sorting or summarising (as totals). For example, *23* is ambiguous without *goals scored* and *Lionel Messi* as column and row headings respectively. And we might also be interested in comparing Lionel Messi's statistics in comparison with Cristiano Ronaldo's.
 
 [!table](.)
 
@@ -28,13 +28,11 @@ An inbox seems less tabular: it doesn't particularly need to be sorted (beyond t
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-The advantage over tables is that they are maleable and therefore responsive. On small screens we can stack the information within each list item. On big screens and only if we wanted we can style the information in columns. Taking a step back and looking into
+The advantage over tables is that they are maleable and therefore responsive. On small screens we can stack the information within each list item. On big screens we can position the information into columns. Talking about lists may seem out of place in a book about forms, but they don't exist in a vaccum. They are a major part of an interface, but they rarely form an interface on their own.
 
- We can style them differently and more appropriatelty for small and big screens alike. Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the ‘right’ solution present itself.
+On balance, list items are the preferred construct. This is not to say tables are bad and list items are good; we can't classify elements like that. It's a matter of understanding what they're good for and their associated constraints.
 
-This may seem a bit out of place in a book about forms but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface on their own.
-
-On balance, an unordered list is preferential. This is not to say tables are bad. We can't classify elements as *good* and *bad*. We simply need to understand their meaning, their behaviour and their constraints. It's better to classify elements as *appropriate* or *inappropriate* for the given problem. Here's how the inbox might look:
+How it might look:
 
 ![Inbox with one checkbox selected and the actions exposed](./images/inbox.png)
 

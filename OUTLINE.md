@@ -122,17 +122,19 @@
 ## 5. An inbox (4000)
 
 - Introduction
-- What's a list?
-	- Everything's a list
+- Using the right list for the job
+	- Everything is a list
+	- Lists versus tables
+	- Understanding materials
 - Marking email for action
 	- Using the concept of modes
-	- Visually hidden labels
+	- Visually hiding the labels
 	- Highlighting marked emails
 - An action menu
-	- Placement
+	- Button location
 	- Implicit submission and multiple submit buttons
 	- Disabling and hiding buttons
-	- Menus
+	- Types of menu
 		- A select box menu
 		- A true menu
 - Select all

@@ -2,31 +2,35 @@
 
 My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are a tricky thing to manage. On the web, there are some conventions that have emerged over the years.
 
-In this chapter we're going to make list management is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to a digitally managed list. Before getting to the *management* part, we'll first focus on the design of the *list* itself.
+In this chapter we're going to make list management is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to digital.
 
 ## Using the right list for the job
 
-HTML gives us 4 different elements that are used as a way to structure lists. Tables (`<table>`) house tabular data a bit like an excel spreadsheet. A description list (`<dl>`) formely known as a definiton list is for key-value pairs. An ordered list (`<ol>`) which is for a list whereby the order matters, like a list of cooking instructions. Finally an unordered list (`<ul>`) represents a list of things where order doesn't matter.
+HTML gives us 4 different elements that we can use to construct a list. Tables (`<table>`) house tabular data a bit like an excel spreadsheet. A description list (`<dl>`) formely known as a definiton list is for key-value pairs. An ordered list (`<ol>`) which is for a list whereby the order matters, like a list of cooking instructions. Finally an unordered list (`<ul>`) is the same but where order doesn't matter.
 
-It's hard to discuss the merits of each list element without first orientating ourselves around a specific problem. We'll be designing an inbox, which is a list of *emails*. The aim, of course, is to achieve a zen-like state of Inbox Zero[^]. To get there, the interface must let users delete, archive and mark emails as spam. But not just one at a time, in bulk.
+It's hard to discuss the merits of each list element without first orientating ourselves around a specific problem. So we'll design an inbox, which is really just what we call a list of *emails*. The aim, of course, is to achieve a zen-like state of Inbox Zero[^]. To get there, the interface must let users delete, archive and mark emails as spam. But not just one at a time; in bulk.
 
-Whilst this chapter is specifically about an inbox, the design patterns herein are transferable to all types of lists taht need managing in bulk.
+Whilst this chapter is specifically about an inbox, the design patterns herein are transferable to all types of lists that need bulk actions.
 
 ### Everything is list
 
 Semantically speaking, everything is a list. The things on the page are a list of things on the page. Pedanticism aside, we need to decide what type of list is best for our inbox.
 
-Tables work when representing two-dimensional data. In our case, rows represent emails and columns describe that data: recipient, subject and date sent, for example. Interestingly, Gmail omits table headings which suggests that tables are less appropriate here.
+Tables work when representing two-dimensional data. In our case, rows represent emails and columns describe that data: recipient, subject and date sent, for example. Interestingly, Gmail, for example, omits table headings which suggests that tables are less appropriate for an inbox.
 
-We could represent rows as list items and (at least in big screens) visually present them as columns. This brings us to the first problem. Tables aren't especially responsive. Tables are semantically tied to the way they look. That is it's hard to make tables not *look* like tables. There are some solutions, but they are not cross-browser. However, striving to make tables (or any other element) not look like a table is materially dishonest[^].
+Alternatively we construct each email as a list item. On big screens, we could still style the information into columns. This brings us to the first problem. Tables aren't especially responsive. Tables are semantically tied to the way they look. That is, it's hard to make tables not *look* like tables. There are some ways to make tables work on small screens but they aren't simple and they don't work well cross-browser. However, striving to make tables (or any other element) not look like a table is materially dishonest[^].
 
-Tables *are* a good choice when data needs contextual information to make it useful or if the data in those rows need comparing.  For example, *23* is ambiguous without *goals scored* and *Lionel Messi* as column and row headings respectively. And we might also be interested in comparing Lionel Messi's statistics in comparison with Cristiano Ronaldo's.
+Tables *are* a good choice when data needs contextual information to make it useful or if the data in those rows need comparing or sorting or summarising (as totals).  For example, *23* is ambiguous without *goals scored* and *Lionel Messi* as column and row headings respectively. And we might also be interested in comparing Lionel Messi's statistics in comparison with Cristiano Ronaldo's.
 
-Our inbox, however, is seemingly less tabular. It's a list of emails that if read out as ‘From Heydon, subject: Buttons, 19/09/2017 at 9am’ would be quite readable. You might even argue that the verbosity of having column headings is something that hinders, as opposed to helps the experience. Mailchimp, which has a similar interface to Gmail uses list items:
+[!table](.)
+
+An inbox seems less tabular: it doesn't particularly need to be sorted (beyond the default of most recent first). Emails don't need to be compared, or summarised. It would be quite readable if an email was simply read it as ‘From Heydon, about “Buttons” (19/09/2017)’. It could be argued that including column headings are verbose and unnecessary. Mailchimp, which has a similar interface is an example that employs list items:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-The advantage over tables is that they are maleable. We can style them differently and more appropriatelty for small and big screens alike. Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the ‘right’ solution present itself.
+The advantage over tables is that they are maleable and therefore responsive. On small screens we can stack the information within each list item. On big screens and only if we wanted we can style the information in columns. Taking a step back and looking into
+
+ We can style them differently and more appropriatelty for small and big screens alike. Semantics on the web is hard. Only once we take a step back and critique solutions from several angles does the ‘right’ solution present itself.
 
 This may seem a bit out of place in a book about forms but forms aren't something that exist in a vaccum. They are a major part of an interface, but they rarely form an interface on their own.
 

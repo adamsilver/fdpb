@@ -45,19 +45,18 @@
 - Introduction
 - One Thing Per page
 - Flow and order
-- 1. Contact details
-	- An email address
-	- Asking for a mobile phone (MAKE IT OPTIONAL)
-- 2. Delivery address
-	- Affordance and field size
-	- Capture+
-- 3. Delivery options
-	- Grouping: Fieldset and legend
+- 1. Email address
+- 2. Mobile phone
+- 3. Delivery address
+	- Field width
+	- Enhancing the experience with Capture Plus
+- 4. Delivery options
+	- Grouping form controls
 	- Setting smart defaults
-- 4. Delivery notes
+- 5. Delivery notes
 	- Textarea
 	- Character count warning
-- 5. Payment
+- 6. Payment
 	- Browser autocomplete
 	- Question Protocol
 	- Expiry date
@@ -67,10 +66,10 @@
 	- Billing address
 		- Reusing the address pattern
 		- Checkbox reveal
-- 6. Check and confirm
+- 7. Check your answers
 	- Question Protocol
 	- Amending details
-- 7. Confirmation pages
+- 8. Confirmation
 - Guest checkout
 - Progress bars
 - Second time experience

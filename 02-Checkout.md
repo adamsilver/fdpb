@@ -32,7 +32,7 @@ That is not to say you’ll always end up combining screens together — in my e
 
 Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s useful to understand why it works so well.
 
-- Principle 6 says that we should design interfaces that help users focus on core tasks by prioritising it. It even goes on to say that *people should be able to focus on one thing at a time*. One Thing Per Page is simply following this principle to the latter, and in doing so it drastically reduces the cognitive burden on users.
+- Principle 6 says that we should *design interfaces that help users focus on core tasks by prioritising it*. It even goes on to say that *people should be able to focus on one thing at a time*. One Thing Per Page is simply following this principle to the letter, and in doing so it drastically reduces the cognitive burden on users.
 - When users fill in a small form, errors are caught and shown early and often. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up on the task.
 - If pages have little on them, they'll load quickly. Faster pages reduce the risk of users leaving and they build trust in the service.
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
@@ -54,17 +54,44 @@ In Forms That Work[^], Caroline Jarett and Gerry Gafney explain the importance o
 
 We can apply the same principles to the steps in checkout:
 
-1. Contact details
-2. Delivery address
-3. Delivery options
-4. Delivery notes
-5. Payment
-6. Check and confirm
-7. Order confirmation
+1. Email address
+2. Mobile phone
+3. Delivery address
+4. Delivery options
+5. Delivery notes
+6. Payment
+7. Check your answers
+8. Confirmation
 
 Just like the car salesperson, we'll ask for the right information at the right time. The *Check and confirm* step acts as a final check of contracts and the confirmation acts as sales receipt for record keeping.
 
-## Delivery address
+## 1. Email address
+
+- Using the same pattern from chapter 1. The importance of reusing the same component (consistency and familiarity).
+
+## 2. Mobile phone
+
+```html
+<div class="field">
+    <label for="mobile">
+    	<span class="field-label">Your mobile</span>
+    	<span class="field-hint">So we can notify you about delivery</span>
+    </label>
+    <input type="tel" id="mobile" name="mobile">
+  </div>
+```
+
+In the first chapter, we discussed just how important it was to tell users, on occasion, why it is we're asking for particular information. Why is it, then, are we asking for the user's phone number, especially when they're ordering online?
+
+The courier who is fulfilling delivery actually offers real-time text messages on the day of delivery. So we tell the users this through by using the hint pattern. This builds trust, reduces friction and promotes the feature, all at the same time.
+
+The mobile input uses `type=tel`. This displays a telephone-specific on-screen keyboard on mobile. This makes it far easier to enter their phone number.
+
+![On-screen device keyboard](./images/?.png)
+
+TODO: Marking as optional
+
+## 3. Delivery address
 
 How it might look:
 
@@ -77,13 +104,6 @@ How it might look:
 		<span class="field-label">Recipient name</span>
     </label>
     <input type="text" id="recipientName" name="recipientName">
-  </div>
-  <div class="field">
-    <label for="mobile">
-    	<span class="field-label">Your mobile</span>
-    	<span class="field-hint">So we can notify you about delivery</span>
-    </label>
-    <input type="tel" id="mobile" name="mobile">
   </div>
   <div class="field">
     <label for="address1">
@@ -115,39 +135,27 @@ How it might look:
 
 We've used the same field pattern from the first chapter with a label and optional hint for each field. But there are some specific things to note.
 
-### Mobile field
-
-In the first chapter, we discussed just how important it was to tell users, on occasion, why it is we're asking for particular information. Why is it, then, are we asking for the user's phone number, especially when they're ordering online?
-
-The courier who is fulfilling delivery actually offers real-time text messages on the day of delivery. So we tell the users this through by using the hint pattern. This builds trust, reduces friction and promotes the feature, all at the same time.
-
-The mobile input uses `type=tel`. This displays a telephone-specific on-screen keyboard on mobile. This makes it far easier to enter their phone number.
-
-![On-screen device keyboard](./images/?.png)
-
-### Postcode field
+### Field width
 
 Designers are obsessed with clean lines and symmetry. In Write Less Damn Code[^4], Heydon Pickering jokingly points out that was the reason some people added ‘XHTML 1.1 Compliant’ banners just to ensure the height of the navigation bar matches the height of the content perfectly.
 
-In the case of the delivery form, we might be tempted to give each field the same width. It's hard to argue aginst the beauty of such a design, but we're not installing a minimalist art display.
+[!Banner Heydon](.)
 
-We're designing a form for people to complete easily. Making the postcode field wide (to match the others) is a cognitive burden on the user. This is because the width of the field gives users a clue as to the length of the content required.
+Applying this approach to the delivery address fields, we might give every field the same width. It's hard to argue aginst the beauty of such a design, but we're not installing a minimalist art display. We're designing a form for people to use. Making the postcode field wide, just to match the others, increase cognitive burden. This is because the width of the field gives users a clue as to the length of the content required.
 
 Baymard Institute's study[^5] found that *if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.*
 
-As a postcode consists of approximately 8 characters, the field should have width to match as shown above. This rule doesn't apply just to the postcode, we can use the same technique on other fields where the length of field is known.
+As a postcode consists of approximately 8 characters, the field should have a matching width. This guidance is applicable well beyond that of a postcode. You should use this approach for any field whereby the length of the content is known.
 
-### Capture+
+### Enhancing the experience with Capture Plus
 
-Capture+[^6] is a third party API and plugin that allows users to search for their address easily. Instead of manually typing each part of the address in 5 separate boxes, it offers users a single text box.
+Capture Plus[^6] is a third party API and plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, it gives users a single text box. As the user types the first line of their address, suggestions appear from which to select. This reduces the amount of keystrokes and therefore the chance of typos. If no address is found, the user can change the interface back to the regular form conforming to principle 5, *offer choice*.
 
 ![Capture+](./images/?.png)
 
-As the user types the first line of their address, suggestions appear from which to select. This reduces the amount of keystrokes and the chance of typos. If no address is found, the user can change the interface back to the regular form giving users choice.
+Such an enhancement means we have to consider a broad range of interaction models. Many of us would shirk the responsibility by using a third-party plugin, but shirking responsibility doesn't stop users being on the end of a sub par experience: caring does. In the next chapter, we'll consider all the angles of building our own fully inclusive and sophisticated autocomplete component.
 
-This type of Javascript enhancement comes with many design considerations. We could abdicate our responsibility by handing it over to the plugin. But in all likeliness they haven't considered the accessibility implications of doing so. We'll look at these implications in the next chapter by designing and building our own inclusive autocomplete component.
-
-## Delivery options
+## 4. Delivery options
 
 How it might look:
 
@@ -176,17 +184,17 @@ How it might look:
 
 This is the first time we've encountered a field that consists of multiple inputs for the same question in the form of radio buttons. There are some special things to note.
 
-### Using `fieldset` and `legend`
+### Grouping form controls
 
-To group multiple inputs together, we need to use the fieldset and legend elements. Each input represents a choice and the grouping is achieved by wrapping it inside a fieldset. The legend describes this grouping, in much the same way as the label describes the input.
+To group multiple form controls together, we need to wrap them inside a `fieldset`. The `legend` describes the group, in the same way a `label` describes the control. Like the `label`, a `legend` provides a description for sighted users and screen reader users alike. In most screen readers, the `legend` is read out in combination with the radio button's `label`:
 
-Like the label, the legend provides a description both visually and for those using a screen reader. In most screen readers, the legend is read out in combination with the radio button's label. Something like *Delivery options, Standard (Free, 2-3 days)*.
+*Delivery options, Standard (Free, 2-3 days)* or similar.
 
-It may be tempting to group all fields in form like this. Chapter one's registration form could, in theory, be wrapped in a fieldset and legend. Whilst this is valid, it creates unnecessary noise to those fields that are perfectly understandable without this treatment.
+It may be tempting to group all fields in form like this. Chapter one's registration form could, in theory, be wrapped in a fieldset and legend. Whilst valid, it creates unnecessary noise to those fields that are perfectly understandable without it. In short it doesn't conform to principle 7, *add value*.
 
-As Heydon Pickering says in Inclusive Design Patterns[^7], *it's easy to think of patterns as ‘right’ and ‘wrong’*. As with most design decisions, we should apply solutions based on the context of the problem, not by blindly following a blanket rule.
+In Inclusive Design Patterns[^7], Heydon Pickering says *it's easy to think of patterns as ‘right’ and ‘wrong’*. As with most design problems, we should apply solutions based on the context of the problem, not by mindlessly following blanket rules.
 
-### Provide a sensible default
+### Set smart defaults
 
 The first radio button has a `checked` attribute. This selects the first delivery option automatically. This has two benefits as there is:
 
@@ -195,13 +203,11 @@ The first radio button has a `checked` attribute. This selects the first deliver
 
 Where possible the first radio button should be checked. This is because the most common choice should normally come first. In this case, we've sensibly assumed this to be the cheapest option.
 
-## Delivery notes
+## 5. Delivery notes
 
-Imagine you've ordered your thing and it's on the way. You're excited to receive it. But then, it was too big to fit through the letter box and you weren't there to answer the knock at the door. This is where delivery notes can help.
+Imagine your at work, you get a notification that your product is on its way to your home to be delivered. You're excited and when you arrive home, instead of seeing the package, you see a little delivery note saying ‘We couldn't deliver your package as it was too big to fit through your letter box.’.
 
-A delivery note tells the delivery person what to do in this event. It might be preferable to leave it with a neighbour for example, or by leaving it in the recycling bin, which works surprisingly well I might add.
-
-How it might look:
+This is where delivery notes come in. A delivery note tells the delivery person what to do in the event somebody is not home to open the door. Perhaps you want it left with a neighbour, or inside the recycle bin, which works surprisingly well if I may say so.
 
 ![Delivery notes](./images/?.png)
 
@@ -210,7 +216,7 @@ How it might look:
 	<div class="field">
 	    <label for="notes">
 	    	<span class="field-label">Delivery notes</span>
-	    	<span class="field-hint">Tell the delivery person what to do if you're not in. Such as leave it with the next door neighbour. No more than 150 characters.</span>
+	    	<span class="field-hint">Tell us what to do if you're not in. For example, *leave it with the next door neighbour*.</span>
 	    </label>
 	    <textarea id="notes" name="notes"></textarea>
   	</div>
@@ -218,7 +224,7 @@ How it might look:
 </form>
 ```
 
-The HTML is remarkably similar to most of the other fields we've discussed so far including the hint pattern. But this is the first time we've seen a `textarea`. There are some special things to note.
+The HTML is remarkably similar to most of the other fields we've discussed so far including the hint pattern. But this is the first time we've seen a `textarea`.
 
 ### Textarea
 
@@ -280,7 +286,7 @@ Notes:
 - The `aria-live="polite"` attribute ensures that the status is only announced when the user finishes typing to make sure they aren't rudely interrupted.
 - As the user types the content is updated with a message.
 
-## Payment
+## 6. Payment
 
 How it might look:
 
@@ -420,7 +426,7 @@ function AddressRevealer() {}
 }
 ```
 
-## Check and confirm
+## 7. Check your answers
 
 How it might look:
 
@@ -452,7 +458,7 @@ For example, if they want to update their delivery option to "Next Day" then the
 
 As we collect information, we don't have to ask for it again and can send users to the most advanced step at any time reducing friction and increasing conversion.
 
-## Confirmation pages
+## 8. Confirmation
 
 How it might look:
 

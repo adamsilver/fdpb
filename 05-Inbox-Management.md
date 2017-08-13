@@ -8,7 +8,7 @@ In this chapter we're going to make list management is easy, accessible and scal
 
 HTML gives us 4 different elements that we can use to construct a list. Tables (`<table>`) house tabular data a bit like an excel spreadsheet. A description list (`<dl>`) formely known as a definiton list is for key-value pairs. An ordered list (`<ol>`) which is for a list whereby the order matters, like a list of cooking instructions. Finally an unordered list (`<ul>`) is the same but where order doesn't matter.
 
-It's hard to discuss the merits of each list element without first orientating ourselves around a specific problem. So we'll design an inbox, which is really just what we call a list of *emails*. The aim, of course, is to achieve a zen-like state of Inbox Zero[^]. To get there, the interface must let users delete, archive and mark emails as spam. But not just one at a time; in bulk.
+It's hard to discuss the merits of each list element without first orientating ourselves around a specific problem. So we'll design an inbox, which is really just what we call a list of *emails*. The aim, of course, is to achieve a zen-like state of Inbox Zero[^2]. To get there, the interface must let users delete, archive and mark emails as spam. But not just one at a time; in bulk.
 
 Whilst this chapter is specifically about an inbox, the design patterns herein are transferable to all types of lists that need bulk actions.
 
@@ -20,7 +20,7 @@ Semantically speaking, everything is a list. The things on the page are a list o
 
 Tables work when representing two-dimensional data. In our case, rows represent emails and columns describe that data: recipient, subject and date sent, for example. Interestingly, Gmail, for example, omits table headings which suggests that tables are less appropriate for an inbox.
 
-Alternatively we construct each email as a list item. On big screens, we could still style the information into columns. This brings us to the first problem. Tables aren't especially responsive. Tables are semantically tied to the way they look. That is, it's hard to make tables not *look* like tables. There are some ways to make tables work on small screens but they aren't simple and they don't work well cross-browser. However, striving to make tables (or any other element) not look like a table is materially dishonest[^].
+Alternatively we construct each email as a list item. On big screens, we could still style the information into columns. This brings us to the first problem. Tables aren't especially responsive. Tables are semantically tied to the way they look. That is, it's hard to make tables not *look* like tables. There are some ways to make tables work on small screens but they aren't simple and they don't work well cross-browser. However, striving to make tables (or any other element) not look like a table is materially dishonest[^3].
 
 Tables *are* a good choice when data needs contextual information to make it useful or if the data in those rows need comparing or sorting or summarising (as totals). For example, *23* is ambiguous without *goals scored* and *Lionel Messi* as column and row headings respectively. And we might also be interested in comparing Lionel Messi's statistics in comparison with Cristiano Ronaldo's.
 
@@ -144,7 +144,7 @@ Mailchimp, known for their usability prowess do the minimum:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
-If thorough and diverse user research shows that a highligh is really needed then go ahead, but aim to do the minimum.
+If thorough and diverse user research shows that a highlight is really needed then go ahead, but aim to do the minimum which conforms to principle 7, *add value*.
 
 ## An action menu
 
@@ -192,15 +192,15 @@ To keep the interface clean but easy-to-scan we can hide the options in a menu. 
 
 Select boxes are a menu of sorts. They present items for selection (like a menu) and they're an attractive option because browsers supply them for free. Even though select boxes look like menus and behave a little like them, they *aren't* menus.
 
-Select boxes are for input. That's why (forms that contain) select boxes&mdash;like any other input&mdash;must be accompanied by a submit button (to submit the choice). Not only is this by convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^]:
+Select boxes are for input. That's why (forms that contain) select boxes&mdash;like any other input&mdash;must be accompanied by a submit button (to submit the choice). Not only is this by convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-This compliments principle 4, *give control*. Conversely, select boxes that submit the form `onchange` *takes control away*. Unsuprisingly then, this causes problems for screen reader and keyboard users. On Chrome (Windows), for example, the form is submitted as soon as the user moves to the next option by pressing <kbd>down</kbd>. Getting to the option after that is either hard or impossible[^].
+This compliments principle 4, *give control*. Conversely, select boxes that submit the form `onchange` *takes control away*. Unsuprisingly then, this causes problems for screen reader and keyboard users. On Chrome (Windows), for example, the form is submitted as soon as the user moves to the next option by pressing <kbd>down</kbd>. Moving to the option is either hard or impossible.
 
 This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. As we know, not all browsers are alike or implement the specification in the same way. Therefore, forgetting about people who use a less forgiving browser is an act of exclusivity.
 
-Also, a select box is always collapsed even when space is available. But we want to make selection more conveninent when possible. We could use Javascript to create vastly different experiences on small and big screens, but this is an adaptive approach to design and goes against the very foundation of responsive design[^].
+Also, a select box is always collapsed even when space is available. But we want to make selection more conveninent when possible. We could use Javascript to create vastly different experiences on small and big screens, but this is an adaptive approach to design and goes against the very foundation of responsive design[^5].
 
 [!Show adapative layout differences](.)
 
@@ -249,23 +249,21 @@ Notes:
 - Pressing the button shows the menu and moves focus to the first `menuitem`.
 - Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop).
 - Pressing <kbd>escape</kbd> on a `menuitem` moves focus to the menu button and closes the menu.
-- All `menuitems`s have `tabindex="-1"` which means pressing <kbd>tab</kbd> won't move focus to the them. Users can traverse the items with the arrow keys, which saves them having to wade through each of the menu items to get to the next interface component. Pressing <kbd>tab</kbd> once achieves this and mimics the behaviour of a standard.
-
----
+- All `menuitems`s have `tabindex="-1"` which means pressing <kbd>tab</kbd> won't move focus to the them. Users can traverse the items with the arrow keys, which saves them having to wade through each of the menu items to get to the next interface component.
 
 ## Select all
 
-Users may want to, for example, archive every email in their inbox. Rather than having to select each manually, we can create a more convenient method. One way to service this functionality is through a *special* checkbox&mdash;placed at the top, in vertical alignment with the other checkboxes to create a visual connection. Clicking it marks the checkbox and every other checkbox at the same time.
+Users may want to, for example, archive every email in their inbox. Rather than selecting each one manually, we can create a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the others creating a visual connection. Clicking it checks every checkbox at once.
 
 [!Checkbox mailchimp?](.)
 
-Arguably, this out-of-the-box input has all the ingredients of an accessible control; it’s screen reader and keyboard accessible. It communicates through it's label and change of state. It's label would be *Select all* and it's state would be announced as *checked* or *unchecked*. Without JavaScript, we’ve handled state, and screen readers are able to give feedback to users.
+Arguably, this out-of-the-box input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. It's label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this without an ounce of Javascript.
 
-Despite our natural inclination to lean on native technology. And despite the fact that this type of control is accessible by mouse, touch, keyboard and assitive technology, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to make sense and give clarity as to their affordance.
+Despite our natural inclination to lean on native technology. And despite the fact that this type of control is accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to look like what they do.
 
-The trouble with using checkboxes&mdash;much like using a select box as a menu&mdash;is that they associated with collecting data for submission. Ultimately users expect toggle buttons to be buttons and checkboxes as a vessel for input.
+The trouble with using a checkbox (like using a select box as a menu), is that these elements don't signal what they do. Checkboxes and select boxes are associated with collecting data for submission. We should match peoples's expectation by conforming to principle 3, *be consistent*.
 
-Instead we'll create a true toggle button. HTML doesn't have a toggle button, it just has `button`. This generic button of type button (not submit) should be your go-to element for changing anything with Javascript. That is except for changing location which is the responsibility of links.
+So let's create a true toggle button. HTML has a generic `<button>` element but it has no concept of *toggling* (so we'll use ARIA for that bit). Most of the time the button should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links do.
 
 ```HTML
 <button type="button" aria-pressed="true">Select all</button>
@@ -278,54 +276,49 @@ Put code here
 Notes:
 
 - The `aria-pressed` attribute tells the user the state of the button by toggling between `true` and `false` values.
-- Pressing the button marks all the checkboxes as checked. Pressing it from a second time unchecks them back to their original state.
+- Pressing the button marks all the checkboxes as checked. Pressing it a second time unchecks them as per their original state.
 
 ## Success messages
 
-When the user submits the form, the emails marked for action will disppear from the inbox. Like error messages, success messages communicate success. It's an obvious thing to do that gives users respect. Without a message, the user is left to wonder if what they intended, did indeed happen and gives users a positive anxiety-reducing feeling of calm.
-
-How it might look:
+When the user submits the form, the emails which have been checked will disppear from view. Like error messages, success messages communicate success. Without a message, the user is left to wonder if what they intended to happen, did so. Here it is:
 
 ![Success](.)
 
-```HTML
-<div role="alert" class="success">
-	You've successfully archived 5 emails
-</div>
-```
+It's designed and constructed identically to the error message in chapter 1. The only exception is that it's coloured green, which is associated with *success*.
 
-Notes:
+Some websites choose to hide the message after a certain period of time has passed. But this causes problems because users have to read it quickly, which takes control away from them. If user research shows that being able to dismiss a message *adds value* then append a button that when pressed does just that.
 
-- `role="alert"` ensures that screen readers announce the message immediately as soon as the page loads.
-- Crucially, the message is always visible. Some websites will hide this sort of message after some time has elapsed (a few seconds or what have you), but you shouldn't do this as this takes control away from the user to read it (and perhaps dismiss it) in their own time.
-- If you want to let users dismiss the message, then add a button with Javascript so that pressing it hides the message.
+![Success with dismiss](.)
 
-### Confirming versus undo
+### Confirming versus undoing an action
 
 As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can achieve the same thing in an interface by asking users to confirm their action:
 
 ![Are you sure](./images/etc.png)
 
-This is fine for tasks that are performed infrequently but it quickly gets tedious when they need to be invoked more often. To continue with the driving analogy, it's a bit like putting speed bumps on motorways. The alternative is to perform the action immediately and offer users the ability to undo their action.
+This is fine for tasks that are performed infrequently but it quickly gets tedious when they need to be invoked more often. To continue with the driving analogy, it's a bit like putting speed bumps on motorways.
+
+One alternative approach is to let users perform the action immediately and without warning. Then along with the success message, give users the choice to undo the action. Clicking *undo* reverses the action by restoring their emails. If only we could *undo* accidents on the road.
 
 ![Undo](./images/undo.png)
 
-Clicking *undo* reverses the previous action, in this case restoring the emails back into the inbox. If only we could *undo* road accidents.
-
 ## Summary
 
-In this chapter we began by choosing the right way to present a collection of emails and the impact of combining 2 features (reading email and managing it) into 1 interface. We then realised that multi-select forms are very different to the more standard forms discussed in previous chapters. Therefore it caused is to think differently about how to design the interface from a visual and interactive stand point. This first consisted of how to present and interact with an action menu. And second, how to give users feedback after successfully applying one of those actions.
+In this chapter we began by choosing the right way to present a collection of emails and the impact of combining two disparate modes&mdash;reading email and actioning it&mdash;into one interface. We looked at how a mult-select form is different to the common form and how this made us consider several other aspects of design. Finally we looked at ways in which to *add value* and *give control* by  designing consistent interfaces that give users feedback.
 
 ### Things to avoid
 
-- Using checkboxes and select boxes for functionality beside collecting data.
-- Highlighting entire rows without first testing with users.
-- Disabling and hiding submit buttons until the form becomes valid.
+- Plowing ahead without deeply understanding the materials in which to design.
+- Using ARIA when you don't have to.
+- Using checkboxes and select boxes unconventionally.
+- Highlighting rows for the sake it.
+- Disabling submit buttons until the form becomes valid.
+- Putting friction (*Are you sure?* messages) in-front of frequent tasks when better alternatives are available.
 
 ## Footnotes
 
-[^]:Blah
-
-## Todo
-
-- put menu at bottom too?
+[^1]: https://en.wikipedia.org/wiki/List_of_people_known_as_%22the_Great%22
+[^2]: http://whatis.techtarget.com/definition/inbox-zero
+[^3]: https://resilientwebdesign.com/chapter2/#Using%20TABLEs%20for%20layout%20is%20materially%20dishonest.
+[^4]: https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html
+[^5]: https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/

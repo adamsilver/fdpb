@@ -138,10 +138,10 @@
 		- A select box menu
 		- A true menu
 - Select all
-	- Checkbox with indeterminate
-	- Button pressed
+	- Using a checkbox
+	- Using a button
 - Success message
-- Confirming and undo
+- Confirming verus undoing an action
 
 ## 6. Search and filter (2000)
 

@@ -16,69 +16,35 @@ A couple of years later, in 2016, Robin Whittleton from GDS, told me that puttin
 
 ## One Thing Per Page
 
-One Thing Per Page is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own. For example, instead of placing the address form on the same page as the delivery options and payment forms, we put it on a separate page.
+One Thing Per Page is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own. For example, instead of placing Delivery Address on the same page as the Delivery Options and Payment, we put it on a separate page.
 
 It's not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer. Similarly, it’s not about having a single form field on each page either (although, it absolutely could).
 
-This doesn't mean you'll always end up with one question per page. Caroline Jarrett, who first wrote about the pattern in 2015 explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
+This doesn't mean you'll always end up with one question per page. Caroline Jarrett, who first wrote about the pattern in 2015, explains that user research *will quickly show you that some questions will be best grouped into a longer page.*
 
-However, she also explains that “questions that naturally ‘go together’ from the point of view of designers, don’t need to be on the same page to work for users.” She provides an enlightening example when, for GOV.UK Verify, they tested putting “Create a username” on one page and “Create a password” on the next.
+However, she also explains that *questions that naturally ‘go together’ from the point of view of designers, don’t need to be on the same page to work for users.* She provides an enlightening example when, for GOV.UK Verify, they tested putting ‘Create a username’ on one page and ‘Create a password’ on the next.
 
-Like most designers, Caroline thought that putting these two form fields on separate pages would be overkill. In reality, users weren’t bothered by this at all. The point is to at least start with One Thing Per Page and then, through research, find out whether grouping fields together improves the experience.
+Like most designers, Caroline thought that putting them on separate pages would be overkill. In reality, users weren’t bothered. The point is to at least start with One Thing Per Page and then, through research, find out if grouping fields together improves the experience.
 
 That is not to say you’ll always end up combining screens together — in my experience, the best results come from splitting things apart, period.
 
 ### Why is it so good?
 
-Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s useful to understand why it works well. Here are the main reasons:
+Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s useful to understand why it works so well.
 
-### 1. It reduces cognitive load
+- Principle 6 says that we should design interfaces that help users focus on core tasks by prioritising it. It even goes on to say that *people should be able to focus on one thing at a time*. One Thing Per Page is simply following this principle to the latter, and in doing so it drastically reduces the cognitive burden on users.
+- When users fill in a small form, errors are caught and shown early and often. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up on the task.
+- If pages have little on them, they'll load quickly. Faster pages reduce the risk of users leaving and they build trust in the service.
+- By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
+- Conversely, a long form takes a long time to complete. It it takes too long there is higher chance that the page times out or the computer freezes causing data loss. This is what happens to Daniel, the lead character in *I, Daniel Blake*[^]. With declining health and having never used a computer, his computer freezes and he loses his data. In the end, he gives up.
+- It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
+- It's better for screen reader users too as they don't have to wade through a whole lot of superfluous information. Instead, they can navigate to the first heading, for example, and start interacting with the form more quickly.
 
-Like Ryan Holiday describes in The Obstacle Is The Way[^], remember the first time you saw a complicated algebra equation? It was a jumble of symbols and unknowns. But when you stopped to break it down and isolate the parts, all that was left was the answer.
-
-It’s the same for users trying to complete a form or anything else for that matter. If there is less stuff on screen, and only one choice to make, friction is reduced to a minimum. Therefore users stay on task.
-
-### 2. It's easy to fix errors
-
-When users fill in a small form, errors are caught and presented early. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up.
-
-### 3. Pages load faster
-
-If pages are small by design, they will load faster. Faster pages reduce the risk of users leaving and they build trust in the service.
-
-### 4. It's easy to track progress and return to previous steps
-
-If users submit information frequently, we can save it in a more granular fashion. If a user drops off, we can send them an email, prompting them to complete their order, for example.
-
-### 5. It reduces the chance of losing information
-
-A large form takes longer to complete. If it takes too long, then a page timeout may cause the information to be lost, causing tremendous frustration.
-
-Alternatively, the computer freezes, which was the case for Daniel, the leading character in *I, Daniel Blake*. With declining health and having never used a computer before, his computer freezes and his data lost. In the end, he gives up.
-
-I've counted 16 problems in total, which you can read in Better Form Design: One Thing Per Page[^2].
-
-But is One Thing Per Page always suitable?
-
-Not always. Caroline Jarrett, who first wrote about One Thing Per Page in 2015, makes this quite clear. She explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
-
-However, conversely, she also goes onto explain that “questions that naturally ‘go together’ from the point of view of designers… don’t need to be on the same page to work for users.”
-
-She provides an enlightening example when, for GOV.UK Verify, they tested putting “Create a username” on one page and “Create a password” on the next.
-
-Like most designers, Caroline thought that putting these two form fields on separate pages would be overkill. In reality, users weren’t bothered by this at all.
-
-The key point is to *start* with One Thing Per Page and then, through research, find out whether grouping fields together is better.
-
-That is not to say you’ll always end up combining screens together—in my experience, the best results come from splitting things apart, period.
-
-In summary, this pattern is flexible, performant and inclusive by design. It truly embraces the web, making things easy for high and low confidence users. Having many things per page may give an illusion of simplicity, but like algebraic equations, they are difficult to deal with unless they are broken down.
-
-If we consider a task as a transaction that users want to complete, breaking it down into multiple steps makes sense. It’s as if we’re using the very building blocks of the web as a form of progressive disclosure. And the metaphor behind pages provides a subconscious sense of moving forward. We'll use this approach going forward.
+We'll use this design pattern going throughout the book.
 
 ## Flow and order
 
-In Forms That Work[^3], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order:
+In Forms That Work[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order:
 
 > Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
@@ -103,8 +69,6 @@ Just like the car salesperson, we'll ask for the right information at the right 
 How it might look:
 
 ![Delivery form](./images/?.png)
-
-HTML:
 
 ```html
 <form novalidate>
@@ -189,8 +153,6 @@ How it might look:
 
 ![Delivery options](./images/?.png)
 
-HTML:
-
 ```html
 <form novalidate>
 	<div class="field">
@@ -243,8 +205,6 @@ How it might look:
 
 ![Delivery notes](./images/?.png)
 
-HTML:
-
 ```HTML
 <form novalidate>
 	<div class="field">
@@ -282,9 +242,7 @@ For those that don't look up, they'll get feedback then and can take action to r
 
 How it might look:
 
-[]()
-
-The Javascript:
+![Chars](.)
 
 ```javascript
 function CharactersIndicator(field, options) {
@@ -317,17 +275,16 @@ CharactersIndicator.prototype.updateStatus = function(remaining) {
 
 Notes:
 
-- It creates a status which will tell users how many characters remain and place it below the field.
-- The status has a `role="status"` and `aria-live="polite"` which ensures the updates are read out by screen readers. Polite just means that the announcement won't happen until the user stops typing, meaning they aren't rudely interrupted.
-- As the user types, the status box is updated with a message.
+- The script injects a status element below the textarea that indicates how many characters are left visually.
+- The `role="status"` attribute ensures that screen reader users can hear the status.
+- The `aria-live="polite"` attribute ensures that the status is only announced when the user finishes typing to make sure they aren't rudely interrupted.
+- As the user types the content is updated with a message.
 
 ## Payment
 
 How it might look:
 
 ![Payment](./images/?.png)
-
-HTML:
 
 ```html
 <form novalidate>
@@ -437,7 +394,7 @@ input::-webkit-inner-spin-button {
 
 This number is found on the back of the card. It's not obvious what it is or where to find it. It's not labelled and sometimes it's part of a larger number.
 
-[]()
+![](.)
 
 This makes ‘Security number’ ambiguous on its own. It doesn't help that sometimes it's referred to as ‘CVC’ which, by the way, stands for ‘card verification number’. Acryonyms are an act of exlusivity because not everyone understands them. They can make people feel stupid.
 

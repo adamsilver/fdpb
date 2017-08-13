@@ -188,7 +188,7 @@ Similarly, on small screens the buttons are likely to stack beneath each other p
 
 To keep the interface clean but easy-to-scan we can hide the options in a menu. There are 2 ways to create a menu. The first is by using a `select` box and the second is by building a custom menu component.
 
-### Select box menu
+#### Select box menu
 
 Select boxes are a menu of sorts. They present items for selection (like a menu) and they're an attractive option because browsers supply them for free. Even though select boxes look like menus and behave a little like them, they *aren't* menus.
 
@@ -206,7 +206,7 @@ Also, a select box is always collapsed even when space is available. But we want
 
 Practically speaking, this is more work, and results in computationally heavy interface for the browser to render. It also adds complexity on the server because it has to be ready to handle the way select boxes and submit buttons transmit data to perform the same task. The select box sends `selectName="value"` and the button send `buttonName="value"`.
 
-### A true menu component
+#### A true menu component
 
 HTML doesn't have a ‘menu’ element so we need to build our own. The basic HTML looks like this:
 

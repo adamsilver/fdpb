@@ -18,3 +18,10 @@ But we also don't want users have a one super long form as we know that probably
 - allow to select multi files and lack of support
 - way to do this without it?
 - drag drop (https://www.youtube.com/watch?v=hqSlVvKvvjQ)
+
+
+Ask user to zip but why ask them and they might not know how to do that.
+
+multiple upload sucks because you can't select multiple across different folders on device or desktop.
+
+Better to handle through intentional design.

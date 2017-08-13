@@ -313,7 +313,7 @@ In this chapter we began by choosing the right way to present a collection of em
 - Using checkboxes and select boxes unconventionally.
 - Highlighting rows for the sake it.
 - Disabling submit buttons until the form becomes valid.
-- Putting friction (*Are you sure?* messages) in-front of frequent tasks when better alternatives are available.
+- Putting friction in the form of *Are you sure?* messages in-front of repeated tasks.
 
 ## Footnotes
 

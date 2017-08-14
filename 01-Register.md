@@ -1,6 +1,6 @@
 # A Registration Form
 
-Our forms adventure begins with a humble registration form. This seemingly simple form, will well, form the foundations on which to solve more complex forms later. Choosing such a simple form to start with makes it easier to tease out some of the most important qualities found in well-designed forms. Here it is:
+Our forms adventure begins with a humble registration form. This seemingly simple form, will, ahem, form the foundations on which to solve more complex forms later. Choosing such a simple form to start with makes it easier to tease out some of the most important qualities found in well-designed forms. Here it is:
 
 ![Registration Form](./images/.png)
 
@@ -68,7 +68,9 @@ Instead of using a placeholder to store the hint, we can simply add the hint as 
 </div>
 ```
 
-The hint is placed inside a `span` so that we can style it differently to the label. It's placed inside the `label` to so that screen readers will announce it. As is often the case, there are many ways to achieve the same design. One alternative approach is to use a separate element (such as a `p`) as follows:
+The hint is placed inside a `<span>` so that it can be styled differently to the `<label>`. It's placed inside it so that screen readers will announce it. As is often the case in design, there are many ways to achieve the same end.
+
+Another approach is to use a separate element (such as a `<p>`) and use ARIA as the following example demonstrates.
 
 ```HTML
 <div class="field">
@@ -78,11 +80,11 @@ The hint is placed inside a `span` so that we can style it differently to the la
 </div>
 ```
 
-Here we've used the `aria-describedby` attribute to connect the hint to the field by referencing the `id`. Whilst this has visual and audibe parity with a label, this solution is not created equal. Crucially, the first rule of ARIA is *Don't use ARIA*. The specification states:
+It uses the `aria-describedby` attribute to connect the hint to the field by referencing its `id`. Whilst this has visual and audibe parity with a label, this solution is not the same. Crucially, the first rule of ARIA is *Don't use ARIA*. The specification states:
 
 > If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.
 
-This is important and it's not a merely an academic endeavour. In this case, a `label` gives users a better experience with less effort. It's better because  placing the hint inside the label further increases the hit area. ARIA is for assistive technology, not for browser behaviour. It's less effort because the semantics the label provides the behaviour automatically.
+This is not a merely an academic endeavour. A `<label>`, in this case, gives users a better experience with less effort, because it has broader support and a larger hit area.
 
 ## Float labels
 

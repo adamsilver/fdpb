@@ -147,7 +147,7 @@ Baymard Institute's study[^5] found that *if a field is too long or too short, u
 
 As a postcode consists of approximately 8 characters, the field should have a matching width. This guidance is applicable well beyond that of a postcode. You should use this approach for any field whereby the length of the content is known.
 
-### Enhancing the experience with Capture Plus
+### Improving UX with Capture+
 
 Capture Plus[^6] is a third party API and plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, it gives users a single text box. As the user types the first line of their address, suggestions appear from which to select. This reduces the amount of keystrokes and therefore the chance of typos. If no address is found, the user can change the interface back to the regular form conforming to principle 5, *offer choice*.
 

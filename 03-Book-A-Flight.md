@@ -97,7 +97,6 @@ How it might look after enhancement:
 			id="destination"
 			autocomplete="off"
 			role="combobox"
-			aria-owns="combobox-options--destination"
 			aria-autocomplete="list"
 			aria-expanded="true"
 			class="autocomplete-textBox"
@@ -131,7 +130,6 @@ Text box notes:
 - The role is set to `combobox` indicating that this control is more than just a regular text box.
 - The `aria-autocomplete` attribute indicates that a list of options will appear from which the user can choose.
 - The `aria-expanded` attributes tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
-- [CHECK]The `aria-owns` creates a relationship between the text box and the menu by specifiying the menu's `id`.
 - The `autocomplete` attribute is set to `off` to stop browsers making their own suggestions interfering with those offered by the component itself.
 
 Options notes:

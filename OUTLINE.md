@@ -49,7 +49,7 @@
 - 2. Mobile phone
 - 3. Delivery address
 	- Field width
-	- Enhancing the experience with Capture Plus
+	- Improving UX with Capture+
 - 4. Delivery options
 	- Grouping form controls
 	- Setting smart defaults

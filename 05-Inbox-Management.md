@@ -91,7 +91,7 @@ Modes are best suited when one mode is used more than the other. But when both a
 
 ### Visually hiding the label
 
-There are two ways to create a hidden label. One concise way to do this is by using the `aria-labelledby` attribute:
+There are two ways to create a hidden label. One concise way to do this is by using `aria-labelledby`:
 
 ```
 <fieldset class="inbox">
@@ -109,7 +109,7 @@ There are two ways to create a hidden label. One concise way to do this is by us
 </fieldset>
 ```
 
-As I've probably drummed into you by now, ARIA should be used as a last resort. Practically this is because it means having to add and reference several `id` attributes to make it work. Instead we could use a `<label>`:
+As I've probably drummed into you by now, ARIA should be used as a last resort. Practically this is because it means having to reference several `id` attributes to make it work. Instead we could use a `<label>`:
 
 ```
 <fieldset class="inbox">

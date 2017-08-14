@@ -1,6 +1,6 @@
 # Book A Flight
 
-In this chapter, we'll design a flight booking service. At first this may seem a bit *niche*, especially when compared to the two previous chapters, *A Registration Form* and *Checkout*. However, this chapter encourages the exploration of several more complex patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or hotel room.
+In this chapter, we'll design a flight booking service. At first this may seem a bit *niche*, especially when compared to *A Registration Form* and *A Checkout Flow*. However, we're going to explore several complex problems that in the end will result in reusable patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or hotel room.
 
 Here are the main steps in the flow:
 
@@ -12,13 +12,15 @@ Here are the main steps in the flow:
 
 ## 1. Choosing where to fly
 
-First users have to choose an origin and destination. That is a place in which to fly from and to. Without knowing this information the service can't offer any useful flights. What's the best way of asking users for this information?
+First, users have to choose an origin and destination. That is a place in which to fly from and to. Without this information the service can't offer any flights. What's the best way of asking users for this information?
 
-As designers, we should try and use the features that are native to the browser. This is because, generally speaking, they are are familiar (due to convention) and fully accessible. They also require far less work to design and build. Browsers offer 3 suitable controls. Let's look at each of them next.
+As designers, we should try and use the features that are native to the browser. This is because, generally speaking, they are are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement. Browsers offer 3 suitable native controls. We're going to look at each of them now and play them off against each other.
 
 ### Select box
 
-Designers often use `select` boxes because they save space. But interface design is about far more than just saving space. Select boxes are problematic because:
+Designers often use `select` boxes due to their space-saving qualities. When an interface is crammed with features, learning to design components that hide discrete pieces of the interface would seem to be an essential weapon in a designers arsenal. But in fact, design is about so much more than saving space.
+
+If you think about it, the real problem is that the interface has been crammed with features in the first place. In any case, interface design is about so much more than saving space. And select boxes are known for being problematic because:
 
 - some users find them hard to close.
 - some users try to type into them.
@@ -28,21 +30,23 @@ Designers often use `select` boxes because they save space. But interface design
 - they hide choices behind an unnecessary extra click.
 - they are not easily searchable.
 
-Usability expert, Luke Wobrelski, even goes as far to say that select boxes should be the ‘UI of Last Resort’[^1]. Unsurprisngly then, we'll search for a better way.
+Usability expert, Luke Wobrelski, even goes as far to say that select boxes should be the ‘UI of Last Resort’[^1]. Unsurprisngly then, we'll look for a better alternative.
 
 ### Radio buttons
 
-Radio buttons, unlike select boxes, are generally well-understood and easy-to-use. Radio buttons are exposed by defualt making them easier to discover and scan. They are also flexible because we can put formatted content inside the label. This is something we'll be looking at later in the chapter.
+Radio buttons, unlike select boxes, are generally well-understood and easy-to-use, not least because they *don't hide information*. Everything is fully exposed making them easy to compare, scan and select. They're also more maleable. That is, they let us put whatever content in what ever format we want inside the label (more on that later).
 
-The problem with labels, however, is that they're not suitable when there are many of them. An airline could fly to hundreds of destinations. Using radio buttons create a long and unweildly interface, that the user is forced to peruse.
+The problem with radio buttons, however, is that they're far less suitable when there are vast amounts of them. An airline could fly to hundreds of destinations. Therefore, the page becomes long and unweildly, causing the user to scroll (or keyboard users to *tab*) a lot.
+
+Don't get me wrong, users are more than happy to scroll and we shouldn't use this as a cruch for changing course. But it's certainly worth while to keep exploring other options are our disposal.
 
 ### Search input
 
-A search box (`input type="search"`) is a standard text box with some extras. It lets users clear the contents of the field, either by tapping the x or pressing <kbd>escape</kbd>. With a regular text box you have to select the text and then press <kbd>delete</kbd>. Here's how it looks:
+A search box (`input type="search"`) is a standard text box with some added extras. You can clear the contents of the field, by tapping *X* or pressing <kbd>Escape</kbd>. With a text box (`input type="text"`) you have to select the text and press <kbd>delete</kbd> which is more tedious.
 
 ![Image here](/etc/)
 
-This is a useful approach for searching large amounts of dynamic data such as searching for a product on Amazon[^2]. But airlines have a finite amount of destinations which we also know *in advance* of users searching. If we were to let users search unassisted like this, they could end up with no results due to typos.
+Using a free search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airelines, however, usually have a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a no results page due to typos or mismatched data.
 
 ### An autocomplete component
 

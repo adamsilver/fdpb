@@ -87,6 +87,8 @@
 	- Search box
 	- Datalist
 	- An autocomplete component
+		- Punch list
+		- Progressive Enhancement
 - 2. Choosing when to fly
 	- Dates from documents
 	- Memorable dates

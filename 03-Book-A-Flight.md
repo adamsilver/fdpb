@@ -16,11 +16,13 @@ Let's lay out the steps in order now:
 
 First, users have to choose an origin and destination. That is, places to fly from and to. Without this information the service can't offer any flights. What's the best way of asking users for this information?
 
-As designers, we should try and use the features that are native to the browser. This is because, generally speaking, they are are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement. Browsers have 4 native form controls: select boxes, radio buttons, search boxes and more recently, datalists. We'll analayse each of these first, followed by a deep-dive into implementating a custom solution from scratch.
+As designers, we should try and use the features that are native to the browser. This is because, generally speaking, they are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement.
 
-### Select box
+You'd be forgiven for thinking you were spoiled for choice when it comes to form controls: select boxes, radio buttons, text boxes and more recently, datalists. The choice is yours, expect it isn't. Not all of these options are up to the task. Let's look at some of the pros and cons for each.
 
-A select box hides choices behind a menu. Clicking the select box reveals the choices. Once a choice is selected and the menu collapses back to its original state.
+### Select boxes
+
+Select boxes, also known as drop-down menus, hide choices behind a menu. Clicking the select box reveals the choices. Once a choice is selected, the menu collapses back to its original state.
 
 Designers often use `select` boxes due to their space-saving qualities. What's particulary interesting though, is why we need to save space in the first place. Often an interface is crammed with features, normally to please stakeholders, not users. It's understandable then, that learning ways to hide discrete pieces of an interface has become a big part of a designer's toolkit. But design is about so much more than saving space. After all, if an interface really is crammed, then our job as designers is to declutter it.
 
@@ -44,34 +46,36 @@ Using a free search box is useful when searching a large amount of dynamic data,
 
 ### Datalist
 
-Users need a control that lets users filter a long list of destinations quickly. Something that combines the flexibility of a text box with the assurance of a select box. This is known as an autocomplete. An autocomplete is also known by other names such as *type ahead*, *predictive search* or *combobox*.
+Users need a control that lets users filter a long list of destinations quickly. Something that combines the flexibility of a text input with the assurance of a select box. This is known as an autocomplete. An autocomplete is also known by other names such as *type ahead*, *predictive search* or *combobox*.
 
-Autocomplete controls work by suggesting options (destinations in this case) as the user starts typing. As suggestions appear, you can select one quickly, automatically *completing* the field. Hence the name. This saves users scrolling and can be designed to be forgiving of small typos.
+Autocomplete controls work by suggesting options (destinations in this case) as the user starts typing. As suggestions appear, you can select one quickly, automatically *completing* the field. Hence the name. This saves users scrolling and can be designed to forgive small typos.
 
-HTML5 introduced the `datalist` element which combines with a text box to create the desired behaviour. Unfortunately it's not ready for prime time due to its show stopping bugs[^3]. In the unlikely event that your project is locked down to a specific (set of) browser(s) that don't suffer from the bugs, then this may still be a suitable option for you.
+HTML5 introduced the `datalist` element which combines with a text box to create the desired behaviour. Unfortunately though, it's not ready for prime time due the fact it's full of bugs[^3]. In the unlikely event that your project is locked down to a specific (set of) browser(s) that don't suffer from the bugs, then this may be a suitable option for you.
 
-But having defined our design principles (at the beginning of the book), we'll want to give users the best experience possible, no matter their browser choice or lack thereof. A word of warning though, we're about to break new ground. Designing custom form components is hard work. Certainly orders of magnitude harder than simply using a native one.
+But having defined our design principles (at the beginning of the book), we'll want to give users the best experience possible, no matter their browser choice or lack thereof. We're going to have to build a custom autocomplete component from scratch. A quick word of warning though. We're about to break new ground. Designing a robust and inclusive autocomplete component is hard work. Orders of magnitude harder than any native control.
 
 ### An autocomplete component
 
-To help us through though, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. In a short a custom component should:
+To help us through, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. The primary rules ensure that a custom component should:
 
 - Be focusable with the keyboard.
 - Be operable with the keyboard.
 - Work with assistive devices.
 - Work without Javascript.
 
-To satisfy the last rule we need to talk about progressive enhancement. We touched upon the subject in chapter 1 but now we should take a deeper look at its role in design.
+To satisfy the last rule we need to talk about progressive enhancement. We touched upon the subject in chapter 1 but let's take a deeper look at its role in design.
 
 #### Progressive enhancement
 
-Progressive enhancement is about giving everyone a core experience. Then, if possible and where necessary, creating a better, ‘enhanced’ experience for those who use a better browser. By better, I mean one that is more capable. When Javascript is available users will get the enhanced autocomplete component, but what happens when there is a Javascript failure?
+Progressive enhancement is a cornerstone of inclusive design. It's about so much more than those who turn off Javascript. It's about building solid experiences founded on well-structured HTML (let's call this the core experience). Then enhancing the experience (when it's valuable) with CSS and Javascript (let's call this the enhanced experience).
 
-This is a question that the concept of a core experience answers. In this situation it simply means which native component will users get. It comes down to a select box or a search box. On balance, a select box seems appropriate as it stops users enduring a trip to the server only to see no results.
+The reason for that is that web pages can fail for a multitude of network failures and styling and scripting errors. For example, the resource didn't load or that the browser didn't understand the script. Whatever the reason, when (not if) a failure occurs, it's the core experience that they'll get.
 
-How it might look before enhancement:
+#### Works without Javascript
 
-![Image here](/etc/)
+We have the enhanced experience pretty much planned already. But what is the core experience going to be. In effect, we have to pick a native form control, one from the list above. On balance, a select box seems appropriate. It stops users enduring a trip to the server only to see no results.
+
+![The core experience](/etc/)
 
 ```html
 <div class="field">
@@ -87,9 +91,17 @@ How it might look before enhancement:
 </div>
 ```
 
-How it might look after enhancement:
+#### Satisfying the remaining 3 rules
 
-![Image here](/etc/)
+The remaining 3 rules are as follows:
+
+- Be focusable with the keyboard.
+- Be operable with the keyboard.
+- Work with assistive devices.
+
+Each of these are achieved by combining semantic HTML and Javascript that manages various interactions. The script (shown later) will replace the select box with a text box, menu button, menu and status box. As the user types it shows suggestions that the user can chose from.
+
+![The enhanced experience](/etc/)
 
 ```html
 <div class="field">
@@ -107,6 +119,7 @@ How it might look after enhancement:
 			aria-expanded="true"
 			class="autocomplete-textBox"
 		>
+		<button class="autocomplete-button" type="button" tabindex="-1" aria-label="Show suggestions">▾</button>
 		<ul
 			role="listbox"
 			class="autocomplete-options autocomplete-options-isHidden"
@@ -128,25 +141,73 @@ How it might look after enhancement:
 </div>
 ```
 
-The other three rules will be handled with a combination of HTML and Javascript. When the script runs the HTML will be modified as above. It consists of three separate parts. The text box and menu, let's users type and select their destination.The status box is for screen reader users. As the suggestions change it will say things like *2 destinations available*.
+This structure consists of four main parts: The text box, the button, the menu and the status box. Let's discuss each of those now.
 
-Text box notes:
+#### The text box
+
+```HTML
+<input
+	type="text"
+	name="destination"
+	id="destination"
+	autocomplete="off"
+	role="combobox"
+	aria-autocomplete="list"
+	aria-expanded="true"
+	class="autocomplete-textBox"
+>
+```
 
 - The role is set to `combobox` indicating that this control is more than just a regular text box.
 - The `aria-autocomplete` attribute indicates that a list of options will appear from which the user can choose.
 - The `aria-expanded` attributes tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
 - The `autocomplete` attribute is set to `off` to stop browsers making their own suggestions interfering with those offered by the component itself.
 
-Options notes:
+#### The button
+
+```HTML
+<button class="autocomplete-button" type="button" tabindex="-1" aria-label="Show suggestions">▾</button>
+```
+
+- The button is mostly for mouse users. Clicking it reveals all the suggestions, similar to the select box.
+- It has `type="button"` which stops it from submitting the form like a regular submit button.
+- The `tabindex` attribute is set to `-1` because we don't want to be part of the tab sequence. Keyboard interaction is handled through the arrow keys (more on that shortly).
+
+#### The menu
+
+```HTML
+<ul
+	role="listbox"
+	class="autocomplete-options autocomplete-options-isHidden"
+	>
+	<li	role="option">
+		France
+	</li>
+	<li role="option" aria-selected="true">
+		Germany
+	</li>
+</ul>
+```
 
 - The menu's role is set to `list` indicating that it contains a list of items. This is complimented by each item having a role of `option`.
 - The `aria-selected` attribute tells users whether the option is selected or not by toggling between values `true` and `false`.
 
-Status box notes:
+#### The status box
 
-- The role is set to `status` to tell users that *2 results are available* for example.
-- The `aria-live` attribute ensures the screen reader doesn't interrupt the user as they type. Instead it waits until they stop typing.
-- [CHECK] The `aria-atomic` attribute is set to true which ensures the entirety of the message is announced, even if just a small part of the status was injected by Javascript.
+```HTML
+<div
+	aria-live="polite"
+	aria-atomic="true"
+	role="status"
+	class="autocomplete-status">
+</div>
+```
+
+- The role is set to `status` so that screen readers will announce the contents when the content changes. The script will inject *13 results are available* for example.
+- The `aria-live="polite"` attribute ensures that screen readers don't interrupt users as they type. Instead waiting until they've finished doing so.
+- [DOUBLE CHECK] The `aria-atomic="true"` attribute ensures the entirety of the message is announced, even if a small part of the status was injected by Javascript.
+
+#### The Javascript
 
 ```Javascript
 function Autocomplete(control) {
@@ -540,8 +601,6 @@ Autocomplete.prototype.isElementVisible = function(container, element) {
 };
 ```
 
-The script replaces the select box with a text box and adds a down arrow button, menu and status box. As the user types it shows suggestions.
-
 Notes:
 
 - When focus is within the text box, pressing <kbd>down</kbd> moves focus to the first option in the panel.
@@ -553,12 +612,14 @@ Notes:
 
 ## 2. Choosing when to fly
 
-Dates are hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface. Traditionally 3 select boxes, for day, month and year are used to enter dates. One of the redeeming qualities of select boxes is that they stop users entering wrong information. In the case of dates, even *this* doesn't hold up. That's because a user can, for example, select *31 February 2017* which is, of course, not a valid date.
+Dates are hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
+
+Traditionally 3 select boxes, for day, month and year are used to enter dates. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, even this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-The other reason select boxes are used, is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We simply can't accurately determine the user's intent based on what they enter. Therefore, we can't be as forgiving as we would like to be.
+The other reason select boxes are used is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We simply can't accurately determine the user's intent based on what they enter. Therefore, we can't be as forgiving as we would like to be.
 
 But let's step back a moment. Before designing a date component, we first should understand what type of date we're asking for. The Goverment Digital Services (GDS) talks about this in their Service Manual[^6]. It says ‘the way you should ask for dates depends on the types of date you’re asking for’. There are 3 main types of date. We'll step through each in turn, to see if one of those suits the problem we're trying to solve.
 

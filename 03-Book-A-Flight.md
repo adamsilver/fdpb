@@ -14,7 +14,7 @@ Here are the main steps in the flow:
 
 First, users have to choose an origin and destination. That is, places to fly from and to. Without this information the service can't offer any flights. What's the best way of asking users for this information?
 
-As designers, we should try and use the features that are native to the browser. This is because, generally speaking, they are are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement. Browsers offer 3 suitable native controls. We're going to look at each of them now and play them off against each other.
+As designers, we should try and use the features that are native to the browser. This is because, generally speaking, they are are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement. Browsers have 4 native form controls: select boxes, radio buttons, search boxes and more recently, datalists. We'll analayse each of these first, followed by a deep-dive into implementating a custom solution from scratch.
 
 ### Select box
 
@@ -54,7 +54,7 @@ A search box (`input type="search"`) is a standard text box with some added extr
 
 Using a free search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a no results page due to typos or mismatched data.
 
-### An autocomplete component
+### Datalist
 
 Users need a control that lets users filter a long list of destinations quickly. Something that combines the flexibility of a text box with the assurance of a select box. This is known as an autocomplete. An autocomplete is also known by other names such as *type ahead*, *predictive search* or *combobox*.
 
@@ -63,6 +63,8 @@ Autocomplete controls work by suggesting options (destinations in this case) as 
 HTML5 introduced the `datalist` element which combines with a text box to create the desired behaviour. Unfortunately it's not ready for prime time due to its show stopping bugs[^3]. In the unlikely event that your project is locked down to a specific (set of) browser(s) that don't suffer from the bugs, then this may still be a suitable option for you.
 
 But having defined our design principles (at the beginning of the book), we'll want to give users the best experience possible, no matter their browser choice or lack thereof. A word of warning though, we're about to break new ground. Designing custom form components is hard work. Certainly orders of magnitude harder than simply using a native one.
+
+### An autocomplete component
 
 To help us through though, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. In a short a custom component should:
 

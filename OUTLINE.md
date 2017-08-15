@@ -82,7 +82,10 @@
 - Introduction
 - Flow and order
 - 1. Choosing where to fly
-	- Radio buttons, select boxes and search inputs
+	- Select boxes
+	- Radio buttons
+	- Search box
+	- Datalist
 	- An autocomplete component
 - 2. Choosing when to fly
 	- Dates from documents

@@ -1,3 +1,45 @@
+# Introducion
+
+My forms obsession started when I was trying to cut and paste form html (like I did any other non form element) and nothing happened. FSt forward 17 years later and here we are. But why forms and why patterns?
+
+## Why forms?
+
+Why forms. Every meaningful interaction on the web is achieved by a form of some sort. A form is the vessel by which users can create, update and delete a thing. Be it commenting on a blog post, buying a product all the way through to a fully fledged administrative system, forms are always front and center.
+
+## Why patterns?
+
+Design patterns serve as guidance to those who solve similar problems over and over. The reason why that is useful is twofold.
+
+First, instead of solving the same problems from scratch, we can refer to previously used, available, recognised and well-tested patterns which saves us a lot of time.
+
+Second, by solving similar problems in similar ways, the experience becomes familiar to users. Familiar experiences require uses to think less because they just know how something works based on previous experience.
+
+Think about it, every time you approach a door you intuitively know that it needs to opened and closed and that it leads to some destination. The same goes for patterns.
+
+Leveraging design patterns for forms or any other problem space is simply a sensible thing to do.
+
+Why these particular problems?
+
+I've thought long and hard before picking these particular problems to solve with you. The short of it is that these are the problems that come up over and over from project to project.  I want to solve common problems in a robust and fully inclusive way.  Seeing as you're here, I'm guessing it's the same for you.
+
+Why by example. Reference bits in evaluation by pattern. Being told what to do is one thing. Being trained through example is an entirely other matter. Much better.
+
+Before we can design solutions, we need to be upheld to some principles. What are we without those. So we need to either create some or steal other people's. But how do we come up with design principles?
+
+This is a book about designing forms for consumption on the web. As such we would be remiss to ignore the essence of the web itself. The very power of the web is one of reach and accessibility. Anyone with a connection and a browser gets access to the same thing as anyone else.
+
+If we're going to choose any principles I think it has to align with this. That whatever it is we build considers the swath of users that exist in the world. Designing inclusively means designing for everyone. Everyone has access to the internet. So I can think of no better place to steal principles than the ones at Inclusive Design Principles Dot Org.
+
+Interestingly only one of those principles pertains to accessibility. The others just sound like.good design.  Here they are laid out bare for your convenience.
+
+Day
+Day
+Day
+
+Throughout this book well.be referring back to these principles and pointing out where our design fails and succeeds in these regards. Principles should at least indirectly guide us through the design process.
+
+---
+
 # Introduction
 
 I remember my first experiences with web design. It was 2000 and one of the modules on my AVCE ICT course was ‘web design’. Class mostly consisted of copying other people's code via *view source* and make small changes.

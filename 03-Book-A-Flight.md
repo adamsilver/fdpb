@@ -1,6 +1,6 @@
 # Book A Flight
 
-In this chapter, we'll design a flight booking service. At first this may seem a bit *niche*, especially when compared to *A Registration Form* and *A Checkout Flow*. However, we're going to explore several complex problems that in the end will result in reusable patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or hotel room.
+In this chapter, we'll design a flight booking service. At first this may seem a bit niche, especially when compared to *A Registration Form* and *A Checkout Flow*. However, we're going to explore several complex problems that in the end will result in reusable patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or hotel room.
 
 Here are the main steps in the flow:
 
@@ -12,15 +12,23 @@ Here are the main steps in the flow:
 
 ## 1. Choosing where to fly
 
-First, users have to choose an origin and destination. That is a place in which to fly from and to. Without this information the service can't offer any flights. What's the best way of asking users for this information?
+First, users have to choose an origin and destination. That is, places to fly from and to. Without this information the service can't offer any flights. What's the best way of asking users for this information?
 
 As designers, we should try and use the features that are native to the browser. This is because, generally speaking, they are are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement. Browsers offer 3 suitable native controls. We're going to look at each of them now and play them off against each other.
 
 ### Select box
 
-Designers often use `select` boxes due to their space-saving qualities. When an interface is crammed with features, learning to design components that hide discrete pieces of the interface would seem to be an essential weapon in a designers arsenal. But in fact, design is about so much more than saving space.
+A select box hides choices behind a menu. Clicking the select box reveals the choices. Once a choice is selected, the menu collapses once more.
 
-If you think about it, the real problem is that the interface has been crammed with features in the first place. In any case, interface design is about so much more than saving space. And select boxes are known for being problematic because:
+Designers often use `select` boxes due to their space-saving qualities. What's particulary interesting thouggh, is why we need to save space in the first place.
+
+Often an interface is crammed with features, normally to please stakeholders, not users. It's understandable then, why learning ways to hide discrete pieces of an interface has become an essential weapon in a designer's arsenal. But design, so about so much more than saving space.
+
+Really, if an interface contains too many features, it's our job as designers to declutter it. Only then can we evaluate the best component for the job, given ample space to design in. But back to select boxes specifically.
+
+Select boxes are well-known for being hard-to-use. Usability expert Luke Wobrelski even goes as far to say that select boxes should be the ‘UI of Last Resort’[^1] and he suggests some better alternatives, some of which we'll be using later on.
+
+In summary though, select boxes are problematic because:
 
 - some users find them hard to close.
 - some users try to type into them.
@@ -30,15 +38,13 @@ If you think about it, the real problem is that the interface has been crammed w
 - they hide choices behind an unnecessary extra click.
 - they are not easily searchable.
 
-Usability expert, Luke Wobrelski, even goes as far to say that select boxes should be the ‘UI of Last Resort’[^1]. Unsurprisngly then, we'll look for a better alternative.
-
 ### Radio buttons
 
-Radio buttons, unlike select boxes, are generally well-understood and easy-to-use, not least because they *don't hide information*. Everything is fully exposed making them easy to compare, scan and select. They're also more maleable. That is, they let us put whatever content in what ever format we want inside the label (more on that later).
+Radio buttons, unlike select boxes, are generally well-understood and easy-to-use, not least because they don't hide choices. They are fully exposed making them easy to compare, scan and select. They're also more maleable. That is, they let us put whatever content in what ever format we want inside the label (more on that later).
 
 The problem with radio buttons, however, is that they're far less suitable when there are vast amounts of them. An airline could fly to hundreds of destinations. Therefore, the page becomes long and unweildly, causing the user to scroll (or keyboard users to *tab*) a lot.
 
-Don't get me wrong, users are more than happy to scroll and we shouldn't use this as a cruch for changing course. But it's certainly worth while to keep exploring other options are our disposal.
+Don't get me wrong, users are more than happy to scroll and we shouldn't use this as a crutch for changing course. But it's certainly worthwhile exploring other options are our disposal.
 
 ### Search input
 
@@ -46,19 +52,19 @@ A search box (`input type="search"`) is a standard text box with some added extr
 
 ![Image here](/etc/)
 
-Using a free search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airelines, however, usually have a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a no results page due to typos or mismatched data.
+Using a free search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a no results page due to typos or mismatched data.
 
 ### An autocomplete component
 
-Users need a control that let's users filter a long list of destinations quickly. Something that combines the flexibility of a text box with the assurance of a select box. This is known as an autocomplete. An autocomplete is also known by other names such as *type ahead*, *predictive search* or *combobox* but let's settle on *autocomplete* for communication purposes.
+Users need a control that lets users filter a long list of destinations quickly. Something that combines the flexibility of a text box with the assurance of a select box. This is known as an autocomplete. An autocomplete is also known by other names such as *type ahead*, *predictive search* or *combobox*.
 
-Autocomplete controls work by suggesting, in this case, destinations, as the user starts typing. As suggestions appear, you can select one quikcly, automatically *completing* the field. Hence the name. This saves users scrolling and can be designed to be forgiving of small typos.
+Autocomplete controls work by suggesting options (destinations in this case) as the user starts typing. As suggestions appear, you can select one quickly, automatically *completing* the field. Hence the name. This saves users scrolling and can be designed to be forgiving of small typos.
 
-HTML5 introduced the `datalist` element which combines with a text box to create the desired behaviour. Unfortunately it's not ready for prime time due to its show stopping bugs[^3]. If you're project has the advantage of being consumed to a specific modern bug-free browser that you can control, then this may still be a suitable option for you.
+HTML5 introduced the `datalist` element which combines with a text box to create the desired behaviour. Unfortunately it's not ready for prime time due to its show stopping bugs[^3]. In the unlikely event that your project is locked down to a specific (set of) browser(s) that don't suffer from the bugs, then this may still be a suitable option for you.
 
-For us, we've already defined our principles. We know we want to give users the best experience they can get no matter their browser choice or lack thereof. A word of warning though, we're about to break new ground. Designing custom form components is hard work. Certainly orders of magnitude harder than simply using a native one.
+But having defined our design principles (at the beginning of the book), we'll want to give users the best experience possible, no matter their browser choice or lack thereof. A word of warning though, we're about to break new ground. Designing custom form components is hard work. Certainly orders of magnitude harder than simply using a native one.
 
-To help us through though, Steve Faulkner, accessibility expert has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. In a short a custom component should:
+To help us through though, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. In a short a custom component should:
 
 - Be focusable with the keyboard.
 - Be operable with the keyboard.
@@ -66,6 +72,8 @@ To help us through though, Steve Faulkner, accessibility expert has what he call
 - Work without Javascript.
 
 To abide by the last rule we need to talk about progressive enhancement. It was only a matter of time until this subject came up. We touched upon the subject in chapter 1 but it's worth while delving deeper now.
+
+#### Progressive enhancement
 
 Progressive enhancement is about giving everyone a core experience. Then, if possible and where necessary, creating a better, ‘enhanced’ experience for those who use a better browser. By better, I mean one that is more capable. When Javascript is available users will get the enhanced autocomplete component, but what happens when there is a Javascript failure?
 
@@ -555,14 +563,14 @@ Notes:
 
 ## 2. Choosing when to fly
 
-Dates are hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, day light savings and on and on. It's hard work designing all of this complexity out of an interface. Traditionally 3 select boxes, for day, month and year are used to enter dates. One of the redeeming qualities of select boxes is that they stop users entering wrong information. In the case of dates, even *this* doesn't hold up. That's because a user can, for example, select *31 February 2017* which is, of course, not a valid date.
+Dates are hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface. Traditionally 3 select boxes, for day, month and year are used to enter dates. One of the redeeming qualities of select boxes is that they stop users entering wrong information. In the case of dates, even *this* doesn't hold up. That's because a user can, for example, select *31 February 2017* which is, of course, not a valid date.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
 The other reason select boxes are used, is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We simply can't accurately determine the user's intent based on what they enter. Therefore, we can't be as forgiving as we would like to be.
 
-But let's step back a moment. Before, we can design a date component, first we should understand what type of date we're asking for. Goverment Digital Services (GDS) talks about this in their Service Manual[^6]. It says *the way you should ask for dates depends on the types of date you’re asking for*. There are 3 main types of date. We'll step through each in turn, to see if one of those suits the problem we're trying to solve.
+But let's step back a moment. Before designing a date component, we first should understand what type of date we're asking for. The Goverment Digital Services (GDS) talks about this in their Service Manual[^6]. It says ‘the way you should ask for dates depends on the types of date you’re asking for’. There are 3 main types of date. We'll step through each in turn, to see if one of those suits the problem we're trying to solve.
 
 ### Dates from documents
 
@@ -572,7 +580,7 @@ The field expects users to type a number matching the format found on the card. 
 
 ### Memorable dates
 
-The defacto thinking is that date pickers are always better than  typing numbers into a text box. For memorable dates, such as date of birth, this is most certainly not true. It's arduous having to  scroll and click through multiple years and months to find a date, when typing in 6 numbers unassisted is considerably quicker.
+The defacto thinking is that date pickers are always better than  typing numbers into a text box. For memorable dates, such as date of birth, this is most certainly not true. It's arduous having to scroll and click through multiple years and months to find a date, when typing in 6 numbers unassisted is considerably quicker.
 
 GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. Why 3 boxes? Because it solves the formatting issues we discussed earlier.
 
@@ -607,9 +615,9 @@ You may have noticed that there's a pattern attribute on the inputs. Some versio
 
 ### Finding dates with a calendar
 
-In the case of booking a flight, users are neither entering a memorable date nor one found in a document. Booking a flight normally revolves around some date in the future. We often think of date and time in relation to the Gregorian calendar. That is that there are 12 months (or 52 weeks) in a year. And each week consists of 7 days. Basically, a calendar.
+In the case of booking a flight, users are neither entering a memorable date nor one found in a document. Booking a flight normally revolves around some date in the future. As humans, we conceptualise time in years, months, and days etc. And when we're diarising future plans we use a calendar, which aligns with that notion.
 
-Designing an interface that users are already familiar with makes wayfinding that much easier. People intuitively know how calendars work. In the interface design world, we call this component a date picker. Users can navigate through years, months and days easily with the context of what day of the week that lands on. All useful information.
+Designing an interface that users are already familiar with makes wayfinding that much easier. People intuitively know how calendars work. In the interface design world, we call this component a date picker. Users can navigate through years, months and days easily with the context of what day of the week the date lands on. All useful information.
 
 [Date picker](.)
 
@@ -619,18 +627,18 @@ Interfaces that try to solve many problems at once cause problems. The primary u
 
 It's also not very practical from a design perspective. One aspect of design for the web is considering people who use different size screens. Responsive design encourages us to design for small and large screens alike. Cramming lots of information to a page that can ultimately be accessed on small screens is asking for a challenge.
 
-Instead, we'll purposely let users focus on a choosing a date without the distraction of, for example, price and availability information. We'll give this information to users later on
+Instead, we'll purposely let users focus on a choosing a date without the distraction of, for example, price and availability information. We'll give users this information later on in the flow.
 
 #### Date input
 
 Before HTML5, we always had to build our own date picker using Javascript. We know how hard this is because we just created an autocomplete component. Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;have `input type="date"` which to some extent saves us having to design our own component. That's not all they're good for:
 
-- They are performant because they are provided by the browser.
+- They are fast because they are provided by the browser.
 - They are familiar because every website (and native app) will use the same interface.
 - They are accessible by default.
 - Users get improvements and bug fixes as soon as browser vendors release them.
 
-All of which, give us back time and headspace to solve other, more pressing problems. The overused phrase is *don't reinvent the wheel*. Here's how the native date input looks on mobile:
+All of which, give us back time and headspace to solve other, more pressing problems. Here's how the native date input looks on mobile:
 
 ![Mobile native date control](./images/mobile-date.png)
 
@@ -654,7 +662,7 @@ If you're concerned about it looking different in different browsers you needn't
 
 Browsers that don't support date inputs will degrade into a text box, which may be sufficient. Progressive enhancement (there it is again) lets us choose to either degrade gracefully or provide a better fallback with Javascript.
 
-Choosing dates is integral to booking a flight. Letting some users experience the degraded experience is not something that suffices. We'd like it to be better because choosing a date should be simple for everyone.
+Choosing dates is integral to booking a flight. Letting some users experience the degraded experience is not something that's sufficient. We'd like it to be better because choosing a date should be simple for everyone.
 
 First we need to ensure we only give users the component when their browser doesn't support the date input. That is, we'll need to feature detect this capability:
 
@@ -813,13 +821,15 @@ Whilst screen reader users *can* operate the calendar, it's not especially usefu
 
 Jeremy Keith often talks about the web being a *continuum*[^10]. He means the web is constantly changing. New browsers are released frequently. All of them have varying features and capabilities. At any particular moment in time, we need to think about what level of support makes sense for any given component.
 
-As discussed earlier, there is a lack of browser support on desktop but that's been fixed by implementing a custom date picker component. In future things will change. The number of people experiencing the degraded version will diminish as browser support gets better. And, when it does, we can remove the script. This creates a faster page as there is no script to download, and gives us less code to maintain.
+As discussed earlier, there is a lack of (desktop) browser support for date inputs. But we fixed that with the date picker component. In future things will change. The number of people experiencing the degraded version will diminish as browser support gets better. And, when it does, we can remove the script. This creates a faster page as there is no script to download, and gives us less code to maintain.
 
 #### Tying up loose ends
 
-There are some users who use a browser that lacks support for the date input but that Javascript is unavailable. It would be remiss of me to ignore this situation. Afterall there is something to be said for design that ignores people, people ignore it.
+> There is something to be said for design that ignores people, people ignore it.
 
-In this scenario there won't be a hint explaining the expected format. We can't just add one because it will show for those using a browser that does support the date input. The format of which differs. In short, the input doesn't degrade as gracefully as we would have liked it to.
+There are some users who use a browser that doesn't support date inputs. If the user experiences a Javascript failure while using one of these browsers they won't be informed of the expected format.
+
+Remember they'll be supported by the interface when the date input is supported. And they'll also be supported by the date picker component. But in this case, they'll be left hintless. We can't add one because the hint will show for browsers that support the date input whereby the format differs. Unfortunately, the date input doesn't degrade as gracefully as we would have liked it to.
 
 ![Degraded scenario](.)
 
@@ -948,7 +958,7 @@ Notes:
 
 ## 4. Choosing a flight
 
-Up to now, we've merely been collecting user's information. All with the goal of letting users choose a preferential flight. Now we have what we need we can display a list of flights from which the user can choose. Here's how it might look:
+Up to now, we've merely been collecting user's information. All with the goal of letting users choose a preferential flight. Now we have what we need, we can display a list of flights from which the user can choose. Here's how it might look:
 
 ![Image](./images/image.png)
 
@@ -980,9 +990,17 @@ Up to now, we've merely been collecting user's information. All with the goal of
 </div>
 ```
 
-The user specified a date in which to fly. Therefore we're showing flights that match that date. However, we give users the freedom to move back and forth between days using a standard pagination component. This, by the way, conforms to principle 5, *offer choice*.
+The user specified a date on which to fly. Therefore we're showing flights that match that date. However, we give users the freedom to move back and forth between days using a standard pagination component. This, by the way, conforms to principle 5, *offer choice*.
 
-Each flight is represented as a radio button. The label contains departure time, arrival time and ticket price which is everything they need to make their selection. This is one of the nice things about radio buttons, they grant you the flexibility to add as much information to the label with the flexibility to lay out the information hierarchically [TODO: Label html and style].
+Each flight is represented as a radio button. The label contains departure time, arrival time and ticket price which is everything they need to make their selection. This is one of the nice things about radio buttons, they grant you the flexibility to add as much information to the label as necessary, with the flexibility to lay out the information hierarchically.
+
+Earlier I noted that one of the advantages to radio buttons is that we can format the content of the label to suit the needs of users. This is because we can put constructs inside the `<label>` that can be targetted with CSS.
+
+```HTML
+<label>
+	stuff etc
+</label>
+```
 
 ## 5. Choosing where to sit
 
@@ -1000,7 +1018,7 @@ Our context is different. Choosing a seat is a niche interaction and therefore b
 
 ### Layout
 
-Before now, we've ‘stacked’ form fields beneath one an other. Here we've laid them out in rows a bit like they are on a plane. Designing the interface based on a user's mental model makes choosing a seat that bit easier, at least for sighted users. To conform to principle 1&mdash;*provide a comparable experience*&mdash;we need to add visually hidden text just for screen readers. Now's a good time as any to construct the HTML.
+Before now, we've ‘stacked’ form fields beneath one an other. Here we've laid them out in rows a bit like they are on a plane. Designing the interface based on a user's mental model makes choosing a seat that bit easier, at least for sighted users. To conform to principle 1&mdash;*provide a comparable experience*&mdash;we need to add visually hidden text just for screen readers.
 
 ```
 <fieldset>
@@ -1091,9 +1109,9 @@ Screen readers will announce the seat description text as it's part of the label
 }
 ```
 
-You'll notice the use of nested fieldsets. The nested fieldsets indicates which seat belongs to which class (first class or economy). The manner in which we've asked for information before now has increased the complexity here. That is, we didn't ask users how they want to travel, and therefore we need to capture information here.
+You'll notice the use of nested fieldsets. They're needed to indicate which seat belongs to which class (first class or economy). The manner in which we've asked for information before now has increased the complexity here. That is, we didn't ask users how they want to travel, and therefore we need to capture information here.
 
-If, for example, we asked users how they wanted to travel before hand, we could simplify the experience by showing less seats and not needing the extra level of grouping. Adding a little friction upfront is a worthwhile trade-off.
+If, for example, we asked users how they wanted to travel beforehand, we could simplify the experience by showing less seats and not needing the extra level of grouping. Adding a little friction upfront is a worthwhile trade-off.
 
 To mitigate this extra, albeit tiny, amount of friction we can use smart defaults (as discussed in chapter 2) by simply marking *economy* by default. After all, this is the most common choice. Here's how the simplified experience looks:
 
@@ -1184,7 +1202,7 @@ While we're at it we might consider limiting how many seats users can select bas
 
 Without user research it's hard to know if this is a problem or not. If if proves to be, we can limit selection with Javascript. One way to do this is to disable the remaining seats as soon as the limit is reached. But what if the user wants to choose another seat as a replacement? If we disable the remaining seats the interface won't respond.
 
-[Showing no feedback](.)
+![Showing no feedback](.)
 
 Savvy users may realise they have to deselect currently-selected seats first. Less savvy users probably won't. We should do the hard work for them. When the user reaches their quota and selects another seat, the script should uncheck the previous selection automatically.
 
@@ -1257,12 +1275,12 @@ SeatEnhancer.prototype.getCheckedSeats = function() {
 Notes:
 
 - The script listens to the checkbox `focus` and `blur` events.
-- When the user focuses a checkbox a class is added to the container enabling the seat to be styled to mimic a focus state. On `blur` the class is removed.
+- When the user focuses a checkbox, a class is added to the container enabling the seat to be styled to mimic a focus state. On `blur` the class is removed.
 - If the user selects an extra seat, the previously chosen seat is automatically unchecked removing the need for error messages.
 
 ## Summary
 
-This chapter continued where we left off from the previous: By leveraging One Thing Per Page, we could design simple but innovative interfaces that fully utilises the full screen estate. As much as we tried to use native form controls, it became necessary to break new ground by designing 4 custom components from scratch.
+This chapter continued where we left off from the previous: By leveraging One Thing Per Page, we could design simple but innovative interfaces that fully utilise the available screen estate. As much as we tried to use native form controls, it became necessary to break new ground by designing 4 custom components from scratch.
 
 - An autocomplete component which lets users search through a long list of destinations quickly and accurately.
 - A date picker which lets users find a date in the future matching people's concept of time.
@@ -1273,7 +1291,7 @@ This chapter continued where we left off from the previous: By leveraging One Th
 
 - Using radio buttons instead of checkboxes and vice versa.
 - Using select boxes when better alternatives exist.
-- Letting users do the hardwork when the interface can do it for them.
+- Letting users do the hard work when the interface can be designed to do it for them.
 - Adding complexity later on in a flow, when a little friction upfront drastically reduces it.
 - Blindly following age-old advice without consideration of the specific problem.
 

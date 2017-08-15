@@ -1,8 +1,10 @@
-# Book A Flight
+# Book a Flight
 
 In this chapter, we'll design a flight booking service. At first this may seem a bit niche, especially when compared to *A Registration Form* and *A Checkout Flow*. However, we're going to explore several complex problems that in the end will result in reusable patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or hotel room.
 
-Here are the main steps in the flow:
+Booking a flight consists of many discrete steps. The first few steps simply collect user's preferences: where to fly, when to fly and who's flying. Oncew we have that we can give users a choice of available flights. Once they've done that, they can choose where to sit. Finally, users will have to make payment. But as we can reuse the payment patterns from chapter 2, so there's no point covering it again now.
+
+Let's lay out the steps in order now:
 
 1. Choosing where to fly
 2. Choosing when to fly
@@ -18,25 +20,11 @@ As designers, we should try and use the features that are native to the browser.
 
 ### Select box
 
-A select box hides choices behind a menu. Clicking the select box reveals the choices. Once a choice is selected, the menu collapses once more.
+A select box hides choices behind a menu. Clicking the select box reveals the choices. Once a choice is selected and the menu collapses back to its original state.
 
-Designers often use `select` boxes due to their space-saving qualities. What's particulary interesting thouggh, is why we need to save space in the first place.
+Designers often use `select` boxes due to their space-saving qualities. What's particulary interesting though, is why we need to save space in the first place. Often an interface is crammed with features, normally to please stakeholders, not users. It's understandable then, that learning ways to hide discrete pieces of an interface has become a big part of a designer's toolkit. But design is about so much more than saving space. After all, if an interface really is crammed, then our job as designers is to declutter it.
 
-Often an interface is crammed with features, normally to please stakeholders, not users. It's understandable then, why learning ways to hide discrete pieces of an interface has become an essential weapon in a designer's arsenal. But design, so about so much more than saving space.
-
-Really, if an interface contains too many features, it's our job as designers to declutter it. Only then can we evaluate the best component for the job, given ample space to design in. But back to select boxes specifically.
-
-Select boxes are well-known for being hard-to-use. Usability expert Luke Wobrelski even goes as far to say that select boxes should be the ‘UI of Last Resort’[^1] and he suggests some better alternatives, some of which we'll be using later on.
-
-In summary though, select boxes are problematic because:
-
-- some users find them hard to close.
-- some users try to type into them.
-- some users confuse focused options with selected ones.
-- users aren't able to pinch-zoom options on devices.
-- they have limited hierarchy control.
-- they hide choices behind an unnecessary extra click.
-- they are not easily searchable.
+Select boxes in particular are well-known for being hard-to-use. Usability expert Luke Wobrelski even goes as far to say that they should be the ‘UI of Last Resort’[^1] and suggests some better alternatives, some of which we'll discuss later on in this chapter. Besides hiding choices behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focussed options with selected ones. To top it off users can't pinch-zoom the options on devices and they aren't easily searchable.
 
 ### Radio buttons
 
@@ -73,7 +61,7 @@ To help us through though, accessibility expert Steve Faulkner has what he calls
 - Work with assistive devices.
 - Work without Javascript.
 
-To abide by the last rule we need to talk about progressive enhancement. It was only a matter of time until this subject came up. We touched upon the subject in chapter 1 but it's worth while delving deeper now.
+To satisfy the last rule we need to talk about progressive enhancement. We touched upon the subject in chapter 1 but now we should take a deeper look at its role in design.
 
 #### Progressive enhancement
 
@@ -648,7 +636,11 @@ Desktop browser support is not as good (but we'll sort that!). Chrome and Edge w
 
 ![Desktop native date control](./images/desktop-date.png)
 
-If you're concerned about it looking different in different browsers you needn't be. In Progressive Enhancement 2.0, at 16 minutes in[^8], Nicholas Zakas shows that users don't actually notice the differences between browsers. Nobody cares about your website as much as you do and if you're still not convinced check out the rather terse website Do Websites Need To Look The Same In Every Browser?[^9].
+If you're concerned about it looking different in different browsers, don't be. In Progressive Enhancement 2.0, at 16 minutes in[^8], Nicholas Zakas shows that users don't notice differences between browsers. He does this by showing the audience (designers and front-end developers who are trained to notice these details) a photo. He then moves to the next slide that has the same photo again, but this time the photo had a border and drop shadow applied though CSS. Not one person in the audience noticed.
+
+> Nobody cares about your website as much as you do
+
+Really, nobody cares about your website, service or product as much as you do. And if you're still not convinced, check out the rather terse website: Do Websites Need To Look The Same In Every Browser?[^9].
 
 ```HTML
 <div class="field">
@@ -662,9 +654,7 @@ If you're concerned about it looking different in different browsers you needn't
 
 #### What about browsers lacking support?
 
-Browsers that don't support date inputs will degrade into a text box, which may be sufficient. Progressive enhancement (there it is again) lets us choose to either degrade gracefully or provide a better fallback with Javascript.
-
-Choosing dates is integral to booking a flight. Letting some users experience the degraded experience is not something that's sufficient. We'd like it to be better because choosing a date should be simple for everyone.
+Browsers that don't support date inputs degrade into a text box. Often the degraded experience is sufficient, as Nicholas demonstrated with the shadow-less and border-less photo. In the case of choosing a date though we can and should provide a better experience. After all, choosing dates is integral to a booking a flight.
 
 First we need to ensure we only give users the component when their browser doesn't support the date input. That is, we'll need to feature detect this capability:
 

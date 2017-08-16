@@ -680,7 +680,7 @@ In the case of booking a flight, users are neither entering a memorable date nor
 
 Designing an interface that users are already familiar with makes wayfinding that much easier. People intuitively know how calendars work. In the interface design world, we call this component a date picker. Users can navigate through years, months and days easily with the context of what day of the week the date lands on. All useful information.
 
-[Date picker](.)
+![Date picker](.)
 
 #### Some other considerations
 

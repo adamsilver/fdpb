@@ -1,8 +1,8 @@
 # Book a Flight
 
-In this chapter, we'll design a flight booking service. At first this may seem a bit niche, especially when compared to *A Registration Form* and *A Checkout Flow*. However, we're going to explore several complex problems that in the end will result in reusable patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or hotel room.
+In this chapter, we'll design a flight booking service. At first this may seem a bit niche, especially when compared to *A Registration Form* and *A Checkout Flow*. However, we're going to explore several complex problems that in the end, will result in reusable patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or hotel room.
 
-Booking a flight consists of many discrete steps. The first few steps simply collect user's preferences: where to fly, when to fly and who's flying. Oncew we have that we can give users a choice of available flights. Once they've done that, they can choose where to sit. Finally, users will have to make payment. But as we can reuse the payment patterns from chapter 2, so there's no point covering it again now.
+Booking a flight consists of many discrete steps. The first few steps simply collect user's preferences: where to fly, when to fly and who's flying. Once we have that we can give users a choice of available flights followed by choosing where to sit. Finally, users will have to make payment, but we covered payment patterns in the previous chapter.
 
 Let's lay out the steps in order now:
 
@@ -16,17 +16,17 @@ Let's lay out the steps in order now:
 
 First, users have to choose an origin and destination. That is, places to fly from and to. Without this information the service can't offer any flights. What's the best way of asking users for this information?
 
-As designers, we should try and use the features that are native to the browser. This is because, generally speaking, they are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement.
+As designers, we should try and use the features that are native to the browser. That is because, generally speaking, they are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement.
 
-You'd be forgiven for thinking you were spoiled for choice when it comes to form controls: select boxes, radio buttons, text boxes and more recently, datalists. The choice is yours, expect it isn't. Not all of these options are up to the task. Let's look at some of the pros and cons for each.
+You'd be forgiven for thinking you were spoiled for choice when it comes to form controls: select boxes, radio buttons, text boxes and more recently, datalists. The choice is yours, except it isn't. Not all of these options are suitable. Let's look at some of the pros and cons for each.
 
 ### Select boxes
 
 Select boxes, also known as drop-down menus, hide choices behind a menu. Clicking the select box reveals the choices. Once a choice is selected, the menu collapses back to its original state.
 
-Designers often use `select` boxes due to their space-saving qualities. What's particulary interesting though, is why we need to save space in the first place. Often an interface is crammed with features, normally to please stakeholders, not users. It's understandable then, that learning ways to hide discrete pieces of an interface has become a big part of a designer's toolkit. But design is about so much more than saving space. After all, if an interface really is crammed, then our job as designers is to declutter it.
+Designers often use `select` boxes due to their space-saving qualities. What's particulary interesting though, is why we need to save space in the first place. Often an interface is crammed with features, normally to please stakeholders, not users. It's understandable then, that learning ways to hide discrete pieces of an interface has become part of a designer's skillset. But design is about so much more than saving space. After all, if an interface really is crammed, then our first job as designers is to declutter it.
 
-Select boxes in particular are well-known for being hard-to-use. Usability expert Luke Wobrelski even goes as far to say that they should be the ‘UI of Last Resort’[^1] and suggests some better alternatives, some of which we'll discuss later on in this chapter. Besides hiding choices behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focussed options with selected ones. To top it off users can't pinch-zoom the options on devices and they aren't easily searchable.
+Select boxes in particular are hard-to-use. Usability expert Luke Wobrelski even goes as far to say that they should be the ‘UI of Last Resort’[^1] and suggests some better alternatives, some of which we'll discuss later on in this chapter. Besides hiding choices behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focused options with selected ones. To top it off users can't pinch-zoom the options on devices and they aren't easily searchable.
 
 ### Radio buttons
 
@@ -34,7 +34,7 @@ Radio buttons, unlike select boxes, are generally well-understood and easy-to-us
 
 The problem with radio buttons, however, is that they're far less suitable when there are vast amounts of them. An airline could fly to hundreds of destinations. Therefore, the page becomes long and unweildly, causing the user to scroll (or keyboard users to *tab*) a lot.
 
-Don't get me wrong, users are more than happy to scroll and we shouldn't use this as a crutch for changing course. But it's certainly worthwhile exploring other options are our disposal.
+Don't get me wrong, users are more than happy to scroll and we shouldn't use this as a crutch for changing course. But it's certainly worthwhile exploring other options are our disposal. If we can eliminate the need to scroll without introducing new problems, we should.
 
 ### Search input
 
@@ -42,17 +42,17 @@ A search box (`input type="search"`) is a standard text box with some added extr
 
 ![Image here](/etc/)
 
-Using a free search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a no results page due to typos or mismatched data.
+Using a search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a ‘no results’ page due to typos or mismatched data.
 
 ### Datalist
 
-Users need a control that lets users filter a long list of destinations quickly. Something that combines the flexibility of a text input with the assurance of a select box. This is known as an autocomplete. An autocomplete is also known by other names such as *type ahead*, *predictive search* or *combobox*.
+Users need a control that lets users filter a long list of destinations quickly. Something that combines the flexibility of a text input with the assurance of a select box. This is known as an autocomplete. An autocomplete is also known as *type ahead*, *predictive search* or *combobox*.
 
-Autocomplete controls work by suggesting options (destinations in this case) as the user starts typing. As suggestions appear, you can select one quickly, automatically *completing* the field. Hence the name. This saves users scrolling and can be designed to forgive small typos.
+An autocomplete control works by suggesting options (destinations in this case) as the user starts typing. As suggestions appear, you can select one quickly, automatically *completing* the field. Hence the name. This saves users scrolling and can forgive small typos.
 
 HTML5 introduced the `datalist` element which combines with a text box to create the desired behaviour. Unfortunately though, it's not ready for prime time due the fact it's full of bugs[^3]. In the unlikely event that your project is locked down to a specific (set of) browser(s) that don't suffer from the bugs, then this may be a suitable option for you.
 
-But having defined our design principles (at the beginning of the book), we'll want to give users the best experience possible, no matter their browser choice or lack thereof. We're going to have to build a custom autocomplete component from scratch. A quick word of warning though. We're about to break new ground. Designing a robust and inclusive autocomplete component is hard work. Orders of magnitude harder than any native control.
+Having defined our design principles (at the beginning of the book), a buggy control is not acceptable&mdash;we want users to have the best experience possible, no matter their browser choice or lack thereof. We're going to have to build a custom autocomplete component from scratch. A quick word of warning though. We're about to break new ground. Designing a robust and inclusive autocomplete component is hard work. Orders of magnitude harder than any native control.
 
 ### An autocomplete component
 
@@ -63,17 +63,28 @@ To help us through, accessibility expert Steve Faulkner has what he calls a *pun
 - Work with assistive devices.
 - Work without Javascript.
 
-To satisfy the last rule we need to talk about progressive enhancement. We touched upon the subject in chapter 1 but let's take a deeper look at its role in design.
+To satisfy the last rule we need to talk about progressive enhancement. We touched upon the subject in chapter 1 but let's take a deeper look at what it is and its role in design.
 
 #### Progressive enhancement
 
-Progressive enhancement is a cornerstone of inclusive design. It's about so much more than those who turn off Javascript. It's about building solid experiences founded on well-structured HTML (let's call this the core experience). Then enhancing the experience (when it's valuable) with CSS and Javascript (let's call this the enhanced experience).
+Progressive enhancement is a cornerstone of inclusive design. It's about designing experiences that work for everyone as a matter of course. Even in the event of network and scripting failures. For example, a piece of Javascript may fail to load. Or a particular browser may not recognise a particular method call. One that another browser understands perfectly well.
 
-The reason for that is that web pages can fail for a multitude of network failures and styling and scripting errors. For example, the resource didn't load or that the browser didn't understand the script. Whatever the reason, when (not if) a failure occurs, it's the core experience that they'll get.
+Whatever it is, progressive enhancement as an approach to design, means that the website will continue to work. This is because progressively enhanced patterns are formed first with robust and well-structured HTML. Then, and only when it *adds value* enhancing the experience for people who use a more capable browser.
 
-#### Works without Javascript
+![Some diagram](.)
 
-We have the enhanced experience pretty much planned already. But what is the core experience going to be. In effect, we have to pick a native form control, one from the list above. On balance, a select box seems appropriate. It stops users enduring a trip to the server only to see no results.
+For example, some browsers can check your GPS location, others cant. But all browsers can be given a postcode field in which to determine their location. Starting off with a postcode field, and offering capable browsers an enhanced GPS feature is progressive enhancement.
+
+#### The punch list (again)
+
+As we said earlier a custom component should:
+
+- Be focusable with the keyboard.
+- Be operable with the keyboard.
+- Work with assistive devices.
+- Work without Javascript.
+
+To ensure the autocomplete component works without Javascript we need to choose a native form control, that works for everyone. We can call this the core experience. On balance, a select box is approriate as it stops users enduring a server round trip that has the risk of no results.
 
 ![The core experience](/etc/)
 
@@ -91,15 +102,9 @@ We have the enhanced experience pretty much planned already. But what is the cor
 </div>
 ```
 
-#### Satisfying the remaining 3 rules
+The remaining 3 rules can only be achieved by way of authoring the enhanced experienced and consider keyboard users and screen reader users. It's worth mentioned that we also care about those using mouse and touch. The reason for their exclusion in the punch list is because those interactions are very rarely forgotten about.
 
-The remaining 3 rules are as follows:
-
-- Be focusable with the keyboard.
-- Be operable with the keyboard.
-- Work with assistive devices.
-
-Each of these are achieved by combining semantic HTML and Javascript that manages various interactions. The script (shown later) will replace the select box with a text box, menu button, menu and status box. As the user types it shows suggestions that the user can chose from.
+The script (shown later) will replace the select box with a text box, menu button, menu and status box. As the user types it shows suggestions that the user can chose from.
 
 ![The enhanced experience](/etc/)
 

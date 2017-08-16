@@ -56,7 +56,8 @@ Having defined our design principles (at the beginning of the book), a buggy con
 
 ### An autocomplete component
 
-To help us through, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. The primary rules ensure that a custom component should:
+To help us through, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. The rules state that
+ a custom component should:
 
 - Be focusable with the keyboard.
 - Be operable with the keyboard.
@@ -877,7 +878,7 @@ Notes:
 - Pressing <kbd>escape</kbd> hides the calendar and moves focus to the button.
 - Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date and sets focus to text box, then hides the calendar.
 
-Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to principle 5, *give users choice*.
+Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to principle 5, *give users choice* by letting them do either.
 
 #### What about the future?
 
@@ -887,21 +888,21 @@ As discussed earlier, there is a lack of (desktop) browser support for date inpu
 
 #### Tying up loose ends
 
-> There is something to be said for design that ignores people, people ignore it.
+> There is something to be said for design that ignores people, people ignore it.&mdash;person
 
-There are some users who use a browser that doesn't support date inputs. If the user experiences a Javascript failure while using one of these browsers they won't be informed of the expected format.
+There are some browsers that don't support date inputs. If someone users one of these browsers whilst also experience a Javascript failure, they'll see an interface that doesn't clarify the expected date format.
 
-Remember they'll be supported by the interface when the date input is supported. And they'll also be supported by the date picker component. But in this case, they'll be left hintless. We can't add one because the hint will show for browsers that support the date input whereby the format differs. Unfortunately, the date input doesn't degrade as gracefully as we would have liked it to.
+![Demo](.)
 
-![Degraded scenario](.)
+Unfortunately, we can't simply add a hint because supporting browsers will show the date input where the format differs. In this case, the core experience isn't quite as good as we would have liked it to be.
 
-We can reduce the issue a little by forgiving users regardless of how they delimit: slashes, periods or spaces. But typing the year first, for example, *will* cause a validation error and there's nothing we can do. A well-written error message will have to suffice.
+Instead, we'll have to fallback to being as forgiving as possible by letting users delimit by slashes, periods and spaces, whichever their preference. But typing a two-digit year first, for example, will cause an error. A well-written error message will have to suffice.
 
-This is one of those times when a good solution for most, is less than ideal for a minority. It's still accessible but it's not inclusive. That is, they can access the interface and enter a date, but it's far from optimal. [Consider explaining this more.]
+What is great for a majority, is in this case, not ideal for a minority. Whilst accessible (the user can enter a date) it's not inclusive (they may have to rely on error text). [Consider explaining this more. Maybe a heading of its own]
 
 ## 3. Choosing passengers
 
-Users need to specify how many adults, children and infants are flying on the trip. Categorisations are based on age and will affect the price of the ticket.
+Users need to specify how many adults, children and infants are flying on the trip. Categorisations are based on age and affect the price of the ticket.
 
 ![Passengers](./images/choose-passengers.png)
 
@@ -934,9 +935,9 @@ Spinners, also known as steppers, let users increase or decrease the value by a 
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-Having discussed number inputs in chapter 2, we know that some browsers provide their own native stepper buttons. The problem is that they are tiny and hard to click. And mobile browsers don't show them at all&mdash;they just show a numeric keyboard. Instead, we can disable the browser spinners and enhance the input with larger ones.
+Having discussed number inputs in chapter 2, we know that some browsers provide their own stepper buttons. The problem is that they are tiny and hard to click. And mobile browsers don't show them at all&mdash;they just show a numeric keyboard. Instead, we can disable the browser spinners and enhance the input with larger ones. Not only are they easier to use on desktop but it saves mobile users having to use an on-screen keyboard.
 
-[!](.)
+![Thing](.)
 
 ```HTML
 <div class="field">
@@ -967,7 +968,7 @@ Having discussed number inputs in chapter 2, we know that some browsers provide 
 
 A few notes:
 
-- Whilst the best icons are text[^12], the button text employs universally understood minus and plus symbols. This keeps the interface clean and in balance.
+- Whilst the best icons are text[^12] [need to expand this and talk about pros and cons, perhaps it's own section], the button text employs universally understood minus and plus symbols. This keeps the interface clean and in balance.
 - The `aria-label` describes the symbol with text for those using screen readers. Instead of hearing ‘Button, minus symbol’ they'll hear ‘Button, increment’ or similar.
 
 ```JS
@@ -1060,13 +1061,13 @@ Earlier I noted that one of the advantages to radio buttons is that we can forma
 
 ```HTML
 <label>
-	stuff etc
+	TODO stuff etc
 </label>
 ```
 
 ## 5. Choosing where to sit
 
-In Checkboxes Are Never Round[^13], Daniel De Laney says that *interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show&mdash;it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.*
+In Checkboxes Are Never Round[^13], Daniel De Laney says that ‘interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show&mdash;it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.’
 
 Essentially, Daniel is saying that radio buttons tell you that just one can be selected; and checkboxes tell you that *more than one* can. Therefore if one person is travelling use radio buttons, otherwise use checkboxes.
 
@@ -1074,7 +1075,7 @@ Essentially, Daniel is saying that radio buttons tell you that just one can be s
 
 ### Breaking the rules
 
-There are many seats on a plane, therefore there are many inputs on-screen. Traditional advice says radio buttons should be used when there are less than 7 choices, otherwise use a select box. As designers, rules allow us to think less. In the context of a long form, the rule makes sense. But there are always exceptions to rules. When blindly accept rules, without thinking about the context, the resulting solution can suffer.
+There are many seats on a plane, therefore there are many inputs on-screen. Traditional advice says radio buttons should be used when there are less than 7 choices, otherwise use a select box. As designers, rules allow us to think less. In the context of a long form, the rule makes sense. But there are always exceptions to the rule. When blindly accept rules, without thinking about the context, the resulting solution can suffer.
 
 Our context is different. Choosing a seat is a niche interaction and therefore benefits from special treatment. Also, we don't have the same problem as a standard form because we're using One Thing Per Page from chapter 2. This lets us use the majority of the screen to design something better.
 
@@ -1171,11 +1172,11 @@ Screen readers will announce the seat description text as it's part of the label
 }
 ```
 
-You'll notice the use of nested fieldsets. They're needed to indicate which seat belongs to which class (first class or economy). The manner in which we've asked for information before now has increased the complexity here. That is, we didn't ask users how they want to travel, and therefore we need to capture information here.
+You'll notice the use of nested fieldsets. They're needed to indicate which seat belongs to which class (first class or economy). The manner in which we've asked for information before now has increased the complexity here. That is, we didn't ask users how they want to travel, and therefore we need to capture that here.
 
 If, for example, we asked users how they wanted to travel beforehand, we could simplify the experience by showing less seats and not needing the extra level of grouping. Adding a little friction upfront is a worthwhile trade-off.
 
-To mitigate this extra, albeit tiny, amount of friction we can use smart defaults (as discussed in chapter 2) by simply marking *economy* by default. After all, this is the most common choice. Here's how the simplified experience looks:
+To mitigate this extra, albeit, tiny amount of friction we can use smart defaults (as discussed in chapter 2) by simply marking *economy* by default. After all, this is the most common choice. Here's how the simplified experience looks:
 
 ![Image](./images/image.png)
 
@@ -1234,13 +1235,13 @@ Note: Unavailable seats are marked as disabled (by setting a disabled attribute 
 
 ### Enhancing the interface
 
-Visually presenting seats by row may cause seats to wrap (or cause a horizontal scroll bar) on small screens. Whilst this is certainly accessible, it's not ideal. If user research shows this to be a problem, we can look at ways of saving space.
+Visually presenting seats by row may cause seats to wrap (or cause a horizontal scroll bar) on small screens. Whilst this is certainly accessible, it's not ideal. If user research shows this to be a problem, we can look at ways to save space.
 
 One way to do that is by hiding the checkboxes and making the seats look clickable. Hiding the checkboxes through CSS alone is dangerous because pressing <kbd>tab</kbd> moves focus to the checkbox, not the label. This breaks the interface because as a user tabs to the hidden checkbox, there is no feedback to know which, if any, checkbox is focussed.
 
 To fix this, we need to use Javascript by listening to `focus` and `blur` events. As the user moves focus to the visually hidden checkbox, a class is added to the *visible* label giving users the illusion that it is focused.
 
-[!Focus](.)
+![Focus](.)
 
 ```CSS
 .enhanced .plane-seat input {
@@ -1254,7 +1255,7 @@ To fix this, we need to use Javascript by listening to `focus` and `blur` events
 }
 ```
 
-The CSS is applied only once we know Javascript is available. This is achieved by adding a class of `enhanced` to the document element:
+The CSS is applied only once we know Javascript is available. This is achieved by adding a class of `enhanced` to the document element in the `<head>` of the document:
 
 ```JS
 document.documentElement.className = 'enhanced';
@@ -1266,7 +1267,7 @@ Without user research it's hard to know if this is a problem or not. If if prove
 
 ![Showing no feedback](.)
 
-Savvy users may realise they have to deselect currently-selected seats first. Less savvy users probably won't. We should do the hard work for them. When the user reaches their quota and selects another seat, the script should uncheck the previous selection automatically.
+Savvy users may realise they have to deselect currently-selected seats first. Less savvy users probably won't. Instead, let's do the hard work for them. As the user surpasses their quota the script should uncheck the previous selection automatically.
 
 ```JS
 function SeatEnhancer(max) {

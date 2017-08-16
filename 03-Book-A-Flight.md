@@ -84,7 +84,7 @@ As we said earlier a custom component should:
 - Work with assistive devices.
 - Work without Javascript.
 
-To ensure the autocomplete component works without Javascript we need to choose a native form control, that works for everyone. We can call this the core experience. On balance, a select box is approriate as it stops users enduring a server round trip that has the risk of no results.
+To ensure the autocomplete component works without Javascript we need to choose a native HTML form control because they work for everyone even when there's a network or scripting failure. On balance, a select box is appropriate because it saves a server round trip that could lead to no results.
 
 ![The core experience](/etc/)
 
@@ -102,9 +102,9 @@ To ensure the autocomplete component works without Javascript we need to choose 
 </div>
 ```
 
-The remaining 3 rules can only be achieved by way of authoring the enhanced experienced and consider keyboard users and screen reader users. It's worth mentioned that we also care about those using mouse and touch. The reason for their exclusion in the punch list is because those interactions are very rarely forgotten about.
+The remaining 3 rules are achieved by crafting the enhanced experience. Specifically, ensuring that any Javascript event listeners are handled and that certain elements are focusable and announceable. It's worth mentioning that we must also cater for mouse and touch screen users. They're excluded from the punch list because those interactions are very rarely forgotten about.
 
-The script (shown later) will replace the select box with a text box, menu button, menu and status box. As the user types it shows suggestions that the user can chose from.
+The script (discussed shortly) replaces the select box with a text box, button, menu and status box. This is shown below along with the Javascript enhanced HTML.
 
 ![The enhanced experience](/etc/)
 
@@ -146,7 +146,7 @@ The script (shown later) will replace the select box with a text box, menu butto
 </div>
 ```
 
-This structure consists of four main parts: The text box, the button, the menu and the status box. Let's discuss each of those now.
+Let's break down the HTML into the 4 main parts and explain their structures.
 
 #### The text box
 
@@ -163,22 +163,22 @@ This structure consists of four main parts: The text box, the button, the menu a
 >
 ```
 
-- The role is set to `combobox` indicating that this control is more than just a regular text box.
+- The role is set to `combobox` indicating that this is more than just a regular text box.
 - The `aria-autocomplete` attribute indicates that a list of options will appear from which the user can choose.
 - The `aria-expanded` attributes tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
 - The `autocomplete` attribute is set to `off` to stop browsers making their own suggestions interfering with those offered by the component itself.
 
-#### The button
+#### The menu toggle button
 
 ```HTML
 <button class="autocomplete-button" type="button" tabindex="-1" aria-label="Show suggestions">▾</button>
 ```
 
-- The button is mostly for mouse users. Clicking it reveals all the suggestions, similar to the select box.
+- The button is for mouse users. Clicking it reveals all the suggestions, similar to the select box.
 - It has `type="button"` which stops it from submitting the form like a regular submit button.
-- The `tabindex` attribute is set to `-1` because we don't want to be part of the tab sequence. Keyboard interaction is handled through the arrow keys (more on that shortly).
+- The `tabindex` attribute is set to `-1` because we don't want it to be part of the tab sequence. Keyboard interaction is handled with Javascript keyboard events (more on this shortly).
 
-#### The menu
+#### The suggestions menu
 
 ```HTML
 <ul
@@ -208,11 +208,24 @@ This structure consists of four main parts: The text box, the button, the menu a
 </div>
 ```
 
-- The role is set to `status` so that screen readers will announce the contents when the content changes. The script will inject *13 results are available* for example.
-- The `aria-live="polite"` attribute ensures that screen readers don't interrupt users as they type. Instead waiting until they've finished doing so.
+- The role is set to `status` so that screen readers will announce the contents when the content changes. The script will inject *13 results are available* for example which screen readers will announce.
+- The `aria-live="polite"` attribute ensures that screen readers don't interrupt users as they type. Instead waiting until they've finished.
 - [DOUBLE CHECK] The `aria-atomic="true"` attribute ensures the entirety of the message is announced, even if a small part of the status was injected by Javascript.
 
 #### The Javascript
+
+As noted earlier, the Javascript is responsible for replacing the select box with an autocomplete control made up of the previously mentioned parts. But the enhanced HTML does nothing on its own. Javascript is responsible for adding event listeners, mostly to handle keyboard events as the user types and navigates the component with the arrow keys.
+
+Interaction notes:
+
+- When focus is within the text box, pressing <kbd>down</kbd> moves focus to the first option in the panel.
+- When an option is focussed, pressing <kbd>down</kbd> moves focus to the next option. Pressing <kbd>up</kbd> moves focus to the previous option.
+- When an option is focused, pressing <kbd>enter</kbd> or <kbd>space</kbd> or clicking/tapping the option populates the text box with the value and closes the menu.
+- Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form (like normal).
+- Clicking the down arrow button, reveals all the possible options.
+- Pressing <kbd>escape</kbd> closes the menu.
+
+The complete script:
 
 ```Javascript
 function Autocomplete(control) {
@@ -605,15 +618,6 @@ Autocomplete.prototype.isElementVisible = function(container, element) {
     return visible;
 };
 ```
-
-Notes:
-
-- When focus is within the text box, pressing <kbd>down</kbd> moves focus to the first option in the panel.
-- When an option is focussed, pressing <kbd>down</kbd> moves focus to the next option. Pressing <kbd>up</kbd> moves focus to the previous option.
-- When an option is focused, pressing <kbd>enter</kbd> or <kbd>space</kbd> or clicking/tapping the option populates the text box with the value and closes the menu.
-- Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form (like normal).
-- Clicking the down arrow button, reveals all the possible options.
-- Pressing <kbd>escape</kbd> closes the menu.
 
 ## 2. Choosing when to fly
 

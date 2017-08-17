@@ -1,39 +1,37 @@
 # An inbox
 
-My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are tricky to manage.
+My sister loves to-do lists. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are tricky to manage. On the web, there are several types of lists and there are some design patterns that have emerged over the years to deal with managing them.
 
-On the web, there are several types of lists and there are some design patterns that have emerged over the years to deal with managing them. In this chapter, we're going to look at action multiple things in a list at the same time. My sister loves pen and paper, but if we do this right, perhaps she'll be converted to digital.
-
-We're going to design an inbox. Really just a list of emails. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there the interface must let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk.
+We're going to design an inbox. In other words, a list of emails. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there easily, the interface will let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk. My sister loves pen and paper, but if we do this right, perhaps she'll be converted to digital.
 
 ## List types
 
-First, we're going to need to decide how to construct the HTML to represent this list. The meaning, or semantics, behind elements should drive its design. There are 4 elements we can use to construct lists:
+First, we're going to decide how best to construct the inbox using mark-up. The meaning&mdash;or semantics&mdash;behind elements should drive their visual design. That is something should look like it behaves. There are 4 elements we can use to construct lists:
 
-- Description (formerly definition) lists (`<dl>`), used for key-value pairs such as term and definition.
-- Ordered lists (`<ol>`), used for an ordered list such as cooking instructions where order matters.
-- Unordered lists (`<ul>`), used for a list where order doesn't matter, like this bullet list.
-- Tables (`<table>`), used to house tabular data a bit like an excel spreadsheet.
+- Description lists (`<dl>`), used for key-value pairs such as term and definition.
+- Ordered lists (`<ol>`), used for lists where order matters.
+- Unordered lists (`<ul>`), used for a lists where order doesn't matter.
+- Tables (`<table>`), used to house tabular data.
 
-Let's discuss the pros and cons of each in relation to the inbox interface.
+Let's discuss the pros and cons of each in relation to our inbox.
 
 ### Description lists
 
-Description lists are good for showing a single record of information. For example a glossary or someone's profile. An inbox contains multiple records (in this case emails), ruling this element out immediately.
+Description lists are good for showing a single record of information. For example a glossary or someone's profile. An inbox, however, contains multiple records (in this case emails), ruling this element out immediately.
+
+![A description list](.)
 
 ### Tables
 
-Tables are useful for tabular data. They are particularly useful when users need to compare and sort the data within it, which is typically what you want to do in a spreadsheet for example. This makes sense if you need to compare, sort and perhaps total data.
+Tables are useful for tabular data. Like an excel spreadsheet, they are particularly useful when users need to compare and sort the data within it. But, if you don't, using tables is constraining, particularly on mobile. This is because on small screens there is no room to show more than one or two columns. Even then, it's a squeeze and could cause horizontal scroll bars or text to become unreadable as it will wrap prefusly.
 
-But, if you don't, then using tables is unnecessarily constraining, particularly on mobile. This is because on small screens there is no room to show more than one or two columns. Even then, it's a squeeze and could cause horizontal scroll bars or text to become unreadable as it will wrap prefusly.
+Another related problem with tables is that they aren't responsive. In fact, they are inherently tied to the way the look. As such, it's hard to make tables not look like tables using CSS. But, even if you could, that would be deceptive and counterproductive as we'll see shortly.
 
-Another related problems with tables is that they aren't responsive. they are inherently tied to the way the look. As such is hard to make tables not look like tables using CSS. Even if you could, that would be deceptive and counterproductive.
-
-Gmail uses tables and puts recipient, subject and date sent into columns. Interestingly though there are no headings, which is yet another clue that tables have been used for layout purposes rather than their semantic qualities. Jeremy Keith talks about the idea of material dishonesty is in his book Resilient Web Design[^]:
+Gmail uses tables and puts recipient, subject and date sent into columns. Interestingly though there are no headings, which is another clue that tables have been used for layout purposes rather than their semantic qualities. Jeremy Keith talks about the idea of material dishonesty is in his book Resilient Web Design[^]:
 
 > Using TABLEs for layout is materially dishonest. The TABLE element is intended for marking up the structure of tabular data. The end result [...] is a façade. At first glance everything looks fine, but it won’t stand up to scrutiny. As soon as such a website is stress‐tested by actual usage across a range of browsers, the façade crumbles.
 
-Here's a practical example of this. See the following table mark-up. The `<tr>` is wrapped in an `<a>` to let users read the email. The problem is that browsers ignore this code. It's simply not allowed. Gmail fixes this by using Javascript. But as we know this is an act of exlusivity  because not everyone has Javascript. And frankly it's totally unnecessary.
+See the following table mark-up as an example of this. The `<tr>` is wrapped in an `<a>` to let users read the email. The problem is that browsers ignore this code. It's simply not allowed. Gmail fixes this by using Javascript. But as we know, this is an act of exlusivity  because not everyone has Javascript. And frankly it's totally unnecessary.
 
 ```HTML
 <table class="inbox">
@@ -49,9 +47,10 @@ Here's a practical example of this. See the following table mark-up. The `<tr>` 
 
 ### List items
 
-The difference between ordered and undordered lists lies in the name. If order matters then&mdash;and sorry for stating the obvious&mdash;use an order list. For example, if you're following the steps in a recipe. An inbox is a list of emails that don't have to be dealt with in order. So let's rule out ordered lists and focus on unordered ones instead.
+The difference between ordered and unordered lists lies in the name. If order matters&mdash;for example, if the user is expected to follow the steps in order, such as a recipe&mdash;use an ordered list. An inbox is a list of emails that don't have to be dealt with in order. So let's rule out ordered lists a
+nd focus on unordered ones instead.
 
-The advantage of list items over tables is that they are stylistically malleable and therefore responsive. On small screens we can stack the information within each list item. On big screens we can position the information into columns. Also, we can make the entire ‘row’ clickable without resorting to Javascript hacks. Less work and less problems.
+The advantage of list items over tables is that they are stylistically malleable and therefore responsive. On small screens we can stack the information within each list item. On big screens we can position the information into columns. And we can make the entire ‘row’ clickable without resorting to Javascript hacks. Less work and less problems.
 
 ```HTML
 <ul class="inbox">
@@ -65,7 +64,7 @@ The advantage of list items over tables is that they are stylistically malleable
 </ul>
 ```
 
-List items seem more appropriate anyway. Not only do column headings seem redundant but there's no need for comparison. Mailchimp takes the same approach as above.
+List items seem more appropriate anyway. Not only do column headings seem redundant but there's no need for comparison. Mailchimp, for example, uses list items as shown below.
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
@@ -73,37 +72,37 @@ Talking about lists may seem out of place in a book about forms, but forms don't
 
 ## Marking email for action
 
-To let users select and action multiple emails at once, we'll need to add a checkbox next to each email.
+To let users select and action multiple emails at once, we'll need to add a checkbox next to each email. Unlike all other fields in the book so far, the checkbox has a missing label. In *almost* all cases, a visible label should be placed beside the checkbox. However, this is a bit of a special case because the interface handles two disparate jobs: viewing email and managing it.
 
 ```
 <ul class="inbox">
 	<li>
 		<input type="checkbox" name="email">
 		<a href="/emails/1/">
-			<div class="inbox-recipient">From Heydon Pickering</div>
-			<div class="inbox-subject">Subject: Buttons</div>
-			<div class="inbox-date">19/09/2017</div>
+			<div class="inbox-recipient">John Oates</div>
+			<div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
+			<div class="inbox-date">10 Aug</div>
 		</a>
 	</li>
 	...
 </ul>
 ```
 
-Unlike all other fields in the book so far, the checkbox has a label missing. In *almost* all cases, a visible label should be placed beside the checkbox. However, this is a bit of a special case because the interface handles two disparate jobs: viewing email and managing it.
+To an extent visible labels can be omitted from the interface. You could even argue that having them would interfere with the expected behaviour. Clicking it should take the user to read the email. We can't have a link and label occupy the same position because they have completely different behaviour. But what can we do?
 
-In this case we can go without having visible labels. You could even argue that having them would interfere with the navigable behaviour of the contents. The problem is that we can't have a `<label>` and a `<a>` occupy the same position in the interface. There are two possible approaches: to use the concept of modes or to simply hide the label.
+### Use modes
 
-### Using modes
-
-As we said earlier, the interface is complicated because it's doing two jobs at once. We can split these jobs out and use modes. This means creating two separate views of the inbox: one that is read-only and one that is for bulk-action. Read-mode has no forms; clicking an email navigates to the email (like normal). When in bulk-actin mode, the content is wrapped in a `<label>` so clicking it checks the checkbox (again like normal).
+The interface is a little complicated because it's trying to do 2 jobs at the same time. One way of simplifying things and re-introducing a visible label is by splitting apart the 2 jobs using the concept of modes. They work by having two separate, allbeit similar, pages. One is reading email and the other for managing it.
 
 ![Modes use tabs or a link to switch](./images/modes.png)
 
-Modes are best suited when one mode is used more than the other. But when both are used frequently, having to switch all the time is undesirable.
+The user can toggle between read-mode and manage-mode simply by clicking a link to each view. When in read-mode, there will be no forms, no checkboes and therefore no need for labels. The entire row is a link, that when clicked takes the user to read their email. When in manage-mode, the entire row is a label, that when clicked, marks the checkbox.
 
-### Visually hiding the label
+Modes are best suited when one mode is used more frequently than the other. However, when both are used frequently, such is the case of an inbox, having to switch back and forth between modes is undesirable.
 
-There are two ways to create a hidden label. One concise way to do this is by using `aria-labelledby`:
+### Visually hide the label
+
+Instead of using modes, we can include a label and hide with CSS. This makes the interface accessible for screen reader users. There are two ways to create a hidden label. The first is to use `aria-labelledby`. Using this attribute means reusing the content that we already have in the HTML, which is useful. But ideally, we should only use ARIA attributes when there isn't a native equivalent. The other small downside is having to scatter unique `id`s to connect the values to the input.
 
 ```
 <fieldset class="inbox">
@@ -112,16 +111,18 @@ There are two ways to create a hidden label. One concise way to do this is by us
 		<li>
 			<input type="checkbox" name="email" aria-labelledby="e1_recipient e1_subject e1_date">
 			<a href="/emails/1/">
-				<div class="inbox-recipient" id="e1_recipient">From Heydon Pickering</div>
-				<div class="inbox-subject" id="e1_subject">Subject: Buttons</div>
-				<div class="inbox-date" id="e1_date">19/09/2017</div>
+				<div class="inbox-recipient" id="e1_recipient">John Oates</div>
+				<div class="inbox-subject" id="e1_subject">Your Amazon.co.uk order #123 is out for delivery</div>
+				<div class="inbox-date" id="e1_date">10 Aug</div>
 			</a>
 		</li>
 	</ul>
 </fieldset>
 ```
 
-As I've probably drummed into you by now, ARIA should be used as a last resort. Practically this is because it means having to reference several `id` attributes to make it work. Instead we could use a `<label>`:
+The other option is of course to use a real `<label>`. This has better support, but does mean duplicating the contents and hiding it with CSS (using the same tecnique as in chapter 3). On one hand, we shouldn't prematurely optimise for performance. But on the other, it pays to be mindful of bloated HTML which can diminish the experience by causing operations to take longer. Screen reader users especially may find their software unresponsive.
+
+There is actually a hidden benefit to duplicating the contents just for screen readers. It means that we can craft a screen-reader specific message as shown below, allowing us to avoid abbrevitions and making the sentence sound more natural audibly.
 
 ```
 <fieldset class="inbox">
@@ -129,22 +130,16 @@ As I've probably drummed into you by now, ARIA should be used as a last resort. 
 		<ul>
 			<li>
 			<input type="checkbox" name="email" id="email1">
-			<label for="email1">From Heydon Pickering about Buttons (19 September 2017)</label>
+			<label for="email1">From John Oates, subject ‘Your Amazon.co.uk order #123 is out for delivery’ (10 August 2017)</label>
 			<a href="/emails/1/">
-				<div class="inbox-recipient">From Heydon Pickering</div>
-				<div class="inbox-subject">Subject: Buttons</div>
-				<div class="inbox-date">19/09/2017</div>
+				<div class="inbox-recipient">John Oates</div>
+				<div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
+				<div class="inbox-date">10 Aug</div>
 			</a>
 		</li>
 	</ul>
 </fieldset>
 ```
-
-This has excellent support but it does mean duplicating the contents, only to hide it with CSS (using the same technique as in chapter 3). Even though we shouldn't prematurely optimise for performance, we should be mindful that bloated HTML can diminish the experience for many users causing operations to to take longer. Assistive technology users especially may find their software unresponsive.
-
-Much to our frustration *perfect* rarely exists in the world of design. On balance, exchanging a bit of duplication for a more inclusive experience is preferable. In fact, having a hidden label lets us craft a better message for screen readers:
-
-*From Heydon Pickering about Buttons (19 September 2017)*
 
 ### Highlighting marked emails
 
@@ -152,19 +147,15 @@ The deal with human-computer interaction is that when the human does something, 
 
 It is, however, possible to highlight the entire row with CSS and Javascript. As designers, we're tempted to do more than the minimum. We think that more is better. We think that more is a symbol of hard work. It's actually a lot harder to *resist* doing more, than simply *doing* more. Constantly striving for less in a world that rewards you for doing more is very hard work indeed.
 
-Mailchimp, known for their usability prowess, do the minimum:
-
-![Mailchimp List](./images/mailchimp-list.png)
-
-If thorough and diverse user research shows that a highlight is really needed then go ahead, but aim to do the minimum which conforms to principle 7, *add value*.
+Mailchimp, known for their usability prowess, set an example here and do the minimum. One can assume that's enough. However, if thorough and diverse user research shows that a highlight is really needed then go ahead, but aim to do the minimum which just happens to conform to principle 7, *add value*.
 
 ## An action menu
 
-It's all well and good letting users select multiple emails, but so far there is no way to action them. Unlike forms from previous chapters, an inbox is a bit different. First, it's not a matter of placing a button at the end of the form. Second, there are multiple submit buttons.
+It's all well and good letting users select multiple emails, but we haven't given them a way to action them. Unlike the forms we designed in previous chapters, our inbox is different. Let's explore why this is next.
 
 ### Button location
 
-Before now, we've positioned a single submit button directly below the last form field, which we know works best through eye tracking tests. This certainly makes sense as users answer questions from top to bottom and then submit. But here users are actioning individual selected emails. Positioning buttons at the bottom makes discovery harder so we put them at the top.
+Before now, we've positioned a single submit button directly below the last form field, which we know works best through eye tracking tests. This certainly makes sense as users answer questions from top to bottom and then submit. But here users are actioning individually selected emails. Positioning buttons at the bottom makes discovery harder so we put them at the top.
 
 ### Implicit submission and multiple submit buttons
 
@@ -172,7 +163,7 @@ Implicit submission lets the user press <kbd>enter</kbd> while a field is focuss
 
 Where possible, you should try and split forms up, ideally onto separate pages, so that they have a single action. This is easy when, for example, you have a form that allows a user to update or delete a record, you can just have two separate forms:
 
-![](.)
+![blah](.)
 
 Our inbox is a special case. As such it's not quite so easy to split the actions into separate forms. One way would be for users to first select an action (such as ‘Bulk deletion’). Clicking it takes the user to a dedicated interface where they can select the emails and then apply the action.
 

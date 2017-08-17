@@ -1,4 +1,4 @@
-# Inbox Management
+# An inbox
 
 My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are a tricky thing to manage. On the web, there are some conventions that have emerged over the years.
 

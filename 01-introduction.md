@@ -30,35 +30,33 @@ Personally, I want to solve common problems in a user-centered way. Seeing as yo
 
 Note that some of the chapters may sound niche, but I assure the patterns that are born out of tackling this seemingly specific problems are very much transferable to other problem domains. [Expand?]
 
-Here are the problems we'll be tackling.
-
 ### Chapter 1: A registration form
 
-This chapter forms the foundations for every other chapter in the book. We'll look at labels, placeholders and hints, and the float label pattern. Crucially we'll look at the Question Protocol and how applying it can drastically reduce the friction on any form. Then, we'll consider the content, interaction and visual design of specific form fields and submit buttons. We'll then look at various form validation techniques, including inline validation as well as other related techniques. We'll settle on an approach that makes fixing errors as easy as possible with useful and respectful error messages that work for screen readers too.
+We'll start with a basic registration and the foundational qualities that make up a good form. By exploring the Question Protocol and applying it to this form we'll look at how to reduce friction drastically without touching the interface itself. We'll get into some visual and interaction design specifics. Finally ending by making form validation easy and inclusive. We'll even look at how to content design error messages themselves.
 
 ### Chapter 2: A checkout flow
 
-This chapter looks at the One Thing Per Page pattern and how it is particularly useful to longer form process like checkout. Next, we'll look at flow and order. Then we'll break down the various steps of checkout (delivery, payment etc) and what the design intracies that together make a huge difference to the user experience. This will be our first look at number inputs and radio buttons. This is followed by several other important concepts such as being able to check your answers, see progress, use smart defaults and enhance the experience for second time users.
+We'll look at the powerful One Thing Per Page pattern and how and why it's suited to longer form process such as checkout. Considering flow and order we'll break down the various steps and analyse each one in detail including input types and how they work across different devices. This will be our first look at radio buttons, smart defaults and more.
 
 ### Chapter 3: Book a flight
 
-This chapter is where we'll take a deep dive into the world of custom form components in order to ask users for some tricky information. We'll look at autocomplete components, the crazy world of dates and date pickers, stepper components and seat choosers. The latter of which, we'll be breaking away from convention for good reason.
+We'll take a deep dive innto the world of progressively enhanced custom form components using ARIA, by exploring the best way to let users select destinations, find dates, add passengers and choose seats. We'll analyse native form controls at length and even break away from convention (for good reason).
 
 ### Chapter 4: A login form
 
-We'll take a short intermission to look at the ubiquitous login form. Everyone has one, but equally many of them suffer from the same common usability failures. We'll take a quick look at the problems and how to solve them.
+This short chapter looks at the ubiquitous login form. For all its simplicity there are some common usability failures. Adding social login to the mix has helped and hindered these matters.
 
 ### Chapter 5: An inbox
 
-This chapter looks at a more adminstrative interface. Whilst the chapter pertains to an inbox, a bit like Gmail, the patterns that are born out of those problems are applicable to any list that requires management. We'll be looking at multiple-select action menus and a whole lot more.
+We'll look at ways to manage and action email in bulk. This is our first look at an adminstrative interface and as such comes with it's own set of challenges and useful patterns. This includes reponsive ARIA-driven action menus, multiple selection, informative successive messages and more.
 
 ### Chapter 6: Search and filter
 
-This chapter will look at the best ways to let users find stuff by searching and filtering results. There will be a discussion on affordance, different types of filters (also known as facet navigation) and we'll also look at how AJAX may have a part to play.
+We'll look at ways to let users find stuff easily via search and filtering mechanisms.
 
 ### Chapter 7: A really long and complex form
 
-Some transactions are really long. Some transactions are really complicated. Some transactions involve having to upload several files. Some transactions involve all of these things. This chapter will look at some innovate, yet simple ways of breaking down all of this complexity into manageable tasks.
+Some transactions are really long. Some transactions are really complicated. Some transactions involve having to upload several files. Some transactions involve all of these things. We'll look at some innovate, yet simple ways of breaking down this complexity into simple, manageable tasks.</
 
 ## What about principles?
 

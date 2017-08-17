@@ -1,6 +1,14 @@
 # Outline
 
-## 1. A registration form (7500)
+## 1. Introduction (1000)
+
+- Why forms?
+- Why patterns?
+- Why these problems?
+- What about principles?
+- House keeping[?]
+
+## 2. A registration form (7500)
 
 - Introduction
 - Describing the field
@@ -40,23 +48,23 @@
 	- Validation component
 - Summary
 
-## 2. A checkout flow (6000)
+## 3. A checkout flow (6000)
 
 - Introduction
 - One Thing Per page
 - Flow and order
-- 1. Email address
-- 2. Mobile phone
-- 3. Delivery address
+- (1) Email address
+- (2) Mobile phone
+- (3) Delivery address
 	- Field width
 	- Improving UX with Capture+
-- 4. Delivery options
+- (4) Delivery options
 	- Grouping form controls
 	- Setting smart defaults
-- 5. Delivery notes
+- (5) Delivery notes
 	- Textarea
 	- Character count warning
-- 6. Payment
+- (6) Payment
 	- Browser autocomplete
 	- Question Protocol
 	- Expiry date
@@ -66,10 +74,10 @@
 	- Billing address
 		- Reusing the address pattern
 		- Checkbox reveal
-- 7. Check your answers
+- (7) Check your answers
 	- Question Protocol
 	- Amending details
-- 8. Confirmation
+- (8) Confirmation
 - Guest checkout
 - Progress bars
 - Second time experience
@@ -77,11 +85,11 @@
 - Checkout specific header
 - Summary
 
-## 3. A flight booking service (8000)
+## 4. A flight booking service (8500)
 
 - Introduction
 - Flow and order
-- 1. Choosing where to fly
+- (1) Choosing where to fly
 	- Select boxes
 	- Radio buttons
 	- Search box
@@ -89,17 +97,17 @@
 	- An autocomplete component
 		- Punch list
 		- Progressive Enhancement
-- 2. Choosing when to fly
+- (2) Choosing when to fly
 	- Dates from documents
 	- Memorable dates
 	- Finding dates with a calendar
 		- Date input
 		- Date picker component
 		- A small trade-off
-- 3. Choosing passengers
+- (3) Choosing passengers
 	- A stepper component
-- 4. Choosing a flight
-- 5. Choosing where to sit
+- (4) Choosing a flight
+- (5) Choosing where to sit
 	- Design considersations
 		- affordance
 		- layout
@@ -107,7 +115,7 @@
 		- disabling unavailable seats
 	- Enhancing the interface
 
-## 4. A login form (500)
+## 5. A login form (2500)
 
 - Password hint
 - Use explicit labels
@@ -123,7 +131,7 @@
 - Auto-tabbing
 - One form per page
 
-## 5. An inbox (4000)
+## 6. An inbox (4000)
 
 - Introduction
 - Using the right list for the job
@@ -147,7 +155,7 @@
 - Success message
 - Confirming verus undoing an action
 
-## 6. Search and filter (2000)
+## 7. A search form (2000?)
 
 - Introduction
 - Search
@@ -164,4 +172,6 @@
 	- AJAX
 	- Dos and Don'ts
 
-## 7. A really long complex form (Not started)
+## 8. A really long complex form (tbd?)
+
+- Multiple file upload (add another), Task pattern, Branching

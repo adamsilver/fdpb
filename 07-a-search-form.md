@@ -1,5 +1,7 @@
 # Search And Filter
 
+TODO: infinite scroll/show more/pagination perhaps
+
 I'm an organised person. Even as I boy I remember being this way. But, I've always been a minimalist too. Organising things when you only own a few things is easy.
 
 As a boy, I rarely lost things, but when I did, I just had to shout in the general direction of the resident search engine 'Where's my...' and the search engine would tell me.

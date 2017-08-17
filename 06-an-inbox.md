@@ -1,63 +1,75 @@
 # An inbox
 
-My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are a tricky thing to manage. On the web, there are some conventions that have emerged over the years.
+My sister loves lists. Her favourite list is a todo list. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are tricky to manage.
 
-In this chapter we're going to make list management is easy, accessible and scalable. My sister loves pen and paper, but I hope that she may one day be converted to digital.
+On the web, there are several types of lists and there are some design patterns that have emerged over the years to deal with managing them. In this chapter, we're going to look at action multiple things in a list at the same time. My sister loves pen and paper, but if we do this right, perhaps she'll be converted to digital.
 
-## Using the right list for the job
+We're going to design an inbox. Really just a list of emails. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there the interface must let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk.
 
-HTML gives us 4 different elements that we can use to construct a list. Tables (`<table>`) house tabular data a bit like an excel spreadsheet. A description list (`<dl>`) formely known as a definiton list is for key-value pairs. An ordered list (`<ol>`) which is for a list whereby the order matters, like a list of cooking instructions. Finally an unordered list (`<ul>`) is the same but where order doesn't matter.
+## List types
 
-It's hard to discuss the merits of each list element without first orientating ourselves around a specific problem. So we'll design an inbox, which is really just what we call a list of *emails*. The aim, of course, is to achieve a zen-like state of Inbox Zero[^2]. To get there, the interface must let users delete, archive and mark emails as spam. But not just one at a time; in bulk.
+First, we're going to need to decide how to construct the HTML to represent this list. The meaning, or semantics, behind elements should drive its design. There are 4 elements we can use to construct lists:
 
-Whilst this chapter is specifically about an inbox, the design patterns herein are transferable to all types of lists that need bulk actions.
+- Description (formerly definition) lists (`<dl>`), used for key-value pairs such as term and definition.
+- Ordered lists (`<ol>`), used for an ordered list such as cooking instructions where order matters.
+- Unordered lists (`<ul>`), used for a list where order doesn't matter, like this bullet list.
+- Tables (`<table>`), used to house tabular data a bit like an excel spreadsheet.
 
-### Everything is list
+Let's discuss the pros and cons of each in relation to the inbox interface.
 
-Semantically speaking, everything is a list. The things on the page are a list of things on the page. Pedanticism aside, we need to decide what type of list is best for our inbox.
+### Description lists
 
-### Tables versus lists
+Description lists are good for showing a single record of information. For example a glossary or someone's profile. An inbox contains multiple records (in this case emails), ruling this element out immediately.
 
-Tables work when representing two-dimensional data. In our case, rows represent emails and columns describe that data: recipient, subject and date sent, for example. Interestingly, Gmail, for example, omits table headings which suggests that tables are less appropriate for an inbox.
+### Tables
 
-Alternatively we construct each email as a list item. On big screens, we could still style the information into columns. This brings us to the first problem. Tables aren't especially responsive. Tables are semantically tied to the way they look. That is, it's hard to make tables not *look* like tables. There are some ways to make tables work on small screens but they aren't simple and they don't work well cross-browser. However, striving to make tables (or any other element) not look like a table is materially dishonest[^3].
+Tables are useful for tabular data. They are particularly useful when users need to compare and sort the data within it, which is typically what you want to do in a spreadsheet for example. This makes sense if you need to compare, sort and perhaps total data.
 
-Tables *are* a good choice when data needs contextual information to make it useful or if the data in those rows need comparing or sorting or summarising (as totals). For example, *23* is ambiguous without *goals scored* and *Lionel Messi* as column and row headings respectively. And we might also be interested in comparing Lionel Messi's statistics in comparison with Cristiano Ronaldo's.
+But, if you don't, then using tables is unnecessarily constraining, particularly on mobile. This is because on small screens there is no room to show more than one or two columns. Even then, it's a squeeze and could cause horizontal scroll bars or text to become unreadable as it will wrap prefusly.
 
-[!table](.)
+Another related problems with tables is that they aren't responsive. they are inherently tied to the way the look. As such is hard to make tables not look like tables using CSS. Even if you could, that would be deceptive and counterproductive.
 
-An inbox seems less tabular: it doesn't particularly need to be sorted (beyond the default of most recent first). Emails don't need to be compared, or summarised. It would be quite readable if an email was simply read it as ‘From Heydon, about “Buttons” (19/09/2017)’. It could be argued that including column headings are verbose and unnecessary. Mailchimp, which has a similar interface is an example that employs list items:
+Gmail uses tables and puts recipient, subject and date sent into columns. Interestingly though there are no headings, which is yet another clue that tables have been used for layout purposes rather than their semantic qualities. Jeremy Keith talks about the idea of material dishonesty is in his book Resilient Web Design[^]:
 
-![Mailchimp List](./images/mailchimp-list.png)
+> Using TABLEs for layout is materially dishonest. The TABLE element is intended for marking up the structure of tabular data. The end result [...] is a façade. At first glance everything looks fine, but it won’t stand up to scrutiny. As soon as such a website is stress‐tested by actual usage across a range of browsers, the façade crumbles.
 
-The advantage over tables is that they are maleable and therefore responsive. On small screens we can stack the information within each list item. On big screens we can position the information into columns. Talking about lists may seem out of place in a book about forms, but they don't exist in a vaccum. They are a major part of an interface, but they rarely form an interface on their own.
+Here's a practical example of this. See the following table mark-up. The `<tr>` is wrapped in an `<a>` to let users read the email. The problem is that browsers ignore this code. It's simply not allowed. Gmail fixes this by using Javascript. But as we know this is an act of exlusivity  because not everyone has Javascript. And frankly it's totally unnecessary.
 
-On balance, list items are the preferred construct. This is not to say tables are bad and list items are good; we can't classify elements like that. It's a matter of understanding what they're good for and their associated constraints.
+```HTML
+<table class="inbox">
+  <a href="/email/1">
+    <tr>
+      <td>John Oates</td>
+      <td>Your Amazon.co.uk order #123 is out for delivery</td>
+      <td>10 August</td>
+    </tr>
+  </a>
+</table>
+```
 
-Let's get our hands dirty and start constructing the HTML using a list.
+### List items
+
+The difference between ordered and undordered lists lies in the name. If order matters then&mdash;and sorry for stating the obvious&mdash;use an order list. For example, if you're following the steps in a recipe. An inbox is a list of emails that don't have to be dealt with in order. So let's rule out ordered lists and focus on unordered ones instead.
+
+The advantage of list items over tables is that they are stylistically malleable and therefore responsive. On small screens we can stack the information within each list item. On big screens we can position the information into columns. Also, we can make the entire ‘row’ clickable without resorting to Javascript hacks. Less work and less problems.
 
 ```HTML
 <ul class="inbox">
 	<li>
 		<a href="/emails/1/">
-			<div class="inbox-recipient">From Heydon Pickering</div>
-			<div class="inbox-subject">Subject: Buttons</div>
-			<div class="inbox-date">19/09/2017</div>
+			<div class="inbox-recipient">John Oates</div>
+			<div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
+			<div class="inbox-date">10 August</div>
 		</a>
 	</li>
-	...
 </ul>
 ```
 
-We'll add the form bits later. Interestingly, the act of constructing the HTML exposes another problem. The contents of the `<li>` is wrapped in `<a>` which we simply cannot do with tables. It's semantically invalid and won't work.
+List items seem more appropriate anyway. Not only do column headings seem redundant but there's no need for comparison. Mailchimp takes the same approach as above.
 
-### Understanding materials
+![Mailchimp List](./images/mailchimp-list.png)
 
-As designers and makers of things, we should have a good understanding of the materials before creating artifacts. A chair designer should intimately know the properties and constraints of wood for example. Otherwise how are they expected to craft a beautiful, well-functioning and comfortable chair? Similarly, we need to have a deep understanding of HTML, CSS and Javascript.
-
-> ‘If you can solve a problem with a simpler solution lower in the stack, you should.’—Derek Featherstone
-
-As noted before, Gmail uses `<table>`s so how are the rows clickable? They've used Javascript to fix it. But using Javascript to fix a problem in HTML is an act of exclusivity (because not everyone has Javascript) and frankly it's unnecessary. If we can fix a problem lower down the stack, we should. Really, designing inclusively is simply designing to a set of constraints that guide us to design robust and therefore better experiences for everyone.
+Talking about lists may seem out of place in a book about forms, but forms don't exist in a vaccum. They are a major part of an interface, but rarely form an interface on their own.
 
 ## Marking email for action
 
@@ -77,13 +89,13 @@ To let users select and action multiple emails at once, we'll need to add a chec
 </ul>
 ```
 
-Unlike all other fields in the book so far, the checkbox has a label missing. In *almost* all cases, a visible label should be placed beside the checkbox. However, this is a bit of a special case because the interface handles two disperate jobs: Viewing email and managing it.
+Unlike all other fields in the book so far, the checkbox has a label missing. In *almost* all cases, a visible label should be placed beside the checkbox. However, this is a bit of a special case because the interface handles two disparate jobs: viewing email and managing it.
 
 In this case we can go without having visible labels. You could even argue that having them would interfere with the navigable behaviour of the contents. The problem is that we can't have a `<label>` and a `<a>` occupy the same position in the interface. There are two possible approaches: to use the concept of modes or to simply hide the label.
 
 ### Using modes
 
-As we said earlier, the interface is complicated because it's doing two jobs at once. We can split these jobs out and use modes. This means creating two separate views of the inbox: One that is read-only and one that is for bulk action. Read-mode has no forms; clicking an email navigates to the email (like normal). When in bulk-actin mode, the contents is a `<label>` so clicking it checks the checkbox (again like normal).
+As we said earlier, the interface is complicated because it's doing two jobs at once. We can split these jobs out and use modes. This means creating two separate views of the inbox: one that is read-only and one that is for bulk-action. Read-mode has no forms; clicking an email navigates to the email (like normal). When in bulk-actin mode, the content is wrapped in a `<label>` so clicking it checks the checkbox (again like normal).
 
 ![Modes use tabs or a link to switch](./images/modes.png)
 
@@ -128,7 +140,7 @@ As I've probably drummed into you by now, ARIA should be used as a last resort. 
 </fieldset>
 ```
 
-This has excellent support but it does mean duplicating the contents, only to hide it with CSS (using the same technique in chapter 3). Even though we shouldn't prematurely optimise for performance, we should be mindful that bloated HTML can diminish the experience for many users causing operations to to take longer. Assistive technology users especially may find their software unresponsive.
+This has excellent support but it does mean duplicating the contents, only to hide it with CSS (using the same technique as in chapter 3). Even though we shouldn't prematurely optimise for performance, we should be mindful that bloated HTML can diminish the experience for many users causing operations to to take longer. Assistive technology users especially may find their software unresponsive.
 
 Much to our frustration *perfect* rarely exists in the world of design. On balance, exchanging a bit of duplication for a more inclusive experience is preferable. In fact, having a hidden label lets us craft a better message for screen readers:
 
@@ -140,7 +152,7 @@ The deal with human-computer interaction is that when the human does something, 
 
 It is, however, possible to highlight the entire row with CSS and Javascript. As designers, we're tempted to do more than the minimum. We think that more is better. We think that more is a symbol of hard work. It's actually a lot harder to *resist* doing more, than simply *doing* more. Constantly striving for less in a world that rewards you for doing more is very hard work indeed.
 
-Mailchimp, known for their usability prowess do the minimum:
+Mailchimp, known for their usability prowess, do the minimum:
 
 ![Mailchimp List](./images/mailchimp-list.png)
 
@@ -158,11 +170,11 @@ Before now, we've positioned a single submit button directly below the last form
 
 Implicit submission lets the user press <kbd>enter</kbd> while a field is focussed. In doing so the form is submitted as if the user pressed the first button in the HTML. When there is a single submit button this is not an issue. When there are multiple, it's not clear which action will be taken.
 
-Where possible, you should try and split forms so that they have a single action. This is easy when, for example, you have a form that allows a user to update or delete a record, you can just have two separate forms:
+Where possible, you should try and split forms up, ideally onto separate pages, so that they have a single action. This is easy when, for example, you have a form that allows a user to update or delete a record, you can just have two separate forms:
 
 ![](.)
 
-Our inbox is a special case. As such it's not quite so easy to split the actions into separate forms. One way, would be for users to first select an action (such as ‘Bulk deletion’). Clicking it takes the user to a dedicated interface where they can select the emails and then apply the action.
+Our inbox is a special case. As such it's not quite so easy to split the actions into separate forms. One way would be for users to first select an action (such as ‘Bulk deletion’). Clicking it takes the user to a dedicated interface where they can select the emails and then apply the action.
 
 ![Click action link -> present checkboxes (with submit at bottom) ->confirm action](.)
 
@@ -192,7 +204,7 @@ To keep the interface clean but easy-to-scan we can hide the options in a menu. 
 
 Select boxes are a menu of sorts. They present items for selection (like a menu) and they're an attractive option because browsers supply them for free. Even though select boxes look like menus and behave a little like them, they *aren't* menus.
 
-Select boxes are for input. That's why (forms that contain) select boxes&mdash;like any other input&mdash;must be accompanied by a submit button (to submit the choice). Not only is this by convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
+Select boxes are for input. That's why forms that contain select boxes&mdash;like any other input&mdash;must be accompanied by a submit button to submit the choice. Not only is this by convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
@@ -200,7 +212,7 @@ This compliments principle 4, *give control*. Conversely, select boxes that subm
 
 This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. As we know, not all browsers are alike or implement the specification in the same way. Therefore, forgetting about people who use a less forgiving browser is an act of exclusivity.
 
-Also, a select box is always collapsed even when space is available. But we want to make selection more conveninent when possible. We could use Javascript to create vastly different experiences on small and big screens, but this is an adaptive approach to design and goes against the very foundation of responsive design[^5].
+Also, a select box is always collapsed even when space is available. But we want to make selection more convenient when possible. We could use Javascript to create vastly different experiences on small and big screens, but this is an adaptive approach to design and goes against the very foundation of responsive design[^5].
 
 [!Show adapative layout differences](.)
 
@@ -257,9 +269,9 @@ Users may want to, for example, archive every email in their inbox. Rather than 
 
 [!Checkbox mailchimp?](.)
 
-Arguably, this out-of-the-box input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. It's label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this without an ounce of Javascript.
+Arguably, this out-of-the-box input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this without an ounce of Javascript.
 
-Despite our natural inclination to lean on native technology. And despite the fact that this type of control is accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to look like what they do.
+By now the benefits of using native technology are well known. Depsite the fact that this type of control is accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to look like what they do.
 
 The trouble with using a checkbox (like using a select box as a menu), is that these elements don't signal what they do. Checkboxes and select boxes are associated with collecting data for submission. We should match peoples's expectation by conforming to principle 3, *be consistent*.
 
@@ -280,7 +292,7 @@ Notes:
 
 ## Success messages
 
-When the user submits the form, the emails which have been checked will disppear from view. Like error messages, success messages communicate success. Without a message, the user is left to wonder if what they intended to happen, did so. Here it is:
+When the user submits the form, the emails which have been checked will disppear from view. Without letting users know the action was completed successfully, they'll be left to wonder if what they intended to happen, did so.
 
 ![Success](.)
 
@@ -308,7 +320,7 @@ In this chapter we began by choosing the right way to present a collection of em
 
 ### Things to avoid
 
-- Plowing ahead without deeply understanding the materials in which to design.
+- Ploughing ahead without deeply understanding the materials we design with.
 - Using ARIA when you don't have to.
 - Using checkboxes and select boxes unconventionally.
 - Highlighting rows for the sake it.
@@ -322,3 +334,9 @@ In this chapter we began by choosing the right way to present a collection of em
 [^3]: https://resilientwebdesign.com/chapter2/#Using%20TABLEs%20for%20layout%20is%20materially%20dishonest.
 [^4]: https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html
 [^5]: https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/
+
+## Todo
+
+As designers and makers of things, we should have a good understanding of the materials before creating artifacts. A chair designer should intimately know the properties and constraints of wood for example. Otherwise how are they expected to craft a beautiful, well-functioning and comfortable chair? Similarly, we need to have a deep understanding of HTML, CSS and Javascript.
+
+> ‘If you can solve a problem with a simpler solution lower in the stack, you should.’—Derek Featherstone

@@ -89,57 +89,39 @@ To an extent visible labels can be omitted from the interface. You could even ar
 
 ### Use modes
 
-Because we're trying to handle two separate jobs, designing the interface is a little complicated. One way to design this problem out is by splitting apart the two jobs using the concept of modes.
+Because we're trying to handle two separate jobs, designing the interface is complicated. One way to design this problem out is by splitting apart the two jobs using the concept of modes. To do this, we'll have to give users a way to switch modes. A simple link will do as shown below. Clicking ‘Manage mode’ puts users into manage mode. When in manage mode, the link text will change to ‘Read mode’ and take users back to the initial view.
 
---
+![Mode](.)
 
-The interface is a little complicated because it's trying to do 2 jobs at the same time. One way of simplifying things and re-introducing a visible label is by splitting apart the 2 jobs using the concept of modes. They work by having two separate, allbeit similar, pages. One is reading email and the other for managing it.
+When in read-mode there will be no checkboxes or any other form component. The entire row will be a link taking users to read the email. When in manage-mode, the entire row turns into a label, that when clicked marks the checkbox.
 
-![Modes use tabs or a link to switch](./images/modes.png)
-
-The user can toggle between read-mode and manage-mode simply by clicking a link to each view. When in read-mode, there will be no forms, no checkboes and therefore no need for labels. The entire row is a link, that when clicked takes the user to read their email. When in manage-mode, the entire row is a label, that when clicked, marks the checkbox.
-
-Modes are best suited when one mode is used more frequently than the other. However, when both are used frequently, such is the case of an inbox, having to switch back and forth between modes is undesirable.
+Modes are best suited when one mode is used more frequently than the other. However, when both are used frequently, as is the case of an inbox, having to switch back and forth all the time is undesirable.
 
 ### Visually hide the label
 
-Instead of using modes, we can include a label and hide with CSS. This makes the interface accessible for screen reader users. There are two ways to create a hidden label. The first is to use `aria-labelledby`. Using this attribute means reusing the content that we already have in the HTML, which is useful. But ideally, we should only use ARIA attributes when there isn't a native equivalent. The other small downside is having to scatter unique `id`s to connect the values to the input.
+Instead of using modes, we can add a visually hidden label. There are two ways to do this. The first is to use `aria-labelledby` attribute as shown below which uses the content that already exists. This does mean we have to add unique `id`s to make this work. In any case, ARIA shouldn't be used unless we have to as we've talked about already.
 
-```
-<fieldset class="inbox">
-	<legend>Inbox</legend>
-	<ul>
-		<li>
-			<input type="checkbox" name="email" aria-labelledby="e1_recipient e1_subject e1_date">
-			<a href="/emails/1/">
-				<div class="inbox-recipient" id="e1_recipient">John Oates</div>
-				<div class="inbox-subject" id="e1_subject">Your Amazon.co.uk order #123 is out for delivery</div>
-				<div class="inbox-date" id="e1_date">10 Aug</div>
-			</a>
-		</li>
-	</ul>
-</fieldset>
-```
+Alternatively, a standard `<label>` has better support but including one means duplicating content. This isn't a huge performance problem, but if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer&mdash;screen reader software can be unresponsive.
 
-The other option is of course to use a real `<label>`. This has better support, but does mean duplicating the contents and hiding it with CSS (using the same tecnique as in chapter 3). On one hand, we shouldn't prematurely optimise for performance. But on the other, it pays to be mindful of bloated HTML which can diminish the experience by causing operations to take longer. Screen reader users especially may find their software unresponsive.
+There is an advantage in duplication. As the contents of the label is just screen readers, we can craft a screen reader specific message that reads better audibly than it otherwise would visually.
 
-There is actually a hidden benefit to duplicating the contents just for screen readers. It means that we can craft a screen-reader specific message as shown below, allowing us to avoid abbrevitions and making the sentence sound more natural audibly.
+```HTML
+<!-- Using aria-labelledby -->
+<input type="checkbox" name="email" aria-labelledby="e1_recipient e1_subject e1_date">
+<a href="/emails/1/">
+	<div class="inbox-recipient" id="e1_recipient">John Oates</div>
+	<div class="inbox-subject" id="e1_subject">Your Amazon.co.uk order #123 is out for delivery</div>
+	<div class="inbox-date" id="e1_date">10 Aug</div>
+</a>
 
-```
-<fieldset class="inbox">
-	<legend>Inbox</legend>
-		<ul>
-			<li>
-			<input type="checkbox" name="email" id="email1">
-			<label for="email1">From John Oates, subject ‘Your Amazon.co.uk order #123 is out for delivery’ (10 August 2017)</label>
-			<a href="/emails/1/">
-				<div class="inbox-recipient">John Oates</div>
-				<div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
-				<div class="inbox-date">10 Aug</div>
-			</a>
-		</li>
-	</ul>
-</fieldset>
+<!-- Using a standard label -->
+<input type="checkbox" name="email" id="email1">
+<label for="email1">From John Oates, subject ‘Your Amazon.co.uk order #123 is out for delivery’ (10 August 2017)</label>
+<a href="/emails/1/">
+	<div class="inbox-recipient">John Oates</div>
+	<div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
+	<div class="inbox-date">10 Aug</div>
+</a>
 ```
 
 ### Highlighting marked emails
@@ -332,3 +314,5 @@ In this chapter we began by choosing the right way to present a collection of em
 As designers and makers of things, we should have a good understanding of the materials before creating artifacts. A chair designer should intimately know the properties and constraints of wood for example. Otherwise how are they expected to craft a beautiful, well-functioning and comfortable chair? Similarly, we need to have a deep understanding of HTML, CSS and Javascript.
 
 > ‘If you can solve a problem with a simpler solution lower in the stack, you should.’—Derek Featherstone
+
+- consisder visual design and touch target 44px

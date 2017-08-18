@@ -85,7 +85,7 @@ To let users select emails for action, we'll need to add some checkboxes. That's
 </ul>
 ```
 
-To an extent visible labels can be omitted from the interface. You could even argue that having them interferes with the expected behaviour&mdash;that clicking the row should take the user to read the email. In any case, a link and a label can't occupy the same space because they have opposing behaviour. Remember clicking a label should check the checkbox.
+To an extent visible labels can be omitted from the interface. Including them interferes with the expected behaviour&mdash;that is, clicking the row should take the user to read the email. In any case, a link and a label can't occupy the same space because they have opposing behaviour. Remember clicking a label should check the checkbox.
 
 ### Use modes
 
@@ -130,7 +130,7 @@ The deal with human-computer interaction is that when the human does something, 
 
 It is, however, possible to highlight the entire row with CSS and Javascript. As designers, we're tempted to do more than the minimum. We think that more is better. We think that more is a symbol of hard work. It's actually a lot harder to *resist* doing more, than simply *doing* more. Constantly striving for less in a world that rewards you for doing more is very hard work indeed.
 
-Mailchimp, known for their usability prowess, set an example here and do the minimum. One can assume that's enough. However, if thorough and diverse user research shows that a highlight is really needed then go ahead, but aim to do the minimum which just happens to conform to principle 7, *add value*.
+Mailchimp, known for their usability prowess, set an example here by doing the minimum. One can assume that's enough. My own user research aligns with this too. However, if your own research shows that highlighting the entire row is essential then do so.
 
 ## An action menu
 
@@ -142,21 +142,18 @@ Before now, we've positioned a single submit button directly below the last form
 
 ### Implicit submission and multiple submit buttons
 
-Implicit submission lets the user press <kbd>enter</kbd> while a field is focussed. In doing so the form is submitted as if the user pressed the first button in the HTML. When there is a single submit button this is not an issue. When there are multiple, it's not clear which action will be taken.
+Implicit submission lets you press <kbd>enter</kbd> when a field is focused. This is a convention that lets users submit a form quicker without having to move focus to the submit button. This is particularly useful for a search form&mdash;one that consists of a text box and submit button&mdash;because users can take the efficient route pressing <kbd>enter</kbd>.
 
-Where possible, you should try and split forms up, ideally onto separate pages, so that they have a single action. This is easy when, for example, you have a form that allows a user to update or delete a record, you can just have two separate forms:
+![Stuff](.)
 
-![blah](.)
 
-Our inbox is a special case. As such it's not quite so easy to split the actions into separate forms. One way would be for users to first select an action (such as ‘Bulk deletion’). Clicking it takes the user to a dedicated interface where they can select the emails and then apply the action.
+The problem comes when a form has multiple submit buttons. If the user presses <kbd>enter</kbd>, which action will be taken? Browsers simply choose the first button in the document flow. Take a look at the following form. It has two submit buttons: delete and update. If the user implicitly submits the form the record will be deleted instead of updated, as the user intended.
+
+To mitigate this, you should split the forms up into separate pages ensuring that there is one action per form. Admittedly, depending on the design this is not always easy, which is the case for the inbox. We could ask users to choose an action *before* selecting and actioning the emails, but this seems a little long winded.
 
 ![Click action link -> present checkboxes (with submit at bottom) ->confirm action](.)
 
-Whilst possible this seems a little long winded for an inbox. At least by positioning the buttons at the top, users (those who use screen readers and those who don't) have an opportunity to discover the available actions.
-
-Also, a form consisting of a single checkbox group, doesn't make implicit submission all that useful. Conversely, a search form&mdash;one that consists of a text box and submit button&mdash;would benefit greatly from implicit submission, as users can take the efficient route pressing <kbd>enter</kbd>.
-
-In any case, if a user did implicitly submit the form, we can mitigate the danger in two ways. First by putting the least invasive action first (such as archive). Secondly by letting users undo their action which we'll discuss shortly.
+Fortunately, by convention multi-selection often puts the actions at the top, as opposed to the bottom. This gives users a chance to discover the multitude of available actions before making selection. Also, a form consisting soley of checkboxes doesn't make implicit action all that useful. If you have to use multiple submit buttons, put the least invasive action first&mdash;in this case *archive*. Lastly, let users undo their action (more on this shortly).
 
 ### Disabling and hiding the submit buttons before selection
 

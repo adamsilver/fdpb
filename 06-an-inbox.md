@@ -2,18 +2,20 @@
 
 My sister loves to-do lists. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are tricky to manage. On the web, there are several types of lists and there are some design patterns that have emerged over the years to deal with managing them.
 
-We're going to design an inbox. In other words, a list of emails. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there easily, the interface will let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk. My sister loves pen and paper, but if we do this right, perhaps she'll be converted to digital.
+We're going to design an inbox. In other words, a list of emails. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there quickly, the interface will let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk. My sister loves pen and paper, but if we do this right, perhaps she'll be converted to digital.
 
 ## List types
 
-First, we're going to decide how best to construct the inbox using mark-up. The meaning&mdash;or semantics&mdash;behind elements should drive their visual design. That is something should look like it behaves. There are 4 elements we can use to construct lists:
+First, we're going to look at how best to mark-up a list of emails. Discussing lists may seem out of place in a book about forms, but forms rarely form part of an interface on their own. Ignoring their surrounings can easily result in disagreeable experiences.
+
+The meaning&mdash;or semantics&mdash;behind elements should drive their visual design. That is, something should look like it behaves. There are 4 elements we can use to construct lists each with different semantics:
 
 - Description lists (`<dl>`), used for key-value pairs such as term and definition.
+- Tables (`<table>`), used to house tabular data.
 - Ordered lists (`<ol>`), used for lists where order matters.
 - Unordered lists (`<ul>`), used for a lists where order doesn't matter.
-- Tables (`<table>`), used to house tabular data.
 
-Let's discuss the pros and cons of each in relation to our inbox.
+Let's discuss the pros and cons of each in relation to our inbox and pick the best one for the job.
 
 ### Description lists
 
@@ -47,10 +49,7 @@ See the following table mark-up as an example of this. The `<tr>` is wrapped in 
 
 ### List items
 
-The difference between ordered and unordered lists lies in the name. If order matters&mdash;for example, if the user is expected to follow the steps in order, such as a recipe&mdash;use an ordered list. An inbox is a list of emails that don't have to be dealt with in order. So let's rule out ordered lists a
-nd focus on unordered ones instead.
-
-The advantage of list items over tables is that they are stylistically malleable and therefore responsive. On small screens we can stack the information within each list item. On big screens we can position the information into columns. And we can make the entire ‘row’ clickable without resorting to Javascript hacks. Less work and less problems.
+The difference between ordered and unordered lists lies in the name. If order matters&mdash;that is, if the user is expected to read or action the items in order, such as a recipe&mdash;use an ordered list. Conversely, an inbox doesn't have to be read or actioned in some predefined order. So let's focus on the more nonchalant unordered list as shown below.
 
 ```HTML
 <ul class="inbox">
@@ -64,15 +63,13 @@ The advantage of list items over tables is that they are stylistically malleable
 </ul>
 ```
 
-List items seem more appropriate anyway. Not only do column headings seem redundant but there's no need for comparison. Mailchimp, for example, uses list items as shown below.
+The advantage of list items over tables is that they are stylistically malleable and therefore responsive. On big screens they can be laid out in columns. In small screens, they can be stacked. Also, the entire ‘row’ can be clickable without resorting to Javascript hacks because it's perfectly valid to put a link round the contents. Less work and fewer problems.
 
-![Mailchimp List](./images/mailchimp-list.png)
-
-Talking about lists may seem out of place in a book about forms, but forms don't exist in a vaccum. They are a major part of an interface, but rarely form an interface on their own.
+In the case of an inbox, list items seem more suited anyway. Not only are column headings redundant but there's no need to compare or total items in the list.
 
 ## Marking email for action
 
-To let users select and action multiple emails at once, we'll need to add a checkbox next to each email. Unlike all other fields in the book so far, the checkbox has a missing label. In *almost* all cases, a visible label should be placed beside the checkbox. However, this is a bit of a special case because the interface handles two disparate jobs: viewing email and managing it.
+To let users select emails for action, we'll need to add some checkboxes. That's easy enough but adding a visible label is going to be tricky. There's no space because the interface handles two disparate jobs: viewing email and managing it.
 
 ```
 <ul class="inbox">
@@ -88,9 +85,13 @@ To let users select and action multiple emails at once, we'll need to add a chec
 </ul>
 ```
 
-To an extent visible labels can be omitted from the interface. You could even argue that having them would interfere with the expected behaviour. Clicking it should take the user to read the email. We can't have a link and label occupy the same position because they have completely different behaviour. But what can we do?
+To an extent visible labels can be omitted from the interface. You could even argue that having them interferes with the expected behaviour&mdash;that clicking the row should take the user to read the email. In any case, a link and a label can't occupy the same space because they have opposing behaviour. Remember clicking a label should check the checkbox.
 
 ### Use modes
+
+Because we're trying to handle two separate jobs, designing the interface is a little complicated. One way to design this problem out is by splitting apart the two jobs using the concept of modes.
+
+--
 
 The interface is a little complicated because it's trying to do 2 jobs at the same time. One way of simplifying things and re-introducing a visible label is by splitting apart the 2 jobs using the concept of modes. They work by having two separate, allbeit similar, pages. One is reading email and the other for managing it.
 

@@ -134,13 +134,13 @@
 ## 6. An inbox (4000)
 
 - Introduction
-- Using the right list for the job
-	- Everything is a list
-	- Lists versus tables
-	- Understanding materials
+- List types
+	- Descriptions lists
+	- Tables
+	- Order and unordered lists
 - Marking email for action
-	- Using the concept of modes
-	- Visually hiding the labels
+	- Modes
+	- Visually hidden labels
 	- Highlighting marked emails
 - An action menu
 	- Button location
@@ -148,12 +148,12 @@
 	- Disabling and hiding buttons
 	- Types of menu
 		- A select box menu
-		- A true menu
+		- A true menu component
 - Select all
 	- Using a checkbox
 	- Using a button
 - Success message
-- Confirming verus undoing an action
+- Confirming vs undoing an action
 
 ## 7. A search form (2000?)
 

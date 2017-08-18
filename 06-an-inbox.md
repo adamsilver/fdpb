@@ -47,7 +47,7 @@ See the following table mark-up as an example of this. The `<tr>` is wrapped in 
 </table>
 ```
 
-### List items
+### Ordered and unordered lists
 
 The difference between ordered and unordered lists lies in the name. If order matters&mdash;that is, if the user is expected to read or action the items in order, such as a recipe&mdash;use an ordered list. Conversely, an inbox doesn't have to be read or actioned in some predefined order. So let's focus on the more nonchalant unordered list as shown below.
 

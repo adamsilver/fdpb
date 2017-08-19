@@ -10,30 +10,40 @@ First, we're going to look at how best to mark-up a list of emails. Discussing l
 
 The meaning&mdash;or semantics&mdash;behind elements should drive their visual design. That is, something should look like it behaves. There are 4 elements we can use to construct lists each with different semantics:
 
-- Description lists (`<dl>`), used for key-value pairs such as term and definition.
-- Tables (`<table>`), used to house tabular data.
-- Ordered lists (`<ol>`), used for lists where order matters.
-- Unordered lists (`<ul>`), used for a lists where order doesn't matter.
+- Description lists
+- Tables
+- Ordered lists and unordered lists
 
 Let's discuss the pros and cons of each in relation to our inbox and pick the best one for the job.
 
 ### Description lists
 
-Description lists are good for showing a single record of information. For example a glossary or someone's profile. An inbox, however, contains multiple records (in this case emails), ruling this element out immediately.
+A description list (`<dl>`), formerly called a definition list, is for grouping a related group of key-value pairs for *one* record. For example, the key details of a product such as size, price and material. An inbox, however, consists of multiple records (emails), ruling this one out.
 
-![A description list](.)
+```HTML
+<dl>
+	<dt>Size:</dt>
+	<dd>250cm x 135cm x 90cm</dd>
+	<dt>Price:</dt>
+	<dd>£429.95</dd>
+	<dt>Material:</dt>
+	<dd>Reclaimed teak</dd>
+</dl>
+```
 
 ### Tables
 
-Tables are useful for tabular data. Like an excel spreadsheet, they are particularly useful when users need to compare and sort the data within it. But, if you don't, using tables is constraining, particularly on mobile. This is because on small screens there is no room to show more than one or two columns. Even then, it's a squeeze and could cause horizontal scroll bars or text to become unreadable as it will wrap prefusly.
+A table (`<table>`) is an arrangement of data, typically laid out in rows and columns. Like a spreadsheet, they are particularly suited when the data needs to be compared and sorted. And numbers totalled at the bottom too.
 
-Another related problem with tables is that they aren't responsive. In fact, they are inherently tied to the way the look. As such, it's hard to make tables not look like tables using CSS. But, even if you could, that would be deceptive and counterproductive as we'll see shortly.
+Tables unfortunately, are difficult to style on mobile, because there is no room to show more than two or three columns. Even then, it could be a squeeze depending on the data, creating layout issues. Content could wrap prefusly and could force a horizontal scroll bar to appear.
 
-Gmail uses tables and puts recipient, subject and date sent into columns. Interestingly though there are no headings, which is another clue that tables have been used for layout purposes rather than their semantic qualities. Jeremy Keith talks about the idea of material dishonesty is in his book Resilient Web Design[^]:
+Making tables responsive isn't the most straightforward thing to do. This is because they are inherently tied to the way they look. Put another way, making a table not look like a table, is not only very difficult, but it would be deceptive and counterproductive as we'll see in a moment.
+
+Gmail uses tables and puts recipient, subject and date sent into columns. Interestingly though, there are no headings, which is a clue that tables have been used for layout purposes rather than their semantic qualities. Jeremy Keith talks about the idea of material dishonesty is in his book Resilient Web Design[^]:
 
 > Using TABLEs for layout is materially dishonest. The TABLE element is intended for marking up the structure of tabular data. The end result [...] is a façade. At first glance everything looks fine, but it won’t stand up to scrutiny. As soon as such a website is stress‐tested by actual usage across a range of browsers, the façade crumbles.
 
-See the following table mark-up as an example of this. The `<tr>` is wrapped in an `<a>` to let users read the email. The problem is that browsers ignore this code. It's simply not allowed. Gmail fixes this by using Javascript. But as we know, this is an act of exlusivity  because not everyone has Javascript. And frankly it's totally unnecessary.
+See the following table mark-up as an example of this. The `<tr>` is wrapped in an `<a>` to let users read the email. The problem is that browsers ignore this code. It's simply not allowed. Gmail fixes this by using Javascript, but not everyone has Javascript and frankly, it's unnecessary. We'll discuss a better approach next.
 
 ```HTML
 <table class="inbox">
@@ -49,7 +59,9 @@ See the following table mark-up as an example of this. The `<tr>` is wrapped in 
 
 ### Ordered and unordered lists
 
-The difference between ordered and unordered lists lies in the name. If order matters&mdash;that is, if the user is expected to read or action the items in order, such as a recipe&mdash;use an ordered list. Conversely, an inbox doesn't have to be read or actioned in some predefined order. So let's focus on the more nonchalant unordered list as shown below.
+The generic list is useful because it itemises its content accessibly and groups related content into bite-size chunks. But they can be used for more than just bullet points. They come in two flavours: ordered (`<ol>`) and unordered (`<ul>`) lists. And they are far less opiniated than tables.
+
+The difference between the two types lies in their name. If order matters, use an ordered list. For example, following a recipe's instructions requires doing so in order. Not following them in order matters greatly. On the other hand, an inbox doesn't have to be read or actioned in a predefined order. It sounds simple when put like that, but we tend to overthink this sort of thing. Let's lay out the inbox using a `<ul>`.
 
 ```HTML
 <ul class="inbox">
@@ -63,9 +75,9 @@ The difference between ordered and unordered lists lies in the name. If order ma
 </ul>
 ```
 
-The advantage of list items over tables is that they are stylistically malleable and therefore responsive. On big screens they can be laid out in columns. In small screens, they can be stacked. Also, the entire ‘row’ can be clickable without resorting to Javascript hacks because it's perfectly valid to put a link round the contents. Less work and fewer problems.
+Unlike tables, unordered lists are stylistically malleable and therefore responsive. That's because we can put whatever structures we want inside each list item. So, on big screens we can lay things out in columns and on small screens we can stack them nicely. Moreover, the entire list item can be made to be clickable without resorting to Javascript hacks. Wrapping a link around the contents is perfectly valid. Less work and fewer problems.
 
-In the case of an inbox, list items seem more suited anyway. Not only are column headings redundant but there's no need to compare or total items in the list.
+In the case of an inbox, list items are more suited anyway: not only are column headings redundant, but there's no need to compare the items in the list.
 
 ## Marking email for action
 
@@ -297,6 +309,7 @@ In this chapter we began by choosing the right way to present a collection of em
 - Highlighting rows for the sake it.
 - Disabling submit buttons until the form becomes valid.
 - Putting friction in the form of *Are you sure?* messages in-front of repeated tasks.
+- Creating behaviours in Javascript that HTML already offers. (tables links span)
 
 ## Footnotes
 

@@ -143,7 +143,6 @@
 	- Visually hidden labels
 	- Highlighting marked emails
 - An action menu
-	- Button location
 	- Implicit submission and multiple submit buttons
 	- Disabling and hiding buttons
 	- Types of menu

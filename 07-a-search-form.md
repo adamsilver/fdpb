@@ -1,5 +1,7 @@
 # Search And Filter
 
+Consider dealing with search and filter of the inbox?
+
 TODO: infinite scroll/show more/pagination perhaps
 
 I'm an organised person. Even as I boy I remember being this way. But, I've always been a minimalist too. Organising things when you only own a few things is easy.

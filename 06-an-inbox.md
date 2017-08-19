@@ -81,7 +81,7 @@ In the case of an inbox, list items are more suited anyway: not only are column 
 
 ## Marking email for action
 
-To let users select emails for action, we'll need to add some checkboxes. That's easy enough but adding a visible label is going to be tricky. There's no space because the interface handles two disparate jobs: viewing email and managing it.
+To let users select emails for action, we'll need to add checkboxes. That's easy enough but adding a visible label is going to be tricky. There's no space because the interface handles two disparate jobs: viewing email and managing it.
 
 ```
 <ul class="inbox">
@@ -99,13 +99,15 @@ To let users select emails for action, we'll need to add some checkboxes. That's
 
 To an extent visible labels can be omitted from the interface. Including them interferes with the expected behaviour&mdash;that is, clicking the row should take the user to read the email. In any case, a link and a label can't occupy the same space because they have opposing behaviour. Remember clicking a label should check the checkbox.
 
-### Use modes
+![Illustrate the above with a useful caption](.)
 
-Because we're trying to handle two separate jobs, designing the interface is complicated. One way to design this problem out is by splitting apart the two jobs using the concept of modes. To do this, we'll have to give users a way to switch modes. A simple link will do as shown below. Clicking ‘Manage mode’ puts users into manage mode. When in manage mode, the link text will change to ‘Read mode’ and take users back to the initial view.
+### Using modes
+
+Trying to handle two separate jobs in one interface, designing it is a little complicated and we're facing a label problem. One way to avoid this problem altogether is by splitting apart the two jobs using the concept of modes. To do this, we'll have to give users a way to switch between them. Clicking ‘Manage mode’ puts users into manage mode. When in manage mode, the link text will change to ‘Read mode’ and take users back to the initial view.
 
 ![Mode](.)
 
-When in read-mode there will be no checkboxes or any other form component. The entire row will be a link taking users to read the email. When in manage-mode, the entire row turns into a label, that when clicked marks the checkbox.
+When in read-mode there will be no checkboxes or any other form paraphernalia. The entire row will be a link taking users to read the email. When in manage-mode, the entire row turns into a label, that when clicked, marks (or unmarks) the checkbox like normal.
 
 Modes are best suited when one mode is used more frequently than the other. However, when both are used frequently, as is the case of an inbox, having to switch back and forth all the time is undesirable.
 
@@ -113,9 +115,9 @@ Modes are best suited when one mode is used more frequently than the other. Howe
 
 Instead of using modes, we can add a visually hidden label. There are two ways to do this. The first is to use `aria-labelledby` attribute as shown below which uses the content that already exists. This does mean we have to add unique `id`s to make this work. In any case, ARIA shouldn't be used unless we have to as we've talked about already.
 
-Alternatively, a standard `<label>` has better support but including one means duplicating content. This isn't a huge performance problem, but if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer&mdash;screen reader software can be unresponsive.
+Alternatively, a standard `<label>` has better support but including one means duplicating content. This isn't a huge performance problem, but if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer&mdash;screen reader software can be unresponsive, for example.
 
-There is an advantage in duplication. As the contents of the label is just screen readers, we can craft a screen reader specific message that reads better audibly than it otherwise would visually.
+There is an advantage in duplication. As the contents of the label is just for screen readers, we can craft a specific message that reads better audibly than it otherwise would visually.
 
 ```HTML
 <!-- Using aria-labelledby -->
@@ -140,17 +142,15 @@ There is an advantage in duplication. As the contents of the label is just scree
 
 The deal with human-computer interaction is that when the human does something, the computer should respond. In this case, clicking a checkbox makes a little tick appear (and disappear) accordingly. As with every other checkbox in any other form, this is probably enough feedback.
 
+![Hey I'm checked, oh dear nobody loves me](.)
+
 It is, however, possible to highlight the entire row with CSS and Javascript. As designers, we're tempted to do more than the minimum. We think that more is better. We think that more is a symbol of hard work. It's actually a lot harder to *resist* doing more, than simply *doing* more. Constantly striving for less in a world that rewards you for doing more is very hard work indeed.
 
-Mailchimp, known for their usability prowess, set an example here by doing the minimum. One can assume that's enough. My own user research aligns with this too. However, if your own research shows that highlighting the entire row is essential then do so.
+Mailchimp, known for their usability prowess, show that you don't necessarily need that extra enhancement. They rely solely on the checked state of the checkbox. One can assume their research showed this to be good enough. My own research aligns with this too. Obviously, if your research shows that highlighting the row is beneficial then by all means do so.
 
 ## An action menu
 
-It's all well and good letting users select multiple emails, but we haven't given them a way to action them. Unlike the forms we designed in previous chapters, our inbox is different. Let's explore why this is next.
-
-### Button location
-
-Before now, we've positioned a single submit button directly below the last form field, which we know works best through eye tracking tests. This certainly makes sense as users answer questions from top to bottom and then submit. But here users are actioning individually selected emails. Positioning buttons at the bottom makes discovery harder so we put them at the top.
+Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them too. Unlike the forms designed in previous chapters, this form has multiple submit buttons with a different visual and interactive treatment that needs to be considered.
 
 ### Implicit submission and multiple submit buttons
 
@@ -158,14 +158,15 @@ Implicit submission lets you press <kbd>enter</kbd> when a field is focused. Thi
 
 ![Stuff](.)
 
-
 The problem comes when a form has multiple submit buttons. If the user presses <kbd>enter</kbd>, which action will be taken? Browsers simply choose the first button in the document flow. Take a look at the following form. It has two submit buttons: delete and update. If the user implicitly submits the form the record will be deleted instead of updated, as the user intended.
 
 To mitigate this, you should split the forms up into separate pages ensuring that there is one action per form. Admittedly, depending on the design this is not always easy, which is the case for the inbox. We could ask users to choose an action *before* selecting and actioning the emails, but this seems a little long winded.
 
 ![Click action link -> present checkboxes (with submit at bottom) ->confirm action](.)
 
-Fortunately, by convention multi-selection often puts the actions at the top, as opposed to the bottom. This gives users a chance to discover the multitude of available actions before making selection. Also, a form consisting soley of checkboxes doesn't make implicit action all that useful. If you have to use multiple submit buttons, put the least invasive action first&mdash;in this case *archive*. Lastly, let users undo their action (more on this shortly).
+Fortunately and by convention, multi-select interfaces typically place the action buttons at the top, not the bottom. This gives users a chance to discover the multitude of available actions before making their selection.
+
+It's also worth noting that a form that consists soley of checkboxes doesn't make implicit submission all that useful. If you need multiple submit buttons, put the least invasive action first&mdash;in this case *archive*. Also, offer users a way to under their action, so a mistake can be remedied easily (more on this shortly).
 
 ### Disabling and hiding the submit buttons before selection
 

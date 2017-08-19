@@ -238,7 +238,7 @@ As noted earlier, when there isn't enough room to display them inline, they'll s
 </div>
 ```
 
-A few notes:
+Notes:
 
 - The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
 - The `<span>` contains the unicode character for a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
@@ -400,7 +400,6 @@ Menu.prototype.focusPrevious = function(currentButton) {
 The script uses the `matchMedia` API. It listens to particular media queries so that when they ‘match’ we can tweak the behaviour in Javascript. In this case, we have a CSS media query that modifies the styles as follows:
 
 ```CSS
-
 /* other styles */
 
 @media(min-width: 45em) {
@@ -422,20 +421,23 @@ By now the benefits of using standard elements are well known. Depsite the fact 
 
 The trouble with using a checkboxes is that they don't signal what they do. Checkboxes, like select boxes, are associated with collecting data for submission. We should match peoples's expectation by using the same interface components for the same job. In doing so our interfaces become familiar and nicely conforms to principles 3, *be consistent*.
 
-Let's create a true toggle button. HTML has a generic `<button>` element but it has no concept of *toggling* (so we'll use ARIA for that bit). Most of the time the button should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for.
+Let's create a true toggle button. HTML has a generic `<button>` element but it has no concept of *toggling* (so we'll use ARIA for that bit). Most of the time the `<button>` should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for.
 
 ```HTML
-<button type="button" aria-pressed="true">Select all</button>
+<button type="button" aria-pressed="false">Select all</button>
 ```
 
-```JS
-Put code here
+The `aria-pressed` attribute will be announced by screen readers as ‘Button, select all, pressed’ (or similar). Pressing the button toggles the attribute between `true` (pressed) and `false` (unpressed). We can convey the same meaning for sighted users by styling the button with CSS.
+
+```CSS
+button {
+	/* styles */
+}
+
+button[aria-pressed="true"] {
+	/* styles*/
+}
 ```
-
-Notes:
-
-- The `aria-pressed` attribute tells the user the state of the button by toggling between `true` and `false` values.
-- Pressing the button marks all the checkboxes as checked. Pressing it a second time unchecks them as per their original state.
 
 ## Success messages
 

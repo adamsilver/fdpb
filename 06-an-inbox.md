@@ -150,7 +150,7 @@ Mailchimp, known for their usability prowess, show that you don't necessarily ne
 
 ## An action menu
 
-Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them too. Unlike the forms designed in previous chapters, this form has multiple submit buttons with a different visual and interactive treatment that needs to be considered.
+Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them too. Unlike the forms designed in previous chapters, this form contains multiple submit buttons with a new visual and interactive treatment that needs to be considered.
 
 ### Implicit submission and multiple submit buttons
 
@@ -168,43 +168,49 @@ Fortunately and by convention, multi-select interfaces typically place the actio
 
 It's also worth noting that a form that consists soley of checkboxes doesn't make implicit submission all that useful. If you need multiple submit buttons, put the least invasive action first&mdash;in this case *archive*. Also, offer users a way to under their action, so a mistake can be remedied easily (more on this shortly).
 
-### Disabling and hiding the submit buttons before selection
+### Disabling and hiding buttons
 
-You may think it's a good idea to disable the buttons until users selects at least one email. But we already discussed the problems with disabling submit buttons in the first chapter. Similarly, hiding the buttons makes the actions less discoverable. A clean interface is good, but not at the cost of clarity.
+Some multi-select interfaces like the one we're designing choose to hide or disable the buttons until users select at least one item in the list. It could be argued that showing (or enabling) action buttons in response to checking a checkbox may help user take the next step more easily. In the case of hiding them, the interface becomes more streamlined and only shows the action buttons once they become relevant.
 
-### Types of menu
+On the flipside, this only (and potentially) helps sighted users. And even so, they'd have to be using a large screen whereby the items and the menu are in full view. This is not a particularly inclusive approach to design. We also discussed the full range of problems associated with disabling buttons in ‘A Registration Form’. As a quick reminder, they don't let users know why they can't be clicked and they are not perceivable to screen readers.
 
-On big screens&mdash;or responsively speaking, when there is available space&mdash;laying out the buttons horizontally is fine. However, an inbox may have other components and there may not be enough space (even on big screens) to present them comfortably.
+Decluttering an interface is a noble goal, but not at the cost of clarity and inclusivity. Instead make room for the buttons to let users discover them easily. Hiding functionality away from users and requiring them to perform an additional action to reveal that functonality should always be a last resort.
 
-![Blah](.)
+### Menu types
 
-Similarly, on small screens the buttons are likely to stack beneath each other pushing the inbox down the page. Having the buttons dominate the interface like this is problematic. *Dominance* is a quality we should use sparingly. After all, if everything dominates, nothing does. The inbox should take center stage with the menu taking a back-seat role.
+On big screens&mdash;or responsively speaking, when there is enough space to do so&mdash;we should just lay out the submit buttons to make them available to users at all times. In desktop viewports, there's rarely any reason to hide the buttons. However, the inbox could have other components such as a search bar or layout controls such as Gmail's compact and spactious views. This means there may not be enough space to show them comfortably.
 
-![Blah](.)
+Similarly, on small screens, if there are more than two or three buttons, they're likely to stack beneath each other. This in itself is anot a huge problem except for the fact it pushes the main content down the page. Having the buttons dominate the interface like this is problematic. *Dominance* is a quality we should use sparingly. After all, if everything dominates, nothing does. The inbox itself should take center stage with the menu taking a back-seat role.
 
-To keep the interface clean but easy-to-scan we can hide the options in a menu. There are 2 ways to create a menu. The first is by using a `select` box and the second is by building a custom menu component.
+As noted earlier if there's enough room to lay out the submit buttons then do so. But if there isn't, we can keep the interface clean and easy-to-scan by hiding the options in a menu. There are two ways to create a menu. First by using a standard `select` box and second by creating a custom menu component. Let's discuss the pros and cons of each next.
 
-#### Select box menu
+#### A select box menu
 
-Select boxes are a menu of sorts. They present items for selection (like a menu) and they're an attractive option because browsers supply them for free. Even though select boxes look like menus and behave a little like them, they *aren't* menus.
+Select boxes are a menu of sorts. In fact, select boxes, are also  referred to as drop-down menus. Unsurprisingly then, we might consider them as a menu of sorts.
+
+![A select box menu](.)
+
+Like a menu, they group similar items together that users can select. And they hide the items behind a click and keep the interface clean. They're an attractive option because, as we know, browsers supply them for free. However, even though select boxes look like menus and behave like them; even though they are sometimes referred to as menus&mdashl;they aren't true menus.
 
 Select boxes are for input. That's why forms that contain select boxes&mdash;like any other input&mdash;must be accompanied by a submit button to submit the choice. Not only is this by convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-This compliments principle 4, *give control*. Conversely, select boxes that submit the form `onchange` *takes control away*. Unsuprisingly then, this causes problems for screen reader and keyboard users. On Chrome (Windows), for example, the form is submitted as soon as the user moves to the next option by pressing <kbd>down</kbd>. Moving to the option is either hard or impossible.
+This particular accessibility standard marries with principles 4, *give control*. The reason I bring this to your attention is that, by using a select box as a menu, typically involves developers omitting the submit button and causing the form to submit `onchange`. This takes control *away* from the user.
 
-This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. As we know, not all browsers are alike or implement the specification in the same way. Therefore, forgetting about people who use a less forgiving browser is an act of exclusivity.
+Unsurprisingly, this causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the form is submitted as soon as the user presses <kbd>down</kbd> to select the next option. Moving beyond that option, say to the third or fourth is impossible.
 
-Also, a select box is always collapsed even when space is available. But we want to make selection more convenient when possible. We could use Javascript to create vastly different experiences on small and big screens, but this is an adaptive approach to design and goes against the very foundation of responsive design[^5].
+![Illustrate this](.)
 
-[!Show adapative layout differences](.)
+This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. Unfortunatelty, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for users.
 
-Practically speaking, this is more work, and results in computationally heavy interface for the browser to render. It also adds complexity on the server because it has to be ready to handle the way select boxes and submit buttons transmit data to perform the same task. The select box sends `selectName="value"` and the button send `buttonName="value"`.
+The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay them out in a more convenient fashion. One way around this would be to use Javascript to create vastly different experiences by using an adapative approach to design.
+
+Adapative design should always be a last resort because it's often more work which results in a computationally heavy interface that the browser needs to render. And as is the case here, creating an adapative interface relies on Javascript again. That's not all though. If we adapted the select box into submit buttons, the server would need to handle the transmission of data from two completely separate components: a select box sends `selectName="value"` and a submit button sends `buttonName="value"`.
 
 #### A true menu component
 
-HTML doesn't have a ‘menu’ element so we need to build our own. The basic HTML looks like this:
+Instead of bending a `select` box to our will, we can implement a true menu component ourselves. The basic HTML looks like this:
 
 ```HTML
 <div role="menubar">
@@ -214,9 +220,9 @@ HTML doesn't have a ‘menu’ element so we need to build our own. The basic HT
 </div>
 ```
 
-The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, letting screen readers announce the component as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved in using ARIA is to denote this grouping for those using screen readers.
+The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, letting screen readers announce the component as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved in using ARIA is to denote this grouping for screen readers.
 
-On small screens, the menu items stack beneath each other as there is no room to present them next to each other. Javascript is used to detect when the screen is small, so that it can collapse the items behind a tradional menu.
+As noted earlier, when there isn't enough room to display them inline, they'll stack beneath each other. To avoid this, we can use CSS and a little Javascript to collapse the submit buttons inside a traditional menu.
 
 ![Menu closed and open](./images/etc.png)
 
@@ -232,34 +238,191 @@ On small screens, the menu items stack beneath each other as there is no room to
 </div>
 ```
 
-```JS
-Put it here
-```
-
-Notes:
+A few notes:
 
 - The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
 - The `<span>` contains the unicode character for a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
 - The `aria-haspopup` attribute is complemented by `aria-expanded` which tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
-- The role is now set to `menu` instead of `menubar` because it now expands and collapses. Conversely a `menubar` is always visible.
+- The role is now set to `menu` instead of `menubar` because it now expands and collapses; a `menubar` is always visible.
 - Pressing the button shows the menu and moves focus to the first `menuitem`.
 - Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop).
 - Pressing <kbd>escape</kbd> on a `menuitem` moves focus to the menu button and closes the menu.
-- All `menuitems`s have `tabindex="-1"` which means pressing <kbd>tab</kbd> won't move focus to the them. Users can traverse the items with the arrow keys, which saves them having to wade through each of the menu items to get to the next interface component.
+- All `menuitems`s have `tabindex="-1"` which means pressing <kbd>tab</kbd> won't move focus to the them. Instead, users can traverse the items with the arrow keys, which saves them having to wade through each of the menu items to get to the next discrete component.
+
+Here's the Javascript:
+
+```JS
+function Menu(container, options) {
+	this.container = container;
+	this.menu = this.container.find('.menu-items');
+	this.setupOptions(options);
+	this.setupKeys();
+	this.menu.on('keydown', 'input', $.proxy(this, 'onButtonKeydown'));
+	this.createToggleButton();
+	this.setupResponsiveChecks();
+}
+
+Menu.prototype.setupOptions = function(options) {
+	options = options || {};
+	options.mq = options.mq || '(min-width: 40em)';
+	this.options = options;
+};
+
+Menu.prototype.setupResponsiveChecks = function() {
+	this.mq = window.matchMedia(this.options.mq);
+	this.mq.addListener($.proxy(this, 'checkMode'));
+	this.checkMode(this.mq);
+};
+
+Menu.prototype.createToggleButton = function() {
+	this.menuButton = $('<button class="secondaryButton" type="button" aria-haspopup="true" aria-expanded="false">Actions<span aria-hidden="true">&#x25be;</span></button>');
+	this.menuButton.on('click', $.proxy(this, 'onMenuButtonclick'));
+};
+
+Menu.prototype.checkMode = function(mq) {
+	if(mq.matches) {
+		this.enableBigMode();
+	} else {
+		this.enableSmallMode();
+	}
+};
+
+Menu.prototype.enableSmallMode = function() {
+	this.container.prepend(this.menuButton);
+	this.hideMenu();
+	this.menu[0].setAttribute('role', 'menu');
+	this.setupTabIndex();
+};
+
+Menu.prototype.enableBigMode = function() {
+	this.menuButton.detach();
+	this.showMenu();
+	this.menu[0].setAttribute('role', 'menubar');
+	this.resetTabIndex();
+};
+
+Menu.prototype.hideMenu = function() {
+	this.menu[0].hidden = true;
+	this.menuButton[0].setAttribute('aria-expanded', 'false');
+};
+
+Menu.prototype.showMenu = function(first_argument) {
+	this.menu[0].hidden = false;
+	this.menuButton[0].setAttribute('aria-expanded', 'true');
+};
+
+Menu.prototype.onMenuButtonclick = function(e) {
+	if(this.menu[0].hidden) {
+		this.showMenu();
+		this.menu.find('input')[0].focus();
+	} else {
+		this.hideMenu();
+		this.menuButton.focus();
+	}
+};
+
+Menu.prototype.setupKeys = function() {
+	this.keys = {
+		enter: 13,
+		esc: 27,
+		space: 32,
+		left: 37,
+		up: 38,
+		right: 39,
+		down: 40,
+		tab: 9
+   };
+};
+
+Menu.prototype.setupTabIndex = function() {
+	this.container.find('input').each($.proxy(function(index, el) {
+		el.tabIndex = -1;
+	}, this));
+};
+
+Menu.prototype.resetTabIndex = function() {
+	this.container.find('input').each($.proxy(function(index, el) {
+		el.tabIndex = 0;
+	}, this));
+};
+
+Menu.prototype.onButtonKeydown = function(e) {
+	switch (e.keyCode) {
+		case this.keys.right:
+			e.preventDefault();
+			this.focusNext(e.currentTarget);
+			break;
+		case this.keys.up:
+			e.preventDefault();
+			this.focusPrevious(e.currentTarget);
+			break;
+		case this.keys.down:
+			e.preventDefault();
+			this.focusNext(e.currentTarget);
+			break;
+		case this.keys.left:
+			e.preventDefault();
+			this.focusPrevious(e.currentTarget);
+			break;
+
+		case this.keys.esc:
+			if(!this.mq.matches) {
+				this.menuButton.focus();
+				this.hideMenu();
+			}
+			break;
+		case this.keys.tab:
+			if(!this.mq.matches) {
+				this.hideMenu();
+			}
+	}
+};
+
+Menu.prototype.focusNext = function(currentButton) {
+	var next = $(currentButton).next();
+	if(next[0]) {
+		next.focus();
+	} else {
+		this.container.find('input').first().focus();
+	}
+};
+
+Menu.prototype.focusPrevious = function(currentButton) {
+	var prev = $(currentButton).prev();
+	if(prev[0]) {
+		prev.focus();
+	} else {
+		this.container.find('input').last().focus();
+	}
+};
+```
+
+The script uses the `matchMedia` API. It listens to particular media queries so that when they ‘match’ we can tweak the behaviour in Javascript. In this case, we have a CSS media query that modifies the styles as follows:
+
+```CSS
+
+/* other styles */
+
+@media(min-width: 45em) {
+	/* styles that only apply when the viewport is at least 45ems wide */
+}
+```
+
+When the script matches the media query it will update the HTML to to create the layout and behaviour as described earlier. Before `matchMedia` we had to use the broadly flakey techniques to get the width of the viewport. Even then, you could only get the value in pixels, not `em`s. You should use `em`s because they honour peoples' browser configurations such as if they increase their font size[^]. Otherwise, the layout will break.
 
 ## Select all
 
-Users may want to, for example, archive every email in their inbox. Rather than selecting each one manually, we can create a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the others creating a visual connection. Clicking it checks every checkbox at once.
+Users may want to, for example, archive every email in their inbox. Rather than selecting each one manually, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the others creating a visual connection. Clicking it checks every checkbox at once.
 
 [!Checkbox mailchimp?](.)
 
 Arguably, this out-of-the-box input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this without an ounce of Javascript.
 
-By now the benefits of using native technology are well known. Depsite the fact that this type of control is accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to look like what they do.
+By now the benefits of using standard elements are well known. Depsite the fact that this type of control is accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to look like what they do.
 
-The trouble with using a checkbox (like using a select box as a menu), is that these elements don't signal what they do. Checkboxes and select boxes are associated with collecting data for submission. We should match peoples's expectation by conforming to principle 3, *be consistent*.
+The trouble with using a checkboxes is that they don't signal what they do. Checkboxes, like select boxes, are associated with collecting data for submission. We should match peoples's expectation by using the same interface components for the same job. In doing so our interfaces become familiar and nicely conforms to principles 3, *be consistent*.
 
-So let's create a true toggle button. HTML has a generic `<button>` element but it has no concept of *toggling* (so we'll use ARIA for that bit). Most of the time the button should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links do.
+Let's create a true toggle button. HTML has a generic `<button>` element but it has no concept of *toggling* (so we'll use ARIA for that bit). Most of the time the button should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for.
 
 ```HTML
 <button type="button" aria-pressed="true">Select all</button>
@@ -326,4 +489,4 @@ As designers and makers of things, we should have a good understanding of the ma
 
 > ‘If you can solve a problem with a simpler solution lower in the stack, you should.’—Derek Featherstone
 
-- consisder visual design and touch target 44px
+- consider visual design and touch target 44px

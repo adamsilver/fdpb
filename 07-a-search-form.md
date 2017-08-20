@@ -1,5 +1,7 @@
 # Search And Filter
 
+https://github.com/adamsilver/f/issues/40
+
 autofocus bad
 
 Consider dealing with search and filter of the inbox?

@@ -170,6 +170,10 @@ It's also worth noting that a form consisting soley of checkboxes doesn't make i
 
 The last thing we can do is offer users a way to *undo* their action. We'll discuss this in more detail later in ‘Success messages’.
 
+### Sticky menus
+
+Todo. Position: sticky enhancement. Pros and cons.
+
 ### Disabling and hiding buttons
 
 Some multi-select interfaces choose to hide or disable the buttons until users select at least one item in the list. It could be argued that showing (or enabling) action buttons in response to checking a checkbox may help users take the next step more easily. In the case of hiding them, the interface becomes more streamlined and only shows the action buttons once they become relevant.
@@ -211,6 +215,10 @@ The other problem with using a select box, is that it's always collapsed, even w
 Adapative design should always be a last resort because it's often more work which results in a computationally heavy interface that the browser needs to render. And as is the case here, creating an adapative interface relies on Javascript.
 
 That's not all though. If we adapted the select box into submit buttons, the server would need to handle the transmission of data from two completely separate components: a select box sends `selectName="value"` and a submit button sends `buttonName="value"`.
+
+#### Hover vs click
+
+TODO: Work out where to weave this.
 
 #### A true menu component
 

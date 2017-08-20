@@ -1,5 +1,9 @@
 # A really long form
 
+
+At any point in the flow, the user can leave and resume progress later.
+The dashboard shows each process and progress and can jump back to any point in the flow, including where they left off.
+
 ‘add another’
 ‘Task list’
 ‘Upload’

@@ -214,17 +214,17 @@ The other problem with using a select box, is that it's always collapsed, even w
 
 ### Adaptive design versus responsive design
 
-When the web came along, we settled on 640px widths. Then a few years later, when larger monitors came to market, we changed to 960px widths. we no longer cared about people with small monitors.
+First a little history. When the web came along, we settled on 640px widths. Then a few years later, when larger monitors came to market, we changed to 960px widths. We no longer cared about people with small monitors.
 
 Then more years passed. The mobile web was born. Or more accurately, we could use websites on our phones, which happen to have small screens. A million browsers came out. A million devices came out. And browsers gave us CSS media queries.
 
-Accordingly, we started to design for 320px widths. Why? because many of us had iPhones and this happened to be its width when in portrait mode.
+Accordingly, we started to design for 320px widths. Why? because many of us had iPhones and this happened to be its portrait width.
 
-Then there was landscape view. Then tablet which is still mobile right? Then desktop. Then really big desktop screens. Then TV. Then all the way back down to wristwatches. If your head is spinning, don't worry so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
+Then there was landscape view. Then tablet which is still mobile right? Then desktop. Then really big desktop screens. Then TV. Then all the way back down to wristwatches. If your head is spinning, don't worry, so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
 
-Both responsive and adapative design seems to be the same, because both change based on viewport width. Both also use CSS media queries, but the difference between is both subtle and crucial.
+The difference between responsive and adaptive design is both subtle and crucial. It's hard because both change based on viewport width. And both use CSS media queries to do so. Let's take a closer look at adapative design specifically.
 
-Adaptive design means designing several predefined layouts for specificly chosen viewport widths that correspond to a particular device. All the code for all the different layouts is sent to the browser. Then the layout that corresponds to the particular predefined media query is applied. These media queries are called device breakpoints.
+Adaptive design means defining several predefined layouts for specificly chosen viewport widths that correspond to a particular device. All the code for all the different layouts is sent to the browser. Then the layout that corresponds to the particular predefined media query is applied. These media queries are called device breakpoints.
 
 ```CSS
 iphoneLayout {
@@ -240,7 +240,7 @@ desktopLayout {
 }
 ```
 
-Using this approach is normally unnecessary, counterproductive and results in poor performance. First there is an endless stream of devices and browsers with different widths and it's only going to get worse. Designing for those different widths is sysiphean. And it results in slow loading websites because a lot of extra and redundant code has to be parsed and executed. For these reeasons adaptive design should be a last resort.
+Using this approach is normally unnecessary and counterproductive. First there is an endless stream of devices and browsers with different widths and it's only going to get worse. Designing for those different widths is sysiphean. And it results in slow loading websites because a lot of extra and redundant code has to be parsed and executed. For these reeasons adaptive design should be a last resort.
 
 Responsive design takes a different approach and is based on a single fluid layout that should look good at any size on any device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when the layout breaks if at all. These media queries are called content breakpoints.
 

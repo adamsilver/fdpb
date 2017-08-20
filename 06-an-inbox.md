@@ -1,8 +1,8 @@
 # An inbox
 
-My sister loves to-do lists. In fact she loves lists so much, that one of her favourite things is making new lists out of old ones. Despite her obsession, the world is full of lists. There is even a list of great people[^1]. But lists are tricky to manage. On the web, there are several types of lists and there are some design patterns that have emerged over the years to deal with managing them.
+My sister loves to-do lists. In fact she loves them so much, that one of her favourite things is making new lists out of old ones. The world is full of lists. There is even a list of great people[^1]. On the web, there are several types of lists and there are some design patterns that have emerged over the years that help to manage them.
 
-We're going to design an inbox. In other words, a list of emails. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there quickly, the interface will let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk. My sister loves pen and paper, but if we do this right, perhaps she'll be converted to digital.
+The type of list we'll be tackling is an inbox. That is, a list of emails sent from other people. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there quickly, the interface will let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk. My sister loves her trusty pen and paper, but if we do this right, perhaps she'll be converted to digital.
 
 ## List types
 
@@ -441,15 +441,48 @@ button[aria-pressed="true"] {
 
 ## Success messages
 
-When the user submits the form, the emails which have been checked will disppear from view. Without letting users know the action was completed successfully, they'll be left to wonder if what they intended to happen, did so.
+When the user submits the form, the selected emails will disppear from their inbox. When an action has been applied telling users is simply the respectful thing to do. Without one, they'll be left to guess what happened which can cause anxiety.
+
+In chapter 1, we designed and constructed an error summary panel that resides at the top of the page when there's an error. A success message needs a similar treatment with just a few tweaks. First is that instead of having red colouration, it should be green which is universally associated with success. And the content should be ‘You successfully archived 15 emails’ or similar.
 
 ![Success](.)
 
-It's designed and constructed identically to the error message in chapter 1. The only exception is that it's coloured green, which is associated with *success*.
+```HTML
+<div class="successMessage" role="alert">
+  <h2>You've successfully archived 15 emails.</h2>
+</div>
+```
 
-Some websites choose to hide the message after a certain period of time has passed. But this causes problems because users have to read it quickly, which takes control away from them. If user research shows that being able to dismiss a message *adds value* then append a button that when pressed does just that.
+### Toast messages
+
+Both the error and success message panels are placed within the natural flow of the document toward the top of the page to indicate their importance. The `role="alert"` as noted in ‘A Registration Form’ ensures that screen readers will announced it when the page loads.
+
+Some applications employ what is known as a ‘toast’ message or notification. When the application wants notify users that something happened a little (non modal!) dialog will pop-up a little bit like a piece of toast. Then, after a certain amount of time has elapsed the notification fades away automatically.
+
+![Toast message](.)
+
+This is all very interesting from a design perspective, but it's hardly a useful way to inform users. First, the message typically obscures the content beneath. Second, the user has to rush to read the message before it disappears. This makes comprehension a stressful task and takes control *away* from the user.
+
+Really, a success message can just be laid out at the top without doing anything. After the user navigates away the message will disppear naturally. That is, the message is temporary. However, if research shows that being able to dismiss a message *adds value* then okay, but don't do it automatically.
+
+Instead, inject a `<button>` into the message panel with Javascript. The reason we do it with Javascript is because without it, the `<button>` won't do anything. We can consider dismissing the message immediately is an enhancement.
 
 ![Success with dismiss](.)
+
+```JS
+function MessageDismisser(panel) {
+	this.panel = panel;
+	this.createButton();
+}
+
+MessageDismisser.prototype.createButton = function() {
+	var button = $('<button>Dismiss message</button>');
+	this.panel.append(button);
+	button.on('click', $.proxy(function(e) {
+		this.panel.remove();
+	}, this);
+};
+```
 
 ### Confirming versus undoing an action
 
@@ -457,25 +490,25 @@ As a safety measure, some roads have speed bumps. They cause drivers to slow dow
 
 ![Are you sure](./images/etc.png)
 
-This is fine for tasks that are performed infrequently but it quickly gets tedious when they need to be invoked more often. To continue with the driving analogy, it's a bit like putting speed bumps on motorways.
+This is fine for infrequently performed tasks but it quickly gets tedious when they need to be invoked more often. To continue with the driving analogy, it's a bit like putting speed bumps on motorways.
 
-One alternative approach is to let users perform the action immediately and without warning. Then along with the success message, give users the choice to undo the action. Clicking *undo* reverses the action by restoring their emails. If only we could *undo* accidents on the road.
+An alternative approach is to let users perform the action immediately, without warning. Then, along with the success message, give users the choice to undo their action. Clicking *undo* reverses the action by restoring their emails. If only we could *undo* accidents on the road.
 
 ![Undo](./images/undo.png)
 
 ## Summary
 
-In this chapter we began by choosing the right way to present a collection of emails and the impact of combining two disparate modes&mdash;reading email and actioning it&mdash;into one interface. We looked at how a mult-select form is different to the common form and how this made us consider several other aspects of design. Finally we looked at ways in which to *add value* and *give control* by  designing consistent interfaces that give users feedback.
+In this chapter we began by choosing the right way to present a collection of emails and the impact of combining two disparate modes&mdash;reading email and actioning it&mdash;into one interface. We looked at how a mult-select form is different to most other types of form and how this caused us to consider several other aspects of design. Finally we looked at ways in which to *add value* and put users firmly in control by designing consistent interfaces that give users feedback and a way to undo their actions.
 
 ### Things to avoid
 
 - Ploughing ahead without deeply understanding the materials we design with.
-- Using ARIA when you don't have to.
-- Using checkboxes and select boxes unconventionally.
-- Highlighting rows for the sake it.
+- Fixing bad HTML with Javascript.
+- Using ARIA when the functionality can be achieved with HTML.
+- Using checkboxes and select boxes for interface components that don't collect data.
+- Highlighting rows and doing more work for the sake it.
 - Disabling submit buttons until the form becomes valid.
-- Putting friction in the form of *Are you sure?* messages in-front of repeated tasks.
-- Creating behaviours in Javascript that HTML already offers. (tables links span)
+- Putting *Are you sure?* messages in-front of repeated tasks.
 
 ## Footnotes
 
@@ -485,10 +518,7 @@ In this chapter we began by choosing the right way to present a collection of em
 [^4]: https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html
 [^5]: https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/
 
-## Todo
+## Maybe
 
-As designers and makers of things, we should have a good understanding of the materials before creating artifacts. A chair designer should intimately know the properties and constraints of wood for example. Otherwise how are they expected to craft a beautiful, well-functioning and comfortable chair? Similarly, we need to have a deep understanding of HTML, CSS and Javascript.
-
-> ‘If you can solve a problem with a simpler solution lower in the stack, you should.’—Derek Featherstone
-
+-‘If you can solve a problem with a simpler solution lower in the stack, you should.’—Derek Featherstone
 - consider visual design and touch target 44px

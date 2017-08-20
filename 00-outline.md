@@ -152,7 +152,9 @@
 	- Using a checkbox
 	- Using a button
 - Success message
-- Confirming vs undoing an action
+	- Design and construction
+	- A note on toast notifications and dismissing messages
+	- Confirming vs undoing an action
 
 ## 7. A search form (2000?)
 

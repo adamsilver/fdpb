@@ -1,6 +1,6 @@
 # A Registration Form
 
-Our forms adventure begins with a humble registration form. This seemingly simple form, will, ahem, form the foundations on which to solve more complex forms later. Choosing such a simple form to start with makes it easier to tease out some of the most important qualities found in well-designed forms. Here it is:
+Our forms adventure begins with a humble registration form. This seemingly simple form, will, ahem, form the foundations on which to solve more complex forms later on in the book. Choosing a basic form to start with makes it easier to tease out some of the most important qualities found in well-designed forms. Here it is:
 
 ![Registration Form](./images/.png)
 
@@ -12,7 +12,7 @@ Our forms adventure begins with a humble registration form. This seemingly simpl
   <input type="text" id="lastName" name="lastName">
   <label for="email">Email address</label>
   <input type="email" id="email" name="email">
-  <label for="password">Password</label>
+  <label for="password">Create password</label>
   <input type="password" id="password" name="password" placeholder="Must be 8 characters">
   <input type="submit" value="Register">
 </form>

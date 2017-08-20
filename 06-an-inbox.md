@@ -264,7 +264,7 @@ That's not all. Having one layout with a select box and one layout with a list o
 
 TODO: Work out where to weave this.
 
-### A true menu
+### A responsive menu component
 
 Instead of bending a `select` box to our will, we can implement a true menu component ourselves. The basic HTML looks like this:
 
@@ -299,11 +299,7 @@ Notes:
 - The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
 - The `<span>` contains the unicode character for a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
 - The `aria-haspopup` attribute is complemented by `aria-expanded` which tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
-- The role is now set to `menu` instead of `menubar` because it now expands and collapses; a `menubar` is always visible.
-- Pressing the button shows the menu and moves focus to the first `menuitem`.
-- Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop).
-- Pressing <kbd>escape</kbd> on a `menuitem` moves focus to the menu button and closes the menu.
-- All `menuitems`s have `tabindex="-1"` which means pressing <kbd>tab</kbd> won't move focus to the them. Instead, users can traverse the items with the arrow keys, which saves them having to wade through each of the menu items to get to the next discrete component.
+- The role is now set to `menu` instead of `menubar` because it now expands and collapses. Where as a `menubar` is always visible.
 
 Here's the Javascript:
 
@@ -453,7 +449,16 @@ Menu.prototype.focusPrevious = function(currentButton) {
 };
 ```
 
-The script uses the `matchMedia` API. It listens to particular media queries so that when they ‘match’ we can tweak the behaviour in Javascript. In this case, we have a CSS media query that modifies the styles as follows:
+- Pressing the button shows the menu and moves focus to the first `menuitem`.
+- Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop).
+- Pressing <kbd>escape</kbd> on a `menuitem` moves focus to the menu button and closes the menu.
+- All `menuitems`s have `tabindex="-1"` which means pressing <kbd>tab</kbd> won't move focus to the them. Instead, users can traverse the items with the arrow keys, which saves them having to wade through each of the menu items to get to the next discrete component.
+
+### A note about `matchmedia`
+
+The `matchMedia` API is the Javascript equivalent of a media query. It's a way of keeping behaviour and style in-sync based on the same media query. Where `@media() {}` is for CSS `matchMedia()` is for Javascript.
+
+In this case, when the viewport has a width less than `45em` the script will apply the menu behaviour. When more than `45em` it will apply the menubar behaviour. Here's the related CSS to match:
 
 ```CSS
 /* other styles */
@@ -463,7 +468,7 @@ The script uses the `matchMedia` API. It listens to particular media queries so 
 }
 ```
 
-When the script matches the media query it will update the HTML to to create the layout and behaviour as described above. Before `matchMedia` we had to use flakey techniques to get the width of the viewport. Even then, you could only get the value in pixels, not `em`s. You should use `em`s because they honour peoples' browser configurations such as if they increase their font size[^]. Otherwise, the layout will break.
+Before `matchMedia` we had to use flakey techniques to get the width of the viewport. Even then, you could only get the value in pixels, not `em`s. It's preferrable to use ems as it will honour users' browser CSS preferences or an increase in font size for example.
 
 ## Select all
 
@@ -575,8 +580,3 @@ In this chapter we began by choosing the right way to present a collection of em
 [^3]: https://resilientwebdesign.com/chapter2/#Using%20TABLEs%20for%20layout%20is%20materially%20dishonest.
 [^4]: https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html
 [^5]: https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/
-
-## Maybe
-
--‘If you can solve a problem with a simpler solution lower in the stack, you should.’—Derek Featherstone
-- consider visual design and touch target 44px

@@ -149,7 +149,7 @@
 	- Adaptive vs responsive design
 	- Hover vs click
 	- A select box menu
-	- A true menu component
+	- A responsive menu component
 - Select all
 	- Using a checkbox
 	- Using a button

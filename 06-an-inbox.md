@@ -164,9 +164,9 @@ To mitigate this, split the forms up into separate pages ensuring that there is 
 
 ![Click action link -> present checkboxes (with submit at bottom) ->confirm action](.)
 
-Fortunately and by convention, multi-select interfaces typically place the action buttons at the top of the page. This gives users a chance to discover the multitude of available actions before making their selection.
+Fortunately and by convention, multi-select interfaces typically place the action buttons at the top of the page in vertical alignment to the checkboxes. This gives users a chance to discover the multitude of available actions before making their selection.
 
-It's also worth noting that a form that consists soley of checkboxes doesn't make implicit submission all that useful. If you need multiple submit buttons, put the least invasive action first&mdash;in this case *archive*. That way, in the unlikely that users accidentally submit the form implicitly they'll be in far less of a predicament.
+It's also worth noting that a form consisting soley of checkboxes doesn't make implicit submission all that useful. If you need multiple submit buttons, put the least invasive action first&mdash;in this case *archive*. That way, in the unlikely that users accidentally submit the form implicitly they'll be in far less of a predicament.
 
 The last thing we can do is offer users a way to *undo* their action. We'll discuss this in more detail later in ‘Success messages’.
 

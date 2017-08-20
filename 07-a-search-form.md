@@ -1,5 +1,7 @@
 # Search And Filter
 
+autofocus bad
+
 Consider dealing with search and filter of the inbox?
 
 TODO: infinite scroll/show more/pagination perhaps

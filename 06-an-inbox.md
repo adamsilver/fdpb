@@ -192,7 +192,7 @@ As noted earlier if there's enough room to lay out the submit buttons then do so
 
 There are two ways to create a menu. First by using a standard `select` box and second by creating a custom menu component. Let's discuss the pros and cons of each next.
 
-#### A select box menu
+### A select box menu
 
 Select boxes are a menu of sorts. In fact, select boxes, are also  referred to as drop-down *menus*.
 
@@ -210,17 +210,55 @@ Unsurprisingly, this causes problems for screen reader and keyboard users. For e
 
 This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. Unfortunatelty, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for users.
 
-The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay them out in a more convenient fashion. One way around this would be to use Javascript to create vastly different experiences by using an adapative approach to design.
+The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay them out in a more convenient fashion. One way around this would be to use Javascript to create completely different experiences. This is known as adapative (not responsive!) design, which has its own set of pitfalls. Let's discuss the differences next.
 
-Adapative design should always be a last resort because it's often more work which results in a computationally heavy interface that the browser needs to render. And as is the case here, creating an adapative interface relies on Javascript.
+### Adaptive design versus responsive design
 
-That's not all though. If we adapted the select box into submit buttons, the server would need to handle the transmission of data from two completely separate components: a select box sends `selectName="value"` and a submit button sends `buttonName="value"`.
+When the web came along, we settled on 640px widths. Then a few years later, when larger monitors came to market, we changed to 960px widths. we no longer cared about people with small monitors.
 
-#### Hover vs click
+Then more years passed. The mobile web was born. Or more accurately, we could use websites on our phones, which happen to have small screens. A million browsers came out. A million devices came out. And browsers gave us CSS media queries.
+
+Accordingly, we started to design for 320px widths. Why? because many of us had iPhones and this happened to be its width when in portrait mode.
+
+Then there was landscape view. Then tablet which is still mobile right? Then desktop. Then really big desktop screens. Then TV. Then all the way back down to wristwatches. If your head is spinning, don't worry so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
+
+Both responsive and adapative design seems to be the same, because both change based on viewport width. Both also use CSS media queries, but the difference between is both subtle and crucial.
+
+Adaptive design means designing several predefined layouts for specificly chosen viewport widths that correspond to a particular device. All the code for all the different layouts is sent to the browser. Then the layout that corresponds to the particular predefined media query is applied. These media queries are called device breakpoints.
+
+```CSS
+iphoneLayout {
+
+}
+
+ipadLayout {
+
+}
+
+desktopLayout {
+
+}
+```
+
+Using this approach is normally unnecessary, counterproductive and results in poor performance. First there is an endless stream of devices and browsers with different widths and it's only going to get worse. Designing for those different widths is sysiphean. And it results in slow loading websites because a lot of extra and redundant code has to be parsed and executed. For these reeasons adaptive design should be a last resort.
+
+Responsive design takes a different approach and is based on a single fluid layout that should look good at any size on any device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when the layout breaks if at all. These media queries are called content breakpoints.
+
+![](.)
+
+Adapative design tries to bend the web to its will. Responsive design embraces the web as what I've come to call a continuum of edgelessness.
+
+With this in mind let's go back to the adaptive select box menu from earlier. By default we'll give users a select box. Then when there is enough room, we'll discard the select box entirely for a completely different interface using CSS and Javascript.
+
+In doing so this results in a lot more design work. And the page will take longer to load due to the extra code. And we either have to completely change the interface dynamically with Javascript, or we have to load both layouts in HTML and enable and disable them accordingly.
+
+That's not all. Having one layout with a select box and one layout with a list of submit buttons, the server needs to be ready to handle both. But the different elements transmit data differently: a select box sends `selectName="value"` and a submit button sends `buttonName="value"`.
+
+### Hover vs click
 
 TODO: Work out where to weave this.
 
-#### A true menu component
+### A true menu
 
 Instead of bending a `select` box to our will, we can implement a true menu component ourselves. The basic HTML looks like this:
 

@@ -154,7 +154,7 @@
 - Success message
 	- Design and construction
 	- A note on toast notifications and dismissing messages
-	- Confirming vs undoing an action
+	- Confirming vs undoing
 
 ## 7. A search form (2000?)
 

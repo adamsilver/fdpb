@@ -240,19 +240,25 @@ desktopLayout {
 }
 ```
 
-Using this approach is normally unnecessary and counterproductive. First there is an endless stream of devices and browsers with different widths and it's only going to get worse. Designing for those different widths is sysiphean. And it results in slow loading websites because a lot of extra and redundant code has to be parsed and executed. For these reeasons adaptive design should be a last resort.
+Using this approach is normally unnecessary and counterproductive. First, there is an endless stream of devices and browsers with different widths and it's only going to get harder. Designing for those endless device widths is sysiphean. And the extra code needed to produce the different layouts results in slow loading pages. Therefore, adaptive design should be a last resort.
 
-Responsive design takes a different approach and is based on a single fluid layout that should look good at any size on any device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when the layout breaks if at all. These media queries are called content breakpoints.
+Responsive design takes a different approach and is based on a single fluid layout that should work well at any size regardless of device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when and if the layout breaks. These media queries are called content breakpoints.
 
 ![](.)
 
-Adapative design tries to bend the web to its will. Responsive design embraces the web as what I've come to call a continuum of edgelessness.
+Adaptive design tries to bend the web to its will. Responsive design embraces it by understanding the web, as what I've come to call, a continuum of edgelessness.
 
-With this in mind let's go back to the adaptive select box menu from earlier. By default we'll give users a select box. Then when there is enough room, we'll discard the select box entirely for a completely different interface using CSS and Javascript.
+With this in mind, let's look at why the select box menu requires an adaptive approach to design. By default, and on small screens, users get a select box. Then, when there is enough space, we'll discard the select box for a group of submit buttons, laid out in a row.
 
-In doing so this results in a lot more design work. And the page will take longer to load due to the extra code. And we either have to completely change the interface dynamically with Javascript, or we have to load both layouts in HTML and enable and disable them accordingly.
+![Adaptive select box](.)
 
-That's not all. Having one layout with a select box and one layout with a list of submit buttons, the server needs to be ready to handle both. But the different elements transmit data differently: a select box sends `selectName="value"` and a submit button sends `buttonName="value"`.
+In this case the big screen view, entirely discards the select box in favour of a completely different design using CSS and Javascript. Not only does this mean more work, but the page will take longer to load due to the extra code. And we either have to change the HTML dynamically with Javascript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
+
+```CSS
+Example {}
+```
+
+That's not all. Having one layout with a select box and one layout with a list of submit buttons, means the server needs handle the different ways they transmit data: a select box sends `selectName="value"` and a submit button sends `buttonName="value"`.
 
 ### Hover vs click
 

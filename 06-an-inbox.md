@@ -451,6 +451,8 @@ Menu.prototype.focusPrevious = function(currentButton) {
 };
 ```
 
+Notes:
+
 - Pressing the button shows the menu and moves focus to the first `menuitem`.
 - Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop).
 - Pressing <kbd>escape</kbd> on a `menuitem` moves focus to the menu button and closes the menu.

@@ -208,9 +208,9 @@ Unsurprisingly, this causes problems for screen reader and keyboard users. For e
 
 ![Illustrate this](.)
 
-This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. Unfortunatelty, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for users.
+This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. Unfortunately, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for users.
 
-The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay them out in a more convenient fashion. One way around this would be to use Javascript to create completely different experiences. This is known as adapative (not responsive!) design, which has its own set of pitfalls. Let's discuss the differences next.
+The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adapative (not responsive!) design, which we'll discuss next.
 
 ### Adaptive design versus responsive design
 
@@ -220,11 +220,11 @@ Then more years passed. The mobile web was born. Or more accurately, we could us
 
 Accordingly, we started to design for 320px widths. Why? because many of us had iPhones and this happened to be its portrait width.
 
-Then there was landscape view. Then tablet which is still mobile right? Then desktop. Then really big desktop screens. Then TV. Then all the way back down to wristwatches. If your head is spinning, don't worry, so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
+Then there was landscape view. Then tablet (is that mobile?). Then desktop. Then really big desktop screens. Then TV. Then all the way back down to wristwatches. If your head is spinning, don't worry, so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
 
-The difference between responsive and adaptive design is both subtle and crucial. It's hard because both change based on viewport width. And both use CSS media queries to do so. Let's take a closer look at adapative design specifically.
+The difference between responsive and adaptive design is both subtle and crucial. Both techniques are based on viewport width. And both use CSS media queries to do so. Let's take a look at each in turn now.
 
-Adaptive design means defining several predefined layouts for specificly chosen viewport widths that correspond to a particular device. All the code for all the different layouts is sent to the browser. Then the layout that corresponds to the particular predefined media query is applied. These media queries are called device breakpoints.
+Adaptive design means defining several predefined layouts for specificly chosen viewport widths that correspond to a particular device. All the code for all of the layouts are sent to the browser. Then the layout that matches the predefined media query is applied accordingly. These media queries are known as device breakpoints. That is, a breakpoint which is defined based on a device's width.
 
 ```CSS
 iphoneLayout {
@@ -240,25 +240,25 @@ desktopLayout {
 }
 ```
 
-Using this approach is normally unnecessary and counterproductive. First, there is an endless stream of devices and browsers with different widths and it's only going to get harder. Designing for those endless device widths is sysiphean. And the extra code needed to produce the different layouts results in slow loading pages. Therefore, adaptive design should be a last resort.
+Using this approach is normally unnecessary and counterproductive. First, there is an endless stream of devices and browsers with different widths and it's only going to get harder. Designing specific layouts for every device width is sysiphean. And the extra code needed to produce such layouts would result in very slow loading pages. Generally speaking adapative design should be a last resort.
 
-Responsive design takes a different approach and is based on a single fluid layout that should work well at any size regardless of device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when and if the layout breaks. These media queries are called content breakpoints.
+Responsive design takes a different approach. It's based on a single fluid layout that should work well at any size regardless of device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when and if the layout breaks. These media queries are known as content breakpoints.
 
 ![](.)
 
-Adaptive design tries to bend the web to its will. Responsive design embraces it by understanding the web, as what I've come to call, a continuum of edgelessness.
+Where adaptive design tries to bend the web to its will, responsive design embraces it. Responsive design understands that you can't possibly design for every device and browser individually. That's just not how the web works. I've come to call the web, a continuum of edgelessness.
 
-With this in mind, let's look at why the select box menu requires an adaptive approach to design. By default, and on small screens, users get a select box. Then, when there is enough space, we'll discard the select box for a group of submit buttons, laid out in a row.
+With this in mind, let's look at why the select box menu requires an adaptive approach to design. By default, and on small screens, users get a select box. Then, when there is enough space, it's swapped for set of submit buttons, laid out in a row.
 
 ![Adaptive select box](.)
 
-In this case the big screen view, entirely discards the select box in favour of a completely different design using CSS and Javascript. Not only does this mean more work, but the page will take longer to load due to the extra code. And we either have to change the HTML dynamically with Javascript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
+In this case the big screen view entirely discards the select box in favour of a completely different design using CSS and Javascript. Not only does this mean more work, but the page will take longer to load. And we either have to change the HTML dynamically with Javascript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
 
 ```CSS
 Example {}
 ```
 
-That's not all. Having one layout with a select box and one layout with a list of submit buttons, means the server needs handle the different ways they transmit data: a select box sends `selectName="value"` and a submit button sends `buttonName="value"`.
+That's not all. The server now needs to be aware of how both layouts transmit data. The select box sends `selectName="value"` and the submit buttons sends `buttonName="value"` creating yet more work and a maintenance overhead.
 
 ### Hover vs click
 
@@ -266,7 +266,9 @@ TODO: Work out where to weave this.
 
 ### A responsive menu component
 
-Instead of bending a `select` box to our will, we can implement a true menu component ourselves. The basic HTML looks like this:
+Instead of bending a `select` box to our will, we'll design a true and responsive menu.
+
+![Responsive Menu](.)
 
 ```HTML
 <div role="menubar">
@@ -276,9 +278,9 @@ Instead of bending a `select` box to our will, we can implement a true menu comp
 </div>
 ```
 
-The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, letting screen readers announce the component as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved in using ARIA is to denote this grouping for screen readers.
+The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, so screen readers can announce it as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved in using ARIA is to convey the same meaning for screen readers.
 
-As noted earlier, when there isn't enough room to display them inline, they'll stack beneath each other. To avoid this, we can use CSS and a little Javascript to collapse the submit buttons inside a traditional menu.
+When there isn't enough room to display them inline, they'll stack beneath each other. To avoid this, we can tweak the CSS and Javascript to collapse the submit buttons inside a traditional menu.
 
 ![Menu closed and open](./images/etc.png)
 
@@ -456,9 +458,9 @@ Menu.prototype.focusPrevious = function(currentButton) {
 
 ### A note about `matchmedia`
 
-The `matchMedia` API is the Javascript equivalent of a media query. It's a way of keeping behaviour and style in-sync based on the same media query. Where `@media() {}` is for CSS `matchMedia()` is for Javascript.
+The `matchMedia` API is the Javascript equivalent of a media query. It's a way of keeping behaviour and style in-sync based on the same media query. Where `@media() {}` is for CSS, `matchMedia()` is for Javascript.
 
-In this case, when the viewport has a width less than `45em` the script will apply the menu behaviour. When more than `45em` it will apply the menubar behaviour. Here's the related CSS to match:
+In this case, when the viewport has a width less than `45em` the script will construct a toggle menu. When it's more than `45em` it will construct a horizontal menubar. The related CSS is below.
 
 ```CSS
 /* other styles */
@@ -468,7 +470,7 @@ In this case, when the viewport has a width less than `45em` the script will app
 }
 ```
 
-Before `matchMedia` we had to use flakey techniques to get the width of the viewport. Even then, you could only get the value in pixels, not `em`s. It's preferrable to use ems as it will honour users' browser CSS preferences or an increase in font size for example.
+Before `matchMedia` we had to use flakey techniques to get the width of the viewport[^]. Even then, you could only get the value in pixels, not `em`s. It's preferrable to use ems as they honour users' browser CSS preferences or an increase in font size because they are a relative unit. For further reading, see X.
 
 ## Select all
 

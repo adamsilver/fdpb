@@ -146,8 +146,10 @@
 	- Implicit submission and multiple submit buttons
 	- Disabling and hiding buttons
 	- Types of menu
-		- A select box menu
-		- A true menu component
+	- Adaptive vs responsive design
+	- Hover vs click
+	- A select box menu
+	- A true menu component
 - Select all
 	- Using a checkbox
 	- Using a button

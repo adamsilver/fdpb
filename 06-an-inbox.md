@@ -6,15 +6,9 @@ The type of list we'll be tackling is an inbox. That is, a list of emails sent f
 
 ## List types
 
-First, we're going to look at how best to mark-up a list of emails. Discussing lists may seem out of place in a book about forms, but forms rarely form part of an interface on their own. Ignoring their surrounings can easily result in disagreeable experiences.
+First, we're going to look at how best to mark-up a list of emails. Discussing lists may seem out of place in a book about forms, but forms rarely form part of an interface on their own. Ignoring their surroundings can easily result in disagreeable experiences.
 
-The meaning&mdash;or semantics&mdash;behind elements should drive their visual design. That is, something should look like it behaves. There are 4 elements we can use to construct lists each with different semantics:
-
-- Description lists
-- Tables
-- Ordered lists and unordered lists
-
-Let's discuss the pros and cons of each in relation to our inbox and pick the best one for the job.
+The meaning&mdash;or semantics&mdash;behind elements should drive their visual design. Put simply, things should look like they function. There are 4 elements we can use to construct lists each with different semantics: description lists, tables, ordered lists and unordered lists. Let's discuss the pros and cons of each in relation to our inbox and pick the best one for the job.
 
 ### Description lists
 
@@ -81,7 +75,7 @@ In the case of an inbox, list items are more suited anyway: not only are column 
 
 ## Marking email for action
 
-To let users select emails for action, we'll need to add checkboxes. That's easy enough but adding a visible label is going to be tricky. There's no space because the interface handles two disparate jobs: viewing email and managing it.
+To let users select emails, we'll need to add checkboxes. Let's do that now.
 
 ```
 <ul class="inbox">
@@ -97,27 +91,31 @@ To let users select emails for action, we'll need to add checkboxes. That's easy
 </ul>
 ```
 
-To an extent visible labels can be omitted from the interface. Including them interferes with the expected behaviour&mdash;that is, clicking the row should take the user to read the email. In any case, a link and a label can't occupy the same space because they have opposing behaviour. Remember clicking a label should check the checkbox.
+Note the checkbox is missing a label. The problem is that we want the contents of the link to be the contents of the label. In other words, two opposing behaviours need to occupy the same space. Clicking a label should mark the checkbox, clicking a link should take the user to the email. We're faced with a challenge.
 
 ![Illustrate the above with a useful caption](.)
 
+It could be argued that the interface doesn't need a visual label. After all, the label would need to mirror, and therefore duplicate, the links content. This would make for a confusing experience for sighted users. Let's see if the concept of modes can solve this for us.
+
 ### Using modes
 
-Trying to handle two separate jobs in one interface, designing it is a little complicated and we're facing a label problem. One way to avoid this problem altogether is by splitting apart the two jobs using the concept of modes. To do this, we'll have to give users a way to switch between them. Clicking ‘Manage mode’ puts users into manage mode. When in manage mode, the link text will change to ‘Read mode’ and take users back to the initial view.
+Trying to combine two user needs into a single interface is what's caused this design problem in the first place. One way to avoid the issue would be to split apart the two needs by using the concept of modes. This just means letting users switch between managing email and reading it by offering a link as shown below.
 
 ![Mode](.)
 
-When in read-mode there will be no checkboxes or any other form paraphernalia. The entire row will be a link taking users to read the email. When in manage-mode, the entire row turns into a label, that when clicked, marks (or unmarks) the checkbox like normal.
+Clicking *Organise* puts users into *manage-mode*. When in manage-mode, the link changes to ‘Exit organise’ (or similar) and takes users back.
+
+When in read-mode there are no checkboxes or any other form paraphernalia. The row is a link which takes users to read the email. When in manage-mode, the row turns into a `<label>`. When clicked, it marks (or unmarks) the checkbox like normal.
 
 Modes are best suited when one mode is used more frequently than the other. However, when both are used frequently, as is the case of an inbox, having to switch back and forth all the time is undesirable.
 
 ### Visually hide the label
 
-Instead of using modes, we can add a visually hidden label. There are two ways to do this. The first is to use `aria-labelledby` attribute as shown below which uses the content that already exists. This does mean we have to add unique `id`s to make this work. In any case, ARIA shouldn't be used unless we have to as we've talked about already.
+Instead of using modes, we can add a visually hidden label. There are two ways to do this. The first is to use an `aria-labelledby` attribute as shown below which uses the content that already exists. This means adding unique `id`s to make this work. In any case, ARIA shouldn't be used unless we have to&mdash;something we've talked about previously.
 
-Alternatively, a standard `<label>` has better support but including one means duplicating content. This isn't a huge performance problem, but if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer&mdash;screen reader software can be unresponsive, for example.
+Alternatively, a standard `<label>` has better support. The downside, is that the content has to be duplicated. This isn't a huge performance problem, but if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer&mdash;screen reader software can be unresponsive, for example.
 
-There is an advantage in duplication. As the contents of the label is just for screen readers, we can craft a specific message that reads better audibly than it otherwise would visually.
+Fortunately, there is a silver lining in duplicating the contents. The contents of the label is just for screen readers, meaning we can craft a specific message that reads better audibly than it otherwise would visually.
 
 ```HTML
 <!-- Using aria-labelledby -->
@@ -154,51 +152,55 @@ Letting users select multiple emails is all well and good, but we're going to wa
 
 ### Implicit submission and multiple submit buttons
 
-Implicit submission lets you press <kbd>enter</kbd> when a field is focused. This is a convention that lets users submit a form quicker without having to move focus to the submit button. This is particularly useful for a search form&mdash;one that consists of a text box and submit button&mdash;because users can take the efficient route pressing <kbd>enter</kbd>.
+Implicit submission lets you press <kbd>enter</kbd> when a field is focused. This is a convention that lets users submit a form quicker without having to move focus to the submit button. This is particularly useful for a search form&mdash;one that consists of a text box and submit button&mdash;because users can take the efficient route by pressing <kbd>enter</kbd>.
 
 ![Stuff](.)
 
 The problem comes when a form has multiple submit buttons. If the user presses <kbd>enter</kbd>, which action will be taken? Browsers simply choose the first button in the document flow. Take a look at the following form. It has two submit buttons: delete and update. If the user implicitly submits the form the record will be deleted instead of updated, as the user intended.
 
-To mitigate this, you should split the forms up into separate pages ensuring that there is one action per form. Admittedly, depending on the design this is not always easy, which is the case for the inbox. We could ask users to choose an action *before* selecting and actioning the emails, but this seems a little long winded.
+![Update/delete](.)
+
+To mitigate this, split the forms up into separate pages ensuring that there is one action per form. Admittedly, depending on the design this is not always easy, which is the case for the inbox. We could ask users to choose an action *before* selecting and actioning the emails, but this seems a little long winded.
 
 ![Click action link -> present checkboxes (with submit at bottom) ->confirm action](.)
 
-Fortunately and by convention, multi-select interfaces typically place the action buttons at the top, not the bottom. This gives users a chance to discover the multitude of available actions before making their selection.
+Fortunately and by convention, multi-select interfaces typically place the action buttons at the top of the page. This gives users a chance to discover the multitude of available actions before making their selection.
 
-It's also worth noting that a form that consists soley of checkboxes doesn't make implicit submission all that useful. If you need multiple submit buttons, put the least invasive action first&mdash;in this case *archive*. Also, offer users a way to under their action, so a mistake can be remedied easily (more on this shortly).
+It's also worth noting that a form that consists soley of checkboxes doesn't make implicit submission all that useful. If you need multiple submit buttons, put the least invasive action first&mdash;in this case *archive*. That way, in the unlikely that users accidentally submit the form implicitly they'll be in far less of a predicament.
+
+The last thing we can do is offer users a way to *undo* their action. We'll discuss this in more detail later in ‘Success messages’.
 
 ### Disabling and hiding buttons
 
-Some multi-select interfaces like the one we're designing choose to hide or disable the buttons until users select at least one item in the list. It could be argued that showing (or enabling) action buttons in response to checking a checkbox may help user take the next step more easily. In the case of hiding them, the interface becomes more streamlined and only shows the action buttons once they become relevant.
+Some multi-select interfaces choose to hide or disable the buttons until users select at least one item in the list. It could be argued that showing (or enabling) action buttons in response to checking a checkbox may help users take the next step more easily. In the case of hiding them, the interface becomes more streamlined and only shows the action buttons once they become relevant.
 
-On the flipside, this only (and potentially) helps sighted users. And even so, they'd have to be using a large screen whereby the items and the menu are in full view. This is not a particularly inclusive approach to design. We also discussed the full range of problems associated with disabling buttons in ‘A Registration Form’. As a quick reminder, they don't let users know why they can't be clicked and they are not perceivable to screen readers.
+On the flipside, this only (and potentially) helps sighted users. And even so, they'd have to be using a large screen whereby the items and the menu are in full view. This is not a particularly inclusive approach to design. We also discussed the full range of problems associated with disabling buttons in ‘A Registration Form’. As a quick reminder, they don't let users know why they're disabled and they are not perceivable to screen readers.
 
-Decluttering an interface is a noble goal, but not at the cost of clarity and inclusivity. Instead make room for the buttons to let users discover them easily. Hiding functionality away from users and requiring them to perform an additional action to reveal that functonality should always be a last resort.
+Decluttering an interface is a noble goal, but never at the cost of clarity and inclusivity. Instead make room for the buttons early in the design process. Hiding functionality away from users and requiring them to perform an additional action to reveal that functonality should always be a last resort.
 
 ### Menu types
 
-On big screens&mdash;or responsively speaking, when there is enough space to do so&mdash;we should just lay out the submit buttons to make them available to users at all times. In desktop viewports, there's rarely any reason to hide the buttons. However, the inbox could have other components such as a search bar or layout controls such as Gmail's compact and spactious views. This means there may not be enough space to show them comfortably.
+On big screens&mdash;or responsively speaking, when there is enough space to do so&mdash;we should just lay out the submit buttons to make them available to users at all times. In desktop viewports, there's rarely any reason to hide the buttons. However, the inbox could have other components such as a search bar or layout controls such as Gmail's *comfortable*, *cozy* and *compact* menu. This means there may not be enough space to show them comfortably.
 
-Similarly, on small screens, if there are more than two or three buttons, they're likely to stack beneath each other. This in itself is anot a huge problem except for the fact it pushes the main content down the page. Having the buttons dominate the interface like this is problematic. *Dominance* is a quality we should use sparingly. After all, if everything dominates, nothing does. The inbox itself should take center stage with the menu taking a back-seat role.
+Similarly, on small screens, if there are more than two or three buttons, they're likely to stack beneath each other. This in itself is not a huge problem except for the fact it pushes the main content down the page. Having the buttons dominate the interface like this is problematic. *Dominance* is a quality we should use sparingly. After all, if everything dominates, nothing does. The inbox itself should take center stage with the menu taking a back-seat role.
 
-As noted earlier if there's enough room to lay out the submit buttons then do so. But if there isn't, we can keep the interface clean and easy-to-scan by hiding the options in a menu. There are two ways to create a menu. First by using a standard `select` box and second by creating a custom menu component. Let's discuss the pros and cons of each next.
+As noted earlier if there's enough room to lay out the submit buttons then do so. But if there isn't, we can keep the interface clean and easy-to-scan by hiding the options in a menu.
+
+There are two ways to create a menu. First by using a standard `select` box and second by creating a custom menu component. Let's discuss the pros and cons of each next.
 
 #### A select box menu
 
-Select boxes are a menu of sorts. In fact, select boxes, are also  referred to as drop-down menus. Unsurprisingly then, we might consider them as a menu of sorts.
+Select boxes are a menu of sorts. In fact, select boxes, are also  referred to as drop-down *menus*.
 
-![A select box menu](.)
+Like a menu, they group similar items together that users can select. And they hide the items behind a click and keep the interface clean. They're an attractive option because, as we know, browsers supply them for free. However, even though select boxes look like menus and behave like them; and even though they are sometimes referred to as menus&mdash;they aren't true menus.
 
-Like a menu, they group similar items together that users can select. And they hide the items behind a click and keep the interface clean. They're an attractive option because, as we know, browsers supply them for free. However, even though select boxes look like menus and behave like them; even though they are sometimes referred to as menus&mdashl;they aren't true menus.
-
-Select boxes are for input. That's why forms that contain select boxes&mdash;like any other input&mdash;must be accompanied by a submit button to submit the choice. Not only is this by convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
+Select boxes are for input. That's why forms that contain select boxes&mdash;like any other input&mdash;must be accompanied by a submit button to submit the choice. Not only is this convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-This particular accessibility standard marries with principles 4, *give control*. The reason I bring this to your attention is that, by using a select box as a menu, typically involves developers omitting the submit button and causing the form to submit `onchange`. This takes control *away* from the user.
+The reason I bring this to your attention is because using a select box as a menu, usually means omitting the submit button and causing the form to submit `onchange` using Javascript. This goes against principle 4 by taking control *away* from the user.
 
-Unsurprisingly, this causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the form is submitted as soon as the user presses <kbd>down</kbd> to select the next option. Moving beyond that option, say to the third or fourth is impossible.
+Unsurprisingly, this causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the form is submitted as soon as the user presses <kbd>down</kbd> to select the next option. Moving beyond that option is impossible.
 
 ![Illustrate this](.)
 
@@ -206,7 +208,9 @@ This is not a browser bug. It's just that some browsers are more forgiving than 
 
 The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay them out in a more convenient fashion. One way around this would be to use Javascript to create vastly different experiences by using an adapative approach to design.
 
-Adapative design should always be a last resort because it's often more work which results in a computationally heavy interface that the browser needs to render. And as is the case here, creating an adapative interface relies on Javascript again. That's not all though. If we adapted the select box into submit buttons, the server would need to handle the transmission of data from two completely separate components: a select box sends `selectName="value"` and a submit button sends `buttonName="value"`.
+Adapative design should always be a last resort because it's often more work which results in a computationally heavy interface that the browser needs to render. And as is the case here, creating an adapative interface relies on Javascript.
+
+That's not all though. If we adapted the select box into submit buttons, the server would need to handle the transmission of data from two completely separate components: a select box sends `selectName="value"` and a submit button sends `buttonName="value"`.
 
 #### A true menu component
 
@@ -407,7 +411,7 @@ The script uses the `matchMedia` API. It listens to particular media queries so 
 }
 ```
 
-When the script matches the media query it will update the HTML to to create the layout and behaviour as described earlier. Before `matchMedia` we had to use the broadly flakey techniques to get the width of the viewport. Even then, you could only get the value in pixels, not `em`s. You should use `em`s because they honour peoples' browser configurations such as if they increase their font size[^]. Otherwise, the layout will break.
+When the script matches the media query it will update the HTML to to create the layout and behaviour as described above. Before `matchMedia` we had to use flakey techniques to get the width of the viewport. Even then, you could only get the value in pixels, not `em`s. You should use `em`s because they honour peoples' browser configurations such as if they increase their font size[^]. Otherwise, the layout will break.
 
 ## Select all
 
@@ -415,19 +419,19 @@ Users may want to, for example, archive every email in their inbox. Rather than 
 
 [!Checkbox mailchimp?](.)
 
-Arguably, this out-of-the-box input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this without an ounce of Javascript.
+Arguably, this standard input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this behaviour without an sniff of Javascript.
 
-By now the benefits of using standard elements are well known. Depsite the fact that this type of control is accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to look like what they do.
+By now the benefits of using standard elements should be well understood. Depsite this control being accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to look like what they do.
 
-The trouble with using a checkboxes is that they don't signal what they do. Checkboxes, like select boxes, are associated with collecting data for submission. We should match peoples's expectation by using the same interface components for the same job. In doing so our interfaces become familiar and nicely conforms to principles 3, *be consistent*.
+The trouble with using a checkboxes is that they don't signal what they do. Checkboxes, like select boxes, are associated with collecting data for submission. We should match peoples's expectation by using the same interface component for the same job. In doing so the interface becomes familiar and happens to conform to principles 3, *be consistent*.
 
-Let's create a true toggle button. HTML has a generic `<button>` element but it has no concept of *toggling* (so we'll use ARIA for that bit). Most of the time the `<button>` should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for.
+Let's do this by creating a true toggle button. HTML's `<button>` is perfect and most of the time it should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. The button element, however, doesn't have the concept of *toggling*, so we'll enhance the button with ARIA.
 
 ```HTML
 <button type="button" aria-pressed="false">Select all</button>
 ```
 
-The `aria-pressed` attribute will be announced by screen readers as ‘Button, select all, pressed’ (or similar). Pressing the button toggles the attribute between `true` (pressed) and `false` (unpressed). We can convey the same meaning for sighted users by styling the button with CSS.
+The `aria-pressed` attribute will be announced by screen readers as ‘button, select all, pressed’ (or similar). Pressing the button toggles the attribute between `true` (pressed) and `false` (unpressed). We can convey the same meaning for sighted users by styling the button with CSS.
 
 ```CSS
 button {
@@ -441,9 +445,9 @@ button[aria-pressed="true"] {
 
 ## Success messages
 
-When the user submits the form, the selected emails will disppear from their inbox. When an action has been applied telling users is simply the respectful thing to do. Without one, they'll be left to guess what happened which can cause anxiety.
+When the user submits the form, the selected emails will disppear from their inbox. When an action has been completed, telling users is simply the respectful thing to do. Not doing so leaves users to wonder what happened, if at all.
 
-In chapter 1, we designed and constructed an error summary panel that resides at the top of the page when there's an error. A success message needs a similar treatment with just a few tweaks. First is that instead of having red colouration, it should be green which is universally associated with success. And the content should be ‘You successfully archived 15 emails’ or similar.
+In chapter 1, we designed and constructed an error summary panel that resides at the top of the page. A success message needs a similar treatment with just a few tweaks. First is that instead of having red colouration, it should be green which is universally associated with success. And the content should be ‘You successfully archived 15 emails’ or similar.
 
 ![Success](.)
 
@@ -453,21 +457,23 @@ In chapter 1, we designed and constructed an error summary panel that resides at
 </div>
 ```
 
-### Toast messages
-
 Both the error and success message panels are placed within the natural flow of the document toward the top of the page to indicate their importance. The `role="alert"` as noted in ‘A Registration Form’ ensures that screen readers will announced it when the page loads.
 
-Some applications employ what is known as a ‘toast’ message or notification. When the application wants notify users that something happened a little (non modal!) dialog will pop-up a little bit like a piece of toast. Then, after a certain amount of time has elapsed the notification fades away automatically.
+### Toast messages
+
+Some applications employ what is known as a ‘toast’ message or notification. When the application wants notify users of something, a little (non modal!) dialog will pop-up on top of the page&mdash;a little bit like a piece of toast. Then, after a certain amount of time has elapsed the notification disppears automatically, by fading out.
 
 ![Toast message](.)
 
-This is all very interesting from a design perspective, but it's hardly a useful way to inform users. First, the message typically obscures the content beneath. Second, the user has to rush to read the message before it disappears. This makes comprehension a stressful task and takes control *away* from the user.
+This is all very interesting from a design perspective, but it's hardly a useful way to communicate. First, the message obscures the content beneath. Second, users have to read the message before it disappears. This makes comprehension a stressful task and takes control *away* from the user.
 
-Really, a success message can just be laid out at the top without doing anything. After the user navigates away the message will disppear naturally. That is, the message is temporary. However, if research shows that being able to dismiss a message *adds value* then okay, but don't do it automatically.
+Really, a success message should be laid out bare and naturally within the flow of the page. There is no need to obscure the content. After all the message is temporary and will naturally disappear when the user leaves the page.
 
-Instead, inject a `<button>` into the message panel with Javascript. The reason we do it with Javascript is because without it, the `<button>` won't do anything. We can consider dismissing the message immediately is an enhancement.
+However, if research shows that being able to dismiss a message *adds value* offer the functionality in the form of a button. Clicking it, simply hides the message.
 
 ![Success with dismiss](.)
+
+Be careful to inject the `<button>` with Javascript. If we put it in directly in the HTML, then the interface will appear broken when Javascript is available. That is because clicking the button without Javascript will do nothing.
 
 ```JS
 function MessageDismisser(panel) {
@@ -490,7 +496,7 @@ As a safety measure, some roads have speed bumps. They cause drivers to slow dow
 
 ![Are you sure](./images/etc.png)
 
-This is fine for infrequently performed tasks but it quickly gets tedious when they need to be invoked more often. To continue with the driving analogy, it's a bit like putting speed bumps on motorways.
+This is fine for infrequent tasks but it quickly gets tedious when they need to be performed more often. To continue with the driving analogy, it's a bit like putting speed bumps on motorways: they'd cause more problems than they'd solve.
 
 An alternative approach is to let users perform the action immediately, without warning. Then, along with the success message, give users the choice to undo their action. Clicking *undo* reverses the action by restoring their emails. If only we could *undo* accidents on the road.
 

@@ -164,7 +164,7 @@ Let's break down the HTML into the 4 main parts and explain their structures.
 >
 ```
 
-- The role is set to `combobox` indicating that this is more than just a regular text box.
+- The role is set to `combobox` denoting it's enhanced behaviour beyond a regular text box.
 - The `aria-autocomplete` attribute indicates that a list of options will appear from which the user can choose.
 - The `aria-expanded` attributes tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
 - The `autocomplete` attribute is set to `off` to stop browsers making their own suggestions interfering with those offered by the component itself.
@@ -622,9 +622,9 @@ Autocomplete.prototype.isElementVisible = function(container, element) {
 
 ## 2. Choosing when to fly
 
-Dates are hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
+Dates are notoriously hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally 3 select boxes, for day, month and year are used to enter dates. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, even this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
+Traditionally 3 select boxes: one for day, month and year are used to enter dates. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, even this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
@@ -637,11 +637,11 @@ But let's step back a moment. Before designing a date component, we first should
 
 GDS says *if you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* In fact, we followed this guidance to the letter, in chapter 2, for the expiry date field.
 
-The field expects users to type a number matching the format found on the card. Users simply have to copy what they see, without needing to think. Obvious interfaces are good interfaces.
+The field expects users to type a number matching the format found on the card. Users simply copy what they see, without needing to think. Obvious interfaces are good interfaces.
 
 ### Memorable dates
 
-The defacto thinking is that date pickers are always better than  typing numbers into a text box. For memorable dates, such as date of birth, this is most certainly not true. It's arduous having to scroll and click through multiple years and months to find a date, when typing in 6 numbers unassisted is considerably quicker.
+The defacto thinking is that date pickers are always better than typing numbers into a text box. For memorable dates, such as date of birth, this is most certainly not true. It's arduous having to scroll and click through multiple years and months to find a date, when typing in 6 numbers unassisted is considerably quicker.
 
 GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. Why 3 boxes? Because it solves the formatting issues we discussed earlier.
 
@@ -686,13 +686,13 @@ Designing an interface that users are already familiar with makes wayfinding tha
 
 Interfaces that try to solve many problems at once cause problems. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, results in a busy interface that is likely to overwhelm users.
 
-It's also not very practical from a design perspective. One aspect of design for the web is considering people who use different size screens. Responsive design encourages us to design for small and large screens alike. Cramming lots of information to a page that can ultimately be accessed on small screens is asking for a challenge.
+It's also not very practical from a design perspective. One aspect of design for the web is considering people who use different size screens. Responsive design encourages us to design for small and large screens alike. Cramming lots of information to a page that can ultimately be accessed on small screens is asking for trouble.
 
-Instead, we'll purposely let users focus on a choosing a date without the distraction of, for example, price and availability information. We'll give users this information later on in the flow.
+Instead, we'll purposely let users focus on choosing a date without the distraction of, for example, price and availability information. We'll give users this information later on in the flow.
 
 #### Date input
 
-Before HTML5, we always had to build our own date picker using Javascript. We know how hard this is because we just created an autocomplete component. Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;have `input type="date"` which to some extent saves us having to design our own component. That's not all they're good for:
+Before HTML5, we always had to build our own date picker using Javascript. We know how hard this is because we just created an autocomplete component. Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;support `input type="date"` which to some extent saves us having to design our own component. That's not all they're good for:
 
 - They are fast because they are provided by the browser.
 - They are familiar because every website (and native app) will use the same interface.
@@ -711,7 +711,9 @@ If you're concerned about it looking different in different browsers, don't be. 
 
 > Nobody cares about your website as much as you do
 
-Really, nobody cares about your website, service or product as much as you do. And if you're still not convinced, check out the rather terse website: Do Websites Need To Look The Same In Every Browser?[^9].
+It pains me to say this, but really, nobody cares about your website, service or product as much as you do. And if you're still not convinced, check out the rather terse website: Do Websites Need To Look The Same In Every Browser?[^9].
+
+Here's the complete HTML for a field using the date input.
 
 ```HTML
 <div class="field">
@@ -752,7 +754,7 @@ Having now detected support, we'll need to design the date picker component itse
 Notes:
 
 - Buttons should have large tap[^11] targets making it easy to press with a finger or mouse.
-- The calendar displays beneath the input. Dialogs obscure the interface and on small screens it takes up the entire screen anyway.
+- The calendar is displayed beneath the input. Dialogs obscure the interface and on small screens they take up the entire screen anyway.
 
 ```HTML
 <div class="field">
@@ -882,21 +884,21 @@ Whilst screen reader users *can* operate the calendar, it's not especially usefu
 
 #### What about the future?
 
-Jeremy Keith often talks about the web being a *continuum*[^10]. He means the web is constantly changing. New browsers are released frequently. All of them have varying features and capabilities. At any particular moment in time, we need to think about what level of support makes sense for any given component.
+Jeremy Keith often talks about the web as a *continuum*[^10]. By that, he means the web is constantly changing. New browsers are released frequently. All of them have varying features and capabilities. At any particular moment in time, we need to think about what level of support makes sense for any given component.
 
-As discussed earlier, there is a lack of (desktop) browser support for date inputs. But we fixed that with the date picker component. In future things will change. The number of people experiencing the degraded version will diminish as browser support gets better. And, when it does, we can remove the script. This creates a faster page as there is no script to download, and gives us less code to maintain.
+As discussed earlier, there is a lack of (desktop) browser support for date inputs. But we fixed that with the date picker component. In future things will change. The number of people experiencing the degraded version will diminish as browser support broadens. And, when it does, we can remove the script. This creates a faster page as there is no script to download, and gives us less code to maintain.
 
 #### Tying up loose ends
 
 > There is something to be said for design that ignores people, people ignore it.&mdash;person
 
-There are some browsers that don't support date inputs. If someone users one of these browsers whilst also experience a Javascript failure, they'll see an interface that doesn't clarify the expected date format.
+There are some browsers that don't support date inputs. If someone users one of these browsers and experiences a Javascript failure, they'll see an interface that doesn't clarify the expected date format.
 
 ![Demo](.)
 
-Unfortunately, we can't simply add a hint because supporting browsers will show the date input where the format differs. In this case, the core experience isn't quite as good as we would have liked it to be.
+Unfortunately, we can't simply add a hint because supporting browsers will show the date input with a differing format. In this case, the core experience isn't quite as good as we would like but there's not much we can do.
 
-Instead, we'll have to fallback to being as forgiving as possible by letting users delimit by slashes, periods and spaces, whichever their preference. But typing a two-digit year first, for example, will cause an error. A well-written error message will have to suffice.
+We'll have to be as forgiving as possible by letting users delimit by slashes, periods and spaces, whichever their preference. But typing a two-digit year first, for example, *will* cause an error. A well-written error message will have to do.
 
 What is great for a majority, is in this case, not ideal for a minority. Whilst accessible (the user can enter a date) it's not inclusive (they may have to rely on error text). [Consider explaining this more. Maybe a heading of its own]
 
@@ -935,7 +937,7 @@ Spinners, also known as steppers, let users increase or decrease the value by a 
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-Having discussed number inputs in chapter 2, we know that some browsers provide their own stepper buttons. The problem is that they are tiny and hard to click. And mobile browsers don't show them at all&mdash;they just show a numeric keyboard. Instead, we can disable the browser spinners and enhance the input with larger ones. Not only are they easier to use on desktop but it saves mobile users having to use an on-screen keyboard.
+Having discussed number inputs in chapter 2, we know that some browsers provide their own stepper buttons. The problem is that they are tiny and hard to click. And mobile browsers don't show them at all&mdash;they just show a numeric keyboard. Instead, we can disable the browser spinners and enhance the input with larger ones. Not only are they easier to use on desktop but it saves mobile users having to trigger their on-screen keyboard.
 
 ![Thing](.)
 
@@ -1053,7 +1055,7 @@ Up to now, we've merely been collecting user's information. All with the goal of
 </div>
 ```
 
-The user specified a date on which to fly. Therefore we're showing flights that match that date. However, we give users the freedom to move back and forth between days using a standard pagination component. This, by the way, conforms to principle 5, *offer choice*.
+Earlier, the user specified a date on which to fly. Therefore we're showing flights that match that date. However, we give users the freedom to move back and forth between days using a standard pagination component. This, by the way, conforms to principle 5, *offer choice*.
 
 Each flight is represented as a radio button. The label contains departure time, arrival time and ticket price which is everything they need to make their selection. This is one of the nice things about radio buttons, they grant you the flexibility to add as much information to the label as necessary, with the flexibility to lay out the information hierarchically.
 

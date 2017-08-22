@@ -1,5 +1,14 @@
 # A really long form
 
+## Add another
+
+- If you know how many things a user needs to add then show that many fields exactly.
+- If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
+- If you don't know the max they are allowed to add, then you'll have to offer an add another link. Without js go to a page and back. With js, reveal an extra field OR
+- Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
+
+##
+
 
 At any point in the flow, the user can leave and resume progress later.
 The dashboard shows each process and progress and can jump back to any point in the flow, including where they left off.

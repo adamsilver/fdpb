@@ -158,23 +158,29 @@
 	- A note on toast notifications and dismissing messages
 	- Confirming vs undoing
 
-## 7. A search form (2000?)
+## 7. A search form
 
 - Introduction
-- Search
-	- Question Protocol
-	- Interface design
-	- Search everything
-	- Analytics
-- Filter
-	- Question Protocol
-	- Using links
-	- Using radio buttons
-	- Using checkboxes
-	- Separate submission and selection
-	- AJAX
-	- Dos and Don'ts
+- Question Protocol: Do we need it?
+- Visual design
+- Search everything
+- Improve search with analytics
+- A note on autofocus
+- Instant client-side search?
 
-## 8. A really long complex form (tbd?)
+## 8. A filter
+
+- Introduction
+- Question Protocol
+- Using links
+- Using radio buttons
+- Using checkboxes
+- Separate submission and selection
+- AJAX
+- Dos and Don'ts
+
+## 9. A really long complex form
 
 - Multiple file upload (add another), Task pattern, Branching
+
+## 10. Further reading

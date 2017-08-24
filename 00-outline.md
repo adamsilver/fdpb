@@ -171,9 +171,7 @@
 
 - Introduction
 - Filter types
-	- Links, radios, checkboxes
-	- Separate submission and selection
-	- Dos and Don'ts
+- Material honesty (again)
 - AJAX
 - Responsive/adaptive
 

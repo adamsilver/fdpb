@@ -28,29 +28,23 @@ Beware not to go crazy with facets. Overloading users with hundreds of facets ma
 
 Finally, remember that a broader and shallower taxonomy creates a better experience, without sending users too far down a funnel.
 
-### Material dishonesty (again)
+## Material honesty (again)
 
-In *Resilient Web Design* Jeremy Keith talks about the idea of Material Honesty. He says *one material should not be used as a substitute for another. Otherwise the end result is deceptive.* In this case we want our links to look like links as that's what they are.
+We've talked about material honesty several times in the book. This shows both its importance and prevelance to the world of interface design. As a reminder, Jeremy Keith says that *one material should not be used as a substitute for another. Otherwise the end result is deceptive.*
 
-The problem is that some designers make links look like radio buttons. They'll use background images to make it appear as though the user is clicking a radio button. The problem is that it's not a radio button and doesn't have the functionality of a radio button (clicking it immediately navigates, without having to submit). And they due to the custom imagery, the radio buttons always look a little off (or completely different) to the ones provided be browsers natively.
+In the case of filters, often links are made to look like radio buttons or checkboxes (using CSS). The problem, of course, is that a radio button is not a link. When a link is clicked, it will immediately make a request and take the user to the page.
 
-### Separate submission
+![](.)
 
-‘Use checkboxes and radio buttons only to change settings, not as action buttons’ https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/
+As the design of form controls vary widely across browsers and operating systems, these CSS background images always differ slightly creating an inconsistent and unprofessional visual tone. But there's more to this than just vaneer. If a user sees a radio button, conventionally speaking, they'll know that they can move through the choices before submitting it. That's just how forms work. It will be confusing if clicking a radio button, immediately submits the form.
 
-We've talked about this before[^?] but we're going to want to stay true to familar conventions by ensuring submission is separate from selection. Like select boxes, we shouldn't submit a form when the user checks a radio button for example.
+> ‘Use checkboxes and radio buttons only to change settings, not as action buttons’ -NN
 
-A good reason for this is that the user may want to choose several facets before submission. For example, if they're searching for a pair of shoes they may want to select the size and colour at the same time. Doing this with two diseparate interactions is wasteful of their time and puts unnecessary load on the server.
+Similarly, checkboxes and radio buttons are made to behave like links. That is, with a little Javascript, clicking a radio button can be made to submit the form instantly. This is particularly tricky for keyboard (including screen reader) users, because they'll struggle to move through the options and will actually stop users selecting options within multiple facets.
+
+Breaking widely understood conventions that relate to links and form controls can seriously harm the resulting user experience. By sticking to conventions, users who encounter these components both visually and audibly, don't have to think.
 
 ## Enhancing with AJAX
-
-## Small screen problems
-
-- Refer to Dave House conversation
-
----
-
-### Do you need to refresh results with AJAX?
 
 AJAX is often used to patch over websites that have bad performance, normally because we cram so much shit on a page. But AJAX doesn't negate a server round trip and unfortunately it comes with some trade-offs:
 
@@ -66,10 +60,19 @@ AJAX is useful when you want to make a small update to the screen with the major
 
 In this case, not only does it defeat the point, but it may well make the page slower. See my article.
 
+## Small screen problems
+
+- Refer to Dave House conversation
+
+---
+
+## Summary
+
+
 ## Links
 
 [!https://asset.uie.com/articles/img/faceted_search/BuzzillionsKMWorld.jpg](from UIE)
-
+https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/
 [Facet search]: https://articles.uie.com/faceted_search/
 [Don't make links look like checkbox/radios]: https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)
 - Don't make links look like checkbox/radios (https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)

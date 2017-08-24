@@ -14,19 +14,21 @@ In this chapter we're going to look at how links, radio buttons and checkboxes a
 
 Links, radio buttons and checkboxes can all be used to design a filter.
 
-Links, which admittedly, are nothing to do with forms, let users filter a list of a results via the querystring. Clicking a link under a particular facet, makes all the other options disappear. For example, if I'm searching for a car and I select ‘Honda’ then all the other makes disappear, because I'm only able to select one. Using links this way, ensures that results will always be returned, because the link will only be shown, if this is so.
+Links, let users filter a list of a results via the querystring. Admittedly, links are nothing to do with forms, but they are often used interchangeably with form controls so talking about them in context here is important. Here's an example of a link filter used to find a car.
 
-This may not always be the desired behaviour. Perhaps you want to narrow down your seach based on two brands in particular such as Honda and Audi. In this case, offering links is not going to help because it's going to mean users have to click Honda, wait for the page to refresh, then select Audi.
+![](.)
 
-A form with radio buttons and checkboxes can help here. By offering users a familiar set of form controls we can give them a way to select multiple options at once. Additionally, we can let users select many different options across different facets at the same time, such as brand and colour.
+Each time a user chooses a filter, such as Honda, that option will disappear from the list. The advantage of using links in this manner, is that every click is guaranteed to return results. This is becaue the link will only appear when there are results behind it.
 
-Unlike links, being able to select multiple options within and across facets could return no results depending on the facet in question. If I was to choose Honda and Audi, results should be guaranteed, just like if I was to only select Honda. This is because I would expect a range of Honda and Audi cars.
+The disadvantage of using links is that each click requires a page refresh. On its own this is not a problem at all. If pages are simple and optimised correctly, a page refresh will do users no harm. However, if the user wants to select two or more filters, waiting for two or three requests is far from ideal.
 
-Conversely, if I selected a Honda but also specified just red ones, then there may not be any red Hondas available. This is the downside in letting users select more than one at a time. What you gain in power and performance, you lose in the overarching experience. Of course, users should be easily able to remove a facet in reverse priority order until results appear.
+If the user wants to select Honda and Audi, for example, a form with checkboxes is helpful. By offering users a familiar set of form controls, we hand over power and control to select as many options as they want at once, both across and within different facets, such as brand and colour.
 
-Beware not to go crazy with facets. Overloading users with hundreds of facets makes the job harder, not easier. If you're not sure which facets to show, conduct thorough user research and check analytics. Include the most popular ones and show them in that order, and kill off the others. Show additional facets as they become relevant.
+Unlike links, offering multiple options at once may return no results, depending on the fact. If, for example, the user selects Honda for brand and Red for colour, they may get frustrated when no results appear. Of course, if users get too specific, we can offer them a way to remove a filter in reverse priority order, until results appear.
 
-Finally, remember that a broader and shallower taxonomy creates a better experience, without sending users too far down a funnel.
+Beware not to go crazy with facets. Overloading users with hundreds of facets makes the job harder, not easier. If you're not sure which facets to show, research it and check analytics. Include the most popular ones and show them in that order. Kill off the other or reveal them as they become relevant as the user drills down.
+
+A broad and shallow taxonomy creates a better experience without sending users too far down a funnel.
 
 ## Material honesty (again)
 
@@ -44,23 +46,27 @@ Similarly, checkboxes and radio buttons are made to behave like links. That is, 
 
 Breaking widely understood conventions that relate to links and form controls can seriously harm the resulting user experience. By sticking to conventions, users who encounter these components both visually and audibly, don't have to think.
 
-## Enhancing with AJAX
+## Using AJAX
 
-AJAX is often used to patch over websites that have bad performance, normally because we cram so much shit on a page. But AJAX doesn't negate a server round trip and unfortunately it comes with some trade-offs:
+Earlier we discussed the pros and cons of using links and form controls. Using links may cause many refreshes. Using form controls increases the chance of seeing no results at all.
 
-- Adds weight to original request
-- Engineers away chunking
-- Removes the browser's loading indicator
-- Needs to design loading and success states
-- More code, more testing, more chance of problems
-- Increases the chance of memory leaks
-- Drains battery on mobile devices
+For keyboard and screen reader users, having a page refresh means having to wade through all the page information again, such as header and navigation before getting back to the filter or the results.
 
-AJAX is useful when you want to make a small update to the screen with the majority of the page staying the same. When filtering, the main feature of the page itself changes. Both the results and the filter itself.
+We can instead use AJAX to avoid a page refresh. For example, clicking a radio button, will instantly submit the form with AJAX. When the request finishes, the page is updated and the focus is in the same place. This also avoids the chance of seeing no results, because as the user selects one filter, the results and the filter component itself is updated.
 
-In this case, not only does it defeat the point, but it may well make the page slower. See my article.
+Also, many applications have designed filters in a materially dishonest and deceptive manner: that is, clicking a radio button immediately submits the form. Therefore, as users have become acclimatised to this change in convention, I'm sad to say that it may not always be obvious to users that they have to submit their choices. In this case, AJAX can also help here because it removes the need for the button.
 
-## Small screen problems
+You'd be forgiven then, for thinking this is a must-have, totally beneficial enhancement. Unfortunately, using AJAX like this goes against principle 4, to *give users control*. By removing an explicit submission action, it's possible that triggering multiple AJAX requests will cause an unexpected and confusing experience for users.
+
+Additionally, keyboard users who are operating the filter must use their arrow keys to move through radio buttons. Each arrow keypress, not only focuses the option but selects it too. If there are 4 radio buttons, and the user wants to select the last one, this will cause 4 AJAX requests. This adds increased load on the server. But more importantly, this will eat users' data allowance and cause battery drain.
+
+That's not all, by using AJAX we would need certain provisions such as a live region that announces the loading states of the page. When the user selects an option, the live region might be populated with ‘Loading results, please wait’. Then when the results come back, it will be populated with ‘212 results loaded.’. Having this be read out 4 times, when once could have done it is headache inducing.
+
+Despite what you may have heard, AJAX isn't necessarily better or faster than a standard page refresh[^fasthacksjake]. This is for a number of reasons. First, it rquires more code to be sent initially. Second, it engineers away progressive rendering (aka chunking) and an indication of loading states, both of which the browser does for free.
+
+AJAX is more suited and beneficial when making updates to small parts of the page. Filters, however, involve updating the vast majority of the page, making AJAX somewhat counterproductive in this case. With all of that put on the table, only thorough and diverse user research will show what works best.
+
+## Responsive design considersations
 
 - Refer to Dave House conversation
 

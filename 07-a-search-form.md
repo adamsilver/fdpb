@@ -1,6 +1,11 @@
 # Search And Filter
 
-
+- Search is similar to login form in terms of simplicity and ubiquity but has the same attracton to usability failures.
+- Question protocol
+- Search everything
+- Improve with analytics
+- A note on autofocus
+- Visual design
 
 
 
@@ -29,7 +34,7 @@ Sometimes I'm left to peruse each cupboard one by one. And of course when I need
 
 In this chapter we're going to ensure that finding things is easy. Just like mum we'll want our interface to answer questions accurately, quickly and as humanly as possible.
 
-## Search
+## Do you need it?
 
 The first thing to ask ourselves is *do we need search?*
 

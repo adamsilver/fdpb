@@ -162,22 +162,20 @@
 
 - Introduction
 - Question Protocol: Do we need it?
-- Visual design
 - Search everything
 - Improve search with analytics
 - A note on autofocus
-- Instant client-side search?
+- Visual design
 
 ## 8. A filter
 
 - Introduction
-- Question Protocol
-- Using links
-- Using radio buttons
-- Using checkboxes
-- Separate submission and selection
+- Filter types
+	- Links, radios, checkboxes
+	- Separate submission and selection
+	- Dos and Don'ts
 - AJAX
-- Dos and Don'ts
+- Responsive/adaptive
 
 ## 9. A really long complex form
 

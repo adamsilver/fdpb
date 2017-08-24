@@ -1,14 +1,16 @@
 # A filter form
 
-Filters go with search, like ying goes with yang. There's only so much you can do with a free form search field. In the introduction to ‘A Search Form’, you'll recall the conversation I had with my Mum when I was trying to find ‘a t-shirt’. ‘A t-shirt’ being hardly specific, meant Mum had to ask me ‘is it for football or tennis?’ because she didn't have enough information to go on to give me a useful answer. This question is a filter.
+Facet navigation or guided navigation, or more plainly, *filters*, go with search like ying goes with yang.
 
-On the web, a search can yield thousands, or even, millions of results depending on the content available. As humans, we can't juggle more than 7 discrete pieces of data at a time, so being able to narrow the breadth of results easily to get to ‘find the t-shirt’ is important. A filter, also referred to as *facet* or *guided navigation* is important because it offers users a way to find stuff using their own mental model.
+There's only so much you can do with a free form search field. In the introduction to ‘A Search Form’, you'll recall the typically conversation I had with my Mum when I was trying to find a t-shirt. ‘A t-shirt’ being hardly specific, meant Mum had to ask me ‘is it for football or tennis?’ because she didn't have enough information to go on to give me a useful answer. In technical terms, this type of question is a filter on the broader search for a t shirt.
 
-In ‘Designing for Faceted Search’, Stephanie Lemieux has an excellent example of this. She says:
+On the web, a search can yield thousands, or even, millions of results depending on the content available. Humans can't juggle more than approximately seven things at the same time, so being able to narrow a large swath of results is crucial. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches a user's own mental model.
+
+In ‘Designing for Faceted Search’, Stephanie Lemieux has an excellent example of why this is.
 
 > Think of a cookbook: authors have to organize the recipes in one way only-by course or by main ingredient-and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method for example].
 
-In this chapter we're going to look at how links, radio buttons and checkboxes are used to design different types of filters and the impact they have on the experience for users. Then we'll look at some potential enhancements and some important considerations for designing for small screens.
+In this chapter we're going to look at how links, radio buttons and checkboxes can be used to design different types of filters and how this impacts the experience for users. Then we'll look at some potential enhancements and some important considerations for designing for small screens.
 
 ## Types of filters
 
@@ -66,28 +68,45 @@ Despite what you may have heard, AJAX isn't necessarily better or faster than a 
 
 AJAX is more suited and beneficial when making updates to small parts of the page. Filters, however, involve updating the vast majority of the page, making AJAX somewhat counterproductive in this case. With all of that put on the table, only thorough and diverse user research will show what works best.
 
-## Responsive design considersations
+## Responsive design considerations
 
-- Refer to Dave House conversation
+Wherever possible, we should design mobile first. What this really means is designing for small-screens first. To me, this really just means essential only. If you put the most essential content and features on the screen, then normally speaking, designing for small screens is easy.
 
----
+Of course, this translates well on large screens too. A tweak in font-size perhaps, and more whitespace, still with a single focus works wonders. When it comes to filters, however, it's not quite so straightforward. This is because the results themselves are only slightly more important than the ability to filter. What I'm trying to say is that they both need to be prominent within the viewport.
+
+On big screens this is straightforward. Due to the available space, we can simply position the filter to the side of the results laid out in plain site. On small screens, this just isn't possible. In this case, we might simply hide the filters behind a collapsible panel above the results themselves. This way the filters are still discoverable without taking up too much room.
+
+![Stacked](.)
+
+The problem that users face is that when they expand the filter and select various filters, users may struggle in two ways.
+
+First, if using AJAX, it's not immediately obvious that results have been loaded. You can't just move focus to the results because the user may not be finished making their selection.
+
+Second, without using AJAX, users may not realise they need to submit (as mentioned earlier). David House, a designer who used to work for Gumtree, explained that some users didn't realise they had to submit their choice. Here's what he had to say:
+
+> Filters were being selected, but not submitted. We got a lot of feedback that said the filters were broken. We tried moving the apply button to the top (and the bottom) along with making it sticky, loads of things that didn't really make a difference.
+
+So what did David and his team end up doing to solve these problems. David told me they ended up with an adaptive approach. On mobile, when users clicked the filter button, they would be taken down a flow that guided the user to choose a filter and apply it which users understood.
+
+![Gumtree mobile view](.)
+
+I know what you're thinking though: in chatper 6, ‘An inbox’ I lambasted the use of adaptive design due to the many associated pitfalls. But considering the breadth of the problems users faced along with the importance of the feature itself, it seems pragmatic to use such an approach.
+
+Of course, I wouldn't advise you start with the approach. It's worth noting that Gumtree is full of adverts which cognitvely speaking, doesn't help matters. Perhaps with careful design, a responsive solution can work. Only user research can make the call.
 
 ## Summary
 
+### Things to avoid
 
-## Links
+-
+-
+-
+-
+
+## Footnotes
 
 [!https://asset.uie.com/articles/img/faceted_search/BuzzillionsKMWorld.jpg](from UIE)
 https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/
 [Facet search]: https://articles.uie.com/faceted_search/
 [Don't make links look like checkbox/radios]: https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)
 - select box problem without submit button
-
-## Dave House notes
-
-- Use an adaptive approach. For big screens, display the filters on the left to aid discovery and perhaps do AJAX.
-- On small screens (e.g. Gumtree), take them down a mini flow (pages or otherwise). Click filter > choose filters > get results. This is because on mobile, updating the filters at the top of the page means not being able to see the refreshed content. Could move focus, but doing this sucks (maybe they want to select another filter before moving).
-- Multi-select: Users didn't expect to have to submit, or did not notice the submit button. They expected AJAX style loading. Filters were being selected but never submitted. Got a lot of feedback “You’re filters are broken”. Tried moving the apply button [to the top], making it sticky…loads of things that didn’t really make a difference. But Gumtree has tons of ads getting in the way cognitively.
-- Multi-select: Some users would over filter and end up with 0 results. For this we played around with the “Apply” button displaying the amount of results adding these filters will return so they have an informed choice if they want to apply the filters.
-- Multi-select (mobile): Users were able to make all the refinements they wanted without the fear of getting 0 results (or having to go back and forth multiple times). It was great to see users keep adding filters until they felt like they had a manageable amount of results, and filter more than they had previously. (this was a site with 2,000,000 listings)
-- Don't have scrollable panels for facets. Scroll inside scroll is frustrating on mobile. Users get stuck inside the inner scroll and can't scroll the actual page.

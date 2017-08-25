@@ -167,7 +167,7 @@
 - A note on autofocus
 - Visual design
 
-## 8. A filter
+## 8. A filter (2000)
 
 - Introduction
 - Filter types

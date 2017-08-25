@@ -1,112 +1,113 @@
 # A filter form
 
-Facet navigation or guided navigation, or more plainly, *filters*, go with search like ying goes with yang.
+Filters, sometimes referred to as facet navigation or guided navigation, lets users refine a large set of results that my be returned from a search. Were filters straightforward, I could have folded this pattern into the last one, but there are a number of challenges and concerns to address: the type of element to use; keeping to conventions; potential AJAX enhancements; how to make it work just as well on small screens as it does on large ones. All of these things need to be taken into account.
 
-There's only so much you can do with a free form search field. In the introduction to ‘A Search Form’, you'll recall the typically conversation I had with my Mum when I was trying to find a t-shirt. ‘A t-shirt’ being hardly specific, meant Mum had to ask me ‘is it for football or tennis?’ because she didn't have enough information to go on to give me a useful answer. In technical terms, this type of question is a filter on the broader search for a t shirt.
+First of all, though, it needs to be said that&mdash;like anything any other feature or form field in the book&mdash;if you don't need a filter, don't include one. They're only useful if a search returns a large amount of items to wade through. Like Google, users are not really willing to click through beyond the third or fourth page.
 
-On the web, a search can yield thousands, or even, millions of results depending on the content available. Humans can't juggle more than approximately seven things at the same time, so being able to narrow a large swath of results is crucial. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches a user's own mental model.
+In the introduction to ‘A Search Form’, you'll recall the somewhat typical conversation I used to have with my Mum when I asked her where my ‘black top’ was. The vagueness of that question meant she couldn't answer accurately. To find out exactly which one I was after she asked me questions like ‘Is a football top’. In technical terms this question is a type of filter on a large set of results.
 
-In ‘Designing for Faceted Search’, Stephanie Lemieux has an excellent example of why this is.
+On the web, a search can yield thousands, or even, millions of results depending on the content available. As humans, we can't juggle more than approximately seven things at one time[^1], so being able to narrow them down is crucial. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches users' own mental model.
 
-> Think of a cookbook: authors have to organize the recipes in one way only-by course or by main ingredient-and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method for example].
+In ‘Designing for Faceted Search’[^2], Stephanie Lemieux has an excellent example of why this is.
 
-In this chapter we're going to look at how links, radio buttons and checkboxes can be used to design different types of filters and how this impacts the experience for users. Then we'll look at some potential enhancements and some important considerations for designing for small screens.
+> Think of a cookbook: authors have to organize the recipes in one way only-by course or by main ingredient-and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method, for example].
 
 ## Types of filters
 
-Links, radio buttons and checkboxes can all be used to design a filter.
+Links, radio buttons and checkboxes: all of them can be, and are used to construct filters on the web, with their varied semantics and behaviour, this is what we'll look at first.
 
-Links, let users filter a list of a results via the querystring. Admittedly, links are nothing to do with forms, but they are often used interchangeably with form controls so talking about them in context here is important. Here's an example of a link filter used to find a car.
+Links, let users filter a list of a results via the querystring. Admittedly, links are nothing to do with forms, but they are often used interchangeably with form controls so talking about them in-context now is important. Here's an example of a link filter used to find a car.
 
-![](.)
+![Link filter](.)
 
-Each time a user chooses a filter, such as Honda, that option will disappear from the list. The advantage of using links in this manner, is that every click is guaranteed to return results. This is becaue the link will only appear when there are results behind it.
+Each time a user chooses a filter, such as Honda, that option will disappear from the list. The advantage of using links in this manner, is that every click is guaranteed to return results. This is becaue the link only appears in the first place, if there are results that lie behind it.
 
-The disadvantage of using links is that each click requires a page refresh. On its own this is not a problem at all. If pages are simple and optimised correctly, a page refresh will do users no harm. However, if the user wants to select two or more filters, waiting for two or three requests is far from ideal.
+The disadvantage of using links is that each click requires a page refresh. In isolation, a page refresh isn't a problem at all. Lightweight, well-optimised, single-focus pages don't cause problems for users. However, if the user is interested in a few particular filters, waiting for three separate requests is not ideal.
 
-If the user wants to select Honda and Audi, for example, a form with checkboxes is helpful. By offering users a familiar set of form controls, we hand over power and control to select as many options as they want at once, both across and within different facets, such as brand and colour.
+If the user wants to select Honda and Audi, for example, a form with checkboxes may provide a better experience. By offering users a familiar set of form controls, we give them power and control to select as many options as they want in one go&mdash;both across and within different filters, such as brand and colour.
 
-Unlike links, offering multiple options at once may return no results, depending on the fact. If, for example, the user selects Honda for brand and Red for colour, they may get frustrated when no results appear. Of course, if users get too specific, we can offer them a way to remove a filter in reverse priority order, until results appear.
+![Checkbox filter](.)
 
-Beware not to go crazy with facets. Overloading users with hundreds of facets makes the job harder, not easier. If you're not sure which facets to show, research it and check analytics. Include the most popular ones and show them in that order. Kill off the other or reveal them as they become relevant as the user drills down.
+Unlike links, letting users choose multiple filters at once may result in zero results. If, for example, they select Red + Hondas, there may be none of those available. Of course, there will be away to remove a filter one at a time at the users discretion, but this doesn't eradicate the potential added friction.
 
-A broad and shallow taxonomy creates a better experience without sending users too far down a funnel.
+Beware not to go crazy with filters. Overloading users with hundreds of them makes the job harder, not easier. If you're not sure which ones to show, conduct some research and check your analytics. Extract the most popular ones and include just those  ones in order. Either remove the others or reveal them as they become relevant as the user drills down.
+
+Remember, that a broad and shallow taxonomy creates a better experience without sending users too far down a funnel.
 
 ## Material honesty (again)
 
-We've talked about material honesty several times in the book. This shows both its importance and prevelance to the world of interface design. As a reminder, Jeremy Keith says that *one material should not be used as a substitute for another. Otherwise the end result is deceptive.*
+We've talked about material honesty several times in the book. That's because it's both important and prevelant in the world of interface design. As a reminder of what it is, Jeremy Keith says that *one material should not be used as a substitute for another. Otherwise the end result is deceptive.*
 
-In the case of filters, often links are made to look like radio buttons or checkboxes (using CSS). The problem, of course, is that a radio button is not a link. When a link is clicked, it will immediately make a request and take the user to the page.
+In the case of filters, often links are made to look like radio buttons or checkboxes (using CSS backgrounds). The problem, of course, is that a radio button is not a link. When a link is clicked, it will immediately make a request and take the user to that page.
 
 ![](.)
 
-As the design of form controls vary widely across browsers and operating systems, these CSS background images always differ slightly creating an inconsistent and unprofessional visual tone. But there's more to this than just vaneer. If a user sees a radio button, conventionally speaking, they'll know that they can move through the choices before submitting it. That's just how forms work. It will be confusing if clicking a radio button, immediately submits the form.
+As the design of form controls varies so widely across browsers and operating systems, the CSS styling always differs from native inputs which creates a slightly jarring, inconsistent and unprofessional visual tone. But there's more to this than just vaneer. If a user sees a radio button, conventionally speaking, they'll know that they can move through the choices before submitting it as a separate action. That's just how forms work. It would be confusing if clicking, what looks like a radio button, suddenly submitted the form automatically. This is materially dishonest and therefore deceptive.
 
-> ‘Use checkboxes and radio buttons only to change settings, not as action buttons’ -NN
+> ‘Use checkboxes and radio buttons only to change settings, not as action buttons’&mdash;Jakob Nielsen
 
-Similarly, checkboxes and radio buttons are made to behave like links. That is, with a little Javascript, clicking a radio button can be made to submit the form instantly. This is particularly tricky for keyboard (including screen reader) users, because they'll struggle to move through the options and will actually stop users selecting options within multiple facets.
+Similarly, checkboxes and radio buttons are made to behave more like links. With a little Javascript, clicking a radio button can be made to submit the form automatically. This is particularly problematic for keyboard (including screen reader) users, because they'll struggle to move through the options and negates being able to select multiple filters in one go.
 
 Breaking widely understood conventions that relate to links and form controls can seriously harm the resulting user experience. By sticking to conventions, users who encounter these components both visually and audibly, don't have to think.
 
 ## Using AJAX
 
-Earlier we discussed the pros and cons of using links and form controls. Using links may cause many refreshes. Using form controls increases the chance of seeing no results at all.
+Earlier we discussed the pros and cons of using links and form controls. Using links, may cause users to endure many page refreshes. And using form controls, may increase the chance of users seeing no results.
 
-For keyboard and screen reader users, having a page refresh means having to wade through all the page information again, such as header and navigation before getting back to the filter or the results.
+For keyboard and screen reader users, having a page refresh means having to wade through all the page information again, such as header and navigation before getting back to the filter or the results, although they can skip that easily if landmarks are employed nicely.
 
-We can instead use AJAX to avoid a page refresh. For example, clicking a radio button, will instantly submit the form with AJAX. When the request finishes, the page is updated and the focus is in the same place. This also avoids the chance of seeing no results, because as the user selects one filter, the results and the filter component itself is updated.
+In any case, AJAX can be used to avoid this problem. For example, clicking a radio button, will instantly submit the form with AJAX. When the request finishes, the page is updated and the focus is in the same place. This also reduces the chance of seeing no results because as soon as the user selects a filter, the interface (both the filter and the results list) updates.
 
-Also, many applications have designed filters in a materially dishonest and deceptive manner: that is, clicking a radio button immediately submits the form. Therefore, as users have become acclimatised to this change in convention, I'm sad to say that it may not always be obvious to users that they have to submit their choices. In this case, AJAX can also help here because it removes the need for the button.
+As many applications have materially dishonest filters, some users have acclimatised to this change in convention (that clicking form controls instantly submits the form). I'm sad to say that it may not always be obvious to users, that they have to submit their choices. AJAX helps here because it potentially removes the need for the button.
 
-You'd be forgiven then, for thinking this is a must-have, totally beneficial enhancement. Unfortunately, using AJAX like this goes against principle 4, to *give users control*. By removing an explicit submission action, it's possible that triggering multiple AJAX requests will cause an unexpected and confusing experience for users.
+You'd be forgiven then, for thinking this is a must-have, totally-beneficial enhancement. Unfortunately, using AJAX like this goes against principle 4, to *give users control*. By removing an explicit submission action, it's possible that triggering multiple AJAX requests will cause an unexpected and confusing experience for users.
 
-Additionally, keyboard users who are operating the filter must use their arrow keys to move through radio buttons. Each arrow keypress, not only focuses the option but selects it too. If there are 4 radio buttons, and the user wants to select the last one, this will cause 4 AJAX requests. This adds increased load on the server. But more importantly, this will eat users' data allowance and cause battery drain.
+Additionally, keyboard users who are operating the filter must use their arrow keys to move through each radio button. Arrow keypresses not only sets focus to the option but selects it too. Selecting the fourth radio button will have inadvertently created four AJAX requests unknowingly. This adds increased load on the server, but more importantly, it will eat users' data allowance and cause battery drain on their device.
 
-That's not all, by using AJAX we would need certain provisions such as a live region that announces the loading states of the page. When the user selects an option, the live region might be populated with ‘Loading results, please wait’. Then when the results come back, it will be populated with ‘212 results loaded.’. Having this be read out 4 times, when once could have done it is headache inducing.
+That's not all, though. Using AJAX requires a certain number of provisions such as a live region to indicate loading states. When the user selects an option, the live region would have to be populated with ‘Loading results, please wait.’, for example. Then when the request finishes, it would have to be populated with ‘212 results returned.’. Having to hear this four times is headache inducing.
 
-Despite what you may have heard, AJAX isn't necessarily better or faster than a standard page refresh[^fasthacksjake]. This is for a number of reasons. First, it rquires more code to be sent initially. Second, it engineers away progressive rendering (aka chunking) and an indication of loading states, both of which the browser does for free.
+Despite what you may have heard, AJAX isn't necessarily better or faster than a standard page refresh[^3]. This is for a number of reasons. First, it rquires more javascript code to be sent initially. Second, and more importantly, it engineers away progressive rendering (aka chunking) and removes loading states, both of which the browser provides for free.
 
-AJAX is more suited and beneficial when making updates to small parts of the page. Filters, however, involve updating the vast majority of the page, making AJAX somewhat counterproductive in this case. With all of that put on the table, only thorough and diverse user research will show what works best.
+AJAX is more suited and beneficial when making updates to small parts of the page. Filters, however, involve updating the vast majority of the page, making AJAX somewhat counterproductive. With all of that put on the table, only thorough and diverse user research will show what works best.
 
 ## Responsive design considerations
 
-Wherever possible, we should design mobile first. What this really means is designing for small-screens first. To me, this really just means essential only. If you put the most essential content and features on the screen, then normally speaking, designing for small screens is easy.
+Wherever possible, we should design interfaces mobile first. What this means is designing for small-screens first. To me, this really means essential only. If you put the most essential content and features on the screen, then normally speaking, designing for small screens is easy.
 
-Of course, this translates well on large screens too. A tweak in font-size perhaps, and more whitespace, still with a single focus works wonders. When it comes to filters, however, it's not quite so straightforward. This is because the results themselves are only slightly more important than the ability to filter. What I'm trying to say is that they both need to be prominent within the viewport.
+Of course, this translates well on large screens: a small increase to font-size perhaps coupled with more whitespace usually works well. When it comes to filters, though, it's not quite so straightforward. This is because the results themselves are only slightly more important than the ability to actually filter them. What I'm trying to say is that they both need to be prominent within the viewport.
 
 On big screens this is straightforward. Due to the available space, we can simply position the filter to the side of the results laid out in plain site. On small screens, this just isn't possible. In this case, we might simply hide the filters behind a collapsible panel above the results themselves. This way the filters are still discoverable without taking up too much room.
 
 ![Stacked](.)
 
-The problem that users face is that when they expand the filter and select various filters, users may struggle in two ways.
+The problem that users face is that when they expand the filter and select various filters, users can struggle in two ways. First, if using AJAX, it's not immediately obvious that results have been loaded. You can't just move focus to the results because the user may not be finished making their selection. Second, without using AJAX, users may not realise they need to submit (as mentioned earlier).
 
-First, if using AJAX, it's not immediately obvious that results have been loaded. You can't just move focus to the results because the user may not be finished making their selection.
-
-Second, without using AJAX, users may not realise they need to submit (as mentioned earlier). David House, a designer who used to work for Gumtree, explained that some users didn't realise they had to submit their choice. Here's what he had to say:
+David House, a designer who used to work for Gumtree, explained that some users didn't realise they had to submit their choice. Here's what he had to say:
 
 > Filters were being selected, but not submitted. We got a lot of feedback that said the filters were broken. We tried moving the apply button to the top (and the bottom) along with making it sticky, loads of things that didn't really make a difference.
 
-So what did David and his team end up doing to solve these problems. David told me they ended up with an adaptive approach. On mobile, when users clicked the filter button, they would be taken down a flow that guided the user to choose a filter and apply it which users understood.
+David told me that they reluctantly ended up using an adaptive approach so that on mobile, clicking the filter menu button, sends users down a guided flow that users understood. On desktop, users had an ever-present filter on the side.
 
 ![Gumtree mobile view](.)
 
-I know what you're thinking though: in chatper 6, ‘An inbox’ I lambasted the use of adaptive design due to the many associated pitfalls. But considering the breadth of the problems users faced along with the importance of the feature itself, it seems pragmatic to use such an approach.
+I know what you're thinking though: in chatper 6, ‘An inbox’ I lambasted the use of adaptive design due to the many associated pitfalls. But considering the breadth of the problems users faced along with the importance of the feature itself, its the pragmatic way to go.
 
-Of course, I wouldn't advise you start with the approach. It's worth noting that Gumtree is full of adverts which cognitvely speaking, doesn't help matters. Perhaps with careful design, a responsive solution can work. Only user research can make the call.
+Of course, I don't advise you start with this approach. David wouldn't either. It's also worth noting that Gumtree is full of adverts which cognitvely speaking, doesn't help matters. Perhaps with careful design, a responsive solution can work. Once again, user research will guide you in the right direction.
 
 ## Summary
 
+This chapter looked at some of the important details that are often missed when design a responsive filter component. We looked at how design can shape users so much so that on occasion we may need to consider breaking convention. And we also looked at ways to design an adaptive filter menu given that a responsive solution may not cut the mustard. We also noted that the only way to be sure of any of this is by testing with a diverse set of users.
+
 ### Things to avoid
 
--
--
--
--
+- Making links look like form controls.
+- Making form controls behave like links.
+- Assuming that AJAX will create a faster and better experience.
+- Being closed to breaking the rules (on occasion).
+- Ignoring user research.
 
 ## Footnotes
 
-[!https://asset.uie.com/articles/img/faceted_search/BuzzillionsKMWorld.jpg](from UIE)
-https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/
-[Facet search]: https://articles.uie.com/faceted_search/
-[Don't make links look like checkbox/radios]: https://medium.com/@z_rose/oh-boy-form-design-df6a71e39d60)
-- select box problem without submit button
+[^1]: https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two
+[^2]: https://articles.uie.com/faceted_search/
+[^3]: https://jakearchibald.com/2016/fun-hacks-faster-content/

@@ -624,14 +624,14 @@ Autocomplete.prototype.isElementVisible = function(container, element) {
 
 Dates are notoriously hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally 3 select boxes: one for day, month and year are used to enter dates. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, even this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
+Traditionally 3 select boxes are used for dates: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, even this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
 The other reason select boxes are used is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We simply can't accurately determine the user's intent based on what they enter. Therefore, we can't be as forgiving as we would like to be.
 
-But let's step back a moment. Before designing a date component, we first should understand what type of date we're asking for. The Goverment Digital Services (GDS) talks about this in their Service Manual[^6]. It says ‘the way you should ask for dates depends on the types of date you’re asking for’. There are 3 main types of date. We'll step through each in turn, to see if one of those suits the problem we're trying to solve.
+But let's step back for a moment. Before designing a date component, we first should understand what type of date we're asking for. The Goverment Digital Services (GDS) talks about this in their Service Manual[^6]. It says ‘the way you should ask for dates depends on the types of date you’re asking for’. There are 3 main types of date. We'll step through each in turn, to see if one of those suits the problem we're trying to solve.
 
 ### Dates from documents
 
@@ -686,13 +686,13 @@ Designing an interface that users are already familiar with makes wayfinding tha
 
 Interfaces that try to solve many problems at once cause problems. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, results in a busy interface that is likely to overwhelm users.
 
-It's also not very practical from a design perspective. One aspect of design for the web is considering people who use different size screens. Responsive design encourages us to design for small and large screens alike. Cramming lots of information to a page that can ultimately be accessed on small screens is asking for trouble.
+It's also not very practical from a design perspective. One aspect of design for the web is considering people who use different size screens. Responsive design encourages us to design for small and large screens alike. Cramming lots of information into a page that can ultimately be accessed on small screens is asking for trouble.
 
-Instead, we'll purposely let users focus on choosing a date without the distraction of, for example, price and availability information. We'll give users this information later on in the flow.
+Instead, we'll purposely let users focus on choosing a date without the distraction of additional information. We'll give users the relevant information later on in the flow.
 
 #### Date input
 
-Before HTML5, we always had to build our own date picker using Javascript. We know how hard this is because we just created an autocomplete component. Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;support `input type="date"` which to some extent saves us having to design our own component. That's not all they're good for:
+Before HTML5, we always had to build our own date picker using Javascript. We know how hard this is because we just created an autocomplete component. Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;support `input type="date"` which to some extent saves us having to design our own component. But that's not all they're good for:
 
 - They are fast because they are provided by the browser.
 - They are familiar because every website (and native app) will use the same interface.
@@ -713,7 +713,7 @@ If you're concerned about it looking different in different browsers, don't be. 
 
 It pains me to say this, but really, nobody cares about your website, service or product as much as you do. And if you're still not convinced, check out the rather terse website: Do Websites Need To Look The Same In Every Browser?[^9].
 
-Here's the complete HTML for a field using the date input.
+Here's the HTML for a field using the date input.
 
 ```HTML
 <div class="field">
@@ -876,9 +876,9 @@ Notes:
 - Pressing *previous* shows the previous month and selects the first day of the previes month.
 - Pressing *next* shows the next month and selects the first day of the next month.
 - When the grid is focussed, the arrow keys let the user move freely between days and weeks. Pressing <kbd>left</kbd> moves to the previous day. Pressing <kbd>right</kbd> moves to the next day. Pressing <kbd>up</kbd> moves to the same day in the previous week. Pressing <kbd>down</kbd> moves to the same day in the next week.
-- Only the selected day is in the natural tab sequence. This is because for those who tab would have to tab ~30 times in order to leave the calendar. This makes it hard to move focus to the selected day or to leave the component entirely.
+- Only the selected day is in the natural tab sequence. This is because keyboard users would otherwise have to tab ~30 times in order to leave the calendar.
 - Pressing <kbd>escape</kbd> hides the calendar and moves focus to the button.
-- Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date and sets focus to text box, then hides the calendar.
+- Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date and sets focus to the text box, hiding the calendar at the same time.
 
 Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to principle 5, *give users choice* by letting them do either.
 
@@ -1263,9 +1263,9 @@ The CSS is applied only once we know Javascript is available. This is achieved b
 document.documentElement.className = 'enhanced';
 ```
 
-While we're at it we might consider limiting how many seats users can select based on how many passengers they specified earlier. Radio buttons don't need this enhancement as only one is selectable. In the case of checkboxes, however, the user can select more than their quota. When they do, they'll get an error.
+While we're adding these enhancements, we should consider limiting how many seats users can select based on how many passengers they specified earlier. Radio buttons don't need this enhancement as only one is selectable. In the case of checkboxes, however, the user can select more than their quota. When they do, they'll get an error.
 
-Without user research it's hard to know if this is a problem or not. If if proves to be, we can limit selection with Javascript. One way to do this is to disable the remaining seats as soon as the limit is reached. But what if the user wants to choose another seat as a replacement? If we disable the remaining seats the interface won't respond.
+Without user research it's hard to know if this is a problem or not. If it proves to be, we can limit selection with Javascript. One way to do this is to disable the remaining seats as soon as the limit is reached. But what if the user wants to choose another seat as a replacement? If we disable the remaining seats the interface won't respond.
 
 ![Showing no feedback](.)
 

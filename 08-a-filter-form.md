@@ -1,6 +1,6 @@
 # A filter form
 
-Filters, sometimes referred to as facet navigation or guided navigation, lets users refine a large set of results that my be returned from a search. Were filters straightforward, I could have folded this pattern into the last one, but there are a number of challenges and concerns to address: the type of element to use; keeping to conventions; potential AJAX enhancements; how to make it work just as well on small screens as it does on large ones. All of these things need to be taken into account.
+A filter widget, sometimes referred to as facet navigation or guided navigation, lets users refine a large set of search results. Were filters straightforward, I could have folded this pattern into the last one, but there are a number of challenges and concerns to address: the type of element to use; keeping to conventions; potential AJAX enhancements; how to make it work just as well on small screens as it does on large ones. All of these things need to be taken into account.
 
 First of all, though, it needs to be said that&mdash;like anything any other feature or form field in the book&mdash;if you don't need a filter, don't include one. They're only useful if a search returns a large amount of items to wade through. Like Google, users are not really willing to click through beyond the third or fourth page.
 

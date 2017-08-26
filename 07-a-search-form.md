@@ -1,38 +1,21 @@
-# Search And Filter
+# A search form
 
-- Search is similar to login form in terms of simplicity and ubiquity but has the same attracton to usability failures.
-- Question protocol
+I'm an organised type of guy. Even as a boy, I remember always having ‘a place’ for things. To be fair, I've always been minimalist too. Organising things when you only own a few things is easy. So it's unsurprising that I rarely lost things. On the odd occasion that I did, I just shouted in the general direction of the resident search engine: ‘Where's my...’ and I'd have my answer.
+
+By search engine, I mean Mum! Mum knew where everything was, not just my stuff&mdash;everyones. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to everything (at least that's how I remember it). If I could go back in time and accelerate my nerdiness a little, I might have nickednamed her Google.
+
+Now I'm a dad, and being a minimalist is hard with a wife and two children. Even if I meticulously organise our things, it's still hard to remember where everything is. Worst case scenario: I have to peruse each cupboard one-by-one hoping that the thing hasn't been lost which is time consuming.
+
+We're going to look at how to make search easy. Just like Mum, we'll want the interface to ensure search is readily available to answer questions quickly and accurately.
+
+---
+
+
+- Question Protocol: Do we need it?
 - Search everything
-- Improve with analytics
+- Improve search with analytics
 - A note on autofocus
 - Visual design
-
-
-
-
-
-
-
-
-
-
-I'm an organised person. Even as I boy I remember being this way. But, I've always been a minimalist too. Organising things when you only own a few things is easy.
-
-As a boy, I rarely lost things, but when I did, I just had to shout in the general direction of the resident search engine 'Where's my...' and the search engine would tell me.
-
-By search engine, I mean mum. Mum knew where everything was. Not just my stuff. Everyone's. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to almost any question I had.
-
-If I could go back in time and accelerate my nerdyness a little bit, I might have nicknamed her Google.
-
-Sometimes when I asked mum questions, she would ask me questions in return. Questions like "what colour is it?" and "is it a football or tennis top?".
-
-I'd tell her and she would give me the answer. These questions are filters on a large set of results.
-
-Now I'm a dad&mdash;as much as I try not to&mdash;I own more things. It's hard to be a minimalist with a wife and two children. Even if I meticulously organise our things it's hard to remember where everything is.
-
-Sometimes I'm left to peruse each cupboard one by one. And of course when I need said thing and can't find it, I become anxious. If I really want it and know it exists I'll persevere. If not, I'll give up.
-
-In this chapter we're going to ensure that finding things is easy. Just like mum we'll want our interface to answer questions accurately, quickly and as humanly as possible.
 
 ## Do you need it?
 

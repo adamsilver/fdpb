@@ -161,7 +161,6 @@
 ## 7. A search form
 
 - Introduction
-- Question Protocol: Do we need it?
 - Search everything
 - Improve search with analytics
 - A note on autofocus

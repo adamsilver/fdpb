@@ -8,30 +8,24 @@ Now I'm a dad, and being a minimalist is hard with a wife and two children. Even
 
 We're going to look at how to make search easy. Just like Mum, we'll want the interface to ensure search is readily available to answer questions quickly and accurately.
 
----
+## Search everything
+
+Having designed the interface, next we should consider the search functionality itself. When I recounted my child-hood interaction with my mum I was able to ask her anything and she would know the answer.
+
+In *Content and Design Are Inseparable Work Partners* Jared Spool explains that *content is the thing the user wants right now*. All too often search is limited to products or articles or videos. That is, the stuff stored in the database.
+
+But users want more than that. As Jared says, they might be looking for a returns policy. But the returns policy doesn't reside in the database so a search yields no results.* Useless.
+
+The label and optional hint should make it obvious to users what they can search for. If you must only show products, then tell users that it's a product search.
 
 
-- Question Protocol: Do we need it?
-- Search everything
-- Improve search with analytics
-- A note on autofocus
-- Visual design
+## A note about search analytics
 
-## Do you need it?
+We can improve our designs by tracking the most popular searches. Once we know the answer to this question we might change the way search works or we may add content or we may elevate something into the primary navigation bar. Either way, don't miss the opportunity to learn.
 
-The first thing to ask ourselves is *do we need search?*
+## A note on autofocus
 
-Kidly is a start-up that houses *the best stuff for your baby all in one place*. They wanted to create something great with a lot of wonderful features. Naturally, they were also eager to launch.
-
-Deciding what to cut from the large backlog of work quickly became an essential skill. Launching an MVP within a reasonable timeframe meant having a critical understanding of the value each feature would give our beloved users.
-
-We knew the product range would be small, at least to start with. This meant we could scrap search and rely on a well-organised navigation system.
-
-This freed up a lot of our time and energy to solve more important problems. Nurturing a do-less mindset is something that benefits everyone because it encourages momentum, keeps the team focussed on the most essential thing for users with a product that maximises the value of the delivery effort.
-
-This wouldn't be a particulary useful chapter on search if we decided to scrap the feature altogether so we'll assume we need it and design accordingly.
-
-### Interface design
+## Interface design
 
 Throughout previous chapters we've easily been able to reuse components across different types of forms. This is because the form has been the main feature of the page.
 
@@ -58,20 +52,9 @@ Lastly, we often use a magnifying glass icon to save more space but the best ico
 ```HTML
 ```
 
-### Search should find everything
+## Summary
 
-Having designed the interface, next we should consider the search functionality itself. When I recounted my child-hood interaction with my mum I was able to ask her anything and she would know the answer.
-
-In *Content and Design Are Inseparable Work Partners* Jared Spool explains that *content is the thing the user wants right now*. All too often search is limited to products or articles or videos. That is, the stuff stored in the database.
-
-But users want more than that. As Jared says, they might be looking for a returns policy. But the returns policy doesn't reside in the database so a search yields no results.* Useless.
-
-The label and optional hint should make it obvious to users what they can search for. If you must only show products, then tell users that it's a product search.
-
-### A note about search analytics
-
-We can improve our designs by tracking the most popular searches. Once we know the answer to this question we might change the way search works or we may add content or we may elevate something into the primary navigation bar. Either way, don't miss the opportunity to learn.
+## Footnotes/todo
 
 [jared search find more than products]:https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
-
 - Not using a label for the search form? (Jeremy and link to my article?).

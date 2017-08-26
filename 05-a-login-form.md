@@ -194,4 +194,5 @@ We continued by looking at how social login behaviour introduces trade-offs and 
 
 ## Other bits?
 
-TODO: https://sessioncam.com/reducing-dropout-during-your-online-checkout-process/
+- autofocus
+- https://sessioncam.com/reducing-dropout-during-your-online-checkout-process/

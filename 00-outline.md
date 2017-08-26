@@ -162,9 +162,7 @@
 
 - Introduction
 - Search everything
-- Improve search with analytics
-- A note on autofocus
-- Visual design
+- Responsive design
 
 ## 8. A filter (2000)
 

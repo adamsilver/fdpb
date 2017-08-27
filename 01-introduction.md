@@ -91,3 +91,5 @@ We'll refer back to these principles throughout the book, pointing out where a s
 - flesh out more about design principles: what makes a good principles?
 - more about evaluation methodologies?
 - Web's grain?
+- Mention the online pattern library?
+- House keeping and code?

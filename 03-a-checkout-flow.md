@@ -40,7 +40,7 @@ Whilst this pattern often bares wonderful and delicious fruit (or orders and con
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
 - It's better for screen reader users too as they don't have to wade through a whole lot of superfluous information. Instead, they can navigate to the first heading, for example, and start interacting with the form more quickly.
 
-We'll use this design pattern going throughout the book.
+We'll use this pattern throughout the book.
 
 ## Flow and order
 
@@ -230,7 +230,7 @@ The HTML is remarkably similar to most of the other fields we've discussed so fa
 
 A `textarea` is like a text box except that it allows many lines of text, and typically takes more content. (Remember, the size of the field should afford its requirements.)
 
-However the problem with a textarea is that it seemingly takes an infinite amount of characters. But the Question Protocol, as discussed in chapter 1 tells us that we need to know what it is we're doing with a piece of information before we can determine how we design it for the interface.
+However the problem with a textarea is that it takes an infinite amount of characters. But the Question Protocol, as discussed in chapter 1 tells us that we need to know what it is we're doing with a piece of information before we can determine how we design it for the interface.
 
 In this case, the device that shows the notes has a limited amount of space to fit the note into. And it doesn't allow scrolling. Even if it did, a lot of text to wade through could cause a lot of wasted time. We need to limit the amount of text that can be entered.
 
@@ -339,7 +339,7 @@ Card details are among the most commonly corrected fields in forms. There are a 
 
 ### Browser autocomplete
 
-In Improve Billing Form UX[^9], Margarita Klubochkina explains that the browser's autocomplete behaviour speeds up the form filling process:
+In ‘Improve Billing Form UX’[^9], Margarita Klubochkina explains that the browser's autocomplete behaviour speeds up the form filling process:
 
 > Nowadays almost every popular browser has an autofill feature, allowing the users to store their card data in the browser and to fill out form fields more quickly. Since iOS 8, mobile Safari users can scan their card’s information with the iPhone’s camera and fill in [the] fields automatically.’
 
@@ -359,7 +359,7 @@ When we designed the payment form for Kidly, we used the Question Protocol from 
 - What does Stripe[^10], our payment provider need to process payment?
 - What do we want for our records and why?
 
-Øyvind Valland, Chief of Technology at Kidly, explains our thinking:
+Øyvind Valland, Chief of Technology at Kidly, explains his thinking:
 
 > We don't need to ask for Valid From. Only a handful of debit cards show those and it provides more hassle for the customer to enter, than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
 

@@ -172,8 +172,11 @@
 - AJAX
 - Responsive/adaptive
 
-## 9. A really long complex form
+## 9. A really long and complex form
 
-- Multiple file upload (add another), Task pattern, Branching
+- Task list pattern
+- Multiple file upload (add another pattern)
 
 ## 10. Further reading
+
+- TBD

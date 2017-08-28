@@ -55,9 +55,11 @@ Once again, on first glance this seems like a great usability enhancement, but t
 
 Second, users can only select multiple files within a single folder. If the users files are across different directories, they'll be stuck unless they realise they need to move files into the same directory. This is a big ask for low confidence users, and hardly a user experience that seems satisfactory.
 
-We could ask users to zip multiple files together and just ask for a single field, but that again puts the onus on the user instead of ourselves. Really, we ought to do better than this. We need to make it easy for users to add many files, or in more abstract terms, many of *something* at a time.
+We could ask users to compress multiple files together into a zip file and just ask for a single field, but that puts the onus on the user instead of ourselves. Really, we ought to do better than this. We need to make it easy for users to add many files. If we think about this problem in more abstract terms, we need a design pattern that lets users add many files, text values or anything else for that matter.
 
 ## Add another
+
+Let's imagine
 
 - If you know how many things a user needs to add then show that many fields exactly.
 - If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.

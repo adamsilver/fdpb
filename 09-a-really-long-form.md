@@ -17,29 +17,33 @@ The dashboard shows each process and progress and can jump back to any point in 
 
 ## Uploading multiple documents
 
-Some tasks involve users uploading multiple documents. On the one hand, uploading a file is only marginally more complex than inputting any other information. On the other, there are some nuances that we need to take into account.
+Some form tasks requires users to upload multiple documents. On the one hand, uploading a file is only marginally more complex than inputting any other information. On the other, there are some nuances that need to be taken into account.
 
 ### A file input
 
-A file input (`type="file"`) is similar to most types of input. But instead of typing into it, you click a button that lets you browse their computer or device for a file. Here's how it might look:
+A file input (`type="file"`) is similar to most types of input. But instead of typing into it, you click a button that lets you browse for a file on your computer. Here's how it looks:
 
 ![File input](.)
 
-Some designers want to restyle the file input because it's quite ugly to look at. We know that pretty and useless is worse than ugly and useful, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
+Some designers like to restyle the file input because it's quite ugly. We know that pretty and useless is far worse than ugly and useful, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
 
-Styling file inputs is really tricky. Browsers mostly ignore any attempt and certainly doesn't give you access to the pieces inside it. It's shadow dom stuff[?terminology adam!?].
+Styling file inputs is really tricky. Browsers mostly ignore any attempt to do so via pure CSS. One approach is to visually hide the input, giving sighted users access via the label.
 
-One approach is visually hide the input, letting users activate the control with the label. Unlike the input, labels let are stylistically malleable. Then Javascript is used to handle focus states and update the label text to ‘file.pdf is selected’. On first glance this seems like a reasonable enhancement but it's problematic for a few reasons:
+Unlike file inputs, labels let are far easier to style. After you've hidden the input and styled the label, all you need is a little bit of Javascript to handle the focus and selected states. When the user selects a file, the `onchange` event updates the label text to ‘1 file selected’ or similar.
 
-- Updating the text of the label is confusing. The label should describe the field, not the state of it. That's what the input is for.
-- This approach renders the label, hint and error pattern we formed in ‘A registration form’ useless. There is no room to provide a hint or error message.
-- Users can drag and drop files onto the input, rather than selecting from a dialog. Admittedly lots of users aren't aware of this capability but this approach removes it altogether.
+![Hidden file input](.)
 
-These pitfalls just aren't worth the effort and problems they give users such a small improvement to aesthetics.
+This seems like a sensible enhancement without any downsides&mdash;unless you look beneath the surface. First, updating the label text to reflect the state is confusing. As we well know by now, the label should describe the field. But here, when users focus back onto the field, instead of ‘Attach document’, screen readers will announce ‘1 file selected’.
+
+Another problem is that should if the field needs a hint or has to show an error, then that should be housed in the label, as we set out in ‘A registration form’. The above implementation leaves no room for either.
+
+Lastly, although many users are unaware of this functionality, mouse users can drag and drop files onto the form control, as opposed to using the file explorer. Hiding the input forgoes this functionality.
+
+Together, these pitfalls just aren't worth the effort for such a small improvement to aesthetics.
 
 ### Multiple files
 
-HTML5 introduced the capability of uploading multiple files at once. All you have to do is add the boolean `multiple` attribute as shown below. Users trigger the same file explorer dialog but this time they can select multiple files at once.
+HTML5 introduced the capability of uploading multiple files at once. All you have to do is add the boolean `multiple` attribute as shown below. Clicking the input triggers the same file explorer as described earlier but this time users can select multiple files at once.
 
 ![Multiple files](.)
 
@@ -47,23 +51,13 @@ HTML5 introduced the capability of uploading multiple files at once. All you hav
 <input type="file" multiple>
 ```
 
-On first glance this seems like a really useful usability enhancement. But there are two major problems.
+Once again, on first glance this seems like a great usability enhancement, but this is not without its problems. First, this is not widely supported which degrades into a single select input. This means that without significant intervention users will be left with a broken interface that doesn't let them achieve their goal.
 
-There are several problems:
+Second, users can only select multiple files within a single folder. If the users files are across different directories, they'll be stuck unless they realise they need to move files into the same directory. This is a big ask for low confidence users, and hardly a user experience that seems satisfactory.
 
-- doesn't work everywhere and degrades into a single select file input.
-- can only select from a single folder (not across folders)
+We could ask users to zip multiple files together and just ask for a single field, but that again puts the onus on the user instead of ourselves. Really, we ought to do better than this. We need to make it easy for users to add many files, or in more abstract terms, many of *something* at a time.
 
-
-
-
-
-- Ask user to zip but why ask them and they might not know how to do that.
-
-- Drag and drop (https://www.youtube.com/watch?v=hqSlVvKvvjQ)
-- removing input inplace of label. Ugly file input.
-
-## Add another notes
+## Add another
 
 - If you know how many things a user needs to add then show that many fields exactly.
 - If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
@@ -82,3 +76,4 @@ There are several problems:
 - one thing per page works really well, at least as a start
 - But what about a really long form. Isn't an indication of progress or ‘where’ am i  and ‘how far along am i’ useful in respecting the user. In a really long form, we can't just have users press next forever and ever, until finally reaching the end.
 - But we also don't want users have a one super long form as we know that probably doesn't work. Enter the task list pattern.
+- Drag and drop (https://www.youtube.com/watch?v=hqSlVvKvvjQ)

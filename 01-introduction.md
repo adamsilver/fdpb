@@ -32,35 +32,35 @@ Personally, I want to solve common problems in a user-centered way. Seeing as yo
 
 Note that some of the chapters may sound niche, but I assure you that the patterns that are born out of tackling this specific problems are very much transferable to other problem domains. That's what makes the solutions patterns. Patterns should be unique and reusable across projects and even organisations.
 
-### Chapter 1: A registration form
+### A registration form
 
 We'll start with a basic registration form and the foundational qualities that make up a good form. By applying the Question Protocol we'll look at how to reduce friction drastically without even touching the interface. We'll get into some visual and interaction design specifics. Finally ending by making form validation easy and inclusive.
 
-### Chapter 2: A checkout flow
+### A checkout flow
 
 We'll look at the One Thing Per Page pattern and how and why it's suited to many form processes such as checkout. Considering flow and order we'll break down the various steps and analyse each one in detail, taking a deeper look at several input types and how they affect the user experience on desktop and mobile browsers.
 
-### Chapter 3: Book a flight
+### Book a flight
 
 We'll take a deep dive into the world of progressively enhanced, custom form components using ARIA. We'll do this by exploring the best way to let users select destinations, pick dates, add passengers and choose seats. We'll analyse native form controls at length and even break away from convention (for good reason).
 
-### Chapter 4: A login form
+### A login form
 
 This short chapter looks at the ubiquitous login form. For all its simplicity there are some common usability failures that we'll look to address. Social media login has both helped and hindered these matters so we'll be looking at this too.
 
-### Chapter 5: An inbox
+### An inbox
 
 We'll look at ways to manage and action email in bulk. This is our first look at an adminstrative interface and as such comes with it's own set of challenges and useful patterns. This includes a reponsive ARIA-driven action menu, multiple selection and how we can design better messaging.
 
-### Chapter 6: A search form
+### A search form
 
 In this short chapter, we'll be looking at two important things: how to design a responsive search form that is readily available to users on all pages and the search mechanism that lies behind it. Together, search can be simple and useful.
 
-### Chapter 7: A filter form
+### A filter form
 
 This chapter compliments the previous, by looking at the interesting ways in which users can filter a large set of unweildly search results. Without a well-designed filter, users are bound to give up. A filter form, as you'll see, creates another situation where we may have to break away from ‘best practice’ to give users the best experience.
 
-### Chapter 8: A really long form
+### A really long and complex form
 
 Some transactions are really long. Some are really complicated. Some transactions involve having to upload several files. Some even involve all of these things. We'll look at some innovate, yet simple ways of breaking down this complexity into simple, manageable tasks that save time and keep users in control.
 
@@ -74,13 +74,13 @@ Principles stem from a belief system. That something should be the way we believ
 
 Whatever we build, we should be thinking about users. On the web, that's everyone. Inclusive design is about designing for everyone, therefore I can think of no better set of principles than those written by Heydon Pickering and Heni Swan of Paciello Group[^]. Interestingly, only one of the seven principles pertains to accessibility. The other ones are just *good* design. Let's lay them out in black and white.
 
-1. Principles
-2. Go
-3. Here
-4. Etc
-5. a
-6. b
-7. c
+1. **Provide comparable experience**. Ensure your interface provides a comparable experience for all so people can accomplish tasks in a way that suits their needs without undermining the quality of the content.
+2. **Consider situation**. People use your interface in different situations. Make sure your interface delivers a valuable experience to people regardless of their circumstances.
+3. **Be consistent**. Use familiar conventions and apply them consistently.
+4. **Give control**. Ensure people are in control. People should be able to access and interact with content in their preferred way.
+5. **Offer choice**. Consider providing different ways for people to complete tasks, especially those that are complex or non standard.
+6. **Prioritise content**. Help users focus on core tasks, features, and information by prioritising them within the content and layout.
+7. **Add value**. Consider the value of features and how they improve the experience for different users.
 
 We'll refer back to these principles throughout the book, pointing out where a solution fails or succeeds. These principles should at least indirectly hold us to account throughout the design process. See you on the other side.
 

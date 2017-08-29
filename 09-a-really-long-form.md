@@ -55,16 +55,41 @@ Once again, on first glance this seems like a great usability enhancement, but t
 
 Second, users can only select multiple files within a single folder. If the users files are across different directories, they'll be stuck unless they realise they need to move files into the same directory. This is a big ask for low confidence users, and hardly a user experience that seems satisfactory.
 
-We could ask users to compress multiple files together into a zip file and just ask for a single field, but that puts the onus on the user instead of ourselves. Really, we ought to do better than this. We need to make it easy for users to add many files. If we think about this problem in more abstract terms, we need a design pattern that lets users add many files, text values or anything else for that matter.
+Alternatively, we could ask users to compress multiple files into a single zip file before uploading. Then we'd just need the fully supported single file input. But this puts the onus on the user, and that's if they understand how to do it. Really, we ought to do the hard work for them.
+
+If we think about the problem in a more abstract way, we need a design pattern that lets users add multiple files or anything else for that matter. For example, a user needs to add information about their children.
 
 ## Add another
 
-Let's imagine
+Patterns are always easier to understand when they are applied to real problems. I don't think there is a one-size fits-all for letting users add multiple of something, be it files or plain text.
 
-- If you know how many things a user needs to add then show that many fields exactly.
-- If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
-- If you don't know the max they are allowed to add, then you'll have to offer an add another link. Without js go to a page and back. With js, reveal an extra field OR
-- Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
+Of course, if you know how many of something the user needs to add, then simply displaying those fields and making them mandatory through validation is probably what you need. But if you don't, then there are two approaches that broadly-speaking, work well depending on the frequency of usage.
+
+You can probably marry frequency of use with level of ability. The user is far more likely to be low confidence if they use a thing less frequently or as a one off. Even a high confidence user, who is seeing an interface for the first time could benefit from a simpler but slightly more long-winded approach.
+
+### Infrequent usage (One Thing Per Page)
+
+1. Upload file input, press next.
+2. Show success, plus ‘Do you want to add another?’
+3. ‘No’ > confirmation. ‘Yes’ > back to #1.
+
+### Frequent usage (One Page For All)
+
+#### Add another button
+
+1. Upload a file with Next and Add Another buttons.
+2. ‘Add another’ reveals and focuses onto new field(s). ‘Next’ completes the task.
+3. When another field is cloned, a Remove button is added. Clicking it removes the field and sets focus to where?
+
+- users could miss secondary action and do the minimum. It doesn't guide the user.
+
+#### Additional question
+
+1. Upload file input, ‘Do you want to add another YES NO’ and Next button.
+2. Clicking yes reveals and focuses onto new field(s).
+3. Clicking Next without answering YES or NO generate validation error. Otherwise shoud confirmation.
+
+- This forces the user to answer the question solving previous problem but adds another problem. That we're moving focus via selecting an input so user can't switch and breaks convention.
 
 ## Summary
 
@@ -79,3 +104,10 @@ Let's imagine
 - But what about a really long form. Isn't an indication of progress or ‘where’ am i  and ‘how far along am i’ useful in respecting the user. In a really long form, we can't just have users press next forever and ever, until finally reaching the end.
 - But we also don't want users have a one super long form as we know that probably doesn't work. Enter the task list pattern.
 - Drag and drop (https://www.youtube.com/watch?v=hqSlVvKvvjQ)
+
+## add another js differences
+
+- If you know how many things a user needs to add then show that many fields exactly.
+- If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
+- If you don't know the max they are allowed to add, then you'll have to offer an add another link. Without js go to a page and back. With js, reveal an extra field OR
+- Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.

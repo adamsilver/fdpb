@@ -54,6 +54,11 @@ Together, the improvement to aesthetics just isn't worth the degradation in func
 
 ### Drag and drop enhancement
 
+- Need to think about flow and interaction
+- Still suffers from having files across multiple folders, meaning more than one interacton. Certainly only for high confidence users.
+- You have to upload instantly with ajax, meaning several requests.
+- UI needs to consider js off and lack of `multiple`
+- Needs to consider choice, not everyone wants to drag and drop even if they know about it.
 - https://www.youtube.com/watch?v=hqSlVvKvvjQ
 
 ### Multiple files

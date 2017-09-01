@@ -26,40 +26,33 @@ If the user wants to check what they've entered they can. If they want to resume
 
 TODO
 
-## Uploading multiple documents
+## Uploading documents
 
-Some tasks requires users to upload multiple documents. On the one hand, uploading a file is only marginally more complex than inputting any other information. On the other, there are some nuances that need to be taken into account.
+Some tasks requires users to upload documents. On the one hand, uploading a file is only marginally more complex than inputting any other type of data. On the other, there are some nuances that need to be taken into account.
 
 ### A file input
 
-A file input (`type="file"`) is similar to most types of input. But instead of typing into it, you click a button that lets you browse for a file on your computer. Here's how it looks:
+A file input (`type="file"`) is similar to most types of input. But instead of typing into it, you click a button that lets you select a file from your device or computer. Here's how it looks:
 
 ![File input](.)
 
 Some designers like to restyle the file input because it's quite ugly. We know that *pretty and useless* is far worse than *ugly and useful*, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
 
-Styling file inputs is really tricky. Browsers mostly ignore any attempt at doing so through CSS. One approach is to visually hide the input, demarcating it via the label. Unlike file inputs, labels let are far easier to style.
+Styling file inputs is really tricky. Browsers mostly ignore any attempt at doing so with CSS. One approach is to visually hide the input, demarcating it via the label. Unlike file inputs, labels are far easier to style.
 
 After you've hidden the input and styled the label, you need a little bit of Javascript to handle the focus and selected states. When the user selects a file, the `onchange` event updates the label text to ‘1 file selected’ (or similar) as shown below.
 
 ![Hidden file input](.)
 
-This seems like a sensible enhancement without any downsides&mdash;but it crumbles given a closer look. First, updating the label text to reflect the state is confusing. As we know, the label should describe the field. But here, when users focus back onto the field, instead of ‘Attach document’, screen readers will announce ‘1 file selected’.
+This seems like a sensible enhancement without any downsides&mdash;but it crumbles under scrutiny.
 
-Another problem is that if the field needs a hint or has to show an error, then that would normally be positioned in the label, as we set out in ‘A registration form’. The above design leaves no room for either.
+First, updating the label text to reflect the state is confusing because the label should describe the field and remain unchanged. In this case, when users move back to the field, instead of ‘Attach document’, screen reader users will hear ‘1 file selected’.
 
-The other thing you may not be aware of is that the native file input lets mouser users drag and drop files on the form control, which may be quicker than using the file explorer. Although many users aren't aware of this behaviour, hiding the input forgoes this functionality.
+Second, this visual design makes no allowance for a hint or error message which is normally positioned inside the label, as set out in ‘A registration form’.
+
+Lastly, file inputs let mouse users drag and drop files. The input itself acts as a ‘dropzone’, which may be preferable for savvy users. Hiding the input means losing out on this functionality.
 
 Together, the improvement to aesthetics just isn't worth the degradation in functionality.
-
-### Drag and drop enhancement
-
-- Need to think about flow and interaction
-- Still suffers from having files across multiple folders, meaning more than one interacton. Certainly only for high confidence users.
-- You have to upload instantly with ajax, meaning several requests.
-- UI needs to consider js off and lack of `multiple`
-- Needs to consider choice, not everyone wants to drag and drop even if they know about it.
-- https://www.youtube.com/watch?v=hqSlVvKvvjQ
 
 ### Multiple files
 
@@ -71,13 +64,47 @@ HTML5 introduced the capability of uploading multiple files at once. All you hav
 <input type="file" multiple>
 ```
 
-Once again, on first glance this seems like a reasonable enhancement, but this also is not without problems. First, this enhancement isn't widely supported and when it degrades, it does so by reverting back to a single file input. This means users won't be able to complete the task of adding multiple documents.
+Once again, on first glance this seems like a reasonable enhancement, but this also is not without problems.
 
-Second, users can only select multiple files within a single folder. If the user's files are across different folders, they'll be stuck, unless they realise they need to move all the files into the same directory beforehand. This is a big ask for low confidence users, and hardly a satisfactory user experience.
+First, this enhancement isn't widely supported and when it degrades, it does so by reverting back to a single file input. This means users won't be able to complete the task of adding multiple documents, making this sort of enhancement exclusive.
+
+Second, users can only select multiple files within a single folder. If the user's files are across different folders, they'll be stuck, unless they realise they need to move all the files into the same directory beforehand. This is a big ask for low confidence users, and hardly a satisfactory user experience for more confident users.
 
 Alternatively, we could ask users to compress multiple files into a zip file before uploading. Then we'd just need the broadly supported single file input. But this puts the onus on the user and there's a high chance some users wouldn't know what to do. Heck, some users may not even have compression software. Really, we ought to do the hard work for them.
 
-To give users an agreeable and inclusive experience, we need to rethink the design approach. Also, this problem is worth solving in a more abstract fashion. Universal Credit, for example, doesn't just ask users to upload multiple documents, but to provide information about ‘multiple’ children too. Let's consider patterns for being able to ‘add another’.
+### Drag and drop AJAX upload
+
+Just before, I mentioned that file inputs have drag and drop capability by default. So why enhance at all? It's a really good question, and not something I'd rush to do without first understanding a pressing user need.
+
+One reason might be that it's not immediately obvious that a file input allows users to drag and drop. Another reason is that it's not a particularly large hit area. Creating an enhanced drag and drop interface solves both of these problems.
+
+The premise is quite simple. For supporti
+
+Notes:
+
+- One thing to be aware of though, is that you can't use a custom drag and drop approach to populate file inputs for submission due to security. This means that you have to upload the files immediately (`ondrop`) using AJAX. A request per drop.
+- Due to this constraint you won't want to mix normal fields with upload fields. Mixing the two could cause confusion. Although consider gmail. Upload files and send email together in the UI.
+- Another consideration is that as the interface is very different for drag and drop users, it's wise to give users the choice to convert the interface into a more standard input.
+- However, this only works for browsers that support `multiple` which is seriously lacking support and has no useful degrade path.
+- This means the choice needs to convert the interface into multiple file inputs which has it's own set of problems (how many they need etc).
+- If users need to drag and drop files from multiple directories, they'll have to drag and drop multiple times and keep track of the things they have already uploaded, things in progress etc.
+
+Considering all the notes I'd suggest a first iteration as follows:
+
+LABEL: Attach document
+HINT: Drag and drop files onto the gray area below.
+INPUT
+
+Then with CSS/JS expand the gray box to make it as obvious as possible that you can drag files onto there. But only when a multiple input which as we've just said is out of the window.
+
+With all that said, this solution just isn't going to work. We'll need to enhance the interface with Javascript let users either drag and drop OR use multiple file inputs. We need to give users choice.
+
+Flow and interaction. Use GMAIL approach. Let users drag and drop files uploaded with AJAX. Then let the user submit the form to save and finish/move onto next step if there is one.
+
+Without JS we're have to let users still upload multiple documents somehow anyway.
+
+To give users an agreeable and inclusive experience, we need to rethink the entire design approach.
+Also, this problem is worth solving in a more abstract fashion. Universal Credit, for example, doesn't just ask users to upload multiple documents, but to provide information about ‘multiple’ children too. Let's consider patterns for being able to ‘add another’.
 
 ## Add another
 
@@ -124,10 +151,7 @@ You can probably marry frequency of use with level of ability. The user is far m
 
 ## Todo?
 
-- most sites don't need progress bar. If most wizards are small, what's the point, they take up room and haven't been shown to make much of a difference, and with any flow that is dynamic you're going ot have a problem.
-- one thing per page works really well, at least as a start
-- But what about a really long form. Isn't an indication of progress or ‘where’ am i  and ‘how far along am i’ useful in respecting the user. In a really long form, we can't just have users press next forever and ever, until finally reaching the end.
-- But we also don't want users have a one super long form as we know that probably doesn't work. Enter the task list pattern.
+- https://www.youtube.com/watch?v=hqSlVvKvvjQ
 
 ## add another js differences
 

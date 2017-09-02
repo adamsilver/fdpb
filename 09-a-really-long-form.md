@@ -1,34 +1,34 @@
 # A long and complex application process
 
-Some forms are really long&mdash;a lot longer than checkout, for example. Some forms involve users adding the same information over and over. Some involve uploading documents. Some applications involve all of these things together.
+Some forms are really long. Other forms involve users having to upload multiple documents (and multiple other things too). Some applications all of these things together.
 
-Where One Thing Per Page helps users easily fill out a form in one sitting, some online applications or case management tasks require various information and documents to be prepared over a number of weeks.
+One Thing Per Page helps users complete a form in one sitting, but some online applications or case management tasks require various information and documents to be prepared over a number of weeks.
 
-As an example of ‘case management’, people who unfortunately need help from the state can apply for government assistance in the UK. It's called Universal Credit. As part of the application process, users need to provide various information about themselves. It's a long and unweildly process that requires information about their finances, living arrangements, family members and more.
+Here's an example of a digital service that requires case management and has a long-winded application process: people who unfortunately need help from the state can apply for government assistance in the UK by applying for what's called Universal Credit. As part of the application process, users need to provide various information about themselves. It's a long and unweildly process that requires information about their finances, living arrangements, family members and more.
 
-Because the process is long and complex, and because users don't always have everything they need to hand, there are certain techniques we've used to make that process easier. But that's not all. Once they have successfully made their application, there are some ongoing tasks that they have to complete to ensure continued assistance. All of this requires heavy use of forms.
+Because the process is long and complex, and because users don't always have everything they need to hand. Once they finally complete their application, users need to carry out regular tasks to ensured their continued assistance. All of this requires heavy use of forms.
 
-Making long, unweildly and repetitive tasks easy and inclusive, requires extra design considerations. Whether your building a content management system, long-winded application process or even a case management system that requires an on-going relationship with customers, the patterns in this chapter can help.
+Making long, unweildly and repetitive tasks easy and inclusive, requires extra design considerations.
 
 ## Task list pattern
 
-In chapter 3, ‘A checkout flow’ I introduced you to One Thing Per Page. It's an essential pattern because it breaks longer forms into bit-size chunks and keeps momentum. A good checkout flow should take just minutes to complete for the average user. But what if a transaction takes up to an hour (or even more)?
+In chapter 3, ‘A checkout flow’ I introduced you to One Thing Per Page. It's an essential pattern because it breaks longer forms into bit-size chunks and keeps momentum. A good checkout flow should take just minutes to complete for the average user. But what if a transaction takes up to an hour or more?
 
-This is where the task list pattern comes in. Simply put, it breaks down a very long form journey into several little ones that make sense to be sub-grouped. Then, as each sub-journey is completed, it's marked as completed as shown below:
+This is where the task list pattern comes in. Simply put, it breaks down a very long form journey into several little ones that make sense to be sub-grouped. Then, as each sub-journey is completed, it's marked as completed.
 
 ![Task pattern UC](.)
 
-This pattern lets users fill out various sections in their own time without losing progress. It also gives them a feel for how long the process is going to take. In ‘A checkout flow’ we discussed how little value there was in providing a progress indicator which makes sense given a 1 minute task. Here though, giving users an indicator of their time is essential.
+This pattern lets users fill out various sections in their own time without losing progress. It also gives users a feel for how long the process is going to take. In ‘A checkout flow’ we discussed how little value there was in providing a progress indicator which makes sense given a 1 minute task. Here though, giving users an indicator of their time is essential.
 
 If the user wants to check what they've entered they can. If they want to resume later on they can do that too. By marking each task as complete, the user can pick up where they left off easily.
 
-### Once all tasks are complete
+- time for each task?
 
-TODO
+Once all tasks are completed there should be a large call to action button that takes users forward, normally into their account. At this point users can of course check their answers and make amends should they wish.
 
 ## Uploading documents
 
-Some tasks requires users to upload documents. On the one hand, uploading a file is only marginally more complex than inputting any other type of data. On the other, there are some nuances that need to be taken into account.
+Some tasks involve users having to upload documents. On one hand, uploading a file is only marginally more complex than inputting any other type of data. On the other, there are some nuances that need to be taken into account. Uploading multiple documents blows the whole thing wide open for usability considerations. For the moment, let's start small.
 
 ### A file input
 
@@ -36,27 +36,35 @@ A file input (`type="file"`) is similar to most types of input. But instead of t
 
 ![File input](.)
 
+```HTML
+<input type="file">
+```
+
 Some designers like to restyle the file input because it's quite ugly. We know that *pretty and useless* is far worse than *ugly and useful*, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
 
-Styling file inputs is really tricky. Browsers mostly ignore any attempt at doing so with CSS. One approach is to visually hide the input, demarcating it via the label. Unlike file inputs, labels are far easier to style.
+Styling file inputs is really tricky because browsers mostly ignore any attempt at doing so with CSS. One approach is to visually hide the input, demarcating solely via the label. Unlike file inputs, labels are far easier to style.
 
-After you've hidden the input and styled the label, you need a little bit of Javascript to handle the focus and selected states. When the user selects a file, the `onchange` event updates the label text to ‘1 file selected’ (or similar) as shown below.
+![File input just a label](.)
+
+After you've hidden the input and styled the label, you need a little bit of Javascript to handle the focus and selected states. When the user selects a file, the `onchange` event updates the label text to ‘1 file selected’ (or similar).
 
 ![Hidden file input](.)
 
-This seems like a sensible enhancement without any downsides&mdash;but it crumbles under scrutiny.
+On the face of it, this implementation is an excellent enhancement. Keyboard users can tab to the component. Mouse users can click it. And screen reader users have a label associated with the focusable file input because it's only visually hidden. But even these crumbles under scrutiny.
 
-First, updating the label text to reflect the state is confusing because the label should describe the field and remain unchanged. In this case, when users move back to the field, instead of ‘Attach document’, screen reader users will hear ‘1 file selected’.
+First, updating the label text to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, when users move back to the field, instead of ‘Attach document’, screen readers will announce ‘1 file selected’.
 
 Second, this visual design makes no allowance for a hint or error message which is normally positioned inside the label, as set out in ‘A registration form’.
 
-Lastly, file inputs let mouse users drag and drop files. The input itself acts as a ‘dropzone’, which may be preferable for savvy users. Hiding the input means losing out on this functionality.
+Third and last, file inputs let mouse users drag and drop files. The input itself acts as a ‘dropzone’, which may be preferable for savvy users. Hiding the input means forgoing this functionality.
 
 Together, the improvement to aesthetics just isn't worth the degradation in functionality.
 
 ### Multiple files
 
-HTML5 introduced the capability of uploading multiple files at once. All you have to do is add the boolean `multiple` attribute as shown below. Clicking the input triggers the same file explorer as described earlier but this time users can select multiple files at once.
+One way of letting users upload multiple files, is by providing multiple file inputs. This sounds simple but it's not by a long shot. We'll discuss why this is shortly. Before we do though, let's first discuss another way.
+
+Some browsers and devices let users upload multiple files using a single file input by adding the `multiple` attribute.
 
 ![Multiple files](.)
 
@@ -64,15 +72,17 @@ HTML5 introduced the capability of uploading multiple files at once. All you hav
 <input type="file" multiple>
 ```
 
-Once again, on first glance this seems like a reasonable enhancement, but this also is not without problems.
+This innocuous boolean attribute grants a lot of power and seemingly solves the multiple file problem in one hit, but it's not without it's problems.
 
-First, this enhancement isn't widely supported and when it degrades, it does so by reverting back to a single file input. This means users won't be able to complete the task of adding multiple documents, making this sort of enhancement exclusive.
+The first problem is that users can only select files within a single directory. If they want to upload files across several folders they'll be stuck, unless they realise they have to move all the files into a single folder beforehand. This is a big ask for low confidence users, and hardly satisfactory for more confident users.
 
-Second, users can only select multiple files within a single folder. If the user's files are across different folders, they'll be stuck, unless they realise they need to move all the files into the same directory beforehand. This is a big ask for low confidence users, and hardly a satisfactory user experience for more confident users.
+Alternatively, we could ask users to compress multiple files into a zip file before uploading. In this case, we'd just use the very broadly supported single file input. But this puts the onus on the user again. They may not have compression software or know what it is, let alone how to use it.
 
-Alternatively, we could ask users to compress multiple files into a zip file before uploading. Then we'd just need the broadly supported single file input. But this puts the onus on the user and there's a high chance some users wouldn't know what to do. Heck, some users may not even have compression software. Really, we ought to do the hard work for them.
+Most crucially though, is that this enhancement isn't widely supported. Even if it had good support, we'd still want to consider what happens in other browsers. In this case, it reverts back into a single file input, which means users won't be able to upload more than one document. This degradation leaves the interface broken.
 
-### Drag and drop AJAX upload
+We're going to have think of something a lot better than this if we want to use a pattern that is both simple and inclusive. Let's keep going.
+
+### Drag and drop enhancement
 
 Just before, I mentioned that file inputs have drag and drop capability by default. So why enhance at all? It's a really good question, and not something I'd rush to do without first understanding a pressing user need.
 

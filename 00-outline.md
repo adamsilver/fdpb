@@ -137,7 +137,7 @@
 - List types
 	- Descriptions lists
 	- Tables
-	- Order and unordered lists
+	- Ordered and unordered lists
 - Marking email for action
 	- Modes
 	- Visually hidden labels

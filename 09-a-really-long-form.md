@@ -151,6 +151,10 @@ You can probably marry frequency of use with level of ability. The user is far m
 
 ### Things to avoid
 
+- Really long forms
+- Forgoing the file input for reasons of aesthetics
+- Multiple file inputs
+
 ## Footnotes
 
 ## Todo?

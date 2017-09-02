@@ -84,28 +84,22 @@ We're going to have think of something a lot better than this if we want to use 
 
 ### Drag and drop enhancement
 
-Just before, I mentioned that file inputs have drag and drop capability by default. So why enhance at all? It's a really good question, and not something I'd rush to do without first understanding a pressing user need.
+If your inclusive design hat is on tight, the first thing you might be thinking is that drag and drop is just for mouse users and that the approach leaves out keyboard users. This is only partially true because it depends on how we design the enhancement in the first place, but we're getting a bit ahead of ourselves.
 
-One reason might be that it's not immediately obvious that a file input allows users to drag and drop. Another reason is that it's not a particularly large hit area. Creating an enhanced drag and drop interface solves both of these problems.
+Earlier, I noted that a file input already has drag and drop capability. So if you're thinking this enhancement may be redundant then you may well be right. Only user research will determine the native drag and drop behaviour is enough or not. With that said, there are some subtle design issues that indicate a need.
 
-The premise is quite simple. For supporti
+First it's not immediately obvious that a file can be dragged onto the file input. There's no information and affordance that indicates this behaviour. Second, for it's not a particularly large hit area, which makes dragging and dropping particularly hard for motor impaired users. Creating an enhanced drag and drop interface gives us an opportunity to solve both of these problems.
+
+--
 
 Notes:
 
 - One thing to be aware of though, is that you can't use a custom drag and drop approach to populate file inputs for submission due to security. This means that you have to upload the files immediately (`ondrop`) using AJAX. A request per drop.
 - Due to this constraint you won't want to mix normal fields with upload fields. Mixing the two could cause confusion. Although consider gmail. Upload files and send email together in the UI.
 - Another consideration is that as the interface is very different for drag and drop users, it's wise to give users the choice to convert the interface into a more standard input.
-- However, this only works for browsers that support `multiple` which is seriously lacking support and has no useful degrade path.
-- This means the choice needs to convert the interface into multiple file inputs which has it's own set of problems (how many they need etc).
+- This means the choice needs to convert the interface into multiple file inputs which has it's own set of problems (how many they need etc) discussed momentarily.
 - If users need to drag and drop files from multiple directories, they'll have to drag and drop multiple times and keep track of the things they have already uploaded, things in progress etc.
 
-Considering all the notes I'd suggest a first iteration as follows:
-
-LABEL: Attach document
-HINT: Drag and drop files onto the gray area below.
-INPUT
-
-Then with CSS/JS expand the gray box to make it as obvious as possible that you can drag files onto there. But only when a multiple input which as we've just said is out of the window.
 
 With all that said, this solution just isn't going to work. We'll need to enhance the interface with Javascript let users either drag and drop OR use multiple file inputs. We need to give users choice.
 

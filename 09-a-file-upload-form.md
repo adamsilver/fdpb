@@ -14,8 +14,6 @@ A file input (`type="file"`) is similar to most types of input. But instead of t
 <input type="file">
 ```
 
-### Custom styles
-
 Some designers like to restyle the file input because it's quite ugly. We know that *pretty and useless* is far worse than *ugly and useful*, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
 
 Styling file inputs is really tricky because browsers mostly ignore any attempt at doing so in CSS. One approach is to visually hide the input, demarcating it solely via the label. Unlike file inputs, labels are far easier to style.
@@ -52,48 +50,39 @@ The boolean attribute grants a lot of power and seems to solve the multiple file
 
 First, users can only select files within a single directory within the file explorer. If they want to upload files residing across different folders they'll be stuck unless they have to move all the files into a single folder beforehand. This though, puts the onus on the user. Really we should do the hard work for them.
 
-Second, the enhancement isn't widely supported, meaning we need to think about what happens when the browser doesn't recognise the `multiple` attribute. In this case, the browser will render a single file input. Depending on the journey and interface, this leaves a broken experience as users who may want (or be required) to upload multiple files won't be able to.
+Second, some browsers don't recognise the `multiple` attribute enhancement. People who use one of these browsers will get a single file input. Depending on the design, this results in a broken experience, because for users who want (or are required) to upload multiple files, they won't be able to upload more than one.
 
-One solution includes letting users repeatedly return to the upload form to add more. Something like this:
+This problem may naturally solve itself simply by considering the full journey.
 
-1. Upload a file
-2. See file successfully uploaded.
-3. Select to add another
-4. Rinse and repeat.
+![1. User uploads a file](.)
+![2. Confirmation of uploaded file, can delete it, add another or continue/finish](.)
+![3. Selecting another starts back at #1 again](.)
 
-TODO: show images for journey
-
-This also happens to be useful for those adding multiple files in one go. Giving users an opportunity to review their uploads is a respectful thing to do and happens to cater perfectly for browsers lacking support.
-
-TODO: mention the long winded downside perhaps?
+Notice how this journey also works for those using the enhanced multiple file input. And if they have files residing across multiple directories this caters for that too.
 
 ## Drag and drop enhancement
 
-As pointed out earlier, file inputs already have drag and drop functionality so needing to create our own enhanced interface may seem a little redundant at first. As usual, it's best to determine a user need before embarking on such an enhancement, but in any case, there are some known issues with the native drag and drop file input behaviour.
+As noted earlier, file inputs (both single or multiple) allow users to drag and drop files onto the control. The problem with the native behaviour is two-fold:
 
-First, it's not immediately obvious that a user can drop a file on the input as there's no guidance or affordance to indicate such functionality. Second, the hit area is small, making it hard to use for users suffering with motor impairments. Creating our own enhancement is an opportunity to fix both of these problems.
+- It's not immediately obvious that a user can drag and drop files onto the input as there's no guidance or affordance to indicate such functionality.
+- The hit area of the control is quite small, which makes it hard for motor-impaired users to utilise this functionality.
 
-Let's quickly remind ourselves of principles 1 and 5:
+By creating our own drag and drop enhancement, we grant ourselves the opportunity to both of these issues. Here's how the enhanced interface looks:
 
-1. **Provide comparable experience**. Ensure your interface provides a comparable experience for all so people can accomplish tasks in a way that suits their needs without undermining the quality of the content.
+![Drop zone, text and file explorer <button>](.)
 
-5. **Offer choice**. Consider providing different ways for people to complete tasks, especially those that are complex or non standard.
+You'll notice that the interface is geared toward mouse users. Presenting an interface that consists of both the standard file input (should we just show this rather than a button ADAM?) as well as a drop zone is a cognitive burden. That's why we default to the enhancement whilst giving users the choice to progressively reveal the standard form control, which is essential for keyboard and screen reader users.
 
-A drag and drop enhancement is inherently tied to mouse users. So the first thing we want to do is to give users a choice to either Drag and Drop or to use an alternative interface: one that is not only suited to keyboard users, but that might also be preferential to mouse users too. In doing so we conform to principles 1 and 5 at the get go.
-
-How it might look:
-
-![Drag and drop choice interface](.)
-
-And the enhanced HTML:
+Here's the enhanced HTML:
 
 ```HTML
 <div class="dropzone">
 	<p>Drop files here. Yada.</p>
 	<button type="button">Browse files</button>
-</div>
-<div class="addAnotherStuff">
-	All of this would have to be visually hidden so that it works for screen reader users. Or not, because they can focus the button and reveal all this stuff?
+	<div class="hide">
+		<label>
+		<input type="file">
+	</div>
 </div>
 ```
 

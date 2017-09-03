@@ -42,29 +42,29 @@ A file input (`type="file"`) is similar to most types of input. But instead of t
 
 Some designers like to restyle the file input because it's quite ugly. We know that *pretty and useless* is far worse than *ugly and useful*, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
 
-Styling file inputs is really tricky because browsers mostly ignore any attempt at doing so with CSS. One approach is to visually hide the input, demarcating solely via the label. Unlike file inputs, labels are far easier to style.
+Styling file inputs is really tricky because browsers mostly ignore any attempt at doing so with CSS. One approach is to visually hide the input, demarcating it solely via the label. Unlike file inputs, labels are far easier to style.
 
 ![File input just a label](.)
 
-After you've hidden the input and styled the label, you need a little bit of Javascript to handle the focus and selected states. When the user selects a file, the `onchange` event updates the label text to ‘1 file selected’ (or similar).
+Having hidden the input, and styled the label, you still need a little Javascript to handle the focus states&mdash;similar to what was set out in “Book a flight” for the seat chooser. Lastly, when the user selects a file for upload, the `onchange` event updates the label text accordingly.
 
 ![Hidden file input](.)
 
-On the face of it, this implementation is an excellent enhancement. Keyboard users can tab to the component. Mouse users can click it. And screen reader users have a label associated with the focusable file input because it's only visually hidden. But even these crumbles under scrutiny.
+On the face of it, this implementation is not only valuable, but it's also accessible. Keyboard and mouse users can still operate it like normal and screen readers can announce the state of the input and associated (visually hidden) label.
 
-First, updating the label text to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, when users move back to the field, instead of ‘Attach document’, screen readers will announce ‘1 file selected’.
+But operating the interface is not the only thing to consider here and unfortunately, this enhancement crumbles under scrutiny.
 
-Second, this visual design makes no allowance for a hint or error message which is normally positioned inside the label, as set out in ‘A registration form’.
+First, updating the label text to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, screen reader users will hear ‘some-file.pdf selected’ (or similar) as opposed to ‘Attach CV’.
 
-Third and last, file inputs let mouse users drag and drop files. The input itself acts as a ‘dropzone’, which may be preferable for savvy users. Hiding the input means forgoing this functionality.
+Second, this visual design makes no allowances for a hint or error message which is normally positioned inside the label, as set out in ‘A Registration Form’.
+
+Third, file inputs let mouse users drag and drop files. The input itself acts as a ‘dropzone’, which may be preferable for savvy users. Hiding the input means forgoing this functionality.
 
 Together, the improvement to aesthetics just isn't worth the degradation in functionality.
 
-### Multiple files
+### File input (multiple)
 
-One way of letting users upload multiple files, is by providing multiple file inputs. This sounds simple but it's not by a long shot. We'll discuss why this is shortly. Before we do though, let's first discuss another way.
-
-Some browsers and devices let users upload multiple files using a single file input by adding the `multiple` attribute.
+Some tasks involve having to upload multiple files at once. One way of letting users do this, is by adding a `multiple` attribute onto the file input. It spawns the same file explorer but lets users select multiple files.
 
 ![Multiple files](.)
 
@@ -72,40 +72,78 @@ Some browsers and devices let users upload multiple files using a single file in
 <input type="file" multiple>
 ```
 
-This innocuous boolean attribute grants a lot of power and seemingly solves the multiple file problem in one hit, but it's not without it's problems.
+This innocuous boolean attribute grants a lot of power and seemingly solves the multiple file problem in one hit, but it's not straightforward.
 
 The first problem is that users can only select files within a single directory. If they want to upload files across several folders they'll be stuck, unless they realise they have to move all the files into a single folder beforehand. This is a big ask for low confidence users, and hardly satisfactory for more confident users.
 
-Alternatively, we could ask users to compress multiple files into a zip file before uploading. In this case, we'd just use the very broadly supported single file input. But this puts the onus on the user again. They may not have compression software or know what it is, let alone how to use it.
+Alternatively, we could ask users to compress multiple files into a zip file before uploading. In this case, we'd just use the broadly supported single file input. But this puts the onus on the user again. They may not have compression software or even know what it is, let alone how to use it.
 
-Most crucially though, is that this enhancement isn't widely supported. Even if it had good support, we'd still want to consider what happens in other browsers. In this case, it reverts back into a single file input, which means users won't be able to upload more than one document. This degradation leaves the interface broken.
+Most importantly though, is that this enhancement isn't widely supported&mdash;even if it had good support, we'd still want to consider what happens in  browsers that don't. In this case, it reverts back into a single file input, meaning users won't be able to upload more than one document. This degradation leaves the interface broken.
 
-We're going to have think of something a lot better than this if we want to use a pattern that is both simple and inclusive. Let's keep going.
+We're going to have think of something better than this if we want to give users something simple and inclusive. Let's keep going.
 
 ### Drag and drop enhancement
 
-If your inclusive design hat is on tight, the first thing you might be thinking is that drag and drop is just for mouse users and that the approach leaves out keyboard users. This is only partially true because it depends on how we design the enhancement in the first place, but we're getting a bit ahead of ourselves.
+As pointed out earlier, file inputs already have drag and drop functionality so needing to create our own enhanced interface may seem a little redundant at first. As usual, it's best to determine a user need before embarking on such an enhancement, but there are some issues with the standard drag and drop functionality.
 
-Earlier, I noted that a file input already has drag and drop capability. So if you're thinking this enhancement may be redundant then you may well be right. Only user research will determine the native drag and drop behaviour is enough or not. With that said, there are some subtle design issues that indicate a need.
+First, it's not immediately obvious that a file can be dragged onto the file input. There's no guidance or affordance that indicates this. Second, the hit area is quite small, which makes it hard to use for motor impaired users. Creating our own enhancement is an opportunity to fix both of these problems.
 
-First it's not immediately obvious that a file can be dragged onto the file input. There's no information and affordance that indicates this behaviour. Second, for it's not a particularly large hit area, which makes dragging and dropping particularly hard for motor impaired users. Creating an enhanced drag and drop interface gives us an opportunity to solve both of these problems.
+Let's first remind ourselves of principles 1 and 5:
 
---
+1. **Provide comparable experience**. Ensure your interface provides a comparable experience for all so people can accomplish tasks in a way that suits their needs without undermining the quality of the content.
+
+5. **Offer choice**. Consider providing different ways for people to complete tasks, especially those that are complex or non standard.
+
+A drag and drop enhancement is inherently tied to mouse users. So the first thing we want to do is to give users a choice to either Drag and Drop or to use an alternative interface: one that is not only suited to keyboard users, but that might also be preferential to mouse users too. In doing so we conform to principles 1 and 5 at the get go.
+
+How it might look:
+
+![Drag and drop choice interface](.)
+
+And the enhanced HTML:
+
+```HTML
+<div class="dropzone">
+	<p>Drop files here. Yada.</p>
+	<button type="button">Browse files</button>
+</div>
+<div class="addAnotherStuff">
+	All of this would have to be visually hidden so that it works for screen reader users. Or not, because they can focus the button and reveal all this stuff?
+</div>
+```
+
+Then Javascript is used to listen for `ondragenter`, `ondragleave` and `ondrop` events. The first two events are merely for highlighting and unhighlighting the drop zone to give users feedback.
+
+The majority of the work happens when the user drops the files onto the zone. The event object contains the information about the dropped files. The script then has to extract that information and send it to the server for processing using AJAX.
+
+When the files are being uploaded we need to show progress, just like the browser normally would. We can do this by using the `progress` event fired by the XMLHttpRequest object.
+
+![Progress](.)
+
+```HTML
+<progress>
+```
+
+```JS
+(xhr.upload || xhr).addEventListener('progress', function(e) {
+    var done = e.position || e.loaded
+    var total = e.totalSize || e.total;
+    var percentage = Math.round(done/total*100) + '%'
+    // update progress bar.
+});
+```
+
+Then when the request is finished, we simply output the uploaded files, giving users the chance to review them.
+
+![Review and delete and drag more](.)
 
 Notes:
 
-- One thing to be aware of though, is that you can't use a custom drag and drop approach to populate file inputs for submission due to security. This means that you have to upload the files immediately (`ondrop`) using AJAX. A request per drop.
-- Due to this constraint you won't want to mix normal fields with upload fields. Mixing the two could cause confusion. Although consider gmail. Upload files and send email together in the UI.
-- Another consideration is that as the interface is very different for drag and drop users, it's wise to give users the choice to convert the interface into a more standard input.
-- This means the choice needs to convert the interface into multiple file inputs which has it's own set of problems (how many they need etc) discussed momentarily.
-- If users need to drag and drop files from multiple directories, they'll have to drag and drop multiple times and keep track of the things they have already uploaded, things in progress etc.
-
-
-With all that said, this solution just isn't going to work. We'll need to enhance the interface with Javascript let users either drag and drop OR use multiple file inputs. We need to give users choice.
-
-Flow and interaction. Use GMAIL approach. Let users drag and drop files uploaded with AJAX. Then let the user submit the form to save and finish/move onto next step if there is one.
-
-Without JS we're have to let users still upload multiple documents somehow anyway.
+- Feature detection
+- Dragging and dropping with Javascript can only work when using AJAX. That is you can't populate the file inputs. That means a request occurs for every drop immediately.
+- Use Gmail approach. Let users drag and drop files uploaded with AJAX. Then let the user submit the form to save and finish/move onto next step if there is one.
+- If users need to drag files across different folders, they'll have to perform this task many times.
+- When Javascript is off, or feature detection fails, or if the user chooses not to use Drag and Drop we need to provide an agreeable experience. Discussed next.
 
 To give users an agreeable and inclusive experience, we need to rethink the entire design approach.
 Also, this problem is worth solving in a more abstract fashion. Universal Credit, for example, doesn't just ask users to upload multiple documents, but to provide information about ‘multiple’ children too. Let's consider patterns for being able to ‘add another’.

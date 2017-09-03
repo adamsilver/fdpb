@@ -1,5 +1,9 @@
 # A long and complex application process
 
+- uber sign up with payment before done
+- kidly add kids for bonus to omplete profile
+- linkedin has the concept of completing profile too.
+
 Some forms are really long. Other forms involve users having to upload multiple documents (and multiple other things too). Some applications all of these things together.
 
 One Thing Per Page helps users complete a form in one sitting, but some online applications or case management tasks require various information and documents to be prepared over a number of weeks.

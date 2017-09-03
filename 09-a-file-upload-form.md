@@ -50,7 +50,7 @@ Some tasks involve having to upload multiple files at once. One way of letting u
 
 The boolean attribute grants a lot of power and seems to solve the multiple file problem in one hit, but it's not perfect.
 
-First, users can only select a files within a single directory within the file explorer. If they want to upload files residing across different folders they'll be stuck unless they have to move all the files into a single folder beforehand. This though, puts the onus on the user. Really we should do the hard work for them.
+First, users can only select files within a single directory within the file explorer. If they want to upload files residing across different folders they'll be stuck unless they have to move all the files into a single folder beforehand. This though, puts the onus on the user. Really we should do the hard work for them.
 
 Second, the enhancement isn't widely supported, meaning we need to think about what happens when the browser doesn't recognise the `multiple` attribute. In this case, the browser will render a single file input. Depending on the journey and interface, this leaves a broken experience as users who may want (or be required) to upload multiple files won't be able to.
 

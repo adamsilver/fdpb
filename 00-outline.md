@@ -172,11 +172,24 @@
 - AJAX
 - Responsive/adaptive
 
-## 9. A really long and complex form
+## 9. A file upload form
+
+- A single file input
+	- Custom styling
+- A multiple file input
+	- Degradation choices
+- Drag and drop enhancement
+- Add another patterns
+	- Keep form there
+	- Infrequent usage
+	- Frequent usage
+
+## 10. A really long form
 
 - Task list pattern
-- Multiple file upload (add another pattern)
 
-## 10. Further reading
+## 11. Further reading
 
-- TBD
+- Patterns library
+- Heydon Book
+- People to follow

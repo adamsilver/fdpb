@@ -67,28 +67,36 @@ As noted earlier, file inputs (both single or multiple) allow users to drag and 
 - It's not immediately obvious that a user can drag and drop files onto the input as there's no guidance or affordance to indicate such functionality.
 - The hit area of the control is quite small, which makes it hard for motor-impaired users to utilise this functionality.
 
-By creating our own drag and drop enhancement, we grant ourselves the opportunity to both of these issues. Here's how the enhanced interface looks:
+By creating our own drag and drop enhancement, we get the opportunity to solve both of these problems. Here's how the enhanced interface looks:
 
 ![Drop zone, text and file explorer <button>](.)
 
-You'll notice that the interface is geared toward mouse users. Presenting an interface that consists of both the standard file input (should we just show this rather than a button ADAM?) as well as a drop zone is a cognitive burden. That's why we default to the enhancement whilst giving users the choice to progressively reveal the standard form control, which is essential for keyboard and screen reader users.
+You'll notice that the interface is geared toward mouse users. Presenting an interface that consists of both the standard file input (should we just show this rather than a button ADAM? submit button too) as well as a drop zone is a cognitive burden. That's why we default to the enhancement whilst giving users the choice to progressively reveal the standard form control, which is essential for keyboard and screen reader users.
+
+*It's good to reveal the whole thing, because if it's used incorrectly we can use the standard label, hint and error patterns. We still need to think about error/progress states for ajax version.
 
 Here's the enhanced HTML:
 
 ```HTML
-<div class="dropzone">
-	<p>Drop files here. Yada.</p>
-	<button type="button">Browse files</button>
-	<div class="hide">
-		<label>
-		<input type="file">
+<form>
+	<div class="dropzone">
+		<p>Drop files here, inluding hint or...</p>
+		<div class="isHidden">
+			<label for="files">
+				<span class="field-label">Attach file/span>
+				<span class="field-hint">Accepted and expected files</span>
+				<span class="field-error">Some error message?</span>
+			</label>
+			<input type="file" name="files" id="files">
+		</div>
 	</div>
-</div>
+	<input type="submit" value="Next/Upload">
+</form>
 ```
 
 Then Javascript is used to listen for `ondragenter`, `ondragleave` and `ondrop` events. The first two events are merely for highlighting and unhighlighting the drop zone to give users feedback.
 
-The majority of the work happens when the user drops the files onto the zone. The event object contains the information about the dropped files. The script then has to extract that information and send it to the server for processing using AJAX.
+The majority of the work happens when the user drops the files onto the zone. The event object contains the information about the dropped files. The script then extracts this information and makes a request to the server for processing via AJAX.
 
 When the files are being uploaded we need to show progress, just like the browser normally would. We can do this by using the `progress` event fired by the XMLHttpRequest object.
 
@@ -97,6 +105,8 @@ When the files are being uploaded we need to show progress, just like the browse
 ```HTML
 <progress>
 ```
+
+Information about progress element
 
 ```JS
 (xhr.upload || xhr).addEventListener('progress', function(e) {
@@ -107,24 +117,27 @@ When the files are being uploaded we need to show progress, just like the browse
 });
 ```
 
-Then when the request is finished, we simply output the uploaded files, giving users the chance to review them.
+Then when the request is finished, we simply output the uploaded files, giving users the chance to review them and delete them.
 
 ![Review and delete and drag more](.)
 
 Notes:
 
 - Feature detection
-- Dragging and dropping with Javascript can only work when using AJAX. That is you can't populate the file inputs. That means a request occurs for every drop immediately.
+- Dragging and dropping with Javascript can only work when using AJAX. That is, you can't populate the file inputs. That means a request occurs for every drop immediately.
 - Use Gmail approach. Let users drag and drop files uploaded with AJAX. Then let the user submit the form to save and finish/move onto next step if there is one.
 - If users need to drag files across different folders, they'll have to perform this task many times.
-- When Javascript is off, or feature detection fails, or if the user chooses not to use Drag and Drop we need to provide an agreeable experience. Discussed next.
+- When Javascript is off, or feature detection fails, or if the user chooses not to use Drag and Drop we need to provide an agreeable experience.
 
-To give users an agreeable and inclusive experience, we need to rethink the entire design approach.
-Also, this problem is worth solving in a more abstract fashion. Universal Credit, for example, doesn't just ask users to upload multiple documents, but to provide information about ‘multiple’ children too. Let's consider patterns for being able to ‘add another’.
+One way to give users an agreeable and inclusive experience is by simply exposing the file input all the time, letting users continue to upload again easily. Perhaps in a collapsed state. See sketches.
+
+![Some flow sketches](.)
+
+An alternative approach means ditching all of this for somethign brand new. Universal Credit, for example, doesn't just ask users to upload multiple documents, but to provide information about ‘multiple’ children too. Let's consider patterns for being able to ‘add another’ now.
 
 ## Add another
 
-Patterns are always easier to understand when they are applied to real problems. I don't think there is a one-size fits-all for letting users add multiple of something, be it files or plain text.
+Patterns are always easier to understand when they are applied to real problems. I don't think there is a one-size fits-all approach for letting users add multiple of something, be it files or plain text.
 
 Of course, if you know how many of something the user needs to add, then simply displaying those fields and making them required through validation is the way to go. But if you don't, then there are two approaches that broadly-speaking, work well depending on the frequency of usage.
 

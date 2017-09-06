@@ -184,10 +184,42 @@ You can probably marry frequency of use with level of ability. The user is far m
 ## Todo?
 
 - https://www.youtube.com/watch?v=hqSlVvKvvjQ
-
+- accept attribute
+- capture=camera
 ## add another js differences
 
 - If you know how many things a user needs to add then show that many fields exactly.
 - If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
 - If you don't know the max they are allowed to add, then you'll have to offer an add another link. Without js go to a page and back. With js, reveal an extra field OR
 - Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
+
+## File `onchange` woes
+
+1. When the user selects the same file or a file with the same name, the event doesn't fire.
+
+Link:
+- https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
+- https://stackoverflow.com/questions/6623310/input-file-onchange-event-not-being-fired-in-chrome
+- https://stackoverflow.com/questions/10214947/upload-files-using-input-type-file-field-with-change-event-not-always-firin
+
+Solution:
+After the onchange event happens, and you immediatley submit with ajax (or submit with button), then replace the input in Javascript to make it brand new. See links (in full) explaining why you can't do it in other ways.
+
+Thought:
+When user changes the file, even if it has same name, it works, but the onchange event won't fire.
+
+2. In some browsers (ie7) the event won't fire until you blur.
+
+Link:
+https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
+
+What can you do: nothing.
+
+Note in this link it says how some v of firefox won't fire the input when clicking a label.
+
+## File click() woes
+
+https://stackoverflow.com/questions/210643/in-javascript-can-i-make-a-click-event-fire-programmatically-for-a-file-input
+
+Can dispatch event perhaps.
+

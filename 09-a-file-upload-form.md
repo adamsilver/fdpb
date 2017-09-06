@@ -147,7 +147,7 @@ Then when the request is finished, we simply output the uploaded files, giving u
 
 ### Feature detection
 
-Stuff here.
+Stuff here. The feature detection solves bad browsers we think.
 
 When Javascript isn't available or the feature detection doesn't pass, users won't be able to drag and drop or upload via AJAX and onchange. In this case, we simply give users a standard file input with an upload button.
 

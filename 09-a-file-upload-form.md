@@ -2,7 +2,7 @@
 
 Some forms involve users having to upload files: document, images or anything else really. On the one hand, uploading a file is only marginally more complex than inputting any other type of data. On the other, there are some nuances and opportunites that need to be taken into account.
 
-The problem increases by orders of magnitude as soon as you need to let users upload *multiple* files in one go. Interestingly, we sometimes need an interface that lets users add multiple *anything*, not just files. In this chapter, we're going to start small, but we'll end big.
+The problem increases by orders of magnitude as soon as you need to let users upload *multiple* files in one go. Interestingly, we sometimes need an interface that lets users add multiple *anything*, not just files. In this chapter, we're going to look at a few patterns regarding file uploads and then look at some slightly more abstract patterns that can be used here and beyond.
 
 ## A file input
 
@@ -64,24 +64,28 @@ Notice how this journey also works for those using the enhanced multiple file in
 
 As noted earlier, file inputs (both single or multiple) allow users to drag and drop files onto the control. The problem with the native behaviour is two-fold:
 
-- It's not immediately obvious that a user can drag and drop files onto the input as there's no guidance or affordance to indicate this.
-- The hit area of the control is quite small, which makes it hard to operate for motor-impaired users.
+- It's not immediately obvious that this is even possible&mdash;there's no guidance or affordance to indicate this.
+- The hit area of the control is relatively small, which makes it hard to operate, particularly for motor-impaired users.
 
-By creating our own drag and drop enhancement, we get the opportunity to solve both of these problems. Here's how the enhanced interface might look:
+Creating our own drag and drop enhancement lets us solve both of these problems.
 
-![Drop zone](.)
+### How it might look
 
-You'll notice that the interface is geared toward mouse users. Presenting an interface that consists of both the standard file input as well as a drop zone is a cognitive burden. Also, the design goes completely against the earlier advice regarding hiding the file input; using the label; and showing state with Javascript's onchange event.
+Here's how the enhanced interface might look:
 
-But that was because the enhancement was purely a visual one. The drag and drop enhancement changes the behaviour significantly, meaning aesthetics and behaviour work in harmony here. Here's why:
+![Design with progress bar](.)
 
-- Dropping files onto the dropzone immediately upload them using AJAX. Similarly, using the file input will immediately upload the files using AJAX.
-- When the AJAX request is made, the file input is reset, meaning users can continue to upload more files should they wish to.
-- There is no need for a hint, but if we needed one, this interface allows for this.
-- The label text is fine. So for screen readers, focusing the file input will read ‘Attach files or drag and drop’. Choosing one immediately uploads the file as mentioned above.
-- Dealing with errors and loading states is fine, as each of the progress bars will be live regions giving users the chance to delete the items and start over.
+The design is slightly bias toward mouse users because it's visually challenging to present the drop zone alongside the file input at the same time.
 
-Here's the enhanced dropzone HTML:
+You'll notice that the input is visually hidden and the label is used as a proxy, thanks to standard browser behaviour (clicking a label triggers the input's dialog window).
+
+Also, there's no submit button; we're going to upload the files immediately (`onchange`). This is because browsers won't let Javascript programmatically update the file input's value (`ondrop`) due to security reasons. Given this constraint, it's sensible to make both the drag and drop, and input interaction behave in a similar manner. Importantly, this is not problem free and is something I'll address shortly along with the following questions:
+
+- What happens when browser can't do this or Javascript is off? In other words, how well does this degrade?
+- How does the interface deal with progress, success and error states?
+- How is the interface operated by and communicated to screen reader users?
+
+### HTML
 
 ```HTML
 <form action="/upload" method="post" enctype="multipart/form-data">
@@ -90,25 +94,35 @@ Here's the enhanced dropzone HTML:
 			<label for="files">
 				Attach a file or drag and drop.
 			</label>
-			<input type="file" name="files" id="files">
+			<input type="file" name="files" id="files" multiple>
 		</div>
 	</div>
+	<div role="status" aria-live="polite"></div>
 	<input type="submit" value="Continue">
 </form>
 ```
 
-Notes:
+The `enctype` attribute is purely for the degraded experience. Without it, files aren't transmitted to the server for processing. The continue button is there so users can move forward to the next step in the process. You may just have a finished button or a back to link or whatever.
 
-- enctype
-- Clicking continue when user is finished
+[Use Gmail approach. Let users drag and drop files uploaded with AJAX. Then let the user submit the form to save and finish/move onto next step if there is one.]
 
-### Javascript
+Screen reader and keyboard users can tab to the visually hidden input which will announce the label as normal. Selecting files will immediately submit them via AJAX (`onchange`) and a live region is used to explain what's happening. [More on this adam].
 
-Javascript is primarily used here to listen for `ondragenter`, `ondragleave` and `ondrop` events on the dropzone as well as the `onchange` event on the file input itself.
+When the AJAX request is made, the file input is reset, meaning users can continue to upload more files should they wish to. [Expand]. Same goes for drag and drop behaviour. Can keep dragging until done etc.
 
-Whichever method the user chooses, the Javascript will make several AJAX requests, one for each file, allowing the user to see progress of each one in real time and giving users essential feedback along the way.
+### Drag and drop behaviour
 
-### Progress
+There are three events related:
+
+- dragover: give users a clue they can drop
+- dragleave: give users a clue they can't
+- drop: handle the dropped files and send them via AJAX (separate requests).
+
+[More adam]
+
+### Progress, error and success states
+
+Whether files are dropped or selected via the input, we need to show progress, and handle errors and success states.
 
 When the files are being uploaded with AJAX we need give users progress, just like the browser normally would. We can do this by using the `progress` event fired by the XMLHttpRequest object.
 
@@ -117,8 +131,6 @@ When the files are being uploaded with AJAX we need give users progress, just li
 ```HTML
 <progress></progress>
 ```
-
-Information about progress element
 
 ```JS
 (xhr.upload || xhr).addEventListener('progress', function(e) {
@@ -133,25 +145,15 @@ Then when the request is finished, we simply output the uploaded files, giving u
 
 ![Review and delete and drag more](.)
 
-Notes:
+### Feature detection
 
-- Feature detection
-- Dragging and dropping with Javascript can only work when using AJAX. That is, you can't populate the file inputs. That means a request occurs for every drop immediately.
-- Use Gmail approach. Let users drag and drop files uploaded with AJAX. Then let the user submit the form to save and finish/move onto next step if there is one.
-- If users need to drag files across different folders, they'll have to perform this task many times.
-- When Javascript is off, or feature detection fails, or if the user chooses not to use Drag and Drop we need to provide an agreeable experience.
-
-One way to give users an agreeable and inclusive experience is by simply exposing the file input all the time, letting users continue to upload again easily. Perhaps in a collapsed state. See sketches.
-
-![Some flow sketches](.)
-
-### The degraded version
+Stuff here.
 
 When Javascript isn't available or the feature detection doesn't pass, users won't be able to drag and drop or upload via AJAX and onchange. In this case, we simply give users a standard file input with an upload button.
 
 ![](.)
 
-When the page reloads, success like normal, error like normal?
+When the page refreshes and shows success/error states as per ajax.
 
 ### Other considerations
 
@@ -160,6 +162,8 @@ When the page reloads, success like normal, error like normal?
 - Using the label to trigger the input doesn't work
 
 ### End note?
+
+This is not necessarily needed and perfect etc. There is a lot of complexity here. mkae sure u need drag and drop before going against such conventions etc.
 
 An alternative approach means ditching all of this for somethign brand new. Universal Credit, for example, doesn't just ask users to upload multiple documents, but to provide information about ‘multiple’ children too. Let's consider patterns for being able to ‘add another’ now.
 

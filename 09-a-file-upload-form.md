@@ -30,9 +30,9 @@ But operating the interface is not the only thing that needs consideration. Unfo
 
 First, updating the label text to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, screen reader users will hear ‘some-file.pdf selected’ (or similar) as opposed to ‘Attach CV’.
 
-Second, visually, this design makes no allowances for a hint or error message which is normally positioned inside the label, as set out in ‘A Registration Form’.
+Second, visually this design makes no allowances for a hint or error message which is normally positioned inside the label, as set out in ‘A Registration Form’.
 
-Third, file inputs let mouse users drag and drop files. The input itself acts as a ‘dropzone’, which may be preferable to savvy users. Hiding the input, unfortunately means forgoing this functionality.
+Third, file inputs let mouse users drag and drop files. The input itself acts as a ‘dropzone’, which may be preferable to savvy users. Hiding the input means forgoing this functionality.
 
 Overall, the improvement to aesthetics just isn't worth the degradation in functionality and utility.
 
@@ -46,15 +46,15 @@ Some tasks involve having to upload multiple files at once. One way of letting u
 <input type="file" multiple>
 ```
 
-The boolean attribute grants a lot of power and seems to solve the multiple file problem in one hit, but it's not perfect.
+This inocuous attribute grants a lot of power and seems to solve the multiple file problem entirely, but it's not perfect.
 
-First, users can only select files within a single directory within the file explorer. If they want to upload files residing across different folders they'll be stuck unless they have to move all the files into a single folder beforehand. This though, puts the onus on the user. Really we should do the hard work for them.
+First, users can only select files within a single directory within the file explorer. If they want to upload files residing across different folders they'll be stuck unless they move all the files into a single folder beforehand which puts the onus on the user.
 
-Second, some browsers don't recognise the `multiple` attribute enhancement. People who use one of these browsers will get a single file input. Depending on the design, this results in a broken experience, because for users who want (or are required) to upload multiple files, they won't be able to upload more than one.
+Second, some browsers don't recognise the `multiple` attribute enhancement. People who use one of these browsers will get a single file input. Depending on the design, this will result in a broken experience because for users who want (or are required) to upload multiple files, they won't be able to upload more than one.
 
 This problem may naturally solve itself simply by considering the full journey.
 
-![1. User uploads a file](.)
+![1. User uploads file(s)](.)
 ![2. Confirmation of uploaded file, can delete it, add another or continue/finish](.)
 ![3. Selecting another starts back at #1 again](.)
 
@@ -64,46 +64,58 @@ Notice how this journey also works for those using the enhanced multiple file in
 
 As noted earlier, file inputs (both single or multiple) allow users to drag and drop files onto the control. The problem with the native behaviour is two-fold:
 
-- It's not immediately obvious that a user can drag and drop files onto the input as there's no guidance or affordance to indicate such functionality.
-- The hit area of the control is quite small, which makes it hard for motor-impaired users to utilise this functionality.
+- It's not immediately obvious that a user can drag and drop files onto the input as there's no guidance or affordance to indicate this.
+- The hit area of the control is quite small, which makes it hard to operate for motor-impaired users.
 
-By creating our own drag and drop enhancement, we get the opportunity to solve both of these problems. Here's how the enhanced interface looks:
+By creating our own drag and drop enhancement, we get the opportunity to solve both of these problems. Here's how the enhanced interface might look:
 
-![Drop zone, text and file explorer <button>](.)
+![Drop zone](.)
 
-You'll notice that the interface is geared toward mouse users. Presenting an interface that consists of both the standard file input (should we just show this rather than a button ADAM? submit button too) as well as a drop zone is a cognitive burden. That's why we default to the enhancement whilst giving users the choice to progressively reveal the standard form control, which is essential for keyboard and screen reader users.
+You'll notice that the interface is geared toward mouse users. Presenting an interface that consists of both the standard file input as well as a drop zone is a cognitive burden. Also, the design goes completely against the earlier advice regarding hiding the file input; using the label; and showing state with Javascript's onchange event.
 
-*It's good to reveal the whole thing, because if it's used incorrectly we can use the standard label, hint and error patterns. We still need to think about error/progress states for ajax version.
+But that was because the enhancement was purely a visual one. The drag and drop enhancement changes the behaviour significantly, meaning aesthetics and behaviour work in harmony here. Here's why:
 
-Here's the enhanced HTML:
+- Dropping files onto the dropzone immediately upload them using AJAX. Similarly, using the file input will immediately upload the files using AJAX.
+- When the AJAX request is made, the file input is reset, meaning users can continue to upload more files should they wish to.
+- There is no need for a hint, but if we needed one, this interface allows for this.
+- The label text is fine. So for screen readers, focusing the file input will read ‘Attach files or drag and drop’. Choosing one immediately uploads the file as mentioned above.
+- Dealing with errors and loading states is fine, as each of the progress bars will be live regions giving users the chance to delete the items and start over.
+
+Here's the enhanced dropzone HTML:
 
 ```HTML
-<form>
-	<div class="dropzone">
-		<p>Drop files here, inluding hint or...</p>
-		<div class="isHidden">
+<form action="/upload" method="post" enctype="multipart/form-data">
+	<div class="dropzone dropzone--enhanced">
+		<div>
 			<label for="files">
-				<span class="field-label">Attach file/span>
-				<span class="field-hint">Accepted and expected files</span>
-				<span class="field-error">Some error message?</span>
+				Attach a file or drag and drop.
 			</label>
 			<input type="file" name="files" id="files">
 		</div>
 	</div>
-	<input type="submit" value="Next/Upload">
+	<input type="submit" value="Continue">
 </form>
 ```
 
-Then Javascript is used to listen for `ondragenter`, `ondragleave` and `ondrop` events. The first two events are merely for highlighting and unhighlighting the drop zone to give users feedback.
+Notes:
 
-The majority of the work happens when the user drops the files onto the zone. The event object contains the information about the dropped files. The script then extracts this information and makes a request to the server for processing via AJAX.
+- enctype
+- Clicking continue when user is finished
 
-When the files are being uploaded we need to show progress, just like the browser normally would. We can do this by using the `progress` event fired by the XMLHttpRequest object.
+### Javascript
+
+Javascript is primarily used here to listen for `ondragenter`, `ondragleave` and `ondrop` events on the dropzone as well as the `onchange` event on the file input itself.
+
+Whichever method the user chooses, the Javascript will make several AJAX requests, one for each file, allowing the user to see progress of each one in real time and giving users essential feedback along the way.
+
+### Progress
+
+When the files are being uploaded with AJAX we need give users progress, just like the browser normally would. We can do this by using the `progress` event fired by the XMLHttpRequest object.
 
 ![Progress](.)
 
 ```HTML
-<progress>
+<progress></progress>
 ```
 
 Information about progress element
@@ -132,6 +144,22 @@ Notes:
 One way to give users an agreeable and inclusive experience is by simply exposing the file input all the time, letting users continue to upload again easily. Perhaps in a collapsed state. See sketches.
 
 ![Some flow sketches](.)
+
+### The degraded version
+
+When Javascript isn't available or the feature detection doesn't pass, users won't be able to drag and drop or upload via AJAX and onchange. In this case, we simply give users a standard file input with an upload button.
+
+![](.)
+
+When the page reloads, success like normal, error like normal?
+
+### Other considerations
+
+- Onchange is historically problematic but the feature detection caters for this.
+- Onchange is also problematic because it goes against accessibility criteria as mentioned in previous chapters.
+- Using the label to trigger the input doesn't work
+
+### End note?
 
 An alternative approach means ditching all of this for somethign brand new. Universal Credit, for example, doesn't just ask users to upload multiple documents, but to provide information about ‘multiple’ children too. Let's consider patterns for being able to ‘add another’ now.
 
@@ -211,15 +239,21 @@ When user changes the file, even if it has same name, it works, but the onchange
 2. In some browsers (ie7) the event won't fire until you blur.
 
 Link:
-https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
+2012 https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
 
 What can you do: nothing.
 
-Note in this link it says how some v of firefox won't fire the input when clicking a label.
+Note in this link it says how some version of firefox won't fire the input when clicking a label.
+
+Summary: do it onchange, should be okay especially behind feature detect and automatic ajax like drag and drop. Fall back is two buttons. one to upload, one to continue etc. Think about how nice to make it look with a custom label with js. and then use the label to make sure it works for screen readers too.
 
 ## File click() woes
 
 https://stackoverflow.com/questions/210643/in-javascript-can-i-make-a-click-event-fire-programmatically-for-a-file-input
 
 Can dispatch event perhaps.
+
+https://css-tricks.com/examples/DragAndDropFileUploading/
+
+Feature detect: multiple file input???
 

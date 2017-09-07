@@ -278,6 +278,10 @@ You can probably marry frequency of use with level of ability. The user is far m
 
 ## Footnotes
 
+[^onchangesamefile]: https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
+[^onchangeonblurissue]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
+[^labelclickdoesntwork]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
+
 ## Todo?
 
 - accept attribute
@@ -290,17 +294,3 @@ You can probably marry frequency of use with level of ability. The user is far m
 - If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
 - If you don't know the max they are allowed to add, then you'll have to offer an add another link. Without js go to a page and back. With js, reveal an extra field OR
 - Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
-
-## 1. ONCHANGE When the user selects the same file or a file with the same name, the event doesn't fire.
-
-- https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
-- https://stackoverflow.com/questions/6623310/input-file-onchange-event-not-being-fired-in-chrome
-- https://stackoverflow.com/questions/10214947/upload-files-using-input-type-file-field-with-change-event-not-always-firin
-
-## 2. ONCHANGE: Some browsers (ie7) the event won't fire until you blur.
-
-- https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
-
-## 3. Clicking label doesn't work in some version of Firefox
-
-- https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie

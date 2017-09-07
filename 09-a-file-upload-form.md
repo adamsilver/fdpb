@@ -71,9 +71,7 @@ Note that this journey works with and without multiple file support and may be t
 
 ## A drag and drop enhancement
 
-As noted earlier, file inputs let users drag and drop files onto the control. The problem is that it's not immediately obvious this functionality exists and the hit area is relatively small, making it especially hard to use for motor-impaired users.
-
-Creating our own drag and drop enhancement lets us solve these problems.
+As noted earlier, file inputs let users drag and drop files onto the control. The problem is that it's not immediately obvious this functionality exists and the hit area is relatively small, making it especially hard to use for motor-impaired users. Creating our own implementation lets us solve these issues.
 
 ### How it might look
 
@@ -238,27 +236,40 @@ The other problem is that some older browsers, won't fire the `onchange` event u
 
 Lastly, some older browsers won't trigger the file input by clicking the label. Fortunately, the feature detection happens to rule out these browsers.
 
-Anything like this needs a healthy amount of diverse testing to ensure what is enhanced for some, doesn't break for others. As you can see, going against the standards can lead to very real problems.
+Anything like this needs a healthy amount of diverse testing to ensure what is enhanced for some, doesn't break for others. As you can see, going against standards can lead to very real problems.
+
+It's also worth baring in mind that users may not want or benefit from drag and drop. Before you embark on building this functionality it's worth conducting  user research here too.
 
 ## Add another
 
-This is not necessarily needed and perfect etc. There is a lot of complexity here. mkae sure u need drag and drop before going against such conventions etc.
+The patterns discussed so far have revolved around uploading multiple *files*. But what if the user needed to add multiple collaborators, expenses or invoices into a system?
 
-An alternative approach means ditching all of this for somethign brand new. Universal Credit, for example, doesn't just ask users to upload multiple documents, but to provide information about ‘multiple’ children too. Let's consider patterns for being able to ‘add another’ now.
+There is no form control that provides this functionality, so we either need to create one or to design something that works as part of a journey. This is where the ‘Add another’ pattern can help and there are many variations of this pattern. Really, it's a catch-all term for being able to add lots of something.
 
-Patterns are always easier to understand when they are applied to real problems. I don't think there is a one-size fits-all approach for letting users add multiple of something, be it files or plain text.
+Of course, if you know how many&mdash;let's say expenses&mdash;the user needs to enter, then simply displaying that amount of fields (and making them required) is the way to go. What's far more complicated is when you don't know how many the user needs to add.
 
-Of course, if you know how many of something the user needs to add, then simply displaying those fields and making them required through validation is the way to go. But if you don't, then there are two approaches that broadly-speaking, work well depending on the frequency of usage.
+### Add another flow
 
-You can probably marry frequency of use with level of ability. The user is far more likely to have low confidence if they use the service less frequently or as a one off. Even a high confidence user, who is experiening the service for the first time could benefit from a simpler but slightly more long-winded approach.
+> Good for infrequent usage/low confident users/dynamic questions.
 
-### Infrequent usage (One Thing Per Page)
+If the user wants to add an expense they might be asked first the type, and based on the type might see other questions. For example if the user is adding an expense for a car then perhaps they provide mileage. When adding a lunch expense, it's simply an amount.
 
-1. Upload file input, press next.
-2. Show success, plus ‘Do you want to add another?’
-3. ‘No’ > confirmation. ‘Yes’ > back to #1.
+This requires the user to answer questions in order. First type, then the amount of pounds or mileage.
 
-### Frequent usage (One Page For All)
+Once the user has added one expense, they're asked if they want to add another. Clicking yes, goes round again, clicking no ends the task.
+
+### Add another: keep form there
+
+> Good for speeding a simple process up that doesn't consist of dynamic questions
+
+In short, show a form, and submitting it adds an item to the list. The user can then just keep submitting the form. This is a bit like the drag and drop interface. It stays there until users are done.
+
+- on mobile, users have to scroll to see success or to see form. OR JUST USE A FLOW again for degraded version.
+- multiple call to actions.
+
+### Add another: Dyanmic JS injection
+
+> Good for frequent high confidence users who need to get the job done quickly.
 
 #### Add another button
 
@@ -276,10 +287,15 @@ You can probably marry frequency of use with level of ability. The user is far m
 
 - This forces the user to answer the question solving previous problem but adds another problem. That we're moving focus via selecting an input so user can't switch and breaks convention.
 
-#### Keep form there, and add to a list
+---
 
-- on mobile, users have to scroll to see success or to see form. OR JUST USE A FLOW again for degraded version.
-- multiple call to actions.
+
+
+
+
+
+
+
 
 ## Summary
 
@@ -306,3 +322,7 @@ You can probably marry frequency of use with level of ability. The user is far m
 - If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
 - If you don't know the max they are allowed to add, then you'll have to offer an add another link. Without js go to a page and back. With js, reveal an extra field OR
 - Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
+
+## Nice sentence perhaps
+
+You can probably marry frequency of use with level of ability. The user is far more likely to have low confidence if they use the service less frequently or as a one off. Even a high confidence user, who is experiening the service for the first time could benefit from a simpler but slightly more long-winded approach.

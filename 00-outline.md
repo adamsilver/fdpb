@@ -46,7 +46,6 @@
 	- How to write errors
 	- Be forgiving and restore values
 	- Validation component
-- Summary
 
 ## 3. A checkout flow (6000)
 
@@ -83,7 +82,6 @@
 - Second time experience
 - Order summary
 - Checkout specific header
-- Summary
 
 ## 4. A flight booking service (8500)
 
@@ -172,14 +170,21 @@
 - AJAX
 - Responsive/adaptive
 
-## 9. A file upload form
+## 9. A file upload form (4000+)
 
 - A single file input
-	- Custom styling
+	- A note on aesthetics
 - A multiple file input
 	- Degradation choices
-- Drag and drop enhancement
-- Add another patterns
+- A drag and drop enhancement
+	- How it looks
+	- The drop zone
+	- Providing feedback
+	- Feature detection
+	- The final script
+	- The fallback experience
+	- Small print
+- The add another pattern
 	- Keep form there
 	- Infrequent usage
 	- Frequent usage

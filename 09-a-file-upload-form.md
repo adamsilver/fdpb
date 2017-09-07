@@ -97,7 +97,7 @@ Once finished, clicking continue takes users to the next step (whatever that is)
 
 ![Gmail compose?](.)
 
-### Drop zone
+### The drop zone
 
 Here's the Javascript-enhanced mark-up:
 
@@ -122,7 +122,7 @@ There are three events the Javascript uses: `ondragover`, `ondragleave` and `ond
 
 The `ondrop` handler is where the bulk of the functionality happens. The event handler provide and event object (`e.dataTransfer.files`) which can be iterated over in order to create an AJAX request for each file. This way we can provide granular progress which we'll discuss next.
 
-### Feedback
+### Providing feedback
 
 Whether files are dropped or selected with the input itself, we need to give users feedback. For each file that's uploading we can use the `<progress>` element.
 
@@ -168,7 +168,7 @@ If there's an error, a message is shown in place of the progress bar, letting us
 </ul>
 ```
 
-We need to include a live region so that we can *provide a comparable experience* for screen reader users. Here are the primary messages:
+The only thing that's missing is a hidden live region in order to *provide a comparable experience* for screen readers. Here are the 3 types of messages:
 
 - When upload starts ‘3 files are being uploaded.’ is announced.
 - When an upload finishes ‘file.pdf has been uploaded.’ is announced.
@@ -176,16 +176,35 @@ We need to include a live region so that we can *provide a comparable experience
 
 ### Feature detection
 
-Stuff here. The feature detection solves bad browsers we think.
+This enhancement uses a lot of advanced Javascript APIs that not all browsers recognise. Before referencing and calling these APIs we have to detect them.
 
-When Javascript isn't available or the feature detection doesn't pass, users won't be able to drag and drop or upload via AJAX and onchange. In this case, we simply give users a standard file input with an upload button.
+```JS
+(function() {
+	var dragAndDropSupported = (function() {
+		var div = document.createElement('div');
+		return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
+	}());
 
-![](.)
+	var formDataSupported = typeof Formdata == 'function';
+
+	var fileReaderSupported = typeof FileReader == 'function';
+
+	if(dragAndDropSupported && formDataSupported && fileReaderSupported) {
+		function Dropzone() {
+			// ...
+		}
+		// ...
+	}
+}());
+```
 
 ### The degraded experience
 
-- When the page refreshes and shows success/error states as per ajax.
-- file input not restored due to security reasons.
+When Javascript isn't available or the browser fails the feature detection, users won't get the enhanced interface. Instead, they'll see a file input and an upload button.
+
+![Degraded view](.)
+
+Uploading a file this way causes a page refresh with the same feedback component as discussed above.
 
 ### The final script
 
@@ -193,20 +212,27 @@ When Javascript isn't available or the feature detection doesn't pass, users won
 Put it here
 ```
 
-### Other considerations aka the small print
+### The small print
 
-- Onchange is historically problematic but the feature detection caters for this.
-- Onchange is also problematic because it goes against accessibility criteria as mentioned in previous chapters.
-- Using the label to trigger the input doesn't work
-- Reseting (cloning) the file input for onchange.
+Even though there is rationale behind hiding the input, using a label and uploading the files `onchange`, that does not mean it's perfectly robust. In fact it even goes against WCAG as mentioned in chapter 6, ‘An inbox’. Here it is again:
 
-### End note?
+> Changing the setting of any user interface component does not automatically cause a change of context.
+
+Here the setting is the chosen file. But this is more than just academic. The `onchange` event is historically problematic, particularly when applied to a file input. In some browsers, if you upload the same file for a second time, the `onchange` event won't fire causing a broken experience[^].
+
+The most robust workaround is to replace the entire file input after the onchange event fires, but this means we need to refocus the input causing it to be announced by screen readers again.
+
+The other problem with `onchange` is that some older browsers, won't fire until blurring the field[^]. Fortunately, our feature detection happens to rule out older browsers, but that's somewhat lucky.
+
+Lastly, some older browsers won't trigger the file input by clicking the label. Fortunately, the detection happens to solve this issue again.
+
+For us here, it seems it's not a problem, but it goes to show that going against standards can often lead to very real problems.
+
+## Add another
 
 This is not necessarily needed and perfect etc. There is a lot of complexity here. mkae sure u need drag and drop before going against such conventions etc.
 
 An alternative approach means ditching all of this for somethign brand new. Universal Credit, for example, doesn't just ask users to upload multiple documents, but to provide information about ‘multiple’ children too. Let's consider patterns for being able to ‘add another’ now.
-
-## Add another
 
 Patterns are always easier to understand when they are applied to real problems. I don't think there is a one-size fits-all approach for letting users add multiple of something, be it files or plain text.
 
@@ -254,9 +280,10 @@ You can probably marry frequency of use with level of ability. The user is far m
 
 ## Todo?
 
-- https://www.youtube.com/watch?v=hqSlVvKvvjQ
 - accept attribute
 - capture=camera
+- The file input is always wiped due to security
+
 ## add another js differences
 
 - If you know how many things a user needs to add then show that many fields exactly.
@@ -264,48 +291,16 @@ You can probably marry frequency of use with level of ability. The user is far m
 - If you don't know the max they are allowed to add, then you'll have to offer an add another link. Without js go to a page and back. With js, reveal an extra field OR
 - Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
 
-## File `onchange` woes
+## 1. ONCHANGE When the user selects the same file or a file with the same name, the event doesn't fire.
 
-1. When the user selects the same file or a file with the same name, the event doesn't fire.
-
-Link:
 - https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
 - https://stackoverflow.com/questions/6623310/input-file-onchange-event-not-being-fired-in-chrome
 - https://stackoverflow.com/questions/10214947/upload-files-using-input-type-file-field-with-change-event-not-always-firin
 
-Solution:
-After the onchange event happens, and you immediatley submit with ajax (or submit with button), then replace the input in Javascript to make it brand new. See links (in full) explaining why you can't do it in other ways.
+## 2. ONCHANGE: Some browsers (ie7) the event won't fire until you blur.
 
-Thought:
-When user changes the file, even if it has same name, it works, but the onchange event won't fire.
+- https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
 
-2. In some browsers (ie7) the event won't fire until you blur.
+## 3. Clicking label doesn't work in some version of Firefox
 
-Link:
-2012 https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
-
-What can you do: nothing.
-
-Note in this link it says how some version of firefox won't fire the input when clicking a label.
-
-Summary: do it onchange, should be okay especially behind feature detect and automatic ajax like drag and drop. Fall back is two buttons. one to upload, one to continue etc. Think about how nice to make it look with a custom label with js. and then use the label to make sure it works for screen readers too.
-
-## File click() woes
-
-https://stackoverflow.com/questions/210643/in-javascript-can-i-make-a-click-event-fire-programmatically-for-a-file-input
-
-Can dispatch event perhaps.
-
-https://css-tricks.com/examples/DragAndDropFileUploading/
-
-Feature detect: multiple file input???
-
-
-
-
-This approach is not experientally perfect by any means and I'll address this later on. We also need to consider:
-
-- What happens when browsers can't do this or Javascript is off? In other words, how well does this degrade?
-- How does the interface deal with progress, success and error states?
-- How is the interface operated by and communicated to screen reader users?
-
+- https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie

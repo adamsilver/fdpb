@@ -83,21 +83,23 @@ Creating our own drag and drop enhancement lets us solve both of these problems.
 
 ![Design with progress bar](.)
 
-The design&mdash;slightly biased toward mouse users&mdash;presents a large drop zone making it far easier to use, especially for motor-impaired users. Inside the drop zone is some text that makes the behaviour immediately obvious.
+The design&mdash;slightly biased toward mouse users&mdash;presents a large drop zone making it easier to use, especially for motor-impaired users. Inside the drop zone is some text that makes the behaviour immediately obvious.
 
-Below the text sits a button. Really, it's a label *styled* as a button using the technique I lambasted earlier. To reiterate, this works because the label is a proxy for the input. That is, clicking the label is like clicking the (hidden) file input, which spawns the dialog as normal.
+Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier (I'll explain the thinking in a moment). To reiterate: this works because the label is a proxy for the input. Clicking the label is like clicking the (hidden) file input, which spawns the dialog as normal.
 
-There's also no submit button because we're going to upload the files immediately as soon as they're dropped onto the drop zone. This is because browser's won't let script programmatically update the file input's value (`ondrop`) due to security reasons[^].
+There's also no submit button because the files are uploaded as soon as they're dropped. This is because browser's won't let you update the file input's value programmatically (`ondrop`) due to security reasons[^]t. And because of this, selecting a file (as opposed to dropping one) also uploads it immediately (`onchange`). This way, both interactions behave similarly and can be used interchangeably seamlessly.
 
-Given this constraint, if the user selects a file using the file input (instead of drag and drop), the selected files will be uploaded immediately (`onchange`). This makes both interactions behave similarly.
+This technical constraint has influenced the direction of the design significantly which is why it's veered away from convention by styling the label as a button and uploading the files immediately `onchange`.
 
-The user can keep uploading documents using both interfaces, interchangeably, should they choose. Once finished, clicking continue takes users to the next step, whatever that may be. Gmail users, for example, upload as many files as they want using a similar interface and then click send. It's the exact same pattern with a different veneer.
+The user can keep uploading documents using both interfaces, interchangeably, should they choose. They can review the uploaded files, and delete ones uploaded in error if they wish.
+
+Once finished, clicking continue takes users to the next step (whatever that is). Gmail users, for example, upload files using a similar interface and clicking send. It's the same pattern with a different veneer.
 
 ![Gmail compose?](.)
 
-### Enhanced HTML
+### Drop zone
 
-The Javascript-enhanced HTML is shown below.
+Here's the Javascript-enhanced mark-up:
 
 ```HTML
 <form action="/upload" method="post" enctype="multipart/form-data">
@@ -109,49 +111,68 @@ The Javascript-enhanced HTML is shown below.
 			<input type="file" name="files" id="files" multiple>
 		</div>
 	</div>
-	<div role="status" aria-live="polite"></div>
-	<input type="submit" value="Continue">
 </form>
 ```
 
-The `enctype` attribute is relevant for the degraded experience. Without it, files won't be transmitted to the server.
+The `enctype` attribute is only relevant to the degraded experience discussed shortly.
 
-Keyboard users can tab to the visually hidden input  which will pseudo focus the label&mdash;similar to how we handled state for the seat chooser component as set out in “Book a flight”. At the same time screen readers will announce the label as normal.
+Keyboard users can tab to the visually hidden input  which will pseudo focus the label&mdash;similar to how we handled state for the seat chooser component as set out in “Book a flight”.
 
-As the user uploads files, the live region will be updated to inform screen reader users of progress. More on this shortly.
+There are three events the Javascript uses: `ondragover`, `ondragleave` and `ondrop`. The `ondragover` handler adds a class of `dropzone--dragover` and the `ondragleave` handler removes it. The class is used to provide users feedback so they know they are within the drop zone.
 
-### Drag and drop behaviour
+The `ondrop` handler is where the bulk of the functionality happens. The event handler provide and event object (`e.dataTransfer.files`) which can be iterated over in order to create an AJAX request for each file. This way we can provide granular progress which we'll discuss next.
 
-There are three drag and drop specific events the Javascript needs to use in order to implement this functionality: `ondragover`, `ondragleave` and `ondrop`.
+### Feedback
 
-The first two events are simply for adding and removing classes so that we can provide feedback to users that they are successfully over the drop zone.
+Whether files are dropped or selected with the input itself, we need to give users feedback. For each file that's uploading we can use the `<progress>` element.
 
-The last event is where the magic happens. Having dropped the files onto the drop zone, we can iterate over `e.dataTransfer.files` to create an AJAX request for each.
-
-Having separate requests, means we can show a progress bar for each individual file.
-
-### Progress, error and success states
-
-Whether files are dropped or selected via the input, we need to handle progress, errors and success states.
-
-We can only upload files with AJAX using XHR2. Fortunately, this API lets us tap into the progress of the request whilst it's in flight.
+![Progress](.)
 
 ```HTML
-<progress></progress>
+<ul>
+	<li>
+		<span>file.pdf</span>
+		<progress max="100" value="80">80% complete</progress>
+	</li>
+	...
+</ul>
 ```
 
-```JS
-(xhr.upload || xhr).addEventListener('progress', function(e) {
-    var done = e.position || e.loaded
-    var total = e.totalSize || e.total;
-    var percentage = Math.round(done/total*100) + '%'
-    // update progress bar.
-});
+Listening to the `progress` event on the AJAX request object lets us update the progress bar accordingly. When it's completed, we turn the file.pdf into a link that can be downloaded. We also let users delete the file by providing a delete button.
+
+![Success](.)
+
+```HTML
+<ul>
+	<li>
+		<a href="/path/to/file.pdf">file.pdf</a>
+		<progress max="100" value="100">100% complete</progress>
+		<input type="submit" name="delete1" value="Delete">
+	</li>
+	...
+</ul>
 ```
 
-Then when the request is finished, we simply output the uploaded files, giving users the chance to review them and delete them.
+If there's an error, a message is shown in place of the progress bar, letting users dismiss that file to try again by clicking the `<button>`.
 
-![Review and delete and drag more](.)
+![An error](.)
+
+```HTML
+<ul>
+	<li>
+		<a href="/path/to/file.pdf">file.pdf</a>
+		<span class="error">File.pdf is too big.</span>
+		<button type="button">Dismiss message</button>
+	</li>
+	...
+</ul>
+```
+
+Screen reader users will be told what's going on via the live region.
+
+- ‘3 files are uploading’.
+- ‘file.pdf completed’.
+- ‘other-file.pdf was too big’.
 
 ### Feature detection
 

@@ -168,11 +168,11 @@ If there's an error, a message is shown in place of the progress bar, letting us
 </ul>
 ```
 
-Screen reader users will be told what's going on via the live region.
+We need to include a live region so that we can *provide a comparable experience* for screen reader users. Here are the primary messages:
 
-- ‘3 files are uploading’.
-- ‘file.pdf completed’.
-- ‘other-file.pdf was too big’.
+- When upload starts ‘3 files are being uploaded.’ is announced.
+- When an upload finishes ‘file.pdf has been uploaded.’ is announced.
+- When a particular file couldn't be uploaded ‘file.pdf could not be uploaded because it was too big.’ is announced.
 
 ### Feature detection
 
@@ -182,9 +182,18 @@ When Javascript isn't available or the feature detection doesn't pass, users won
 
 ![](.)
 
-When the page refreshes and shows success/error states as per ajax.
+### The degraded experience
 
-### Other considerations
+- When the page refreshes and shows success/error states as per ajax.
+- file input not restored due to security reasons.
+
+### The final script
+
+```JS
+Put it here
+```
+
+### Other considerations aka the small print
 
 - Onchange is historically problematic but the feature detection caters for this.
 - Onchange is also problematic because it goes against accessibility criteria as mentioned in previous chapters.

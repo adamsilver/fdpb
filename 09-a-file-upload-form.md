@@ -2,13 +2,13 @@
 
 Some forms involve users having to upload files: document, images or anything else really. On the one hand, uploading a file is only marginally more complex than inputting text or selecting options. On the other, there are some nuances and opportunites that need to be taken into account.
 
-The problem increases by orders of magnitude as soon as you need to let users upload *multiple* files in one go. And interfaces also need to let users add multiple of anything&mdash;not just files.
+The problem increases by orders of magnitude as soon as you need to let users upload *multiple* files in one go. More abstractly, users don't just need to add multiple *files*. They may need to add multiple of anything other type of date too.
 
-The main focus of this chapter is around file uploads so we'll start there. But we'll also look at the design problem in a more abstract sense when we talk about the ‘Add another’ pattern.
+So whilst the main focus of this chapter is around file uploads, we'll also be looking at the design pattern in a more abstract sense too.
 
 ## A file input
 
-A file input is similar to most types of input. But instead of typing into it, clicking the control spawns a dialog window in which to choose a file from your computer. Here's how it looks:
+A file input is similar to most types of input. But instead of typing into it, the control just spawns a dialog in which to choose a file from your computer. Here's how it looks:
 
 ![File input](.)
 
@@ -31,15 +31,15 @@ Styling file inputs is really tricky because browsers mostly ignore any attempt 
 
 ![Hidden input, styled label](.)
 
-Having hidden the input, and styled the label, Javascript should be used to handle the focus states: when the input is focused, put a focus ring around the label. When the user selects a file for upload, the `onchange` event updates the label text as shown.
+Having hidden the input, and styled the label, Javascript should be used to handle the focus states: when the input is focused, put a pseudo focus outline around the label. When the user selects a file for upload, the `onchange` event updates the label text as shown.
 
 ![Label text updated](.)
 
-On the face of it, this implementation is not only visually pleasing, but it's also accessible. Keyboard and mouse users can operate it like normal and screen readers will announce the state of the input and associated label&mdash;remember it's only *visually* hidden.
+On the face of it, this implementation is visually pleasing and it's still accessible. Keyboard and mouse users can operate it like normal and screen readers will announce the state of the input and associated label.
 
-But operating the interface is not the only thing that needs consideration. Unfortunately, this enhancement crumbles under scrutiny.
+But operating the interface is not the only thing that needs consideration. Unfortunately, this enhancement crumbles under further scrutiny.
 
-First, updating the label to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, screen reader users will hear ‘some-file.pdf selected’ (or similar) as opposed to ‘Attach CV’.
+First, updating the label to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, screen reader users will hear ‘some-file.pdf selected’ (or similar) as opposed to ‘Attach file’.
 
 Second, the interface makes no allowances for a visual hint or error message which is normally positioned inside the label, as set out in ‘A Registration Form’.
 
@@ -49,7 +49,7 @@ Unfortunately, the improvement to aesthetics isn't worth the degradation in func
 
 ## A multiple file input
 
-Some tasks involve having to upload multiple files at once. One way to do this is to add a `multiple` attribute onto the file input. It spawns the same file explorer but lets users select multiple files.
+Some tasks involve having to upload multiple files at once. One way to do this is to add a `multiple` attribute onto the input. The only difference now is that users can select multiple files from dialog.
 
 ![Multiple file input](.)
 
@@ -67,33 +67,29 @@ You could solve this by considering the full journey:
 ![2. Confirmation of uploaded file, can delete it, add another or continue/finish](.)
 ![3. Selecting another starts back at (1) again](.)
 
-Note that this journey works with and without multiple file support and may be the right solution in many cases. The only potential downside is that the journey could become a little long winded.
+Note that this journey works with and without multiple file support and may be the right solution in many cases. The only potential downside is the journey could become a little long winded.
 
 ## A drag and drop enhancement
 
-As noted earlier, file inputs (both single or multiple) allow users to drag and drop files onto the control.
- There are two potential problems with this:
+As noted earlier, file inputs let users drag and drop files onto the control. The problem is that it's not immediately obvious this functionality exists and the hit area is relatively small, making it especially hard to use for motor-impaired users.
 
-- It's not immediately obvious that this is even possible&mdash;there's no guidance or affordance to indicate this.
-- The hit area of the control is relatively small, which makes it hard to operate, particularly for motor-impaired users.
-
-Creating our own drag and drop enhancement lets us solve both of these problems.
+Creating our own drag and drop enhancement lets us solve these problems.
 
 ### How it might look
 
 ![Design with progress bar](.)
 
-The design&mdash;slightly biased toward mouse users&mdash;presents a large drop zone making it easier to use, especially for motor-impaired users. Inside the drop zone is some text that makes the behaviour immediately obvious.
+The design&mdash;slightly biased toward mouse users&mdash;presents a large ‘drop zone’ making it easier to use, especially for motor-impaired users. Inside the drop zone is some instructional text that makes the behaviour immediately obvious.
 
-Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier (I'll explain the thinking in a moment). To reiterate: this works because the label is a proxy for the input. Clicking the label is like clicking the (hidden) file input, which spawns the dialog as normal.
+Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier (the rationale comes shortly). To reiterate: this works because the label is a proxy for the input. Clicking the label is like clicking the (hidden) file input.
 
-There's also no submit button because the files are uploaded as soon as they're dropped. This is because browser's won't let you update the file input's value programmatically (`ondrop`) due to security reasons[^]t. And because of this, selecting a file (as opposed to dropping one) also uploads it immediately (`onchange`). This way, both interactions behave similarly and can be used interchangeably seamlessly.
+There's no submit button because the files are uploaded as soon as they're dropped. This is because browser's won't let you update the file input's value programmatically (`ondrop`) due to security reasons[^]t. And because of this, selecting a file (as opposed to dropping one) also uploads it immediately (`onchange`). This way, both interactions behave similarly.
 
-This technical constraint has influenced the direction of the design significantly which is why it's veered away from convention by styling the label as a button and uploading the files immediately `onchange`.
+This technical constraint is the reason we've veered away from convention, which is the first time we've done that in the book and it is not without it's problem. I'll be talking about that later in the ‘small print’.
 
-The user can keep uploading documents using both interfaces, interchangeably, should they choose. They can review the uploaded files, and delete ones uploaded in error if they wish.
+The user can keep uploading documents using both methods (interchangeably), should they choose. After they've uploaded the files successfully, they can review and delete files uploaded in error if they need to.
 
-Once finished, clicking continue takes users to the next step (whatever that is). Gmail users, for example, upload files using a similar interface and clicking send. It's the same pattern with a different veneer.
+When they're done, clicking continue takes users to the next step (whatever that is). Gmail users, for example, upload files using a similar interface and clicking send. It's the same pattern with a different veneer.
 
 ![Gmail compose?](.)
 
@@ -114,31 +110,39 @@ Here's the Javascript-enhanced mark-up:
 </form>
 ```
 
-The `enctype` attribute is only relevant to the degraded experience discussed shortly.
+The `enctype` attribute is necessary so that the files are transmitted to the server for processing. This is only relevant to the degraded experience which is discussed later, because the enhanced experience uses AJAX.
 
-Keyboard users can tab to the visually hidden input  which will pseudo focus the label&mdash;similar to how we handled state for the seat chooser component as set out in “Book a flight”.
+Keyboard users can tab to the visually hidden input  which will pseudo focus the label&mdash;similar to how we handled focus states for the seat chooser component set out in “Book a flight”.
 
-There are three events the Javascript uses: `ondragover`, `ondragleave` and `ondrop`. The `ondragover` handler adds a class of `dropzone--dragover` and the `ondragleave` handler removes it. The class is used to provide users feedback so they know they are within the drop zone.
+To create the drag and drop behaviour there are three javascript events: `ondragover`, `ondragleave` and `ondrop`.
 
-The `ondrop` handler is where the bulk of the functionality happens. The event handler provide and event object (`e.dataTransfer.files`) which can be iterated over in order to create an AJAX request for each file. This way we can provide granular progress which we'll discuss next.
+The `ondragover` handler adds a class of `dropzone--dragover` and the `ondragleave` handler removes it. The class is used to provide users feedback so they know they are within the drop zone.
+
+![on drag over](.)
+
+The `ondrop` handler is where the magic happens. The event handler receives an event object (`e.dataTransfer.files`) that holds data about the files. These are then iterated over in order to upload them via AJAX.
 
 ### Providing feedback
 
-Whether files are dropped or selected with the input itself, we need to give users feedback. For each file that's uploading we can use the `<progress>` element.
+Whether files are dropped or selected with the input itself, we need to give users feedback. Each file is represented as an item in a simple list. Progress is demarcated by the `<progress>` element.
 
 ![Progress](.)
 
 ```HTML
 <ul>
 	<li>
-		<span>file.pdf</span>
+		<span class="file">file.pdf</span>
 		<progress max="100" value="80">80% complete</progress>
 	</li>
 	...
 </ul>
 ```
 
-Listening to the `progress` event on the AJAX request object lets us update the progress bar accordingly. When it's completed, we turn the file.pdf into a link that can be downloaded. We also let users delete the file by providing a delete button.
+The text inside the element is for browsers that don't support the element, meaning they'll just see the text.
+
+The progress bar is updated in response to the AJAX request that has an `onprogress` event.
+
+When the file is completely uploaded, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added too, that will let users delete the uploaded file.
 
 ![Success](.)
 
@@ -168,11 +172,11 @@ If there's an error, a message is shown in place of the progress bar, letting us
 </ul>
 ```
 
-The only thing that's missing is a hidden live region in order to *provide a comparable experience* for screen readers. Here are the 3 types of messages:
+The only thing missing is a hidden live region in order to *provide a comparable experience* for screen readers. Here are the 3 types of messages:
 
-- When upload starts ‘3 files are being uploaded.’ is announced.
-- When an upload finishes ‘file.pdf has been uploaded.’ is announced.
-- When a particular file couldn't be uploaded ‘file.pdf could not be uploaded because it was too big.’ is announced.
+- Upload starts: ‘3 files are being uploaded.’
+- Upload ends: ‘file.pdf has been uploaded.’
+- Upload error: ‘file.pdf could not be uploaded because it was too big.’
 
 ### Feature detection
 
@@ -198,13 +202,21 @@ This enhancement uses a lot of advanced Javascript APIs that not all browsers re
 }());
 ```
 
+Then the calling application simply detects `Dropzone` before creating an instant.
+
+```JS
+if(typeof Dropzone !== 'undefined') {
+	new Dropzone();
+}
+```
+
 ### The degraded experience
 
 When Javascript isn't available or the browser fails the feature detection, users won't get the enhanced interface. Instead, they'll see a file input and an upload button.
 
 ![Degraded view](.)
 
-Uploading a file this way causes a page refresh with the same feedback component as discussed above.
+Uploading a file causes the page to refresh with the same level of feedback as discussed earlier.
 
 ### The final script
 
@@ -214,19 +226,19 @@ Put it here
 
 ### The small print
 
-Even though there is rationale behind hiding the input, using a label and uploading the files `onchange`, that does not mean it's perfectly robust. In fact it even goes against WCAG as mentioned in chapter 6, ‘An inbox’. Here it is again:
+Granted, there is some rationale behind hiding the input, using a label as a proxy and uploading files `onchange`. But that doesn't mean it's robust. In fact, doing this goes against what the standards say which was discussed in chapter 6, ‘An inbox’. Here it is again:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-Here the setting is the chosen file. But this is more than just academic. The `onchange` event is historically problematic, particularly when applied to a file input. In some browsers, if you upload the same file for a second time, the `onchange` event won't fire causing a broken experience[^].
+This is more than just academic endeavour. The `onchange` event is historically problematic, particularly when it's applied to a file input. For example, in some browsers, if you upload the same file for a second time, the `onchange` event won't fire[^]. This creates a broken interface.
 
-The most robust workaround is to replace the entire file input after the onchange event fires, but this means we need to refocus the input causing it to be announced by screen readers again.
+The best solution requires the entire file input to be replaced after the `onchange` event fires. This means we need to set focus to the newly created file input. Unfortunately, this causes the screen reader to announce it's existence for a second time which is mildly frustrating.
 
-The other problem with `onchange` is that some older browsers, won't fire until blurring the field[^]. Fortunately, our feature detection happens to rule out older browsers, but that's somewhat lucky.
+The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^]. Fortunately, our feature detection happens to rule out those browsers which is fortunate for us in this case, but still worth baring in mind.
 
-Lastly, some older browsers won't trigger the file input by clicking the label. Fortunately, the detection happens to solve this issue again.
+Lastly, some older browsers won't trigger the file input by clicking the label. Fortunately, the feature detection happens to rule out these browsers.
 
-For us here, it seems it's not a problem, but it goes to show that going against standards can often lead to very real problems.
+Anything like this needs a healthy amount of diverse testing to ensure what is enhanced for some, doesn't break for others. As you can see, going against the standards can lead to very real problems.
 
 ## Add another
 

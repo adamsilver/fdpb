@@ -1,30 +1,20 @@
 # An expense form
 
-At first I wanted to fold this chapter into the last, because there's some cross-over. Adding multiple files needn't be different from adding multiple of anything really, it's just that when it comes to files, there's some widely used patterns that made sense to discuss in isolation.
+At first I wanted to fold this chapter into the last one because both problems overlap. Adding multiple files needn't be different from adding multiple of anything really, it's just that drag and drop is only applicable to files so it made sense to tackle that in isolation.
 
-There are no form controls beside file inputs, that let users add multiple of something in one go, so in this chapter we're going to walk through various patterns that are applicable to all sorts of data types including files.
+Unlike file inputs, other form controls don't let you add multiple values. It's up to us to design solutions from scratch that solve this need. I've counted three main approaches here that are applicable to all sorts of data&mdash;files included.
 
-If the user is tasked with adding lots of something, then the patterns in this chapter will help are certainly applicable to files too.
+Whether it's adding collaborators on Github, invoices on Freeagent or a survery asking for details about each of your family members, the patterns here are more than worthy of your consideration.
 
-For example, adding collaborators on Github, invoices on Freeagent or adding information about your family members as part of an online survey. Whatever the case, the patterns in here will serve your users well.
-
-Of course, if you know how many&mdash;let's say expenses&mdash;the user needs to enter, then simply displaying that amount of fields (and making them required) is the way to go. What's far more complicated is when you don't know how many the user needs to add.
+Of course, if you know how many things the user needs to enter, then simply displaying that amount of fields (and making them required) is all you need. That's not really a pattern as such. No, these patterns are applicable only when you don't know how many the user will add.
 
 ## Ever present form pattern
 
-The drag and drop interface designed for uploading files contained an ever present form. Users could use the form over and over to add as many files as they wanted before proceeding.
+The drag and drop interface designed for uploading files employed the ever present form pattern. The infamous ‘Todo list pattern’ [^] also uses it. Even Github uses the same technique when adding collaborators.
 
-Github use a similar interface for adding collaborators. This is particularly useful pattern, for simple forms that can be submitted in one step as it's particularly simple and fast.
+The way it works is to have an ever present form on the page. Submitting the form adds an item to a list above (or beside) the form. When the user is done, they can proceed. This is particularly useful pattern for simple forms that can be submitted in one step. No enhancements needed.
 
-![Github](.)
-
-If your expense form is simple and requires just a name and an amount for example then this simple approach is simple and inclusive by default. No enhancements needed.
-
-![Expenses](.)
-
-One potential downside is that as the list of items added gets bigger, the form gets pushed down the page, causing the form to be missed. Another one is that there are multiple buttons, one to add, one to leave or continue down the flow.
-
-The last downside to this, is that it requires several requests to the server, one for each thing that's added. This is probably fine for simple forms, but it's worth considering.
+The potential downside is that as the list grows, the form is pushed down (at least on mobile). Additionally there are multiple buttons: one to add and one to proceed which could cause mild delays. Where possible aim for one primary call to action, reducing choices requires less thinking. Lastly, each submission, requires a trip to the server. Whilst probably not a big deal, it's worth keeping in the back of your mind as we discuss other solutions shortly.
 
 ## One Thing Per Page again
 
@@ -59,6 +49,8 @@ This is a particularly useful technique for high confident users who have to per
 - Where do we set focus on add and on delete?
 - How do screen readers work
 
+Unless you’re careful, the answer is something very annoying for keyboard users, including screen reader users.
+
 ### JS and HTML cloning explained
 
 - Stuff here
@@ -85,3 +77,5 @@ You can probably marry frequency of use with level of ability. The user is far m
 - If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
 - If you don't know the max they are allowed to add, then you'll have to offer an add another button. Without js go to a page and back (or refresh). With js, reveal an extra field OR
 - Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
+
+Ignore empty states at your peril (heydon)

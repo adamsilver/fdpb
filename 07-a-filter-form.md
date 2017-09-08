@@ -4,7 +4,7 @@ A filter widget, sometimes referred to as facet navigation or guided navigation,
 
 First of all, though, it needs to be said that&mdash;like anything any other feature or form field in the book&mdash;if you don't need a filter, don't include one. They're only useful if a search returns a large amount of items to wade through. Like Google, users are not really willing to click through beyond the third or fourth page.
 
-In the introduction to ‘A Search Form’, you'll recall the somewhat typical conversation I used to have with my Mum when I asked her where my ‘black top’ was. The vagueness of that question meant she couldn't answer accurately. To find out exactly which one I was after she asked me questions like ‘Is a football top’. In technical terms this question is a type of filter on a large set of results.
+In the introduction to ‘A Search Form’, you'll recall the somewhat typical conversation I used to have with my Mum when I asked her where my ‘black top’ was. The vagueness of that question meant she couldn't answer accurately. To find out exactly which one I was after she asked me questions like ‘Is it a football top’. In technical terms this question is a type of filter on a large set of results.
 
 On the web, a search can yield thousands, or even, millions of results depending on the content available. As humans, we can't juggle more than approximately seven things at one time[^1], so being able to narrow them down is crucial. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches users' own mental model.
 
@@ -54,21 +54,21 @@ Breaking widely understood conventions that relate to links and form controls ca
 
 Earlier we discussed the pros and cons of using links and form controls. Using links, may cause users to endure many page refreshes. And using form controls, may increase the chance of users seeing no results.
 
-For keyboard and screen reader users, having a page refresh means having to wade through all the page information again, such as header and navigation before getting back to the filter or the results, although they can skip that easily if landmarks are employed nicely.
+For keyboard and screen reader users, having a page refresh means having to wade through all the page information again, such as header and navigation before getting back to the filter or the results, although they can skip that easily if landmarks are employed.
 
-In any case, AJAX can be used to avoid this problem. For example, clicking a radio button, will instantly submit the form with AJAX. When the request finishes, the page is updated and the focus is in the same place. This also reduces the chance of seeing no results because as soon as the user selects a filter, the interface (both the filter and the results list) updates.
+In any case, AJAX can be used to avoid this problem. For example, clicking a radio button, could instantly submit the form with AJAX. When the request finishes, the page is updated and the focus remains unaffected. This also reduces the chance of seeing no results because as soon as the user selects a filter, the interface updates.
 
-As many applications have materially dishonest filters, some users have acclimatised to this change in convention (that clicking form controls instantly submits the form). I'm sad to say that it may not always be obvious to users, that they have to submit their choices. AJAX helps here because it potentially removes the need for the button.
+As many applications have materially dishonest filters, some users have acclimatised to this change in convention (that clicking form controls instantly submits the form). I'm sad to say that, in this context, it may not be obvious to users, that they have to submit their choices. AJAX helps here because it potentially removes the need for the button.
 
-You'd be forgiven then, for thinking this is a must-have, totally-beneficial enhancement. Unfortunately, using AJAX like this goes against principle 4, to *give users control*. By removing an explicit submission action, it's possible that triggering multiple AJAX requests will cause an unexpected and confusing experience for users.
+You'd be forgiven then, for thinking this is a must-have, totally-beneficial enhancement. Unfortunately, using AJAX like this goes against principle 4, to *give users control*. By removing the explicit act of submission, it's possible that triggering multiple AJAX requests will cause an unexpected and confusing experience.
 
-Additionally, keyboard users who are operating the filter must use their arrow keys to move through each radio button. Arrow keypresses not only sets focus to the option but selects it too. Selecting the fourth radio button will have inadvertently created four AJAX requests unknowingly. This adds increased load on the server, but more importantly, it will eat users' data allowance and cause battery drain on their device.
+Additionally, keyboard users who are operating the filter must use their arrow keys to move through each radio button. Arrow keypresses not only set focus to the option but selects it too. Selecting the fourth radio button will have inadvertently created four AJAX requests unknowingly. This adds increased load on the server, but more importantly, it will eat users' data allowance and cause battery drain on their device.
 
-That's not all, though. Using AJAX requires a certain number of provisions such as a live region to indicate loading states. When the user selects an option, the live region would have to be populated with ‘Loading results, please wait.’, for example. Then when the request finishes, it would have to be populated with ‘212 results returned.’. Having to hear this four times is headache inducing.
+That's not all though. Using AJAX requires a certain number of provisions such as a live region to indicate loading states. When the user selects an option, the live region would have to be populated with ‘Loading results, please wait.’, for example. Then when the request finishes, it would have to be populated with ‘212 results returned.’. Having to hear this four times is (like listening to an overzealous DJ) headache inducing.
 
-Despite what you may have heard, AJAX isn't necessarily better or faster than a standard page refresh[^3]. This is for a number of reasons. First, it rquires more javascript code to be sent initially. Second, and more importantly, it engineers away progressive rendering (aka chunking) and removes loading states, both of which the browser provides for free.
+Despite what you may have heard, AJAX isn't necessarily better or faster than a standard page refresh[^3]. This is for a number of reasons. First, it requires more Javascript code to be sent initially. Second, and more importantly, it engineers away progressive rendering (aka chunking) and removes loading states, both of which the browser provides for free.
 
-AJAX is more suited and beneficial when making updates to small parts of the page. Filters, however, involve updating the vast majority of the page, making AJAX somewhat counterproductive. With all of that put on the table, only thorough and diverse user research will show what works best.
+AJAX is more suited and beneficial when making updates to small parts of the page. Filters involve updating the majority of the page, making AJAX somewhat counterproductive. With that said only thorough and diverse user research will show what works best.
 
 ## Responsive design considerations
 
@@ -76,27 +76,29 @@ Wherever possible, we should design interfaces mobile first. What this means is 
 
 Of course, this translates well on large screens: a small increase to font-size perhaps coupled with more whitespace usually works well. When it comes to filters, though, it's not quite so straightforward. This is because the results themselves are only slightly more important than the ability to actually filter them. What I'm trying to say is that they both need to be prominent within the viewport.
 
-On big screens this is straightforward. Due to the available space, we can simply position the filter to the side of the results laid out in plain site. On small screens, this just isn't possible. In this case, we might simply hide the filters behind a collapsible panel above the results themselves. This way the filters are still discoverable without taking up too much room.
+On big screens this is straightforward. Due to the available space, we can simply position the filter to the side of the results laid out in plain site. On small screens, this just isn't possible. We could hide the filters behind a collapsible panel above the results themselves. This way the filters are still discoverable without taking up too much room.
 
 ![Stacked](.)
 
-The problem that users face is that when they expand the filter and select various filters, users can struggle in two ways. First, if using AJAX, it's not immediately obvious that results have been loaded. You can't just move focus to the results because the user may not be finished making their selection. Second, without using AJAX, users may not realise they need to submit (as mentioned earlier).
+The problem that users face is that when they expand the filter and select various filters, users can struggle in two ways. First, if using AJAX, it's not immediately obvious that results have been loaded. You can't just move focus to the results because the user may not be finished making their selection. Second, without using AJAX, users may not realise they need to submit.
 
 David House, a designer who used to work for Gumtree, explained that some users didn't realise they had to submit their choice. Here's what he had to say:
 
 > Filters were being selected, but not submitted. We got a lot of feedback that said the filters were broken. We tried moving the apply button to the top (and the bottom) along with making it sticky, loads of things that didn't really make a difference.
 
-David told me that they reluctantly ended up using an adaptive approach so that on mobile, clicking the filter menu button, sends users down a guided flow that users understood. On desktop, users had an ever-present filter on the side.
+David told me that they reluctantly ended up using an adaptive approach so that on mobile, clicking the filter menu button, sends users down a guided flow that users understood. But, on desktop, users got an ever-present filter on the side.
 
 ![Gumtree mobile view](.)
 
-I know what you're thinking though: in chatper 6, ‘An inbox’ I lambasted the use of adaptive design due to the many associated pitfalls. But considering the breadth of the problems users faced along with the importance of the feature itself, its the pragmatic way to go.
+I know what you're thinking though: in chapter 6, ‘An inbox’ I lambasted the use of adaptive design due to the many associated pitfalls. But considering the breadth of the problems users faced along with the importance of the feature itself, it's the pragmatic way to go.
 
 Of course, I don't advise you start with this approach. David wouldn't either. It's also worth noting that Gumtree is full of adverts which cognitvely speaking, doesn't help matters. Perhaps with careful design, a responsive solution can work. Once again, user research will guide you in the right direction.
 
 ## Summary
 
-This chapter looked at some of the important details that are often missed when design a responsive filter component. We looked at how design can shape users so much so that on occasion we may need to consider breaking convention. And we also looked at ways to design an adaptive filter menu given that a responsive solution may not cut the mustard. We also noted that the only way to be sure of any of this is by testing with a diverse set of users.
+This chapter looked at some of the important details that are often missed when design a responsive filter component. We looked at how design can shape users&mdash;so much so&mdash;that occasionally we may have to break convention and best practice.
+
+We also looked at ways to design an adaptive filter menu given that a responsive solution may not cut the mustard. We also noted that the only way to be sure of any of this is by testing with a diverse set of users.
 
 ### Things to avoid
 

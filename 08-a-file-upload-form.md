@@ -1,6 +1,6 @@
 # A file upload form
 
-Some forms involve users having to upload files: document, images or anything else really. On the one hand, uploading a file is only marginally more complex than inputting text or selecting options. On the other, there are some nuances and opportunites that need to be taken into account.
+Some forms involve users having to upload files: documents, images or anything else really. On the one hand, uploading a file is only marginally more complex than inputting text or selecting options. On the other, there are some nuances and opportunites that need to be taken into account.
 
 The problem increases by orders of magnitude as soon as you need to let users upload *multiple* files in one go.
 

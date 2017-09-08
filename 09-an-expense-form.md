@@ -1,64 +1,87 @@
 # An expense form
 
-## Add another
+At first I wanted to fold this chapter into the last, because there's some cross-over. Adding multiple files needn't be different from adding multiple of anything really, it's just that when it comes to files, there's some widely used patterns that made sense to discuss in isolation.
 
-The patterns discussed so far have revolved around uploading multiple *files*. But what if the user needed to add multiple collaborators, expenses or invoices into a system?
+There are no form controls beside file inputs, that let users add multiple of something in one go, so in this chapter we're going to walk through various patterns that are applicable to all sorts of data types including files.
 
-There is no form control that provides this functionality, so we either need to create one or to design something that works as part of a journey. This is where the ‘Add another’ pattern can help and there are many variations of this pattern. Really, it's a catch-all term for being able to add lots of something.
+If the user is tasked with adding lots of something, then the patterns in this chapter will help are certainly applicable to files too.
+
+For example, adding collaborators on Github, invoices on Freeagent or adding information about your family members as part of an online survey. Whatever the case, the patterns in here will serve your users well.
 
 Of course, if you know how many&mdash;let's say expenses&mdash;the user needs to enter, then simply displaying that amount of fields (and making them required) is the way to go. What's far more complicated is when you don't know how many the user needs to add.
 
-### Add another flow
+## Ever present form pattern
 
-> Good for infrequent usage/low confident users/dynamic questions.
+The drag and drop interface designed for uploading files contained an ever present form. Users could use the form over and over to add as many files as they wanted before proceeding.
 
-If the user wants to add an expense they might be asked first the type, and based on the type might see other questions. For example if the user is adding an expense for a car then perhaps they provide mileage. When adding a lunch expense, it's simply an amount.
+Github use a similar interface for adding collaborators. This is particularly useful pattern, for simple forms that can be submitted in one step as it's particularly simple and fast.
 
-This requires the user to answer questions in order. First type, then the amount of pounds or mileage.
+![Github](.)
 
-Once the user has added one expense, they're asked if they want to add another. Clicking yes, goes round again, clicking no ends the task.
+If your expense form is simple and requires just a name and an amount for example then this simple approach is simple and inclusive by default. No enhancements needed.
 
-### Add another: keep form there
+![Expenses](.)
 
-> Good for speeding a simple process up that doesn't consist of dynamic questions
+One potential downside is that as the list of items added gets bigger, the form gets pushed down the page, causing the form to be missed. Another one is that there are multiple buttons, one to add, one to leave or continue down the flow.
 
-In short, show a form, and submitting it adds an item to the list. The user can then just keep submitting the form. This is a bit like the drag and drop interface. It stays there until users are done.
+The last downside to this, is that it requires several requests to the server, one for each thing that's added. This is probably fine for simple forms, but it's worth considering.
 
-- on mobile, users have to scroll to see success or to see form. OR JUST USE A FLOW again for degraded version.
-- multiple call to actions.
+## One Thing Per Page again
 
-### Add another: Dyanmic JS injection
+If adding an expense involves dynamic questions based on previous answers then the ever present form pattern won't work. In this case, using a One Thing Per Page approach may be more appropriate.
 
-> Good for frequent high confidence users who need to get the job done quickly.
+Imagine the type of expense you want to add influences the type of information the user needs to enter. For example, if it's a travel expense, then specifying car requires users to enter mileage. Specifiying public transport requires them to enter a monetary amount.
 
-#### Add another button
+This then, requires users to enter questions in order and to be guided to provide the right information accordingly. Using a One Thing Per Page approach as discussed in ‘A Checkout Flow’ makes sense, but what happens when the user finishes adding an expense, but wants to add more?
 
-1. Upload a file with Next and Add Another buttons.
-2. ‘Add another’ reveals and focuses onto new field(s). ‘Next’ completes the task.
-3. When another field is cloned, a Remove button is added. Clicking it removes the field and sets focus to where?
+Asking users explicitly this question is the simplest approach, because if the user ignores the question and tries to finish, validation will handle this nicely (and that's the worst case scenario).
 
-- users could miss secondary action and do the minimum. It doesn't guide the user.
+![Do you want to add another, yes no](.)
 
-#### Additional question
+Clicking no, finishes the task. Clicking yes, takes the user down the flow again. Simple.
 
-1. Upload file input, ‘Do you want to add another YES NO’ and Next button.
-2. Clicking yes reveals and focuses onto new field(s).
-3. Clicking Next without answering YES or NO generate validation error. Otherwise shoud confirmation.
+This is necessary approach if the questions are dynamic. But it's particularly useful for infrequent tasks or low confidence users.
 
-- This forces the user to answer the question solving previous problem but adds another problem. That we're moving focus via selecting an input so user can't switch and breaks convention.
+## Add another
 
-## add another js differences
+The last pattern all takes place on a single page but this time users can complete the task with just one request to the server. To do this it'll need to be enhanced with Javascript of course and therefore needs to consider the degraded experience as well as the experience for keyboard and screen reader users.
 
-- If you know how many things a user needs to add then show that many fields exactly.
-- If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
-- If you don't know the max they are allowed to add, then you'll have to offer an add another link. Without js go to a page and back. With js, reveal an extra field OR
-- Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
+### How it might look
 
-## Nice sentence perhaps
+![Add another](.)
+
+Clicking add another, creates another row instantaneulsly. Pressing remove, deletes the row. This lets users add as many fields as they need before submitting it making the experience fast.
+
+This is a particularly useful technique for high confident users who have to perform the task frequently. Saving time then is important.
+
+### Interaction
+
+- Where do we set focus on add and on delete?
+- How do screen readers work
+
+### JS and HTML cloning explained
+
+- Stuff here
+- Stuff here
+
+## Summary
 
 You can probably marry frequency of use with level of ability. The user is far more likely to have low confidence if they use the service less frequently or as a one off. Even a high confidence user, who is experiening the service for the first time could benefit from a simpler but slightly more long-winded approach.
 
+### Things to avoid
 
-More abstractly, users don't just need to add multiple *files*. They may need to add multiple of anything other type of data too.
+- A
+- B
+- C
 
-So whilst the main focus of this chapter is around file uploads, we'll also be looking at the design pattern in a more abstract sense too.
+## Footnotes
+
+[^]:
+[^]:
+[^]:
+
+## Implementation notes
+
+- If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
+- If you don't know the max they are allowed to add, then you'll have to offer an add another button. Without js go to a page and back (or refresh). With js, reveal an extra field OR
+- Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.

@@ -2,9 +2,7 @@
 
 Some forms involve users having to upload files: document, images or anything else really. On the one hand, uploading a file is only marginally more complex than inputting text or selecting options. On the other, there are some nuances and opportunites that need to be taken into account.
 
-The problem increases by orders of magnitude as soon as you need to let users upload *multiple* files in one go. More abstractly, users don't just need to add multiple *files*. They may need to add multiple of anything other type of date too.
-
-So whilst the main focus of this chapter is around file uploads, we'll also be looking at the design pattern in a more abstract sense too.
+The problem increases by orders of magnitude as soon as you need to let users upload *multiple* files in one go.
 
 ## A file input
 
@@ -21,7 +19,7 @@ A file input is similar to most types of input. But instead of typing into it, t
 </div>
 ```
 
-Everything here should be familiar as it's almost identical to most of the other form components we've dealt with so far. The only difference is the input's type attribute is set to `file`.
+Everything here should be familiar as it's almost identical to most of the other form components we've used so far. The only difference is the input's type attribute is set to `file`. So if you want to let users upload a single file, then add this field along with a submit button and you're done.
 
 ### A note on aesthetics
 
@@ -31,7 +29,7 @@ Styling file inputs is really tricky because browsers mostly ignore any attempt 
 
 ![Hidden input, styled label](.)
 
-Having hidden the input, and styled the label, Javascript should be used to handle the focus states: when the input is focused, put a pseudo focus outline around the label. When the user selects a file for upload, the `onchange` event updates the label text as shown.
+Having hidden the input, and styled the label, Javascript should be used to handle focus states: when the input is focused, put a pseudo focus outline around the label. When the user selects a file for upload, the `onchange` event updates the label text as shown.
 
 ![Label text updated](.)
 
@@ -57,21 +55,21 @@ This inocuous attribute grants a lot of power and seems to solve the multiple fi
 
 First, users can only select files within a single directory within the file explorer. If they want to upload files residing across different folders they'll be stuck. Of course they could move all the files into a single folder beforehand but this puts the onus on the user.
 
-Second, some browsers don't recognise the `multiple` attribute enhancement. People who use one of these browsers will get a single file input. This may result in a broken experience.
+Second, some browsers don't recognise `multiple` and so degrades into a single file input. This may result in a broken experience.
 
 ![Show a design that means they can't upload more than one file](.)
 
 You could solve this by considering the full journey:
 
-![1. User uploads file(s)](.)
-![2. Confirmation of uploaded file, can delete it, add another or continue/finish](.)
-![3. Selecting another starts back at (1) again](.)
+- ![1. User uploads file(s)](.)
+- ![2. Confirmation of uploaded file, can delete it, add another or continue/finish](.)
+- ![3. Selecting another starts back at (1) again](.)
 
 Note that this journey works with and without multiple file support and may be the right solution in many cases. The only potential downside is the journey could become a little long winded.
 
 ## A drag and drop enhancement
 
-As noted earlier, file inputs let users drag and drop files onto the control. The problem is that it's not immediately obvious this functionality exists and the hit area is relatively small, making it especially hard to use for motor-impaired users. Creating our own implementation lets us solve these issues.
+As noted earlier, file inputs let users drag and drop files onto the control. The problem is that it's not immediately obvious users you can do this and the hit area is relatively small, making it especially hard to use for motor-impaired users. Implementating our own solution lets us solve these issues.
 
 ### How it might look
 
@@ -79,11 +77,11 @@ As noted earlier, file inputs let users drag and drop files onto the control. Th
 
 The design&mdash;slightly biased toward mouse users&mdash;presents a large ‘drop zone’ making it easier to use, especially for motor-impaired users. Inside the drop zone is some instructional text that makes the behaviour immediately obvious.
 
-Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier (the rationale comes shortly). To reiterate: this works because the label is a proxy for the input. Clicking the label is like clicking the (hidden) file input.
+Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier. To reiterate: this works because the label is a proxy for the input. Clicking the label is like clicking the (hidden) file input.
 
-There's no submit button because the files are uploaded as soon as they're dropped. This is because browser's won't let you update the file input's value programmatically (`ondrop`) due to security reasons[^]t. And because of this, selecting a file (as opposed to dropping one) also uploads it immediately (`onchange`). This way, both interactions behave similarly.
+There's no submit button because the files are uploaded as soon as they're dropped. This is because browser's won't let you update the file input's value programmatically (`ondrop`) due to security reasons[^1]t. And because of this, selecting a file (as opposed to dropping one) also uploads it immediately (`onchange`). This way, both interactions behave similarly.
 
-This technical constraint is the reason we've veered away from convention, which is the first time we've done that in the book and it is not without it's problem. I'll be talking about that later in the ‘small print’.
+This technical constraint is the reason we've veered away from convention, which is the first time we've done that in the book and it is not without issue. I'll be talking about that later in the ‘small print’.
 
 The user can keep uploading documents using both methods (interchangeably), should they choose. After they've uploaded the files successfully, they can review and delete files uploaded in error if they need to.
 
@@ -114,33 +112,37 @@ Keyboard users can tab to the visually hidden input  which will pseudo focus the
 
 To create the drag and drop behaviour there are three javascript events: `ondragover`, `ondragleave` and `ondrop`.
 
-The `ondragover` handler adds a class of `dropzone--dragover` and the `ondragleave` handler removes it. The class is used to provide users feedback so they know they are within the drop zone.
+The `ondragover` handler adds a class of `dropzone--dragover` and the `ondragleave` handler removes it. The class is used to give feedback so users know they are within the drop zone.
 
 ![on drag over](.)
 
 The `ondrop` handler is where the magic happens. The event handler receives an event object (`e.dataTransfer.files`) that holds data about the files. These are then iterated over in order to upload them via AJAX.
 
+```JS
+Some code here
+```
+
 ### Providing feedback
 
-Whether files are dropped or selected with the input itself, we need to give users feedback. Each file is represented as an item in a simple list. Progress is demarcated by the `<progress>` element.
+Whether files are dropped or selected with the input itself, we need to give users feedback. Each file is represented as an item in a list. Progress is demarcated by the `<progress>` element.
 
 ![Progress](.)
 
 ```HTML
 <ul>
-	<li>
-		<span class="file">file.pdf</span>
-		<progress max="100" value="80">80% complete</progress>
-	</li>
-	...
+  <li>
+    <span class="file">file.pdf</span>
+    <progress max="100" value="80">80% complete</progress>
+  </li>
+  ...
 </ul>
 ```
 
-The text inside the element is for browsers that don't support the element, meaning they'll just see the text.
+The text inside the element is for browsers that lack support for it, meaning they'll just see the text.
 
 The progress bar is updated in response to the AJAX request that has an `onprogress` event.
 
-When the file is completely uploaded, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added too, that will let users delete the uploaded file.
+When the file is completely uploaded, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added, letting users delete the uploaded file if they wish.
 
 ![Success](.)
 
@@ -178,7 +180,7 @@ The only thing missing is a hidden live region in order to *provide a comparable
 
 ### Feature detection
 
-This enhancement uses a lot of advanced Javascript APIs that not all browsers recognise. Before referencing and calling these APIs we have to detect them.
+This enhancement uses several Javascript APIs that not all browsers recognise. Before referencing them, we should detect them first to ensure users don't get a broken experience.
 
 ```JS
 (function() {
@@ -200,129 +202,60 @@ This enhancement uses a lot of advanced Javascript APIs that not all browsers re
 }());
 ```
 
-Then the calling application simply detects `Dropzone` before creating an instant.
+The calling application simply detects `Dropzone` before creating an instant.
 
 ```JS
 if(typeof Dropzone !== 'undefined') {
-	new Dropzone();
+  new Dropzone();
 }
 ```
 
 ### The degraded experience
 
-When Javascript isn't available or the browser fails the feature detection, users won't get the enhanced interface. Instead, they'll see a file input and an upload button.
+When Javascript isn't available or the browser fails the feature detection, users won't get the enhanced interface. Instead, they'll see a file input and an upload button. In the absence of script or capability, uploading a file gives users the same feedback view, just via a page refresh.
 
 ![Degraded view](.)
 
-Uploading a file causes the page to refresh with the same level of feedback as discussed earlier.
-
-### The final script
-
-```JS
-Put it here
-```
-
 ### The small print
 
-Granted, there is some rationale behind hiding the input, using a label as a proxy and uploading files `onchange`. But that doesn't mean it's robust. In fact, doing this goes against what the standards say which was discussed in chapter 6, ‘An inbox’. Here it is again:
+Granted, there's rationale behind moving away from convention, but that doesn't mean it's perfectly
+robust. In fact, doing this goes against what the standards say which was discussed in chapter 6, ‘An inbox’. Here it is again:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-This is more than just academic endeavour. The `onchange` event is historically problematic, particularly when it's applied to a file input. For example, in some browsers, if you upload the same file for a second time, the `onchange` event won't fire[^]. This creates a broken interface.
+This is more than just an academic endeavour. The `onchange` event is historically problematic, particularly when it's applied to a file input. For example, in some browsers, if you upload the same file for a second time, the `onchange` event won't fire[^2]. This creates a broken interface.
 
-The best solution requires the entire file input to be replaced after the `onchange` event fires. This means we need to set focus to the newly created file input. Unfortunately, this causes the screen reader to announce it's existence for a second time which is mildly frustrating.
+The solution requires the entire file input to be replaced after the `onchange` event fires. This means we need to set focus to the newly created file input , which causes screen readers to announce it for a second time.
 
-The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^]. Fortunately, our feature detection happens to rule out those browsers which is fortunate for us in this case, but still worth baring in mind.
+The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^3]. Fortunately, our feature detection happens to rule out those browsers which is fortunate for us in this case, but still worth baring in mind.
 
-Lastly, some older browsers won't trigger the file input by clicking the label. Fortunately, the feature detection happens to rule out these browsers.
+Lastly, some older browsers won't trigger the file input by clicking the label[^4]. Fortunately, the feature detection happens to rule out these browsers too because the same browsers don't support the new APIs.
 
 Anything like this needs a healthy amount of diverse testing to ensure what is enhanced for some, doesn't break for others. As you can see, going against standards can lead to very real problems.
 
-It's also worth baring in mind that users may not want or benefit from drag and drop. Before you embark on building this functionality it's worth conducting  user research here too.
-
-## Add another
-
-The patterns discussed so far have revolved around uploading multiple *files*. But what if the user needed to add multiple collaborators, expenses or invoices into a system?
-
-There is no form control that provides this functionality, so we either need to create one or to design something that works as part of a journey. This is where the ‘Add another’ pattern can help and there are many variations of this pattern. Really, it's a catch-all term for being able to add lots of something.
-
-Of course, if you know how many&mdash;let's say expenses&mdash;the user needs to enter, then simply displaying that amount of fields (and making them required) is the way to go. What's far more complicated is when you don't know how many the user needs to add.
-
-### Add another flow
-
-> Good for infrequent usage/low confident users/dynamic questions.
-
-If the user wants to add an expense they might be asked first the type, and based on the type might see other questions. For example if the user is adding an expense for a car then perhaps they provide mileage. When adding a lunch expense, it's simply an amount.
-
-This requires the user to answer questions in order. First type, then the amount of pounds or mileage.
-
-Once the user has added one expense, they're asked if they want to add another. Clicking yes, goes round again, clicking no ends the task.
-
-### Add another: keep form there
-
-> Good for speeding a simple process up that doesn't consist of dynamic questions
-
-In short, show a form, and submitting it adds an item to the list. The user can then just keep submitting the form. This is a bit like the drag and drop interface. It stays there until users are done.
-
-- on mobile, users have to scroll to see success or to see form. OR JUST USE A FLOW again for degraded version.
-- multiple call to actions.
-
-### Add another: Dyanmic JS injection
-
-> Good for frequent high confidence users who need to get the job done quickly.
-
-#### Add another button
-
-1. Upload a file with Next and Add Another buttons.
-2. ‘Add another’ reveals and focuses onto new field(s). ‘Next’ completes the task.
-3. When another field is cloned, a Remove button is added. Clicking it removes the field and sets focus to where?
-
-- users could miss secondary action and do the minimum. It doesn't guide the user.
-
-#### Additional question
-
-1. Upload file input, ‘Do you want to add another YES NO’ and Next button.
-2. Clicking yes reveals and focuses onto new field(s).
-3. Clicking Next without answering YES or NO generate validation error. Otherwise shoud confirmation.
-
-- This forces the user to answer the question solving previous problem but adds another problem. That we're moving focus via selecting an input so user can't switch and breaks convention.
-
----
-
-
-
-
-
-
-
-
+It's also worth baring in mind that users may not want, or benefit, from drag and drop. Before embarking on your own drag and drop solution, make sure there is a user need.
 
 ## Summary
 
+In this chapter, we looked at the intricacies of uploading files in bulk and one at a time. The file input is necessary but ugly and so looked at ways of making it aesthetically pleasing and functional at the same time.
+
+We then looked at the shortcomings of the native input's drag and drop behaviour and because of this decided to roll our own custom solution using the latest Javascript APIs. In doing so we veered away from convention partly due to browser constraints associated with security.
+
 ### Things to avoid
 
-- Forgoing the file input for reasons of aesthetics
-- Multiple file inputs
+- Visually hiding the file input for solely for aesthetic reasons.
+- Using multiple file inputs without considering the degraded experience and end-to-end flow.
+- Creating your own drag and drop solution without first ensuring there's a demand for it.
 
 ## Footnotes
 
-[^onchangesamefile]: https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
-[^onchangeonblurissue]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
-[^labelclickdoesntwork]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
+[^1]: https://css-tricks.com/drag-and-drop-file-uploading/#article-header-id-4
+[^2]: https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
+[^3]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
+[^4]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
 
-## Todo?
+## Todo
 
 - accept attribute
 - capture=camera
 - The file input is always wiped due to security
-
-## add another js differences
-
-- If you know how many things a user needs to add then show that many fields exactly.
-- If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
-- If you don't know the max they are allowed to add, then you'll have to offer an add another link. Without js go to a page and back. With js, reveal an extra field OR
-- Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
-
-## Nice sentence perhaps
-
-You can probably marry frequency of use with level of ability. The user is far more likely to have low confidence if they use the service less frequently or as a one off. Even a high confidence user, who is experiening the service for the first time could benefit from a simpler but slightly more long-winded approach.

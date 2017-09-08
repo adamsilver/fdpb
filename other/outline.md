@@ -1,6 +1,6 @@
 # Outline
 
-## 1. Introduction (1500)
+## 0. Introduction (1500)
 
 - Why forms?
 - Why patterns?
@@ -8,7 +8,7 @@
 - What about principles?
 - House keeping[?]
 
-## 2. A registration form (7500)
+## 1. A registration form (7500)
 
 - Introduction
 - Describing the field
@@ -47,7 +47,7 @@
 	- Be forgiving and restore values
 	- Validation component
 
-## 3. A checkout flow (6000)
+## 2. A checkout flow (6000)
 
 - Introduction
 - One Thing Per page
@@ -83,7 +83,7 @@
 - Order summary
 - Checkout specific header
 
-## 4. A flight booking service (8500)
+## 3. A flight booking service (8500)
 
 - Introduction
 - Flow and order
@@ -113,7 +113,7 @@
 		- disabling unavailable seats
 	- Enhancing the interface
 
-## 5. A login form (2500)
+## 4. A login form (2500)
 
 - Password hint
 - Use explicit labels
@@ -129,7 +129,7 @@
 - Auto-tabbing
 - One form per page
 
-## 6. An inbox (5500)
+## 5. An inbox (5500)
 
 - Introduction
 - List types
@@ -156,13 +156,13 @@
 	- A note on toast notifications and dismissing messages
 	- Confirming vs undoing
 
-## 7. A search form (1000)
+## 6. A search form (1000)
 
 - Introduction
 - Search everything
 - Responsive design
 
-## 8. A filter (2000)
+## 7. A filter (2000)
 
 - Introduction
 - Filter types
@@ -170,7 +170,7 @@
 - AJAX
 - Responsive/adaptive
 
-## 9. A file upload form (4000+)
+## 8. A file upload form (2000)
 
 - A single file input
 	- A note on aesthetics
@@ -188,6 +188,10 @@
 	- Keep form there
 	- Infrequent usage
 	- Frequent usage
+
+## 9. An expense form
+
+- Add another patterns
 
 ## 10. A really long form
 

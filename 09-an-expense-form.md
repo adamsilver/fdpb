@@ -62,11 +62,6 @@ Instead, we'll set focus to the heading at the beginning of the form.
 
 For sighted users there is nothing we need to do. The act of adding and removing items is obvious. But to provide a *comparable experience* we can include a live region, as set out in “Book A Flight”, so that screen readers announce the feedback.
 
-### Differentiating between labels
-
-- Add hidden text/number?/use list items?
-- see heydon product chapter
-
 ### Cloning explained
 
 Every time the user adds or removes an item, we need to do some important work behind the scenes. The cloning works by taking the first item in the list, and cloning it. But this isn't enough on its own because this clones everything: ids and name attributes included.
@@ -81,9 +76,9 @@ Perhaps even more importantly, is that if you don't update the name of the input
     <div class="addAnother-item">
   	  <div class="field">
 	    <label for="items[0][name]">
-		  <span class="field-label">Name</span>
+		  <span class="field-label">Description</span>
 	    </label>
-	    <input class="field-textBox" type="text" id="items[0][name]" name="items[0][name]" value="" data-name="items[%index%][name]" data-id="items[%index%][name]">
+	    <input class="field-textBox" type="text" id="items[0][description]" name="items[0][description]" value="" data-name="items[%index%][description]" data-id="items[%index%][description]">
       </div>
       <div class="field">
 	    <label for="items[0][amount]">
@@ -98,9 +93,9 @@ Perhaps even more importantly, is that if you don't update the name of the input
 </form>
 ```
 
-The id, for and name attributes have a perculiar format. This is because we're sending the server multiple expense items for processing. Many server side frameworks like Ruby on Rails and Express look for names like this in the request payload and convert this nicely into an array of items.
+The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server side frameworks such as Ruby on Rails and Express look for names like this in the request payload and convert this nicely into an array of items.
 
-What's crucial is that when we clone, we need the index to increase from 0 to 1 and so forth. To make this easy to parse in Javascript, we store the pattern in the `data-id` and `data-name` attributes. This way, the script simply replaces `%index%` with the actual index.
+The crucial part is that the index needs to increase from 0 to 1 and so forth. To make this easy to parse in Javascript, the pattern is stored in data attributes. This way, the script simply replaces `%index%` with the actual index number.
 
 ```JS
 Put that code here
@@ -120,6 +115,4 @@ There's no right and wrong way here, it's about picking the most appropriate tec
 [^]:
 [^]:
 
-## Todo?
-
-- Ignore empty states at your peril (Heydon)
+‘UNIQUE, DESCRIPTIVE LINK TEXT’ heydon

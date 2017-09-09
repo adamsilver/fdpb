@@ -42,20 +42,6 @@ This pattern consists of one form, on one page, submitted in single step. It wor
 
 ![Add another](.)
 
-```HTML
-<form>
-  <div class="items">
-    <div class="item">
-  	  <div class="field"></div>
-  	  <div class="field"></div>
-  	  <input type="submit" name="remove" value="Remove expense">
-    </div>
-    <input type="submit" name="addAnother" value="Add another expense">
-  </div>
-  <input type="submit" name="submitExpenses" value="Submit expenses">
-</form>
-```
-
 Clicking the add another button creates new expense fields. Pressing the remove button deletes it. Users can keep adding expenses easily. Once they're finished, they can submit all of the expenses in one go which expedites the process.
 
 The degraded experience is the same, except clicking the buttons refresh the page.
@@ -74,12 +60,7 @@ Instead, we'll set focus to the heading at the beginning of the form.
 
 ### Feedback
 
-For sighted users there is nothing we need to do. The act of adding and removing items is obvious. But to provide a *comparable experience* we can include a hidden live region so that screen reader users can here explicit feedback.
-
-```JS
-var status = $('');
-status.text('Expense fields added.');
-```
+For sighted users there is nothing we need to do. The act of adding and removing items is obvious. But to provide a *comparable experience* we can include a live region, as set out in “Book A Flight”, so that screen readers announce the feedback.
 
 ### Differentiating between labels
 
@@ -88,20 +69,50 @@ status.text('Expense fields added.');
 
 ### Cloning explained
 
-Every time the user adds an item to the form, we need to take care
+Every time the user adds or removes an item, we need to do some important work behind the scenes. The cloning works by taking the first item in the list, and cloning it. But this isn't enough on its own because this clones everything: ids and name attributes included.
 
-- Stuff here
-- Stuff here
+We first discussed the importance of labels in “A Registration Form”. If we don't update the label's `for` attribute and the matching input `id` attribute, then the interface will break.
+
+Perhaps even more importantly, is that if you don't update the name of the input, then the server won't necessarily be able to recognise it and therefore process the submitted data.
+
+```HTML
+<form class="addAnother">
+  <div class="addAnother-items">
+    <div class="addAnother-item">
+  	  <div class="field">
+	    <label for="items[0][name]">
+		  <span class="field-label">Name</span>
+	    </label>
+	    <input class="field-textBox" type="text" id="items[0][name]" name="items[0][name]" value="" data-name="items[%index%][name]" data-id="items[%index%][name]">
+      </div>
+      <div class="field">
+	    <label for="items[0][amount]">
+		  <span class="field-label">Amount</span>
+	    </label>
+	    <input class="field-textBox" type="text" id="items[0][amount]" name="items[0][amount]" value="" data-name="items[%index%][amount]" data-id="items[%index%][amount]">
+      </div>
+  	  <input type="submit" name="remove" value="Remove expense">
+    </div>
+    <input type="submit" name="addAnother" value="Add another expense">
+  </div>
+</form>
+```
+
+The id, for and name attributes have a perculiar format. This is because we're sending the server multiple expense items for processing. Many server side frameworks like Ruby on Rails and Express look for names like this in the request payload and convert this nicely into an array of items.
+
+What's crucial is that when we clone, we need the index to increase from 0 to 1 and so forth. To make this easy to parse in Javascript, we store the pattern in the `data-id` and `data-name` attributes. This way, the script simply replaces `%index%` with the actual index.
+
+```JS
+Put that code here
+```
+
+The reason there is attributes for id and name is that in the case of radio buttons and checkboxes, the name differs from the id.
 
 ## Summary
 
+In this chapter, we've looked at the different ways to let users add multiple expenses or any other type of information they need to manage. The solutions offered have been based on frequency of use, user ability and the constraints of the collected data (branching).
 
-
-### Things to avoid
-
-- A
-- B
-- C
+There's no right and wrong way here, it's about picking the most appropriate technique for your particular problem.
 
 ## Footnotes
 
@@ -109,6 +120,6 @@ Every time the user adds an item to the form, we need to take care
 [^]:
 [^]:
 
-## Todo notes
+## Todo?
 
 - Ignore empty states at your peril (Heydon)

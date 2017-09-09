@@ -1,11 +1,16 @@
-# A long and complex application process
+# A Really Long Form
 
-- Mailchimp send a campaign
-- uber sign up with payment before done
-- kidly add kids for bonus to omplete profile
-- linkedin has the concept of completing profile too.
+Some tasks are really long. One Thing Per Page certainly helps users complete a form in one sitting, but some tasks may take hours, perhaps spread over several weeks. And to top it off, those tasks may be performed by several different people.
 
-Some forms are really long. Other forms involve users having to upload multiple documents (and multiple other things too). Some applications all of these things together.
+In Mailchimp, for example I'll typically start drafting an email campaign weeks before I'm ready to launch it. And there are a number of discrete steps I need to perform before it's ready to send.
+
+I need to check the content reads well and looks good in various email clients. Then I'll make some amends. Then I'll leave it for at least a day, before coming back to it fresh. Then I'll check the links are correct.
+
+Then several weeks later when I'm ready to send it to my subscribers, I'll run some final checks, decide the subject line and schedule it for release.
+
+It's not just Mailchimp, it could be a complex sign up process. LinkedIn has the notion of completing a profile which is formed of many things including a profile photo, work history, education, being endorsed, receiving recommendations and more. Only then is your profile marked as complete.
+
+---
 
 One Thing Per Page helps users complete a form in one sitting, but some online applications or case management tasks require various information and documents to be prepared over a number of weeks.
 

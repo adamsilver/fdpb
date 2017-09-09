@@ -8,7 +8,7 @@ I need to check the content reads well and looks good in various email clients. 
 
 Then several weeks later when I'm ready to send it to my subscribers, I'll run some final checks, decide the subject line and schedule it for release.
 
-It's not just Mailchimp, it could be a complex sign up process. LinkedIn has the notion of completing a profile which is formed of many things including a profile photo, work history, education, being endorsed, receiving recommendations and more. Only then is your profile marked as complete.
+It's not just Mailchimp, it could be a complex sign up process. LinkedIn has the notion of completing a profile which is formed of many things including a profile photo, work history, education, being endorsed, receiving recommendations and more. Only then is your profile marked as completed and this may take months to complete.
 
 ---
 

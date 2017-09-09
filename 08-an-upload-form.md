@@ -1,4 +1,4 @@
-# A file upload form
+# An upload form
 
 Some forms involve users having to upload files: documents, images or anything else really. On the one hand, uploading a file is only marginally more complex than inputting text or selecting options. On the other, there are some nuances and opportunites that need to be taken into account.
 

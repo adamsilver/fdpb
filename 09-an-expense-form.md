@@ -1,64 +1,77 @@
 # An expense form
 
-At first I wanted to fold this chapter into the last one because both problems overlap. Adding multiple files needn't be different from adding multiple of anything really, it's just that drag and drop is only applicable to files so it made sense to tackle that in isolation.
+At first I wanted to fold this chapter into the last one because there is certainly some overlap. Adding multiple files needn't be different from adding multiple of anything else really, it's just that drag and drop is only applicable to files so it made sense to tackle that in isolation.
 
-Unlike file inputs, other form controls don't let you add multiple values. It's up to us to design solutions from scratch that solve this need. I've counted three main approaches here that are applicable to all sorts of data&mdash;files included.
+Unlike file inputs, other form controls don't let you add multiple values. It's up to us to design solutions from scratch that solve this need. There are three main approaches that are applicable to all sorts of data&mdash;files included.
 
-Whether it's adding collaborators on Github, invoices on Freeagent or a survery asking for details about each of your family members, the patterns here are more than worthy of your consideration.
+Whether it's adding collaborators on Github, invoices on Freeagent or adding details about each of your children on a survey, the patterns here are useful.
 
-Of course, if you know how many things the user needs to enter, then simply displaying that amount of fields (and making them required) is all you need. That's not really a pattern as such. No, these patterns are applicable only when you don't know how many the user will add.
+Of course, if you know how many things needed to be added upfront, then simply displaying that amount of fields (and making them required) is all you need to do but that's not really a pattern. These patterns are applicable only when you don't know how many are needed.
 
 ## Ever present form pattern
 
-The drag and drop interface designed for uploading files employed the ever present form pattern. The infamous ‘Todo list pattern’ [^] also uses it. Even Github uses the same technique when adding collaborators.
+The drag and drop interface from ‘An upload form’ in many respects uses this pattern and so does the infamous ‘Todo list pattern’[^]. Even Github uses the same technique when adding collaborators. What I'm trying to say is that it's likely you've seen this in action before.
 
-The way it works is to have an ever present form on the page. Submitting the form adds an item to a list above (or beside) the form. When the user is done, they can proceed. This is particularly useful pattern for simple forms that can be submitted in one step. No enhancements needed.
+The way it works is to have an ever present form on the page (hence the name). Submitting the form adds an item to a list above (or beside) the form. When the user is finished, they can proceed. This is particularly useful for simple forms that can be submitted in one step.
 
-The potential downside is that as the list grows, the form is pushed down (at least on mobile). Additionally there are multiple buttons: one to add and one to proceed which could cause mild delays. Where possible aim for one primary call to action, reducing choices requires less thinking. Lastly, each submission, requires a trip to the server. Whilst probably not a big deal, it's worth keeping in the back of your mind as we discuss other solutions shortly.
+The potential downside is that as the list grows, the form is pushed down (at least on mobile).
 
-## One Thing Per Page again
+Also, there are multiple buttons: one to submit and one to proceed which could cause mild confusion. As mentioned in previous chapters, providing one button is preferrable because it requires less thought.
 
-If adding an expense involves dynamic questions based on previous answers then the ever present form pattern won't work. In this case, using a One Thing Per Page approach may be more appropriate.
+The other thing is that, each submission creates a request to the server. Not necessarily a big deal, but it could add up depending on frequency.
 
-Imagine the type of expense you want to add influences the type of information the user needs to enter. For example, if it's a travel expense, then specifying car requires users to enter mileage. Specifiying public transport requires them to enter a monetary amount.
+## One Thing Per Page flow
 
-This then, requires users to enter questions in order and to be guided to provide the right information accordingly. Using a One Thing Per Page approach as discussed in ‘A Checkout Flow’ makes sense, but what happens when the user finishes adding an expense, but wants to add more?
+Imagine you need to add a bunch of expenses. But the type of expense determines the information you need to enter. For example, if you're expensing a car, then you need to enter mileage, but if you're expensing a train ticket, then it's just a monetary amount.
 
-Asking users explicitly this question is the simplest approach, because if the user ignores the question and tries to finish, validation will handle this nicely (and that's the worst case scenario).
+![Show the flow with branching diagram](.)
 
-![Do you want to add another, yes no](.)
+In this case, the ever present form pattern is less suitable. Instead, using One Thing Per Page as first explained in ‘A checkout flow’ is appropriate because it guides the user to provide the right information at the right time.
 
-Clicking no, finishes the task. Clicking yes, takes the user down the flow again. Simple.
+But what if the user wants to add another one? Simply add a question asking the user if they'd like to add another (or not). No, finishes the task. Yes, takes the user back through the flow. This way the user is guided down a familiar path. If the user doesn't answer the question, then validation has them covered.
 
-This is necessary approach if the questions are dynamic. But it's particularly useful for infrequent tasks or low confidence users.
+![Do you want to add another, yes no with button](.)
+
+This is useful pattern if you need to branch but it's also a good approach for infrequent tasks and low confident users.
 
 ## Add another
 
-The last pattern all takes place on a single page but this time users can complete the task with just one request to the server. To do this it'll need to be enhanced with Javascript of course and therefore needs to consider the degraded experience as well as the experience for keyboard and screen reader users.
+This pattern consists of one form, on one page, submitted in single step. It works by using Javascript to create extra form fields instantaneously. This is particularly useful for high confident users who are familiar with performing the task frequently.
 
 ### How it might look
 
 ![Add another](.)
 
-Clicking add another, creates another row instantaneulsly. Pressing remove, deletes the row. This lets users add as many fields as they need before submitting it making the experience fast.
+Clicking add another creates a new row. Pressing remove deletes a row. Users can keep adding rows until they're done, submitting all of the fields in one go which expedites the process.
 
-This is a particularly useful technique for high confident users who have to perform the task frequently. Saving time then is important.
+If you're wondering about the degraded experience, then good. It's exactly the same except the page refreshes each time the buttons are pressed.
 
-### Interaction
+### Managing focus
 
-- Where do we set focus on add and on delete?
-- How do screen readers work
+Throughout the book, we've considered how things work for keyboard users. When the add button is pressed, focus should be set to the first newly-created form field. This is useful for screen reader users too, as the announcement of that field naturally prompts the user to continue.
 
-Unless you’re careful, the answer is something very annoying for keyboard users, including screen reader users.
+When the user clicks the remove button, the fields in the row, including the button itself are removed. What happens to the focus when you delete the currently focused element? In ‘A todo list’[^], Heydon Pickering explains exactly what happens:
 
-### JS and HTML cloning explained
+> [...] browsers don’t know where to place focus when it has been destroyed in this way. Some maintain a sort of “ghost” focus where the item used to exist, while others jump to focus the next focusable element. Some flip out completely and default to focusing the outer document — meaning keyboard users have to crawl through the DOM back to where the removed element was.
+
+We could set focus to the previous or next item but this is more confusing than anything else. Alternatively, we could set focus to the add another button, but that's both presumptuous and a little considering they just removed an item.
+
+Instead, we'll set focus to the heading at the beginning of the form and use a live region to provide more explicit feedback.
+
+### Feedback
+
+Only need live region for screen readers because the act of removing the item is feedback itself.
+
+### Cloning explained
 
 - Stuff here
 - Stuff here
+
+### Differentiating between labels
+
+TODO: Context for which number item the user is referencing.
 
 ## Summary
-
-You can probably marry frequency of use with level of ability. The user is far more likely to have low confidence if they use the service less frequently or as a one off. Even a high confidence user, who is experiening the service for the first time could benefit from a simpler but slightly more long-winded approach.
 
 ### Things to avoid
 
@@ -72,10 +85,6 @@ You can probably marry frequency of use with level of ability. The user is far m
 [^]:
 [^]:
 
-## Implementation notes
+## Todo notes
 
-- If you don't know how many things they'll add, but you know the max they are allowed to add, then show the max. Then with JS, show/hide/reveal them.
-- If you don't know the max they are allowed to add, then you'll have to offer an add another button. Without js go to a page and back (or refresh). With js, reveal an extra field OR
-- Upload a file, show he file is uploaded, and ask if they want to add another with yes and no. One call to action, guide the user, but long winded for frequent users.
-
-Ignore empty states at your peril (heydon)
+- Ignore empty states at your peril (Heydon)

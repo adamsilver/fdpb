@@ -32,37 +32,45 @@ Personally, I want to solve common problems in a user-centered way. Seeing as yo
 
 Note that some of the chapters may sound niche, but I assure you that the patterns that are born out of tackling this specific problems are very much transferable to other problem domains. That's what makes the solutions patterns. Patterns should be unique and reusable across projects and even organisations.
 
-### A registration form
+### 1. A registration form
 
 We'll start with a basic registration form and the foundational qualities that make up a good form. By applying the Question Protocol we'll look at how to reduce friction drastically without even touching the interface. We'll get into some visual and interaction design specifics. Finally ending by making form validation easy and inclusive.
 
-### A checkout flow
+### 2. A checkout flow
 
 We'll look at the One Thing Per Page pattern and how and why it's suited to many form processes such as checkout. Considering flow and order we'll break down the various steps and analyse each one in detail, taking a deeper look at several input types and how they affect the user experience on desktop and mobile browsers.
 
-### Book a flight
+### 3. Book a flight
 
 We'll take a deep dive into the world of progressively enhanced, custom form components using ARIA. We'll do this by exploring the best way to let users select destinations, pick dates, add passengers and choose seats. We'll analyse native form controls at length and even break away from convention (for good reason).
 
-### A login form
+### 4. A login form
 
 This short chapter looks at the ubiquitous login form. For all its simplicity there are some common usability failures that we'll look to address. Social media login has both helped and hindered these matters so we'll be looking at this too.
 
-### An inbox
+### 5. An inbox
 
 We'll look at ways to manage and action email in bulk. This is our first look at an adminstrative interface and as such comes with it's own set of challenges and useful patterns. This includes a reponsive ARIA-driven action menu, multiple selection and how we can design better messaging.
 
-### A search form
+### 6. A search form
 
 In this short chapter, we'll be looking at two important things: how to design a responsive search form that is readily available to users on all pages and the search mechanism that lies behind it. Together, search can be simple and useful.
 
-### A filter form
+### 7. A filter form
 
 This chapter compliments the previous, by looking at the interesting ways in which users can filter a large set of unweildly search results. Without a well-designed filter, users are bound to give up. A filter form, as you'll see, creates another situation where we may have to break away from ‘best practice’ to give users the best experience.
 
-### A really long and complex form
+### 8. An Upload Form
 
-Some transactions are really long. Some are really complicated. Some transactions involve having to upload several files. Some even involve all of these things. We'll look at some innovate, yet simple ways of breaking down this complexity into simple, manageable tasks that save time and keep users in control.
+Etc
+
+### 9. An Expense Form
+
+Etc
+
+### 10. A Really Long Form
+
+Etc
 
 ## What about principles?
 

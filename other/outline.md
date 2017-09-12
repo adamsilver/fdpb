@@ -195,7 +195,7 @@
 - One Thing Per Page pattern (again)
 - Add another pattern
 
-## 10. A really long form (1500)
+## 10. A really long form (1000)
 
 - Task list pattern
 

@@ -2,7 +2,7 @@
 
 My sister loves to-do lists. In fact she loves them so much, that one of her favourite things is making new lists out of old ones. The world is full of lists. There is even a list of great people[^1]. On the web, there are several types of lists and there are some design patterns that have emerged over the years that help to manage them.
 
-The type of list we'll be tackling is an inbox. That is, a list of emails sent from other people. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there quickly, the interface will let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk. My sister loves her trusty pen and paper, but if we do this right, perhaps she'll be converted to digital.
+The type of list we'll be tackling is an inbox. That is, a list of emails sent from other people. In many respects, an inbox is a list of tasks represented as emails. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there quickly, the interface will let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk. My sister loves her trusty pen and paper, but if we do this right, perhaps she'll be converted to digital.
 
 ## List types
 

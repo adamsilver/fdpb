@@ -1,6 +1,6 @@
 # A Login Form
 
-‘As a user I want to sign in so that I can...’ said nobody, ever!
+‘As a user I want to log in in so that I can...’ said nobody, ever!
 
 Nobody *wants* to log in to your service. They're forced to for security reasons. Without this security measure, everyone has access to everyone else's stuff. It's like nobody having locks on their front doors. Bad.
 

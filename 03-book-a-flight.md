@@ -103,7 +103,7 @@ To ensure the autocomplete component works without Javascript we need to choose 
 </div>
 ```
 
-The remaining 3 rules are achieved by crafting the enhanced experience. Specifically, ensuring that any Javascript event listeners are handled and that certain elements are focusable and announceable. It's worth mentioning that we must also cater for mouse and touch screen users. They're excluded from the punch list because those interactions are very rarely forgotten about.
+The remaining 3 rules are achieved by crafting the enhanced experience. Specifically, ensuring that any Javascript event listeners are handled and that certain elements are focusable and announceable. It's worth mentioning that we must also cater for mouse and touch screen users. They're only excluded from the punch list because those interactions are very rarely forgotten about.
 
 The script (discussed shortly) replaces the select box with a text box, button, menu and status box. This is shown below along with the Javascript enhanced HTML.
 
@@ -147,7 +147,7 @@ The script (discussed shortly) replaces the select box with a text box, button, 
 </div>
 ```
 
-Let's break down the HTML into the 4 main parts and explain their structures.
+Let's break down the HTML into the 4 main parts and explain the structure.
 
 #### The text box
 
@@ -215,7 +215,7 @@ Let's break down the HTML into the 4 main parts and explain their structures.
 
 #### The Javascript
 
-As noted earlier, the Javascript is responsible for replacing the select box with an autocomplete control made up of the previously mentioned parts. But the enhanced HTML does nothing on its own. Javascript is responsible for adding event listeners, mostly to handle keyboard events as the user types and navigates the component with the arrow keys.
+As noted earlier, Javascript is responsible for replacing the select box with an autocomplete control made up of the previously mentioned parts. But the enhanced HTML does nothing on its own. Javascript is responsible for adding event listeners, mostly to handle keyboard events as the user types and navigates the component with the arrow keys.
 
 Interaction notes:
 
@@ -624,7 +624,7 @@ Autocomplete.prototype.isElementVisible = function(container, element) {
 
 Dates are notoriously hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally 3 select boxes are used for dates: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, even this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
+Traditionally 3 select boxes are used for dates: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
@@ -643,7 +643,7 @@ The field expects users to type a number matching the format found on the card. 
 
 The defacto thinking is that date pickers are always better than typing numbers into a text box. For memorable dates, such as date of birth, this is most certainly not true. It's arduous having to scroll and click through multiple years and months to find a date, when typing in 6 numbers unassisted is considerably quicker.
 
-GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. Why 3 boxes? Because it solves the formatting issues we discussed earlier.
+GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. Why 3 boxes? Because it solves the formatting issues discussed earlier.
 
 ![GDS date of birth](./images/gds-dob.png)
 
@@ -672,7 +672,7 @@ GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, 
 
 This is the second time we've encountered a need to group form controls inside a `fieldset`. It's crucial here because without labelling the group, there is some ambiguity as to what date the user is entering. Adding legend text *Date of birth* provides the context users need to understand the indivdual text boxes.
 
-You may have noticed that there's a pattern attribute on the inputs. Some versions of iOS don't show the numeric keyboard even though we've clearly used `type="number"`. The pattern attribute fixes this problem and gives those users a numeric keyboard.
+You may have noticed that there's a pattern attribute on the inputs. Some versions of iOS don't show the numeric keyboard despite `type="number"` being present. The pattern attribute fixes this problem and gives those users a numeric keyboard.
 
 ### Finding dates with a calendar
 
@@ -682,11 +682,11 @@ Designing an interface that users are already familiar with makes wayfinding tha
 
 ![Date picker](.)
 
-#### Some other considerations
+#### Other considerations
 
-Interfaces that try to solve many problems at once cause problems. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, results in a busy interface that is likely to overwhelm users.
+Interfaces that try to solve many problems at once cause problems. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, results in a busy interface that could overwhelm users.
 
-It's also not very practical from a design perspective. One aspect of design for the web is considering people who use different size screens. Responsive design encourages us to design for small and large screens alike. Cramming lots of information into a page that can ultimately be accessed on small screens is asking for trouble.
+It's also not practical from a design perspective. One aspect of design for the web is considering people who use different size screens. Responsive design encourages us to design for small and large screens alike. Cramming lots of information into a page that can ultimately be accessed on small screens is asking for trouble.
 
 Instead, we'll purposely let users focus on choosing a date without the distraction of additional information. We'll give users the relevant information later on in the flow.
 

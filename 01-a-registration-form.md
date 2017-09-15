@@ -1,8 +1,14 @@
 # A Registration Form
 
-Our forms adventure begins with a humble registration form. This seemingly simple form, will, ahem, form the foundations on which to solve more complex forms later on in the book. Choosing a basic form to start with makes it easier to tease out some of the most important qualities found in well-designed forms. Here it is:
+I've purposely started with a registration form. Most sites that offer a long-term relationship with their users let them sign up. This is often a way of giving users a faster checkout experience, accessing data or communicating with others. Whatever it is, a registration form, is often the first form a user sees.
 
-![Registration Form](./images/.png)
+Despite it's simple appearance, there are many things to consider: the primitive elements that make up the form (labels, buttons and inputs), how to reduce friction (even on a small form like this) and how to deal with errors. By choosing a basic form, we can take a look at the most important and foundational qualities found in well-design forms.
+
+## How it might look
+
+![Registration Form](.)
+
+The form contains four fields, laid out beneath each other, with a submit button at the end. Here's the HTML:
 
 ```html
 <form>
@@ -18,9 +24,7 @@ Our forms adventure begins with a humble registration form. This seemingly simpl
 </form>
 ```
 
-The form contains just 4 fields and a submit button with each field having an associated label. Labels describe are where our analysis begins.
-
-## Labels
+## Labeling
 
 Labels describe the requirements for the form control. Each field needs an associated label because:
 
@@ -32,7 +36,7 @@ To *connect* an input to a label, the `id` and `for` attributes must match and c
 
 Seeing as we're designing for people, we should use the *diversity* of people as constraints. These constraints ultimately lead to the creation of form patterns that work well for a diverse set of user needs.
 
-Many designers omit labels in order to save space but as the budding form designer that you are, you should be aware that this is just about the worst thing you can do. In later chapters we'll discuss scenarios where we'll need to resist the natural temptation to exclude them&mdash;something that is normall done in the name of minimalist design.
+Many designers omit labels in order to save space but as the budding form designer that you are, you should be aware that this is just about the worst thing you can do. In later chapters we'll discuss scenarios where we'll need to resist the natural temptation to exclude them&mdash;something that is normally done in the name of minimalist design.
 
 ## Placeholders and hints
 
@@ -88,7 +92,7 @@ This is not a merely an academic endeavour. A `<label>`, in this case, gives use
 
 ## Float labels
 
-Float labels are a bit of a hybrid between a label and a placeholder. The label is placed inside the field, and then when the user starts typing, the label floats above the field, hence the name. Designes like this approach because because supposedly they reduce the height of the form and therefore make the forms easier to scan. There is also the added bonus that the animation is fancy.
+Float labels are a bit of a hybrid between a label and a placeholder. The label is placed inside the field, and then when the user starts typing, the label floats above the field, hence the name. Designers like this approach because supposedly they reduce the height of the form and therefore make the forms easier to scan. There is also the added bonus that the animation is fancy.
 
 ![Float label](.)
 

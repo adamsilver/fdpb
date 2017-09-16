@@ -21,49 +21,45 @@ Here's the HTML:
   <label for="email">Email address</label>
   <input type="email" id="email" name="email">
   <label for="password">Create password</label>
-  <input type="password" id="password" name="password" placeholder="Must be 8 characters">
+  <input type="password" id="password" name="password" placeholder="Must contain 8+ characters with at least 1 number and 1 uppercase letter.">
   <input type="submit" value="Register">
 </form>
 ```
 
+This form is made up 4 fields and a submit button. Each field is made up a of a control (the input) and its associated label. Labels are where our discussion begins.
+
 ## Labeling
 
-Every form control that accepts user input needs an auxiliary `<label>`. That's why the submit button (`<input type="submit">`) doesn't have one. The label describes the form control which is important for several reasons. 
+Every form control that accepts user input needs an auxiliary `<label>`. The submit button (with `type="submit"`) doesn't need a label because it's `value` attribute acts as one and doesn't take input from the user.
 
-Without a label, (sighted) users will see a blank text box and won't know what to enter. Visually-impaired users may use a screen reader. For them, when they focus an input without a label, they'll hear ‘text box’ which is the visual equivalent of a blank box. Motor-impaired users can move focus to the field more easily because clicking a label moves focus to the field, creating a larger hit area.
+The label describes the form control which is important because without one, sighted users won't understand what they need to type. Similarly, visually-impaired users may use a screen reader. When a screen reader encounters an input without a label, it can only announce ‘text box’. Clicking a label sets focus to the input too. This increases the size of the hit area, which is especially useful for motor-impaired users.
 
 ![Hit area](.)
 
-To *connect* an input to a `<label>`, the `id` and `for` attributes must match and be unique to the page. In the case of the email field , the value is “email”:
+To *connect* an input to the label, the input's `id` and label's `for` attribute value must match and be unique to the page. In the case of the email field, the value is “email”:
 
 ```html
 <label for="email">Email address</label>
 <input id="email" name="email" type="email">
 ```
 
-Failing to include a label means ignoring the needs of (visual and motor impaired) users. Seeing as we're designing for people, we can use their diversity as constraints that guide is to design robust experiences. After all, what helps some often helps others. For example, the larger hit area helps everyone, not just motor-impiared users. Even with fine motor control, people make mistakes due to a lack of concentration.
+Failing to include a label means ignoring the needs of (visual and motor impaired) users. Seeing as we're designing for people, we can use their ability (or lack thereof) as constraints that guide is to design robust experiences. After all, what helps some users often helps others, as is the case with the larger hit area. Even for those with fine motor control, a larger hit area is naturally easier to hit.
 
-## Placeholders and hints
+## Placeholders
 
-The `placeholder` attribute is used to store additional content that provides extra clarification for the field beyond its label. This is particularly useful for fields that have complex rules such as the password field (discussed shortly). Hints, unlike labels, are optional and should be used only when necessary, not as a mattter of course.
+The `placeholder` attribute is intended to store a hint. It gives users extra guidance as to how to complete a field which is particularly useful for fields that have complex rules such as a password field (more on this shortly). As they are not real values, browsers give them a ‘greyed out’ aesthetic so that they can be differentiated from user-entered values.
 
-Placeholders appeal to designers because of their minimal aesthetic and the fact they save space. This is because placeholder text is placed *inside* the field. It's given a ‘greyed out’ aesthetic so that it looks different to real values.
+![Placeholder example from above](.)
 
-![Hint pattern](.)
+Hints, unlike labels, are optional and shouldn't be used as a matter of course. Just because the placeholder attribute exists doesn't mean we have to use it. For example, you don't need a placeholder of ‘Enter your first name’ as a hint when the label is ‘First name’. It's perfectly clear on its own.
 
-Sometimes, designers use placeholders in place of labels which we know is a usability failure. But even if they are used in addition to labels, they are still problematic. Here's why:
+![Placeholder and label with same value](.)
 
-- They disappear when the user types making the hint easy to forget.
-- Users often mistake the text for a value causing them to skip the field, only to be shown an error after submission.
-- The grey text lacks sufficient contrast making them hard-to-read.
-- Some browsers don't support them.
-- Some screen readers don't announce them.
-- Some browsers don't translate them.
-- Long placeholder text may be cut off.
+Placeholders appeal to designers because of their minimal aesthetic and the fact they save space. This is because placeholder text is placed *inside* the field. Sometimes, designers use placeholders instead of labels. Using them this way is fatal, but actually, using them at all is problematic for many reasons.
 
-That's a lot of problems for something that looks so innocent. The majority of the time browser vendors make the right design decisions for native behaviour, but not always. Sadly, placeholders are an example of this. The thing is, content&mdash;even a hint&mdash;should not be considered an enhancement. If a hint helps the user answer the question, then it should be readily available.
+First, they disappear when the user types. The password hint is essential, and if it disappears, it's going to be easy to forget which could cause errors. Users often mistake placeholder text for a value[^], causing them to skip the field only to be shown an error later. Grey text lacks sufficient contrast making them generally hard-to-read. And to top it off, some browsers don't support them, some screen readers don't announce them and long hint text may get cut off.
 
-Instead of using a placeholder to store the hint, we can simply add the hint as an extra element inside the `label`. Something like this:
+That's a lot of problems for something that seems so innocent on the face of it. All content, especially a helpful form hint, shouldn't be considered a ‘nice to have’ enhancement. Instead of using the placeholder attribute, we can place the hint text inside the `<label>` as follows:
 
 ![Hint pattern](.)
 
@@ -77,9 +73,9 @@ Instead of using a placeholder to store the hint, we can simply add the hint as 
 </div>
 ```
 
-The hint is placed inside a `<span>` so that it can be styled differently to the `<label>`. It's placed inside it so that screen readers will announce it. As is often the case in design, there are many ways to achieve the same end.
+The hint is placed inside a `<span>` so that it can be styled differently to the `<label>`. It's placed inside it so that screen readers will announce it. 
 
-Another approach is to use a separate element (such as a `<p>`) and use ARIA as the following example demonstrates.
+As is often the case in design, there are many ways to achieve the same end. Another approach is to use a separate element (such as a `<p>`) and use ARIA as follows:
 
 ```HTML
 <div class="field">
@@ -89,15 +85,15 @@ Another approach is to use a separate element (such as a `<p>`) and use ARIA as 
 </div>
 ```
 
-It uses the `aria-describedby` attribute to connect the hint to the field by referencing its `id`. Whilst this has visual and audibe parity with a label, this solution is not the same. Crucially, the first rule of ARIA is *Don't use ARIA*. The specification states:
+It uses the `aria-describedby` attribute to connect the hint to the field by referencing its `id`. Whilst this has visual and audible parity with a standard label, this solution is not the same. The first rule of ARIA is *Don't use ARIA*. The specification states:
 
 > If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.
 
-This is not a merely an academic endeavour. A `<label>`, in this case, gives users a better experience with less effort, because it has broader support and a larger hit area.
+This is not a merely an academic endeavour. A `<label>`, in this case, gives users a better experience with less effort because it has broader support and a larger hit area to boot.
 
 ## Float labels
 
-Float labels are a bit of a hybrid between a label and a placeholder. The label is placed inside the field, and then when the user starts typing, the label floats above the field, hence the name. Designers like this approach because supposedly they reduce the height of the form and therefore make the forms easier to scan. There is also the added bonus that the animation is fancy.
+Float labels are a bit of a hybrid between a label and a placeholder. The label is placed inside the field with CSS and Javascript, and then when the user starts typing, the label floats above the field, hence the name. Designers like this approach because they reduce the height of the form and therefore make forms quicker to scan. Some designers like them due to the fancy-pants animation.
 
 ![Float label](.)
 

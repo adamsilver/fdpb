@@ -1,14 +1,16 @@
 # A Registration Form
 
-I've purposely started with a registration form. Most sites that offer a long-term relationship with their users let them sign up. This is often a way of giving users a faster checkout experience, accessing data or communicating with others. Whatever it is, a registration form, is often the first form a user sees.
+We're going to start with a registration form. Many sites want to have long-term relationships with their users. To do that they can only expect users to sign up if they offer value in return. That can be as simple as offering a faster checkout, or it could be letting users join a social network.
 
-Despite it's simple appearance, there are many things to consider: the primitive elements that make up the form (labels, buttons and inputs), how to reduce friction (even on a small form like this) and how to deal with errors. By choosing a basic form, we can take a look at the most important and foundational qualities found in well-design forms.
+Whatever it is, a registration form is often the first form a user sees. Despite it's basic appearance, there are many things to consider: the primitive elements that make up a form (labels, buttons and inputs), how to reduce friction (even on small forms like this) all the way through to form validation.
+
+In choosing such a simple form, we can zoom in on the foundational qualities found in well-designed forms.
 
 ## How it might look
 
 ![Registration Form](.)
 
-The form contains four fields, laid out beneath each other, with a submit button at the end. Here's the HTML:
+Here's the HTML:
 
 ```html
 <form>
@@ -26,17 +28,20 @@ The form contains four fields, laid out beneath each other, with a submit button
 
 ## Labeling
 
-Labels describe the requirements for the form control. Each field needs an associated label because:
+Every form control that accepts user input needs an auxiliary `<label>`. That's why the submit button (`<input type="submit">`) doesn't have one. The label describes the form control which is important for several reasons. 
 
-- sighted users can see the instructions.
-- visually-impaired users can hear the instructions using a screen reader.
-- motor-impaired users can more easily move focus to the field thanks to the larger hit area. This is because clicking the label moves focus to the field.
+Without a label, (sighted) users will see a blank text box and won't know what to enter. Visually-impaired users may use a screen reader. For them, when they focus an input without a label, they'll hear ‘text box’ which is the visual equivalent of a blank box. Motor-impaired users can move focus to the field more easily because clicking a label moves focus to the field, creating a larger hit area.
 
-To *connect* an input to a label, the `id` and `for` attributes must match and contain a unique value. Forgetting to do so, means ignoring the needs of those with visual and motor impairments.
+![Hit area](.)
 
-Seeing as we're designing for people, we should use the *diversity* of people as constraints. These constraints ultimately lead to the creation of form patterns that work well for a diverse set of user needs.
+To *connect* an input to a `<label>`, the `id` and `for` attributes must match and be unique to the page. In the case of the email field , the value is “email”:
 
-Many designers omit labels in order to save space but as the budding form designer that you are, you should be aware that this is just about the worst thing you can do. In later chapters we'll discuss scenarios where we'll need to resist the natural temptation to exclude them&mdash;something that is normally done in the name of minimalist design.
+```html
+<label for="email">Email address</label>
+<input id="email" name="email" type="email">
+```
+
+Failing to include a label means ignoring the needs of (visual and motor impaired) users. Seeing as we're designing for people, we can use their diversity as constraints that guide is to design robust experiences. After all, what helps some often helps others. For example, the larger hit area helps everyone, not just motor-impiared users. Even with fine motor control, people make mistakes due to a lack of concentration.
 
 ## Placeholders and hints
 

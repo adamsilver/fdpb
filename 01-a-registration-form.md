@@ -1,6 +1,6 @@
 # A Registration Form
 
-We're going to start with a registration form. Many sites want to have long-term relationships with their users. To do that they can only expect users to sign up if they offer value in return. That can be as simple as offering a faster checkout, or it could be letting users join a social network.
+We're going to start with a registration form. Many companies want to have long-term relationships with their users. To do that they need users to sign up. And to do *that*, they need to give users value for doing so. Nobody wants to actually sign up. They just want access to your social network, or the tools you offer, or more simply a faster checkout experience.
 
 Whatever it is, a registration form is often the first form a user sees. Despite it's basic appearance, there are many things to consider: the primitive elements that make up a form (labels, buttons and inputs), how to reduce friction (even on small forms like this) all the way through to form validation.
 
@@ -32,7 +32,7 @@ This form is made up 4 fields and a submit button. Each field is made up a of a 
 
 Every form control that accepts user input needs an auxiliary `<label>`. The submit button (with `type="submit"`) doesn't need a label because it's `value` attribute acts as one and doesn't take input from the user.
 
-The label describes the form control which is important because without one, sighted users won't understand what they need to type. Similarly, visually-impaired users may use a screen reader. When a screen reader encounters an input without a label, it can only announce ‘text box’. Clicking a label sets focus to the input too. This increases the size of the hit area, which is especially useful for motor-impaired users.
+The label describes the form control which is important because without one, sighted users won't understand what they need to type. Visually-impaired people may use screen readers. When a screen reader encounters an input without a label, it can only announce ‘text box’ which is meaningless. Also, browsers will set focus to the input, when clicking its label. This increases the size of the hit area, which is especially useful for motor-impaired users.
 
 ![Hit area](.)
 
@@ -43,23 +43,23 @@ To *connect* an input to the label, the input's `id` and label's `for` attribute
 <input id="email" name="email" type="email">
 ```
 
-Failing to include a label means ignoring the needs of (visual and motor impaired) users. Seeing as we're designing for people, we can use their ability (or lack thereof) as constraints that guide is to design robust experiences. After all, what helps some users often helps others, as is the case with the larger hit area. Even for those with fine motor control, a larger hit area is naturally easier to hit.
+Failing to include a label means ignoring the needs of (motor and visually-impaired) users. Seeing as we're designing for people, we can use their ability (or lack thereof) as constraints that guide is to design robust experiences. After all, what helps some users often helps others, as is the case with the larger hit area. Even for those with fine motor control, a larger hit area is naturally easier to hit.
 
 ## Placeholders
 
-The `placeholder` attribute is intended to store a hint. It gives users extra guidance as to how to complete a field which is particularly useful for fields that have complex rules such as a password field (more on this shortly). As they are not real values, browsers give them a ‘greyed out’ aesthetic so that they can be differentiated from user-entered values.
+The `placeholder` attribute is intended to store a hint. It gives users extra guidance when filling out a field&mdash;particularly useful for fields that have complex rules such as a password field (more on this shortly). As they are not real values, browsers give them a ‘grayed out’ aesthetic so that they can be differentiated from user-entered values.
 
 ![Placeholder example from above](.)
 
-Hints, unlike labels, are optional and shouldn't be used as a matter of course. Just because the placeholder attribute exists doesn't mean we have to use it. For example, you don't need a placeholder of ‘Enter your first name’ as a hint when the label is ‘First name’. It's perfectly clear on its own.
+Hints, unlike labels, are optional and shouldn't be used as a matter of course. Just because the placeholder attribute exists doesn't mean we have to use it. For example, you don't need a placeholder of ‘Enter your first name’ as a hint when the label is ‘First name’&mdash;that's needless duplication.
 
 ![Placeholder and label with same value](.)
 
-Placeholders appeal to designers because of their minimal aesthetic and the fact they save space. This is because placeholder text is placed *inside* the field. Sometimes, designers use placeholders instead of labels. Using them this way is fatal, but actually, using them at all is problematic for many reasons.
+Placeholders appeal to designers because of their minimal, space-saving aesthetic. This is because placeholder text is placed *inside* the field. But, there are many with using the placeholder attribute as a way to show a hint.
 
-First, they disappear when the user types. The password hint is essential, and if it disappears, it's going to be easy to forget which could cause errors. Users often mistake placeholder text for a value[^], causing them to skip the field only to be shown an error later. Grey text lacks sufficient contrast making them generally hard-to-read. And to top it off, some browsers don't support them, some screen readers don't announce them and long hint text may get cut off.
+First, they disappear when the user types. Disappearing text is naturally hard to remember which could cause errors if for example the user forgets to satisify one of the password rules. Users often mistake placeholder text for a value[^], causing them to skip the field, which again, would cause errors. Gray-on-white text lacks sufficient contrast making it generally hard-to-read[^]. And to top it off, some browsers don't support them, some screen readers don't announce them and long hint text may get cut off.
 
-That's a lot of problems for something that seems so innocent on the face of it. All content, especially a helpful form hint, shouldn't be considered a ‘nice to have’ enhancement. Instead of using the placeholder attribute, we can place the hint text inside the `<label>` as follows:
+That's a lot of problems for something that is essentially just text. All content, especially a form hint, shouldn't be considered a ‘nice to have’. So instead of using placeholders, it's better to put hint text inside the label and outside the control:
 
 ![Hint pattern](.)
 
@@ -73,9 +73,9 @@ That's a lot of problems for something that seems so innocent on the face of it.
 </div>
 ```
 
-The hint is placed inside a `<span>` so that it can be styled differently to the `<label>`. It's placed inside it so that screen readers will announce it. 
+The hint is actually placed inside a separate `<span>` so that it can be styled differently. By placing it inside the label it receives all the same benefits. It's read out by screen readers, and this way it actually increases the hit area even more.
 
-As is often the case in design, there are many ways to achieve the same end. Another approach is to use a separate element (such as a `<p>`) and use ARIA as follows:
+This is not the only way to achieve this design. We could use Accessible Rich Internet Application (ARIA) attributes to associate a completely different element with an input:
 
 ```HTML
 <div class="field">
@@ -85,33 +85,35 @@ As is often the case in design, there are many ways to achieve the same end. Ano
 </div>
 ```
 
-It uses the `aria-describedby` attribute to connect the hint to the field by referencing its `id`. Whilst this has visual and audible parity with a standard label, this solution is not the same. The first rule of ARIA is *Don't use ARIA*. The specification states:
+Here, the `aria-describedby` attribute is used to connect the hint via its `id`. Whilst this has visual and audible parity with a standard label, this solution is not the same. Clicking the `<p>` will not set focus to the control, reducing the hit area. Also despite ARIA's ever-improving support, it's never going to be as well supported as native elements.
+
+This is why the first rule of ARIA is not to use ARIA. The specification states:
 
 > If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.
 
-This is not a merely an academic endeavour. A `<label>`, in this case, gives users a better experience with less effort because it has broader support and a larger hit area to boot.
-
 ## Float labels
 
-Float labels are a bit of a hybrid between a label and a placeholder. The label is placed inside the field with CSS and Javascript, and then when the user starts typing, the label floats above the field, hence the name. Designers like this approach because they reduce the height of the form and therefore make forms quicker to scan. Some designers like them due to the fancy-pants animation.
+The float label[^] pattern by Matt Smith is another technique that needs consideration. The label starts *inside* the control, but floats above the control as the user focuses (or types), hence its name. Designers like this approach due to its minimal and quirky design which reduces the height of the form.
 
 ![Float label](.)
 
-The thing is, fancy interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do. Reducing the height of forms is a noble goal if done right. But using float labels introduces problems for an unconvincing gain. Facetiously, we could remove all the whitespace and decrease the font size to 5px which also reduces the height. But rather obviously, this doesn't create a better experience.
+Firstly, quirky interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do. Reducing the height of forms in such a contrived way is also not particularly convincing and forms expert, Luke Wobrelski hasn't got any data that proves that shaving pixels increases conversion or improves usability[^2].
 
-Forms expert, Luke Wobrelski[^2] hasn't got any data at scale that shows shaving pixels in forms increases conversion or usability. In anycase float labels don't actually save space because the label needs space to move into. Besides, scanning a form is not the only user need. Users have to read and understand instructions, fill them in and fix errors. Float labels are problematic because:
+Interestingly, the float label pattern doesn't actually save space at all. This is because the label needs space to move into in the first place.
 
-- There is no space for a hint. The label and hint are one and the same.
-- They are hard to read due to poor contrast and small text.
-- Like placeholders, they may be mistaken for a value.
+![Float label space needed](.)
 
-Decluttering an interface is a noble goal. But only when we declutter the superfluous; not the essential. Labels are essential, and in some cases so are hints. Employing a pattern that moves away from convention, but that is both problematic and constraining too is not a recipe we'll use to cook up delicious forms. More importantly that's the start and end of the cooking analogy.
+But this isn't the only problem. First, there is no space of a hint, because the label and the hint are one and the same. They are hard to read due to their poor contrast and small text. You could give float labels better contrast and larger text but this removes their affordance and are generally speaking not designed this way. And like placeholders, they may be mistaken for a value and could be cropped by the control.
 
-Ultimately, this book is about designing forms that work. Forms that don't drive users crazy. And forms that have as little friction as possible. So we'll use labels (and hints) that are readily available, high-contrast and easy-to-read. In any case, there are far more practical techniques to reduce the size of forms which we'll be exploring throughout the book. One way of doing this is by using the Question Protocol.
+Decluttering an interface is a noble goal. But only when decluttering the superfluous; not the essential. Labels are essential, and when used, so are hints. The float pattern not only abandons convention but introduces several problems. 
+
+The solutions in this book are about designing forms that work; forms that don't drive users crazy. We want our forms to go unnoticed because that just means they're good. To achieve this we'll use labels (and hints) that are readily available, high-contrast and easy-to-read.
+
+If you're interested in reducing the size of the form to reduce friction, there are better ways to do this as we'll be discussing.
 
 ## The Question Protocol
 
-Nobody wants to use forms. They are not a source of entertainment. People just want the end result. Paying off their debts, receiving some new shoes, or receving a new tax disc so they avoid fines and save money or some of the reasons why people will use a form.
+Nobody wants to use forms. They are not a source of entertainment. People just want the end result. Paying off their debts, receiving  new shoes, getting a new tax disc: this is why someone will use a form.
 
 When we put a form in front of someone we have to make sure that there are good reasons for doing so. Why then, are we suggesting people register? As we're looking at patterns as opposed to building a service as a whole, we'll have to consider some reasonably common reasons. Perhaps it's because the user will get:
 
@@ -348,7 +350,7 @@ In any case, designing a ‘perfect’ inline validation experience is nigh on i
 
 Another form of instant feedback is where the submit button is disabled until the form is valid. The user types like normal, and when all the fields becomes valid, the submit button is enabled.
 
-Whilst this feedback is instant, it's also ambiguous and suffers from two  problems. First, disabled buttons are afforded by being ‘greyed out’, but this makes the button hard-to-read.
+Whilst this feedback is instant, it's also ambiguous and suffers from two  problems. First, disabled buttons are afforded by being ‘grayed out’, but this makes the button hard-to-read.
 
 Secondly, and more crucially, if there is an error, the user won't know why. Instead, they're left to guess which fields are erroneous and need their attention.
 

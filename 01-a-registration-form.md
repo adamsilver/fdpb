@@ -194,7 +194,7 @@ By default, and without any effort on our part, browsers give active form fields
 
 On first glance, this field looks simple and yet, a lot of thought has gone into its construction and design. Firstly the label text explicitly asks for ‘Email address’ where some sites may choose the more ambiguous ‘Username’. That is, unless the site really is asking for a username. Where possible ask users for their email address as it's unique and is normally used for communication.
 
-The text itself is in sentence case because as John Saito explains in *Making a Case of Letter Case[^7], sentence case, in comparison with title case, is generally easier to read, friendlier and makes it easier to spot nouns.
+The text itself is in sentence case because as John Saito explains in “Making a Case of Letter Case”[^7], sentence case, in comparison with title case, is generally easier to read, friendlier and makes it easier to spot nouns.
 
 ### Email input
 
@@ -388,7 +388,7 @@ Without constraint, we can't be creative. As discussed earlier, the needs of use
 - Do they have an extension that inteferes with your script
 - Does the browser support the Javascript you've written
 
-Considering these additional problems, we realise that designing for ‘Javascript off’ is crucial. This is afterall an important aspect to Progressive Enhancement because when (not if) the enhancement fails this is the experience they'll get. Having explored the problem from a completely different angle, the answer still, is to validate onsubmit`.
+Considering these additional problems, we realise that designing for ‘Javascript off’ is crucial. This is afterall an important aspect to Progressive Enhancement because when (not if) the enhancement fails this is the experience they'll get. Having explored the problem from a completely different angle, the answer still, is to validate `onsubmit`.
 
 Interestingly, I've frequently found that good experiences don't need Javascript. For example, on a large-scale Government digital service we only performed validation on the server. Having conducted frequent and thorough user research we never found this to be a problem. This is not to say client-side validation is *bad*, far from it. It's just that something that may appear to be problematic from the point of view of a designer, may not be a problem for users.
 

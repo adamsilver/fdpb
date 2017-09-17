@@ -17,16 +17,11 @@
 - Question Protocol
 	- No Password Sign In
 	- Passphrases
-- Styling
-- An email field
-	- Label text
-	- Input type
-- A password field
-	- Label text
-	- Hint text
-	- Input type
-	- Password reveal
-- A submit button
+- Field Styles
+- An Email Field
+- A Password Field
+	- Password Reveal
+- Button styles
 	- Buttons aren't links
 	- Where to position the button
 	- Button text

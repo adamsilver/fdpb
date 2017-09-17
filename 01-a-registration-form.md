@@ -137,17 +137,15 @@ The downside is that they are unfamiliar, which may cause anxiety for users, tha
 
 Whether it's the No Password Sign In pattern or passphrases, we should only move away from convention once we've conducted thorough and diverse user research. You don't want to exchange one set of problems for another.
 
-## Styling
+## Field styles
 
 The way you style your form components will, at least in part, be determined by your product or company's brand. Still, label position and focus styles are important considerations.
 
-Broadly speaking, you should place the label and hint above the form control. In “Label Placement In Forms”[^6], Matteo Penzo shows this is best. But, there are more practical reasons for doing so. On smaller viewports there's no room next to the control. Zooming in, on a large viewport, increases the chance of the text disappearing[^x1].
+Broadly speaking, you should place the label above the form control. In “Label Placement In Forms”[^6], Matteo Penzo shows this is best. But, there are more practical reasons for doing so. On small viewports there's no room beside the control. And on large viewports, zooming increases the chance of the text disappearing off screen[^x1].
 
-Some labels contain a lot of text which causes it to wrap onto multiple lines. Placing it beside the form control then, disrupts the visual rhythm. Whilst you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content&mdash;by positioning labels above the control&mdash;is good design.
+Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control. Whilst you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content&mdash;by positioning labels above the control&mdash;is a sensible strategy.
 
-Focus styles are a simpler prospect. Without them users&mdash;especially those who use a keyboard&mdash;will struggle as they won't know where they are[^x2]. By default, browsers put an outline around the in-focus element.
-
-You might be tempted to remove the browser's focus styles for aesthetic reasons, but that's hardly a good reason to diminish usability. If you wish to remove it, then be sure to replace it without something more preferable, perhaps something that matches your brand colours.
+Focus styles are a simpler prospect. Browsers put an outline around the in-focus element by default so that users, especiallyt hose who use a keyboard, know where they are. You might be tempted to remove this styling for aesthetic reasons but that's hardly a good reason to diminish usability. If you wish to remove it, then make sure you replace it with something more preferable.
 
 ![Focus styles, where am i, oh there I am](.)
 
@@ -158,21 +156,23 @@ You might be tempted to remove the browser's focus styles for aesthetic reasons,
 ```HTML
 <div class="field">
   <label for="email">
-    <div class="field-label">Email address</span>
+    <span class="field-label">Email address</span>
   </label>
   <input type="email" id="email" name="email">
 </div>
 ```
 
-Despite it's simple appearance, there are some important details that have gone into the construction of this field.
+Despite it's simple construction there are some important details that have gone into the field's design. As noted earlier, some fields have a hint in addition to the label which is why it's contained in a child `<span>`. It's given a class of `field-label` so that it can be targetted reliably with CSS.
 
-The label is written in sentence case. As John Saito explains in “Making a Case of Letter Case”[^7], sentence case (as opposed to title case) is generally easier to read, friendlier and makes it easier to spot nouns.
+The label itself is “Email address” and is using sentence case. As John Saito explains in “Making a Case of Letter Case”[^7], sentence case (as opposed to title case) is generally easier to read, friendlier and makes it easier to spot nouns. Whether you take heed of this advice is up to you, but whatever you pick, be sure to use that style consistently.
 
-The input has `type="email"` which improves the experience by offering an email-specific on-screen keyboard for supporting mobile devices. This is because it gives users easy access to the ‘@’ and ‘.’ symbols which every email address consists of.
+The input's `type` attribute is set to `email` which triggers an email-specific on-screen keyboard on mobile devices. Specifically, it gives users easy access to the ‘@’ and ‘.’ symbols which every email address must contain.
 
 ![Email keyboard](.)
 
 People using a non-supporting browser will see a standard text input (`input type="text"`). This is a form of Progressive Enhancement which is a cornerstone of designing inclusive experiences for the web.
+
+TODO: Do I do an aside here about Progressive Enhancement?
 
 ## The password field
 
@@ -188,23 +188,23 @@ People using a non-supporting browser will see a standard text input (`input typ
 </div>
 ```
 
-This is using the same pattern as the email address. As such we can use the same HTML and CSS to create a consistent interface.
+We're using almost identical mark-up to the email field discussed just now. This way we can ensure all fields are styled consistently throughout the same application which speaks to principle 3, *Be consistent*.
 
-The password field uses the hint pattern discussed earlier because without it the requirements of the field are unclear and users will likely experience an error when they proceed.
+The field contains a hint, because without one, the password requirements are unknown which is likely to cause an error once the user tries to proceed.
 
-The input has `input type="password"` which masks the input by replacing what the user typed with circles. This is a security measure that guards against “over the shoulder” attacks.
+The input's `type` attribute is set to `password"` which masks the input's value by replacing what the user types with small black circles. This is a security measure that guards against “over the shoulder” attacks.
 
 ### A Password Reveal
 
-Obscuring the value as the user types makes it hard to fix typos. So if the user thinks they have a typo, it's easier to delete the whole entry and start over. This is particularly frustrating as most users aren't using a computer with a person standing behind them.
+Obscuring the value as the user types makes it hard to fix typos. So when one is made, it's often easier to delete the whole entry and start over. This is frustrating as most users aren't using a computer with a person standing behind them.
 
-Due to the increased risk of typos, some registration forms include an extra ‘confirm password’ field. This is a precautionary measure that requires the user to type the same password twice which is double the effort.
+Due to the increased risk of typos, some registration forms include an additional ‘confirm password’ field. This is a precautionary measure that requires the user to type the same password twice doubling the effort, which is unfortunate.
 
-Instead, it's generally better to let users reveal their password by choice. This way users get the security measure without increasing the risk of typos.
+Instead, it's generally better to let users reveal their password which speaks to principle 5, *Offer choice*. This way users get the security of the mask without increasing the risk of typos.
 
 ![Password reveal](.)
 
-To do this, you'll need to use Javascript to inject a button next to the input. When clicked it toggles the type between `password` and `text` and the text between “Show password” and “Hide password”.
+To do this, you'll need to use Javascript to inject a button next to the input. When clicked it toggles the `type` between `password` and `text` and switches the text from “Show password” to “Hide password”.
 
 ```JS
 function PasswordReveal(el) {
@@ -237,7 +237,7 @@ PasswordReveal.prototype.hidePassword = function() {
 };
 ```
 
-Some browsers actually support this functionality natively, so if you're providing your own solution you can press the browsers implementation as follows:
+Some browsers provide this functionality natively, so if you're providing your own solution you can supress the browser's implementation as follows:
 
 ```css
 input[type=password]::-ms-reveal {
@@ -245,43 +245,29 @@ input[type=password]::-ms-reveal {
 }
 ```
 
-## A submit button
+## Button styles
 
-Designing a submit button requires us to consider 3 main aspects: Visual design, placement and text.
-
-### Buttons aren't links
-
-The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned to differentiate them amongst other words. When hovering with the mouse cursor will change to a hand. This is because, unlike buttons, links have weak affordance[^8].
+The first thing to know about buttons is that they aren't links. Links are typically underlined or have special placement (navigation bar) to differentiate them  standard text. When hovering a link, the cursor will change to a hand. This is because, unlike buttons, links have weak affordance[^8].
 
 In Resilient Web Design[^9], Jeremy Keith discusses the idea of material honesty. He says that *one material should not be used as a substitute for another. Otherwise the end result is deceptive.* Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not.
 
-Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later which buttons can't do. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons.
+Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons which have naturally strong affordance. Whether they have rounded corners, drop shadows, borders is up to you, but they should look like buttons regardless.
 
-We should still give users feedback when they hover, but we can do so through other style properties such as background colour, border or shadow.
+Buttons should still give mouse users feedback on hover by changing the background colour for example.
 
-```CSS
-input[type=submit] {
-	background: red;
-}
+### Placement
 
-input[type=submit]:hover {
-	background: green;
-}
-```
+The submit button is typically placed at the foot of the form. This is because with most forms, users fill out the fields from top to bottom and then submit, but should the button be aligned left, right or center? To answer this question, we need to think about where users will naturally look for it.
 
-### Where to position the submit button
+Field labels and form controls are aligned left and run from top to bottom. Users are going to look for the next field below the last one. Naturally then, the submit button should also be positioned in that location: to the left and directly below the last form field. Eye tracking tests prove this to be so. This again helps users who zoom in, as a right aligned button can easily disappear off screen.
 
-Most forms position the button at the foot of the form. This is because, generally speaking, users fill out the fields first before submitting. At the bottom is certainly a good start but should we align it left, right or center?
+### Text
 
-To answer this question we need to think about where users are naturally going to look it for it. Think about the form's natural flow and rhythm. The user has been reading from top to bottom with the fields aligned left. Therefore it makes sense that the button is positioned the in the same way: aligned left. Eye tracking tests[^10] show this is exactly the case. This also helps users who zoom-in: a right-aligned label disappears off screen reasily.
+The button's text is just as, if not more important than its styling. The text should explicitly describe the action being taken. And because it's an action, it should be a verb.
 
-### Button text
+We should aim to use as fewer words as possible because less words are quicker to read. But we shouldn't remove words at the cost of clarity.
 
-The word *submit* is an ambiguous way to label a submit button. The word(s) should describe the specific action being taken. And, because it's an action it should be a verb.
-
-We should aim to use as few words as possible because it makes reading faster. But we shouldn't remove words at the cost of clarity. If you need two words to make the action clear then do so and use sentence case like we do for labels.
-
-The exact words may need matching to your brand's tone of voice but don't exchange clarity for cuteness. In this case ‘Register’ is fine.
+The exact words can match your brand's tone of voice, but don't exchange clarity for cuteness. Using simple and plain language is easy to understand for everyone. In this case “Register” or the slighlty warmer “Sign up” is fine.
 
 ## Validation
 

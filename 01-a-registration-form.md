@@ -139,18 +139,11 @@ Whether it's the No Password Sign In pattern or passphrases, we should only move
 
 ## A note on styling
 
-The way you style your form components will, at least in part, be determined by your product or companies brand guidelines. With that said, there are some considerations that will universally help your users.
+The way you style your form components will, at least in part, be determined by your product or company's brand. Still, there are some visual styles that need to be considered such as label position, font-size and focus styles.
 
-First, the label (and optional hint) is placed above the form controls. In “Label Placement In Forms”[^6], Matteo Penzo's eye tracking tests showed that labels are easier to read this way. Though the time to understand the question and answer it, takes far longer than reading the label. 
+Generally speaking you should place the label and hint above the form control. In “Label Placement In Forms”[^6], Mattero Penzo shows that they are are easier to read. But, there are more practical reasons to do this. On small screen viewports there is no space to place the label beside the field. And, on large viewports, doing so increases the chance of it disppearing off-screen for those who need to zoom-in.
 
-More practically on small screen devices there is no space to put the label anywhere else. And for visually-impaired users who use a screen magnifier, there is less chance of the label disppearing off screen this way.
-
-And, labels that contain lots of text will wrap onto multiple lines, disrupting the form's visual rhythm. Whilst we should strive to keep labels and hints terse, this is not always possible and so it's a good move to use a pattern that accomodates the varying length of content found in different forms.
-
-- Font-size
-- Padding
-- Hit area
-- Thick border
+Also, some labels contain a lot of text which may wrap onto multiple lines, which if placed beside the control, would disrupt the visual rhythm. Whilst you should keep labels terse, it's not always possible. Using a pattern that accomodates varying content is good design.
 
 ## Focus styles
 

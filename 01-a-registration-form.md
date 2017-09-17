@@ -315,21 +315,21 @@ In the end, like inline validation, this is a distracting experience that takes 
 
 ### On Submit
 
-To *give control* and avoid the many problems with instant feedback, we can validate forms on submit. This way users take explicit action when they're ready to do so. In turn, they're almost certainly ready to receive feedback should there be any. 
+To *give control* and avoid problems with instant feedback, we can validate forms on submit. This way users take explicit action which in turn, means they're ready to receive feedback. 
 
-Earlier, I said that we should use people's abilities, disabilities and preferences as constraints to guide us to design better experiences. But they aren't the only form of constraints. The platform, in this case the Web also provides a set of constraints which are often manifested by convention.
+Earlier, I said that we should use people's abilities, disabilities and preferences as constraints to guide us to design better experiences. But they aren't the only form of constraints. The platform, in this case the Web, also provides a set of constraints which are often manifested by convention.
 
 Validating a form on submit is convention. It's just the way forms have always worked on the Web. Fortunately, conventional interfaces are familiar. And familiar interfaces generally require less cognitive effort. 
 
-In any case, the form needs to be submitted to the server in the end of processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
+In any case, the form needs to be submitted to the server for processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
 
-It's worth noting that some browsers support HTML5 form validation. But there are concerns about the support and general usability of the browser's own implementation. As you'll see there are a number of custom provisions we'll need in order to give users an excellent from validation experience. In which case, the first thing we'll need to do is turn off HTML5 form validation.
+Some browsers support HTML5 validation, but we want to design a number of custom provisions that will work for almost every browser. In which case, we'll need to turn HTML5 validation off as follows:
 
 ```HTML
 <form novalidate>
 ```
 
-The start of the script is as follows:
+First, we need to listen to the form's submit event in order to check the fields pass various rules.
 
 ```JS
 function FormValidator(form) {
@@ -337,37 +337,36 @@ function FormValidator(form) {
 }
 
 FormValidator.prototype.onSubmit = function(e) {
-  
+  if(!this.validate()) {
+    e.preventDefault();
+    // show errors
+  }
+};
+```
+
+The validate method will return `false` if the form contains errors. In this case we're going to need to present errors. There are three disparate parts of the interface that need to be updated to do this:
+
+1. The page title
+2. The error summary
+3. Inline error messages
+
+For (1) we need to change the contents of the `<title>` to inform users that there are errors. Where the original title might read ‘Register for [awesome service]’, on error it should read ‘Retry - Register for [awesome service]’ or similar.
+
+This is especially useful for errors caught on the server because this is the first thing a screen reader will announce after the page is refreshed. Admittedly, this is not as useful for sighted users, but for those who switch between multiple tables, the prefixed status on the tab acts a psuedo notification.
+
+For (2), we'll need to inject an error summary to the top of the page. This is a convention that means after a page refresh, users don't need to scroll, which is the visual equivalent of immediately hearing the page title read out.
+
+![Error summary](/)
+
+When errors are caught on the client, we'll need to bring it into view by setting focus to it.
+
+```JS
+FormValidator.prototype.focusSummary = function() {
+  this.summary.focus();
 };
 ```
 
 ---
-
-### Displaying errors
-
-Having decided *when* to submit, our next consideration is presenting the errors. Crucially, users need to be alerted that something has not only gone wrong but that they have the right information in the right place to remedy the problem. There are 3 disparate techniques which I've used since 2008 when I worked with the Royal National Institute of Blind People (RNIB) to design the validation experience for Boots.com.
-
-#### Change the title
-
-When a page loads, the `title` element is the first available piece of information. It appears in the browser's tab bar for sighted users and it's the first thing a screen reader will announce, crucial for those who use one. Before submitting the form the title will probably be something like *Register for [awesome service]*.
-
-When there are errors we should prepend the title with *There's a problem -* or a useful alternative *Retry -*.  The latter is useful for a service that is often used and so as the experience gets more familiar the shorter response is informative and terse.
-
-[!](.)
-
-```HTML
-<title>Retry - Register for [awesome service]</title>
-```
-
-Admittedly, changing the title is mostly for screen readers but that doesn't mean it's presence for sighted users is redundant. For those who multi-task by switching between tabs, the prepended status acts as a psuedo notification of sorts.
-
-#### Show an error summary
-
-Next, we'll provide an error summary at the top of the page, so that when the page refreshes, the error is shown without having to scroll.
-
-![blah blah](/)
-
-We'll apply the same functionality for errors caught on the client. But this time, we'll need to move focus to the error summary to ensure users see it. More on this later.
 
 Conventionally speaking, we should style errors in red. But to support those who can't see (the full range of) colour, we'll make sure the summary is prominent without it by using a short heading and placing it near the top of the screen.
 

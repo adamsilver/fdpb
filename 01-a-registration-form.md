@@ -137,78 +137,89 @@ The downside is that they are unfamiliar, which may cause anxiety for users, tha
 
 Whether it's the No Password Sign In pattern or passphrases, we should only move away from convention once we've conducted thorough and diverse user research. You don't want to exchange one set of problems for another.
 
-## A note on styling
+## Styling
 
-The way you style your form components will, at least in part, be determined by your product or company's brand. Still, there are some visual styles that need to be considered such as label position, font-size and focus styles.
+The way you style your form components will, at least in part, be determined by your product or company's brand. Still, label position and focus styles are important considerations.
 
-Generally speaking you should place the label and hint above the form control. In “Label Placement In Forms”[^6], Mattero Penzo shows that they are are easier to read. But, there are more practical reasons to do this. On small screen viewports there is no space to place the label beside the field. And, on large viewports, doing so increases the chance of it disppearing off-screen for those who need to zoom-in.
+Broadly speaking, you should place the label and hint above the form control. In “Label Placement In Forms”[^6], Matteo Penzo shows this is best. But, there are more practical reasons for doing so. On smaller viewports there's no room next to the control. Zooming in, on a large viewport, increases the chance of the text disappearing[^x1].
 
-Also, some labels contain a lot of text which may wrap onto multiple lines, which if placed beside the control, would disrupt the visual rhythm. Whilst you should keep labels terse, it's not always possible. Using a pattern that accomodates varying content is good design.
+Some labels contain a lot of text which causes it to wrap onto multiple lines. Placing it beside the form control then, disrupts the visual rhythm. Whilst you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content&mdash;by positioning labels above the control&mdash;is good design.
 
-## Focus styles
+Focus styles are a simpler prospect. Without them users&mdash;especially those who use a keyboard&mdash;will struggle as they won't know where they are[^x2]. By default, browsers put an outline around the in-focus element.
 
-By default, and without any effort on our part, browsers give active form fields a focus style in the form of an outline. This is helpful in its own right, but especially for keyboard users. Some designers dislike the default styling chosen by browsers, so much so that they often ask the developer to remove it. This is an inclusive design anti pattern that we must avoid[^http://www.outlinenone.com/]. If you want to have a focus style that is more in keeping with your brand, then do so. Just don't remove it entirely.
+You might be tempted to remove the browser's focus styles for aesthetic reasons, but that's hardly a good reason to diminish usability. If you wish to remove it, then be sure to replace it without something more preferable, perhaps something that matches your brand colours.
 
-![blah](.)
+![Focus styles, where am i, oh there I am](.)
 
 ## The email field
 
-On first glance, this field looks simple and yet, a lot of thought has gone into its construction and design. Firstly the label text explicitly asks for ‘Email address’ where some sites may choose the more ambiguous ‘Username’. That is, unless the site really is asking for a username. Where possible ask users for their email address as it's unique and is normally used for communication.
+![The email field](.)
 
-The text itself is in sentence case because as John Saito explains in “Making a Case of Letter Case”[^7], sentence case, in comparison with title case, is generally easier to read, friendlier and makes it easier to spot nouns.
+```HTML
+<div class="field">
+  <label for="email">
+    <div class="field-label">Email address</span>
+  </label>
+  <input type="email" id="email" name="email">
+</div>
+```
 
-### Email input
+Despite it's simple appearance, there are some important details that have gone into the construction of this field.
 
-HTML5 gave us `input type="email"` improving the experience for those using supporting browsers. Nowadays that most. On focussing the field on a mobile device, for example, spawns an on-screen keyboard which is specifically designed to help users enter an email address. This is because it displays readily accessible ‘@’ and ‘.’ characters which every email needs.
+The label is written in sentence case. As John Saito explains in “Making a Case of Letter Case”[^7], sentence case (as opposed to title case) is generally easier to read, friendlier and makes it easier to spot nouns.
+
+The input has `type="email"` which improves the experience by offering an email-specific on-screen keyboard for supporting mobile devices. This is because it gives users easy access to the ‘@’ and ‘.’ symbols which every email address consists of.
 
 ![Email keyboard](.)
 
-Non-supporting browsers fall back to a standard text field which is Progressive Enhancement in action. One of the main advantages of Progressive Enhancement is that it improves the experience for some without degrading the experience for others. By others I mean those using less capable browsers. Not everyone has the ability to choose their browser. Sometimes it's imposed by the device or corporate computer systems.
-
-Progressive Enhancement itself is an earmark of Inclusive Design. As such, we'll use this design approach to solve many problems in this book.
+People using a non-supporting browser will see a standard text input (`input type="text"`). This is a form of Progressive Enhancement which is a cornerstone of designing inclusive experiences for the web.
 
 ## The password field
 
-The label for the password field reads ‘Password’ which is okay. But unlike the email field by which the label provided enough clarity, ‘Password’ is a little unclear on its own. That's why we've used the hint pattern to tell users what constitutes a valid password for this particular site.
+![The password field](.)
 
-### Password input
-
-Quite intuitively, the password field uses the `input type="password"`. When the user types it visually replaces each character with a circle. This is a security measure that guards against ‘over the shoulder’ lurking.
-
-The problem with obscuring the value is that it's hard to fix typos. Because of this, it's often easier to delete the whole entry and start over. Another consideration is that most of the time, people don't lurk over your shoulder as you type your password. This fact, however, won't stop users feeling anxious if we were to veer off from convention by showing the password in plain text.
-
-Because this input increases the likeliness of creating a password with a typo, many registration forms have a confirm password field. This extra field is there as a precautionary measure and requires the user to type the same password twice. This is unfortunate because the user has to do even more work.
-
-### A password reveal component
-
-A password reveal component, as they are typically known, gives users the best of both worlds. The field starts of as a regular password input with obscured characters. But gives users a button, that when pressed, converts the input into a regular text box which reveals the password. Clicking it again, converts back into a password field.
-
-This lets users get the benefit of being able to check and fix typos whilst simultaneously giving them a feeling of security and control.
-Some browsers provide this behaviour natively so if you're crafting your own solution then you can suppress this with CSS:
-
-```css
-input[type=password]::-ms-reveal {
-  display: none;
-}
+```HTML
+<div class="field">
+  <label for="password">
+    <span class="field-label">Choose password</span>
+    <span class="field-hint">Must contain 8+ characters with at least 1 number and 1 uppercase letter.</span>
+  </label>
+  <input type="password" id="password" name="password">
+</div>
 ```
+
+This is using the same pattern as the email address. As such we can use the same HTML and CSS to create a consistent interface.
+
+The password field uses the hint pattern discussed earlier because without it the requirements of the field are unclear and users will likely experience an error when they proceed.
+
+The input has `input type="password"` which masks the input by replacing what the user typed with circles. This is a security measure that guards against “over the shoulder” attacks.
+
+### A Password Reveal
+
+Obscuring the value as the user types makes it hard to fix typos. So if the user thinks they have a typo, it's easier to delete the whole entry and start over. This is particularly frustrating as most users aren't using a computer with a person standing behind them.
+
+Due to the increased risk of typos, some registration forms include an extra ‘confirm password’ field. This is a precautionary measure that requires the user to type the same password twice which is double the effort.
+
+Instead, it's generally better to let users reveal their password by choice. This way users get the security measure without increasing the risk of typos.
+
+![Password reveal](.)
+
+To do this, you'll need to use Javascript to inject a button next to the input. When clicked it toggles the type between `password` and `text` and the text between “Show password” and “Hide password”.
 
 ```JS
 function PasswordReveal(el) {
     this.el = el;
-    this.passwordControl = $(el);
-    this.showingPassword = false;
     this.createButton();
 };
 
 PasswordReveal.prototype.createButton = function() {
-    this.button = $('<button>'+this.showText+'</button>');
-    this.passwordControl.parent().append(this.button);
+    this.button = $('<button type="button">'+this.showText+'</button>');
+    $(this.el).parent().append(this.button);
     this.button.on('click', $.proxy(this, 'onButtonClicked'));
 };
 
 PasswordReveal.prototype.onButtonClicked = function(e) {
-    e.preventDefault();
-    if(this.showingPassword) {
+    if(this.el.type === 'password') {
         this.hidePassword();
     } else {
         this.showPassword();
@@ -217,18 +228,22 @@ PasswordReveal.prototype.onButtonClicked = function(e) {
 
 PasswordReveal.prototype.showPassword = function() {
     this.el.type = 'text';
-    this.showingPassword = true;
     this.button.text('Hide password');
 };
 
 PasswordReveal.prototype.hidePassword = function() {
     this.el.type = 'password';
-    this.showingPassword = false;
     this.button.text('Show password');
 };
 ```
 
-The script creates a `button` that when clicked toggles the input type between `text` and `password`.
+Some browsers actually support this functionality natively, so if you're providing your own solution you can press the browsers implementation as follows:
+
+```css
+input[type=password]::-ms-reveal {
+  display: none;
+}
+```
 
 ## A submit button
 
@@ -671,3 +686,5 @@ In upcoming chapters, we'll build on the foundations we've laid here in order to
 [^14]: http://adrianroselli.com/2017/01/avoid-messages-under-fields.html
 [^15]: http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
 [^16]: https://vimeo.com/138359368
+[^x1]: https://www.w3.org/TR/WCAG20-TECHS/G162.html
+[^x2]: http://www.outlinenone.com/

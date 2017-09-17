@@ -18,8 +18,6 @@
 	- No Password Sign In
 	- Passphrases
 - Styling
-	- Label position
-	- Focus styles
 - An email field
 	- Label text
 	- Input type

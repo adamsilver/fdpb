@@ -28,7 +28,7 @@ Here's the HTML:
 
 This form is made up 4 fields and a submit button. Each field is made up a of a control (the input) and its associated label. Labels are where our discussion begins.
 
-## Labeling
+## Labels
 
 Every form control that accepts user input needs an auxiliary `<label>`. The submit button (with `type="submit"`) doesn't need a label because it's `value` attribute acts as one and doesn't take input from the user.
 
@@ -91,88 +91,51 @@ This is why the first rule of ARIA is not to use ARIA. The specification states:
 
 > If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.
 
-## Float labels
+## Float Labels
 
-The float label[^] pattern by Matt Smith is another technique that needs consideration. The label starts *inside* the control, but floats above the control as the user focuses (or types), hence its name. Designers like this approach due to its minimal and quirky design which reduces the height of the form.
+The float label[^] pattern by Matt Smith is a technique that uses the label as a placeholder. The label starts *inside* the control, but floats above the control as the user types, hence its name. This technique is often lauded for it's quirky, minimalist and space saving qualities.
 
 ![Float label](.)
 
-Firstly, quirky interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do. Reducing the height of forms in such a contrived way is also not particularly convincing and forms expert, Luke Wobrelski hasn't got any data that proves that shaving pixels increases conversion or improves usability[^2].
+Unfortunately, there are several pitfalls with this approach. First, there is no space for a hint because the label and hint are one and the same. Second, they're hard-to-read due to their (affordance giving) poor contrast and small text as they're typically designed. Like placeholders, they may be mistaken for a value and could get cropped.  
 
-Interestingly, the float label pattern doesn't actually save space at all. This is because the label needs space to move into in the first place.
+And, float labels don't actually save space. That's because the label needs space to move into in the first place. Even if they did save space, that's hardly a good reason to diminish usability.
 
-![Float label space needed](.)
+Quirky and minimalist interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do. Artificially reducing the height of forms like this is both uncompelling and problematic.
 
-But this isn't the only problem. First, there is no space of a hint, because the label and the hint are one and the same. They are hard to read due to their poor contrast and small text. You could give float labels better contrast and larger text but this removes their affordance and are generally speaking not designed this way. And like placeholders, they may be mistaken for a value and could be cropped by the control.
+Instead, you should priortise making room for an ever-present, readily available label (and hint) at the start of the design process. This way you won't produce a form that drive users crazy.
 
-Decluttering an interface is a noble goal. But only when decluttering the superfluous; not the essential. Labels are essential, and when used, so are hints. The float pattern not only abandons convention but introduces several problems. 
-
-The solutions in this book are about designing forms that work; forms that don't drive users crazy. We want our forms to go unnoticed because that just means they're good. To achieve this we'll use labels (and hints) that are readily available, high-contrast and easy-to-read.
-
-If you're interested in reducing the size of the form to reduce friction, there are better ways to do this as we'll be discussing.
+We'll be discussing several, less artificial techniques to reduce the size of forms shortly.
 
 ## The Question Protocol
 
-Nobody wants to use forms. They are not a source of entertainment. People just want the end result. Paying off their debts, receiving  new shoes, getting a new tax disc: this is why someone will use a form.
+One powerful and *natural* way to reduce the size of a form is to use The Question Protocol[^] by the Government Digital Service. It urges you to determine what information is needed and why. Only then can you justify the existence of each question (or form field).
 
-When we put a form in front of someone we have to make sure that there are good reasons for doing so. Why then, are we suggesting people register? As we're looking at patterns as opposed to building a service as a whole, we'll have to consider some reasonably common reasons. Perhaps it's because the user will get:
+Does the registration form need to collect first name, last name, email address and password? Are there better or alternative ways to ask for this information that simplifies the experience?
 
-- A faster checkout experience next time.
-- Order tracking without having to make a phone call.
-- A 10% discount as a reward for handing over details.
+In all likeliness you don't need to ask for the user's first and last name just to register. If you need that information later, for whatever reason, then ask for it then. By removing these fields, we've reduced the size of the form by 50%&mdash;without resorting to novel and problematic patterns.
 
-It's not just the form itself that needs justification. The questions within the form have just as much to answer for. Government Digital Services’ (GDS) Question Protocol suggests that before starting the design process, to make a list of the information we need from users. Then, only add a question if you know:
+### No Password Sign In
 
-- that you need the information to deliver the service
-- why you need the information
-- what you’ll do with it
-- which users need to give you the information
-- how you’ll check the information is accurate
-- how to keep the information up to date and secure
+One way to avoid asking users for a password is to use the No Password Sign In pattern. It works be leveraging the security of email (that already has a password). Users enter just their email address, and the service sends a special login link to their inbox. Clicking it, logs the user into the service immediately.
 
-Asking these questions urges us to justify the existence of each question. And in doing so nudges us to explore more simpler ways of getting users to fill out forms. For the registration form, we might want to ask ourselves:
+![Medium No Password Sign In](.)
 
-- Do we need to ask for their first and last name?
-- Do we need to ask for a password? And, assuming we do, are there better ways of asking for it?
+Not only does this reduce the size of the form to just one field, but it also saves users having to remember another password. But whilst this certainly reduces friction on the form in isolation, it does add some of its own.
 
-### Do we need to ask for their first and last name?
+First, users might be less familiar with this approach, and many people are worried about online security. Second, having to move away from the app to your email account is long winded, especially for users who know their password (or use a password manager).
 
-Users don't need to tell us their name to register for an account. The minimum they need to do is provide an email and password. And maybe not even that but more on this shortly. If at some stage we do need their name, we should ask for it then, in context. For example, asking for their name during checkout is required because the product needs to be addressed to a human being.
+It's not that one technique is always better than the other. It's that the Question Protocol urges us to think about this as a matter of course. Otherwise, you'd mindlessly add a password field on the form and be done with it.
 
-By removing the first and last name fields, we halve the size of the form. A simple question, a simple answer and a better experience all because we followed the Question Protocol. This, by the way, *naturally* reduces the height of the form without resorting to novel patterns that introduce usability problems.
+### Passphrases
 
-### Do we need to ask for a password?
+Passwords are generally short, hard to remember and easy to crack. Users often have to create a password with at least eight characters made up of at least one uppercase and lowercase latter as well as a number. This micro interaction is hardly ideal.
 
-Medium.com implemented a ‘no password’ sign in[^4]. A no password sign-in works by leveraging the security of email accounts (that do have a password) by sending the user a login link. If we were to use this technique, this would reduce the registration form down just 1 field. But maybe this an over simplification.
+Instead of a password, we could ask users for a passphrase[^5]. A passphrase is a series of words such as ‘monkeysinmygarden’ (sorry, that's the first thing that came to mind). They are generally easier to remember than password and they are more secure due to their length (they must be 16 characters or more).
 
-Users are less familiar with this approach, although that is not a reason in itself to avoid improving the experience. More importantly when people login, they have to switch to their email account (which also requires logging in to). For those that know their password, or use a password manager, this switching is actually a slower than a more traditional login experience.
+The downside is that they are unfamiliar, which may cause anxiety for users, that are already worried about their online security.
 
-This shows that designing a form in isolation is not a sensible approach to design. The Question Protocol makes us think about the journey as a whole. This discussion isn't about proving that one technique is better than the other. It simply shows that merely having to tink about it probably causes us to design better experiences in the end.
-
-For now, we'll stick with the password field which the safer option for most users thanks to it's more familiar appearance. And after all, moving away from convention is something we should do confidently through user testing and research. Without doing that, the we might just be exchanging one set of problems for another.
-
-### Are there better ways to ask for a password?
-
-Passwords are generally short, hard to remember and easy to crack, even if they are forced to meet the following rules:
-
-- eight characters
-- one uppercase letter
-- one lowercase letter
-- one number
-
-Where possible we want to ask users something that is easy to remember and more secure. Passphrases[^5] are easier to remember. They are considered more secure due to their length and the fact you don't need to write them down. But what is a passphrase?
-
-A passphrase is a series of words such as ‘monkeysinmygarden’ (I'm sorry but that was the first thing that came to mind). The only downside with passphrases is that like the ‘no password’ sign in, it's unfamiliar. Unfamiliarity, particularly when it comes to passwords can cause anxiety for users, that are already worried about online privacy and security.
-
-Again, we shouldn't discount this technique because it's new or unfamiliar, but we should explore the validity of the approach with users before making the call. We'll stick to a more traditional password field that requires a set of complex rules. In doing so we'll look at ways to make this common approach better for users.
-
-## Marking required fields
-
-Traditionally, we've marked required fields using an asterisk. A legend, usually placed above the form explains its meaning. I'm not entirely sure how this came to be, but having a layer of abstraction (between the symbol and the meaning) puts cognitive strain on the user. Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains it.*
-
-The Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In Required Versus Optional Fields[^] Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.*
-
-If required fields are the norm, and optional fields aren't, then it's the optional fields we should think about marking in some way. In this case put the word *optional*, in brackets, inside the label to ensure it is read out as part of the label. This way the information is obvious in context of the field.
+Whether it's the No Password Sign In pattern or passphrases, we should only move away from convention once we've conducted thorough and diverse user research. You don't want to exchange one set of problems for another.
 
 ## Label position
 

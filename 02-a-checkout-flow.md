@@ -91,6 +91,14 @@ The mobile input uses `type=tel`. This displays a telephone-specific on-screen k
 
 TODO: Marking as optional
 
+## Marking required fields
+
+Traditionally, we've marked required fields using an asterisk. A legend, usually placed above the form explains its meaning. I'm not entirely sure how this came to be, but having a layer of abstraction (between the symbol and the meaning) puts cognitive strain on the user. Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains it.*
+
+The Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In Required Versus Optional Fields[^] Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.*
+
+If required fields are the norm, and optional fields aren't, then it's the optional fields we should think about marking in some way. In this case put the word *optional*, in brackets, inside the label to ensure it is read out as part of the label. This way the information is obvious in context of the field.
+
 ## 3. Delivery address
 
 How it might look:

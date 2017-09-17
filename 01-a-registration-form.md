@@ -271,15 +271,15 @@ The exact words can match your brand's tone of voice, but don't exchange clarity
 
 ## Validation
 
-Despite our efforts to create an inclusive, simple and friction-free registration form, we can't completely eradicate human error. People make mistakes and when they do, we must ensure that remedying them is easy.
+Despite our efforts to create an inclusive, simple and friction-free registration form, we can't eradicate human error. People make mistakes and when they do, we must ensure that remedying them is easy.
 
 To do this, we'll need to consider: when to give feedback, how to display that feedback, what makes for a good error message and other tidbits.
 
-You can either provide feedback instantly (as the user types) or when they submit the form (either by clicking the submit button, or implicitly by pressing <kbd>enter</kbd> when focus is within the form).
+You can either provide feedback instantly (as the user types) or when they submit the form&mdash;either by clicking the submit button, or implicitly by pressing <kbd>enter</kbd> when focus is on a control.
 
 ### Inline Validation
 
-The most well-known type of instant feedback is inline validation. It works by giving users feedback as they type or as they leave the field (`onblur`). In theory, it's easier to fix errors as soon as they occur. Whilst this makes some sense, inline validation poses several problems.
+The first type of instant feedback is inline validation. It works by giving users feedback as they type or as they leave the field (`onblur`). In theory, it's easier to fix errors as soon as they occur and avoids users seeing a large amount of error messages at once. Whilst this makes some sense, inline validation poses several problems.
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted causing them to switch mental contexts: entering information and fixing it.
 
@@ -287,57 +287,61 @@ For entries that require a certain number of characters, the first keystroke wil
 
 Alternatively, we could wait until the user enters enough characters before showing an error. But this means the only way a user gets feedback is after they have provided the field successfully which is somewhat pointless.
 
-As noted above, we could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Another issue with this is that some users switch windows or use a password manager when using a form. But doing so will cause an error to show before the user is finished.
+We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Some users switch windows or use a password manager when using a form. Doing so triggers the blur event and will cause an error to show before the user is finished.
 
-In any case, many users have their eyes fixated on the keyboard as they type, so they may not even notice this type of feedback.
+In any case, many users have their eyes fixated on the keyboard as they type, so they may not notice the feedback at all.
 
-If user research shows that users are making lots of errors the first thing to do is to provide better guidance to avoid errors in the first place. This would mean that users aren't faced with a wall of errors on submission.
-
-And after all forms should be short in the first place, meaning that users shouldn't see a large set of errors anyway. If you're concerned about longer forms, we'll be covering those in the next chapter.
+If users are making lots of errors, there's probably something fundamentally wrong with the design of the form. Focus on shortening the form and provide clear labelling and hint text. This way users shouldn't see more than the odd error. We'll deal with longer forms in upcoming chapters.
 
 ### Disabling Submission Until Valid
 
-Another form of instant feedback is to disable the submit button until the form is valid. Whilst instant, this feedback is rather ambiguous and suffers from two crucial problems. First, disabled buttons are afforded by being ‘grayed out’ making the text hard-to-read. Second, if there is an error, the user won't know why that is and is instead left to guess which field is requires attention.
+Another form of instant feedback is to disable the submit button until the form is valid. This feedback is rather ambiguous and suffers from two crucial problems. 
+
+First, disabled buttons are afforded by being ‘grayed out’ making the text hard-to-read. Second, if there is an error, the user won't know why that is. Instead they're left to guess which (set of) field(s) require their attention.
 
 ### Checklist Affirmation Pattern
 
-The last type of instant feedback is what I call the Checklist Affirmation pattern. Like inline validation, it gives feedback as the user types, but instead of showing *errors* it marks each rule as correct. Mailchimp's sign up form uses this technique:
+The last type of instant feedback is what I call the Checklist Affirmation pattern. Like inline validation, it gives feedback as the user types, but instead of showing *errors* it marks each rule as correct.
 
 ![Mailchimp example](.)
 
-This is certainly less invasive than inline validation but it still has some potential pitfalls.
+This is less invasive than inline validation but it still suffers from several problems. First, it can only check the format. What appears to be successful may turn out to be a problem once the server processes it.
 
-- It only checks the formatting. That is, it may appear that the user has completed the field successfully but the server might catch another problem.
-- It creates an inconsistent experience. This is because other (less complex) fields won't have this behaviour.
-- On-screen keyboards, such as those found on mobile may obscure the rules causing the user to scroll to check what's going on.
-- It's still a form of distraction. The interface is updating as the user is working on a particular task.
-- Low confidence users or those that don't touch-type may not notice the feedback.
-- The rules take up a lot of space which may give the perception the task is bigger than it is.
+It also creates an inconsistent experience because some fields aren't appropriate. For example, you wouldn't use this technique on an email address whereby the user is ticking off it's required state and valid formatting for an email address.
+
+The feedback is likely to be obscured by on-screen keyboards found on mobile devices which may cause the user to stop what they're doing and to hide the keyboard to see what's going on.
+
+In the end, like inline validation, this is a distracting experience that takes control away from the user which fails principle 4, *Give control*.
 
 ### On Submit
 
-As we've seen, instant feedback updates the interface without the user taking explicit action. Unsurprisingly then, this creates a jarring, disruptive and confusing experience. Instead, we'll give users feedback when they explicitly expect to get it: on submit. In doing so, our design passes principle 4, *give control*.
+To *give control* and avoid the many problems with instant feedback, we can validate forms on submit. This way users take explicit action when they're ready to do so. In turn, they're almost certainly ready to receive feedback should there be any. 
 
-There's more to validating onsubmit than it simply being better than the other techniques. Validating onsubmit is a convention. It's just the way forms have been designed to work on the web. We can bypass convention but only if we have a really good reason to do so.
+Earlier, I said that we should use people's abilities, disabilities and preferences as constraints to guide us to design better experiences. But they aren't the only form of constraints. The platform, in this case the Web also provides a set of constraints which are often manifested by convention.
 
-One way of bypassing convention is by using Javascript. In fact, the 3 *instant feedback* techniques above require it to work. Without Javascript, we're left to rely on what browsers give us for free. This is good because constraints like this are important in design.
+Validating a form on submit is convention. It's just the way forms have always worked on the Web. Fortunately, conventional interfaces are familiar. And familiar interfaces generally require less cognitive effort. 
 
-> There is no creativity without constraint
+In any case, the form needs to be submitted to the server in the end of processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
 
-Without constraint, we can't be creative. As discussed earlier, the needs of users act as constraints, but so does the way in which a platform works. One assumption that designers make is that Javascript is always available and therefore relying on it is okay. This assumption is wrong. Blah designed an excellent poster entitled Everyone Has Javascript, Right[^13] that shows all the points of failure. Here are the main ones:
+It's worth noting that some browsers support HTML5 form validation. But there are concerns about the support and general usability of the browser's own implementation. As you'll see there are a number of custom provisions we'll need in order to give users an excellent from validation experience. In which case, the first thing we'll need to do is turn off HTML5 form validation.
 
-- If someone interacts with the page before Javascript has loaded
-- On a train and connection goes away before the Javascript loads
-- The request for Javascript failed
-- The corporate firewall or mobile operator blocked the script
-- Do they have an extension that inteferes with your script
-- Does the browser support the Javascript you've written
+```HTML
+<form novalidate>
+```
 
-Considering these additional problems, we realise that designing for ‘Javascript off’ is crucial. This is afterall an important aspect to Progressive Enhancement because when (not if) the enhancement fails this is the experience they'll get. Having explored the problem from a completely different angle, the answer still, is to validate `onsubmit`.
+The start of the script is as follows:
 
-Interestingly, I've frequently found that good experiences don't need Javascript. For example, on a large-scale Government digital service we only performed validation on the server. Having conducted frequent and thorough user research we never found this to be a problem. This is not to say client-side validation is *bad*, far from it. It's just that something that may appear to be problematic from the point of view of a designer, may not be a problem for users.
+```JS
+function FormValidator(form) {
+  form.on('submit', $.proxy(this, 'onSubmit'));
+}
 
-Also, Javascript validation tends to only check format. At some point we need to hit the server and run further checks. For example, checking that an email address has not been used to create another account already. By first designing without Javascript, not only do we reach *the widest possible audience*, but we expose scenarios that we may have otherwise missed.
+FormValidator.prototype.onSubmit = function(e) {
+  
+};
+```
+
+---
 
 ### Displaying errors
 
@@ -416,7 +420,7 @@ Like the hint pattern discussed earlier, we place the error inside the label (ab
 
 As is often the case with inclusive patterns like this, there is yet another benefit for placing the error above the field. In Avoid Messages Under Fields[^], Adrian Roselli explains that doing so is problematic because the browser's auto-complete and on-screen keyboards obscure them.
 
-*Note: The registration form contains text boxes. In the next chapter we'll look at how to handle other form controls such as radio buttons. The spoiler here is that injecting the error into a label doesn't work.*
+*Note: The registration form contains text boxes. In the next chapter we'll look at how to handle other form controls such as radio buttons. The spoiler is that injecting the error into a label doesn't work.*
 
 ### How to write errors
 

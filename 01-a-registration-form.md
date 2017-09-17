@@ -271,58 +271,41 @@ The exact words can match your brand's tone of voice, but don't exchange clarity
 
 ## Validation
 
-We've put in a lot of effort to create a well-designed registration form. Despite these efforts, we cannot eradicate human error. That is, people make mistakes and it's our job to make sure that fixing them is easy. To design a great validation experience we need to consider:
+Despite our efforts to create an inclusive, simple and friction-free registration form, we can't completely eradicate human error. People make mistakes and when they do, we must ensure that remedying them is easy.
 
-- When to give feedback
-- How to show errors
-- How to write errors
-- Be forgiving and restore values
+To do this, we'll need to consider: when to give feedback, how to display that feedback, what makes for a good error message and other tidbits.
 
-### When to give feedback
+You can either provide feedback instantly (as the user types) or when they submit the form (either by clicking the submit button, or implicitly by pressing <kbd>enter</kbd> when focus is within the form).
 
-We can either give users feedback instantly (as they type) or when they submit by pressing submit or through implicit submission. Implicit submission is when the user presses <kbd>enter</kbd> while focus is within a field. There are 3 flavours of instant feedback. We'll discuss each of these now.
+### Inline Validation
 
-#### Inline validation
+The most well-known type of instant feedback is inline validation. It works by giving users feedback as they type or as they leave the field (`onblur`). In theory, it's easier to fix errors as soon as they occur. Whilst this makes some sense, inline validation poses several problems.
 
-The first type of instant feedback is inline validation. This informs users whether what they type is valid as they type. The theory is that it’s easier to fix errors as soon as they occur. However, there are several problems with this approach.
+For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted causing them to switch mental contexts: entering information and fixing it.
 
-For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted causing them to switch mental contexts. That is, entering information and fixing it.
+![Instant error](.)
 
-![Pic](.)
+Alternatively, we could wait until the user enters enough characters before showing an error. But this means the only way a user gets feedback is after they have provided the field successfully which is somewhat pointless.
 
-We could wait until the user types enough characters before showing an error. But this means the only way in which a user will get feedback is after they have completed the field successfully which is pointless. Alternatively, we could provide feedback when the user leaves the field (`onblur`) but this is too late. The user has already started to prepare for (and to fill out) the next field.
+As noted above, we could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Another issue with this is that some users switch windows or use a password manager when using a form. But doing so will cause an error to show before the user is finished.
 
-Another problem with triggering feedback `onblur` is that some users switch windows or use a password manager to help fill out forms. But doing so will cause an error to show prematurely before the user finishes.
+In any case, many users have their eyes fixated on the keyboard as they type, so they may not even notice this type of feedback.
 
-![Pic](.)
+If user research shows that users are making lots of errors the first thing to do is to provide better guidance to avoid errors in the first place. This would mean that users aren't faced with a wall of errors on submission.
 
-These are just a few of the many problems with inline validation. The others are documented in Inline Validation is Problematic[^11].
+And after all forms should be short in the first place, meaning that users shouldn't see a large set of errors anyway. If you're concerned about longer forms, we'll be covering those in the next chapter.
 
-If research shows that users find lots of errors hard to deal with, then we can minimise this by:
+### Disabling Submission Until Valid
 
-- Removing unnecessary fields—we've done this already.
-- Ensuring fields have clear guidance—we've done this too.
-- Ensuring errors are presented clearly—we'll do this shortly.
-- Using One Thing Per Page—we'll discuss this in the next chapter.
-- Using Errors-only approach[^12].
+Another form of instant feedback is to disable the submit button until the form is valid. Whilst instant, this feedback is rather ambiguous and suffers from two crucial problems. First, disabled buttons are afforded by being ‘grayed out’ making the text hard-to-read. Second, if there is an error, the user won't know why that is and is instead left to guess which field is requires attention.
 
-In any case, designing a ‘perfect’ inline validation experience is nigh on impossible.
+### Checklist Affirmation Pattern
 
-#### Disabling the submit button until the form is valid
+The last type of instant feedback is what I call the Checklist Affirmation pattern. Like inline validation, it gives feedback as the user types, but instead of showing *errors* it marks each rule as correct. Mailchimp's sign up form uses this technique:
 
-Another form of instant feedback is where the submit button is disabled until the form is valid. The user types like normal, and when all the fields becomes valid, the submit button is enabled.
+![Mailchimp example](.)
 
-Whilst this feedback is instant, it's also ambiguous and suffers from two  problems. First, disabled buttons are afforded by being ‘grayed out’, but this makes the button hard-to-read.
-
-Secondly, and more crucially, if there is an error, the user won't know why. Instead, they're left to guess which fields are erroneous and need their attention.
-
-#### Checklist affirmation pattern
-
-The last type of instant feedback is what we might call checklist affirmation. Like inline validation, it provides feedback as the user types. Except, instead of showing *errors* it marks each rule as correct. Mailchimp's sign up form uses this technique:
-
-![MC](.)
-
-This is certainly less invasive than inline validation but it still has the following problems:
+This is certainly less invasive than inline validation but it still has some potential pitfalls.
 
 - It only checks the formatting. That is, it may appear that the user has completed the field successfully but the server might catch another problem.
 - It creates an inconsistent experience. This is because other (less complex) fields won't have this behaviour.
@@ -331,7 +314,7 @@ This is certainly less invasive than inline validation but it still has the foll
 - Low confidence users or those that don't touch-type may not notice the feedback.
 - The rules take up a lot of space which may give the perception the task is bigger than it is.
 
-#### Validating `onsubmit`
+### On Submit
 
 As we've seen, instant feedback updates the interface without the user taking explicit action. Unsurprisingly then, this creates a jarring, disruptive and confusing experience. Instead, we'll give users feedback when they explicitly expect to get it: on submit. In doing so, our design passes principle 4, *give control*.
 

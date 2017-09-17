@@ -22,22 +22,19 @@
 - A Password Field
 	- Password Reveal
 - Button styles
-	- Buttons aren't links
-	- Where to position the button
-	- Button text
+	- Placement
+	- Text
 - Validation
-	- When to give feedback
-		- Inline validation
-		- Disabling submit until valid
-		- Checklist affirmation
-		- On submit
-	- How to show errors
+	- Inline Validation
+	- Disabling Submission Until Valid
+	- Checklist affirmation
+	- On submit
+	- Showing errors
 		- Changing the page title
 		- Displaying an error summary
 		- Displaying an in-context error
-	- How to write errors
+	- Good error message
 	- Be forgiving and restore values
-	- Validation component
 
 ## 2. A checkout flow
 

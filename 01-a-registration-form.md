@@ -137,15 +137,20 @@ The downside is that they are unfamiliar, which may cause anxiety for users, tha
 
 Whether it's the No Password Sign In pattern or passphrases, we should only move away from convention once we've conducted thorough and diverse user research. You don't want to exchange one set of problems for another.
 
-## Label position
+## A note on styling
 
-The label and hint have purposely been positioned above the field. The alternative (for those that read left to right at least) is left-aligned labels. The supposed advantage is that it reduces the overall height of the form. We already know that it's unwise to focus soley on reducing the height of a form through interface jiggery, but let's take a look at some research anyway.
+The way you style your form components will, at least in part, be determined by your product or companies brand guidelines. With that said, there are some considerations that will universally help your users.
 
-In Label Placement in Forms[^6], Matteo Penzo's eye tracking research showed that labels above the field are easier to read and faster to complete. Though it must be said it's probably not a big deal. After all, the time to understand the question and enter the answer, takes far longer than reading the label.
+First, the label (and optional hint) is placed above the form controls. In “Label Placement In Forms”[^6], Matteo Penzo's eye tracking tests showed that labels are easier to read this way. Though the time to understand the question and answer it, takes far longer than reading the label. 
 
-Moreover, there are practical reasons to avoid left-aligned labels. On small screens, oriented in portrait (such as mobile phones) there is no space anyway. And for those using screen magnifiers there is more chance of the label disappearing off screen.
+More practically on small screen devices there is no space to put the label anywhere else. And for visually-impaired users who use a screen magnifier, there is less chance of the label disppearing off screen this way.
 
 And, labels that contain lots of text will wrap onto multiple lines, disrupting the form's visual rhythm. Whilst we should strive to keep labels and hints terse, this is not always possible and so it's a good move to use a pattern that accomodates the varying length of content found in different forms.
+
+- Font-size
+- Padding
+- Hit area
+- Thick border
 
 ## Focus styles
 

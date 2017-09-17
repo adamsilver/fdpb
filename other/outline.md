@@ -1,6 +1,6 @@
 # Outline
 
-## 0. Introduction (1500)
+## 0. Introduction
 
 - Why forms?
 - Why patterns?
@@ -8,19 +8,18 @@
 - What about principles?
 - House keeping[?]
 
-## 1. A registration form (7500)
+## 1. A registration form
 
 - Introduction
-- Describing the field
-	- Every control needs a label
-	- Placeholders and hints
-	- Float labels
+- Labels
+- Placeholders
+- Float Labels
 - Question Protocol
-	- First and last name
-	- Password
-- Highlighting required fields
-- Positioning labels
-- Focus styles
+	- No Password Sign In
+	- Passphrases
+- Styling
+	- Label position
+	- Focus styles
 - An email field
 	- Label text
 	- Input type
@@ -47,13 +46,14 @@
 	- Be forgiving and restore values
 	- Validation component
 
-## 2. A checkout flow (6000)
+## 2. A checkout flow
 
 - Introduction
 - One Thing Per page
 - Flow and order
 - (1) Email address
 - (2) Mobile phone
+	- Optional fields
 - (3) Delivery address
 	- Field width
 	- Improving UX with Capture+
@@ -83,7 +83,7 @@
 - Order summary
 - Checkout specific header
 
-## 3. A flight booking service (8500)
+## 3. A flight booking service
 
 - Introduction
 - Flow and order
@@ -113,7 +113,7 @@
 		- disabling unavailable seats
 	- Enhancing the interface
 
-## 4. A login form (2500)
+## 4. A login form
 
 - Password hint
 - Use explicit labels
@@ -156,13 +156,13 @@
 	- A note on toast notifications and dismissing messages
 	- Confirming vs undoing
 
-## 6. A search form (1000)
+## 6. A search form
 
 - Introduction
 - Search everything
 - Responsive design
 
-## 7. A filter (2000)
+## 7. A filter
 
 - Introduction
 - Filter types
@@ -170,7 +170,7 @@
 - AJAX
 - Responsive/adaptive
 
-## 8. A file upload form (2000)
+## 8. A file upload form
 
 - A single file input
 	- A note on aesthetics
@@ -189,13 +189,13 @@
 	- Infrequent usage
 	- Frequent usage
 
-## 9. An expense form (2000)
+## 9. An expense form
 
 - Ever present form pattern
 - One Thing Per Page pattern (again)
 - Add another pattern
 
-## 10. A really long form (1000)
+## 10. A really long form
 
 - Task list pattern
 

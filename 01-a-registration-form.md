@@ -247,9 +247,9 @@ input[type=password]::-ms-reveal {
 
 ## Button styles
 
-The first thing to know about buttons is that they aren't links. Links are typically underlined or have special placement (navigation bar) to differentiate them  standard text. When hovering a link, the cursor will change to a hand. This is because, unlike buttons, links have weak affordance[^8].
+The first thing to know about buttons is that they aren't links. Links are typically underlined or specially placed within the page (navigation bar) so that they are visually identifiable amongst standard text. When hovering a link, the cursor will change to a hand. This is because, unlike buttons, links have weak affordance[^8].
 
-In Resilient Web Design[^9], Jeremy Keith discusses the idea of material honesty. He says that *one material should not be used as a substitute for another. Otherwise the end result is deceptive.* Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not.
+In “Resilient Web Design”[^9], Jeremy Keith discusses the idea of material honesty. He says that *one material should not be used as a substitute for another. Otherwise the end result is deceptive.* Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not.
 
 Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons which have naturally strong affordance. Whether they have rounded corners, drop shadows, borders is up to you, but they should look like buttons regardless.
 
@@ -257,17 +257,15 @@ Buttons should still give mouse users feedback on hover by changing the backgrou
 
 ### Placement
 
-The submit button is typically placed at the foot of the form. This is because with most forms, users fill out the fields from top to bottom and then submit, but should the button be aligned left, right or center? To answer this question, we need to think about where users will naturally look for it.
+Submit buttons are typically placed at the foot of the form. This is because with most forms, users fill out the fields from top to bottom and then submit. But should the button be aligned left, right or center? To answer this question, we need to think about where users will naturally look for it.
 
-Field labels and form controls are aligned left and run from top to bottom. Users are going to look for the next field below the last one. Naturally then, the submit button should also be positioned in that location: to the left and directly below the last form field. Eye tracking tests prove this to be so. This again helps users who zoom in, as a right aligned button can easily disappear off screen.
+Field labels and form controls are aligned left and run from top to bottom. Users are going to look for the next field below the last one. Naturally then, the submit button should also be positioned in that location: to the left and directly below the last form field. Eye tracking tests prove this to be so. Again, this helps users who zoom in&mdash;a right aligned button could disappear off screen more easily.
 
 ### Text
 
-The button's text is just as, if not more important than its styling. The text should explicitly describe the action being taken. And because it's an action, it should be a verb.
+The button's text is just as, if not more important than its styling. The text should explicitly describe the action being taken. And because it's an action, it should be a verb. We should aim to use as fewer words as possible because less words are quicker to read. But we shouldn't remove words at the cost of clarity.
 
-We should aim to use as fewer words as possible because less words are quicker to read. But we shouldn't remove words at the cost of clarity.
-
-The exact words can match your brand's tone of voice, but don't exchange clarity for cuteness. Using simple and plain language is easy to understand for everyone. In this case “Register” or the slighlty warmer “Sign up” is fine.
+The exact words can match your brand's tone of voice, but don't exchange clarity for quirkiness. Using simple and plain language is easy to understand for everyone. The exact words will depend on the type of service. In this case “Register” or the slighlty softer “Sign up” is fine.
 
 ## Validation
 
@@ -287,17 +285,17 @@ For entries that require a certain number of characters, the first keystroke wil
 
 Alternatively, we could wait until the user enters enough characters before showing an error. But this means the only way a user gets feedback is after they have provided the field successfully which is somewhat pointless.
 
-We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Some users switch windows or use a password manager when using a form. Doing so triggers the blur event and will cause an error to show before the user is finished.
+We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Some users switch windows or use a password manager when using a form. Doing so will trigger the blur event and causing an error to show before the user is finished. All very frustrating.
 
 In any case, many users have their eyes fixated on the keyboard as they type, so they may not notice the feedback at all.
 
-If users are making lots of errors, there's probably something fundamentally wrong with the design of the form. Focus on shortening the form and provide clear labelling and hint text. This way users shouldn't see more than the odd error. We'll deal with longer forms in upcoming chapters.
+If users are making lots of errors, there's probably something fundamentally wrong elsewhere. Focus on shortening the form and provide clear labelling and hint text. This way users shouldn't see more than the odd error. We'll deal with longer forms in upcoming chapters.
 
 ### Disabling Submission Until Valid
 
 Another form of instant feedback is to disable the submit button until the form is valid. This feedback is rather ambiguous and suffers from two crucial problems. 
 
-First, disabled buttons are afforded by being ‘grayed out’ making the text hard-to-read. Second, if there is an error, the user won't know why that is. Instead they're left to guess which (set of) field(s) require their attention.
+First, disabled buttons are afforded by being ‘grayed out’ making the text hard-to-read. Second, if there is an error, the user won't know why. Instead they're left to guess which (set of) field(s) require their attention.d
 
 ### Checklist Affirmation Pattern
 
@@ -305,17 +303,19 @@ The last type of instant feedback is what I call the Checklist Affirmation patte
 
 ![Mailchimp example](.)
 
-This is less invasive than inline validation but it still suffers from several problems. First, it can only check the format. What appears to be successful may turn out to be a problem once the server processes it.
+This is less invasive than inline validation but it still suffers from several problems. First, it can only check the format. That is, what appears to be successful may turn out to be a problem once submitted to the server.
 
-It also creates an inconsistent experience because some fields aren't appropriate. For example, you wouldn't use this technique on an email address whereby the user is ticking off it's required state and valid formatting for an email address.
+It also creates an inconsistent experience because some fields aren't appropriate to employ this technique. For example, you wouldn't use this technique on an email address whereby the user is ticking off it's required state and valid formatting for an email address.
 
-The feedback is likely to be obscured by on-screen keyboards found on mobile devices which may cause the user to stop what they're doing and to hide the keyboard to see what's going on.
+Also, the feedback will be obscured on mobile by the on-screen keyboard which may cause the user to stop what they're doing and hide the keyboard to see what's going on.
 
 In the end, like inline validation, this is a distracting experience that takes control away from the user which fails principle 4, *Give control*.
 
 ### On Submit
 
-To *give control* and avoid problems with instant feedback, we can validate forms on submit. This way users take explicit action which in turn, means they're ready to receive feedback. 
+To *give control* and avoid problems with instant feedback, we should validate forms on submit. This way users can focus on filling out the form without being interupted.  If the form is short and has well written guidance, then this won't take long.
+
+Then, and only when ready, the user can explicitly submit the form. This is when a user would expect to get feedback: positive or otherwise.
 
 Earlier, I said that we should use people's abilities, disabilities and preferences as constraints to guide us to design better experiences. But they aren't the only form of constraints. The platform, in this case the Web, also provides a set of constraints which are often manifested by convention.
 
@@ -323,13 +323,13 @@ Validating a form on submit is convention. It's just the way forms have always w
 
 In any case, the form needs to be submitted to the server for processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
 
-Some browsers support HTML5 validation, but we want to design a number of custom provisions that will work for almost every browser. In which case, we'll need to turn HTML5 validation off as follows:
+Some browsers support HTML5 validation. But as there are concerns about the support, uniformity, utility and general usability of it, we'll be creating our own solution. In which case, the first thing we need to do is turn it off by including the `novalidate` attribute on the form element.
 
 ```HTML
 <form novalidate>
 ```
 
-First, we need to listen to the form's submit event in order to check the fields pass various rules.
+Now we're free to listen to the form's submit event so that when the user submits, we can validate the fields.
 
 ```JS
 function FormValidator(form) {
@@ -344,19 +344,19 @@ FormValidator.prototype.onSubmit = function(e) {
 };
 ```
 
-The validate method will return `false` if the form contains errors. In this case we're going to need to present errors. There are three disparate parts of the interface that need to be updated to do this:
+The validate method will return `false` if the form contains errors. In this case we're going to need to present errors. There are three disparate parts of the interface that need to be updated:
 
 1. The page title
 2. The error summary
 3. Inline error messages
 
-For (1) we need to change the contents of the `<title>` to inform users that there are errors. Where the original title might read ‘Register for [awesome service]’, on error it should read ‘Retry - Register for [awesome service]’ or similar.
+For (1) we need to change the contents of the `<title>` to inform users that there are errors. Where the original title reads ‘Register for [awesome service]’, on error it should read ‘Retry - Register for [awesome service]’ or similar.
 
-This is especially useful for errors caught on the server because this is the first thing a screen reader will announce after the page is refreshed. Admittedly, this is not as useful for sighted users, but for those who switch between multiple tables, the prefixed status on the tab acts a psuedo notification.
+This is especially useful for errors caught on the server because this is the first thing a screen reader will announce after a page refresh. Whilst not as useful for sighted users, for those who switch between multiple tabs, the prefixed status on the tab acts a psuedo notification.
 
 For (2), we'll need to inject an error summary to the top of the page. This is a convention that means after a page refresh, users don't need to scroll, which is the visual equivalent of immediately hearing the page title read out.
 
-![Error summary](/)
+![Error summary](.)
 
 When errors are caught on the client, we'll need to bring it into view by setting focus to it.
 

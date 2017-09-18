@@ -344,35 +344,29 @@ FormValidator.prototype.onSubmit = function(e) {
 };
 ```
 
-The validate method will return `false` if the form contains errors. In this case we're going to need to present errors. There are three disparate parts of the interface that need to be updated:
+The validate method will return `false` if the form contains errors.
 
-1. The page title
-2. The error summary
-3. Inline error messages
+*Note: some validation libraries listen to the submit button's click event. You should avoid this because it stops implicit submission from working.*
 
-For (1) we need to change the contents of the `<title>` to inform users that there are errors. Where the original title reads ‘Register for [awesome service]’, on error it should read ‘Retry - Register for [awesome service]’ or similar.
+### Displaying errors
 
-This is especially useful for errors caught on the server because this is the first thing a screen reader will announce after a page refresh. Whilst not as useful for sighted users, for those who switch between multiple tabs, the prefixed status on the tab acts a psuedo notification.
+In this case we're going to need to present errors. There are three disparate parts of the interface that need to be updated which we'll talk about each in turn.
 
-For (2), we'll need to inject an error summary to the top of the page. This is a convention that means after a page refresh, users don't need to scroll, which is the visual equivalent of immediately hearing the page title read out.
+#### 1. Updating The Document Title
+
+Changing the `<title>` is especially useful for errors caught on the server. This is because the title is the first thing to be read out by screen readers after a page refresh. Where the original reads ‘Register for [awesome service]’, when there's an error it should be changed to ‘Retry - Register for [awesome service]’ (or similar).
+
+Whilst not as useful for sighted users, those who open and switch between multiple tabs will see the prefixed text on the tab which acts a psuedo notification of sorts.
+
+#### 2. Displaying An Error Summary
+
+We'll also need to inject an error summary at the top of the page above the form. Sighted users will see it without having to scroll, and screen reader users will hear it quickly without having to wade through the entire document.
 
 ![Error summary](.)
 
-When errors are caught on the client, we'll need to bring it into view by setting focus to it.
+Errors should be styled in red by convention. But we shouldn't rely solely on colour to demarcate it. In addition to its placement, providing a concise heading and border makes it prominent.
 
-```JS
-FormValidator.prototype.focusSummary = function() {
-  this.summary.focus();
-};
-```
-
----
-
-Conventionally speaking, we should style errors in red. But to support those who can't see (the full range of) colour, we'll make sure the summary is prominent without it by using a short heading and placing it near the top of the screen.
-
-[!](.)
-
-```html
+```HTML
 <div class="errorSummary" role="alert">
   <h2 tabindex="-1">There's a problem</h2>
   <ul>
@@ -382,29 +376,38 @@ Conventionally speaking, we should style errors in red. But to support those who
 </div>
 ```
 
-Notes:
+The `div` has a role of `alert` which tells screen readers to announce the region immediately. Each error message is displayed inside a link that moves focus to the related field. 
 
-- `role="alert"` ensures that a screen reader announces the problem when the page loads.
-- The `tabindex` is for Javascript. It lets us move focus to the summary when the user submits the form lower down the page.
-- Each error message represented by a link, moves focus to the erroneous field.
+The heading has a `tabindex` attribute set to `-1` which allows us to programmatically set focus to it using Javascript. As headings aren't naturally focusable, users won't be able to tab to it. HEYDON DO SOMETHING
+Enabling focus lets us bring the summary panel into view.
 
-When the page loads for the first time *without* errors the summary panel should be empty and hidden. This ensures that we can inject errors from the server or the client to the same location.
-
-```HTML
-<div class="errorSummary errorSummary-isHidden">
+```JS
+FormValidator.prototype.focusSummary = function() {
+  this.summary.focus();
+};
 ```
 
+When there aren't any errors, the summary panel should be hidden. This ensures that there is only ever one summary panel in the same location, whether errors are caught on the client or the server. To do this add a hidden attribute as follows:
+
+```HTML
+<div class="errorSummary" hidden></div>
+```
+
+Some browsers don't support the hidden attribute, so for those browsers you'll need to add the following CSS:
+
 ```CSS
-.errorSummary-isHidden {
-	display: none;
+[hidden] {
+  display: none;
 }
 ```
 
-#### 3. Show in-context errors
+#### 3. In-context Errors
 
-As the user moves through an erroneous form we don't want them to have to scroll up and down. *Up* to check the error and *down* to fix it. We also want screen readers to announce the error message as the user enters the erroneous field. This ensures that users have the information they need as they need it. We can achieve all this by simply injecting an error message into the label. This is the same approach we took earlier to give users hints.
+In addition to the panel, we'll need to put error messages in context of each erroneous field. This is to stop users having to keep checking the guidance at the top of the page to fix errors further down within the form itself.
 
-[!In context errror](.)
+![In-context Errors](.)
+
+Once again it's red by convention, but is inclusive to colour blind users thanks to the inset left border and text content.
 
 ```html
 <div class="field">
@@ -415,9 +418,7 @@ As the user moves through an erroneous form we don't want them to have to scroll
 </div>
 ```
 
-Like the hint pattern discussed earlier, we place the error inside the label (above the field) for the same reasons. It gives broad support for screen readers. That is, it will be read out with the label (and hint) when focussed.
-
-As is often the case with inclusive patterns like this, there is yet another benefit for placing the error above the field. In Avoid Messages Under Fields[^], Adrian Roselli explains that doing so is problematic because the browser's auto-complete and on-screen keyboards obscure them.
+Adrian Roselli points out that placing errors underneath fields is problematic[^] because both the browser's autocompletion panel and on-screen keyboard could obscure them. But that's not all. The error message itself needs to be injected inside the `label`. This ensures the error is read out when the control is focused.
 
 *Note: The registration form contains text boxes. In the next chapter we'll look at how to handle other form controls such as radio buttons. The spoiler is that injecting the error into a label doesn't work.*
 
@@ -466,131 +467,7 @@ Jared Spool makes a joke about this in Design is Metrically Opposed[^16], at 42 
 
 When an error occurs and the page is refreshed, we should restore whatever it is the user typed. Making users re-type the same information twice is something some just won't do, nor should they have to.
 
-### Validation component
-
-There are concerns about the support and uniformity of HTML5 form validation. Our approach validation requries a custom implementation. To grant us this flexibility, we'll need to turn off HTML5 form validation in browsers that support it:
-
-```HTML
-<form novalidate>
-```
-
-This enables us to create a reusable and custom validation solution in Javascript:
-
-```JS
-function FormValidator(form, options) {
-  this.form = form;
-  this.errors = [];
-  this.validators = [];
-  $(this.form).on("submit", $.proxy(this, "onFormSubmit"));
-  this.summary = $(".errorSummary");
-  this.summary.on('click', 'a', $.proxy(this, 'onErrorClicked'));
-};
-
-FormValidator.prototype.onErrorClicked = function(e) {
-    e.preventDefault();
-    var href = e.target.href;
-    href = href.substring(href.indexOf("#")+1, href.length);
-    document.getElementById(href).focus();
-};
-
-FormValidator.prototype.showSummary = function () {
-    this.summary.html(this.getSummaryHtml());
-    this.summary.removeClass('errorSummary-isHidden');
-    this.summary.focus();
-};
-
-FormValidator.prototype.getSummaryHtml = function() {
-  var errors = this.getErrors();
-    var html = '<h2>You have ' + errors.length + ' errors</h2>';
-    html += '<ul>';
-    for (var i = 0, j = errors.length; i < j; i++) {
-        var error = errors[i];
-        html += '<li>';
-        html +=   '<a href="#' + error.fieldName + '">';
-        html +=     error.message;
-        html +=   '</a>';
-        html += '</li>';
-    }
-    html += '</ul>';
-    return html;
-};
-
-FormValidator.prototype.hideSummary = function() {
-    this.summary.addClass('errorSummary-isHidden');
-};
-
-FormValidator.prototype.onFormSubmit = function (e) {
-  this.removeInlineErrors();
-  this.hideSummary();
-  if(!this.validate()) {
-    e.preventDefault();
-    this.showSummary();
-    this.showInlineErrors();
-  }
-};
-
-FormValidator.prototype.showInlineErrors = function() {
-  var errors = this.getErrors();
-  for (var i = 0, j = errors.length; i < j; i++) {
-    this.showInlineError(errors[i]);
-  }
-};
-
-FormValidator.prototype.showInlineError = function (error) {
-  var errorSpan = '<span class="field-error"><span>Error:</span> '+error.message+'</span>';
-  var fieldContainer = $("#" + error.fieldName).parents(".field");
-  var label = fieldContainer.find('label');
-  var legend = fieldContainer.find("legend");
-  var errorContainer = fieldContainer.find(".error");
-  errorContainer.remove();
-  if(legend.length) {
-    legend.append(errorSpan);
-  } else {
-    label.append(errorSpan);
-  }
-};
-
-FormValidator.prototype.removeInlineErrors = function () {
-  $(this.form).find(".field .field-error").remove();
-};
-
-FormValidator.prototype.addValidator = function(fieldName, rules) {
-  this.validators.push({
-    fieldName: fieldName,
-    rules: rules,
-    field: this.form.elements[fieldName]
-  });
-};
-
-FormValidator.prototype.validate = function() {
-  this.errors = [];
-  var validator = null,
-    validatorValid = true,
-    i,
-    j;
-  for (i = 0; i < this.validators.length; i++) {
-    validator = this.validators[i];
-    for (j = 0; j < validator.rules.length; j++) {
-      validatorValid = validator.rules[j].method(validator.field,
-        validator.rules[j].params);
-      if (!validatorValid) {
-        this.errors.push({
-          fieldName: validator.fieldName,
-          message: validator.rules[j].message
-        });
-        break;
-      }
-    }
-  }
-  return this.getErrors().length === 0;
-};
-
-FormValidator.prototype.getErrors = function() {
-  return this.errors;
-};
-```
-
-Notes:
+JS Notes:
 
 - It listens to the form's `submit` event.
 - On submit, it clears any errors and validates the form.

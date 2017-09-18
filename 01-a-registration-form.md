@@ -469,11 +469,7 @@ When an error occurs and the page is refreshed, we should restore whatever it is
 
 JS Notes:
 
-- It listens to the form's `submit` event.
 - On submit, it clears any errors and validates the form.
-- The validate method steps through each validator that has been added (more on this shortly).
-- Each validator rule that fails will be added to the `errors` collection.
-- If there are errors, it prevents submission to server and shows the errors in the collection as per the above specification.
 
 To create an instance for the registration we'd need something like this:
 

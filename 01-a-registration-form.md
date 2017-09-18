@@ -422,6 +422,40 @@ Adrian Roselli points out that placing errors underneath fields is problematic[^
 
 *Note: The registration form contains text boxes. In the next chapter we'll look at how to handle other form controls such as radio buttons. The spoiler is that injecting the error into a label doesn't work.*
 
+JS Notes:
+
+- On submit, it clears any errors and validates the form.
+
+To create an instance for the registration we'd need something like this:
+
+```JS
+var validator = new FormValidator(form);
+```
+
+Then create a validator for each field that needs validating. Here's the email field validator:
+
+```JS
+validator.addValidator('email', [{
+  method: function(field) {
+      return field.value.trim().length > 0;
+  },
+  message: 'Enter your email address.'
+},{
+  method: function(field) {
+      return (field.value.indexOf('@') > -1);
+    },
+  message: 'Enter the ‘at’ symbol in the email address.'
+}]);
+```
+
+Notes:
+
+- Each validator takes the field name as the first parameter and an array of rules as the second.
+- Rules are made up of two properties: method and message.
+- The message is the error message, which it uses to populate the summary and in context messages.
+- The method has a field parameter and we can interrogate the field to test that it passes some logic. If it passes the method should return true, otherwise false.
+- It's up to each method to be as forgiving as possible. The email validator, for example, trims the value before checking length.
+
 ### How to write errors
 
 Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^15].
@@ -466,40 +500,6 @@ The best problems are the ones users don't have to even know about. We can forgi
 Jared Spool makes a joke about this in Design is Metrically Opposed[^16], at 42 minutes in. He says ‘it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong’.
 
 When an error occurs and the page is refreshed, we should restore whatever it is the user typed. Making users re-type the same information twice is something some just won't do, nor should they have to.
-
-JS Notes:
-
-- On submit, it clears any errors and validates the form.
-
-To create an instance for the registration we'd need something like this:
-
-```JS
-var validator = new FormValidator(form);
-```
-
-Then create a validator for each field that needs validating. Here's the email field validator:
-
-```JS
-validator.addValidator('email', [{
- 	method: function(field) {
-    	return field.value.trim().length > 0;
-	},
-	message: 'Enter your email address.'
-},{
-	method: function(field) {
-    	return (field.value.indexOf('@') > -1);
-  	},
-	message: 'Enter the ‘at’ symbol in the email address.'
-}]);
-```
-
-Notes:
-
-- Each validator takes the field name as the first parameter and an array of rules as the second.
-- Rules are made up of two properties: method and message.
-- The message is the error message, which it uses to populate the summary and in context messages.
-- The method has a field parameter and we can interrogate the field to test that it passes some logic. If it passes the method should return true, otherwise false.
-- It's up to each method to be as forgiving as possible. The email validator, for example, trims the value before checking length.
 
 ## Summary
 

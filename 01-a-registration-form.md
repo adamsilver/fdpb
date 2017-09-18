@@ -313,9 +313,7 @@ In the end, like inline validation, this is a distracting experience that takes 
 
 ### On Submit
 
-To *give control* and avoid problems with instant feedback, we should validate forms on submit. This way users can focus on filling out the form without being interupted.  If the form is short and has well written guidance, then this won't take long.
-
-Then, and only when ready, the user can explicitly submit the form. This is when a user would expect to get feedback: positive or otherwise.
+To *give control* and avoid problems with instant feedback, we should validate forms on submit. This way users can focus on filling out the form without being interupted. If the form is short and has well written guidance, then this won't take long. Then, and only when ready, the user can explicitly submit the form at which time the user would expect to receive feedback&mdash;positive or otherwise.
 
 Earlier, I said that we should use people's abilities, disabilities and preferences as constraints to guide us to design better experiences. But they aren't the only form of constraints. The platform, in this case the Web, also provides a set of constraints which are often manifested by convention.
 
@@ -323,13 +321,15 @@ Validating a form on submit is convention. It's just the way forms have always w
 
 In any case, the form needs to be submitted to the server for processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
 
-Some browsers support HTML5 validation. But as there are concerns about the support, uniformity, utility and general usability of it, we'll be creating our own solution. In which case, the first thing we need to do is turn it off by including the `novalidate` attribute on the form element.
+Some browsers support HTML5 form validation. Unfortunately, there are concerns about the support, uniformity, utility and general usability of this approach. In any case, we want to design our own implementation to account for a number of specific provisions.
+
+In which case, the first thing we need to do is turn off HTML5 form validation by adding the `novalidate` boolean attribute on the form.
 
 ```HTML
 <form novalidate>
 ```
 
-Now we're free to listen to the form's submit event so that when the user submits, we can validate the fields.
+Now we're free to listen to the form's submit event so that when the user submits, we can validate the fields. Some validation libraries choose to listen to the click even on the submit button directly but this should be avoided because it removes the ability for users to submit the form by pressing <kbd>enter</kbd> when focus is within a field.
 
 ```JS
 function FormValidator(form) {
@@ -344,9 +344,7 @@ FormValidator.prototype.onSubmit = function(e) {
 };
 ```
 
-The validate method will return `false` if the form contains errors.
-
-*Note: some validation libraries listen to the submit button's click event. You should avoid this because it stops implicit submission from working.*
+When there are errors the script stops the form from being submitted to the server (like normal) by calling `e.preventDefault()`. This lets us update the interface as we see fit.
 
 ### Displaying errors
 
@@ -403,11 +401,11 @@ Some browsers don't support the hidden attribute, so for those browsers you'll n
 
 #### 3. In-context Errors
 
-In addition to the panel, we'll need to put error messages in context of each erroneous field. This is to stop users having to keep checking the guidance at the top of the page to fix errors further down within the form itself.
+We also need to put the relevant error message beside the field. This saves users from having to repeatedly check the summary panel at the top of the page which is likely to include scrolling up and down.
 
 ![In-context Errors](.)
 
-Once again it's red by convention, but is inclusive to colour blind users thanks to the inset left border and text content.
+Once again, the messages are coloured red by convention and colour blind users are catered for thanks to the inset border on the left hand side. The message is placed above the field and inside the label. Placing it above the field reduces the chance of the message being obscured either by the browser's autocomplete suggestions or by mobile on-screen keyboards which show on focus.
 
 ```html
 <div class="field">
@@ -418,15 +416,21 @@ Once again it's red by convention, but is inclusive to colour blind users thanks
 </div>
 ```
 
-Adrian Roselli points out that placing errors underneath fields is problematic[^] because both the browser's autocompletion panel and on-screen keyboard could obscure them. But that's not all. The error message itself needs to be injected inside the `label`. This ensures the error is read out when the control is focused.
+Like the hint pattern mentioned earlier, the error message is also injected inside the label. This is ensures that when the field is focused, screen reader users will hear the message in context.
 
-*Note: The registration form contains text boxes. In the next chapter we'll look at how to handle other form controls such as radio buttons. The spoiler is that injecting the error into a label doesn't work.*
+```JS
+Injected the message into the label
+```
 
-JS Notes:
+*Note: the registration form only consists of text inputs. In the next chapter we'll look at how to inject errors accessibly for other types of fields such as radio buttons.*
 
-- On submit, it clears any errors and validates the form.
+If the user does cause errors, then when the user next submits the form, we need to clear the errors before performing the same routine again. Otherwise, the errors will remain.
 
-To create an instance for the registration we'd need something like this:
+```JS
+clear error message code
+```
+
+Creating an instance of the FormValidator is as follows:
 
 ```JS
 var validator = new FormValidator(form);

@@ -25,15 +25,18 @@
 	- Placement
 	- Text
 - Validation
-	- Inline Validation
-	- Disabling Submission Until Valid
-	- Checklist affirmation
-	- On submit
-	- Showing errors
+	- Introduction
+	- Something Is Broken
+	- Presenting Errors
 		- Changing the page title
 		- Displaying an error summary
 		- Displaying an in-context error
-	- Good error message
+	- Submitting For A Second Time
+	- Instant Feedback
+		- Inline Validation
+		- Disabling Submission Until Valid
+		- Checklist affirmation
+	- Crafting Error Messages
 	- Be forgiving and restore values
 
 ## 2. A checkout flow

@@ -269,7 +269,7 @@ The exact words can match your brand's tone of voice, but don't exchange clarity
 
 ## Validation
 
-Despite our efforts to create an inclusive, simple and friction-free registration form, we can't eradicate human error. People make mistakes and when they do, we must ensure that remedying them is easy.
+Despite our efforts to create an inclusive, simple and friction-free registration form, we can't eradicate human error. People make mistakes and when they do, we should make remedying them as easy as possible.
 
 To do this, we'll need to consider: when to give feedback, how to display that feedback, what makes for a good error message and other tidbits.
 

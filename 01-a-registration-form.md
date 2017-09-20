@@ -269,17 +269,21 @@ The exact words can match your brand's tone of voice, but don't exchange clarity
 
 ## Validation
 
-Despite our efforts to create an inclusive, simple and friction-free registration experience, we can't eradicate human error. People make mistakes and when they do, we should make remedying them as easy as possible. There are a number of details to consider: when to validate, how to present errors, restoring entries and error message text. All of these things are crucial.
+Despite our efforts to create an inclusive, simple and friction-free registration experience, we can't eliminate human error. People make mistakes and when they do, we should make remedying them as easy as possible. 
 
-Normally, I would recommend using browser's native functionality (HTML5 validation) where possible because it's often performant, robust and accessible by default. But it's somewhat patchy and buggy, particularly on iOS and Android[^]. 
+When it comes to form validaton, there are a number of important details to consider. Choosing when to give feedback, through to how to display that feedback, down to the formulation of a good error message&mdash;all of these things need to be taken into account.
 
-Instead, we'll create a solution from scratch which lets us bypass the associated problems while simultaneously enabling us to cater for several design provisions. In which case, the first thing we'll need to do is turn off HTML5 validation. Otherwise, the browser's validation routine will intefere with our own. To do this, add `novalidate` to the form element as follows:
+### HTML5 Validation
+
+HTML5 validation has been around for a long time now. With a sprinkling of just a few HTML attributes, supporting browsers will mark fields with error messages when the user submits. Normally I would recommend using functionality that the browser provides for free, because it's often performant, robust and accessible by default. Not to mention, that it becomes convention as more and more sites use it.
+
+Whilst browser support is quite good, many browsers, particularly on iOS and Android, have patchy support [^]. To simultaneously avoid these issues and grant oursleves the chance to design for a number of provisions, we'll provide our own solution. In this case, we need to turn off HTML5 validation by adding the `novalidate` boolean attribute.
 
 ```HTML
 <form novalidate>
 ```
 
-When the user tries to submit, we need to check if there are errors. If there are, we need to prevent the form from submitting (which browser's do as standard). 
+When the user submits the form, we need to check if there are errors. If there are, we need to prevent the form from submitting the details to the server for processing, which happens as standard.
 
 ```JS
 function FormValidator(form) {
@@ -294,14 +298,92 @@ FormValidator.prototype.onSubmit = function(e) {
 };
 ```
 
-*(Note: some validation scripts choose to listen to the click event on the submit button directly but this should be avoided because it stops users submitting the form by pressing <kbd>enter</kbd> when focus is within a field.)*
+*(Note: we are listening to the form's submit event, not the button's click event. The latter will stop users being able to submit the form by pressing <kbd>enter</kbd> when focus is within one of the fields. This is also known as implicit form submission.)*
 
-### Presenting Errors
+### Displaying Feedback
 
----
+It's all very well detecting the presence of errors, but at the moment our user's are none the wiser. There are three disparate parts of the interface that need to be updated. We'll talk about each of those in now.
 
+#### Document Title
 
-This is all well and good, but literally nothing currently happens when the user tries to submit (where form errors are present). This is our cue to provide some feedback in the form of an error message. At this point, all we want to communicate is the presence of errors and that they need attention. 
+The document's `<title>` is the first part of a web page to be read out by screen readers. As such, we can use it to inform users that something has gone wrong with their submission. This is especially useful when errors are caught on the server.
+
+Even though we're enhancing the user experience by catching errors on the client with Javascript, not all errors can be caught this way. For example, checking that an email address hasn't already been taken can only be checked on the server. In any case, Javascript is prone to failure so we can't solely rely on it's availability. 
+
+Where the original page title might read “Register for [service]”, onerror it should read “Retry - Register for [service]” (or similar). Whether it's “Retry - ” or “There's errors - ” is somewhat down to opinion. But, on a recent service we chose the former, because the service is used frequently, and screen reader users appreciated the terser option.
+
+Updating the title with Javascript is as follows:
+
+```JS
+document.title = “Retry - ” + document.title;
+```
+
+Admittedly this is probably not as crucial for sighted users, but those who multi-task with multiple browser tabs open, the prefixed text may serve as a notification of sorts.
+
+#### Error Summary
+
+The error summary not only needs to tell users that something has gone wrong, but what they can do to remedy the situation quickly. Due to it's importance, we place it prominently at the top of the page. This ensures sighted users don't have to scroll after a page refresh to see it, nor will screen reader users have to wade through as much of the document to hear it. Conventionally speaking we should style the errors in red, but we don't want to rely on colour alone, because this would exclude colour blind users. This is why it's inset with a border.
+
+![Error summary](.)
+
+The panel consists of a heading to summarise the fact there is a problem. Beneath that, there is a list of errors, which are represented as links. Clicking one of those links, will set focus to the erroneous field thanks to the `href` value matching the form control's `id` value.
+
+```HTML
+<div class="errorSummary" role="alert">
+  <h2 tabindex="-1">There's a problem</h2>
+  <ul>
+    <li><a href="#emailaddress">Enter an email address</a></li>
+    <li><a href="#password">The password must contain an uppercase letter</a></li>
+  </ul>
+</div>
+```
+
+The `div` has a role of `alert` which tells supporting screen readers to announce the region immediately. The heading's `tabindex` attribute is set to `-1`, which allows us to programmatically set focus to it using Javascript. This in turn ensures the error summary panel is brought into view. Without this functionality the interface would appear unresponsive.
+
+```JS
+FormValidator.prototype.focusSummary = function() {
+  this.summary.focus();
+};
+```
+
+When there aren't any errors, the summary panel should be hidden. This ensures that there is only ever one summary panel on the page. And, that it appears consistently in the same location whether errors are rendered by the client or the server. To hide the panel we need to add a `hidden` attribute to the containing element.
+
+```HTML
+<div class="errorSummary" hidden></div>
+```
+
+Some browsers don't support the `hidden` attribute, so we need to add the following rule to the stylesheet:
+
+```CSS
+[hidden] {
+  display: none;
+}
+```
+
+#### 3. In-context Errors
+
+We also need to put the relevant error message beside the field. This saves users from having to repeatedly check the summary panel at the top of the page which is likely to include scrolling up and down.
+
+![In-context Errors](.)
+
+Once again, the messages are coloured red by convention and colour blind users are catered for thanks to the inset border on the left hand side. The message is placed above the field and inside the label. Placing it above the field reduces the chance of the message being obscured either by the browser's autocomplete suggestions or by mobile on-screen keyboards which show on focus.
+
+```html
+<div class="field">
+  <label for="blah">
+    <span class="field-label">Email address</span>
+    <span class="field-error">Enter an email address</span>
+  </label>
+</div>
+```
+
+Like the hint pattern mentioned earlier, the error message is also injected inside the label. This is ensures that when the field is focused, screen reader users will hear the message in context.
+
+```JS
+Injected the message into the label
+```
+
+*Note: the registration form only consists of text inputs. In the next chapter we'll look at how to inject errors accessibly for other types of fields such as radio buttons.*
 
 ---
 
@@ -351,83 +433,7 @@ Validating a form on submit is convention. It's just the way forms have always w
 
 In any case, the form needs to be submitted to the server for processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
 
-### Displaying errors
-
-In this case we're going to need to present errors. There are three disparate parts of the interface that need to be updated which we'll talk about each in turn.
-
-#### 1. Updating The Document Title
-
-Changing the `<title>` is especially useful for errors caught on the server. This is because the title is the first thing to be read out by screen readers after a page refresh. Where the original reads ‘Register for [awesome service]’, when there's an error it should be changed to ‘Retry - Register for [awesome service]’ (or similar).
-
-Whilst not as useful for sighted users, those who open and switch between multiple tabs will see the prefixed text on the tab which acts a psuedo notification of sorts.
-
-#### 2. Displaying An Error Summary
-
-We'll also need to inject an error summary at the top of the page above the form. Sighted users will see it without having to scroll, and screen reader users will hear it quickly without having to wade through the entire document.
-
-![Error summary](.)
-
-Errors should be styled in red by convention. But we shouldn't rely solely on colour to demarcate it. In addition to its placement, providing a concise heading and border makes it prominent.
-
-```HTML
-<div class="errorSummary" role="alert">
-  <h2 tabindex="-1">There's a problem</h2>
-  <ul>
-    <li><a href="#emailaddress">Enter an email address</a></li>
-    <li><a href="#password">The password must contain an uppercase letter</a></li>
-  </ul>
-</div>
-```
-
-The `div` has a role of `alert` which tells screen readers to announce the region immediately. Each error message is displayed inside a link that moves focus to the related field. 
-
-The heading has a `tabindex` attribute set to `-1` which allows us to programmatically set focus to it using Javascript. As headings aren't naturally focusable, users won't be able to tab to it. HEYDON DO SOMETHING
-Enabling focus lets us bring the summary panel into view.
-
-```JS
-FormValidator.prototype.focusSummary = function() {
-  this.summary.focus();
-};
-```
-
-When there aren't any errors, the summary panel should be hidden. This ensures that there is only ever one summary panel in the same location, whether errors are caught on the client or the server. To do this add a hidden attribute as follows:
-
-```HTML
-<div class="errorSummary" hidden></div>
-```
-
-Some browsers don't support the hidden attribute, so for those browsers you'll need to add the following CSS:
-
-```CSS
-[hidden] {
-  display: none;
-}
-```
-
-#### 3. In-context Errors
-
-We also need to put the relevant error message beside the field. This saves users from having to repeatedly check the summary panel at the top of the page which is likely to include scrolling up and down.
-
-![In-context Errors](.)
-
-Once again, the messages are coloured red by convention and colour blind users are catered for thanks to the inset border on the left hand side. The message is placed above the field and inside the label. Placing it above the field reduces the chance of the message being obscured either by the browser's autocomplete suggestions or by mobile on-screen keyboards which show on focus.
-
-```html
-<div class="field">
-  <label for="blah">
-    <span class="field-label">Email address</span>
-    <span class="field-error">Enter an email address</span>
-  </label>
-</div>
-```
-
-Like the hint pattern mentioned earlier, the error message is also injected inside the label. This is ensures that when the field is focused, screen reader users will hear the message in context.
-
-```JS
-Injected the message into the label
-```
-
-*Note: the registration form only consists of text inputs. In the next chapter we'll look at how to inject errors accessibly for other types of fields such as radio buttons.*
+### Submitting for a second time
 
 If the user does cause errors, then when the user next submits the form, we need to clear the errors before performing the same routine again. Otherwise, the errors will remain.
 

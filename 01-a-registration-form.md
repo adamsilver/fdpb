@@ -269,11 +269,41 @@ The exact words can match your brand's tone of voice, but don't exchange clarity
 
 ## Validation
 
-Despite our efforts to create an inclusive, simple and friction-free registration form, we can't eradicate human error. People make mistakes and when they do, we should make remedying them as easy as possible.
+Despite our efforts to create an inclusive, simple and friction-free registration experience, we can't eradicate human error. People make mistakes and when they do, we should make remedying them as easy as possible. There are a number of details to consider: when to validate, how to present errors, restoring entries and error message text. All of these things are crucial.
 
-To do this, we'll need to consider: when to give feedback, how to display that feedback, what makes for a good error message and other tidbits.
+Normally, I would recommend using browser's native functionality (HTML5 validation) where possible because it's often performant, robust and accessible by default. But it's somewhat patchy and buggy, particularly on iOS and Android[^]. 
 
-You can either provide feedback instantly (as the user types) or when they submit the form&mdash;either by clicking the submit button, or implicitly by pressing <kbd>enter</kbd> when focus is on a control.
+Instead, we'll create a solution from scratch which lets us bypass the associated problems while simultaneously enabling us to cater for several design provisions. In which case, the first thing we'll need to do is turn off HTML5 validation. Otherwise, the browser's validation routine will intefere with our own. To do this, add `novalidate` to the form element as follows:
+
+```HTML
+<form novalidate>
+```
+
+When the user tries to submit, we need to check if there are errors. If there are, we need to prevent the form from submitting (which browser's do as standard). 
+
+```JS
+function FormValidator(form) {
+  form.on('submit', $.proxy(this, 'onSubmit'));
+}
+
+FormValidator.prototype.onSubmit = function(e) {
+  if(!this.validate()) {
+    e.preventDefault();
+    // show errors
+  }
+};
+```
+
+*(Note: some validation scripts choose to listen to the click event on the submit button directly but this should be avoided because it stops users submitting the form by pressing <kbd>enter</kbd> when focus is within a field.)*
+
+### Presenting Errors
+
+---
+
+
+This is all well and good, but literally nothing currently happens when the user tries to submit (where form errors are present). This is our cue to provide some feedback in the form of an error message. At this point, all we want to communicate is the presence of errors and that they need attention. 
+
+---
 
 ### Inline Validation
 
@@ -315,36 +345,11 @@ In the end, like inline validation, this is a distracting experience that takes 
 
 To *give control* and avoid problems with instant feedback, we should validate forms on submit. This way users can focus on filling out the form without being interupted. If the form is short and has well written guidance, then this won't take long. Then, and only when ready, the user can explicitly submit the form at which time the user would expect to receive feedback&mdash;positive or otherwise.
 
-Earlier, I said that we should use people's abilities, disabilities and preferences as constraints to guide us to design better experiences. But they aren't the only form of constraints. The platform, in this case the Web, also provides a set of constraints which are often manifested by convention.
+Earlier, I said that we should use people's abilities, disabilities and preferences as constraints to guide us to design better experiences. But they aren't the only constraints. The platform, in this case the Web, also provides a set of constraints which turn into convention.
 
 Validating a form on submit is convention. It's just the way forms have always worked on the Web. Fortunately, conventional interfaces are familiar. And familiar interfaces generally require less cognitive effort. 
 
 In any case, the form needs to be submitted to the server for processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
-
-Some browsers support HTML5 form validation. Unfortunately, there are concerns about the support, uniformity, utility and general usability of this approach. In any case, we want to design our own implementation to account for a number of specific provisions.
-
-In which case, the first thing we need to do is turn off HTML5 form validation by adding the `novalidate` boolean attribute on the form.
-
-```HTML
-<form novalidate>
-```
-
-Now we're free to listen to the form's submit event so that when the user submits, we can validate the fields. Some validation libraries choose to listen to the click even on the submit button directly but this should be avoided because it removes the ability for users to submit the form by pressing <kbd>enter</kbd> when focus is within a field.
-
-```JS
-function FormValidator(form) {
-  form.on('submit', $.proxy(this, 'onSubmit'));
-}
-
-FormValidator.prototype.onSubmit = function(e) {
-  if(!this.validate()) {
-    e.preventDefault();
-    // show errors
-  }
-};
-```
-
-When there are errors the script stops the form from being submitted to the server (like normal) by calling `e.preventDefault()`. This lets us update the interface as we see fit.
 
 ### Displaying errors
 
@@ -537,3 +542,5 @@ In upcoming chapters, we'll build on the foundations we've laid here in order to
 [^16]: https://vimeo.com/138359368
 [^x1]: https://www.w3.org/TR/WCAG20-TECHS/G162.html
 [^x2]: http://www.outlinenone.com/
+
+- https://www.tjvantoll.com/speaking/slides/constraint-validation/chicago/#/18

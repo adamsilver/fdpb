@@ -26,7 +26,6 @@
 	- Text
 - Validation
 	- Introduction
-	- Something Is Broken
 	- Presenting Errors
 		- Changing the page title
 		- Displaying an error summary

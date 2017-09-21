@@ -1,6 +1,6 @@
 # A Registration Form
 
-We're going to start with a registration form. Many companies want to have long-term relationships with their users. To do that they need users to sign up. And to do *that*, they need to give users value for doing so. Nobody wants to actually sign up. They just want access to your social network, or the tools you offer, or more simply a faster checkout experience.
+We're going to start with a registration form. Most companies want long-term relationships with their users. To do that they need users to sign up. And to do *that*, they need to give users value in return. Nobody wants to actually sign up. They just want access to your social network, the tools you offer, or more simply a faster checkout experience.
 
 Whatever it is, a registration form is often the first form a user sees. Despite it's basic appearance, there are many things to consider: the primitive elements that make up a form (labels, buttons and inputs), how to reduce friction (even on small forms like this) all the way through to form validation.
 
@@ -298,11 +298,11 @@ FormValidator.prototype.onSubmit = function(e) {
 };
 ```
 
-*(Note: we are listening to the form's submit event, not the button's click event. The latter will stop users being able to submit the form by pressing <kbd>enter</kbd> when focus is within one of the fields. This is also known as implicit form submission.)*
+*(Note: we are listening to the form's submit event, not the button's click event. The latter will stop users being able to submit the form by pressing <kbd>enter</kbd> when focus is within one of the fields. This is also known as implicit form submission[^].)*
 
 ### Displaying Feedback
 
-It's all very well detecting the presence of errors, but at the moment our user's are none the wiser. There are three disparate parts of the interface that need to be updated. We'll talk about each of those in now.
+It's all very well detecting the presence of errors, but at the moment our user's are none the wiser. There are three disparate parts of the interface that need to be updated. We'll talk about each of those now.
 
 #### Document Title
 
@@ -481,7 +481,7 @@ A good error message is easy to understand. Whilst it's often backwards to desig
 
 As we've just designed the interface, we already know that errors  appear in 2 places: the summary and next to the field. This means we need to ensure the content works in context of both locations. That is, ‘Enter an “at” symbol.’ is ambiguous inside the summary, but is perfectly acceptable, better even, next to the field (where the label provides the context.)
 
-[]()
+![](.)
 
 Maintaining 2 versions of the same message is a hard sell for small gain. Instead, we'll design the content to work in both: ‘Your email address needs an “at” symbol.’.
 

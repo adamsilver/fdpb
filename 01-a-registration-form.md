@@ -378,9 +378,90 @@ Like the hint pattern mentioned earlier, the error message is injected inside th
 
 *Note: the registration form only consists of text inputs. In the next chapter we'll look at how to inject errors accessibly for groups of fields such as radio buttons.*
 
+### Submitting the form again
+
+When submitting the form for a second time, we need to clear the existing errors from view. Otherwise users may see duplicate errors. And in the case that there are no errors, this cleans up the interface momentarily before submission.
+
+```JS
+FormValidator.prototype.onSubmit = function(e) {
+  this.resetPageTitle();
+  this.resetSummaryPanel();
+  this.removeInlineErrors();
+  if(!this.validate()) {
+    e.preventDefault();
+    this.updatePageTitle();
+    this.showSummaryPanel();
+    this.showInlineErrors();
+  }
+};
+```
+
+### Technical Design
+
+To create an instance of the `FormValidator` you need to pass the form element as the first parameter.
+
+```JS
+var validator = new FormValidator(document.getElementById('registration'));
+```
+
+Then to add a particular set of rules to a form field,  call the `addValidator` method as shown below. The first rule's method trims the value before checking the length. This way the experience is forgiving as possible, which is especially useful for trivial mistakes such as an extra space.
+
+```JS
+validator.addValidator('email', [{
+  method: function(field) {
+      return field.value.trim().length > 0;
+  },
+  message: 'Enter your email address.'
+},{
+  method: function(field) {
+      return (field.value.indexOf('@') > -1);
+    },
+  message: 'Enter the ‘at’ symbol in the email address.'
+}]);
+```
+
+The first paramter is the control name and the second takes an array of objects (rules). Each rule contains two properties: method and messsage. The method should test various conditions and return `true` or `false`. When `false` the error message is injected into the interface as discussed earlier. 
+
 ---
 
-### Inline Validation
+### How to write errors
+
+Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^15].
+
+> Content is the user experience
+
+A good error message is easy to understand. Whilst it's often backwards to design an interface without first knowing the content, in this case, it's hard to design the messages without understanding the interface.
+
+As we've just designed the interface, we already know that errors  appear in 2 places: the summary and next to the field. This means we need to ensure the content works in context of both locations. That is, ‘Enter an “at” symbol.’ is ambiguous inside the summary, but is perfectly acceptable, better even, next to the field (where the label provides the context.)
+
+![](.)
+
+Maintaining 2 versions of the same message is a hard sell for small gain. Instead, we'll design the content to work in both: ‘Your email address needs an “at” symbol.’.
+
+We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisy and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to [answer this question.]’ may be better as it sounds softer but it has more words. Tricky.
+
+We might consider how frequently the system is being used by the same user. For users who use a system every day, removing ‘You need to’ gets straight to the point for someone who has an intimate relationship with a system. Though, it may come across as rude for those using the system infrequently. Without testing it's hard to know.
+
+Regardless of the chosen approach, there's bound to be some repetition. Often when testing validation, we'll submit the form without entering anything which exposes the repetition in the messages in all their glory:
+
+[]()
+
+This, presents a long list of errors. Through this, somewhat artificial scenario, the repetition of words looks like a glaring oversight. As content designers this could freak us out. But how often do users submit a long form without entering a single field? Most users aren't trying to break the interface.
+
+Here's some more practical considerations:
+
+- Use punctuation. Some errors have clauses and contain several sentences.
+- Be specific. If the system knows exactly why something went wrong say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and requires less thinking.
+- Use the active voice. For example, ‘Enter your name’ not ‘Your name must have an entry’.
+- Don't blame the user.
+- Use plain language. Error messages are not an opportunity to promote your quirky brand's tone of voice. Keep it simple and obvious.
+- Be human, avoid jargon. Avoid avoid words like *invalid*, *unrecognised* and *mandatory*.
+- Makes sense on its own.
+- Be terse. Don't be overly chatty, particularly on a frequently used system.
+- Be consistent. Use the same tone, the same words and the same punctuation.
+- Test your messages with users.
+
+### Live Inline Validation
 
 The first type of instant feedback is inline validation. It works by giving users feedback as they type or as they leave the field (`onblur`). In theory, it's easier to fix errors as soon as they occur and avoids users seeing a large amount of error messages at once. Whilst this makes some sense, inline validation poses several problems.
 
@@ -425,81 +506,6 @@ Earlier, I said that we should use people's abilities, disabilities and preferen
 Validating a form on submit is convention. It's just the way forms have always worked on the Web. Fortunately, conventional interfaces are familiar. And familiar interfaces generally require less cognitive effort. 
 
 In any case, the form needs to be submitted to the server for processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
-
-### Submitting for a second time
-
-If the user does cause errors, then when the user next submits the form, we need to clear the errors before performing the same routine again. Otherwise, the errors will remain.
-
-```JS
-clear error message code
-```
-
-Creating an instance of the FormValidator is as follows:
-
-```JS
-var validator = new FormValidator(form);
-```
-
-Then create a validator for each field that needs validating. Here's the email field validator:
-
-```JS
-validator.addValidator('email', [{
-  method: function(field) {
-      return field.value.trim().length > 0;
-  },
-  message: 'Enter your email address.'
-},{
-  method: function(field) {
-      return (field.value.indexOf('@') > -1);
-    },
-  message: 'Enter the ‘at’ symbol in the email address.'
-}]);
-```
-
-Notes:
-
-- Each validator takes the field name as the first parameter and an array of rules as the second.
-- Rules are made up of two properties: method and message.
-- The message is the error message, which it uses to populate the summary and in context messages.
-- The method has a field parameter and we can interrogate the field to test that it passes some logic. If it passes the method should return true, otherwise false.
-- It's up to each method to be as forgiving as possible. The email validator, for example, trims the value before checking length.
-
-### How to write errors
-
-Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^15].
-
-> Content is the user experience
-
-A good error message is easy to understand. Whilst it's often backwards to design an interface without first knowing the content, in this case, it's hard to design the messages without understanding the interface.
-
-As we've just designed the interface, we already know that errors  appear in 2 places: the summary and next to the field. This means we need to ensure the content works in context of both locations. That is, ‘Enter an “at” symbol.’ is ambiguous inside the summary, but is perfectly acceptable, better even, next to the field (where the label provides the context.)
-
-![](.)
-
-Maintaining 2 versions of the same message is a hard sell for small gain. Instead, we'll design the content to work in both: ‘Your email address needs an “at” symbol.’.
-
-We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisy and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to [answer this question.]’ may be better as it sounds softer but it has more words. Tricky.
-
-We might consider how frequently the system is being used by the same user. For users who use a system every day, removing ‘You need to’ gets straight to the point for someone who has an intimate relationship with a system. Though, it may come across as rude for those using the system infrequently. Without testing it's hard to know.
-
-Regardless of the chosen approach, there's bound to be some repetition. Often when testing validation, we'll submit the form without entering anything which exposes the repetition in the messages in all their glory:
-
-[]()
-
-This, presents a long list of errors. Through this, somewhat artificial scenario, the repetition of words looks like a glaring oversight. As content designers this could freak us out. But how often do users submit a long form without entering a single field? Most users aren't trying to break the interface.
-
-Here's some more practical considerations:
-
-- Use punctuation. Some errors have clauses and contain several sentences.
-- Be specific. If the system knows exactly why something went wrong say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and requires less thinking.
-- Use the active voice. For example, ‘Enter your name’ not ‘Your name must have an entry’.
-- Don't blame the user.
-- Use plain language. Error messages are not an opportunity to promote your quirky brand's tone of voice. Keep it simple and obvious.
-- Be human, avoid jargon. Avoid avoid words like *invalid*, *unrecognised* and *mandatory*.
-- Makes sense on its own.
-- Be terse. Don't be overly chatty, particularly on a frequently used system.
-- Be consistent. Use the same tone, the same words and the same punctuation.
-- Test your messages with users.
 
 ### Be forgiving and restore values
 

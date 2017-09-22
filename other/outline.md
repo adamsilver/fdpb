@@ -31,12 +31,12 @@
 		- Displaying an error summary
 		- Displaying an in-context error
 	- Submitting For A Second Time
-	- Instant Feedback
-		- Inline Validation
+	- Technical Design Notes
+	- Crafting The Message
+	- Restore values
+	- Live Inline Validation
 		- Disabling Submission Until Valid
 		- Checklist affirmation
-	- Crafting Error Messages
-	- Be forgiving and restore values
 
 ## 2. A checkout flow
 

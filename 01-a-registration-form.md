@@ -404,7 +404,8 @@ To create an instance of the `FormValidator` you need to pass the form element a
 var validator = new FormValidator(document.getElementById('registration'));
 ```
 
-Then to add a particular set of rules to a form field,  call the `addValidator` method as shown below. The first rule's method trims the value before checking the length. This way the experience is forgiving as possible, which is especially useful for trivial mistakes such as an extra space.
+To validate the email field, for example, call the `addValidator` method as shown below. The first rule's method trims the value before checking the length in order to forgive trivial mistakes. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^16], at 42 minutes in. He says “it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong”. 
+
 
 ```JS
 validator.addValidator('email', [{
@@ -424,7 +425,7 @@ The first paramter is the control name and the second takes an array of objects 
 
 ---
 
-### How to write errors
+### Crafting Error Messages
 
 Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^15].
 
@@ -506,14 +507,6 @@ Earlier, I said that we should use people's abilities, disabilities and preferen
 Validating a form on submit is convention. It's just the way forms have always worked on the Web. Fortunately, conventional interfaces are familiar. And familiar interfaces generally require less cognitive effort. 
 
 In any case, the form needs to be submitted to the server for processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
-
-### Be forgiving and restore values
-
-The best problems are the ones users don't have to even know about. We can forgive users for typing extra spaces. If they type ‘John ’ we can trim it to ‘John’. We can also ignore upper or lowercase letters depending on the field.
-
-Jared Spool makes a joke about this in Design is Metrically Opposed[^16], at 42 minutes in. He says ‘it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong’.
-
-When an error occurs and the page is refreshed, we should restore whatever it is the user typed. Making users re-type the same information twice is something some just won't do, nor should they have to.
 
 ## Summary
 

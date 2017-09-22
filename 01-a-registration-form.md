@@ -429,34 +429,32 @@ Arguably there is nothing more important than content. Users don't come to your 
 
 > “Content is the user experience”
 
-Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content&mdash;not the other way around. But in this particular case understanding how messages are going to be shown and why influences the design of the words themselves. This is why I've left the words until last.
+Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content&mdash;not the other way around. But in this particular case understanding how messages are going to be shown and why influences the design of the words themselves. This is why Jared Spool says content and design are inseparable work partners.
 
 As we know, we're going to inject messages into a summary panel at the top and next to the fields in context. This means, we need to make sure that content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
 
 Maintaining 2 versions of the same message is a hard sell for small gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol.’ works well regardless of location.
 
-We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisy and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to [answer this question.]’ may be better as it sounds softer but it has more words. Tricky.
+Then there's pleasantries, like start each message with “Please”. On the hand this is noisey and repetitive. On the other it's polite and softens the command. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to answer this question’ may work better.
 
-We might consider how frequently the system is being used by the same user. For users who use a system every day, removing ‘You need to’ gets straight to the point for someone who has an intimate relationship with a system. Though, it may come across as rude for those using the system infrequently. Without testing it's hard to know.
+Consider frequency of use. People who use the system daily, it's probably a good idea to remove the pleasantries and get to the point. For those using a system once of twice, removing the pleasantires may seem blunt and rude. Without testing it's hard to know.
 
-Regardless of the chosen approach, there's bound to be some repetition. Often when testing validation, we'll submit the form without entering anything which exposes the repetition in the messages in all their glory:
+Whatever approach you take, there's going to be some repetition due to the nature of the content. And when we test form validation we often submit the form without entering any information at all.
 
 ![](.)
 
-This, presents a long list of errors. Through this, somewhat artificial scenario, the repetition of words looks like a glaring oversight. As content designers this could freak us out. But how often do users submit a long form without entering a single field? Most users aren't trying to break the interface.
+Whilst this scenario makes the repetition glaringly obvious. As content designers this may cause us to flip out, but consider how often a user submits a long form without entering a single field. Most users aren't trying to break the interface.
 
-Here's some more practical considerations:
+Here's a checklist:
 
-- Use punctuation. Some errors have clauses and contain several sentences.
-- Be specific. If the system knows exactly why something went wrong say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and requires less thinking.
-- Use the active voice. For example, ‘Enter your name’ not ‘Your name must have an entry’.
-- Don't blame the user.
-- Use plain language. Error messages are not an opportunity to promote your quirky brand's tone of voice. Keep it simple and obvious.
-- Be human, avoid jargon. Avoid avoid words like *invalid*, *unrecognised* and *mandatory*.
-- Makes sense on its own.
-- Be terse. Don't be overly chatty, particularly on a frequently used system.
-- Be consistent. Use the same tone, the same words and the same punctuation.
-- Test your messages with users.
+- **Use punctuation.** Some errors have clauses and contain more than one sentence.
+- **Be specific.** If you know why something has gone wrong, say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and provides instant clarity.
+- **Use the active voice**. For example, ‘Enter your name’ not ‘Your name must have an entry’.
+- Don't blame the user. Just let them know what's gone wrong and how to fix it.
+- **Use plain language.** Error messages are not an opportunity to promote your brand's tone of voice. Keep it simple and obvious.
+- **Be human, avoid jargon.** Avoid avoid words like *invalid*, *unrecognised* and *mandatory*.
+- **Be terse.** Don't use more words than is necessary, but don't omit words at the cost of clarity.
+- **Be consistent.** Use the same tone, the same words and the same punctuation throughout the system and across different forms.
 
 ### Live Inline Validation
 

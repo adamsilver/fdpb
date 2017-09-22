@@ -421,23 +421,19 @@ validator.addValidator('email', [{
 }]);
 ```
 
-The first paramter is the control name and the second takes an array of objects (rules). Each rule contains two properties: method and messsage. The method should test various conditions and return `true` or `false`. When `false` the error message is injected into the interface as discussed earlier. 
-
----
+The first parameter takes the control name and the second takes rules (as an array of objects). Each rule contains two properties: method and messsage. The `method` is a function that test various conditions to return either `true` or `false`. False puts the field into an error state which is used to populate the interface with errors. 
 
 ### Crafting Error Messages
 
-Up to now, we've ensured that our approach to validation is robust and inclusive. But this counts for nothing if we were then to neglect the messages themselves. One study showed that *custom* error messages increased conversion by 0.5%, equating to over £250,000 a year in revenue[^15].
+Arguably there is nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the result of using a service. Even the most thought-out, inclusive and beautifully designed experience counts for nothing if we ignored the words we use to craft error messages. One study showed that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^15].
 
-> Content is the user experience
+> “Content is the user experience”
 
-A good error message is easy to understand. Whilst it's often backwards to design an interface without first knowing the content, in this case, it's hard to design the messages without understanding the interface.
+Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content&mdash;not the other way around. But in this particular case understanding how messages are going to be shown and why influences the design of the words themselves. This is why I've left the words until last.
 
-As we've just designed the interface, we already know that errors  appear in 2 places: the summary and next to the field. This means we need to ensure the content works in context of both locations. That is, ‘Enter an “at” symbol.’ is ambiguous inside the summary, but is perfectly acceptable, better even, next to the field (where the label provides the context.)
+As we know, we're going to inject messages into a summary panel at the top and next to the fields in context. This means, we need to make sure that content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
 
-![](.)
-
-Maintaining 2 versions of the same message is a hard sell for small gain. Instead, we'll design the content to work in both: ‘Your email address needs an “at” symbol.’.
+Maintaining 2 versions of the same message is a hard sell for small gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol.’ works well regardless of location.
 
 We also need to consider pleasantries. Putting ‘please’ at the start of each message seems noisy and repetitive. But some errors sound blunt without it. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to [answer this question.]’ may be better as it sounds softer but it has more words. Tricky.
 
@@ -445,7 +441,7 @@ We might consider how frequently the system is being used by the same user. For 
 
 Regardless of the chosen approach, there's bound to be some repetition. Often when testing validation, we'll submit the form without entering anything which exposes the repetition in the messages in all their glory:
 
-[]()
+![](.)
 
 This, presents a long list of errors. Through this, somewhat artificial scenario, the repetition of words looks like a glaring oversight. As content designers this could freak us out. But how often do users submit a long form without entering a single field? Most users aren't trying to break the interface.
 

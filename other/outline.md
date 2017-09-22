@@ -33,7 +33,6 @@
 	- Submitting For A Second Time
 	- Technical Design Notes
 	- Crafting The Message
-	- Restore values
 	- Live Inline Validation
 		- Disabling Submission Until Valid
 		- Checklist affirmation

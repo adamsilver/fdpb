@@ -27,15 +27,15 @@
 - Validation
 	- Introduction
 	- Presenting Errors
-		- Changing the page title
-		- Displaying an error summary
-		- Displaying an in-context error
+		- Document Title
+		- Error Summary
+		- Inline Errors
 	- Submitting For A Second Time
 	- Technical Design Notes
-	- Crafting The Message
 	- Live Inline Validation
-		- Disabling Submission Until Valid
-		- Checklist affirmation
+	- Positive Inline Validation
+	- A Note On Disabling Submit Buttons
+	- Crafting The Message
 
 ## 2. A checkout flow
 

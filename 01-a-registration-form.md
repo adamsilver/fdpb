@@ -357,7 +357,7 @@ Some browsers don't support the `hidden` attribute, so we need to add the follow
 }
 ```
 
-#### 3. In-context Errors
+#### 3. Inline Errors
 
 We need to place the relevant error message next to the field. This saves users scrolling up and down the page in order to check the error message, which keeps them moving down the form.
 
@@ -378,7 +378,7 @@ Like the hint pattern mentioned earlier, the error message is injected inside th
 
 *Note: the registration form only consists of text inputs. In the next chapter we'll look at how to inject errors accessibly for groups of fields such as radio buttons.*
 
-### Submitting the form again
+### Submitting The Form Again
 
 When submitting the form for a second time, we need to clear the existing errors from view. Otherwise users may see duplicate errors. And in the case that there are no errors, this cleans up the interface momentarily before submission.
 
@@ -406,7 +406,6 @@ var validator = new FormValidator(document.getElementById('registration'));
 
 To validate the email field, for example, call the `addValidator` method as shown below. The first rule's method trims the value before checking the length in order to forgive trivial mistakes. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^16], at 42 minutes in. He says “it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong”. 
 
-
 ```JS
 validator.addValidator('email', [{
   method: function(field) {
@@ -422,6 +421,34 @@ validator.addValidator('email', [{
 ```
 
 The first parameter takes the control name and the second takes rules (as an array of objects). Each rule contains two properties: method and messsage. The `method` is a function that test various conditions to return either `true` or `false`. False puts the field into an error state which is used to populate the interface with errors. 
+
+### Live Inline Validation
+
+Live inline validation gives users feedback as they type or when they leave the field (`onblur`). There's some evidence to show that live inline validation improves accuracy and decreases completition times in long forms[^]. This is partially to do with giving users feedback when the field requirements are fresh in user's minds. But, live inline validation (or live validation for short) poses several problems.
+
+For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted early and often causing them to switch mental contexts. That is, between entering information and fixing it.
+
+![Instant error](.)
+
+Alternatively, we could wait until the user enters enough characters before showing an error. But this means users only get feedback after they have entered a correct value which is somewhat pointless.
+
+We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Some users switch windows or use a password manager when using a form. Doing so will trigger the blur event and causing an error to show before the user is finished. All very frustrating.
+
+Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields)&mdash;we've done this already. The problem with live feedback is that we're interupting users either too early or too late which causes a jarring user experience.
+
+If users are seeing errors, there's probably something wrong elsewhere. Focus on shortening your form and providing better guidance (good labeling and hint text). This way users shouldn't see more than the odd error. We'll look at long forms in the next chapter.
+
+### Checklist Affirmation Pattern
+
+A variation of live inline validation involves ticking off rules (marking them as complete) as the user types. This is less invasive than live inline validation but isn't suited to every type of field. Here's an example of Mailchimp's sign up form which employs this technique for the password field.
+
+![Mailchimp example](.)
+
+You should put the rules above the field otherwise the on-screen keyboard could obscure the feedback and cause the user to stop typing, hide the keyboard in order to check it.
+
+### A Note On Disabling Submit Buttons
+
+Some forms will disable the submit button until all the form fields are valid. Don't do this because users are left to ponder what is actually wrong with their entries. Instead, keep users in control by allowing them to submit when they are ready. When they do, the form validation component will on hand to provide useful feedback.
 
 ### Crafting Error Messages
 
@@ -441,7 +468,7 @@ Consider frequency of use. People who use the system daily, it's probably a good
 
 Whatever approach you take, there's going to be some repetition due to the nature of the content. And when we test form validation we often submit the form without entering any information at all.
 
-![](.)
+![Wall of errors](.)
 
 Whilst this scenario makes the repetition glaringly obvious. As content designers this may cause us to flip out, but consider how often a user submits a long form without entering a single field. Most users aren't trying to break the interface.
 
@@ -456,63 +483,18 @@ Here's a checklist:
 - **Be terse.** Don't use more words than is necessary, but don't omit words at the cost of clarity.
 - **Be consistent.** Use the same tone, the same words and the same punctuation throughout the system and across different forms.
 
-### Live Inline Validation
-
-The first type of instant feedback is inline validation. It works by giving users feedback as they type or as they leave the field (`onblur`). In theory, it's easier to fix errors as soon as they occur and avoids users seeing a large amount of error messages at once. Whilst this makes some sense, inline validation poses several problems.
-
-For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted causing them to switch mental contexts: entering information and fixing it.
-
-![Instant error](.)
-
-Alternatively, we could wait until the user enters enough characters before showing an error. But this means the only way a user gets feedback is after they have provided the field successfully which is somewhat pointless.
-
-We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Some users switch windows or use a password manager when using a form. Doing so will trigger the blur event and causing an error to show before the user is finished. All very frustrating.
-
-In any case, many users have their eyes fixated on the keyboard as they type, so they may not notice the feedback at all.
-
-If users are making lots of errors, there's probably something fundamentally wrong elsewhere. Focus on shortening the form and provide clear labelling and hint text. This way users shouldn't see more than the odd error. We'll deal with longer forms in upcoming chapters.
-
-### Disabling Submission Until Valid
-
-Another form of instant feedback is to disable the submit button until the form is valid. This feedback is rather ambiguous and suffers from two crucial problems. 
-
-First, disabled buttons are afforded by being ‘grayed out’ making the text hard-to-read. Second, if there is an error, the user won't know why. Instead they're left to guess which (set of) field(s) require their attention.d
-
-### Checklist Affirmation Pattern
-
-The last type of instant feedback is what I call the Checklist Affirmation pattern. Like inline validation, it gives feedback as the user types, but instead of showing *errors* it marks each rule as correct.
-
-![Mailchimp example](.)
-
-This is less invasive than inline validation but it still suffers from several problems. First, it can only check the format. That is, what appears to be successful may turn out to be a problem once submitted to the server.
-
-It also creates an inconsistent experience because some fields aren't appropriate to employ this technique. For example, you wouldn't use this technique on an email address whereby the user is ticking off it's required state and valid formatting for an email address.
-
-Also, the feedback will be obscured on mobile by the on-screen keyboard which may cause the user to stop what they're doing and hide the keyboard to see what's going on.
-
-In the end, like inline validation, this is a distracting experience that takes control away from the user which fails principle 4, *Give control*.
-
-### On Submit
-
-To *give control* and avoid problems with instant feedback, we should validate forms on submit. This way users can focus on filling out the form without being interupted. If the form is short and has well written guidance, then this won't take long. Then, and only when ready, the user can explicitly submit the form at which time the user would expect to receive feedback&mdash;positive or otherwise.
-
-Earlier, I said that we should use people's abilities, disabilities and preferences as constraints to guide us to design better experiences. But they aren't the only constraints. The platform, in this case the Web, also provides a set of constraints which turn into convention.
-
-Validating a form on submit is convention. It's just the way forms have always worked on the Web. Fortunately, conventional interfaces are familiar. And familiar interfaces generally require less cognitive effort. 
-
-In any case, the form needs to be submitted to the server for processing. You can't check, for example, if the user's email address has not already been used to create an account, without hitting the server. So by validating `onsubmit`, the users gets a similar experience regardless.
-
 ## Summary
 
-In this chapter we solved most of the fundamental problems we face when designing any form, not just registration. In some respects, this chapter has been as much about what not to do as it has about what it is we should. Here are the main takeaways:
+In this chapter we solved several fundamental form design challenges that are applicable well beyond a simple registration form. In many respects, this chapter has been as much about what not to do, as it has about what we should. By avoiding novel and artificial space-saving patterns to focus on reducing the number of fields we include, we avoid several usability failures while similtaneously making forms somewhat pleasant.
 
-- Always use a clear and readily accessible label. Avoid techniques, however ‘trendy’, that defy this rule.
-- Use the Question Protocol to find ways to remove fields, thus reducing the effort needed by the user.
-- Use the right type of form control to give mobile users a better on-screen keyboard.
-- Show errors on submit to keep users in control.
-- Write consistent errors in plain language that is specific to the problem.
+### Things To Avoid
 
-In upcoming chapters, we'll build on the foundations we've laid here in order to solve more complex problems. In doing so we'll need to explore a host of other patterns at our disposal.
+- Putting labels and hints inside form fields.
+- Using incorrect input types.
+- Styling buttons and links the same.
+- Validating forms as users type.
+- Disabling submit buttons
+- Non-specific, complex and brand specific error messages that users won't understand.
 
 ## Footnotes
 

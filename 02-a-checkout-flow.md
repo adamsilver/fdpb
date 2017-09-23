@@ -2,7 +2,7 @@
 
 In 2008 I worked on Boots.com where we designed a single-page checkout flow. This involved the trendiest of techniques from that era including accordions, AJAX and client-side validation. Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened.
 
-Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the the accordion was a distraction. Inevitably, Boots asked us to make changes. We redesigned it so that each panel became its own page removing the need for an accordion and AJAX. (We kept the client-side validation to avoid an unnecessary trip to the server.)
+Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the accordion was a distraction. Inevitably, Boots asked us to make changes. We redesigned it so that each panel became its own page removing the need for an accordion and AJAX. (We kept the client-side validation to avoid an unnecessary trip to the server.)
 
 ![Multiple pages, no accordion](./images/boots2.png)
 
@@ -32,7 +32,7 @@ Whilst this pattern often bares wonderful and delicious fruit (or orders and con
 - When users fill in a small form, errors are caught and shown early and often. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up on the task.
 - If pages have little on them, they'll load quickly. Faster pages reduce the risk of users leaving and they build trust.
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
-- Conversely, a long form takes a long time to complete. It it takes too long there's a risk that the page times out or the computer freezes causing data loss. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, his computer freezes and he loses his data. In the end, he gives up.
+- Conversely, a long form takes a long time to complete. It it takes too long there's a risk that the page times out or the computer freezes causing data loss. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
 
 ## Flow and order
@@ -45,7 +45,7 @@ In “Forms That Work”[^], Caroline Jarett and Gerry Gafney explain the import
 
 > Now think about the point where you’ve told the salesperson which car you want to buy. Now it’s appropriate to start negotiating about payment. It would be quite odd if the salesperson did not do so.
 
-Just like the car salesperson, we'll ask for the right information at the right time. We'll leave payment til the end and give uses a chance to check their order before finally submitting it. Afterwards, the confirmation creen acts a sales receipt for record keeping. The complete flow is as follows:
+Just like the car salesperson, we'll ask for the right information at the right time. We'll leave payment until the end and give uses a chance to check their order before finally submitting it. Afterwards, the confirmation screen acts a sales receipt for record keeping. The complete flow is as follows:
 
 1. Email address
 2. Mobile phone (optional)
@@ -58,19 +58,21 @@ Just like the car salesperson, we'll ask for the right information at the right 
 
 ## 1. Email Address
 
-We already have a pattern for this as set out in the previous chapter so we can reuse it here. This means we don't have to solve the same problem from scratch. So far so good.
+In chapter one, “A Registration Form”, we had to ask users for an email address. We can reuse that pattern here too, meaning we don't have to solve the same problem from scratch.
 
-There's an opportunity to adapt the content to fit this context. That is, why does a user need to give their email address in order to buy a product online? It's so we can send users a receipt of purchase. In which case we should tell them this by using the hint pattern.
+There is, however, an opportunity to adapt the content to fit this context. By that I mean, users may wonder why their being asked for an email address just to buy a product. One of the main takeaways from chapter one, was the need to justify the existence of each and every form field.
+
+Here, it's because we can send users a receipt of purchase, essential when checking out anonymously (guest checkout) whilst simultaneously providing information as to how to return it. In which case, we can tell users through the hint text.
 
 ![We need this to send you a receipt](.)
 
-The button is position and styled the same way as set out in “A Registration Form”. The only difference is the the label, which is set to “Continue”. This verb implies progress which suits the checkout flow well.
+The submit button is also reused. It is position and styled the same way too. The only difference is the button's label, which is set to “Continue”. This verb implies progress which is perfectly suited to the checkout flow.
 
-*(Note: logged-in users won't see this screen. I'll cover the second time experience in more detail later.)*
+*(Note: logged-in users won't see this screen. I'll cover the second-time, logged-in experience later on.)*
 
 ## 2. Mobile Phone
 
-Again, the mobile phone field uses the same pattern. Apart from the content, there are two important differences. First that the field is marked as optional and second, that the input type is set to `tel`.
+Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint as the hint pattern isn't just useful to denote requirements. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
 
 ![Mobile screen](.)
 
@@ -84,21 +86,15 @@ Again, the mobile phone field uses the same pattern. Apart from the content, the
 </div>
 ```
 
-- Not everyone has a mobile phone, and even if they do, they may not want notifications. So we do optional. Question Protocol.
-- Type=tel
+The input's `type` attribute is set to `tel` which on mobile phones will spawn a telephone-specific keyboard. This makes it easier to enter a phone number thanks to the larger keypad.
 
-
-In the first chapter, we discussed just how important it was to tell users, on occasion, why it is we're asking for particular information. Why is it, then, are we asking for the user's phone number, especially when they're ordering online?
-
-The courier who is fulfilling delivery actually offers real-time text messages on the day of delivery. So we tell the users this through by using the hint pattern. This builds trust, reduces friction and promotes the feature, all at the same time.
-
-The mobile input uses `type=tel`. This displays a telephone-specific on-screen keyboard on mobile. This makes it far easier to enter their phone number.
-
-![On-screen device keyboard](./images/?.png)
-
-TODO: Marking as optional
+![Tel keyboard](.)
 
 ### Required Fields
+
+Whilst real-time notifications *add value*, not everyone has a mobile phone. And those that do, may not want to receive notifications. So we follow principle 5, *Offer choice*, by making the field optional. This is our first optional field, as such, we should conduct user research to ensure that this field is adding value, otherwise we should kill it.
+
+Traditionally, required fields are marked with an asterisk. A legend, usally placed above the form
 
 required/aria-required
 

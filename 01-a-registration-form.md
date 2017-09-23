@@ -492,9 +492,9 @@ In this chapter we solved several fundamental form design challenges that are ap
 - Putting labels and hints inside form fields.
 - Using incorrect input types.
 - Styling buttons and links the same.
-- Validating forms as users type.
-- Disabling submit buttons
-- Non-specific, complex and brand specific error messages that users won't understand.
+- Validating fields as users type.
+- Disabling submit buttons.
+- Complex, jargon and brand-influenced error messages.
 
 ## Footnotes
 

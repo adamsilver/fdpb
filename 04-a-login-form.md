@@ -128,13 +128,13 @@ If you're going to provide social login capabilities, then first work out why. I
 
 ## ‘Forgotten password’ placement
 
-As human-beings we're prone to forgetting something just at the moment we most need to remember it. As the saying goes, * we're only human*. I use a password manager[^2] to avoid having to remember, but password managers aren't infallible. If you don't remember to add your credentials into the password manager, then you're in the same position as anyone else. And, not everybody uses a password manager.
+As human-beings we're prone to forgetting something just at the moment we most need to remember it. As the saying goes, *we're only human*. I use a password manager[^2] to avoid having to remember, but password managers aren't infallible. If you don't remember to add your credentials into the password manager, then you're in the same position as anyone else. And, not everybody uses a password manager.
 
 Sites offer users a ‘Forgotten password’ link on the login screen which gives users the chance to ‘reset’ their password by following a few simple steps. The feature itself isn't the problem, it's the placement of the link which can cause unnecessary friction for users.
 
 Honouring people's interaction preferences is a cornerstone of inclusive design. Some prefer the keyboard. Some prefer the mouse. Some use both interchangeably.
 
-When using forms, or more broadly, websites, pressing <kbd>tab<kbd>  moves focus to the next focusable element. Naturally, and with no  intervention, links and form controls are focusable.
+When using forms, or more broadly, websites, pressing <kbd>tab<kbd> moves focus to the next focusable element. Naturally, and with no  intervention, links and form controls are focusable.
 
 When interacting with a login form, or any form for that matter, the main task is filling out each field and then submitting it. Placing  the ‘Forgotten password’ link between the username and password fields disrupts the natural flow of filling in a form. Even placing the link between the password field and the submit button causes the same level of disruption.
 
@@ -150,7 +150,7 @@ It's still in context and works visually without fighting for attention and with
 
 Some niche login forms, such as those found on bank sites, ask users for certain characters of a password, memorable word or security pin. They'll then present 3 text boxes or worse, 3 select boxes from which to choose from.
 
-![Image]()
+![Image](.)
 
 There is no reason to have 3 separate boxes, much less 3 separate select boxes, but in doing so, they decide to auto-tab between the fields. What this means is focus is moved to the next field automatically as the user enters a pre-determined number of characters.
 
@@ -170,7 +170,7 @@ The registration and login forms are remarkably similiar. Putting them together 
 
 Give each form a separate and offer a link before or after the login form allowing users to register or vice versa.
 
-[!]()
+![](.)
 
 ## Summary
 

@@ -38,7 +38,7 @@ When the toggle button is clicked, the search form is shown and focus set to the
 
 ## Summary
 
-In this chapter, we've reused patterns from previous chapters to design a responsive and togglable search form that crucially saves space on mobile. And we've ensured the quality of the interface is married to search algorithm itself: that whatever the user searches for is surfaced for users. Together, this creates the best user experience.
+In this chapter, we reused patterns from previous chapters to design a responsive and togglable search form that crucially saves space on mobile. And we ensured the quality of the interface is married to search algorithm itself: that whatever the user searches for is surfaced for users. Together, this creates the best user experience.
 
 ### Things to avoid
 

@@ -1,18 +1,16 @@
-# A checkout flow
+# A Checkout Flow
 
-In 2008 I worked on Boots.com. We were tasked with designing a single-page checkout. This included the trendiest of techniques from that era: accordions, AJAX and client-side validation. Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened. It looked like this:
+In 2008 I worked on Boots.com where we designed a single-page checkout flow. This involved the trendiest of techniques from that era including accordions, AJAX and client-side validation. Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened.
 
-![Single-page accordion](./images/boots1.png)
-
-Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the the accordion was a distraction. Inevitably, Boots asked us to make changes. We redesigned it so that each panel became its own page removing the need for an accordion and AJAX. However, we kept the client-side validation to avoid an unnecessary trip to the server. It looked like this:
+Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the the accordion was a distraction. Inevitably, Boots asked us to make changes. We redesigned it so that each panel became its own page removing the need for an accordion and AJAX. (We kept the client-side validation to avoid an unnecessary trip to the server.)
 
 ![Multiple pages, no accordion](./images/boots2.png)
 
-This converted much better. Although I can't remember the exact numbers, the client was happy with the results. Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I noted the numbers. The result was an extra 2 million orders a year. That’s *orders*, not revenue. This was calculated based on the increase to weekly orders. Here are some of the mobile designs:
+This converted a lot better. Although I can't remember the exact numbers, the client was happy with the results. Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I noted the numbers. The result was a 5% increase in conversion. This is equated to 2 million orders a year. That’s *orders*, not revenue.
 
 ![Just Eat checkout](./images/justeat.png)
 
-A couple of years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Apart from the numbers there is a strong rationale behind the pattern, which we’ll discuss shortly. First, we'll take a look at exactly what this pattern is.
+Two years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Apart from the numbers there are many reasons why this pattern drastically improves the user experience.
 
 ## One Thing Per Page
 
@@ -20,42 +18,37 @@ One Thing Per Page is about splitting up a complex process into multiple smaller
 
 It's not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer. Similarly, it’s not about having a single form field on each page either (although, it absolutely could).
 
-This doesn't mean you'll always end up with one question per page. Caroline Jarrett, who first wrote about the pattern in 2015, explains that user research *will quickly show you that some questions will be best grouped into a longer page.*
+This doesn't mean you'll always end up with one question per page. Caroline Jarrett, who first wrote about the pattern in 2015, explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
 
-However, she also explains that *questions that naturally ‘go together’ from the point of view of designers, don’t need to be on the same page to work for users.* She provides an enlightening example when, for GOV.UK Verify, they tested putting ‘Create a username’ on one page and ‘Create a password’ on the next.
+However, she also explains that “questions that naturally ‘go together’ from the point of view of designers, don’t need to be on the same page to work for users.” She provides an enlightening example when, for GOV.UK Verify, they tested putting ‘Create a username’ on one page and ‘Create a password’ on the next.
 
-Like most designers, Caroline thought that putting them on separate pages would be overkill. In reality, users weren’t bothered. The point is to at least start with One Thing Per Page and then, through research, find out if grouping fields together improves the experience.
+Like most designers, Caroline thought that putting them on separate pages would be overkill. In reality, users weren’t bothered. So start with one thing (field, question) per page, then, through research, find out if grouping fields improves the experience.
 
-That is not to say you’ll always end up combining screens together — in my experience, the best results come from splitting things apart, period.
-
-### Why is it so good?
+That is not to say you’ll always end up combining screens together—in my experience, the best results come from splitting things apart, period.
 
 Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s useful to understand why it works so well.
 
 - Principle 6 says that we should *design interfaces that help users focus on core tasks by prioritising it*. It even goes on to say that *people should be able to focus on one thing at a time*. One Thing Per Page is simply following this principle to the letter, and in doing so it drastically reduces the cognitive burden on users.
 - When users fill in a small form, errors are caught and shown early and often. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up on the task.
-- If pages have little on them, they'll load quickly. Faster pages reduce the risk of users leaving and they build trust in the service.
+- If pages have little on them, they'll load quickly. Faster pages reduce the risk of users leaving and they build trust.
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
-- Conversely, a long form takes a long time to complete. It it takes too long there is higher chance that the page times out or the computer freezes causing data loss. This is what happens to Daniel, the lead character in *I, Daniel Blake*[^]. With declining health and having never used a computer, his computer freezes and he loses his data. In the end, he gives up.
+- Conversely, a long form takes a long time to complete. It it takes too long there's a risk that the page times out or the computer freezes causing data loss. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, his computer freezes and he loses his data. In the end, he gives up.
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
-- It's better for screen reader users too as they don't have to wade through a whole lot of superfluous information. Instead, they can navigate to the first heading, for example, and start interacting with the form more quickly.
-
-We'll use this pattern throughout the book.
 
 ## Flow and order
 
-In Forms That Work[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order:
+In “Forms That Work”[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order. They say:
 
 > Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
 > Think about buying a car. You’re just browsing, getting a sense of what is available. A salesperson comes along and starts to ask you how you’ll pay. Would you answer? Or would you think, “If that person doesn’t stop annoying me, I’m out of here”?
 
-> Now think about the point where you’ve told the salesperson which car you want to buy. Now it’s appropriate to start negotiating about payment. It would be quite odd if the salesperson did **not** do so.
+> Now think about the point where you’ve told the salesperson which car you want to buy. Now it’s appropriate to start negotiating about payment. It would be quite odd if the salesperson did not do so.
 
-We can apply the same principles to the steps in checkout:
+Just like the car salesperson, we'll ask for the right information at the right time. We'll leave payment til the end and give uses a chance to check their order before finally submitting it. Afterwards, the confirmation creen acts a sales receipt for record keeping. The complete flow is as follows:
 
 1. Email address
-2. Mobile phone
+2. Mobile phone (optional)
 3. Delivery address
 4. Delivery options
 5. Delivery notes
@@ -63,22 +56,26 @@ We can apply the same principles to the steps in checkout:
 7. Check your answers
 8. Confirmation
 
-Just like the car salesperson, we'll ask for the right information at the right time. The *Check and confirm* step acts as a final check of contracts and the confirmation acts as sales receipt for record keeping.
+## 1. Email Address
 
-## 1. Email address
+We designed a pattern already for asking for an email address in the previous chapter. Here we should use the same component, laid out in the same way, promoting consistency and familiarity at the same time. 
 
-- Using the same pattern from chapter 1. The importance of reusing the same component (consistency and familiarity).
+There's an opportunity to adapt the content to this context. That is, why does a user need to give their email address in order to buy a product online? The reason is normally to be able to send them a receipt of purchase. In which case, consider telling them using the hint pattern.
+
+![We need this to send you a receipt](.)
+
+(Note: logged-in users won't see this screen. I'll cover the second time experience in more detail later.)
 
 ## 2. Mobile phone
 
 ```html
 <div class="field">
-    <label for="mobile">
-    	<span class="field-label">Your mobile</span>
-    	<span class="field-hint">So we can notify you about delivery</span>
-    </label>
-    <input type="tel" id="mobile" name="mobile">
-  </div>
+  <label for="mobile">
+    <span class="field-label">Your mobile</span>
+    <span class="field-hint">So we can notify you about delivery</span>
+  </label>
+  <input type="tel" id="mobile" name="mobile">
+</div>
 ```
 
 In the first chapter, we discussed just how important it was to tell users, on occasion, why it is we're asking for particular information. Why is it, then, are we asking for the user's phone number, especially when they're ordering online?
@@ -91,7 +88,9 @@ The mobile input uses `type=tel`. This displays a telephone-specific on-screen k
 
 TODO: Marking as optional
 
-## Marking required fields
+### Required Fields
+
+required/aria-required
 
 Traditionally, we've marked required fields using an asterisk. A legend, usually placed above the form explains its meaning. I'm not entirely sure how this came to be, but having a layer of abstraction (between the symbol and the meaning) puts cognitive strain on the user. Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains it.*
 
@@ -99,7 +98,7 @@ The Question Protocol encourages us to only include questions that are essential
 
 If required fields are the norm, and optional fields aren't, then it's the optional fields we should think about marking in some way. In this case put the word *optional*, in brackets, inside the label to ensure it is read out as part of the label. This way the information is obvious in context of the field.
 
-## 3. Delivery address
+## 3. Delivery Address
 
 How it might look:
 
@@ -137,13 +136,13 @@ How it might look:
     </label>
     <input type="text" id="postcode" name="postcode">
   </div>
-  <input type="submit" value="Next">
+  <input type="submit" value="Continue">
 </form>
 ```
 
 We've used the same field pattern from the first chapter with a label and optional hint for each field. But there are some specific things to note.
 
-### Field width
+### Field Width
 
 Designers are obsessed with clean lines and symmetry. In Write Less Damn Code[^4], Heydon Pickering jokingly points out that was the reason some people added ‘XHTML 1.1 Compliant’ banners just to ensure the height of the navigation bar matches the height of the content perfectly.
 
@@ -155,7 +154,7 @@ Baymard Institute's study[^5] found that *if a field is too long or too short, u
 
 As a postcode consists of approximately 8 characters, the field should have a matching width. This guidance is applicable well beyond that of a postcode. You should use this approach for any field whereby the length of the content is known.
 
-### Improving UX with Capture+
+### Capture+
 
 Capture Plus[^6] is a third party API and plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, it gives users a single text box. As the user types the first line of their address, suggestions appear from which to select. This reduces the amount of keystrokes and therefore the chance of typos. If no address is found, the user can change the interface back to the regular form conforming to principle 5, *offer choice*.
 
@@ -163,7 +162,7 @@ Capture Plus[^6] is a third party API and plugin that lets users search for thei
 
 Such an enhancement means we have to consider a broad range of interaction models. Many of us would shirk the responsibility by using a third-party plugin, but shirking responsibility doesn't stop users being on the end of a sub par experience: caring does. In the next chapter, we'll consider all the angles of building our own fully inclusive and sophisticated autocomplete component.
 
-## 4. Delivery options
+## 4. Delivery Options
 
 How it might look:
 
@@ -186,13 +185,13 @@ How it might look:
 			</div>
 		</fieldset>
 	</div>
-	<input type="submit" value="Next">
+	<input type="submit" value="Continue">
 </form>
 ```
 
 This is the first time we've encountered a field that consists of multiple inputs for the same question in the form of radio buttons. There are some special things to note.
 
-### Grouping form controls
+### Grouping Form Controls
 
 To group multiple form controls together, we need to wrap them inside a `fieldset`. The `legend` describes the group, in the same way a `label` describes the control. Like the `label`, a `legend` provides a description for sighted users and screen reader users alike. In most screen readers, the `legend` is read out in combination with the radio button's `label`:
 
@@ -202,7 +201,7 @@ It may be tempting to group all fields in form like this. Chapter one's registra
 
 In Inclusive Design Patterns[^7], Heydon Pickering says *it's easy to think of patterns as ‘right’ and ‘wrong’*. As with most design problems, we should apply solutions based on the context of the problem, not by mindlessly following blanket rules.
 
-### Set smart defaults
+### Smart Defaults
 
 The first radio button has a `checked` attribute. This selects the first delivery option automatically. This has two benefits as there is:
 
@@ -211,7 +210,7 @@ The first radio button has a `checked` attribute. This selects the first deliver
 
 Where possible the first radio button should be checked. This is because the most common choice should normally come first. In this case, we've sensibly assumed this to be the cheapest option.
 
-## 5. Delivery notes
+## 5. Delivery Notes
 
 Imagine your at work, you get a notification that your product is on its way to your home to be delivered. You're excited and when you arrive home, instead of seeing the package, you see a little delivery note saying ‘We couldn't deliver your package as it was too big to fit through your letter box.’.
 
@@ -228,7 +227,7 @@ This is where delivery notes come in. A delivery note tells the delivery person 
 	    </label>
 	    <textarea id="notes" name="notes"></textarea>
   	</div>
-  	<input type="submit" value="Next">
+  	<input type="submit" value="Continue">
 </form>
 ```
 
@@ -242,7 +241,7 @@ However the problem with a textarea is that it takes an infinite amount of chara
 
 In this case, the device that shows the notes has a limited amount of space to fit the note into. And it doesn't allow scrolling. Even if it did, a lot of text to wade through could cause a lot of wasted time. We need to limit the amount of text that can be entered.
 
-### Limiting characters
+### Limiting Characters
 
 The `maxlength` attribute limits the amount of text users can enter. However, support is either lacking or buggy[^8]. Worse though, is that `maxlength` literally prevents the user from entering too many characters.
 
@@ -252,7 +251,7 @@ Instead, we'll need to create a custom component that indicates to users how man
 
 For those that don't look up, they'll get feedback then and can take action to reduce the characters. For those that miss the feedback entirely, validation will look after them.
 
-### Characters remaining component
+### Characters Remaining
 
 How it might look:
 
@@ -339,13 +338,13 @@ How it might look:
 		</div>
 	</fieldset>
   </div>
-	<input type="submit" value="Next">
+	<input type="submit" value="Continue">
 </form>
 ```
 
 Card details are among the most commonly corrected fields in forms. There are a many things we can do to design a better experience.
 
-### Browser autocomplete
+### Autocomplete
 
 In ‘Improve Billing Form UX’[^9], Margarita Klubochkina explains that the browser's autocomplete behaviour speeds up the form filling process:
 
@@ -379,7 +378,7 @@ I wondered, then, why it is we ask for street name. Øyvind explains:
 
 Øyvind is not a designer per se, but his input into the design process is so important. This is why one of favourite inspirational quotes is *Design is a team sport*[^11]. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
 
-### Expiry date
+### Expiry Date
 
 As far as dates go, an expiry date is at the easy end of the spectrum. It's a text box that closely matches the format found on the card. Making things match like this reduces the cognitive burden on the user. They just copy what they see.
 
@@ -404,7 +403,7 @@ input::-webkit-inner-spin-button {
 }
 ```
 
-### Security number
+### Security Number
 
 This number is found on the back of the card. It's not obvious what it is or where to find it. It's not labelled and sometimes it's part of a larger number.
 
@@ -414,7 +413,7 @@ This makes ‘Security number’ ambiguous on its own. It doesn't help that some
 
 Acronyms aside, telling users where to find it, using a hint makes things obvious and requires little effort on behalf of the user.
 
-### Billing address
+### Billing Address
 
 The billing address is a replica of the delivery address which we designed earlier. Using the same component makes the interface familiar. Familiarity is an important quality of an interface.
 
@@ -434,7 +433,7 @@ function AddressRevealer() {}
 }
 ```
 
-## 7. Check your answers
+## 7. Check Your Answers
 
 How it might look:
 
@@ -454,7 +453,7 @@ Having spent a lot of time filling out the forms, it's only human and respectful
 
 This saves the business a lot of time and money. If she makes the wrong order then she'll need to return it. This is costly and time-consuming, especially if the business offers free returns.
 
-### Amending the order
+### Amending
 
 How it might look:
 
@@ -489,7 +488,7 @@ After placing the order, their experience is, in many respects, just beginning. 
 
 For those who used guest checkout (more on this shortly), the confirmation page is a good place to ask users to register. We might offer users a discount off their next order. Or more simply by offering users a faster experience next time (because we've got their details).
 
-## Guest checkout
+## Guest Checkout
 
 As Jared Spool explains in The 300 Million Dollar Button[^13], forcing users to register, before being able to checkout is just about the worst thing we can do.
 
@@ -499,7 +498,7 @@ This creates an unnecessary burden on the users up front for no gain to the user
 
 By all means ask users to register, by giving genuine value, but do so at the end of a journey. The journey itself should build trust if we design it well.
 
-## Progress bars
+## Progress Bars
 
 Traditional advice says we should give users knowledge of their progress within a particular process. But this is not necessarily the case. There is little data that shows including one is of much value.
 
@@ -526,7 +525,7 @@ This progress indicator may well be enough and doesn't suffer from many of the c
 
 In later chapters, we'll look at how to solve a really really long form by showing progress.
 
-## Smart defaults
+## Smart Defaults
 
 We can speed things up drastically for those ordering for a second time. This is because we have their information on record. This means we can bypass all the steps by sending the user directly to the *Check and confirm* page for a final review. For most users, this means reducing interaction points to one.
 
@@ -546,7 +545,7 @@ On small screens we put the order summary below the form. On bigger screens we h
 
 ![Order summary panel](./images/?.png)
 
-## Checkout header
+## Checkout Header
 
 Many checkouts have a specific header that is different to the norm. This is because it reduces the noise, and softly encourages users to complete the process. The suggestion here is to keep the site's logo for familiarity purposes and allow uses to click that to exit the flow.
 

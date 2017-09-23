@@ -70,7 +70,9 @@ The button is position and styled the same way as set out in “A Registration F
 
 ## 2. Mobile Phone
 
-Like the email field, the mobile phone field uses the same pattern again. Besides the content, there are some important differences.
+Again, the mobile phone field uses the same pattern. Apart from the content, there are two important differences. First that the field is marked as optional and second, that the input type is set to `tel`.
+
+![Mobile screen](.)
 
 ```html
 <div class="field">

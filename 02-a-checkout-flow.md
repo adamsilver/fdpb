@@ -90,19 +90,15 @@ The input's `type` attribute is set to `tel` which on mobile phones will spawn a
 
 ![Tel keyboard](.)
 
-### Required Fields
+### Optional And Required Fields
 
-Whilst real-time notifications *add value*, not everyone has a mobile phone. And those that do, may not want to receive notifications. So we follow principle 5, *Offer choice*, by making the field optional. This is our first optional field, as such, we should conduct user research to ensure that this field is adding value, otherwise we should kill it.
+Whilst real-time notifications *add value* not everyone wants to receive them, and we shouldn't assume every user has one. So we follow principle 5, *Offer choice*, by marking the field as optional. 
 
-Traditionally, required fields are marked with an asterisk. A legend, usally placed above the form
+Traditionally, we mark required fields (not optional ones) with an asterisk. A legend, is usually placed above the form to denote its meaning. Luke Wobrelski says “including the phrase ‘optional’ after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder ‘what does this asterisk mean?’ and have to go hunting for a legend that explains it.”
 
-required/aria-required
+You might also be wondering why we're marking optional fields, instead of required ones. In “Required Versus Optional Fields”[^], Jessice Enders says “think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.” 
 
-Traditionally, we've marked required fields using an asterisk. A legend, usually placed above the form explains its meaning. I'm not entirely sure how this came to be, but having a layer of abstraction (between the symbol and the meaning) puts cognitive strain on the user. Luke Wobrelski says *including the phrase “optional” after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder “what does this asterisk mean?” and have to go hunting for a legend that explains it.*
-
-The Question Protocol encourages us to only include questions that are essential. If everything is required, we don't need to mark anything. In Required Versus Optional Fields[^] Jessica Enders says *think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.*
-
-If required fields are the norm, and optional fields aren't, then it's the optional fields we should think about marking in some way. In this case put the word *optional*, in brackets, inside the label to ensure it is read out as part of the label. This way the information is obvious in context of the field.
+Thanks to the Question Protocol, in most forms required fields are the norm. So on the odd occasion, we highlight optional fields, simply by putting the word *optional* in brackets next to the label.
 
 ## 3. Delivery Address
 

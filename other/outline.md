@@ -44,9 +44,9 @@
 - Flow and order
 - (1) Email address
 - (2) Mobile phone
-	- Optional fields
+	- Optional Fields
 - (3) Delivery address
-	- Field width
+	- Field Width
 	- Improving UX with Capture+
 - (4) Delivery options
 	- Grouping form controls

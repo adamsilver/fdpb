@@ -58,25 +58,33 @@ Just like the car salesperson, we'll ask for the right information at the right 
 
 ## 1. Email Address
 
-We designed a pattern already for asking for an email address in the previous chapter. Here we should use the same component, laid out in the same way, promoting consistency and familiarity at the same time. 
+We already have a pattern for this as set out in the previous chapter so we can reuse it here. This means we don't have to solve the same problem from scratch. So far so good.
 
-There's an opportunity to adapt the content to this context. That is, why does a user need to give their email address in order to buy a product online? The reason is normally to be able to send them a receipt of purchase. In which case, consider telling them using the hint pattern.
+There's an opportunity to adapt the content to fit this context. That is, why does a user need to give their email address in order to buy a product online? It's so we can send users a receipt of purchase. In which case we should tell them this by using the hint pattern.
 
 ![We need this to send you a receipt](.)
 
-(Note: logged-in users won't see this screen. I'll cover the second time experience in more detail later.)
+The button is position and styled the same way as set out in “A Registration Form”. The only difference is the the label, which is set to “Continue”. This verb implies progress which suits the checkout flow well.
 
-## 2. Mobile phone
+*(Note: logged-in users won't see this screen. I'll cover the second time experience in more detail later.)*
+
+## 2. Mobile Phone
+
+Like the email field, the mobile phone field uses the same pattern again. Besides the content, there are some important differences.
 
 ```html
 <div class="field">
   <label for="mobile">
-    <span class="field-label">Your mobile</span>
+    <span class="field-label">Your mobile (optional)</span>
     <span class="field-hint">So we can notify you about delivery</span>
   </label>
   <input type="tel" id="mobile" name="mobile">
 </div>
 ```
+
+- Not everyone has a mobile phone, and even if they do, they may not want notifications. So we do optional. Question Protocol.
+- Type=tel
+
 
 In the first chapter, we discussed just how important it was to tell users, on occasion, why it is we're asking for particular information. Why is it, then, are we asking for the user's phone number, especially when they're ordering online?
 

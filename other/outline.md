@@ -45,12 +45,12 @@
 - (1) Email address
 - (2) Mobile phone
 	- Optional Fields
-- (3) Delivery address
+- (3) Delivery Address
 	- Field Width
-	- Improving UX with Capture+
+	- Capture+
 - (4) Delivery options
-	- Grouping form controls
-	- Setting smart defaults
+	- Grouping
+	- Smart Defaults
 - (5) Delivery notes
 	- Textarea
 	- Character count warning

@@ -90,127 +90,104 @@ The input's `type` attribute is set to `tel` which on mobile phones will spawn a
 
 ![Tel keyboard](.)
 
-### Optional And Required Fields
+### Marking Optional/Required Fields
 
-Whilst real-time notifications *add value* not everyone wants to receive them, and we shouldn't assume every user has one. So we follow principle 5, *Offer choice*, by marking the field as optional. 
+Whilst real-time notifications *add value*, we shouldn't assume everyone wants to receive them, nor that everyone has a mobile phone. So we follow principle 5, *Offer choice*, by marking the field as optional. This way, users can opt-in if they want.
 
-Traditionally, we mark required fields (not optional ones) with an asterisk. A legend, is usually placed above the form to denote its meaning. Luke Wobrelski says “including the phrase ‘optional’ after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder ‘what does this asterisk mean?’ and have to go hunting for a legend that explains it.”
+Traditionally, required fields are marked with an asterisk. A legend, is usually placed above the form to denote its meaning. Luke Wobrelski says “including the phrase ‘optional’ after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder ‘what does this asterisk mean?’ and have to go hunting for a legend that explains it.”
 
-You might also be wondering why we're marking optional fields, instead of required ones. In “Required Versus Optional Fields”[^], Jessice Enders says “think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.” 
-
-Thanks to the Question Protocol, in most forms required fields are the norm. So on the odd occasion, we highlight optional fields, simply by putting the word *optional* in brackets next to the label.
+You might also be wondering why we're marking optional fields, instead of required ones. In “Required Versus Optional Fields”[^], Jessice Enders says “think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.” Thanks to the Question Protocol, most fields should be required, so we mark optional fields instead. And we do that by adding “(optional)” inside the label.
 
 ## 3. Delivery Address
 
-How it might look:
+![Delivery form](.)
 
-![Delivery form](./images/?.png)
-
-```html
-<form novalidate>
-  <div class="field">
-    <label for="recipientName">
-		<span class="field-label">Recipient name</span>
-    </label>
-    <input type="text" id="recipientName" name="recipientName">
-  </div>
-  <div class="field">
-    <label for="address1">
-    	<span class="field-label">Recipient address line 1</span>
-    </label>
-    <input type="text" id="address1" name="address1">
-  </div>
-  <div class="field">
-    <label for="address2">
-    	<span class="field-label">Recipient address line 2</span>
-   	</label>
-    <input type="text" id="address2" name="address2">
-  </div>
-  <div class="field">
-    <label for="city">
-    	<span class="field-label">Recipient city</span>
-    </label>
-    <input type="text" id="city" name="city">
-  </div>
-  <div class="field">
-    <label for="postcode">
-    	<span class="field-label">Recipient postcode</span>
-    </label>
-    <input type="text" id="postcode" name="postcode">
-  </div>
-  <input type="submit" value="Continue">
-</form>
+```HTML
+<div class="field">
+  <label for="address1">
+  	<span class="field-label">Address line 1</span>
+  </label>
+  <input type="text" id="address1" name="address1">
+</div>
+<div class="field">
+  <label for="address2">
+  	<span class="field-label">Address line 2 (optional)</span>
+ 	</label>
+  <input type="text" id="address2" name="address2">
+</div>
+<div class="field">
+  <label for="city">
+  	<span class="field-label">City</span>
+  </label>
+  <input type="text" id="city" name="city">
+</div>
+<div class="field">
+  <label for="postcode">
+  	<span class="field-label">Postcode</span>
+  </label>
+  <input type="text" id="postcode" name="postcode">
+</div>
 ```
 
-We've used the same field pattern from the first chapter with a label and optional hint for each field. But there are some specific things to note.
+The delivery address contains 5 fields that together make up an address. Visually there is a slight difference between the fields: field width.
 
 ### Field Width
 
-Designers are obsessed with clean lines and symmetry. In Write Less Damn Code[^4], Heydon Pickering jokingly points out that was the reason some people added ‘XHTML 1.1 Compliant’ banners just to ensure the height of the navigation bar matches the height of the content perfectly.
+In “Write Less Damn Code”[^4], Heydon Pickering jokingly points out, that the reason some people added XHTML 1.1 Complaint banners to their website was to ensure the height of the menu matches the height of the content. Similarly, you might be tempted to give every address field the same width.
 
-[!Banner Heydon](.)
+But, giving the postcode field the same width as every other field increases the cognitive burden for users. This is because the the width of the field gives users a clue as to the length of the content it requires.
 
-Applying this approach to the delivery address fields, we might give every field the same width. It's hard to argue aginst the beauty of such a design, but we're not installing a minimalist art display. We're designing a form for people to use. Making the postcode field wide, just to match the others, increase cognitive burden. This is because the width of the field gives users a clue as to the length of the content required.
+Baymard Institute's study[^5] found that “if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.”
 
-Baymard Institute's study[^5] found that *if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.*
+As postcodes consist of 6-8 characters, the field should have a matching width that is smaller than the other fields. You should apply this rule to every field whereby the length of the content is known.
 
-As a postcode consists of approximately 8 characters, the field should have a matching width. This guidance is applicable well beyond that of a postcode. You should use this approach for any field whereby the length of the content is known.
+### Capture+ Enhancement
 
-### Capture+
+Capture Plus[^6] is a third party plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, users can type into just one. As the user types the first line of their address, suggestions appear from which they can select. This reduces the amount of keystrokes and therefore the chance of typos. 
 
-Capture Plus[^6] is a third party API and plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, it gives users a single text box. As the user types the first line of their address, suggestions appear from which to select. This reduces the amount of keystrokes and therefore the chance of typos. If no address is found, the user can change the interface back to the regular form conforming to principle 5, *offer choice*.
+![Capture+ Enhancement](.)
 
-![Capture+](./images/?.png)
+If no address is found, users can change the interface back to the original address form. In doing so, we conform to principle 5, *offer choice*.
 
-Such an enhancement means we have to consider a broad range of interaction models. Many of us would shirk the responsibility by using a third-party plugin, but shirking responsibility doesn't stop users being on the end of a sub par experience: caring does. In the next chapter, we'll consider all the angles of building our own fully inclusive and sophisticated autocomplete component.
+Capture+ offers a solution out of the box: you include their script and you're away. Except that you're not. Most third-party scripts don't consider the broad range of interaction preferences, usability and acessibility considerations that need to be taken into account. But, we'll look at all of this and more in the next chapter, when we build an accessibile autocomplete component.
 
 ## 4. Delivery Options
-
-How it might look:
 
 ![Delivery options](./images/?.png)
 
 ```html
-<form novalidate>
-	<div class="field">
-		<fieldset>
-			<legend>
-				<span class="field-legend">Delivery options</span>
-			</legend>
-			<div class="field-radioButton">
-			    <input type="radio" name="option" id="option1" value="Standard" checked>
-			    <label for="option1">Standard (Free, 2-3 days)</label>
-			</div>
-			<div class="field-radioButton">
-			    <input type="radio" name="option" id="option2" value="Premium">
-			    <label for="option2">Premium (£6, Next day)</label>
-			</div>
-		</fieldset>
-	</div>
-	<input type="submit" value="Continue">
-</form>
+<div class="field">
+	<fieldset>
+		<legend>
+			<span class="field-legend">Delivery options</span>
+		</legend>
+		<div class="field-radioButton">
+		  <input type="radio" name="option" id="option" value="Standard" checked>
+		  <label for="option">Standard (Free, 2-3 days)</label>
+		</div>
+		<div class="field-radioButton">
+		  <input type="radio" name="option" id="option2" value="Premium">
+		  <label for="option2">Premium (£6, Next day)</label>
+		</div>
+	</fieldset>
+</div>
 ```
 
-This is the first time we've encountered a field that consists of multiple inputs for the same question in the form of radio buttons. There are some special things to note.
+This is the first field that consists of multiple controls, in this case, radio buttons.
 
-### Grouping Form Controls
+### Grouping
 
-To group multiple form controls together, we need to wrap them inside a `fieldset`. The `legend` describes the group, in the same way a `label` describes the control. Like the `label`, a `legend` provides a description for sighted users and screen reader users alike. In most screen readers, the `legend` is read out in combination with the radio button's `label`:
+To group multiple controls together, we must wrap them in a `fieldset`. The `legend` describes the group, in the same way a `label` describes the control. The `legend` provides a description for sighted users and screen reader users alike. 
 
-*Delivery options, Standard (Free, 2-3 days)* or similar.
+In most screen readers, the `legend` is read out in combination with the radio button's `label`. “Delivery options, Standard (Free, 2-3 days)” (or similar). If we omited the `fieldset` and `legend` then screen reader users would only hear “Standard (Free, 2-3 days)” which is a ambiguous.
 
-It may be tempting to group all fields in form like this. Chapter one's registration form could, in theory, be wrapped in a fieldset and legend. Whilst valid, it creates unnecessary noise to those fields that are perfectly understandable without it. In short it doesn't conform to principle 7, *add value*.
-
-In Inclusive Design Patterns[^7], Heydon Pickering says *it's easy to think of patterns as ‘right’ and ‘wrong’*. As with most design problems, we should apply solutions based on the context of the problem, not by mindlessly following blanket rules.
+You may be tempted to group all fields this way. For example, the address form from earlier, could be wrapped inside a `fieldset` with a `legend` of “Address”. Whilst this is technically valid, it's unnecessary and verbose as the field labels make sense without a `legend`. Users don't need to hear “Address: Address Line 1” as it doesn't *add value*.
 
 ### Smart Defaults
 
-The first radio button has a `checked` attribute. This selects the first delivery option automatically. This has two benefits as there is:
+The first radio button is selected by default thanks to the `checked` attribute. This has two benefits: first, this stops users from seeing an error negating the need for form validation. Second, there's less work for users to do.
 
-- less work for the user to do
-- no chance of causing errors
-
-Where possible the first radio button should be checked. This is because the most common choice should normally come first. In this case, we've sensibly assumed this to be the cheapest option.
+As most users will select free delivery, we put that option first and select it for them. This way users can proceed effortlessly.
 
 ## 5. Delivery Notes
 
@@ -221,16 +198,13 @@ This is where delivery notes come in. A delivery note tells the delivery person 
 ![Delivery notes](./images/?.png)
 
 ```HTML
-<form novalidate>
-	<div class="field">
-	    <label for="notes">
-	    	<span class="field-label">Delivery notes</span>
-	    	<span class="field-hint">Tell us what to do if you're not in. For example, *leave it with the next door neighbour*.</span>
-	    </label>
-	    <textarea id="notes" name="notes"></textarea>
-  	</div>
-  	<input type="submit" value="Continue">
-</form>
+<div class="field">
+  <label for="notes">
+  	<span class="field-label">Delivery notes</span>
+  	<span class="field-hint">Tell us what to do if you're not in. For example, *leave it with the next door neighbour*.</span>
+  </label>
+	<textarea id="notes" name="notes"></textarea>
+</div>
 ```
 
 The HTML is remarkably similar to most of the other fields we've discussed so far including the hint pattern. But this is the first time we've seen a `textarea`.

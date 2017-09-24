@@ -248,7 +248,7 @@ CharactersIndicator.prototype.onFieldChange = function(e) {
 
 ```
 
-The status box has a `role` attribute set to `status`. When the textbox is updated with the status, screen readers will announce the text. But only after the user finishes typing, thanks to the `aria-live` attribute being set to `polite`. There's nothing more annoying than being interupted when you're concentrating on crafting a message. 
+The status box has a `role` attribute set to `status` and `aria-live` set to `polite`. When the status box is updated, screen readers will announce it, but only after the user finishes typing. This way, users aren't rudely interupted. Note that, both `role` and `aria-live` are functionally equivalent, but older versions of JAWS don't support `role`.
 
 ## 6. Payment
 

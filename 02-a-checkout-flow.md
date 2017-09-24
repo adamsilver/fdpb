@@ -209,61 +209,46 @@ A delivery note, which you can provide at your discretion, stops this from happe
 
 This is the first time we've used a `textarea` control. It's remarkably similar to a text box (`input type="text"`) except that tit allows many lines of text. This is appropriate here because a delivery note could span multiple lines. (Remember from earlier, that the size of the field affords its requirements.)
 
-Whilst this question *adds value* and justifies its existence in the checkout flow, we need to understand how it will be used from the delivery person's perspective. It may influence the design of the interface. In this case, the device that shows the notes has a limited amount of space and it can't be scrolled.
-
-This being the case, we'll need to limit the amount of text users can type, otherwise we risk important details being cut off and the delivery notes becoming a hindrance.
+Whilst this question *adds value* and justifies its existence in the checkout flow, we need to understand how it will be used from the delivery person's perspective. It may influence the design of the interface. In this case, the viewport on the device is small and can't be scrolled, so we'll need to limit the amount of text that can be typed.
 
 ### Limiting Text
 
-The `maxlength` attribute limits the amount of text users can enter. However, support is either lacking or buggy[^8]. Worse though, is that `maxlength` literally prevents the user from entering too many characters.
+Limiting the amount of a text a user can type can and should be handled by validation as set out in “A Registration Form”. But there are some additional considerations to discuss.
 
-This is a problem because some users solely focus on the keyboard whilst typing. When they finally look up at the screen, they'll realise the system ignored paragraphs of text they spent ages entering. This causes frustration and a distrust in the service.
+The `maxlength` attribute (which takes a number value) literally limits the amount of a text a user can type. So as soon as the limit is reached, the user's input will be ignored. The support for this attribute on the `textarea` control is both lacking and buggy[^8]. Even if it was well supported, I don't recommend using it, especially in this case.
 
-Instead, we'll need to create a custom component that indicates to users how many characters they have left. Importantly, the component won't interupt users and it won't stop the user entering too many characters.
+This is because some users don't look at the screen as they type&mdash;they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated causing immense frustration.
 
-For those that don't look up, they'll get feedback then and can take action to reduce the characters. For those that miss the feedback entirely, validation will look after them.
+### Character Countdown
 
-### Characters Remaining
+Instead, we should let users type freely and offer feedback as to how many characters they have left. This way, users can see the feedback when they finally look up at the screen and edit their entry accordingly. If they don't notice the feedback, then an error will show when they submit the form, thanks to our validation routine.
 
-How it might look:
+![Character count](.)
 
-![Chars](.)
+To create this component, we need to use Javascript to inject a status box below the field. Then we need to listen to the textarea's `keydown` event.
 
-```javascript
-function CharactersIndicator(field, options) {
-	this.field = $(field);
-	this.status = $('<div class="indicator" role="alert" aria-live="polite" />');
-	this.setOptions(options);
-	this.updateStatus(this.options.maxLength);
-	this.field.parent().append(this.status);
-	this.field.on("keydown", $.proxy(this, 'onFieldChange'));
-};
-
-CharactersIndicator.prototype.setOptions = function(options) {
-	this.options = {
-		maxLength: 100,
-		message: 'You have %count% characters remaining.',
-	};
-	this.options = $.extend(this.options, options);
-};
-
-CharactersIndicator.prototype.onFieldChange = function(e) {
-	var remaining = this.options.maxLength - this.field.val().length;
-	this.updateStatus(remaining);
-};
-
-CharactersIndicator.prototype.updateStatus = function(remaining) {
-	var message = this.options.message.replace(/%count%/, remaining);
-	this.status.html(message);
+```JS
+function CharacterCountdown(input) {
+  this.input = $(input);
+  this.status = $('<div role="status" aria-live="polite" />');
+  this.setOptions(options);
+  this.updateStatus(this.options.maxLength);
+  this.input.parent().append(this.status);
+  this.input.on("keydown", $.proxy(this, 'onKeydown'));
 };
 ```
 
-Notes:
+As the user types the `keydown` event listener will fire. That method checks the `length` of the field against the configured max length. Then it will update the status box accordingly.
 
-- The script injects a status element below the textarea that indicates how many characters are left visually.
-- The `role="status"` attribute ensures that screen reader users can hear the status.
-- The `aria-live="polite"` attribute ensures that the status is only announced when the user finishes typing to make sure they aren't rudely interrupted.
-- As the user types the content is updated with a message.
+```javascript
+CharactersIndicator.prototype.onFieldChange = function(e) {
+	var remaining = this.options.maxLength - this.field.val().length;
+  this.status.html(this.options.message.replace(/%count%/, remaining));
+};
+
+```
+
+The status box has a `role` attribute set to `status`. When the textbox is updated with the status, screen readers will announce the text. But only after the user finishes typing, thanks to the `aria-live` attribute being set to `polite`. There's nothing more annoying than being interupted when you're concentrating on crafting a message. 
 
 ## 6. Payment
 

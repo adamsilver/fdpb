@@ -191,33 +191,29 @@ As most users will select free delivery, we put that option first and select it 
 
 ## 5. Delivery Notes
 
-Imagine your at work, you get a notification that your product is on its way to your home to be delivered. You're excited and when you arrive home, instead of seeing the package, you see a little delivery note saying ‘We couldn't deliver your package as it was too big to fit through your letter box.’.
+Imagine your at work. You get a notification to say your item is on its way to your home address for delivery. When you arrive home, instead of seeing the package, you see a delivery note saying “we couldn't deliver your package as it didn't fit through your letter box”. Frustrating.
 
-This is where delivery notes come in. A delivery note tells the delivery person what to do in the event somebody is not home to open the door. Perhaps you want it left with a neighbour, or inside the recycle bin, which works surprisingly well if I may say so.
+A delivery note, which you can provide at your discretion, stops this from happening. The delivery note tells the delivery person what to do in the event that you're not home. Perhaps you'd prefer it to be left with a neighbour, or inside your recycle bin which Amazon[^] refers to as a “safe place”. This, by the way, works surprisingly well.
 
-![Delivery notes](./images/?.png)
+![Delivery notes](.)
 
 ```HTML
 <div class="field">
   <label for="notes">
-  	<span class="field-label">Delivery notes</span>
+  	<span class="field-label">Delivery notes (optional)</span>
   	<span class="field-hint">Tell us what to do if you're not in. For example, *leave it with the next door neighbour*.</span>
   </label>
 	<textarea id="notes" name="notes"></textarea>
 </div>
 ```
 
-The HTML is remarkably similar to most of the other fields we've discussed so far including the hint pattern. But this is the first time we've seen a `textarea`.
+This is the first time we've used a `textarea` control. It's remarkably similar to a text box (`input type="text"`) except that tit allows many lines of text. This is appropriate here because a delivery note could span multiple lines. (Remember from earlier, that the size of the field affords its requirements.)
 
-### Textarea
+Whilst this question *adds value* and justifies its existence in the checkout flow, we need to understand how it will be used from the delivery person's perspective. It may influence the design of the interface. In this case, the device that shows the notes has a limited amount of space and it can't be scrolled.
 
-A `textarea` is like a text box except that it allows many lines of text, and typically takes more content. (Remember, the size of the field should afford its requirements.)
+This being the case, we'll need to limit the amount of text users can type, otherwise we risk important details being cut off and the delivery notes becoming a hindrance.
 
-However the problem with a textarea is that it takes an infinite amount of characters. But the Question Protocol, as discussed in chapter 1 tells us that we need to know what it is we're doing with a piece of information before we can determine how we design it for the interface.
-
-In this case, the device that shows the notes has a limited amount of space to fit the note into. And it doesn't allow scrolling. Even if it did, a lot of text to wade through could cause a lot of wasted time. We need to limit the amount of text that can be entered.
-
-### Limiting Characters
+### Limiting Text
 
 The `maxlength` attribute limits the amount of text users can enter. However, support is either lacking or buggy[^8]. Worse though, is that `maxlength` literally prevents the user from entering too many characters.
 

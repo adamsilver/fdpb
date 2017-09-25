@@ -241,71 +241,69 @@ function CharacterCountdown(input) {
 As the user types the `keydown` event listener will fire. That method checks the `length` of the field against the configured max length. Then it will update the status box accordingly.
 
 ```javascript
-CharactersIndicator.prototype.onFieldChange = function(e) {
+CharacterCountdown.prototype.onFieldChange = function(e) {
 	var remaining = this.options.maxLength - this.field.val().length;
   this.status.html(this.options.message.replace(/%count%/, remaining));
 };
 
 ```
 
-The status box has a `role` attribute set to `status` and `aria-live` set to `polite`. When the status box is updated, screen readers will announce it, but only after the user finishes typing. This way, users aren't rudely interupted. Note that, both `role` and `aria-live` are functionally equivalent, but older versions of JAWS don't support `role`.
+The status box has a `role` attribute set to `status` and `aria-live` set to `polite`. When the status box is updated, screen readers will announce it, but only after the user finishes typing. This way, users aren't rudely interupted. 
+
+
+*(Note: both `role="status"` and `aria-live="polite"` are functionally equivalent, but older versions of JAWS don't support `role`.)*
 
 ## 6. Payment
 
-How it might look:
+It's not surpising that most transactions are abandoned at the payment page. Users don't need much of an excuse to drop out so we shouldn't give them one. Reducing friction on this page is crucial and there are a number of considerations: leveraging the browser autocomplete, culling certain fields, using the right input types and crafting the words. All of this needs to be taken into account.
 
 ![Payment](./images/?.png)
 
-```html
-<form novalidate>
-	<div class="field">
-		<label for="ccname">
-			<span class="field-label">Name on card</span>
-		</label>
-		<input type="text" id="ccname" name="ccname" autocomplete="cc-name">
-	</div>
-	<div class="field">
-		<label for="cardnumber">
-			<span class="field-label">Card number</span>
-		</label>
-		<input type="number" id="cardnumber" name="cardnumber" autocomplete="cc-number">
-	</div>
-	<div class="field">
-		<label for="expdate">
-			<span class="field-label">Expiry date</span>
-		</label>
-		<input type="number" id="expdate" name="expdate" autocomplete="cc-exp">
-	</div>
-	<div class="field">
-		<label for="cvc">
-			<span class="field-label">Security code</span>
-		</label>
-		<input type="number" id="cvc" name="cvc" autocomplete="cc-csc">
-	</div>
-  <div class="field">
-    <fieldset>
-		<legend>
-			<span class="field-legend">Is your billing address the same as delivery?</span>
-		</legend>
-		<div class="field-checkbox">
-			<label for="things">
-				<input type="checkbox" name="things" value="" id="things" checked>
-				Yes, it's the same
-			</label>
-		</div>
-	</fieldset>
-  </div>
-	<input type="submit" value="Continue">
-</form>
-```
-
-Card details are among the most commonly corrected fields in forms. There are a many things we can do to design a better experience.
-
 ### Autocomplete
+
+```html
+<div class="field">
+	<label for="ccname">
+		<span class="field-label">Name on card</span>
+	</label>
+	<input type="text" id="ccname" name="ccname" autocomplete="cc-name">
+</div>
+<div class="field">
+	<label for="cardnumber">
+		<span class="field-label">Card number</span>
+	</label>
+	<input type="number" id="cardnumber" name="cardnumber" autocomplete="cc-number">
+</div>
+<div class="field">
+	<label for="expdate">
+		<span class="field-label">Expiry date</span>
+	</label>
+	<input type="number" id="expdate" name="expdate" autocomplete="cc-exp">
+</div>
+<div class="field">
+	<label for="cvc">
+		<span class="field-label">Security code</span>
+	</label>
+	<input type="number" id="cvc" name="cvc" autocomplete="cc-csc">
+</div>
+<div class="field">
+  <fieldset>
+  	<legend>
+  		<span class="field-legend">Is your billing address the same as delivery?</span>
+  	</legend>
+  	<div class="field-checkbox">
+  		<label for="things">
+  			<input type="checkbox" name="things" value="" id="things" checked>
+  			Yes, it's the same
+  		</label>
+  	</div>
+  </fieldset>
+</div>
+```
 
 In ‘Improve Billing Form UX’[^9], Margarita Klubochkina explains that the browser's autocomplete behaviour speeds up the form filling process:
 
-> Nowadays almost every popular browser has an autofill feature, allowing the users to store their card data in the browser and to fill out form fields more quickly. Since iOS 8, mobile Safari users can scan their card’s information with the iPhone’s camera and fill in [the] fields automatically.’
+> “Nowadays almost every popular browser has an autofill feature, allowing the users to store their card data in the browser and to fill out form fields more quickly. Since iOS 8, mobile Safari users can scan their card’s information with the iPhone’s camera and fill in fields automatically.”
 
 Both autofill and card-scanning work only with forms that use `autocomplete` for HTML5-supporting browsers and `name` for browsers without support.
 

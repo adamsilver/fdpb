@@ -55,7 +55,7 @@
 	- Textarea
 	- Character count warning
 - (6) Payment
-	- Browser autocomplete
+	- Autocomplete
 	- Question Protocol
 	- Expiry date
 		- Dates

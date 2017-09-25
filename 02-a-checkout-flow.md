@@ -255,9 +255,30 @@ The status box has a `role` attribute set to `status` and `aria-live` set to `po
 
 ## 6. Payment
 
-It's not surpising that most transactions are abandoned at the payment page. Users don't need much of an excuse to drop out so we shouldn't give them one. Reducing friction on this page is crucial and there are a number of considerations: leveraging the browser autocomplete, culling certain fields, using the right input types and crafting the words. All of this needs to be taken into account.
+It's hardly surprising that most transactions are abandoned at the payment page. Not only is this toward the end of the journey (where users have had the most time to reconsider their decision, for example), but they have to locate their credit card to then part with their money.
 
-![Payment](./images/?.png)
+Fortunately, there are a number of usability provisions we can apply here. By leveraging the browser's autocomplete routine, removing unnecessary fields, using the right input typs and crafting label (and hint) text&mdash;we drastically reduce friction and keep users focused.
+
+### Removing Fields
+
+When we designed the payment form for Kidly, we used the Question Protocol from chapter 1 to guide us. You may note that the form doesn't contain *Valid from* but does contain *Name on card*. This is because we asked ourselves the following questions:
+
+- What does Stripe[^10], our payment provider need to process payment?
+- What do we want for our records and why?
+
+Øyvind Valland, Chief of Technology at Kidly, explains his thinking:
+
+> We don't need to ask for Valid From. Only a handful of debit cards show those and it provides more hassle for the customer to enter, than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
+
+> Name on card is something we do ask for but I do not believe Stripe uses it for verification. Only the numerics contained in card details are used for verification. That is, house numbers are used, but not street names.
+
+I wondered, then, why it is we ask for street name. Øyvind explains:
+
+> In order to verify card details the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is handy in any situation where you have to query what's happened. Besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
+
+Øyvind is not a designer per se, but his input into the design process is so important. This is why one of favourite inspirational quotes is *Design is a team sport*[^11]. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
+
+![Payment](.)
 
 ### Autocomplete
 
@@ -314,25 +335,6 @@ Our form uses the following attributes for each field:
 - Expiry date: cc-exp and expdate
 - Security number: cc-csc and cvc
 
-### Question Protocol
-
-When we designed the payment form for Kidly, we used the Question Protocol from chapter 1 to guide us. You may note that the form doesn't contain *Valid from* but does contain *Name on card*. This is because we asked ourselves the following questions:
-
-- What does Stripe[^10], our payment provider need to process payment?
-- What do we want for our records and why?
-
-Øyvind Valland, Chief of Technology at Kidly, explains his thinking:
-
-> We don't need to ask for Valid From. Only a handful of debit cards show those and it provides more hassle for the customer to enter, than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
-
-> Name on card is something we do ask for but I do not believe Stripe uses it for verification. Only the numerics contained in card details are used for verification. That is, house numbers are used, but not street names.
-
-I wondered, then, why it is we ask for street name. Øyvind explains:
-
-> In order to verify card details the answer is no. I do recommend that you ask for it for your own records. Being able to eyeball this stuff is handy in any situation where you have to query what's happened. Besides, I think people kind of expect that they'll have to provide an address (at least one which is used for both billing and shipping)
-
-Øyvind is not a designer per se, but his input into the design process is so important. This is why one of favourite inspirational quotes is *Design is a team sport*[^11]. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
-
 ### Expiry Date
 
 As far as dates go, an expiry date is at the easy end of the spectrum. It's a text box that closely matches the format found on the card. Making things match like this reduces the cognitive burden on the user. They just copy what they see.
@@ -378,7 +380,7 @@ To do this, we'll add an extra field, as counterintuitive as that may sound. Ins
 
 With Javascript available, we hide the billing address. Unchecking the checkbox reveals it accordingly.
 
-```javascript
+```JS
 function AddressRevealer() {}
 ```
 

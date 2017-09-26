@@ -261,9 +261,18 @@ There are a number of usability provisions we can apply here. By leveraging the 
 
 ### Removing Fields
 
-When the team were sketching out designs for Kidly's payment page, we used the Question Protocol from chapter 1 to guide us. The idea behind the Question Protocol, of course, is to remove unnecessary fields and the related effort of users having to fill them out.
+When designing Kidly's[^] payment page after analysing cost, east and usability, we chose Stripe as our payment provider. Stripe requires certain card information in order to process payments. But equally, there's information they don't require.
 
-After analysis of cost, ease and usability, we chose Stripe as our payment provider. Stripe requires certain information in order to take payment but equally there were certain fields that Stripe doesn't require.
+Most payment forms will include:
+
+- Name on card
+- Card number
+- Valid from date
+- Expiry date
+- Issue number
+- Security number
+
+Additionally, users need to give their card's registered address.
 
 
 

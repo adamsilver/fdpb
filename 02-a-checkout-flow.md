@@ -255,13 +255,22 @@ The status box has a `role` attribute set to `status` and `aria-live` set to `po
 
 ## 6. Payment
 
-It's hardly surprising that most transactions are abandoned at the payment page. Not only is this toward the end of the journey (where users have had the most time to reconsider their decision, for example), but they have to locate their credit card to then part with their money.
+It's hardly surprising that most transactions are abandoned at the payment page. Not only is this screen shown toward the end of the journey (where users have had the most time to reconsider their decision, for example), but they may have to stop and find their credit card.
 
-Fortunately, there are a number of usability provisions we can apply here. By leveraging the browser's autocomplete routine, removing unnecessary fields, using the right input typs and crafting label (and hint) text&mdash;we drastically reduce friction and keep users focused.
+There are a number of usability provisions we can apply here. By leveraging the browser's autocomplete routine, removing unnecessary fields, using the right input types and crafting the label (and hint) text&mdash;we drastically reduce friction and keep users focused.
 
 ### Removing Fields
 
-When we designed the payment form for Kidly, we used the Question Protocol from chapter 1 to guide us. You may note that the form doesn't contain *Valid from* but does contain *Name on card*. This is because we asked ourselves the following questions:
+When the team were sketching out designs for Kidly's payment page, we used the Question Protocol from chapter 1 to guide us. The idea behind the Question Protocol, of course, is to remove unnecessary fields and the related effort of users having to fill them out.
+
+After analysis of cost, ease and usability, we chose Stripe as our payment provider. Stripe requires certain information in order to take payment but equally there were certain fields that Stripe doesn't require.
+
+
+
+
+I asked Øyvind what
+
+we used the Question Protocol from chapter 1 to guide us. You may note that the form doesn't contain *Valid from* but does contain *Name on card*. This is because we asked ourselves the following questions:
 
 - What does Stripe[^10], our payment provider need to process payment?
 - What do we want for our records and why?

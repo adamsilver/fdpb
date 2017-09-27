@@ -55,16 +55,13 @@
 	- Textarea
 	- Character count warning
 - (6) Payment
-	- Autocomplete
-	- Question Protocol
-	- Expiry date
-		- Dates
-		- Number input
-	- CVC field hint
-	- Billing address
-		- Reusing the address pattern
-		- Checkbox reveal
-- (7) Check your answers
+	- Removing Fields
+	- Autofill
+	- Expiry Date Field
+	- CVC Field
+	- Number Inputs
+	- Billing Address
+- (7) Check Your Answers
 	- Question Protocol
 	- Amending details
 - (8) Confirmation

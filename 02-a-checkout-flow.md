@@ -285,11 +285,11 @@ This also shows, that we should constantly be questioning the existence of form 
 
 ### Autofill
 
-Most modern browsers can automatically fill in form fields. When the user focuses a particular field, the browser checks if it has the information stored. If it does, the user can select it without having to type. Additionally, since iOS 8, the Safari browser lets users scan their card using the iPhone's camera to fill in the fields automatically.
+Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored&mdash;if it does, the user can select it without having to type. Additionally, since iOS 8, the Safari browser lets users scan their card using the iPhone's camera&mdash;it uses the same mechanism to automatically fill out those fields.
 
-Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos.
+Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos&mdash;two very helpful usability improvements on a form that has the highest drop off rates in ecommerce.
 
-Autofill and card scanning is enabled via the `autocomplete` attribute. Some older browsers offer similar functionality by parsing the `name` attribute instead. For widest support, you should specify the correct values for both attributes as shown below.
+As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Most modern browsers support, but for those that don't some older browers offer similar functionality by using the `name` attribute instead. For the widest support, you should specify the correct values for both attributes as shown below.
 
 ```HTML
 <div class="field">
@@ -331,29 +331,9 @@ Autofill and card scanning is enabled via the `autocomplete` attribute. Some old
 </div>
 ```
 
-You can refer to the full list of available values in the HTML specification[^autofillattr].
+*(Note: you can refer to the full list of available values in the HTML specification[^autofill])*
 
-### Expiry Date
-
-As far as dates go, the expiry date is at the easy end of the spectrum. It's a e
-
-It's a text box that closely matches the format found on the card. Making the interface match the format on of the card reduces the cognitive burden on the user. They just copy what they see.
-
-> ‘Be conservative in what you send; be liberal in what you accept.’
-
-One of the core principles defined in chapter 1 was to be forgiving of bad input wherever possible. In the case of an expiry date, we should let users enter a slash (or not) without causing an error to show. That is, we should do the hard work so our users don't have to.
-
-### Security Number
-
-This number is found on the back of the card. It's not obvious what it is or where to find it. It's not labelled and sometimes it's part of a larger number.
-
-![](.)
-
-This makes ‘Security number’ ambiguous on its own. It doesn't help that sometimes it's referred to as ‘CVC’ which, by the way, stands for ‘card verification number’. Acryonyms are an act of exlusivity because not everyone understands them. They can make people feel stupid.
-
-Acronyms aside, telling users where to find it, using a hint makes things obvious and requires little effort on behalf of the user.
-
-### Number Inputs
+### Number Input
 
 - Supporting browsers ignore when the user types a slash.
 - Spawn on-screen keyboard with numbers
@@ -374,24 +354,38 @@ input::-webkit-inner-spin-button {
 }
 ```
 
+### Expiry Date
+
+As far as dates go, an expiry date is one of the easiest to collect from users. In short, it's a text box that closely matches the format found on the card itself. Making the interface match the format on the card reduces the cognitive burden on the user: they just copy what they see.
+
+Visually, the length of the field is known: it takes 4 digits and so it's styled with a width to match giving users an extra affordance.
+
+> ‘Be conservative in what you send; be liberal in what you accept.’
+
+In chapter 1, we set out some core principles with regards to validation. One of those principles is that we should forgive users for bad input wherever possible. In this case, we should let users enter a slash (or not) without causing an error. This is the forgiving and human thing to do.
+
+### Card Verification Code (CVC)
+
+The CVC field is an amiguous field for two reasons. First, acronyms are hard to understand. But even if this acronym is spelt out, it's often labelled inconsistently: sometimes as “CVC” and sometimes as “Security number”. The number itself is usually the last 3 digits of a larger number on the back of the card. And, to top it off, it's not labelled on the card itself. 
+
+For these reasons, we can use hint text to tell users exactly where to find these numbers and how many they need to enter: “Last 3 digits on the back of the card” (or similar) makes this clear.
+
+![Hint text](.)
+
+Like the expiry date, the length of the field is known, and so again, the field width afford the expected input for good measure.
+
 ### Billing Address
 
-The billing address is a replica of the delivery address which we designed earlier. Using the same component makes the interface familiar. Familiarity is an important quality of an interface.
+The card's registered (billing) address is required in order to process payment. As it's an address, the billing address form is a copy of the delivery address from we tackled earlier. So we can reuse the same pattern here which makes for a familiar interface that requires less thought by the user.
 
-To process the card, we need its registered address. For most users this is the same as the delivery address. The user already provided this information earlier, so we can use this to enhance the experience.
+The billing address is actually the address to which the card is registered and is needed to process a payment. For most users, their billing address is the same as the delivery address. As the user has already provided this information previously, we can use this information to improve the experience.
 
-To do this, we'll add an extra field, as counterintuitive as that may sound. Instead of exposing the billing address, we'll ask users if their billing address and delivery address are the same. This is the most common scenario, so we default it to checked.
+To do this, we counterintuitvely need to add an extra field, this time a checkbox field. The checkbox field asks the user if their billing address is the same as the delivery address. This way users only have to fill out those fields on the rare occasion that it differs.
 
-With Javascript available, we hide the billing address. Unchecking the checkbox reveals it accordingly.
+As it's the most common scenario, it's set as checked by default. And with Javascript we can enhance the experience further by hiding the billing address until the user unchecks the checkbox which uses progressive disclosure as a way to reduce the noise in the interface.
 
 ```JS
-function AddressRevealer() {}
-```
-
-```CSS
-.enhanced .address-isHidden {
-	display: none;
-}
+Put code and explain it here
 ```
 
 ## 7. Check Your Answers

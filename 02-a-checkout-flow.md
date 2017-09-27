@@ -72,7 +72,7 @@ The submit button is also reused. It is position and styled the same way too. Th
 
 ## 2. Mobile Phone
 
-Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint as the hint pattern isn't just useful to denote requirements. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
+Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint&mdash;this pattern doesn't just pertain to formatting rules. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
 
 ![Mobile screen](.)
 
@@ -261,31 +261,37 @@ There are a number of usability provisions we can apply here. By leveraging the 
 
 ### Removing Fields
 
-There are a number of details on a credit or debit card: name on card, card number, valid from date, expiry date, issue number, security number; all of these are common to most types of card. However, many payment providers don't actually require all of these details to process a payment. In which case, making users provide that information is a waste of time.
+There are a number of details on a credit or debit card: name on card, card number, valid from date, expiry date, issue number, security number; all of these are commonly found on payment forms. However, not all of these details are necessary to process a payment.
 
-When I worked on Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) at Kidly, carefully picked Stripe as the payment provider. This way, Kidly doesn't have to worry about PCI compliance and the huge development effort around that.
+When I worked on Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) at Kidly, carefully picked Stripe as the payment provider. This way, Kidly didnt't have to worry about PCI compliance and the cost of developing its own solution from scratch. Here's the payment form we ended up with:
 
 ![Payment](.)
 
-You may notice, the design we ended up with (shown above) doesn't have a *valid from* date. Øyvind explains the thinking:
+You'll notice *valid from* date is missing so I spoke with Øyvind to find out why that was:
 
 > We don't need to ask for Valid From. Only a handful of debit cards show those and it provides more hassle for the customer to enter, than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
 
-Then we talked about needing a billing address. That is, the address to which the card is registered. Øyvind says:
+He goes on to talk about the billing address. That is the address to which the card is registered:
 
-> Only the numerics contained in card details are used for verification. That is, house number is used, but not street name.
+> Only the numerics contained in card details are used for verification. That is, house number is used, but not street name. We ask ask for it for our own records. Being able to eyeball this stuff is handy in any situation where you have to query what's happened. Besides, some people expect that they'll have to provide an address (at least one which is used for both billing and shipping).
 
-So I asked Øyvind, why we ask for street name:
+Øyvind is not a designer per se, but his input into the design process was crucial. Many of us assume that back end developers don't care about the user experience, but tapping into their knowledge is very valuable.
 
-> We ask ask for it for our own records. Being able to eyeball this stuff is handy in any situation where you have to query what's happened. Besides, some people expect that they'll have to provide an address (at least one which is used for both billing and shipping).
+> Design is a team sport
 
-Øyvind is not a designer per se, but his input into the design process was crucial. Design is a team sport[^11] so we should treat it as one. By designing (and researching) with a diverse set of people, we end up providing the best experience.
+Design is a team sport, and so we should treat it as one. By designing (and researching) with a diverse set of people, we'll normally end up producing a far better experience.
 
-This also goes to show, that we should constantly be questioning convention. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
+This also shows, that we should constantly be questioning the existence of form fields. If you look at other people's designs and assume something has to be a certain way, we'll never improve micro patterns such as these. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
 
-### Browser Autocomplete
+### Autofill
 
-```html
+Most modern browsers can automatically fill in form fields. When the user focuses a particular field, the browser checks if it has the information stored. If it does, the user can select it without having to type. Additionally, since iOS 8, the Safari browser lets users scan their card using the iPhone's camera to fill in the fields automatically.
+
+Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos.
+
+Autofill and card scanning is enabled via the `autocomplete` attribute. Some older browsers offer similar functionality by parsing the `name` attribute instead. For widest support, you should specify the correct values for both attributes as shown below.
+
+```HTML
 <div class="field">
 	<label for="ccname">
 		<span class="field-label">Name on card</span>
@@ -296,13 +302,13 @@ This also goes to show, that we should constantly be questioning convention. Pro
 	<label for="cardnumber">
 		<span class="field-label">Card number</span>
 	</label>
-	<input type="number" id="cardnumber" name="cardnumber" autocomplete="cc-number">
+	<input type="text" id="cardnumber" name="cardnumber" autocomplete="cc-number">
 </div>
 <div class="field">
 	<label for="expdate">
 		<span class="field-label">Expiry date</span>
 	</label>
-	<input type="number" id="expdate" name="expdate" autocomplete="cc-exp">
+	<input type="text" id="expdate" name="expdate" autocomplete="cc-exp">
 </div>
 <div class="field">
 	<label for="cvc">
@@ -325,43 +331,17 @@ This also goes to show, that we should constantly be questioning convention. Pro
 </div>
 ```
 
-In ‘Improve Billing Form UX’[^9], Margarita Klubochkina explains that the browser's autocomplete behaviour speeds up the form filling process:
-
-> “Nowadays almost every popular browser has an autofill feature, allowing the users to store their card data in the browser and to fill out form fields more quickly. Since iOS 8, mobile Safari users can scan their card’s information with the iPhone’s camera and fill in fields automatically.”
-
-Both autofill and card-scanning work only with forms that use `autocomplete` for HTML5-supporting browsers and `name` for browsers without support.
-
-Our form uses the following attributes for each field:
-
-- Name on card: cc-name and ccname
-- Card number: cc-number and cardnumber
-- Expiry date: cc-exp and expdate
-- Security number: cc-csc and cvc
+You can refer to the full list of available values in the HTML specification[^autofillattr].
 
 ### Expiry Date
 
-As far as dates go, an expiry date is at the easy end of the spectrum. It's a text box that closely matches the format found on the card. Making things match like this reduces the cognitive burden on the user. They just copy what they see.
+As far as dates go, the expiry date is at the easy end of the spectrum. It's a e
+
+It's a text box that closely matches the format found on the card. Making the interface match the format on of the card reduces the cognitive burden on the user. They just copy what they see.
 
 > ‘Be conservative in what you send; be liberal in what you accept.’
 
-One of the core principles we defined in chapter 1 was to be forgiving of bad input where possible. In the case of an expiry date, we can forgive users for entering a slash (or not entering a slash). We should do the hard work so users don't have to.
-
-The expiry uses `input type="number"`. Supporting browsers, will actually ignore the slash altogether. On mobile, the on-screen keyboard makes this easy by showing a numeric keyboard:
-
-![Numeric keyboard](./images/numeric-keyboard.png)
-
-And for people who use the keyboard on desktop, may use the up and down arrows to increment and decrement the field without the pain of selecting/deleting/typing etc.
-
-Some browsers show increment and decrement buttons when focussed an a number input. These are called, rather oddly, as spinners. The problem is that they are small and hard to use. More importantly though, they aren't helpful in the case of entering an expiry date. We can hide them with a little CSS:
-
-```CSS
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    appearance: none;
-    margin: 0;
-}
-```
+One of the core principles defined in chapter 1 was to be forgiving of bad input wherever possible. In the case of an expiry date, we should let users enter a slash (or not) without causing an error to show. That is, we should do the hard work so our users don't have to.
 
 ### Security Number
 
@@ -372,6 +352,27 @@ This number is found on the back of the card. It's not obvious what it is or whe
 This makes ‘Security number’ ambiguous on its own. It doesn't help that sometimes it's referred to as ‘CVC’ which, by the way, stands for ‘card verification number’. Acryonyms are an act of exlusivity because not everyone understands them. They can make people feel stupid.
 
 Acronyms aside, telling users where to find it, using a hint makes things obvious and requires little effort on behalf of the user.
+
+### Number Inputs
+
+- Supporting browsers ignore when the user types a slash.
+- Spawn on-screen keyboard with numbers
+- Use spinners to increment/decrement the number without the pain of selecting/deleting/typing into the field.
+- mode=numeric
+- see article I made
+
+![Numeric keyboard](./images/numeric-keyboard.png)
+
+Turn off spinners in webkit:
+
+```CSS
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+```
 
 ### Billing Address
 
@@ -543,6 +544,7 @@ In this chapter we used One Thing Per Page to reduce the cognitive burden of fil
 [^11]: https://nordnet.design/design-is-a-team-sport-231a602fc072
 [^12]: https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/
 [^13]: https://articles.uie.com/three_hund_million_button/
+[^autofillattrs]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
 
 ## Todo
 

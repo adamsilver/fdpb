@@ -30,24 +30,31 @@ The form is made up 4 fields and a submit button. Each field is made up a of a c
 
 ## Labels
 
-Every form control that accepts user input needs an auxiliary `<label>`. The submit button (with `type="submit"`) doesn't need a label because it's `value` attribute acts as one and doesn't take input from the user.
+In “Accessibility For Everyone”, Laura Kalbag sets out four broad parameters that improves the user experience for everyone:
 
-The label describes the form control which is important because without one, sighted users won't understand what they need to type. Some people use screen readers. When a screen reader encounters an input without a label, it can only announce ‘text box’ which is meaningless. Also, browsers will set focus to the input, when clicking its label. This increases the size of the hit area, which is especially useful for motor-impaired users.
+- Visual: make it easy to see.
+- Auditory: make it easy to hear.
+- Motor: make it easy to interact with.
+- Cognitive: make it easy to understand.
+
+By looking at labels from each of these standpoints, we can see just how important labels are. Sighted users can read them, visually-impaired users can hear the instructions using a screen reader and motor-impaired users can more easily set focus to the field thanks to the larger hit area. This is because clicking a label sets focus to the field.
 
 ![Hit area](.)
 
-To *connect* an input to the label, the input's `id` and label's `for` attribute value need to match and be unique to the page. In the case of the email field, the value is “email”:
+For these reasons, every control that accepts input should have an auxilary `<label>`. Submit buttons, for example, don't accept input so don't need a label&mdash;the `value` attribute which renders the text inside the button acts as the accessible label.
+
+To *connect* an input to a label, the input's `id` and label's `for` attribute should match and be unique to the page. In the case of the email field, the value is “email”:
 
 ```html
 <label for="email">Email address</label>
 <input id="email" name="email" type="email">
 ```
 
-Failing to include a label means ignoring the needs of (motor and visually-impaired) users. Seeing as we're designing for people, we can use their ability (or lack thereof) as constraints that guide is to design robust experiences. After all, what helps some users often helps others, as is the case with the larger hit area. Even for those with fine motor control, a larger hit area is naturally easier to hit.
+Failing to include a label means ignoring the needs of (motor and visually-impaired) users. As we're designing for people, we can use their ability (or lack thereof) as constraints that guide is to design robust experiences. After all, what helps some users often helps others. For example, a larger hit area is crucial for motor-impaired users but is easier to hit for those without impairments.
 
 ## Placeholders
 
-The `placeholder` attribute is intended to store a hint. It gives users extra guidance when filling out a field&mdash;particularly useful for fields that have complex rules such as a password field (more on this shortly). As they are not real values, they are ‘grayed out’ so that they can be differentiated from user-entered values.
+The `placeholder` attribute is intended to store a hint. It gives users extra guidance when filling out a field&mdash;particularly useful for fields that have complex rules such as a password field (more on this shortly). As placeholder text is not a real value, it's ‘grayed out’ so that it can be differentiated from user-entered values.
 
 ![Placeholder example from above](.)
 

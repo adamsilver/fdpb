@@ -368,15 +368,19 @@ As long as we use the number input for actual numbers it's fine. Except it's not
 
 As if that wasn't enough some desktop versions of Firefox will round very large numbers up which is another genuine problem. Again, if users might need to enter a large number use a regular text box.
 
-To the user, if a field consists solely of numbers, then it would be desirable to give users a numeric keypad. We can either use the number input inappropriately and exclude some users or we can use it on a case by case basis where we know there isn't a problem. This is something we'll do in the next chapter.
-
-When a number input won't work, we can fallback to the text box. Don't think that this is a huge problem. Users can still enter numbers this way. And even if we use a text box, we can still trigger the numeric keypad on iOS by putting `pattern="[0-9]*"` on the input.
-
 In summary don't use a number input if:
 
 - incrementing/decrementing it by one doesn't make sense
-- it the value might start with a zero
-- it needs to contain non-numeric input (such as letters and slashes), a negative number or a decimal point.
+- the value could start with a zero
+- the value might consist of non-numeric input (such as letters and slashes), a negative number or a decimal point.
+
+When a number input isn't appropriate, we can use a regular text box. Don't think that this is a massive defeat. Users can still enter numbers. And we can still trigger the numeric keyboard for iOS users by using the pattern attribute as the spec states follows:
+
+```HTML
+<input type="text" pattern="[0-9]*">
+```
+
+In future, things might change as older browsers eventually die out. Until then, by using the number input in certain situations, we risk excluding some users unnecessarily. We'll be looking at examples when the number input is appropriate in the next chapter.
 
 ### Expiry Date
 

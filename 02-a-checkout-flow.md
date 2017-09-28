@@ -362,11 +362,11 @@ Conversly, digits are sometimes used to represent the other things such as:
 
 Pay close attention to the way the numbers and digits are announced. There's quite a difference. And now that we understand these differences, we can look at how some browsers treat number inputs and why we might perceive these treatments as bugs when they're not.
 
-For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each of these examples seem undersirable, but none of them stop users from entering a number easily.
+For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each of these examples seem undersirable, but none of them stop users from entering a real number easily.
 
-Some numbers contain a decimal point such as a price; other numbers are negative which need a minus sign. Unfortunately, some browsers don't provide buttons for these symbols on the keypad. If that wasn't enough some desktop versions of Firefox will round up very large numbers. 
+Some numbers contain a decimal point such as a price; other numbers are negative which need a minus sign. Unfortunately, some browsers don't provide buttons for these symbols on the keypad. If that wasn't enough some desktop versions of Firefox will round up very large numbers.
 
-In these cases, it's safer to use a regular text box to avoid excluding users unnecessarily. Remember users are still able to type numbers this way it's just the buttons are a little smaller. And to soften the blow a little bit, the numeric keyboard can be triggered for iOS users by using the pattern attribute as shown below.
+In these cases, it's safer to use a regular text box to avoid excluding users unnecessarily. Remember users are still able to type numbers this way it's just that the buttons are a smaller. And to soften the blow a little bit, the numeric keyboard can be triggered for iOS users by using the pattern attribute as shown below.
 
 ```HTML
 <input type="text" pattern="[0-9]*">
@@ -379,7 +379,9 @@ In short, only use a number input if:
 - the value doesn't contain letters, slashes, minus signs and decimal points.
 - the value isn't a very large number
 
-We'll look at an appropriate use of the number input in the next chapter.
+Let's apply these rules to the expiry date. Incrementing doesn't make sense and the number could start with a zero. And many credit card put a slash in the expiry date which users should be able to copy. Using a number input is not only inappropriate, but it also creates a jarring user experience as the user types a slash which is ignored.
+
+We'll look at appropriate use caes of the number input in the next chapter.
 
 ### Forgiving Bad Input
 

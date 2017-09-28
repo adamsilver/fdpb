@@ -1,18 +1,10 @@
 # Book a Flight
 
-In this chapter, we'll design a flight booking service. At first this may seem a bit niche, especially when compared to *A Registration Form* and *A Checkout Flow*. However, we're going to explore several complex problems that in the end, will result in reusable patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or hotel room.
+In this chapter, we'll design a flight booking service. At first this may seem a bit niche, especially when compared to *A Registration Form* and *A Checkout Flow*. However, we're going to explore several complex problems that in the end, will result in reusable patterns. Patterns that are very much transferable to other problem domains such as booking a cinema ticket or even a hotel room.
 
 Booking a flight consists of many discrete steps. The first few steps simply collect user's preferences: where to fly, when to fly and who's flying. Once we have that we can give users a choice of available flights followed by choosing where to sit. Finally, users will have to make payment, but we covered payment patterns in the previous chapter.
 
-Let's lay out the steps in order now:
-
-1. Choosing where to fly
-2. Choosing when to fly
-3. Choosing passengers
-4. Choosing flight
-5. Choosing where to sit
-
-## 1. Choosing where to fly
+## 1. Where to fly
 
 First, users have to choose an origin and destination. That is, places to fly from and to. Without this information the service can't offer any flights. What's the best way of asking users for this information?
 
@@ -20,44 +12,45 @@ As designers, we should try and use the features that are native to the browser.
 
 You'd be forgiven for thinking you were spoiled for choice when it comes to form controls: select boxes, radio buttons, text boxes and more recently, datalists. The choice is yours, except it isn't. Not all of these options are suitable. Let's look at some of the pros and cons for each.
 
-### Select boxes
+### Select Box
 
-Select boxes, also known as drop-down menus, hide choices behind a menu. Clicking the select box reveals the choices. Once a choice is selected, the menu collapses back to its original state.
+Select boxes, also known as drop-down menus, hide choices behind a menu. Clicking the select box reveals the choices. Once a choice is selected, the menu collapses back to its original state. Select boxes are often used because of their space-saving qualities. What's particulary interesting though, is why we need to save space in the first place. 
 
-Designers often use `select` boxes due to their space-saving qualities. What's particulary interesting though, is why we need to save space in the first place. Often an interface is crammed with features, normally to please stakeholders, not users. It's understandable then, that learning ways to hide discrete pieces of an interface has become part of a designer's skillset. But design is about so much more than saving space. After all, if an interface really is crammed, then our first job as designers is to declutter it.
+Often an interface is crammed with features, normally to please stakeholders, not users. It's understandable then, that learning ways to hide discrete pieces of an interface has become part of a designer's skillset. But design is about so much more than saving space. After all, if an interface really is crammed, then our first job as designers is to declutter it.
 
-Select boxes in particular are hard-to-use. Usability expert Luke Wobrelski even goes as far to say that they should be the ‘UI of Last Resort’[^1] and suggests some better alternatives, some of which we'll discuss later on in this chapter. Besides hiding choices behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focused options with selected ones. To top it off users can't pinch-zoom the options on devices and they aren't easily searchable.
+Select boxes in particular are hard-to-use. Usability expert Luke Wobrelski even goes as far to say that they should be the ‘UI of Last Resort’[^1] and suggests some better alternatives, some of which we'll discuss later on in this chapter. 
 
-### Radio buttons
+Besides hiding choices behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focused options with selected ones. And to top it off, users can't pinch-zoom the options on devices and they aren't easily searchable.
 
-Radio buttons, unlike select boxes, are generally well-understood and easy-to-use, not least because they don't hide choices. They are fully exposed making them easy to compare, scan and select. They're also more maleable. That is, they let us put whatever content in what ever format we want inside the label (more on that later).
+### Radio Buttons
 
-The problem with radio buttons, however, is that they're far less suitable when there are vast amounts of them. An airline could fly to hundreds of destinations. Therefore, the page becomes long and unweildly, causing the user to scroll (or keyboard users to *tab*) a lot.
+Radio buttons, unlike select boxes, are generally well-understood and easy-to-use, not least because they don't hide choices. They are fully exposed making them easy to compare, scan and select. They're also more maleable. That is, they let us put whatever content in whatever format we want inside the label (more on that shortly).
 
-Don't get me wrong, users are more than happy to scroll and we shouldn't use this as a crutch for changing course. But it's certainly worthwhile exploring other options are our disposal. If we can eliminate the need to scroll without introducing new problems, we should.
+The problem with radio buttons, however, is that they're far less suitable when there are many of them. An airline could fly to hundreds of destinations. Therefore, the page becomes long and unweildly, causing mouse users to scroll (and keyboard users to *tab*) a lot.
 
-### Search input
+Don't get me wrong, users are more than happy to scroll and we shouldn't use this as a crutch for changing course. But if we can naturally eliminate the need to scroll without introducing new problems, we should explore those other options.
 
-A search box (`input type="search"`) is a standard text box with some added extras. You can clear the contents of the field, by tapping *X* or pressing <kbd>Escape</kbd>. With a text box (`input type="text"`) you have to select the text and press <kbd>delete</kbd> which is more tedious.
+### Search Input
 
-![Image here](/etc/)
+A search box (`input type="search"`) is a standard text box with some added extras. You can clear the contents of the field, by tapping *X* or pressing <kbd>Escape</kbd>. With a text box (`input type="text"`) you have to select the text and press <kbd>delete</kbd> which is takes a little longer.
+
+![Image here](.)
 
 Using a search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a ‘no results’ page due to typos or mismatched data.
 
 ### Datalist
 
-Users need a control that lets users filter a long list of destinations quickly. Something that combines the flexibility of a text input with the assurance of a select box. This is known as an autocomplete. An autocomplete is also known as *type ahead*, *predictive search* or *combobox*.
+Users need a control that lets users filter a long list of destinations quickly. Something that combines the flexibility of a text input with the assurance of a select box. This is called an *autocomplete* control but can also be referred to as *type ahead*, *predictive search* or *combobox*.
 
-An autocomplete control works by suggesting options (destinations in this case) as the user starts typing. As suggestions appear, you can select one quickly, automatically *completing* the field. Hence the name. This saves users scrolling and can forgive small typos.
+An autocomplete control works by suggesting options (destinations in this case) as the user starts typing. As suggestions appear, you can select one quickly, automatically *completing* the field. Hence the name. This saves users scrolling with the added bonus of being able to forgive small typos, by viture of fuzzy search.
 
-HTML5 introduced the `datalist` element which combines with a text box to create the desired behaviour. Unfortunately though, it's not ready for prime time due the fact it's full of bugs[^3]. In the unlikely event that your project is locked down to a specific (set of) browser(s) that don't suffer from the bugs, then this may be a suitable option for you.
+HTML5 introduced the `datalist` element which combines with a text box to create the desired behaviour. Unfortunately though, it's not ready for prime time as it's very buggy[^3]. In the unlikely event that your project is locked down to a specific (set of) browser(s) that don't suffer from these bugs, then you can use it.
 
-Having defined our design principles (at the beginning of the book), a buggy control is not acceptable&mdash;we want users to have the best experience possible, no matter their browser choice or lack thereof. We're going to have to build a custom autocomplete component from scratch. A quick word of warning though. We're about to break new ground. Designing a robust and inclusive autocomplete component is hard work. Orders of magnitude harder than any native control.
+Having defined our design principles (at the beginning of the book), a buggy control is not acceptable&mdash;we want users to have the best experience possible, no matter their browser choice or lack thereof. We're going to have to build a custom autocomplete component from scratch. A quick word of warning though. We're about to break new ground. Designing a robust and inclusive autocomplete component is hard work. Orders of magnitude harder than using any native control.
 
-### An autocomplete component
+### An Autocomplete Component
 
-To help us through, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. The rules state that
- a custom component should:
+To help us through, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. The rules state that a custom component should:
 
 - Be focusable with the keyboard.
 - Be operable with the keyboard.
@@ -68,7 +61,7 @@ To satisfy the last rule we need to talk about progressive enhancement. We touch
 
 #### Progressive enhancement
 
-Progressive enhancement is a cornerstone of inclusive design. It's about designing experiences that work for everyone as a matter of course. Even in the event of network and scripting failures. For example, a piece of Javascript may fail to load. Or a particular browser may not recognise a particular method call. One that another browser understands perfectly well.
+Progressive enhancement is a cornerstone of inclusive design. It's about designing experiences that work for everyone as a matter of course, even in the event of network and scripting failures. For example, a piece of Javascript may fail to load. Or a particular browser may not recognise a particular method call, one that another browser understands perfectly well.
 
 Whatever it is, progressive enhancement as an approach to design, means that the website will continue to work. This is because progressively enhanced patterns are formed first with robust and well-structured HTML. Then, and only when it *adds value* enhancing the experience for people who use a more capable browser.
 
@@ -76,7 +69,7 @@ Whatever it is, progressive enhancement as an approach to design, means that the
 
 For example, some browsers can check your GPS location, others cant. But all browsers can be given a postcode field in which to determine their location. Starting off with a postcode field, and offering capable browsers an enhanced GPS feature is progressive enhancement.
 
-#### The punch list (again)
+#### The Punch List (again)
 
 As we said earlier a custom component should:
 
@@ -103,9 +96,9 @@ To ensure the autocomplete component works without Javascript we need to choose 
 </div>
 ```
 
-The remaining 3 rules are achieved by crafting the enhanced experience. Specifically, ensuring that any Javascript event listeners are handled and that certain elements are focusable and announceable. It's worth mentioning that we must also cater for mouse and touch screen users. They're only excluded from the punch list because those interactions are very rarely forgotten about.
+The remaining 3 rules are achieved by crafting the enhanced experience. Specifically, ensuring that any Javascript event listeners are handled and that certain elements are focusable and announceable. It's worth mentioning that we must also cater for mouse and touch screen users. They're only excluded from the punch list because those interactions are rarely forgotten about.
 
-The script (discussed shortly) replaces the select box with a text box, button, menu and status box. This is shown below along with the Javascript enhanced HTML.
+The script (discussed shortly) replaces the select box with a text box, menu and status box. This is shown below along with the Javascript enhanced HTML.
 
 ![The enhanced experience](/etc/)
 
@@ -154,7 +147,6 @@ Let's break down the HTML into the 4 main parts and explain the structure.
 ```HTML
 <input
 	type="text"
-	name="destination"
 	id="destination"
 	autocomplete="off"
 	role="combobox"
@@ -164,6 +156,7 @@ Let's break down the HTML into the 4 main parts and explain the structure.
 >
 ```
 
+- The `name` is missing because this component will update the select box. This is crucial because the value is different to the text node.
 - The role is set to `combobox` denoting it's enhanced behaviour beyond a regular text box.
 - The `aria-autocomplete` attribute indicates that a list of options will appear from which the user can choose.
 - The `aria-expanded` attributes tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.

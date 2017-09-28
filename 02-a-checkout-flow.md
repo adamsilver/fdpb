@@ -335,11 +335,43 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
 
 ### Number Input
 
-- Supporting browsers ignore when the user types a slash.
-- Spawn on-screen keyboard with numbers
+The number input (`input type="number"`) lets users more easily type a number by giving users a numeric keypad on mobile. And on supporting desktop browsers, the input will contain little increment and decrement buttons called spinners.
+
+You might be thinking then, that it's appropriate to use for card number, expiry date and CVC number&mdash;after all, they are all made up of numbers. But it's not so simple.
+
+By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate. Let's first look at what a number is:
+
+> A number is a mathematical object used to count, measure, and label. [...] numerals are often used for labels (as with telephone numbers), for ordering (as with serial numbers), and for codes (as with ISBNs).&mdash;Wikipedia
+
+This is how most of us think of numbers. We use them to count and measure, but equally we use to represent dates and codes. The HTML specification only agrees with the *count* and *measure* part. It states that:
+
+> `type=number` is not appropriate for input that happens to only consist of numbers but isn’t strictly speaking a number. If it doesn’t make much sense to use number with spinners, `type=text` is probably the right choice (possibly with a pattern attribute).
+
+We'll disect all of this information in a moment. But in other words, numbers and digits are different things. Numbers are used to represent an amount of something such as:
+
+- my age (“thirty four years old”)
+- the price of an apple (“forty five pence”)
+- the time it took me to cook breakfast (“thirteen mins”)
+
+Conversely digits might be (partially) used to represent the following types of data:
+
+- birth date (“nineteenth of June, eineteen eighty three”)
+- pin code (“eight, double five, three, two, six”)
+
+Pay close attention to the way the numbers and digits are announced. Now we understand the spec's idea of a number we can look at how some browsers handle number input:
+
+- IE11 will ignore input if the user starts the entry with a letter.
+- Chrome ignores non-numeric input
+- Some old versions of iOS convert will inject a thousands separator converting 1000 to 1,000.
+- Safari 6, for example, automatically strips leading zeros
+
+Knowing what we know about numbers, none of these issues are particularly suprising. They might be problematic if we used the number input for fields that happen to be made up of digits, but that's not a real problem.
+
+---
+
 - Use spinners to increment/decrement the number without the pain of selecting/deleting/typing into the field.
 - mode=numeric
-- see article I made
+
 
 ![Numeric keyboard](./images/numeric-keyboard.png)
 

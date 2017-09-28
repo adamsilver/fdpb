@@ -635,7 +635,9 @@ But let's step back for a moment. Before designing a date component, we first sh
 
 ### Dates from documents
 
-GDS says *if you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* In fact, we followed this guidance to the letter, in chapter 2, for the expiry date field.
+GDS says *if you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* In fact, we followed this guidance to the letter, in chapter 2, for the expiry date field. IVE REMOVED THIS FROM CHAP 2 NOW so go into detail.
+
+[As far as dates go, an expiry date is one of the easiest to collect from users. In short, it's a text box that closely matches the format found on the card itself. Making the interface match the format on the card reduces the cognitive burden on the user: they just copy what they see.]
 
 The field expects users to type a number matching the format found on the card. Users simply copy what they see, without needing to think. Obvious interfaces are good interfaces.
 

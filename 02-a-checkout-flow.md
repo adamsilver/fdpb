@@ -382,25 +382,29 @@ When a number input isn't appropriate, we can use a regular text box. Don't thin
 
 In future, things might change as older browsers eventually die out. Until then, by using the number input in certain situations, we risk excluding some users unnecessarily. We'll be looking at examples when the number input is appropriate in the next chapter.
 
-### Expiry Date
+### Visual Design
 
-As far as dates go, an expiry date is one of the easiest to collect from users. In short, it's a text box that closely matches the format found on the card itself. Making the interface match the format on the card reduces the cognitive burden on the user: they just copy what they see.
+large width for card number, allow for spaces
+small width for expiry and cvc.
 
 Visually, the length of the field is known: it takes 4 digits and so it's styled with a width to match giving users an extra affordance.
+
+### Forgiving Bad Input
+
+accept spaces and no spaces for card number
+accept slash/no slash for date
 
 > ‘Be conservative in what you send; be liberal in what you accept.’
 
 In chapter 1, we set out some core principles with regards to validation. One of those principles is that we should forgive users for bad input wherever possible. In this case, we should let users enter a slash (or not) without causing an error. This is the forgiving and human thing to do.
 
-### Card Verification Code (CVC)
+### Dealing With Jargon and acronyms
 
 The CVC field is an amiguous field for two reasons. First, acronyms are hard to understand. But even if this acronym is spelt out, it's often labelled inconsistently: sometimes as “CVC” and sometimes as “Security number”. The number itself is usually the last 3 digits of a larger number on the back of the card. And, to top it off, it's not labelled on the card itself. 
 
 For these reasons, we can use hint text to tell users exactly where to find these numbers and how many they need to enter: “Last 3 digits on the back of the card” (or similar) makes this clear.
 
 ![Hint text](.)
-
-Like the expiry date, the length of the field is known, and so again, the field width afford the expected input for good measure.
 
 ### Billing Address
 

@@ -362,62 +362,78 @@ Conversly, digits are sometimes used to represent the other things such as:
 
 Pay close attention to the way the numbers and digits are announced. There's quite a difference. And now that we understand these differences, we can look at how some browsers treat number inputs and why we might perceive these treatments as bugs when they're not.
 
-For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will inject a thousands separator converting “1000” to “1,000”. Finally, Safari 6 strips out leading zeros. On first glance this may seem undesirable, but none of these issues stop users from entering a number easily.
+For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each of these examples seem undersirable, but none of them stop users from entering a number easily.
 
-As long as we use the number input for actual numbers it's fine. Except it's not. Some numbers, such as prices need a decimal point. Some values are negative numbers and need the minus symbol. But some Android devices don't provide those buttons within the on-screen keyboard which is a genuine problem. You either need to split up the pounds and pence into two fields or you have to use a regular text box.
+Some numbers contain a decimal point such as a price; other numbers are negative which need a minus sign. Unfortunately, some browsers don't provide buttons for these symbols on the keypad. If that wasn't enough some desktop versions of Firefox will round up very large numbers. 
 
-As if that wasn't enough some desktop versions of Firefox will round very large numbers up which is another genuine problem. Again, if users might need to enter a large number use a regular text box.
-
-In summary don't use a number input if:
-
-- incrementing/decrementing it by one doesn't make sense
-- the value could start with a zero
-- the value might consist of non-numeric input (such as letters and slashes), a negative number or a decimal point.
-
-When a number input isn't appropriate, we can use a regular text box. Don't think that this is a massive defeat. Users can still enter numbers. And we can still trigger the numeric keyboard for iOS users by using the pattern attribute as the spec states follows:
+In these cases, it's safer to use a regular text box to avoid excluding users unnecessarily. Remember users are still able to type numbers this way it's just the buttons are a little smaller. And to soften the blow a little bit, the numeric keyboard can be triggered for iOS users by using the pattern attribute as shown below.
 
 ```HTML
 <input type="text" pattern="[0-9]*">
 ```
 
-In future, things might change as older browsers eventually die out. Until then, by using the number input in certain situations, we risk excluding some users unnecessarily. We'll be looking at examples when the number input is appropriate in the next chapter.
+In short, only use a number input if:
 
-### Visual Design
+- incrementing and decrementing makes sense
+- the value doesn't start with a zero
+- the value doesn't contain letters, slashes, minus signs and decimal points.
+- the value isn't a very large number
 
-large width for card number, allow for spaces
-small width for expiry and cvc.
-
-Visually, the length of the field is known: it takes 4 digits and so it's styled with a width to match giving users an extra affordance.
+We'll look at an appropriate use of the number input in the next chapter.
 
 ### Forgiving Bad Input
 
-accept spaces and no spaces for card number
-accept slash/no slash for date
+In “A Registration Form” we briefly talked about forgiving little input mistakes. In fact, the success of the Internet is largely down to its robustness, otherwise known as Postel's law which states:
 
-> ‘Be conservative in what you send; be liberal in what you accept.’
+> Be conservative in what you send; be liberal in what you accept.
 
-In chapter 1, we set out some core principles with regards to validation. One of those principles is that we should forgive users for bad input wherever possible. In this case, we should let users enter a slash (or not) without causing an error. This is the forgiving and human thing to do.
+We can apply this principle to the fields in the payment form. For example, a card number typically appears as 16 digits split into 4 parts by a space. Some users may type the space; others may not. Similarly, for the expiry date some users may type a slash, others may leave it out. 
 
-### Dealing With Jargon and acronyms
+Whether it's a slash or a space, or a card number or an expirty date, we should be forgiving wherever possible. 
 
-The CVC field is an amiguous field for two reasons. First, acronyms are hard to understand. But even if this acronym is spelt out, it's often labelled inconsistently: sometimes as “CVC” and sometimes as “Security number”. The number itself is usually the last 3 digits of a larger number on the back of the card. And, to top it off, it's not labelled on the card itself. 
+### Card Verification Code (CVC) Field
 
-For these reasons, we can use hint text to tell users exactly where to find these numbers and how many they need to enter: “Last 3 digits on the back of the card” (or similar) makes this clear.
+Every payment provider needs the user's CVC number. It's usually the last 3 digits found on the back of the card.
 
-![Hint text](.)
+The first problem is that it's not always referred to as CVC number. Sometimes it's referred to as a security code number or card verficiation value (CVV). Being specified as an acronym doesn't help matters either. And to top it off, the number is never beside a label to demarcate it making the field rather ambiguous.
+
+To fix this, we should emply the hint text pattern to tell users exactly what it is and where to find it. For example, “This is the last 3 digits on the back of the card”.
 
 ### Billing Address
 
-The card's registered (billing) address is required in order to process payment. As it's an address, the billing address form is a copy of the delivery address from we tackled earlier. So we can reuse the same pattern here which makes for a familiar interface that requires less thought by the user.
+The billing address is actually the address to which the card is registered and is needed to process a payment. For most users, their billing address is the same as the delivery address. As the user has already provided this information, we can use it to improve the experience.
 
-The billing address is actually the address to which the card is registered and is needed to process a payment. For most users, their billing address is the same as the delivery address. As the user has already provided this information previously, we can use this information to improve the experience.
+First we need to add an extra field, this time a checkbox. The checkbox asks the user if their billing addresss is the same as their delivery address. This way users only have to fill out the billing address on the rare occasion that it's different. As it's the most common scenario, it's checked by default. 
 
-To do this, we counterintuitvely need to add an extra field, this time a checkbox field. The checkbox field asks the user if their billing address is the same as the delivery address. This way users only have to fill out those fields on the rare occasion that it differs.
+With Javascript we can enhance the experience even more by hiding the billing address until the user unchecks the checkbox. This is a form of progressive disclosure which reduces noise in the interface. That is, we only show the fields when they are relevant to the user.
 
-As it's the most common scenario, it's set as checked by default. And with Javascript we can enhance the experience further by hiding the billing address until the user unchecks the checkbox which uses progressive disclosure as a way to reduce the noise in the interface.
+To do this, we need to listen to the checkbox click event.
 
 ```JS
-Put code and explain it here
+function CheckboxCollapser(checkbox, element) {
+  this.checkbox = checkbox;
+  this.element = $(element);
+  $(this.checkbox).on('click', $.proxy(this, 'onCheckboxClick'));
+  this.check();
+};
+```
+
+When the checkbox is clicked, we need to check whether it's checked or not. If it is then we need to hide the billing address. If it's not we need to show it. Not only do we hide it with CSS, but we also inform screen readers that it is hidden setting the `aria-hidden` attribute to `true`.
+
+```JS
+CheckboxCollapser.prototype.onCheckboxClick = function(e) {
+  this.check();
+};
+
+CheckboxCollapser.prototype.check = function() {
+  if(this.checkbox.checked) {
+    this.element.hide();
+    this.element.attr('aria-hidden', 'true');
+  } else {
+    this.element.show();
+    this.element.attr('aria-hidden', 'false');
+  }
+};
 ```
 
 ## 7. Check Your Answers

@@ -61,10 +61,9 @@
 	- CVC Field
 	- Number Inputs
 	- Billing Address
-- (7) Check Your Answers
-	- Question Protocol
-	- Amending details
-- (8) Confirmation
+- (7) Review Page
+	- Visual Design
+- (8) Confirmation Page
 - Guest checkout
 - Progress bars
 - Second time experience

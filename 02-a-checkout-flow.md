@@ -418,7 +418,7 @@ function CheckboxCollapser(checkbox, element) {
 };
 ```
 
-When the checkbox is clicked, we need to check whether it's checked or not. If it is then we need to hide the billing address. If it's not we need to show it. Not only do we hide it with CSS, but we also inform screen readers that it is hidden setting the `aria-hidden` attribute to `true`.
+When the checkbox is clicked, we need to check whether it's checked or not. If it is then we need to hide the billing address. If it's not we need to show it.
 
 ```JS
 CheckboxCollapser.prototype.onCheckboxClick = function(e) {
@@ -436,39 +436,35 @@ CheckboxCollapser.prototype.check = function() {
 };
 ```
 
-## 7. Check Your Answers
+Note that we hide the element with CSS (by toggling the display property between `block` and `none`). But, we also ensure that screen readers are informed by toggling the `aria-hidden` attribute between `true` and `false`.
 
-How it might look:
+## 7. Review Page
 
-![Check details](./images/?.png)
+At this point in the flow, we have collected all the information we need from users to complete their order. But instead of processing the order after payment, it's wise to let users review their order on another page first. As counterintuitive as this may sound, adding an extra step in the flow actually reduces friction.
 
-Checkout flows are often designed not to have this page. After all, it's an extra page and slows down time to completion. But completion time is a dangerous metric in which to infer a well-designed experience. Particularly if it's the *only* metric.
+Take Mary (I made her up). She's a mother of two young children. It's late, the baby is up, crying inconsolably. Naturally, Mary is tired and stressed. To make things worse, she's ran out of nappies.
 
-There is little worse than submitting an order when the user didn't expect it. The button text shouldn't be ‘Continue’ as this implies there are further steps when there aren't, leading to this exact problem.
+She grabs her phone, adds them to her basket, fills out all the checkout details and submits the order. Great, except it isn't. She ordered the wrong size nappies and the she used the wrong card. Even the most sophisticated validation pattern cannot eradicate human error. Even if everything *looks* right and is formatted correctly, there could still be mistakes.
 
-Similarly submitting an errorneous order is frustrating and time consuming. Even the most sophisticated validation mechanism cannot eradicate human error. Even if everything *looks* right and is formatted correctly, there could still be mistakes.
+Instead, we can save Mary a lot of frustration by giving her the chance to review her order on a separate page. That way she can focus on the order details. Remember, filling out forms and checking information are two separate mental contexts.
 
-For example, take Mary (I made her up), a mother of two, one is a baby. It's late, the baby is up, screaming obviously and naturally, Mary is tired and stressed. To make things worse she's ran out of nappies.
+This also happens to save your (client's) business time and money. If Mary wants to cancel the order, then handling calls and processing returns might be rather costly&mdash;especially if the business offers free returns.
 
-She adds them to her basket and hits ‘Checkout’. But she ordered the wrong nappies and used the wrong card. Both the nappies and the card are valid. But she needed different nappies and she wanted to use a different card&mdash;one that is not in the red.
+This goes to show that solely using completion time as a metric to indicate success is dangerous. Completition time is important, but in conjunction with checking how accurate people's orders are. That is, how many are cancelled/returned and why that is.
 
-Having spent a lot of time filling out the forms, it's only human and respectful to give Mary the chance to review her order and make amends where necessary.
+### Visual Design
 
-This saves the business a lot of time and money. If she makes the wrong order then she'll need to return it. This is costly and time-consuming, especially if the business offers free returns.
+Each step of the checkout flow should be represented fully on this page, including their delivery, payment and order details. Users shouldn't have to go back in order to get more information. This way users only need to amend something if they spot a mistake. 
 
-### Amending
+![](.)
 
-How it might look:
+Users can click the *edit* link to jump back easily to make amendments which is another advantage of using One Thing Per Page. As pages are small they will load fast and as each page is dedicated to that one thing, making amendments is an easy task with a maximum signal to noise ratio.
 
-![Reference One Thing Per Page Smashing Screenshot](./images/?.png)
+![Flow diagram: Click edit, make change, go back to summary](.)
 
-Each step is represented in the ‘Check and confirm’ page. The user can check and amend each step by clicking *change*. Using One Thing Per Page enables users to jump back and forth easily. Page loads are fast, and each page has minimal noise which makes amends focussed.
+When the user makes a change, they are taken right back to for final review putting users firmly in control, something that should reduce stress and anxiety.
 
-For example, if they want to update their delivery option to "Next Day" then they simply choose it, and the system should update that, and take the user right back to the for another final review.
-
-As we collect information, we don't have to ask for it again and can send users to the most advanced step at any time reducing friction and increasing conversion.
-
-## 8. Confirmation
+## 8. Confirmation Page
 
 How it might look:
 
@@ -531,6 +527,8 @@ In later chapters, we'll look at how to solve a really really long form by showi
 ## Smart Defaults
 
 We can speed things up drastically for those ordering for a second time. This is because we have their information on record. This means we can bypass all the steps by sending the user directly to the *Check and confirm* page for a final review. For most users, this means reducing interaction points to one.
+
+As we collect information, we don't have to ask for it again and can send users to the most advanced step at any time reducing friction and increasing conversion.
 
 ## Order summary
 

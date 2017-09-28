@@ -931,6 +931,17 @@ Users need to specify how many adults, children and infants are flying on the tr
 
 Each category is represented by a separate field. As we're asking users for an *amount* of something&mdash;in this case passengers&mdash;the number input makes sense.
 
+Turn off spinners in webkit:
+
+```CSS
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+```
+
 ### A stepper component
 
 Spinners, also known as steppers, let users increase or decrease the value by a constant amount. They are great for making small adjustments. In the same article as referenced earlier, Luke Wobrelkski says:

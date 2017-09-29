@@ -56,6 +56,14 @@ Just like the car salesperson, we'll ask for the right information at the right 
 7. Check your answers
 8. Confirmation
 
+## A Note On Guest Checkout
+
+The flow above has been designed with anonymous users in mind. This is sometimes referred to as guest checkout. Forcing users to register before checking out is one of the worst things we can do as Jared Spool attests to beautifully in “The 300 Million Dollar Button”[^].
+
+This is hardly suprising considering what we just discussed regarding flow and order and of course the Question Protocol. In short, what value does a first-time user get for the extra effort of signing up? Nothing. And that's mostly all you need to know.
+
+Don't worry though, there are more appropriate times to ask users to sign up as we'll see later on in the chapter.
+
 ## 1. Email Address
 
 In chapter one, “A Registration Form”, we had to ask users for an email address. We can reuse that pattern here too, meaning we don't have to solve the same problem from scratch.
@@ -497,15 +505,11 @@ Here's a checklist of things to include in your confirmation screen:
 - links to further information if they might be useful
 - a link to your feedback page
 
-## Guest Checkout
+## The Second Time Experience 
 
-As Jared Spool explains in The 300 Million Dollar Button[^13], forcing users to register, before being able to checkout is just about the worst thing we can do.
+Just as it is crucial to let users checkout anonymously, it's also important to consider the experience for second-time users. Because we have all their information to hand, we can bypass every step of the flow until the *Check Your Answers* page. This reduces friction to almost nil and will drastically improve conversion.
 
-Earlier, on the confirmation page we told users that if they signed up they would have a faster checkout experience next time around. This is because we would have most of their details on record. But the first time they place an order, we don't have the details.
-
-This creates an unnecessary burden on the users up front for no gain to the user. Where is the user need? Using the Question Protocol forces us to ask ourselves why. The answer to this question is invariably uncompelling.
-
-By all means ask users to register, by giving genuine value, but do so at the end of a journey. The journey itself should build trust if we design it well.
+Remember Mary from earlier: the next time she runs out of nappies, she won't have to spend her limited time and energy filling out several fields. She can just check the order before confirming it.
 
 ## Progress Bars
 
@@ -533,12 +537,6 @@ If research shows you need one, consider a simple version first:
 This progress indicator may well be enough and doesn't suffer from many of the challenges and problems of a more verbose, traditional indicator.
 
 In later chapters, we'll look at how to solve a really really long form by showing progress.
-
-## Smart Defaults
-
-We can speed things up drastically for those ordering for a second time. This is because we have their information on record. This means we can bypass all the steps by sending the user directly to the *Check and confirm* page for a final review. For most users, this means reducing interaction points to one.
-
-As we collect information, we don't have to ask for it again and can send users to the most advanced step at any time reducing friction and increasing conversion.
 
 ## Order summary
 

@@ -452,42 +452,50 @@ Instead, we can save Mary a lot of frustration by giving her the chance to revie
 
 This also happens to save your (client's) business time and money. If Mary wants to cancel the order, then handling calls and processing returns might be rather costly&mdash;especially if the business offers free returns.
 
-This goes to show that solely using completion time as a metric to indicate success is dangerous. Completition time is important, but in conjunction with checking how accurate people's orders are. That is, how many are cancelled/returned and why that is.
+This goes to show that solely using completion time as a metric for success is dangerous. Completion time is important, but in conjunction with checking how accurate people's orders are.
 
 ### Visual Design
 
-Each step of the checkout flow should be represented fully on this page, including their delivery, payment and order details. Users shouldn't have to go back in order to get more information. This way users only need to amend something if they spot a mistake. 
+Every piece of information gathered through the checkout flow should be presented on the review page. User's shouldn't have to go back to check any information, otherwise it would defeat the purpose of this page. Users only need to go back to a previous page, if they spot a mistake on this page.
 
 ![](.)
 
-Users can click the *edit* link to jump back easily to make amendments which is another advantage of using One Thing Per Page. As pages are small they will load fast and as each page is dedicated to that one thing, making amendments is an easy task with a maximum signal to noise ratio.
+Users can click *edit* to make amendments which is another advantage of using One Thing Per Page. As pages are small they will load fast; as each page is dedicated to that one thing, making amendments is an easy task with a maximum signal to noise ratio.
 
 ![Flow diagram: Click edit, make change, go back to summary](.)
 
-When the user makes a change, they are taken right back to for final review putting users firmly in control, something that should reduce stress and anxiety.
+When the user makes a change, they are taken back to this page again for a final review which puts users firmly in control and is something that should reduce stress and anxiety.
 
 ## 8. Confirmation Page
 
-How it might look:
+Confirming pages are more important than you might think. It's the first screen a user sees after purchase, so neglecting the user experience here is a sure-fire way to lose out on return business.
 
-![Confirm screen](./images/?.png)
+We've all experienced this before. If you want to take out some insurance, you call the free sales number and are quickly put through to a helpful agent. Parting with money is one of the easiest things to do in this world. But then, when you need to call up to make a claim, this is usually very painful. Calls aren't free and it takes a while to get through. All very stressful.
 
-Confirmation pages are essential especially as part of a multi-step form flow. A confirmation page serves many purposes. Without one, users are left confused. In the case of buying something, they may wonder whether their order was submitted successfully.
+We can make the exact same mistakes digitally. Confirmation pages aren't just for confirming orders at the end of a transaction. They are an opportunity to start forging a long term relationship by giving users a better experience.
 
-The Government Digital Services’ (GDS) service manual[^12] says each service must have a confirmation page with the following:
+You probably want to tell users what happens next, such as when delivery should take place. Then you might want to consider telling users what to do if something goes wrong, or telling users how to cancel an order.
 
-- a reference number (if there is one)
-- details of what happens next and when
-- contact details for the service
-- links to information or services that users are likely to need next
-- a link to your feedback page, where users can tell you what they think of the service
-- a way for users to save a record of the transaction (for example, as a PDF)
+This is also a good time to ask users to sign up (if they arrrive here as a guest). As we have most of their information, all users will need to do is provide a password which drastically reduces friction. If the service up to now was good, users may need little reason to do so. Perhaps you'll offer them a faster checkout experience next time. Or you could encourage them to make another purchase by offering a discount on their next order to say thank you.
 
-Whilst GDS isn't selling products, much of this is applicable to the checkout flow. We give users an order number and details of what happens next. We also tell them what to do if they don't receive the order and give them a way to cancel it there and then if they spot a mistake.
+You might even encourage users to tweet about their purchase in order to receive a gift voucher. It all just depends on the specific service and product you're designing.
 
-After placing the order, their experience is, in many respects, just beginning. The confirmation page is an opportunity to show how caring the business is even after a sale.
+We've already talked about the importance of using plain and simple language for labels, hints and errors, but on the confirmation page it's an opportunity to put a bit of personality into it. For example, when you finish sending an email campaign with Mailchimp, they show a high-five image with the text “High five” which brings their branding through.
 
-For those who used guest checkout (more on this shortly), the confirmation page is a good place to ask users to register. We might offer users a discount off their next order. Or more simply by offering users a faster experience next time (because we've got their details).
+![Mailchimp high five](.)
+
+Finally, badgering users before a sale with popups that ask for feedback is a no-no, but on the confirmation page, it's a yes-yes. If the experience was really good, some users will be delighted to give feedback so be sure to offer users an easy way to do that.
+
+Here's a checklist of things to include in your confirmation screen:
+
+- a reference number
+- what happens next and when
+- what to do if something goes wrong
+- ask users to sign up in return for something
+- ask users to spread the word in return for something
+- contact details
+- links to further information if they might be useful
+- a link to your feedback page
 
 ## Guest Checkout
 

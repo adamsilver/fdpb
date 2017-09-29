@@ -555,18 +555,22 @@ The submit button's position and style is the same as laid out in “A Registrat
 
 ## Summary
 
-In this chapter we used One Thing Per Page to reduce the cognitive burden of filling out a relatively long form. We then made our way through a host of smaller details which collectively contribute to a friction-free and respectful experience. Here are the main takeaways:
+In this chapter we started out by looking at the One Thing Per Page pattern which helps to break down large forms into small chunks making it easy for users to fill out and make amendments to large forms.
 
-- Ask questions in a sensible order.
-- The width of the field should match the type of input.
-- Use `fieldset` and `legend` elements to give checkboxes and radio buttons context for the choices within the group.
-- Leverage autocomplete to speed up the form filling process.
-- Adding extra questions is not always a bad thing. Time to completion is not the only metric.
-- Allow users to check their answers before final submission.
-- Use a confirmation page to give users important information and to continue the relationship that has just begun.
-- Forcing users to register before checkout is one of the worst things we can do.
-- Progress bars don't always improve the experience and may clutter the interface unnecessarily.
-- Use smart defaults and stored data to drastically reduce effort and increase conversion.
+We then looked at capturing optional information, making choices with radio buttons, entering long form content into a textarea and a slew of enhancements applicable to the payment form.
+
+After that we took a look at higher level considersations such as giving users the ability to review their order, improve the experience for second-time users and consider the overall design in a more holistic way.
+
+### Checklist
+
+- Don't force users to register before checking out.
+- Ask questions in a sensible order
+- The width of the field should match the required input when the length is known in advance.
+- Use the fieldset and legend elements with radio button and checkbox groups to give the choices an overarching description.
+- Add extra questions if they add value. Remember completion time is not the only useful metric for success.
+- Let users check their answers before submission.
+- The confirmation page is the end of the transaction but the start of the relationship.
+- Store people's information to improve the second-time experience and increase conversion.
 
 ## Footnotes
 

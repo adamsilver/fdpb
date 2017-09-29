@@ -501,7 +501,7 @@ In this chapter we solved several fundamental form design challenges that are ap
 - Styling buttons and links the same.
 - Validating fields as users type.
 - Disabling submit buttons.
-- Complex, jargon and brand-influenced error messages.
+- Using complex, jargon and brand-influenced microcopy.
 
 ## Footnotes
 

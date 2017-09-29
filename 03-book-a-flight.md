@@ -1351,7 +1351,7 @@ Notes:
 
 ## Summary
 
-This chapter continued where we left off from the previous: By leveraging One Thing Per Page, we could design simple but innovative interfaces that fully utilise the available screen estate. As much as we tried to use native form controls, it became necessary to break new ground by designing 4 custom components from scratch.
+This chapter continued where we left off from the previous: by leveraging One Thing Per Page, we could design simple but innovative interfaces that fully utilise the available screen estate. As much as we tried to use native form controls, it became necessary to break new ground by designing 4 custom components from scratch.
 
 - An autocomplete component which lets users search through a long list of destinations quickly and accurately.
 - A date picker which lets users find a date in the future matching people's concept of time.

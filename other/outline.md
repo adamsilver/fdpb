@@ -66,9 +66,9 @@
 	- Visual Design
 - (8) Confirmation Page
 - The Second Time Experience
-- Progress Bar
-- Order Summary
-- Other considerations
+- Layout
+	- Progress Bar
+	- Order Summary
 
 ## 3. A flight booking service
 

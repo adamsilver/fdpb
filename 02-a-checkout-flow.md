@@ -74,8 +74,6 @@ Here, it's because we can send users a receipt of purchase, which is essential w
 
 ![We need this to send you a receipt](.)
 
-The submit button's position and style is the same as laid out in “A Registration Form”. The only difference is the button's label, which is set to “Continue”. This verb implies progress which is perfectly suited to a flow like this.
-
 ## 2. Mobile Phone
 
 Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint&mdash;this pattern doesn't just pertain to formatting rules. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
@@ -513,45 +511,47 @@ In which case, we can bypass almost every step of the checkout flow including, e
 
 All in all, this reduces friction to nil and significantly improves conversion. Remember Mary from earlier: the next time she runs out of nappies, buying them should be far easier and quicker, something I'm sure she would appreciate if she was a real person.
 
-## Progress Bar
+## Layout
 
-Progress bars are normally employed on longer flows. The idea behind them, is that they give users an idea of how long something is going to take by letting them know throughout the process what's left to complete. Whilst this makes a lot of sense, there's very little data that shows including one *adds value* or noticed by users.
+Up to now we've been focused on the design of the form itself within each page, but we haven't considered the interface holistically. Usually checkout pages are given a special treatment; a more streamlined layout that helps reduce noise and keeps users on task.
+
+For example, the header usually contains a logo and nothing else. By omitting other components like the navigation bar and search form, users are able to focus on checking out without distraction whilst simulataneously priorising the main content.
+
+![Layout](.)
+
+### Progress Bar
+
+Progress bars are normally employed on multi-step checkout flows because they give users an idea of where they are in the process and how long's left. Whilst this makes sense, there's very little data that shows including one *adds value* or is even noticed by users.
 
 ![Progress indicator](./images/Progress_indicators_2.png)
 
-There are practical reasons for avoid progress bars. First, they take up a lot of space which is particularly important on mobile. In fact, squeezing a well-design progress bar with clear labels into a small viewport is nigh on impossible. And to top it off, handling conditional sections is really hard.
+There are practical reasons for avoid progress bars too. First, they take up a lot of space at the top of the page which is particularly important on mobile as the main content is pushed further down. Second, squeezing a well-design and accessible progress bar (with clear labelling) into a small viewport is nigh on impossible to do elegantly. And to top it off, handling conditional sections is really hard because you either show that step regardless which is misleading, or you show it when it's relevant which is a little dishonest.
 
-Instead, start without one and conduct user research to see if users struggle. It's far easier and cheaper to add features later, than it is to remove them down the line.
+Instead, it's better to start without a progress bar. Then you can test to see if your users struggle without one by conducting research. Remember, it's far easier (and cheaper) to add features than it is to remove them after the fact.
 
-Not having one priorites the main content (which speaks to principle 6) with the bonus of a cleaner, lighter and more focused page. And having meticulously considered every detail within the flow itself users should get through it so fast that there is no need to wonder how much is left.
+Not having a progress bar prioritises the main content, by moving it further up the page, which speaks to principle 6 again, *prioritise content*. Having meticulously considered many other details, users should be getting through the process relatively quickly anyway, so there is little need for a progress bar.
 
-*(Note: you may need to build an especially long form, in which case, giving users an idea of what's left becomes more essential. We'll be looking at this problem in chapter 10, “A Really Long Form”.)*
+*(Note: some forms are really long&mdash;a lot longer than the checkout flow. In this case, you might need some indication of progress, which is something we'll be looking at in chapter 10, “A Really Long Form”.)*
 
-## Order Summary
+### Order Summary
 
+Imagine shopping in the real world. You walk into your favourite store, no computer in sight. You pick up items, and place them in your basket. When you decide to go to the till, you can see everything at once, even as the sales assistant scans your items. The order summary panel is a digitally equivalent experience. 
 
+Having it there will stop users needing to backstep to the basket page, for example, just to check they ordered the right thing in the right colour with the right quantity.
 
-How it might look:
+As users progress through the checkout, the order summary panel will populate with more and more details. At first it will contain just the basket information, then the provided email address, then the delivery address and so on. This way users are fully informed which builds trust and upholds momentum.
 
-![Order summary panel](./images/?.png)
+In layout terms, the summary panel should be placed beside the form on big screens, and beneath it on mobile when there isn't enough room.
 
-Picture the experience of shopping in a real world physical shop. No computer in-sight. You walk in, you pick items to buy and place them in your basket. When you decide to go to the till, you can see everything you're buying, even as the assistant scans each item.
+![Order summary panel](.)
 
-To mimic this behaviour, we provide a view of the order and all the details of the order throughout the checkout flow. This builds trust, keeps users in control and upholds the forward momentum.
+### Buttons and links
 
-Not including a summary is akin to dumping a basket of products into a black hole, and the assistant then telling you how much to pay. This is a burden on the user as they are forced to remember what they picked up. This causes anxiety and eventual drop out.
+The submit button's position and style is the same as laid out in “A Registration Form”. The only difference is the button's label, which is set to “Continue”. This verb implies progress which is perfectly suited to a flow like this.
 
-On small screens we put the order summary below the form. On bigger screens we have an opportunity to place it beside the form:
+- Back links and continue buttons.
 
-![Order summary panel](./images/?.png)
-
-## Checkout Header
-
-Many checkouts have a specific header that is different to the norm. This is because it reduces the noise, and softly encourages users to complete the process. The suggestion here is to keep the site's logo for familiarity purposes and allow uses to click that to exit the flow.
-
-Also tell users they are in the checkout flow. This is what we did for Kidly:
-
-![Order summary panel](./images/?.png)
+- Back buttons (https://paper.dropbox.com/doc/Back-buttons-and-links-d9DoNzPysaoTFZpJfqGsY)
 
 ## Summary
 
@@ -584,8 +584,3 @@ In this chapter we used One Thing Per Page to reduce the cognitive burden of fil
 [^12]: https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/
 [^13]: https://articles.uie.com/three_hund_million_button/
 [^autofillattrs]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
-
-## Todo
-
-- Back buttons (https://paper.dropbox.com/doc/Back-buttons-and-links-d9DoNzPysaoTFZpJfqGsY)
-

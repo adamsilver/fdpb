@@ -42,6 +42,7 @@
 - Introduction
 - One Thing Per page
 - Flow and order
+- Guest Checkout
 - (1) Email address
 - (2) Mobile phone
 	- Optional Fields
@@ -64,11 +65,10 @@
 - (7) Review Page
 	- Visual Design
 - (8) Confirmation Page
-- Guest checkout
-- Progress bars
-- Second time experience
-- Order summary
-- Checkout specific header
+- The Second Time Experience
+- Progress Bar
+- Order Summary
+- Other considerations
 
 ## 3. A flight booking service
 

@@ -6,7 +6,7 @@ Users struggled to complete their orders. Errors were hard to fix as users had t
 
 ![Multiple pages, no accordion](./images/boots2.png)
 
-This converted a lot better. Although I can't remember the exact numbers, the client was happy with the results. Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I noted the numbers. The result was a 5% increase in conversion. This is equated to 2 million orders a year. That’s *orders*, not revenue.
+This converted a lot better. Although I can't remember the exact numbers, the client was happy with the results. Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I noted the numbers. The result was a whopping 5% increase in conversion. This equated to 2 million orders a year. That’s *orders*, not revenue.
 
 ![Just Eat checkout](./images/justeat.png)
 
@@ -14,11 +14,11 @@ Two years later, in 2016, Robin Whittleton from GDS, told me that putting each t
 
 ## One Thing Per Page
 
-One Thing Per Page is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own. For example, instead of placing Delivery Address on the same page as the Delivery Options and Payment, we put it on a separate page.
+One Thing Per Page is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own. For example, instead of placing Delivery Address on the same page as the Delivery Options and Payment like, we put it on a separate page.
 
 It's not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer. Similarly, it’s not about having a single form field on each page either (although, it absolutely could).
 
-This doesn't mean you'll always end up with one question per page. Caroline Jarrett, who first wrote about the pattern in 2015, explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
+This doesn't mean you'll always end up with one question per page. Forms expert, Caroline Jarrett, who first wrote about the pattern in 2015, explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
 
 However, she also explains that “questions that naturally ‘go together’ from the point of view of designers, don’t need to be on the same page to work for users.” She provides an enlightening example when, for GOV.UK Verify, they tested putting ‘Create a username’ on one page and ‘Create a password’ on the next.
 
@@ -37,7 +37,7 @@ Whilst this pattern often bares wonderful and delicious fruit (or orders and con
 
 ## Flow and order
 
-In “Forms That Work”[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order. They say:
+In “Forms That Work”[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order:
 
 > Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
@@ -45,7 +45,7 @@ In “Forms That Work”[^], Caroline Jarett and Gerry Gafney explain the import
 
 > Now think about the point where you’ve told the salesperson which car you want to buy. Now it’s appropriate to start negotiating about payment. It would be quite odd if the salesperson did not do so.
 
-Just like the car salesperson, we'll ask for the right information at the right time. We'll leave payment until the end and give uses a chance to check their order before finally submitting it. Afterwards, the confirmation screen acts a sales receipt for record keeping. The complete flow is as follows:
+Just like the car salesperson, we'll ask for the right information at the right time. For example, payment happens toward the end. And users will be given a chance to check their order before finally submitting it. Finally, the confirmation page acts a sales receipt for administrative purposes. Here's the complete flow:
 
 1. Email address
 2. Mobile phone (optional)
@@ -58,25 +58,23 @@ Just like the car salesperson, we'll ask for the right information at the right 
 
 ## A Note On Guest Checkout
 
-The flow above has been designed with anonymous users in mind. This is sometimes referred to as guest checkout. Forcing users to register before checking out is one of the worst things we can do as Jared Spool attests to beautifully in “The 300 Million Dollar Button”[^].
+The flow has been designed with anonymous users in mind and is often referred to as *guest checkout* and there is no login/register form in sight. Forcing users to register before checking out is one of the worst things we can do as UX expert, Jared Spool attests to beautifully in “The 300 Million Dollar Button”[^].
 
-This is hardly suprising considering what we just discussed regarding flow and order and of course the Question Protocol. In short, what value does a first-time user get for the extra effort of signing up? Nothing. And that's mostly all you need to know.
+This is hardly suprising considering what we just discussed regarding flow and order. That is asking questions at the wrong time. And of course the Question Protocol backs this up. In short, what value does a first-time user get in return for the effort of signing up? Nothing. And that's mostly all you need to know.
 
-Don't worry though, there are more appropriate times to ask users to sign up as we'll see later on in the chapter.
+There are more appropriate times to ask users to sign up as we'll see later on in the chapter.
 
 ## 1. Email Address
 
-In chapter one, “A Registration Form”, we had to ask users for an email address. We can reuse that pattern here too, meaning we don't have to solve the same problem from scratch.
+In chapter one, “A Registration Form”, we had to ask users for an email address. We can reuse that pattern saving us the effort to solve the same problem again from scratch.
 
-There is, however, an opportunity to adapt the content to fit this context. By that I mean, users may wonder why their being asked for an email address just to buy a product. One of the main takeaways from chapter one, was the need to justify the existence of each and every form field.
+There is, however, an opportunity to adapt the content to fit this context. By that I mean, users may wonder why their being asked for an email address just to purchase something. One of the main takeaways from chapter one, was the need to justify the existence of each and every form field.
 
-Here, it's because we can send users a receipt of purchase, essential when checking out anonymously (guest checkout) whilst simultaneously providing information as to how to return it. In which case, we can tell users through the hint text.
+Here, it's because we can send users a receipt of purchase, which is essential when checking out anonymously. Additionally that email might also provide details about how to return it. We can tell users this transparently via the hint text.
 
 ![We need this to send you a receipt](.)
 
-The submit button is also reused. It is position and styled the same way too. The only difference is the button's label, which is set to “Continue”. This verb implies progress which is perfectly suited to the checkout flow.
-
-*(Note: logged-in users won't see this screen. I'll cover the second-time, logged-in experience later on.)*
+The submit button's position and style is the same as laid out in “A Registration Form”. The only difference is the button's label, which is set to “Continue”. This verb implies progress which is perfectly suited to a flow like this.
 
 ## 2. Mobile Phone
 
@@ -476,25 +474,25 @@ When the user makes a change, they are taken back to this page again for a final
 
 ## 8. Confirmation Page
 
-Confirming pages are more important than you might think. It's the first screen a user sees after purchase, so neglecting the user experience here is a sure-fire way to lose out on return business.
+Confirmtion pages are so much more than just confirming the order. Neglecting the user experience here is a sure-fire way to lose out on return business.
 
-We've all experienced this before. If you want to take out some insurance, you call the free sales number and are quickly put through to a helpful agent. Parting with money is one of the easiest things to do in this world. But then, when you need to call up to make a claim, this is usually very painful. Calls aren't free and it takes a while to get through. All very stressful.
+We've all experienced this before. If you want to take out some insurance, you call the (usually *free*) sales number and are quickly put through to a helpful agent. Parting with money is one of the easiest things to do in this world. But then, when you need to make a claim, it's usually more painful: calls aren't free to this number and it normally takes a while to get through. All very stressful.
 
-We can make the exact same mistakes digitally. Confirmation pages aren't just for confirming orders at the end of a transaction. They are an opportunity to start forging a long term relationship by giving users a better experience.
+We are prone to making the same mistakes online. Confirmation pages aren't just for confirming orders at the end of a transaction. They are an opportunity to start forging a long term relationship by giving users a better experience.
 
-You probably want to tell users what happens next, such as when delivery should take place. Then you might want to consider telling users what to do if something goes wrong, or telling users how to cancel an order.
+You probably want to tell users what happens next, such as when delivery should take place. You might also want to tell users what to do if something goes wrong.
 
-This is also a good time to ask users to sign up (if they arrrive here as a guest). As we have most of their information, all users will need to do is provide a password which drastically reduces friction. If the service up to now was good, users may need little reason to do so. Perhaps you'll offer them a faster checkout experience next time. Or you could encourage them to make another purchase by offering a discount on their next order to say thank you.
+It's usually the best time ot ask users to sign up (if using guest checkout). And as we have collected all the necessary information, all we need is a password making this step both optional and easy at the same time.
 
-You might even encourage users to tweet about their purchase in order to receive a gift voucher. It all just depends on the specific service and product you're designing.
+Asking at this point is useful because the user should have hopefully had a good experience due to all the provisions we've put in place. And by giving users value, users will probably want to sign up. THat value might be as simple as offering a fast checkout next time. Or it could involve a discount off their next order.
 
-We've already talked about the importance of using plain and simple language for labels, hints and errors, but on the confirmation page it's an opportunity to put a bit of personality into it. For example, when you finish sending an email campaign with Mailchimp, they show a high-five image with the text “High five” which brings their branding through.
+Depending on the service you're designing, you might ask users to tweet or instagram their purchase in return for a voucher. Whatever it is, now's as good a time as any.
+
+Up to now, we've also made sure to use plain and simple language for labels, hints and errors. On the confirmation page, there is a natural opportunity to let your brand's personality shine through. Mailchimp's confirmation page show's their Chimp mascot high-fiving you which is a nice touch.
 
 ![Mailchimp high five](.)
 
-Finally, badgering users before a sale with popups that ask for feedback is a no-no, but on the confirmation page, it's a yes-yes. If the experience was really good, some users will be delighted to give feedback so be sure to offer users an easy way to do that.
-
-Here's a checklist of things to include in your confirmation screen:
+Here's a checklist of things you should consider including on your confirmation page:
 
 - a reference number
 - what happens next and when
@@ -507,38 +505,31 @@ Here's a checklist of things to include in your confirmation screen:
 
 ## The Second Time Experience 
 
-Just as it is crucial to let users checkout anonymously, it's also important to consider the experience for second-time users. Because we have all their information to hand, we can bypass every step of the flow until the *Check Your Answers* page. This reduces friction to almost nil and will drastically improve conversion.
+I've made so many purchases with Amazon that I can't even remember Amazon's first-time experience. That is to say, I've made hundreds of purchases as a second-time user than I have as a first-time user.
 
-Remember Mary from earlier: the next time she runs out of nappies, she won't have to spend her limited time and energy filling out several fields. She can just check the order before confirming it.
+Once you've done everything right with the first time experience, it's time to focus on the second-time experience. As we have collected and stored all the user's information, we shouldn't have to ask for it a second time.
 
-## Progress Bars
+In which case, we can bypass almost every step of the checkout flow including, email, mobile, delivery address and options and of course payment. Instead, we can take users straight to the *Check Your Answers* page. This way users get a reminder of their default preferences with the chance to make amends.
 
-Traditional advice says we should give users knowledge of their progress within a particular process. But this is not necessarily the case. There is little data that shows including one is of much value.
+All in all, this reduces friction to nil and significantly improves conversion. Remember Mary from earlier: the next time she runs out of nappies, buying them should be far easier and quicker, something I'm sure she would appreciate if she was a real person.
+
+## Progress Bar
+
+Progress bars are normally employed on longer flows. The idea behind them, is that they give users an idea of how long something is going to take by letting them know throughout the process what's left to complete. Whilst this makes a lot of sense, there's very little data that shows including one *adds value* or noticed by users.
 
 ![Progress indicator](./images/Progress_indicators_2.png)
 
-GDS say that they:
+There are practical reasons for avoid progress bars. First, they take up a lot of space which is particularly important on mobile. In fact, squeezing a well-design progress bar with clear labels into a small viewport is nigh on impossible. And to top it off, handling conditional sections is really hard.
 
-- are often not noticed
-- take up lots of space
-- don’t scale well on small screens
-- can distract and confuse some people
-- make it hard to write good labels
-- make it hard to handle conditional sections
+Instead, start without one and conduct user research to see if users struggle. It's far easier and cheaper to add features later, than it is to remove them down the line.
 
-It's better to start without one, and test to see what problems bare out. It's easier and cheaper to add features later than it is to remove them after the fact.
+Not having one priorites the main content (which speaks to principle 6) with the bonus of a cleaner, lighter and more focused page. And having meticulously considered every detail within the flow itself users should get through it so fast that there is no need to wonder how much is left.
 
-Not having one makes for a cleaner, lighter and more focussed page which should makes things easier for the user. Having meticulously designed every detail the checkout should hopefully be so fast that there is no reason to wonder *how much is left*.
+*(Note: you may need to build an especially long form, in which case, giving users an idea of what's left becomes more essential. We'll be looking at this problem in chapter 10, “A Really Long Form”.)*
 
-If research shows you need one, consider a simple version first:
+## Order Summary
 
-![Local Image](./images/Progress_indicators_1.png)
 
-This progress indicator may well be enough and doesn't suffer from many of the challenges and problems of a more verbose, traditional indicator.
-
-In later chapters, we'll look at how to solve a really really long form by showing progress.
-
-## Order summary
 
 How it might look:
 

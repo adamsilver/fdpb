@@ -221,15 +221,15 @@ While this question *adds value*, we need to understand how it will be used by t
 
 ### Limiting Text
 
-Limiting the amount of a text a user can type can and should be handled by validation as set out in “A Registration Form”. But there are some additional considerations to discuss.
+Limiting the amount of a text a user can type can and should be handled by validation as set out in “A Registration Form.” But there are some additional considerations to discuss.
 
-The `maxlength` attribute (which takes a number value) literally limits the amount of a text a user can type. So as soon as the limit is reached, the user's input will be ignored. The support for this attribute on the `textarea` control is both lacking and buggy[^8]. Even if it was well supported, I don't recommend using it, especially in this case.
+The `maxlength` attribute (which takes a number value) limits the amount of a text a user can type. As soon as the limit is reached, the browser will ignore the input. The support for this attribute on the `textarea` control is both lacking and buggy[^8]. 
 
-This is because some users don't look at the screen as they type&mdash;they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated causing immense frustration.
+But, even if it was well supported, I don't recommend using it because some users don't look at the screen as they type—they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated causing immense frustration.
 
 ### Character Countdown
 
-Instead, we should let users type freely and offer feedback as to how many characters they have left. This way, users can see the feedback when they finally look up at the screen and edit their entry accordingly. If they don't notice the feedback, then an error will show when they submit the form, thanks to our validation routine.
+Instead, we should let users type freely and tell users how many characters they have left. This way, users can see the feedback when they finally look up at the screen and can edit their entry accordingly. If they don't notice the feedback, an error will show when they submit the form, thanks to our validation routine.
 
 ![Character count](.)
 
@@ -246,17 +246,21 @@ function CharacterCountdown(input) {
 };
 ```
 
-As the user types the `keydown` event listener will fire. That method checks the `length` of the field against the configured max length. Then it will update the status box accordingly.
+As the user types, the `keydown` event listener will fire. That method checks the `length` of the field against the configured max length. Then it will update the status box accordingly.
 
 ```javascript
 CharacterCountdown.prototype.onFieldChange = function(e) {
-	var remaining = this.options.maxLength - this.field.val().length;
+    var remaining = this.options.maxLength - this.field.val().length;
   this.status.html(this.options.message.replace(/%count%/, remaining));
 };
 
 ```
 
-The status box has a `role` attribute set to `status` and `aria-live` set to `polite`. When the status box is updated, screen readers will announce it, but only after the user finishes typing. This way, users aren't rudely interupted. 
+The container has a `role` attribute set to `status` and `aria-live` set to `polite`. When the status box is updated, screen readers will announce it, but only after the user finishes typing. This way, users aren't rudely interrupted. 
+
+```HTML
+Here
+```
 
 
 *(Note: both `role="status"` and `aria-live="polite"` are functionally equivalent, but older versions of JAWS don't support `role`.)*
@@ -265,76 +269,76 @@ The status box has a `role` attribute set to `status` and `aria-live` set to `po
 
 It's hardly surprising that most transactions are abandoned at the payment page. Not only is this screen shown toward the end of the journey (where users have had the most time to reconsider their decision, for example), but they may have to stop and find their credit card.
 
-There are a number of usability provisions we can apply here. By leveraging the browser's autocomplete routine, removing unnecessary fields, using the right input types and crafting the label (and hint) text&mdash;we can drastically reduce friction and keep users on-task.
+Fortunately, there are some usability provisions we can apply here. By leveraging autofill, removing unnecessary fields, using the right input types and crafting the label (and hint) text—we can drastically reduce friction and keep users on-task.
 
 ### Removing Fields
 
 There are a number of details on a credit or debit card: name on card, card number, valid from date, expiry date, issue number, security number; all of these are commonly found on payment forms. However, not all of these details are necessary to process a payment.
 
-When I worked on Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) at Kidly, carefully picked Stripe as the payment provider. This way, Kidly didnt't have to worry about PCI compliance and the cost of developing its own solution from scratch. Here's the payment form we ended up with:
+When I worked on Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe as the payment provider. This way, we didn't have to worry about PCI compliance and the cost of developing a solution from scratch. Here's the payment form we ended up with:
 
 ![Payment](.)
 
 You'll notice *valid from* date is missing so I spoke with Øyvind to find out why that was:
 
-> We don't need to ask for Valid From. Only a handful of debit cards show those and it provides more hassle for the customer to enter, than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
+> We don't need to ask for Valid From. Only a handful of debit cards show those, and it provides more hassle for the customer to enter than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
 
 He goes on to talk about the billing address. That is the address to which the card is registered:
 
-> Only the numerics contained in card details are used for verification. That is, house number is used, but not street name. We ask ask for it for our own records. Being able to eyeball this stuff is handy in any situation where you have to query what's happened. Besides, some people expect that they'll have to provide an address (at least one which is used for both billing and shipping).
+> Only the numerics contained in card details are used for verification. That is, the house number is used, but not street name. We ask for it for our records. Being able to eyeball this stuff is handy in any situation where you have to query what's happened. Besides, some people expect that they'll have to provide an address (at least one which is used for both billing and shipping).
 
-Øyvind is not a designer per se, but his input into the design process was crucial. Many of us assume that back end developers don't care about the user experience, but tapping into their knowledge is very valuable.
+Øyvind is not a designer per se, but his input into the design process was crucial. Many of us assume that back-end developers don't care about the user experience, but tapping into their knowledge is clearly valuable.
 
 > Design is a team sport
 
-Design is a team sport, and so we should treat it as one. By designing (and researching) with a diverse set of people, we'll normally end up producing a far better experience.
+Design is a team sport, and so we should treat it as one. By designing (and researching) with a diverse set of people, we'll frequently end up producing a far better experience.
 
-This also shows, that we should constantly be questioning the existence of form fields. If you look at other people's designs and assume something has to be a certain way, we'll never improve micro patterns such as these. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
+This also shows that we should constantly be questioning the existence of form fields. If you look at other people's designs and assume something has to be a certain way, we'll never improve micro patterns such as these. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
 
 ### Autofill
 
 Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored&mdash;if it does, the user can select it without having to type. Additionally, since iOS 8, the Safari browser lets users scan their card using the iPhone's camera&mdash;it uses the same mechanism to automatically fill out those fields.
 
-Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos&mdash;two very helpful usability improvements on a form that has the highest drop off rates in ecommerce.
+Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos&mdash;two very helpful usability improvements on a form that has the highest drop-off rates in e-commerce.
 
-As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Most modern browsers support, but for those that don't some older browers offer similar functionality by using the `name` attribute instead. For the widest support, you should specify the correct values for both attributes as shown below.
+As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Most modern browsers support, but for those that don't some older browsers offer similar functionality by using the `name` attribute instead. For the widest support, you should specify the correct values for both attributes as shown below.
 
 ```HTML
 <div class="field">
-	<label for="ccname">
-		<span class="field-label">Name on card</span>
-	</label>
-	<input type="text" id="ccname" name="ccname" autocomplete="cc-name">
+    <label for="ccname">
+        <span class="field-label">Name on card</span>
+    </label>
+    <input type="text" id="ccname" name="ccname" autocomplete="cc-name">
 </div>
 <div class="field">
-	<label for="cardnumber">
-		<span class="field-label">Card number</span>
-	</label>
-	<input type="text" id="cardnumber" name="cardnumber" autocomplete="cc-number">
+    <label for="cardnumber">
+        <span class="field-label">Card number</span>
+    </label>
+    <input type="text" id="cardnumber" name="cardnumber" autocomplete="cc-number">
 </div>
 <div class="field">
-	<label for="expdate">
-		<span class="field-label">Expiry date</span>
-	</label>
-	<input type="text" id="expdate" name="expdate" autocomplete="cc-exp">
+    <label for="expdate">
+        <span class="field-label">Expiry date</span>
+    </label>
+    <input type="text" id="expdate" name="expdate" autocomplete="cc-exp">
 </div>
 <div class="field">
-	<label for="cvc">
-		<span class="field-label">Security code</span>
-	</label>
-	<input type="number" id="cvc" name="cvc" autocomplete="cc-csc">
+    <label for="cvc">
+        <span class="field-label">Security code</span>
+    </label>
+    <input type="number" id="cvc" name="cvc" autocomplete="cc-csc">
 </div>
 <div class="field">
   <fieldset>
-  	<legend>
-  		<span class="field-legend">Is your billing address the same as delivery?</span>
-  	</legend>
-  	<div class="field-checkbox">
-  		<label for="things">
-  			<input type="checkbox" name="things" value="" id="things" checked>
-  			Yes, it's the same
-  		</label>
-  	</div>
+      <legend>
+          <span class="field-legend">Is your billing address the same as delivery?</span>
+      </legend>
+      <div class="field-checkbox">
+          <label for="things">
+              <input type="checkbox" name="things" value="" id="things" checked>
+              Yes, it's the same
+          </label>
+      </div>
   </fieldset>
 </div>
 ```
@@ -411,11 +415,11 @@ To fix this, we should employ the hint text pattern to tell users exactly what i
 
 ### Billing Address
 
-The billing address is actually the address to which the card is registered and is needed to process a payment. For most users, their billing address is the same as the delivery address. As the user has already provided this information, we can use it to improve the experience.
+The billing address is the address to which the card is registered and is needed to process a payment. For most users, their billing address is the same as the delivery address. As the user has already provided this information, we can use it to improve the experience.
 
-First we need to add an extra field, this time a checkbox. The checkbox asks the user if their billing addresss is the same as their delivery address. This way users only have to fill out the billing address on the rare occasion that it's different. As it's the most common scenario, it's checked by default. 
+First, we need to add an extra field, this time a checkbox which asks the user if their billing address is the same as their delivery address. This way users only have to fill out the billing address on the rare occasion that it's different. As it's the most common scenario, it's checked by default. 
 
-With Javascript we can enhance the experience even more by hiding the billing address until the user unchecks the checkbox. This is a form of progressive disclosure which reduces noise in the interface. That is, we only show the fields when they are relevant to the user.
+With Javascript, we can enhance the experience even more by hiding the billing address until the user unchecks the checkbox. This is a form of progressive disclosure which reduces noise in the interface. That is, we only show the fields when they are relevant to the user.
 
 To do this, we need to listen to the checkbox click event.
 
@@ -428,7 +432,7 @@ function CheckboxCollapser(checkbox, element) {
 };
 ```
 
-When the checkbox is clicked, we need to check whether it's checked or not. If it is then we need to hide the billing address. If it's not we need to show it.
+When the checkbox is clicked, we check the state. If it's checked, then we need to hide the billing address. Otherwise, we need to show it.
 
 ```JS
 CheckboxCollapser.prototype.onCheckboxClick = function(e) {
@@ -446,64 +450,62 @@ CheckboxCollapser.prototype.check = function() {
 };
 ```
 
-Note that we hide the element with CSS (by toggling the display property between `block` and `none`). But, we also ensure that screen readers are informed by toggling the `aria-hidden` attribute between `true` and `false`.
+The container is hidden with CSS by toggling the display property between `block` and `none`. Screen readers are catered for by toggling the `aria-hidden` attribute between `true` and `false`.
 
 ## 7. Review Page
 
-At this point in the flow, we have collected all the information we need from users to complete their order. But instead of processing the order after payment, it's wise to let users review their order on another page first. As counterintuitive as this may sound, adding an extra step in the flow actually reduces friction.
+At this point in the flow, we have collected all the information needed to complete the order. But instead of processing the order after payment, it's a good idea to let users review their order on first. As counterintuitive as this may sound, adding an extra step in the flow reduces friction.
 
-Take Mary (I made her up). She's a mother of two young children. It's late, the baby is up, crying inconsolably. Naturally, Mary is tired and stressed. To make things worse, she's ran out of nappies.
+Take Mary (I made her up), a mother of two infants. It's the middle of the night, and her baby is crying inconsolably. Naturally, Mary is tired and stressed. To make things worse, she's run out of nappies.
 
-She grabs her phone, adds them to her basket, fills out all the checkout details and submits the order. Great, except it isn't. She ordered the wrong size nappies and the she used the wrong card. Even the most sophisticated validation pattern cannot eradicate human error. Even if everything *looks* right and is formatted correctly, there could still be mistakes.
+She grabs her phone, adds them to her basket, fills out all the checkout details and submits the order. Great, except it isn't. She ordered the wrong size nappies and paid with the wrong card. Even the most sophisticated validation pattern cannot eradicate human error. Even if everything *looks* right and is formatted correctly, there could still be mistakes.
 
-Instead, we can save Mary a lot of frustration by giving her the chance to review her order on a separate page. That way she can focus on the order details. Remember, filling out forms and checking information are two separate mental contexts.
+Instead, we can save Mary a lot of frustration by giving her the chance to review her order on a separate page. That way she can focus on the order details. Remember, filling out forms and checking information are two different mental contexts.
 
-This also happens to save your (client's) business time and money. If Mary wants to cancel the order, then handling calls and processing returns might be rather costly&mdash;especially if the business offers free returns.
+This also saves your (client's) business time and money. If Mary wants to cancel the order, then handling calls and processing would be costly—especially if the business offers free returns.
 
-This goes to show that solely using completion time as a metric for success is dangerous. Completion time is important, but in conjunction with checking how accurate people's orders are.
+This shows that solely relying on completion time as a metric for success is dangerous. You should also look at how accurate people's orders are by checking how often items are returned. Ideally, you should use both metrics together.
 
-*(Note: as this is the final step in the flow, the button's text should be set to “Place order” or similar. Leaving it as “Continue” would mislead the user into thinking there is another step to complete. This will result in a lot of frustration and cancelled orders.)*
+*(Note: as this is the final step in the flow, the button's text should be set to “Place order” or similar. Leaving it as “Continue” would mislead the user into thinking there is another step to complete. This will result in a lot of frustration and canceled orders.)*
 
 ### Visual Design
 
-Every piece of information gathered through the checkout flow should be presented on the review page. User's shouldn't have to go back to check any information, otherwise it would defeat the purpose of this page. Users only need to go back to a previous page, if they spot a mistake on this page.
+Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information—that would defeat the purpose of this page. Users should only need to go back if they spot a mistake.
 
 ![](.)
 
-Users can click *edit* to make amendments which is another advantage of using One Thing Per Page. As pages are small they will load fast; as each page is dedicated to that one thing, making amendments is an easy task with a maximum signal to noise ratio.
+Users can click *edit* to make amendments which is another advantage of using the One Thing Per Page pattern. As pages are small they will load fast; as each page has just one thing, making a change is simple.
 
-![Flow diagram: Click edit, make change, go back to summary](.)
+![Flow diagram: Click edit, make a change, go back to summary](.)
 
 When the user makes a change, they are taken back to this page again for a final review which puts users firmly in control and is something that should reduce stress and anxiety.
 
 ## 8. Confirmation Page
 
-Confirmtion pages are so much more than just confirming the order. Neglecting the user experience here is a sure-fire way to lose out on return business.
+Confirmation pages are so much more than just confirming the order. Neglecting the user experience here is a great way to lose out on return business.
 
-We've all experienced this before. If you want to take out some insurance, you call the (usually *free*) sales number and are quickly put through to a helpful agent. Parting with money is one of the easiest things to do in this world. But then, when you need to make a claim, it's usually more painful: calls aren't free to this number and it normally takes a while to get through. All very stressful.
+We've all probably experienced neglect after purchasing goods. For example, if you want to take out insurance, you call the free sales number and are quickly put through to a helpful agent. Parting with money is always made easy. But then, when you need to make a claim, it's usually more painful as this number isn't free and calls take a long time be picked up. All very stressful.
 
-We are prone to making the same mistakes online. Confirmation pages aren't just for confirming orders at the end of a transaction. They are an opportunity to start forging a long term relationship by giving users a better experience.
+A confirmation page is the first opportunity to start forging a long-term relationship. And this is done in two ways: by looking after them and giving them an incentive to come back.
 
-You probably want to tell users what happens next, such as when delivery should take place. You might also want to tell users what to do if something goes wrong.
+You probably want to tell users what happens next, such as when delivery will take place. You might also want to tell users what to do if something goes wrong.
 
-It's usually the best time ot ask users to sign up (if using guest checkout). And as we have collected all the necessary information, all we need is a password making this step both optional and easy at the same time.
+It's also the best time to ask users to sign up (if they checked out anonymously). And as we have collected all the necessary information, all we need is a password making this step both optional and easy. And users should have had a good experience due to all the previous design details we've implemented up to this point.
 
-Asking at this point is useful because the user should have hopefully had a good experience due to all the provisions we've put in place. And by giving users value, users will probably want to sign up. THat value might be as simple as offering a fast checkout next time. Or it could involve a discount off their next order.
+And by giving users value, they will probably want to sign up. By value, I mean something as simple as offering a faster checkout next time or offering them a discount for their next order. Depending on the service, you might even ask users to tweet or Instagram their purchase in return for a voucher. Whatever it is, now's as good a time as any to mention it.
 
-Depending on the service you're designing, you might ask users to tweet or instagram their purchase in return for a voucher. Whatever it is, now's as good a time as any.
-
-Up to now, we've also made sure to use plain and simple language for labels, hints and errors. On the confirmation page, there is a natural opportunity to let your brand's personality shine through. Mailchimp's confirmation page show's their Chimp mascot high-fiving you which is a nice touch.
+Up to now, we've also been sure to use plain and simple language for labels, hints, and errors. On the confirmation page, there is a natural opportunity to let your brand's personality shine through. Mailchimp's confirmation page show's their Chimp mascot high-fiving you which is a nice touch.
 
 ![Mailchimp high five](.)
 
-Here's a checklist of things you should consider including on your confirmation page:
+Here's a checklist of things to consider including on the confirmation page:
 
 - a reference number
+- contact details
 - what happens next and when
 - what to do if something goes wrong
 - ask users to sign up in return for something
-- ask users to spread the word in return for something
-- contact details
+- ask users to spread the word to get a voucher
 - links to further information if they might be useful
 - a link to your feedback page
 
@@ -519,37 +521,39 @@ All in all, this reduces friction to nil and significantly improves conversion. 
 
 ## Layout
 
-Up to now we've been focused on the design of the form itself within each page, but we haven't considered the interface holistically. Usually checkout pages are given a special treatment; a more streamlined layout that helps reduce noise and keeps users on task.
+Up to now, we've focused on the design of the form within each page, but we haven't considered the interface holistically. In fact, this is one of the dangers of composing interfaces out of pre-defined smaller components.  In the end, the overall design can be neglected.
 
-For example, the header usually contains a logo and nothing else. By omitting other components like the navigation bar and search form, users are able to focus on checking out without distraction whilst simulataneously priorising the main content.
+Usually, checkout pages are given special treatment; a more streamlined layout that helps reduce noise and keeps users on task. For example, the header usually contains a logo and nothing else. 
+
+By omitting other components like the navigation bar and search form, users can focus on checking out without distraction while simultaneously prioritising the main content.
 
 ![Layout](.)
 
 ### Progress Bar
 
-Progress bars are normally employed on multi-step checkout flows because they give users an idea of where they are in the process and how long's left. Whilst this makes sense, there's very little data that shows including one *adds value* or is even noticed by users.
+Progress bars are often used within checkout because they give users an idea of where they are in the process and how long's left. While this makes sense, there's very little data to show including one *adds value*.
 
 ![Progress indicator](./images/Progress_indicators_2.png)
 
-There are practical reasons for avoid progress bars too. First, they take up a lot of space at the top of the page which is particularly important on mobile as the main content is pushed further down. Second, squeezing a well-design and accessible progress bar (with clear labelling) into a small viewport is nigh on impossible to do elegantly. And to top it off, handling conditional sections is really hard because you either show that step regardless which is misleading, or you show it when it's relevant which is a little dishonest.
+There are practical reasons for avoiding progress bars too. First, they take up a lot of space at the top of the page which is of particular importance on mobile as the main content is pushed further down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. And to top it off, handling conditional sections is hard because you either always show the step which is misleading, or you show it when it's relevant which is dishonest.
 
-Instead, it's better to start without a progress bar. Then you can test to see if your users struggle without one by conducting research. Remember, it's far easier (and cheaper) to add features than it is to remove them after the fact.
+Instead, it's better to start without a progress bar. Then you can test to see if your users struggle without one by conducting research. Remember, it's far easier (and cheaper) to add features than to remove them after the fact.
 
-Not having a progress bar prioritises the main content, by moving it further up the page, which speaks to principle 6 again, *prioritise content*. Having meticulously considered many other details, users should be getting through the process relatively quickly anyway, so there is little need for a progress bar.
+Not having a progress bar prioritises the main content, by moving it further up the page, which speaks to principle 6 again, *prioritise content*. Having meticulously considered many other details, users should get through the process with little fuss anyway.
 
-*(Note: some forms are really long&mdash;a lot longer than the checkout flow. In this case, you might need some indication of progress, which is something we'll be looking at in chapter 10, “A Really Long Form”.)*
+*(Note: some forms are especially long—a lot longer than the checkout. In this case, you might need some indication of progress, which is something we'll look in detail in chapter 10, “A Really Long Form.”)*
 
 ### Order Summary
 
-When your shopping in a physical shop you, pick up your items and place them in your shopping basket. Even when you go to the till, you can see what those items are as the sales assistant scans them in. Sometimes last minute we change our minds and take an item off the conveyor belt. Or we realise we forgot something and quickly dash to get it.
+When you're shopping in a physical shop you, pick up your items and place them in your shopping basket. Eventually you checkout at the till. All the while, you can see what you're buying. Sometimes at the last minute, we change our mind and take an item off the conveyor belt. Or we realise we forgot something and dash off to get it.
 
-We need a way to give users the same experience digitally, so we put an order summary panel on every page of the checkout. This way, users are fully informed and don't have to rely on memory to know what they're buying and how they're buying it.
+Having an overview throughout the shopping experience is important, and so we need a way to give users the same thing digitally. An order summary placed on every page keeps users informed without having to rely on memory to know what they're buying.
 
 ![Order Summary](.)
 
-The order summary should look similar to the review page, except that it's smaller. Also, it will be updated with more and more information as the user completes each step of the flow. For example, on the email address screen, it will mostly be a copy of the basket. Then on the next screen it will display the user's email address. Then on the next screen it will display the mobile phone too. And so on. And like the review page, if users spot a mistake at any time, they should be able to jump back to that step by clicking the edit link.
+As the user completes each step, the order summary will contain more and more information. For example, on the first screen (email address), it will contain what they're buying. On the next screen it will also contain their email address, and so forth. If the user spots a mistake, they can jump back to any previous step by clicking the edit link—just like the review page.
 
-Layout wise, the summary panel should be less prominent than the form. So it should be placed beside the form on large viewports, and below the form on mobile, where there isn't enough room.
+Layout wise, the summary panel should be less prominent than the form. So it should be placed beside the form on large viewports, and below the form on mobile, where there isn't enough room for it.
 
 ### Back Links
 
@@ -565,17 +569,17 @@ Consider making the link text explicit. Where “Back” is ambiguous, “Back t
 
 ## Summary
 
-In this chapter we started out by looking at the One Thing Per Page pattern which helps to break down large forms into small chunks making it easy for users to fill out and make amendments to large forms.
+In this chapter, we started out by looking at the One Thing Per Page pattern which helps to break down large forms into small chunks making it easy for users to fill out and make amendments to large forms.
 
-We then looked at capturing optional information, making choices with radio buttons, entering long form content via the `textarea` and several ways to improve the payment form experience.
+We then looked at capturing optional information, making choices with radio buttons, entering long-form content via the `textarea` and several ways to improve the payment form experience.
 
-After that we looked at higher level considersations such as giving users the ability to review their order, improve the experience for second-time users as well as considerations for the overall design.
+After that, we looked at other issues: giving users the ability to review their order, improving the experience for second-time users and considering the overall design.
 
 ### Checklist
 
 - Don't force users to register before checking out.
 - Ask questions in a sensible order
-- The width of the field should match the required input when the length is known in advance.
+- The width of the field should match the required input when the length is known.
 - Use the fieldset and legend elements with radio button and checkbox groups to give the choices an overarching description.
 - Add extra questions if they add value. Remember completion time is not the only useful metric for success.
 - Let users check their answers before submission.

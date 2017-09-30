@@ -2,33 +2,33 @@
 
 In 2008 I worked on Boots.com where we designed a single-page checkout flow. This involved the trendiest of techniques from that era including accordions, AJAX and client-side validation. Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened.
 
-Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the accordion was a distraction. Inevitably, Boots asked us to make changes. We redesigned it so that each panel became its own page removing the need for an accordion and AJAX. (We kept the client-side validation to avoid an unnecessary trip to the server.)
+Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the accordion was a distraction. Inevitably, Boots asked us to make changes. We redesigned it so that each panel became a page removing the need for an accordion and AJAX. (We kept the client-side validation to avoid an unnecessary trip to the server.)
 
 ![Multiple pages, no accordion](./images/boots2.png)
 
-This converted a lot better. Although I can't remember the exact numbers, the client was happy with the results. Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time I noted the numbers. The result was a whopping 5% increase in conversion. This equated to 2 million orders a year. That’s *orders*, not revenue.
+This converted a lot better. Although I can't remember the exact numbers, the client was happy with the results. Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became a page. This time I noted the numbers. The result was a whopping 5% increase in conversion. This equated to 2 million orders a year. That’s *orders*, not revenue.
 
 ![Just Eat checkout](./images/justeat.png)
 
-Two years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Apart from the numbers there are many reasons why this pattern drastically improves the user experience.
+Two years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Apart from the numbers, there are many reasons why it drastically improves the user experience.
 
 ## One Thing Per Page
 
-One Thing Per Page is about splitting up a complex process into multiple smaller pieces, and placing those smaller pieces on screens of their own. For example, instead of placing Delivery Address on the same page as the Delivery Options and Payment like, we put it on a separate page.
+One Thing Per Page is about splitting up a complicated process into small chunks and placing them on screens of their own. For example, instead of putting Delivery Address, Delivery Options, and Payment forms on one page, we put them on separate pages.
 
-It's not necessarily about having one element or component on a page (although it could). In all likeliness you’ll still have, for example, a header and footer. Similarly, it’s not about having a single form field on each page either (although, it absolutely could).
+It's not necessarily about having one element or component on a page (although it could). In all likeliness, you’ll still have, for example, a header. Similarly, it’s not about having a single form field on each page either (although, it absolutely could). And it doesn't mean you'll always end up with one question per page either.
 
-This doesn't mean you'll always end up with one question per page. Forms expert, Caroline Jarrett, who first wrote about the pattern in 2015, explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
+Forms expert, Caroline Jarrett, who first wrote about the pattern in 2015, explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
 
-However, she also explains that “questions that naturally ‘go together’ from the point of view of designers, don’t need to be on the same page to work for users.” She provides an enlightening example when, for GOV.UK Verify, they tested putting ‘Create a username’ on one page and ‘Create a password’ on the next.
+However, she also explains that “questions that naturally ‘go together’ from the point of view of designers, don’t need to be on the same page to work for users.” She provides an enlightening example when for GOV.UK Verify, they tested putting ‘Create a username’ on one page and ‘Create a password’ on the next.
 
-Like most designers, Caroline thought that putting them on separate pages would be overkill. In reality, users weren’t bothered. So start with one thing (field, question) per page, then, through research, find out if grouping fields improves the experience.
+Like most designers, Caroline thought that putting them on separate pages would be overkill. In reality, users weren’t bothered. So start with one thing (field or question) per page, then, through research, find out if grouping fields improves the experience.
 
-That is not to say you’ll always end up combining screens together—in my experience, the best results come from splitting things apart, period.
+That is not to say you’ll always end up combining screens—in my experience the best results come from splitting things apart, period.
 
-Whilst this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies) it’s useful to understand why it works so well.
+While this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies), it’s useful to understand why it works so well.
 
-- Principle 6 says that we should *design interfaces that help users focus on core tasks by prioritising it*. It even goes on to say that *people should be able to focus on one thing at a time*. One Thing Per Page is simply following this principle to the letter, and in doing so it drastically reduces the cognitive burden on users.
+- Principle 6 says that we should *design interfaces that help users focus on core tasks by prioritising it*. It even goes on to say that *people should be able to focus on one thing at a time*. One Thing Per Page is simply following this principle to the letter, and in doing so, it drastically reduces the cognitive burden on users.
 - When users fill in a small form, errors are caught and shown early and often. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up on the task.
 - If pages have little on them, they'll load quickly. Faster pages reduce the risk of users leaving and they build trust.
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
@@ -37,7 +37,7 @@ Whilst this pattern often bares wonderful and delicious fruit (or orders and con
 
 ## Flow and order
 
-In “Forms That Work”[^], Caroline Jarett and Gerry Gafney explain the importance of asking questions in a sensible order:
+In “Forms That Work”[^], Caroline Jarett and Gerry Gaffney explain the importance of asking questions in a sensible order:
 
 > Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
@@ -58,15 +58,17 @@ Just like the car salesperson, we'll ask for the right information at the right 
 
 ## A Note On Guest Checkout
 
-The flow has been designed with anonymous users in mind and is often referred to as *guest checkout* and there is no login/register form in sight. Forcing users to register before checking out is one of the worst things we can do as UX expert, Jared Spool attests to beautifully in “The 300 Million Dollar Button”[^].
+This flow is designed primarily for anonymous users. Not letting users check out as a guest user is one of the worst things we can do as Jared spool attests to beautifully in “The 300 Million Dollar Button”[^]. 
 
-This is hardly suprising considering what we just discussed regarding flow and order. That is asking questions at the wrong time. And of course the Question Protocol backs this up. In short, what value does a first-time user get in return for the effort of signing up? Nothing. And that's mostly all you need to know.
+The article tells a story of one company losing 300 million dollars because they thought forcing users to register first would help speed up subsequent purchases. While this is true, it also assumes users want to sign up at all.
+
+Considering what we learned with regards to flow and order and applying the question protocol, the story is hardly surprising. What value does a first-time user get in return for the added effort of signing up? Nothing. And that's mostly all you need to know.
 
 There are more appropriate times to ask users to sign up as we'll see later on in the chapter.
 
 ## 1. Email Address
 
-In chapter one, “A Registration Form”, we had to ask users for an email address. We can reuse that pattern saving us the effort to solve the same problem again from scratch.
+In chapter one, “A Registration Form,” we had to ask users for an email address. We can reuse that pattern here saving us the effort of solving the same problem again from scratch.
 
 There is, however, an opportunity to adapt the content to fit this context. By that I mean, users may wonder why their being asked for an email address just to purchase something. One of the main takeaways from chapter one, was the need to justify the existence of each and every form field.
 
@@ -92,17 +94,17 @@ Like the email field, we should be asking ourselves why we're asking for their p
 </div>
 ```
 
-The input's `type` attribute is set to `tel` which on mobile phones will spawn a telephone-specific keyboard. This makes it easier to enter a phone number thanks to the larger keypad.
+The input's `type` attribute is set to `tel` which on mobile will spawn a telephone-specific keyboard. This makes it easier to enter a phone number thanks to the larger keypad.
 
 ![Tel keyboard](.)
 
 ### Marking Optional/Required Fields
 
-Whilst real-time notifications *add value*, we shouldn't assume everyone wants to receive them, nor that everyone has a mobile phone. So we follow principle 5, *Offer choice*, by marking the field as optional. This way, users can opt-in if they want.
+While real-time notifications *add value*, we shouldn't assume everyone wants to receive them, nor that everyone has a mobile phone. So we follow principle 5, *Offer choice*, by marking the field as optional. This way, users can opt-in if they like.
 
-Traditionally, required fields are marked with an asterisk. A legend, is usually placed above the form to denote its meaning. Luke Wobrelski says “including the phrase ‘optional’ after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder ‘what does this asterisk mean?’ and have to go hunting for a legend that explains it.”
+Traditionally, required fields are marked with an asterisk. A legend is usually placed above the form to denote its meaning but as Luke Wroblewski says “including the phrase ‘optional’ after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder ‘what does this asterisk mean?’ and have to go hunting for a legend that explains it.”
 
-You might also be wondering why we're marking optional fields, instead of required ones. In “Required Versus Optional Fields”[^], Jessice Enders says “think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.” Thanks to the Question Protocol, most fields should be required, so we mark optional fields instead. And we do that by adding “(optional)” inside the label.
+You might also be wondering why we're marking optional fields, instead of required ones. In “Required Versus Optional Fields”[^], Jessica Enders says “think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.” Thanks to the Question Protocol, most fields should be required, so we mark optional fields instead.
 
 ## 3. Delivery Address
 
@@ -135,27 +137,27 @@ You might also be wondering why we're marking optional fields, instead of requir
 </div>
 ```
 
-The delivery address contains 5 fields that together make up an address. Visually there is a slight difference between the fields: field width.
+The delivery address contains five fields that together make up an address. Visually there is a slight difference between the fields: field width.
 
 ### Field Width
 
 In “Write Less Damn Code”[^4], Heydon Pickering jokingly points out, that the reason some people added XHTML 1.1 Complaint banners to their website was to ensure the height of the menu matches the height of the content. Similarly, you might be tempted to give every address field the same width.
 
-But, giving the postcode field the same width as every other field increases the cognitive burden for users. This is because the the width of the field gives users a clue as to the length of the content it requires.
+But giving the postcode field the same width as every other field increases the cognitive effort needed to fill it out. This is because the width gives users a clue as to the length of the content it requires.
 
 Baymard Institute's study[^5] found that “if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.”
 
-As postcodes consist of 6-8 characters, the field should have a matching width that is smaller than the other fields. You should apply this rule to every field whereby the length of the content is known.
+As we know that postcodes consist of 6-8 characters, the field's width should be smaller than the other fields. You should apply this rule to every field where the length of the content is known.
 
 ### Capture+ Enhancement
 
-Capture Plus[^6] is a third party plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, users can type into just one. As the user types the first line of their address, suggestions appear from which they can select. This reduces the amount of keystrokes and therefore the chance of typos. 
+Capture Plus[^6] is a third party plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, users type into just one. As the user types the first line of their address, suggestions will appear from which they can select. This reduces the number of keystrokes and therefore the chance of typos. 
 
 ![Capture+ Enhancement](.)
 
 If no address is found, users can change the interface back to the original address form. In doing so, we conform to principle 5, *offer choice*.
 
-Capture+ offers a solution out of the box: you include their script and you're away. Except that you're not. Most third-party scripts don't consider the broad range of interaction preferences, usability and acessibility considerations that need to be taken into account. But, we'll look at all of this and more in the next chapter, when we build an accessibile autocomplete component.
+Capture+ has a third-party script which you can include on your page. But most third-party scripts don't consider the broad range of interaction preferences, usability and accessibility considerations that need to be taken into account. But, we'll look at all of this and more in the next chapter, when we build our own accessible autocomplete component.
 
 ## 4. Delivery Options
 
@@ -183,39 +185,39 @@ This is the first field that consists of multiple controls, in this case, radio 
 
 ### Grouping
 
-To group multiple controls together, we must wrap them in a `fieldset`. The `legend` describes the group, in the same way a `label` describes the control. The `legend` provides a description for sighted users and screen reader users alike. 
+To group multiple controls, we must wrap them in a `fieldset`. The `legend` describes the group like a `label` describes the individual control.
 
-In most screen readers, the `legend` is read out in combination with the radio button's `label`. “Delivery options, Standard (Free, 2-3 days)” (or similar). If we omited the `fieldset` and `legend` then screen reader users would only hear “Standard (Free, 2-3 days)” which is a ambiguous.
+In most screen readers, the `legend` is read out in combination with the radio button's `label`. In this case, “Delivery options, Standard (Free, 2-3 days)” (or similar). If we omitted the `fieldset` and `legend` screen reader users would only hear “Standard (Free, 2-3 days)” which is ambiguous.
 
-You may be tempted to group all fields this way. For example, the address form from earlier, could be wrapped inside a `fieldset` with a `legend` of “Address”. Whilst this is technically valid, it's unnecessary and verbose as the field labels make sense without a `legend`. Users don't need to hear “Address: Address Line 1” as it doesn't *add value*.
+You may be tempted to group all fields this way. For example, the address form from earlier could be wrapped inside a `fieldset` with a `legend` set to “Address.” While this is technically valid, it's unnecessary and verbose as the field labels make sense without a `legend`. Users don't need to hear “Address: Address Line 1” as it doesn't *add value*.
 
 ### Smart Defaults
 
-The first radio button is selected by default thanks to the `checked` attribute. This has two benefits: first, this stops users from seeing an error negating the need for form validation. Second, there's less work for users to do.
+The first radio button is selected by default thanks to the `checked` attribute which stops users from seeing an error and giving users less work to do.
 
 As most users will select free delivery, we put that option first and select it for them. This way users can proceed effortlessly.
 
 ## 5. Delivery Notes
 
-Imagine your at work. You get a notification to say your item is on its way to your home address for delivery. When you arrive home, instead of seeing the package, you see a delivery note saying “we couldn't deliver your package as it didn't fit through your letter box”. Frustrating.
+Imagine you're at work. You get a notification to say your item is being delivered. When you arrive home, instead of seeing the package, you see a delivery note saying it couldn't be delivered because it was too big to fit through the letter box. This is frustrating.
 
-A delivery note, which you can provide at your discretion, stops this from happening. The delivery note tells the delivery person what to do in the event that you're not home. Perhaps you'd prefer it to be left with a neighbour, or inside your recycle bin which Amazon[^] refers to as a “safe place”. This, by the way, works surprisingly well.
+A delivery note, which you can provide at your discretion, stops this from happening. The delivery note tells the delivery person what to do if you're not home. Perhaps you'd prefer it to be left with a neighbour, or inside your recycle bin which Amazon[^] refers to as a “safe place.” This, by the way, works surprisingly well.
 
 ![Delivery notes](.)
 
 ```HTML
 <div class="field">
   <label for="notes">
-  	<span class="field-label">Delivery notes (optional)</span>
-  	<span class="field-hint">Tell us what to do if you're not in. For example, *leave it with the next door neighbour*.</span>
+      <span class="field-label">Delivery notes (optional)</span>
+      <span class="field-hint">Tell us what to do if you're not in. For example, *leave it with the next door neighbour*.</span>
   </label>
-	<textarea id="notes" name="notes"></textarea>
+    <textarea id="notes" name="notes"></textarea>
 </div>
 ```
 
-This is the first time we've used a `textarea` control. It's remarkably similar to a text box (`input type="text"`) except that tit allows many lines of text. This is appropriate here because a delivery note could span multiple lines. (Remember from earlier, that the size of the field affords its requirements.)
+The `textarea` is similar to a text box except that allows users to enter multiple lines of text which is particularly appropriate for a delivery note. (Remember earlier: the size of the field gives users a clue as to the length of content needed.)
 
-Whilst this question *adds value* and justifies its existence in the checkout flow, we need to understand how it will be used from the delivery person's perspective. It may influence the design of the interface. In this case, the viewport on the device is small and can't be scrolled, so we'll need to limit the amount of text that can be typed.
+While this question *adds value*, we need to understand how it will be used by the delivery person as this may influence the design. In this case, the viewport on the device is small and can't be scrolled, so we need to limit the amount of text that can be entered.
 
 ### Limiting Text
 
@@ -341,36 +343,36 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
 
 ### Number Input
 
-The number input (`input type="number"`) lets mobile users more easily type a number via a numeric keypad. On desktop the input will contain increment and decrement buttons called spinners which makes it easy to make small adjustments without having to select and type.
+The number input (`input type="number"`) lets mobile users more quickly type a number via a numeric keypad. On desktop, the input will contain increment and decrement buttons called spinners which makes it easy to make small adjustments without having to select and type.
 
 ![Numeric keyboard](./images/numeric-keyboard.png)
 
-You might then be thinking that the number input is appropriate for card number, expiry date and CVC number&mdash;after all, they are all made up of numbers. But it's far more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate.
+You might then be thinking that the number input is appropriate for the card number, expiry date, and CVC number—after all, they are all made up of numbers. But it's far more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate.
 
 Let's start with some definitions. Wikipedia says that:
 
 > A number is a mathematical object used to count, measure, and label. [...] numerals are often used for labels (as with telephone numbers), for ordering (as with serial numbers), and for codes (as with ISBNs).
 
-This is how most of us think of numbers. We use them to count and measure. But we also use numbers to represent dates and codes. But the HTML specification only agrees in part with this definition. It says that:
+Most of us think of numbers this way. We use them to count and measure, but equally, we use them to in dates and codes. However, the HTML specification only agrees in part with this definition. It says that:
 
 > `type=number` is not appropriate for input that happens to only consist of numbers but isn’t strictly speaking a number. If it doesn’t make much sense to use number with spinners, `type=text` is probably the right choice (possibly with a pattern attribute).
 
-In other words, numbers and digits are different. Numbers are used to represent an amount of something such as:
+In other words, numbers and digits are different. Numbers  represent an amount of something such as:
 
-- my age (announced “thirty four years old”)
-- the price of an apple (announced “forty five pence”)
+- my age (announced “thirty-four years old”)
+- the price of an apple (announced “forty-five pence”)
 - the time it took me to cook breakfast (announced “ten mins”)
 
-Conversly, digits are sometimes used to represent the other things such as:
+Conversely, digits might be used for dates and codes such as:
 
-- birth date (“nineteenth of June, eineteen eighty three”)
+- birth date (“nineteenth of June, nineteen eighty-three”)
 - pin code (“eight, double five, three, two, six”)
 
-Pay close attention to the way the numbers and digits are announced. There's quite a difference. And now that we understand these differences, we can look at how some browsers treat number inputs and why we might perceive these treatments as bugs when they're not.
+There is a difference between the way these values are announced. Understanding this helps us see why we might perceive the way some browsers implement the number input are not bugs—though they may seem to be at first.
 
-For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each of these examples seem undersirable, but none of them stop users from entering a real number easily.
+For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each example seems undesirable, but none of them stop users from entering numbers.
 
-Some numbers contain a decimal point such as a price; other numbers are negative which need a minus sign. Unfortunately, some browsers don't provide buttons for these symbols on the keypad. If that wasn't enough some desktop versions of Firefox will round up very large numbers.
+Some numbers contain a decimal point such as a price; other numbers are negative which need a minus sign. Unfortunately, some browsers don't provide buttons for these symbols on the keypad. If that wasn't enough some desktop versions of Firefox will round up huge numbers.
 
 In these cases, it's safer to use a regular text box to avoid excluding users unnecessarily. Remember users are still able to type numbers this way it's just that the buttons are a smaller. And to soften the blow a little bit, the numeric keyboard can be triggered for iOS users by using the pattern attribute as shown below.
 
@@ -381,13 +383,13 @@ In these cases, it's safer to use a regular text box to avoid excluding users un
 In short, only use a number input if:
 
 - incrementing and decrementing makes sense
-- the value doesn't start with a zero
+- the number doesn't have a leading zero
 - the value doesn't contain letters, slashes, minus signs and decimal points.
-- the value isn't a very large number
+- the number isn't very large
 
-Let's apply these rules to the expiry date. Incrementing doesn't make sense and the number could start with a zero. And many credit card put a slash in the expiry date which users should be able to copy. Using a number input is not only inappropriate, but it also creates a jarring user experience as the user types a slash which is ignored.
+Let's apply these rules to the expiry date. Incrementing doesn't make sense, and the number could start with a zero. And credit cards put a slash in the expiry date which users should be able to copy. Using a number input is not only inappropriate, but it also creates a jarring experience as the user types a slash which would be ignored.
 
-We'll look at appropriate use caes of the number input in the next chapter.
+We'll look at appropriate use cases of the number input in the next chapter.
 
 ### Forgiving Bad Input
 
@@ -395,17 +397,17 @@ In “A Registration Form” we briefly talked about forgiving little input mist
 
 > Be conservative in what you send; be liberal in what you accept.
 
-We can apply this principle to the fields in the payment form. For example, a card number typically appears as 16 digits split into 4 parts by a space. Some users may type the space; others may not. Similarly, for the expiry date some users may type a slash, others may leave it out. 
+We can apply this principle to the fields in the payment form. For example, a card number typically appears as 16 digits split into four parts by a space. Some users may type the space; others may not. Similarly, for the expiry date, some users may type a slash, others may leave it out. 
 
-Whether it's a slash or a space, or a card number or an expirty date, we should be forgiving wherever possible. 
+Whether it's a slash or space, or a card number or an expiry date, we should be forgiving wherever possible. 
 
 ### Card Verification Code (CVC) Field
 
-Every payment provider needs the user's CVC number. It's usually the last 3 digits found on the back of the card.
+Every payment provider needs the user's CVC number. It's usually the last three digits found on the back of the card.
 
-The first problem is that it's not always referred to as CVC number. Sometimes it's referred to as a security code number or card verficiation value (CVV). Being specified as an acronym doesn't help matters either. And to top it off, the number is never beside a label to demarcate it making the field rather ambiguous.
+The first problem is that sites don't always refer to this field as CVC number. Sometimes it's referred to as a security code number or card verification value (CVV). Being specified as an acronym doesn't help matters either. And to top it off, the number is never beside a label to demarcate it making the field rather ambiguous.
 
-To fix this, we should emply the hint text pattern to tell users exactly what it is and where to find it. For example, “This is the last 3 digits on the back of the card”.
+To fix this, we should employ the hint text pattern to tell users exactly what it is and where to find it. For example, “This is the last three digits on the back of the card.”
 
 ### Billing Address
 
@@ -551,11 +553,11 @@ Layout wise, the summary panel should be less prominent than the form. So it sho
 
 ### Back Links
 
-As the user is moving through a linear flow we need to consider user's needs to step back. The browser's back button gives users this functionality for free, but some people mistrust the browser's back button when filling out forms because of negative experiences in the past where their data is lost.
+As the user is moving through a linear flow, we need to consider user's needs to step back. The browser's back button gives users this functionality for free, but some people mistrust the browser's back button when filling out forms because of negative experiences in the past where their data is lost.
 
-AJAX-driven and modal-heavy sites haven't helped matters here, because clicking the browser's back button often goes against user's expectations[^]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect the browser's back button to take them to the previous page in the state they left it in.
+AJAX-driven and modal-heavy sites haven't helped matters here because clicking the browser's back button often goes against user's expectations[^]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect the browser's back button to take them to the previous page in the state they left it in.
 
-However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust its behaviour. In this case, position the link at the top left of the page (or perhaps after the submit button). By placing it at the top of the page users can see that they can back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
+However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust its behaviour. In this case, position the link at the top left of the page (or after the submit button). By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
 
 Whatever you do, don't put the back link before the submit button. When keyboard users press <kbd>tab</kbd> on the final field and press <kbd>enter</kbd> they'll be taken back instead of submitting the form which is very frustrating.
 

@@ -74,6 +74,8 @@ Here, it's because we can send users a receipt of purchase, which is essential w
 
 ![We need this to send you a receipt](.)
 
+*(Note: the button's positioning and styling is the same as what was set out in “A Registration Form”. But the label is set to “Continue” which implies progress and is perfectly suited to the linear checkout flow)*.
+
 ## 2. Mobile Phone
 
 Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint&mdash;this pattern doesn't just pertain to formatting rules. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
@@ -458,6 +460,8 @@ This also happens to save your (client's) business time and money. If Mary wants
 
 This goes to show that solely using completion time as a metric for success is dangerous. Completion time is important, but in conjunction with checking how accurate people's orders are.
 
+*(Note: as this is the final step in the flow, the button's text should be set to “Place order” or similar. Leaving it as “Continue” would mislead the user into thinking there is another step to complete. This will result in a lot of frustration and cancelled orders.)*
+
 ### Visual Design
 
 Every piece of information gathered through the checkout flow should be presented on the review page. User's shouldn't have to go back to check any information, otherwise it would defeat the purpose of this page. Users only need to go back to a previous page, if they spot a mistake on this page.
@@ -535,31 +539,35 @@ Not having a progress bar prioritises the main content, by moving it further up 
 
 ### Order Summary
 
-Imagine shopping in the real world. You walk into your favourite store, no computer in sight. You pick up items, and place them in your basket. When you decide to go to the till, you can see everything at once, even as the sales assistant scans your items. The order summary panel is a digitally equivalent experience. 
+When your shopping in a physical shop you, pick up your items and place them in your shopping basket. Even when you go to the till, you can see what those items are as the sales assistant scans them in. Sometimes last minute we change our minds and take an item off the conveyor belt. Or we realise we forgot something and quickly dash to get it.
 
-Having it there will stop users needing to backstep to the basket page, for example, just to check they ordered the right thing in the right colour with the right quantity.
+We need a way to give users the same experience digitally, so we put an order summary panel on every page of the checkout. This way, users are fully informed and don't have to rely on memory to know what they're buying and how they're buying it.
 
-As users progress through the checkout, the order summary panel will populate with more and more details. At first it will contain just the basket information, then the provided email address, then the delivery address and so on. This way users are fully informed which builds trust and upholds momentum.
+![Order Summary](.)
 
-In layout terms, the summary panel should be placed beside the form on big screens, and beneath it on mobile when there isn't enough room.
+The order summary should look similar to the review page, except that it's smaller. Also, it will be updated with more and more information as the user completes each step of the flow. For example, on the email address screen, it will mostly be a copy of the basket. Then on the next screen it will display the user's email address. Then on the next screen it will display the mobile phone too. And so on. And like the review page, if users spot a mistake at any time, they should be able to jump back to that step by clicking the edit link.
 
-![Order summary panel](.)
+Layout wise, the summary panel should be less prominent than the form. So it should be placed beside the form on large viewports, and below the form on mobile, where there isn't enough room.
 
-### Buttons and links
+### Back Links
 
-The submit button's position and style is the same as laid out in “A Registration Form”. The only difference is the button's label, which is set to “Continue”. This verb implies progress which is perfectly suited to a flow like this.
+As the user is moving through a linear flow we need to consider user's needs to step back. The browser's back button gives users this functionality for free, but some people mistrust the browser's back button when filling out forms because of negative experiences in the past where their data is lost.
 
-- Back links and continue buttons.
+AJAX-driven and modal-heavy sites haven't helped matters here, because clicking the browser's back button often goes against user's expectations[^]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect the browser's back button to take them to the previous page in the state they left it in.
 
-- Back buttons (https://paper.dropbox.com/doc/Back-buttons-and-links-d9DoNzPysaoTFZpJfqGsY)
+However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust its behaviour. In this case, position the link at the top left of the page (or perhaps after the submit button). By placing it at the top of the page users can see that they can back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
+
+Whatever you do, don't put the back link before the submit button. When keyboard users press <kbd>tab</kbd> on the final field and press <kbd>enter</kbd> they'll be taken back instead of submitting the form which is very frustrating.
+
+Consider making the link text explicit. Where “Back” is ambiguous, “Back to delivery address” is more obvious.
 
 ## Summary
 
 In this chapter we started out by looking at the One Thing Per Page pattern which helps to break down large forms into small chunks making it easy for users to fill out and make amendments to large forms.
 
-We then looked at capturing optional information, making choices with radio buttons, entering long form content into a textarea and a slew of enhancements applicable to the payment form.
+We then looked at capturing optional information, making choices with radio buttons, entering long form content via the `textarea` and several ways to improve the payment form experience.
 
-After that we took a look at higher level considersations such as giving users the ability to review their order, improve the experience for second-time users and consider the overall design in a more holistic way.
+After that we looked at higher level considersations such as giving users the ability to review their order, improve the experience for second-time users as well as considerations for the overall design.
 
 ### Checklist
 
@@ -571,6 +579,7 @@ After that we took a look at higher level considersations such as giving users t
 - Let users check their answers before submission.
 - The confirmation page is the end of the transaction but the start of the relationship.
 - Store people's information to improve the second-time experience and increase conversion.
+- Don't break the back button.
 
 ## Footnotes
 
@@ -588,3 +597,4 @@ After that we took a look at higher level considersations such as giving users t
 [^12]: https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/
 [^13]: https://articles.uie.com/three_hund_million_button/
 [^autofillattrs]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
+[^backlink]: https://baymard.com/blog/back-button-expectations

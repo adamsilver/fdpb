@@ -66,6 +66,8 @@ Placeholders appeal to designers because of their minimal, space-saving aestheti
 
 First, they disappear when the user types. Disappearing text is hard to remember which could cause errors if for example the user forgets to satisify one of the password rules. Users often mistake placeholder text for a value[^], causing them to skip the field, which again, would cause errors. Gray-on-white text lacks sufficient contrast making it generally hard-to-read[^]. And to top it off, some browsers don't support them, some screen readers don't announce them and long hint text may get cut off.
 
+![Long hint text cut off](.)
+
 That's a lot of problems for something that is essentially just text. All content, especially a form hint, shouldn't be considered a ‘nice to have’. So instead of using placeholders, it's better to position hint text above the control:
 
 ![Hint pattern](.)
@@ -142,7 +144,7 @@ The downside is that they are unfamiliar, which may cause anxiety for users, tha
 
 Whether it's the No Password Sign In pattern or passphrases, we should only move away from convention once we've conducted thorough and diverse user research. You don't want to exchange one set of problems for another.
 
-## Field styles
+## Field Styling
 
 The way you style your form components will, at least in part, be determined by your product or company's brand. Still, label position and focus styles are important considerations.
 

@@ -50,33 +50,12 @@ Instead, we'll build a custom autocomplete component from scratch. A word of war
 
 To help us through, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. It's a list of rules that state that a custom component should:
 
-- be focusable with the keyboard
-- be operable with the keyboard
-- work with assistive devices
-- work without Javascript
+1. work without Javascript
+2. be focusable with the keyboard
+3. be operable with the keyboard
+4. work with assistive devices
 
-To satisfy the last rule we need to talk about progressive enhancement. We touched upon the subject in chapter 1 but let's take a deeper look at what it is and its role in design.
-
-#### Progressive enhancement
-
-Progressive enhancement is a cornerstone of inclusive design. It's about designing experiences that work for everyone as a matter of course, even in the event of network and scripting failures. For example, a piece of Javascript may fail to load. Or a particular browser may not recognise a particular method call, one that another browser understands perfectly well.
-
-Whatever it is, progressive enhancement as an approach to design, means that the website will continue to work. This is because progressively enhanced patterns are formed first with robust and well-structured HTML. Then, and only when it *adds value* enhancing the experience for people who use a more capable browser.
-
-![Some diagram](.)
-
-For example, some browsers can check your GPS location, others cant. But all browsers can be given a postcode field in which to determine their location. Starting off with a postcode field, and offering capable browsers an enhanced GPS feature is progressive enhancement.
-
-#### The Punch List (again)
-
-As we said earlier a custom component should:
-
-- Be focusable with the keyboard.
-- Be operable with the keyboard.
-- Work with assistive devices.
-- Work without Javascript.
-
-To ensure the autocomplete component works without Javascript we need to choose a native HTML form control because they work for everyone even when there's a network or scripting failure. On balance, a select box is appropriate because it saves a server round trip that could lead to no results.
+To satisfy the first rule we need to choose a native form control to fall back to. There are too many options to use radio buttons, a search box requires a round-trip to the server and could lead to no results and the datalist is buggy. With that in mind a select box seems appropriate.
 
 ![The core experience](/etc/)
 
@@ -94,53 +73,21 @@ To ensure the autocomplete component works without Javascript we need to choose 
 </div>
 ```
 
-The remaining 3 rules are achieved by crafting the enhanced experience. Specifically, ensuring that any Javascript event listeners are handled and that certain elements are focusable and announceable. It's worth mentioning that we must also cater for mouse and touch screen users. They're only excluded from the punch list because those interactions are rarely forgotten about.
+The other rules are handled through the implementation itself. And let's not forget the importance of handling mouse and touch-screen users. They're only excluded from the punch list because they aren't usually forgotten about.
 
-The script (discussed shortly) replaces the select box with a text box, menu and status box. This is shown below along with the Javascript enhanced HTML.
+First we need to hide (not remove!) the select box. It's not removed because it's the select box value that is sent to the server on submission. To hide the select box we need to a few things:
 
-![The enhanced experience](/etc/)
+1. Add a class to make it visually hidden
+2. Add `aria-hidden="true"` so that screen readers ignore it.
+3. Add `tabindex="-1"` so that it is not focusable by the user.
 
-```html
-<div class="field">
-	<label for="destination">
-		<span class="field-label">Destination</span>
-	</label>
-	<div class="autocomplete">
-		<input
-			type="text"
-			name="destination"
-			id="destination"
-			autocomplete="off"
-			role="combobox"
-			aria-autocomplete="list"
-			aria-expanded="true"
-			class="autocomplete-textBox"
-		>
-		<button class="autocomplete-button" type="button" tabindex="-1" aria-label="Show suggestions">▾</button>
-		<ul
-			role="listbox"
-			class="autocomplete-options autocomplete-options-isHidden"
-			>
-			<li	role="option">
-				France
-			</li>
-			<li role="option" aria-selected="true">
-				Germany
-			</li>
-		</ul>
-		<div
-			aria-live="polite"
-			aria-atomic="true"
-			role="status"
-			class="autocomplete-status">
-		</div>
-	</div>
-</div>
+```HTML
 ```
 
-Let's break down the HTML into the 4 main parts and explain the structure.
+```CSS
+```
 
-#### The text box
+Then we need to inject a text box to replace the select box. To make sure the label still works, we transfer the select box `id` to the text box.
 
 ```HTML
 <input
@@ -154,25 +101,17 @@ Let's break down the HTML into the 4 main parts and explain the structure.
 >
 ```
 
-- The `name` is missing because this component will update the select box. This is crucial because the value is different to the text node.
+Notes:
+
+- The `name` attribute is not included, because this value is not sent to the server. Remember, it's the select box that will do that.
 - The role is set to `combobox` denoting it's enhanced behaviour beyond a regular text box.
 - The `aria-autocomplete` attribute indicates that a list of options will appear from which the user can choose.
 - The `aria-expanded` attributes tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
 - The `autocomplete` attribute is set to `off` to stop browsers making their own suggestions interfering with those offered by the component itself.
 
-#### The menu toggle button
+Then we need to inject a `ul` that will store the suggestions from which users can select. We'll discuss the interactions shortly.
 
-```HTML
-<button class="autocomplete-button" type="button" tabindex="-1" aria-label="Show suggestions">▾</button>
-```
-
-- Clicking it reveals all the suggestions, similar to the select box.
-- It has `type="button"` which stops it from submitting the form like a regular submit button.
-- The `tabindex` attribute is set to `-1` to remove it from the tab sequence. Keyboard interaction is handled with Javascript keyboard events (more on this shortly).
-
-#### The suggestions menu
-
-```HTML
+```html
 <ul
 	role="listbox"
 	class="autocomplete-options autocomplete-options-isHidden"
@@ -185,6 +124,8 @@ Let's break down the HTML into the 4 main parts and explain the structure.
 	</li>
 </ul>
 ```
+
+Notes:
 
 - The menu's role is set to `list` indicating that it contains a list of items. This is complimented by each item having a role of `option`.
 - The `aria-selected` attribute tells users whether the option is selected or not by toggling between values `true` and `false`.

@@ -179,7 +179,20 @@ The input's `type` attribute is set to `email` which triggers an email-specific 
 
 People using a non-supporting browser will see a standard text input (`input type="text"`). This is a form of Progressive Enhancement which is a cornerstone of designing inclusive experiences for the web.
 
-TODO: Do I do an aside here about Progressive Enhancement?
+### Progressive Enhancement
+
+- what is it with regard to html, css and js
+- everyone has js
+- some examples
+- its used throughout the book
+
+Progressive enhancement is a cornerstone of inclusive design. It's about designing experiences that work for everyone as a matter of course, even in the event of network and scripting failures. For example, a piece of Javascript may fail to load. Or a particular browser may not recognise a particular method call, one that another browser understands perfectly well.
+
+Whatever it is, progressive enhancement as an approach to design, means that the website will continue to work. This is because progressively enhanced patterns are formed first with robust and well-structured HTML. Then, and only when it *adds value* enhancing the experience for people who use a more capable browser.
+
+![Some diagram](.)
+
+For example, some browsers can check your GPS location, others cant. But all browsers can be given a postcode field in which to determine their location. Starting off with a postcode field, and offering capable browsers an enhanced GPS feature is progressive enhancement.
 
 ## The password field
 

@@ -2,7 +2,7 @@
 
 At first I wanted to fold this chapter into the last one because there is certainly some overlap. Adding multiple files needn't be different from adding multiple of anything else really. It's just that uploading files has some unique considerations (such as drag and drop) that made sense to tackle in isolation.
 
-Unlike file inputs, other form controls don't let you add multiple values. So it's up to us to design a solution from scratch here. There are three main approaches that are applicable to all sorts of data&mdash;files included. Whether it's adding collaborators to your Github repo or adding monthly expenses into an accounting service, you'll find the patterns in this chapter helpful.
+Unlike file inputs, other form controls don't let you add multiple values. So it's up to us to design a solution from scratch here. There are three main approaches that are applicable to all sorts of data&mdash;files included. Whether it's adding collaborators to your Github repo or adding monthly expenses into an accounting service, you'll find the patterns in this chapter useful.
 
 Of course, if you know how many things that need to be added, then simply display that amount of fields (and make them required). But if you don't keep reading.
 

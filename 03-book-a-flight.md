@@ -6,7 +6,7 @@ Booking a flight consists of many discrete steps. The first few steps simply col
 
 ## 1. Where to fly
 
-First, users have to choose an origin and destination. That is, places to fly from and to. Without this information the service can't offer any flights. What's the best way of asking users for this information?
+First, users have to choose an origin and destination. That is, places to fly from and to. Without this information, the service can't offer any flights. What's the best way of asking users for this information?
 
 As designers, we should try and use the features that are native to the browser. That is because, generally speaking, they are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement.
 
@@ -14,48 +14,46 @@ You'd be forgiven for thinking you were spoiled for choice when it comes to form
 
 ### Select Box
 
-Select boxes, also known as drop-down menus, hide choices behind a menu. Clicking the select box reveals the choices. Once a choice is selected, the menu collapses back to its original state. Select boxes are often used because of their space-saving qualities. What's particulary interesting though, is why we need to save space in the first place. 
+Select boxes, also known as drop-down menus, hide options behind a menu. Clicking the select box reveals the options. Once one is selected, the menu collapses back to its original state. Select boxes are often used because of their space-saving qualities. What's particularly interesting though, is why we need to save space in the first place. 
 
-Often an interface is crammed with features, normally to please stakeholders, not users. It's understandable then, that learning ways to hide discrete pieces of an interface has become part of a designer's skillset. But design is about so much more than saving space. After all, if an interface really is crammed, then our first job as designers is to declutter it.
+Often an interface is crammed with features, usually to please stakeholders, not users. It's understandable then that learning ways to hide discrete pieces of an interface has become part of a designer's skillset. But design is about so much more than saving space. After all, if an interface really is crammed, then our first job as designers is to declutter it.
 
-Select boxes in particular are hard-to-use. Usability expert Luke Wobrelski even goes as far to say that they should be the ‘UI of Last Resort’[^1] and suggests some better alternatives, some of which we'll discuss later on in this chapter. 
+Select boxes are hard-to-use. Usability expert Luke Wobrelski even goes as far to say that they should be the “UI of Last Resort”[^1] and suggests some better alternatives, some of which we'll discuss later on in this chapter. 
 
-Besides hiding choices behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focused options with selected ones. And to top it off, users can't pinch-zoom the options on devices and they aren't easily searchable.
+Besides hiding options behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focused options with selected ones. And to top it off users can't pinch-zoom the options on mobile.
 
 ### Radio Buttons
 
-Radio buttons, unlike select boxes, are generally well-understood and easy-to-use, not least because they don't hide choices. They are fully exposed making them easy to compare, scan and select. They're also more maleable. That is, they let us put whatever content in whatever format we want inside the label (more on that shortly).
+Radio buttons, unlike select boxes, are generally well-understood and easy-to-use, not least because they don't hide options. They are fully exposed making them easy to compare, scan and select. They're also malleable. That is, they let us put whatever content in whatever format we want, inside the label (more on that shortly).
 
-The problem with radio buttons, however, is that they're far less suitable when there are many of them. An airline could fly to hundreds of destinations. Therefore, the page becomes long and unweildly, causing mouse users to scroll (and keyboard users to *tab*) a lot.
+The problem with radio buttons is that they're less suitable when there are many of them. As an airline could fly to hundreds of destinations, the page would be long and unwieldy, causing users to scroll (and keyboard users to tab) a lot.
 
-Don't get me wrong, users are more than happy to scroll and we shouldn't use this as a crutch for changing course. But if we can naturally eliminate the need to scroll without introducing new problems, we should explore those other options.
+Don't get me wrong, users are more than happy to scroll, and we shouldn't use this as a crutch for changing course. But if we can naturally eliminate the need to scroll without introducing new problems we should.
 
 ### Search Input
 
-A search box (`input type="search"`) is a standard text box with some added extras. You can clear the contents of the field, by tapping *X* or pressing <kbd>Escape</kbd>. With a text box (`input type="text"`) you have to select the text and press <kbd>delete</kbd> which is takes a little longer.
+A search box (`input type="search"`) is a standard text box with some added extras. You can clear the contents of the field, by tapping *X* or pressing <kbd>Escape</kbd>. With a text box (`input type="text"`) you have to select the text and press <kbd>delete</kbd> which takes a little longer.
 
 ![Image here](.)
 
-Using a search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a ‘no results’ page due to typos or mismatched data.
+Using a search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a ‘no results’ page due to typos or a data mismatch.
 
-### Datalist
+### Autocomplete
 
-Users need a control that lets users filter a long list of destinations quickly. Something that combines the flexibility of a text input with the assurance of a select box. This is called an *autocomplete* control but can also be referred to as *type ahead*, *predictive search* or *combobox*.
+Users need a control that lets them filter a long list of destinations—one that combines the flexibility of a text input with the assurance of a select box. This type of control has many names: *type ahead*, *predictive search*, *combo box*, but we'll refer to it as *autocomplete*.
 
-An autocomplete control works by suggesting options (destinations in this case) as the user starts typing. As suggestions appear, you can select one quickly, automatically *completing* the field. Hence the name. This saves users scrolling with the added bonus of being able to forgive small typos, by viture of fuzzy search.
+Autocomplete works by suggesting options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field—hence the name. This saves users having to scroll (unless they want to) while being able to forgive small typos at the same time. 
 
-HTML5 introduced the `datalist` element which combines with a text box to create the desired behaviour. Unfortunately though, it's not ready for prime time as it's very buggy[^3]. In the unlikely event that your project is locked down to a specific (set of) browser(s) that don't suffer from these bugs, then you can use it.
+HTML5's `datalist` element combines with a text box to create this exact behaviour. Unfortunately, it's particularly buggy[^3]. If your project is locked down to a browser that doesn't contain bugs, then you could use it. But we want to design an experience that works for as many people as possible, no matter their choice of browser and mobile phone. 
 
-Having defined our design principles (at the beginning of the book), a buggy control is not acceptable&mdash;we want users to have the best experience possible, no matter their browser choice or lack thereof. We're going to have to build a custom autocomplete component from scratch. A quick word of warning though. We're about to break new ground. Designing a robust and inclusive autocomplete component is hard work. Orders of magnitude harder than using any native control.
+Instead, we'll build a custom autocomplete component from scratch. A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is challenging work.
 
-### An Autocomplete Component
+To help us through, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. It's a list of rules that state that a custom component should:
 
-To help us through, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. Essentially a list of rules that any custom component should adhere to. The rules state that a custom component should:
-
-- Be focusable with the keyboard.
-- Be operable with the keyboard.
-- Work with assistive devices.
-- Work without Javascript.
+- be focusable with the keyboard
+- be operable with the keyboard
+- work with assistive devices
+- work without Javascript
 
 To satisfy the last rule we need to talk about progressive enhancement. We touched upon the subject in chapter 1 but let's take a deeper look at what it is and its role in design.
 
@@ -168,9 +166,9 @@ Let's break down the HTML into the 4 main parts and explain the structure.
 <button class="autocomplete-button" type="button" tabindex="-1" aria-label="Show suggestions">▾</button>
 ```
 
-- The button is for mouse users. Clicking it reveals all the suggestions, similar to the select box.
+- Clicking it reveals all the suggestions, similar to the select box.
 - It has `type="button"` which stops it from submitting the form like a regular submit button.
-- The `tabindex` attribute is set to `-1` because we don't want it to be part of the tab sequence. Keyboard interaction is handled with Javascript keyboard events (more on this shortly).
+- The `tabindex` attribute is set to `-1` to remove it from the tab sequence. Keyboard interaction is handled with Javascript keyboard events (more on this shortly).
 
 #### The suggestions menu
 
@@ -194,17 +192,11 @@ Let's break down the HTML into the 4 main parts and explain the structure.
 #### The status box
 
 ```HTML
-<div
-	aria-live="polite"
-	aria-atomic="true"
-	role="status"
-	class="autocomplete-status">
-</div>
+<div aria-live="polite" role="status"></div>
 ```
 
 - The role is set to `status` so that screen readers will announce the contents when the content changes. The script will inject *13 results are available* for example which screen readers will announce.
 - The `aria-live="polite"` attribute ensures that screen readers don't interrupt users as they type. Instead waiting until they've finished.
-- [DOUBLE CHECK] The `aria-atomic="true"` attribute ensures the entirety of the message is announced, even if a small part of the status was injected by Javascript.
 
 #### The Javascript
 
@@ -225,18 +217,18 @@ The complete script:
 Code here
 ```
 
-## 2. Choosing when to fly
+## 2. Choosing When To Fly
 
-Dates are notoriously hard[^5]. Different time zones, formats, delimitters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
+Dates are notoriously hard[^5]. Different time zones, formats, delimiters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
 
 Traditionally 3 select boxes are used for dates: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-The other reason select boxes are used is to avoid the problem of formats. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes. We simply can't accurately determine the user's intent based on what they enter. Therefore, we can't be as forgiving as we would like to be.
+The other reason select boxes are used is to avoid the problem of formats. Some dates start with the month, others with the day. Some delimit them with slashes, others with dashes. We can't accurately determine the user's intent based on what they enter. Therefore, we can't be as forgiving as we would like to be.
 
-But let's step back for a moment. Before designing a date component, we first should understand what type of date we're asking for. The Goverment Digital Services (GDS) talks about this in their Service Manual[^6]. It says ‘the way you should ask for dates depends on the types of date you’re asking for’. There are 3 main types of date. We'll step through each in turn, to see if one of those suits the problem we're trying to solve.
+But let's step back for a moment. Before designing a date component, we need to understand what kind of date users need to enter. The Government Digital Services (GDS) talks about this in their Service Manual[^6]. It says ‘the way you should ask for dates depends on the types of date you’re asking for.' There are 3 main types of date. We'll step through each, in turn, to see if one of those suits the problem we're trying to solve.
 
 ### Dates from documents
 

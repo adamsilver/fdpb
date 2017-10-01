@@ -1,14 +1,14 @@
 # An inbox
 
-My sister loves to-do lists. In fact she loves them so much, that one of her favourite things is making new lists out of old ones. The world is full of lists. There is even a list of great people[^1]. On the web, there are several types of lists and there are some design patterns that have emerged over the years that help to manage them.
+My sister loves to-do lists. In fact, she loves them so much, that one of her favourite things is making new lists out of old ones. The world is full of lists. There is even a list of great people[^1]. On the web, there are several types of lists, and there are some design patterns that have emerged over the years that help to manage them.
 
-The type of list we'll be tackling is an inbox. That is, a list of emails sent from other people. In many respects, an inbox is a list of tasks represented as emails. Besides reading and replying to emails, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there quickly, the interface will let users delete, archive and mark emails as spam. But not just one at a time&mdash;in bulk. My sister loves her trusty pen and paper, but if we do this right, perhaps she'll be converted to digital.
+In this chapter, we'll look at an inbox. That is, a list of emails sent from other people. In many respects, an inbox is a list of tasks represented as emails. Besides reading and replying to them, the aim is to achieve a zen-like state of Inbox Zero[^2]. To get there quickly, we will design the interface to let users delete, archive and mark emails as spam. But not just one at a time—in bulk. My sister loves her trusty pen and paper, but if we do this right, perhaps we can convert her to digital.
 
 ## List types
 
-First, we're going to look at how best to mark-up a list of emails. Discussing lists may seem out of place in a book about forms, but forms rarely form part of an interface on their own. Ignoring their surroundings can easily result in disagreeable experiences.
+First, we're going to look at how best to mark-up a list of emails. Discussing lists may seem out of place in a book about forms, but forms rarely form part of an interface on their own. Ignoring their surroundings can result in disagreeable experiences.
 
-The meaning&mdash;or semantics&mdash;behind elements should drive their visual design. Put simply, things should look like they function. There are 4 elements we can use to construct lists each with different semantics: description lists, tables, ordered lists and unordered lists. Let's discuss the pros and cons of each in relation to our inbox and pick the best one for the job.
+The meaning—or semantics—behind elements should drive their visual design. Put simply, things should look like they function. There are 4 elements we can use to construct lists each with different semantics: description lists, tables, ordered lists and unordered lists. Let's discuss the pros and cons of each now.
 
 ### Description lists
 

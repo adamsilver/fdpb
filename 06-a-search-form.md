@@ -1,24 +1,24 @@
 # A search form
 
-I'm an organised type of guy. Even as a boy, I remember always having ‘a place’ for things. To be fair, I've always been minimalist too. Organising things when you only own a few things is easy. So it's unsurprising that I rarely lost things. On the odd occasion that I did, I just shouted in the general direction of the resident search engine: ‘Where's my...’ and I'd have my answer.
+I'm an organised type of guy. Even as a boy, I remember always having ‘a place’ for things. To be fair, I've always been minimalist too. Organising things when you only own a few things is easy. So it's unsurprising that I rarely lost things. On the odd occasion that I did, I just shouted in the general direction of the resident search engine: ‘Where's my..., ’ and I'd have my answer.
 
-By search engine, I mean Mum! Mum knew where everything was, not just my stuff&mdash;everyones. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to everything (at least that's how I remember it). If I could go back in time and accelerate my nerdiness a little, I might have nickednamed her Google.
+By search engine, I mean Mum! Mum knew where everything was, not just my stuff—everyones. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to everything (at least that's how I remember it). If I could go back in time and accelerate my nerdiness a little, I might have nicknamed her Google.
 
-Now I'm a dad, being a minimalist is hard with a wife and two children. Even if I meticulously organise our things, it's still hard to remember where everything is. Worst case scenario: I have to peruse each cupboard one-by-one hoping that the thing hasn't been lost which is time consuming.
+Now I'm a dad, being a minimalist is hard with a wife and two children. Even if I meticulously organise our things, it's still hard to remember where everything is. Worst case scenario: I have to peruse each cupboard one-by-one hoping that the thing hasn't been lost which is time-consuming.
 
-In this chapter we're going to design a responsive search form. Like Mum, we'll want it to be readily-available and on-hand to answer *any* question users may have. To make this happen, there are a few crucial things to consider.
+In this chapter, we're going to design a responsive search form. Like Mum, we'll want it to be readily-available and on-hand to answer *any* question users may have. To make this happen, there are a few crucial things to consider.
 
 ## Search everything
 
-When I recounted my child-hood conversation with Mum, I was not only able to ask her where my stuff was, but really, I was able to ask her anything. When designing a site-wide and global search form, users should be able to do the same thing. Too often, users can only find stuff that lives in the database. For example, on Amazon, search will only return products and on Youtube, search will only return videos.
+When I recounted my childhood conversation with Mum, I was not only able to ask her where my stuff was, but really, I was able to ask her anything. When designing a site-wide and global search form, users should be able to do the same thing. Too often, users can only find stuff that lives in the database. For example, on Amazon, the search will only return products, and on Youtube, the search will only return videos.
 
-In ‘Content and Design Are Inseparable Work Partners’[^1], Jared Spool explains that *content is the thing the user wants right now*. He recounts the following user research session where someone was trying to buy a purse. She was happy enough to buy the purse on the proviso that she could return it.
+In ‘Content and Design Are Inseparable Work Partners’[^1], Jared Spool explains that *content is the thing the user wants right now*. He recounts the following user research session where someone was trying to buy a purse. She was happy enough to buy it on the proviso that she could return it.
 
-The returns policy wasn't on the product page, or in the FAQ. In the end she tries the search box. She types ‘Refund policy’ and the search returns no results. That was the end of the research session.
+The returns policy wasn't on the product page, or in the FAQ. In the end, she tries the search box. She types ‘Refund policy’ and the search returns no results. That was the end of the research session.
 
-The returns policy isn't a product. Nor does it reside in the database. But this is what she wanted. We often hear how content is king, but the design of search let the content down. Where ever possible search should search everything. And if it doesn't, the label should be explicit. If, for exmaple, the search only returns products then make that clear.
+The returns policy isn't a product. Nor does it reside in the database. But this is what she wanted. We often hear how content is king, but the design of the site let the content down. Where ever possible search should search everything. And if it doesn't, the label should be explicit. If, for example, the search only returns products then make that clear.
 
-If you have analytics in place, you can track the most popular search terms and the results that come back. If, for example, people are searching for the returns policy, then you can make provisions to make it easily accessible.
+If you have analytics in place, you can track the most popular search terms and the results that come back. If for example, people are searching for the returns policy, then you can make provisions to make it easily accessible.
 
 ## Responsive design
 

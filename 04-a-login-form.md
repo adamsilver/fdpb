@@ -1,16 +1,20 @@
 # A Login Form
 
-‘As a user I want to log in in so that I can...’ said nobody, ever!
+‘As a user, I want to log in so that I can...’ said nobody, ever!
 
-Nobody *wants* to log in to your service. They're forced to for security reasons. Without this security measure, everyone has access to everyone else's stuff. It's like nobody having locks on their front doors. Bad.
+Nobody *wants* to log into your site. They're forced to as security measure. Without this, everyone has access to everyone else's stuff. Bad. 
 
-Whilst most sites have login forms, almost as many of them have usability failures in some form or other. Social login, which we'll talk about shortly, complicates matters further.
+Given how long login forms have been around and how basic they are in appearance, you'd be surprised how often they contain usability failures. And the rise of social login hasn't necessarily made things easier for designers.
 
-For such a ubiquitous and seemingly simple feature, it's surprising how many issues occur. In this chapter we'll disect and remedy each issue one by one. By process of elimination, we should leave users with a pleasant login form that just works. How it might look:
+In this chapter, we'll dissect each potential usability failure and provide a remedy for each of them. By process of elimination, users should be left with a straightforward and pleasant login experience works as well as it can.
+
+## How It Might Look
+
+The login form is remarkably similar to the registration form from chapter 1. It contains the same fields, in the same order, and contains similar microcopy. The only difference is the button text.
 
 ![Login](./images/login.png)
 
-```html
+```HTML
 <form novalidate>
   <div class="field">
   	<label for="email">
@@ -29,15 +33,13 @@ For such a ubiquitous and seemingly simple feature, it's surprising how many iss
 </form>
 ```
 
-The login form is the counterpart to the registration form we designed in chapter 1. As such, it's remarkably similar. It contains the same fields, and even has the same hint. In fact, the only difference is the button text.
-
 ## Button content
 
 The button is labelled as ‘Sign in’ as opposed to ‘Log in’. Why *not* ‘Log in’? ‘Log in’ is jargon and relates to something computery, something digital. ‘Sign in’ is the same thing, but more human. When you visit a spa or hotel, you're asked to *sign in*, not *log in*. We should design words to be as human as possible, making the experience friendly and familiar regardless of the medium.
 
 ## Provide a hint
 
-Most login forms don't tell users what the password rules are(like they do when registering). This is usually in the name of security, but more on that in a moment.
+Most login forms don't tell users what the password rules are (like they do when registering). This is usually in the name of security, but more on that in a moment.
 
 Many times I've used the same password across different sites. When necessary I'll tweak it to pass the validation rules specific to those sites the deviate from the norm. For example, imagine my password is *password*. If a site requires a capital letter, I'll capitalise the first letter to *Password*. And if the site forces me to include a number, then I'll add the number to the end: *password1*.
 

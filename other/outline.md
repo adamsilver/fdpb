@@ -19,6 +19,7 @@
 	- Passphrases
 - Field Styles
 - An Email Field
+	- Progressive Enhancement
 - A Password Field
 	- Password Reveal
 - Button styles
@@ -76,13 +77,10 @@
 - Introduction
 - Flow and order
 - (1) Choosing where to fly
-	- Select boxes
-	- Radio buttons
-	- Search box
-	- Datalist
-	- An autocomplete component
-		- Punch list
-		- Progressive Enhancement
+	- Select Box
+	- Radio Buttons
+	- Search Input
+	- Autocomplete
 - (2) Choosing when to fly
 	- Dates from documents
 	- Memorable dates

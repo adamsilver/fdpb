@@ -228,9 +228,7 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 			this.buildOptions(options);
 			this.showOptionsPanel();
 			option = this.getFirstOption();
-			if(option[0]) {
-				this.highlightOption(option);
-			}
+			this.highlightOption(option);
 		}
 	}
 };

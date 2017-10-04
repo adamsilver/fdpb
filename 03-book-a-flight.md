@@ -293,7 +293,6 @@ For keyboard users we do much the same thing, except we listen for when the user
 
 Here's a summary of the other actions. When the user presses:
 
-
 - <kbd>up</kbd>, focus is set to the previous option. If it's the first option, it's set to text box.
 - <kbd>down</kbd>, focus is set to the next option.
 - <kbd>tab</kbd>, hide the menu.
@@ -304,28 +303,30 @@ Here's a summary of the other actions. When the user presses:
 
 Dates are notoriously hard[^5]. Different time zones, formats, delimiters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally 3 select boxes are used for dates: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
+Often you'll see sites using 3 select boxes for dates: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said that one of their redeeming qualities is that they stop users entering wrong information. But in the case of dates, even *this* quality doesn't hold treu. This is because a user can select an invalid date such as *31 February 2017*.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-The other reason select boxes are used is to avoid the problem of formats. Some dates start with the month, others with the day. Some delimit them with slashes, others with dashes. We can't accurately determine the user's intent based on what they enter. Therefore, we can't be as forgiving as we would like to be.
+Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine the user's intention based on what they enter. It's just one of those things.
 
-But let's step back for a moment. Before designing a date component, we need to understand what kind of date users need to enter. The Government Digital Services (GDS) talks about this in their Service Manual[^6]. It says ‘the way you should ask for dates depends on the types of date you’re asking for.' There are 3 main types of date. We'll step through each, in turn, to see if one of those suits the problem we're trying to solve.
+But we're getting ahead of ourselves. As the Goverment Digital Service (GDS) states:
 
-### Dates from documents
+> “The way you should ask for dates depends on the types of date you’re asking for.”
 
-GDS says *if you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* In fact, we followed this guidance to the letter, in chapter 2, for the expiry date field. IVE REMOVED THIS FROM CHAP 2 NOW so go into detail.
+Fortunately, GDS has done the hard work for us and they have come up with several types. Let's run through the main ones now to see which, if any, applies to this case.
 
-[As far as dates go, an expiry date is one of the easiest to collect from users. In short, it's a text box that closely matches the format found on the card itself. Making the interface match the format on the card reduces the cognitive burden on the user: they just copy what they see.]
+### Dates From Documents
 
-The field expects users to type a number matching the format found on the card. Users simply copy what they see, without needing to think. Obvious interfaces are good interfaces.
+> “If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* 
 
-### Memorable dates
+The expiry date from “A Checkout Flow” falls under this category perfectly. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
 
-The defacto thinking is that date pickers are always better than typing numbers into a text box. For memorable dates, such as date of birth, this is most certainly not true. It's arduous having to scroll and click through multiple years and months to find a date, when typing in 6 numbers unassisted is considerably quicker.
+### Memorable Dates
 
-GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. Why 3 boxes? Because it solves the formatting issues discussed earlier.
+Most people would assume that date pickers are always better than simply typing numbers into a text box. In the case of memorable dates, such as date of birth, this just isn't true. Scrolling and clicking through several years, and months is arduous in comparison to typing 6 digits unassisted.
+
+In this case, you should use three separate text boxes: one for day, month and year. Using three separate boxes solves the locale issues discussed earlier.
 
 ![GDS date of birth](./images/gds-dob.png)
 
@@ -338,33 +339,35 @@ GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, 
 		</legend>
 		<div class="field-dayWrapper">
 			<label for="day">Day</label>
-			<input class="field-dayBox" type="number" pattern="[0-9]*" name="day" id="day" min="0" max="31">
+			<input class="field-dayBox" type="text" pattern="[0-9]*" name="day" id="day">
 		</div>
 		<div class="field-monthWrapper">
 			<label for="month">Month</label>
-			<input class="field-monthBox" type="number" pattern="[0-9]*" name="month" id="month" min="0" max="12">
+			<input class="field-monthBox" type="text" pattern="[0-9]*" name="month" id="month">
 		</div>
 		<div class="field-yearWrapper">
 			<label for="year">Year</label>
-			<input class="field-yearBox" type="number" pattern="[0-9]*" name="year" id="year" min="0" max="2050">
+			<input class="field-yearBox" type="text" pattern="[0-9]*" name="year" id="year">
 		</div>
 	</fieldset>
 </div>
 ```
 
-This is the second time we've encountered a need to group form controls inside a `fieldset`. It's crucial here because without labelling the group, there is some ambiguity as to what date the user is entering. Adding legend text *Date of birth* provides the context users need to understand the indivdual text boxes.
+Crucially, the three fields are wrapped in a `fieldset`. Without this, users wouldn't know what date they are entering. Here the legend's text “Date of birth” gives each text box context.
 
-You may have noticed that there's a pattern attribute on the inputs. Some versions of iOS don't show the numeric keyboard despite `type="number"` being present. The pattern attribute fixes this problem and gives those users a numeric keyboard.
+*(Note: the pattern attribute is used to trigger the numeric keyboard in iOS, as discussed in “A Checkout Flow”.)*
 
-### Finding dates with a calendar
+### Calendars
 
 In the case of booking a flight, users are neither entering a memorable date nor one found in a document. Booking a flight normally revolves around some date in the future. As humans, we conceptualise time in years, months, and days etc. And when we're diarising future plans we use a calendar, which aligns with that notion.
 
-Designing an interface that users are already familiar with makes wayfinding that much easier. People intuitively know how calendars work. In the interface design world, we call this component a date picker. Users can navigate through years, months and days easily with the context of what day of the week the date lands on. All useful information.
+Designing an interface that users are already familiar with makes wayfinding that much easier. People intuitively know how calendars work and crucially they give users context. On the web, a calendar that ise used to assist users entering dates in a form is called a date picker.
 
 ![Date picker](.)
 
-#### Other considerations
+---
+
+#### Other Considerations
 
 Interfaces that try to solve many problems at once cause problems. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, results in a busy interface that could overwhelm users.
 

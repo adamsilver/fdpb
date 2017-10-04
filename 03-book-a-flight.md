@@ -186,26 +186,28 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 };
 ```
 
-We're only really interested when the user presses <kbd>down</kbd> or a character that we can match on. When the user types a character, we want to show matching options (and update the live region). If there are no options, then we tell users there are no results
+We're only really interested when the user presses <kbd>down</kbd> or a character that we can match on. When the user types a character, we want to show matching options (and update the live region).
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function() {
 	if(this.textBox.val().trim().length > 0) {
 		var options = this.getOptions(this.textBox.val().trim().toLowerCase());
+		// there are matches
 		if(options.length > 0) {
 			this.buildOptions(options);
 			this.showOptionsPanel();
+		// there are no matches
 		} else {
-			// no results
 			this.buildNoResultsMenu();
 			this.showOptionsPanel();
 		}
+		// update live region
 		this.updateStatus(options.length);
 	}
 };
 ```
 
-Pressing <kbd>down</kbd> should highlight onto the first suggestion in the menu. If the user presses <kbd>down</kbd> without typing anything then we show users all the options.
+Pressing <kbd>down</kbd> should move focus and highlight the first suggestion. If the user presses <kbd>down</kbd> without typing anything then we show users all the options.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
@@ -234,23 +236,69 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 };
 ```
 
----
-
-
-- When the user presses <kbd>tab</kbd> we want to hide the options. This is because the <kbd>tab</kbd> key focus the next control, not move focus within the control. 
-
-We need to listen to the same events on the suggestions menu.
+The `getOptions` method takes the text box value which is used to filter matching options. The `buildOptions` method is responsible for creating the HTML that is then injected into the menu. The `highlightOption` (shown below) takes an option to highlight.
 
 ```JS
+Autocomplete.prototype.highlightOption = function(option) {
+	if(this.activeOptionId) {
+		var activeOption = this.getOptionById(this.activeOptionId);
+		activeOption.removeClass('autocomplete-option-isActive');
+		activeOption.attr('aria-selected', 'false');
+	}
+
+	option.addClass('autocomplete-option-isActive');
+	option.attr('aria-selected', 'true');
+
+	if(!this.isElementVisible(option.parent(), option)) {
+		option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
+	}
+
+	this.activeOptionId = option[0].id;
+	option.focus();
+};
+
 ```
 
-Interactions:
+This runs through the following steps:
 
-- When an option is focussed, pressing <kbd>down</kbd> moves focus to the next option. Pressing <kbd>up</kbd> moves focus to the previous option.
-- When an option is focused, pressing <kbd>enter</kbd> or <kbd>space</kbd> or clicking/tapping the option populates the text box with the value and closes the menu.
-- Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form (like normal).
-- Clicking the text box reveals all the possible options.
-- Pressing <kbd>escape</kbd> closes the menu.
+1. If there is an active option, then remove the highligh style (by removing the class) and setting `aria-selected` to `false`.
+2. Highlight the new option by adding the same class and setting `aria-selected` to `true`.
+3. Make sure the option is visible within the menu panel.
+4. Focus the option.
+
+Now we need to talk about how users interact with the menu. First we need to handle mouse users. Users can scroll the menu and click an option.
+
+```JS
+Autocomplete.prototype.addSuggestionEvents = function() {
+	this.optionsUl.on('click', '.autocomplete-option', $.proxy(this, 'onSuggestionClick'));
+};
+
+Autocomplete.prototype.onSuggestionClick = function(e) {
+	var suggestion = $(e.currentTarget);
+	this.selectSuggestion(suggestion);
+};
+
+Autocomplete.prototype.selectSuggestion = function(suggestion) {
+	var value = suggestion.attr('data-option-value');
+	this.textBox.val(value);
+	this.setValue(value);
+	this.hideOptions();
+	this.focusTextBox();
+};
+```
+
+First we listen to the option's click event. The handler gets the list item, and calls `selectSuggestion` passing in that item. Then that method sets the text box value and hidden select box value accordingly. The last thing it does, is hide the menu and focus the text box.
+
+For keyboard users we do much the same thing, except we listen for when the user presses <kbd>space</kbd> or <kbd>enter</kbd> instead. Doing so performs the same routine.
+
+Here's a summary of the other actions. When the user presses:
+
+
+- <kbd>up</kbd>, focus is set to the previous option. If it's the first option, it's set to text box.
+- <kbd>down</kbd>, focus is set to the next option.
+- <kbd>tab</kbd>, hide the menu.
+- <kbd>escape</kbd>, hide the menu and focus the text box.
+- a character, then focus is set to the text box for them to continue typing.
 
 ## 2. Choosing When To Fly
 

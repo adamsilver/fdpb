@@ -57,7 +57,7 @@ Accessibility expert Steve Faulkner has what he calls a *punch list*[^4] which i
 3. be operable with the keyboard
 4. work with assistive devices
 
-To satisfy the first rule we need to choose a native form control to fall back to. There are too many options to use radio buttons and a search box requires a round-trip to the server and may lead to no results. That leaves us with a select box.
+To satisfy the first rule we need to choose a native form control to fall back to. There are too many options to use radio buttons, and a search box requires a round-trip to the server and may lead to no results. That leaves us with a select box.
 
 ![The core experience](.)
 
@@ -75,7 +75,7 @@ To satisfy the first rule we need to choose a native form control to fall back t
 </div>
 ```
 
-We'll make sure we adhere to the other rules as we design the component itself.
+We'll cover off the other rules as we design the component itself.
 
 First, we need to hide (not remove!) the select box. It shouldn't be removed because it's the select box value that is sent to the server on submission. To hide the select box we need to add:
 
@@ -84,12 +84,16 @@ First, we need to hide (not remove!) the select box. It shouldn't be removed bec
 - `tabindex="-1"` so that it is not focusable by keyboard
 
 ```HTML
+<select aria-hidden="true" tabindex="-1" class="visuallyhidden">
 ```
 
 ```CSS
+.visuallyhidden {
+	/*code*/
+}
 ```
 
-Then we need to inject a text box that users will interact with. To make sure the label still works, we transfer the `select`s `id` to the text box.
+Then we need to inject the text box that users will interact with. To make sure the label still works, we transfer the `id` to the text box.
 
 ```HTML
 <input
@@ -106,10 +110,10 @@ Then we need to inject a text box that users will interact with. To make sure th
 Notes:
 
 - The `name` attribute is not included, because the `select`s value is sent to the server.
-- The `role="combox"` attribute tells users that this is not a regular text box.
+- The `role="combobox"` attribute ensures this from control is announced as a combo box instead of a text box. A combo box, according to MDN, is “an edit control with an associated list box that provides a set of predefined choices.”
 - The `aria-autocomplete="list"` attribute tells users that a list of options will appear.
 - The `aria-expanded` attribute tells users whether the menu is showing or not by toggling it's value between `true` and `false`.
-- The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with the component's suggestions.
+- The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with those offered by the component.
 
 Next, we inject a `<ul>` after the text box which will store the suggestions.
 
@@ -118,10 +122,10 @@ Next, we inject a `<ul>` after the text box which will store the suggestions.
 	role="listbox"
 	class="autocomplete-options autocomplete-options-isHidden"
 	>
-	<li	role="option">
+	<li	role="option" tabindex="-1" aria-selected="false" data-option-value="1" id="autocomplete_1">
 		France
 	</li>
-	<li role="option" aria-selected="true">
+	<li role="option" tabindex="-1" aria-selected="true" data-option-value="2" id="autocomplete_2">
 		Germany
 	</li>
 </ul>
@@ -129,25 +133,26 @@ Next, we inject a `<ul>` after the text box which will store the suggestions.
 
 Notes:
 
-- The `role="list"` tells users this contains the options for the autocomplete. Each `<li>` has `role="option"`.
+- The `role="list"` attribute tells users there is a list of choices from which the user can select. Each `<li>` has `role="option"` to denote it as a choice within the list.
 - The `aria-selected="true"` attribute tells users whether the option is selected or not by toggling the value between `true` and `false`.
+- The `tabindex="-1"` attribute allows us to set focus to the options programatically. More on this shortly.
+- The `data-option-value` attribute is to store the corresponding `select` option value. When the user selects an option, we populate the hidden `select` box accordingly so that the real value will be persisted on submission.
 
-Finally, we inject a live region:
+When suggestions appear in the menu, sighted users will get feedback visually. To give screen readers an equivalent experience we need to inject a live region. We can do this by injecting “13 results are available” into the `div`.
 
 ```HTML
 <div aria-live="polite" role="status"></div>
 ```
 
-When the user types into the text box, the suggestions will update. At the same time the live region will be updated with “13 results are available” (or similar) so that screen reader users are made aware. The `role="status"` and `aria-live="polite"` attributes are functionally equivalent in that they will only announce the content when the user stops typing. They are both included as older screen readers don't recognise the `role` attribute.
+The `role="status"` and `aria-live="polite"` attributes tell screen readers to announce the content when it changes, but only after the user stops typing—otherwise it would interupt them. Both attributes are functionally equivalent but we include both as older screen readers don't recognise `role`.
 
-It's all well and good having the HTML in place, but without responding to events, the user is left with a non-responsive text box. Let's run through the main interaction flows now.
-
-First, we need to listen to `keyup` events on the the text box.
+Next we need to enrich the text box with some Javascript events. Let's run through the main interactions now. First we need to listen to the text box `keyup` event.
 
 ```JS
 AutoComplete.prototype.addTextBoxEvents = function() {
 	this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'));
 };
+
 Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 	switch (e.keyCode) {
 		case this.keys.esc:
@@ -164,20 +169,15 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 			break;
 		case this.keys.down:
 			// move onto first suggestion
-			// if there is one
 			this.onTextBoxDownPressed(e);
-			break;
-		case this.keys.tab:
-			this.hideOptions();
 			break;
 		case this.keys.space:
 			// ignore this, otherwise the
 			// the menu will show again.
 			break;
 		case this.keys.enter:
-			// ignore this, otherwise the
-			// menu will show briefly before
-			// submission
+			// ignore this, otherwise the menu 
+			// shows briefly before submission
 			break;
 		default:
 			// show suggestions
@@ -186,11 +186,7 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 };
 ```
 
-There's a lot of code here, but mostly we're ignoring certain key presses as we're only interested in three scenarios here:
-
-- When the user presses <kbd>tab</kbd> we want to hide the options. This is because the <kbd>tab</kbd> key focus the next control, not move focus within the control. 
-- When the user presses <kbd>down</kbd> we want to focus the first suggestion in the menu.
-- And the `default` condition which captures all other keys, such as letters, numbers and symbols needs to filter the options and display them.
+We're only really interested when the user presses <kbd>down</kbd> or a character that we can match on. When the user types a character, we want to show matching options (and update the live region). If there are no options, then we tell users there are no results
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function() {
@@ -200,6 +196,7 @@ Autocomplete.prototype.onTextBoxType = function() {
 			this.buildOptions(options);
 			this.showOptionsPanel();
 		} else {
+			// no results
 			this.buildNoResultsMenu();
 			this.showOptionsPanel();
 		}
@@ -208,18 +205,49 @@ Autocomplete.prototype.onTextBoxType = function() {
 };
 ```
 
-When the user types, the script will return the options. If there are some, we'll show them, if there aren't we we'll show the “no results” option. Either way, we update the status (live region) by passing the number of options that match.
+Pressing <kbd>down</kbd> should highlight onto the first suggestion in the menu. If the user presses <kbd>down</kbd> without typing anything then we show users all the options.
+
+```JS
+Autocomplete.prototype.onTextBoxDownPressed = function(e) {
+	var option;
+	var options;
+	var value = this.textBox.val().trim();
+	// Empty value or exactly matches an option 
+	// then show all the options
+	if(value.length === 0 || this.isExactMatch(value)) {
+		options = this.getAllOptions();
+		this.buildOptions(options);
+		this.showOptionsPanel();
+		option = this.getFirstOption();
+		if(option[0]) {
+			this.highlightOption(option);
+		}
+	} else {
+		options = this.getOptions(this.textBox.val().trim());
+		if(options.length > 0) {
+			this.buildOptions(options);
+			this.showOptionsPanel();
+			option = this.getFirstOption();
+			if(option[0]) {
+				this.highlightOption(option);
+			}
+		}
+	}
+};
+```
+
+---
+
+
+- When the user presses <kbd>tab</kbd> we want to hide the options. This is because the <kbd>tab</kbd> key focus the next control, not move focus within the control. 
 
 We need to listen to the same events on the suggestions menu.
 
 ```JS
 ```
 
-
-
 Interactions:
 
-- When focus is within the text box, pressing <kbd>down</kbd> moves focus to the first option in the panel.
 - When an option is focussed, pressing <kbd>down</kbd> moves focus to the next option. Pressing <kbd>up</kbd> moves focus to the previous option.
 - When an option is focused, pressing <kbd>enter</kbd> or <kbd>space</kbd> or clicking/tapping the option populates the text box with the value and closes the menu.
 - Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form (like normal).

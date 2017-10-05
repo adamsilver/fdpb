@@ -76,22 +76,29 @@
 
 - Introduction
 - Flow and order
-- (1) Choosing where to fly
+- (1) Choosing Where To Fly
 	- Select Box
 	- Radio Buttons
 	- Search Input
 	- Autocomplete
-- (2) Choosing when to fly
-	- Dates from documents
-	- Memorable dates
-	- Finding dates with a calendar
-		- Date input
-		- Date picker component
-		- A small trade-off
-- (3) Choosing passengers
+- (2) Choosing When To Fly
+	- Types Of Date
+		- Dates From Documents
+		- Memorable Dates
+		- Calendar Widgets
+	- Date Input
+		- Things Look Different
+	- A Date Picker
+		- Detecting Support
+		- The Enhanced Interface
+		- Revealing The Calendar
+		- Keyboard Interactions
+		- The Future
+		- Loose Ends
+- (3) Specifying Passengers
 	- A stepper component
-- (4) Choosing a flight
-- (5) Choosing where to sit
+- (4) Selecting A Flight
+- (5) Choosing Seats
 	- Design considersations
 		- affordance
 		- layout

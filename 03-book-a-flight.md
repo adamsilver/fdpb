@@ -300,19 +300,21 @@ Often you'll see sites using 3 select boxes for dates: one for day, month and ye
 
 Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine the user's intention based on what they enter. It's just one of those things.
 
-Most of us would assume that giving users some sort of calendar widget is always better than letting users type unassisted. This is not always the case. As the Goverment Digital Service (GDS) states:
+### Types Of Date
+
+Most of us would assume that giving users some sort of calendar widget is always better than letting users type freely into a text box unassisted. But, this is not always the case. As the Goverment Digital Service (GDS) states:
 
 > “The way you should ask for dates depends on the types of date you’re asking for.”
 
 Let's step through some of the main types of dates and how we might handle those. Then we can see which of them, if any, apply to the case of choosing a date to fly on.
 
-### Dates From Documents
+#### Dates From Documents
 
 > “If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* 
 
 The expiry date from “A Checkout Flow” falls perfectly under this category. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
 
-### Memorable Dates
+#### Memorable Dates
 
 A memorable date is one that you remember easily such as your date of birth. Here, it's far easier to give users three text boxes, than to give them a date picker. Scrolling and clicking through years and months is an arduous task in comparison to typing 6 digits unassisted.
 
@@ -347,26 +349,29 @@ The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”)
 
 *(Note: the pattern attribute is used to trigger the numeric keyboard in iOS, as discussed in “A Checkout Flow”. This enhances the experience for those using iOS.)*
 
-### Calendar Widget
+#### Calendar Widgets
 
-When choosing when to fly, users are neither entering a date from a document, nor are they filling in their date of birth. In this case, they are searching for a particular day in the future. People conceptualise time in years, months and days and we often represent time within a calendar or diary, which aligns with this notion.
+When choosing when to fly, users are neither entering a memorable date, nor one found in a document. In this case, they are searching for a date in the future. 
 
-Therefore, giving users a calendar widget is going to make things easier for many users. A calendar widget that assists users in filling out a form is sometimes called a date picker. Here's how it might look:
+We tend to think of time in days, weeks and months etc. And we organise our lives using a calendar which aligns with that notion. In which case, letting users find a date through a calendar is both familiar and useful.
 
-![Date picker](.)
+The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
 
-Interfaces that try to solve many problems at once cause problems for users. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, produces a busy interface that could overwhelm users.
+It's also not practical from a design perspective. Responsive design is partially about designing interfaces that work well no matter the viewport size: big or small. There's simply not enough room to add more information into each cell.
 
-It's also not practical from a design perspective. One aspect of design for the web is considering people who use different size screens. Responsive design encourages us to design for small and large screens alike. Cramming lots of information into a page that can ultimately be accessed on small screens is asking for trouble.
+Instead, we'll let users focus on choosing a date unencumbered and later we'll give users more information when it's both useful and practical to do so.
 
-Instead, we'll purposely let users focus on choosing a date without the distraction of additional information. We'll give users this information later on the flow when it's more relevant anyway.
+### The Date Input
 
-### Date Input
+As usual, our first port of call is to look at what browsers give us for free. Along with HTML5 came the date input (`input type="date"`). Mobile browser support is excellent.
 
-Some browsers support the date input (`input type="date"`) which if it wasn't for the word “some”, would save us a lot of time and effort in building our own date picker from scratch. Whilst mobile support is really good, desktop support isn't as good. Here's how it looks on mobile and desktop:
+![Mobile Date Input](./images/mobile-date.png)
 
-![Mobile native date control](./images/mobile-date.png)
+Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support (at time of writing).
+
 ![Desktop native date control](./images/desktop-date.png)
+
+#### Things Look Different
 
 Don't be concerned about the difference in appearance. Users either don't notice or don't care. In any case, most people use the same browser over and over again. Unlike us, they are not agonising over subtle differences between devices.
 
@@ -374,7 +379,7 @@ Don't be concerned about the difference in appearance. Users either don't notice
 
 In “Progressive Enhancement 2.0”, at 16 minutes in[^8], Nicholas Zakas shows the audience a photo. He then moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. Remember the audience was full of designers and developers—people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
 
-### Detecting Support
+### A Date Picker
 
 As noted earlier desktop support is patchy, so for those using one of these browsers, picking a date will be more aduous than it should be. Really, we should give users a better experience. But before we can do that, we need to first check whether the browser supports the date input, otherwise there will be two calendars: one provided by the browser and the one we implement ourselves.
 
@@ -400,19 +405,29 @@ if(!supportsDateInput()) {
 
 The `supportsDateInput` function tries to create a date input. Then we check to see if the browser correctly reports the `type` as `date`. If it does there is no need for us to do anything. If it doesn't this is our prompt to define our own date picker component.
 
-### The Date Picker component
+#### Enhanced Interface
 
-- Toggle Button
-- Calendar
+When there is no support, users get a standard text box. But our date picker component enhances the interface by injecting a button that toggles the calendar and the calendar itself.
+
+Notes on visual and interaction design for mouse users.
+
+#### Revealing The Calendar
+
+- button
+- focus management
+
+#### Calendar HTML
+
+#### Keyboard Interactions
+
+- should tabbing away from the calendar widget close the widget?
 
 
 
 
 
 
-
-
-
+---
 
 When the date picker initialises, it updates the HTML with a toggle button and calendar widget:
 
@@ -504,6 +519,8 @@ Unfortunately, we can't simply add a hint because supporting browsers will show 
 We'll have to be as forgiving as possible by letting users delimit by slashes, periods and spaces, whichever their preference. But typing a two-digit year first, for example, *will* cause an error. A well-written error message will have to do.
 
 What is great for a majority, is in this case, not ideal for a minority. Whilst accessible (the user can enter a date) it's not inclusive (they may have to rely on error text). [Consider explaining this more. Maybe a heading of its own]
+
+Design is about doing our best, there is no perfect.
 
 ## 3. Choosing passengers
 

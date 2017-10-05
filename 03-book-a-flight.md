@@ -300,23 +300,23 @@ Often you'll see sites using 3 select boxes for dates: one for day, month and ye
 
 Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine the user's intention based on what they enter. It's just one of those things.
 
-But we're getting ahead of ourselves. As the Goverment Digital Service (GDS) states:
+Most of us would assume that giving users some sort of calendar widget is always better than letting users type unassisted. This is not always the case. As the Goverment Digital Service (GDS) states:
 
 > “The way you should ask for dates depends on the types of date you’re asking for.”
 
-Fortunately, GDS has done the hard work for us and they have come up with several types. Let's run through the main ones now to see which, if any, applies to this case.
+Let's step through some of the main types of dates and how we might handle those. Then we can see which of them, if any, apply to the case of choosing a date to fly on.
 
 ### Dates From Documents
 
 > “If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* 
 
-The expiry date from “A Checkout Flow” falls under this category perfectly. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
+The expiry date from “A Checkout Flow” falls perfectly under this category. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
 
 ### Memorable Dates
 
-Most people would assume that date pickers are always better than simply typing numbers into a text box. In the case of memorable dates, such as date of birth, this just isn't true. Scrolling and clicking through several years, and months is arduous in comparison to typing 6 digits unassisted.
+A memorable date is one that you remember easily such as your date of birth. Here, it's far easier to give users three text boxes, than to give them a date picker. Scrolling and clicking through years and months is an arduous task in comparison to typing 6 digits unassisted.
 
-In this case, you should use three separate text boxes: one for day, month and year. Using three separate boxes solves the locale issues discussed earlier.
+So in this case, you should use three separate text boxes: one for day, month and year. Using three separate boxes solves the locale and formatting issues discussed earlier.
 
 ![GDS date of birth](./images/gds-dob.png)
 
@@ -343,68 +343,40 @@ In this case, you should use three separate text boxes: one for day, month and y
 </div>
 ```
 
-Crucially, the three fields are wrapped in a `fieldset`. Without this, users wouldn't know what date they are entering. Here the legend's text “Date of birth” gives each text box context.
+The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”) gives each text box context and would be read out as “Date of birth, day” (or similar) as the user steps through each field.
 
-*(Note: the pattern attribute is used to trigger the numeric keyboard in iOS, as discussed in “A Checkout Flow”.)*
+*(Note: the pattern attribute is used to trigger the numeric keyboard in iOS, as discussed in “A Checkout Flow”. This enhances the experience for those using iOS.)*
 
-### Calendars
+### Calendar Widget
 
-In the case of booking a flight, users are neither entering a memorable date nor one found in a document. Booking a flight normally revolves around some date in the future. As humans, we conceptualise time in years, months, and days etc. And when we're diarising future plans we use a calendar, which aligns with that notion.
+When choosing when to fly, users are neither entering a date from a document, nor are they filling in their date of birth. In this case, they are searching for a particular day in the future. People conceptualise time in years, months and days and we often represent time within a calendar or diary, which aligns with this notion.
 
-Designing an interface that users are already familiar with makes wayfinding that much easier. People intuitively know how calendars work and crucially they give users context. On the web, a calendar that ise used to assist users entering dates in a form is called a date picker.
+Therefore, giving users a calendar widget is going to make things easier for many users. A calendar widget that assists users in filling out a form is sometimes called a date picker. Here's how it might look:
 
 ![Date picker](.)
 
----
-
-#### Other Considerations
-
-Interfaces that try to solve many problems at once cause problems. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, results in a busy interface that could overwhelm users.
+Interfaces that try to solve many problems at once cause problems for users. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, produces a busy interface that could overwhelm users.
 
 It's also not practical from a design perspective. One aspect of design for the web is considering people who use different size screens. Responsive design encourages us to design for small and large screens alike. Cramming lots of information into a page that can ultimately be accessed on small screens is asking for trouble.
 
-Instead, we'll purposely let users focus on choosing a date without the distraction of additional information. We'll give users the relevant information later on in the flow.
+Instead, we'll purposely let users focus on choosing a date without the distraction of additional information. We'll give users this information later on the flow when it's more relevant anyway.
 
-#### Date input
+### Date Input
 
-Before HTML5, we always had to build our own date picker using Javascript. We know how hard this is because we just created an autocomplete component. Mobile browsers that support HTML5&mdash;nowadays, that's most&mdash;support `input type="date"` which to some extent saves us having to design our own component. But that's not all they're good for:
-
-- They are fast because they are provided by the browser.
-- They are familiar because every website (and native app) will use the same interface.
-- They are accessible by default.
-- Users get improvements and bug fixes as soon as browser vendors release them.
-
-All of which, give us back time and headspace to solve other, more pressing problems. Here's how the native date input looks on mobile:
+Some browsers support the date input (`input type="date"`) which if it wasn't for the word “some”, would save us a lot of time and effort having to build our own date picker from scratch. Whilst mobile support is really good, desktop support isn't as good, but we'll that in a moment. Here's how it looks on mobile and desktop:
 
 ![Mobile native date control](./images/mobile-date.png)
-
-Desktop browser support is not as good (but we'll sort that!). Chrome and Edge work well but Firefox, for example, doesn't have any support (at time of writing).
-
 ![Desktop native date control](./images/desktop-date.png)
 
-If you're concerned about it looking different in different browsers, don't be. In Progressive Enhancement 2.0, at 16 minutes in[^8], Nicholas Zakas shows that users don't notice differences between browsers. He does this by showing the audience (designers and front-end developers who are trained to notice these details) a photo. He then moves to the next slide that has the same photo again, but this time the photo had a border and drop shadow applied though CSS. Not one person in the audience noticed.
+Don't be concerned about the difference in appearance. Most users either don't notice or don't care. In any case, most people use the same browser over and over again. Unlike us, they are not putting different devices side-by-side to be tested.
 
 > Nobody cares about your website as much as you do
 
-It pains me to say this, but really, nobody cares about your website, service or product as much as you do. And if you're still not convinced, check out the rather terse website: Do Websites Need To Look The Same In Every Browser?[^9].
+In “Progressive Enhancement 2.0”, at 16 minutes in[^8], Nicholas Zakas shows the audience a photo. He then moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person in the audience noticed this difference. Remember the audience was full of designers and developers—people who are trained to notice these things, but all the cared about was the content.
 
-Here's the HTML for a field using the date input.
+### Date Picker Component
 
-```HTML
-<div class="field">
-	<label for="departureDate">
-		<span class="field-label">Departure date</span>
-	</label>
-	<input class="field-textBox" type="date" id="departureDate" name="departureDate">
-</div>
-
-```
-
-#### What about browsers lacking support?
-
-Browsers that don't support date inputs degrade into a text box. Often the degraded experience is sufficient, as Nicholas demonstrated with the shadow-less and border-less photo. In the case of choosing a date though we can and should provide a better experience. After all, choosing dates is integral to a booking a flight.
-
-First we need to ensure we only give users the component when their browser doesn't support the date input. That is, we'll need to feature detect this capability:
+In many cases, giving older browsers the so-called degraded experience is enough, especially when you consider the amount of effort that goes into creating a custom component. Despite this, choosing when to fly is crucial to the booking journey so we'll need to create a date picker component for browsers that lack support for the date input.
 
 ```Javascript
 function supportsDateInput() {
@@ -416,138 +388,51 @@ function supportsDateInput() {
 }
 
 if(!supportsDateInput()) {
-	// use custom component
+	// Define DatePicker
 }
 ```
 
-#### Date picker component
+This function tries to create a date input, then checks to see if the browser correctly reports the `type` as `date`. If it does, the browser supports the date input, otherwise it doesn't it will degrade into a standard text box. This is our prompt to define our own component. Of course, users don't have to use the component, they can type directly into the text box if they wish, which speaks to principle 5, *offer choice*.
 
-Having now detected support, we'll need to design the date picker component itself. Here's how it might look:
+#### Toggle Button
 
-![Date widget](./images/date-widget.png)
+The first we need to do is put a button next to the field. When clicked it should reveal the calendar below it. This is the first of many design details that matter. Many date pickers are designed as overlays. But they obscure the rest of the page which isn't helpful. Also, there's an inset left border which visually connects the calendar to the field. The interactive elements with the calendar have large tap targets[^11] which are easier to tap or click.
+ 
+![Date widget showing underneath](./images/date-widget.png)
 
-Notes:
-
-- Buttons should have large tap[^11] targets making it easy to press with a finger or mouse.
-- The calendar is displayed beneath the input. Dialogs obscure the interface and on small screens they take up the entire screen anyway.
+While sighted users can see the calendar hide and show, visually-impaired users who rely on screen reader software wouldn't be notified. We can satisfy principle 1, *provide a comparable experience* for them by using the `aria-expanded` attribute. Toggling between `true` and `false` tells screen reader users that the calendar is showing or not. The `type="button"` attribute stops it from submitting the form which is undesirable.
 
 ```HTML
-<div class="field">
-	<label for="departureDate">
-		<span class="field-label">Departure date</span>
-	</label>
-	<div class="datepicker">
-		<input class="field-textBox" type="text" id="departureDate" name="departureDate" value="">
-		<button class="datepicker-toggleButton" type="button" aria-expanded="true">Choose</button>
-		<div class="datepicker-wrapper" aria-hidden="false">
-			<div class="datepicker-calendar">
-				<div class="datepicker-actions">
-					<button aria-label="Previous month" type="button" class="datepicker-back">&lt;</button>
-					<div role="status" aria-live="polite" aria-atomic="true" class="datepicker-title">July 2017</div>
-					<button aria-label="Next month" type="button" class="datepicker-next">&gt;</button>
-				</div>
-				<table role="grid">
-					<thead>
-						<tr>
-							<th><abbr title="Sunday">Sun</abbr></th>
-							<th><abbr title="Monday">Mon</abbr></th>
-							<th><abbr title="Tuesday">Tue</abbr></th>
-							<th><abbr title="Wednesday">Wed</abbr></th>
-							<th><abbr title="Thursday">Thu</abbr></th>
-							<th><abbr title="Friday">Fri</abbr></th>
-							<th><abbr title="Saturday">Sat</abbr></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="calendarControl-previousMonthDay">25</td>
-							<td class="calendarControl-previousMonthDay">26</td>
-							<td class="calendarControl-previousMonthDay">27</td>
-							<td class="calendarControl-previousMonthDay">28</td>
-							<td class="calendarControl-previousMonthDay">29</td>
-							<td class="calendarControl-previousMonthDay">30</td>
-							<td tabindex="-1" aria-selected="false" aria-label="1 July, 2017" data-date="Sat Jul 01 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_1" class="datepicker-day">1</td>
-						</tr>
-						<tr>
-							...
-						</tr>
-						<tr>
-							...
-						</tr>
-						<tr>
-							<td tabindex="-1" aria-selected="false" aria-label="16 July, 2017" data-date="Sun Jul 16 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_16" class="datepicker-day">16</td>
-							<td tabindex="-1" aria-selected="false" aria-label="17 July, 2017" data-date="Mon Jul 17 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_17" class="datepicker-day">17</td>
-							<td tabindex="0" aria-selected="true" aria-label="18 July, 2017" data-date="Tue Jul 18 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_18" class="datepicker-day datepicker-day-isToday datepicker-day-isSelected">18</td>
-							<td tabindex="-1" aria-selected="false" aria-label="19 July, 2017" data-date="Wed Jul 19 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_19" class="datepicker-day">19</td>
-							<td tabindex="-1" aria-selected="false" aria-label="20 July, 2017" data-date="Thu Jul 20 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_20" class="datepicker-day">20</td>
-							<td tabindex="-1" aria-selected="false" aria-label="21 July, 2017" data-date="Fri Jul 21 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_21" class="datepicker-day">21</td>
-							<td tabindex="-1" aria-selected="false" aria-label="22 July, 2017" data-date="Sat Jul 22 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_22" class="datepicker-day">22</td>
-						</tr>
-						<tr>
-							...
-						</tr>
-						<tr>
-							<td tabindex="-1" aria-selected="false" aria-label="30 July, 2017" data-date="Sun Jul 30 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_30" class="datepicker-day">30</td>
-							<td tabindex="-1" aria-selected="false" aria-label="31 July, 2017" data-date="Mon Jul 31 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_31" class="datepicker-day">31</td>
-							<td class="calendarControl-nextMonthDay">1</td>
-							<td class="calendarControl-nextMonthDay">2</td>
-							<td class="calendarControl-nextMonthDay">3</td>
-							<td class="calendarControl-nextMonthDay">4</td>
-							<td class="calendarControl-nextMonthDay">5</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
+<button type="button" aria-expanded="true">Choose</button>
 ```
 
-The date picker is made up of 5 parts:
+*(Note: the calendar is hidden using the `hidden` attribute/property as explained in chapter 1, “A Registration Form”.)*
 
-- Text box
-- Toggle button
-- Calendar header
-- Calendar grid
-- Day cell
+#### Calendar Interactions
 
-Text box notes:
+When the user reveals the calendar, pressing <kbd>tab</kbd> focuses the calendar/first focusable element????. Talk about focus and aria here. The live region seems to be announced anyway.
 
-- This is a standard text box. The user can type directly into it if they wish, or they can use the date picker. Using the date picker populates the text box automatically.
+---
 
-Toggle button notes:
+```HTML
 
-- The `type` attribute is set to `button` which stops it from submitting the form like a regular submit button.
-- The `aria-expanded` attribute tells users whether the date picker is showing or not by toggling between `true` and `false` values.
+```
 
-Calendar header notes:
-
-- The heading is inside a live region. This ensures that when the user navigates between months, the date is announced.
-- The header also contains the previous and next month buttons.
-
-Calendar grid notes:
-
-- The `aria-hidden` attribute is set to true which means it is not perceivable to screen readers. Visual users experience the same thing as it's not actually visible.
+- The heading lives inside a live region. This ensures that when the user navigates between months, the date is announced.
 - The table has a role of `grid` so that the screen reader treats the table as a special widget. In JAWS, for example, this means the arrow keys can be used to navigate between days. More on this shortly.
 - The `thead` contains the column headings representing each day of the week. The days are abbreviated and use the `abbr` element. This saves space whilst letting screen readers announce them in full.
 - The `tbody` contains the days organised by week which are represented as table `row`s.
 
-Calendar cell notes:
+Cell notes:
 
 - The `tabindex` is set to `-1` which allows the focus to be set programmatically but that it's not in the standard tab sequence. This is dicussed more later. ROVING.
 - ????`aria-selected` allows the selected state to be announced. This is set to true when the cell is selected.
 - ???? ID
 - `aria-label` enables screen readers to announce the full day. Without it, the cell's value is ambiguous.
 
-Javascript:
 
-```JS
-Put code here
-```
+JS notes:
 
-Notes:
-
-- Pressing *choose* toggles the calendar's visibility.
 - Pressing *previous* shows the previous month and selects the first day of the previes month.
 - Pressing *next* shows the next month and selects the first day of the next month.
 - When the grid is focussed, the arrow keys let the user move freely between days and weeks. Pressing <kbd>left</kbd> moves to the previous day. Pressing <kbd>right</kbd> moves to the next day. Pressing <kbd>up</kbd> moves to the same day in the previous week. Pressing <kbd>down</kbd> moves to the same day in the next week.
@@ -557,13 +442,13 @@ Notes:
 
 Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to principle 5, *give users choice* by letting them do either.
 
-#### What about the future?
+#### Future Considerations
 
 Jeremy Keith often talks about the web as a *continuum*[^10]. By that, he means the web is constantly changing. New browsers are released frequently. All of them have varying features and capabilities. At any particular moment in time, we need to think about what level of support makes sense for any given component.
 
 As discussed earlier, there is a lack of (desktop) browser support for date inputs. But we fixed that with the date picker component. In future things will change. The number of people experiencing the degraded version will diminish as browser support broadens. And, when it does, we can remove the script. This creates a faster page as there is no script to download, and gives us less code to maintain.
 
-#### Tying up loose ends
+#### Tying Up Loose Ends
 
 > There is something to be said for design that ignores people, people ignore it.&mdash;person
 

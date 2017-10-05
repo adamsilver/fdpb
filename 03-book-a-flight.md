@@ -363,22 +363,24 @@ Instead, we'll purposely let users focus on choosing a date without the distract
 
 ### Date Input
 
-Some browsers support the date input (`input type="date"`) which if it wasn't for the word “some”, would save us a lot of time and effort having to build our own date picker from scratch. Whilst mobile support is really good, desktop support isn't as good, but we'll that in a moment. Here's how it looks on mobile and desktop:
+Some browsers support the date input (`input type="date"`) which if it wasn't for the word “some”, would save us a lot of time and effort in building our own date picker from scratch. Whilst mobile support is really good, desktop support isn't as good. Here's how it looks on mobile and desktop:
 
 ![Mobile native date control](./images/mobile-date.png)
 ![Desktop native date control](./images/desktop-date.png)
 
-Don't be concerned about the difference in appearance. Most users either don't notice or don't care. In any case, most people use the same browser over and over again. Unlike us, they are not putting different devices side-by-side to be tested.
+Don't be concerned about the difference in appearance. Users either don't notice or don't care. In any case, most people use the same browser over and over again. Unlike us, they are not agonising over subtle differences between devices.
 
 > Nobody cares about your website as much as you do
 
-In “Progressive Enhancement 2.0”, at 16 minutes in[^8], Nicholas Zakas shows the audience a photo. He then moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person in the audience noticed this difference. Remember the audience was full of designers and developers—people who are trained to notice these things, but all the cared about was the content.
+In “Progressive Enhancement 2.0”, at 16 minutes in[^8], Nicholas Zakas shows the audience a photo. He then moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. Remember the audience was full of designers and developers—people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
 
-### Date Picker Component
+### Detecting Support
 
-In many cases, giving older browsers the so-called degraded experience is enough, especially when you consider the amount of effort that goes into creating a custom component. Despite this, choosing when to fly is crucial to the booking journey so we'll need to create a date picker component for browsers that lack support for the date input.
+As noted earlier desktop support is patchy, so for those using one of these browsers, picking a date will be more aduous than it should be. Really, we should give users a better experience. But before we can do that, we need to first check whether the browser supports the date input, otherwise there will be two calendars: one provided by the browser and the one we implement ourselves.
 
-```Javascript
+To check for support you can use this function:
+
+```JS
 function supportsDateInput() {
 	var el = document.createElement('input');
 	try {
@@ -386,17 +388,56 @@ function supportsDateInput() {
 	} catch(e) {}
 	return el.type == "date";
 }
+```
 
+This function tries to create a date input and then checks to see if the browser correctly reports the input's `type` as `date`. We can then call the function like this:
+
+```JS
 if(!supportsDateInput()) {
-	// Define DatePicker
+  // define date picker component
 }
 ```
 
-This function tries to create a date input, then checks to see if the browser correctly reports the `type` as `date`. If it does, the browser supports the date input, otherwise it doesn't it will degrade into a standard text box. This is our prompt to define our own component. Of course, users don't have to use the component, they can type directly into the text box if they wish, which speaks to principle 5, *offer choice*.
+The `supportsDateInput` function tries to create a date input. Then we check to see if the browser correctly reports the `type` as `date`. If it does there is no need for us to do anything. If it doesn't this is our prompt to define our own date picker component.
 
-#### Toggle Button
+### The Date Picker component
 
-The first we need to do is put a button next to the field. When clicked it should reveal the calendar below it. This is the first of many design details that matter. Many date pickers are designed as overlays. But they obscure the rest of the page which isn't helpful. Also, there's an inset left border which visually connects the calendar to the field. The interactive elements with the calendar have large tap targets[^11] which are easier to tap or click.
+- Toggle Button
+- Calendar
+
+
+
+
+
+
+
+
+
+
+When the date picker initialises, it updates the HTML with a toggle button and calendar widget:
+
+```HTML
+<div class="field ">
+  <label for="when">
+    <span class="field-label">Date</span>
+  </label>
+  <div class="datepicker">
+  	<input type="text" id="when" name="when">
+  	<button type="button" aria-expanded="true" aria-haspopup="true">Choose</button>
+  	<div class="datepicker-wrapper">
+  		Calendar widget here
+  	</div>
+  </div>
+```
+
+Clicking the toggle button 
+
+
+
+
+The date picker component needs to inject a button next to the text box. When clicked, it should reveal the calendar and move focus to it.
+
+First we need toa button next to the field. When clicked it should reveal the calendar below it. This is the first of many design details that matter. Many date pickers are designed as overlays. But they obscure the rest of the page which isn't helpful. Also, there's an inset left border which visually connects the calendar to the field. The interactive elements with the calendar have large tap targets[^11] which are easier to tap or click.
  
 ![Date widget showing underneath](./images/date-widget.png)
 
@@ -408,11 +449,13 @@ While sighted users can see the calendar hide and show, visually-impaired users 
 
 *(Note: the calendar is hidden using the `hidden` attribute/property as explained in chapter 1, “A Registration Form”.)*
 
-#### Calendar Interactions
+
 
 When the user reveals the calendar, pressing <kbd>tab</kbd> focuses the calendar/first focusable element????. Talk about focus and aria here. The live region seems to be announced anyway.
 
 ---
+
+Despite providing our own date picker, users don't have to use it. Instead, they can type directly into the text box unassisted if they choose, which speaks to principle 5, *offer choice*.
 
 ```HTML
 

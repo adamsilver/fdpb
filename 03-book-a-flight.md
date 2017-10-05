@@ -138,7 +138,7 @@ Notes:
 - The `tabindex="-1"` attribute allows us to set focus to the options programatically. More on this shortly.
 - The `data-option-value` attribute is to store the corresponding `select` option value. When the user selects an option, we populate the hidden `select` box accordingly so that the real value will be persisted on submission.
 
-When suggestions appear in the menu, sighted users will get feedback visually. To give screen readers an equivalent experience we need to inject a live region. We can do this by injecting “13 results are available” into the `div`.
+Suggestions appear in the menu giving sighted users feedback. To give screen reader users an equivalent experience we need to inject a live region. We can do this by injecting “13 results are available” into the `div`. By doing this we satisfy principle 1, “provide a comparable experience”.
 
 ```HTML
 <div aria-live="polite" role="status"></div>
@@ -186,28 +186,23 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 };
 ```
 
-We're only really interested when the user presses <kbd>down</kbd> or a character that we can match on. When the user types a character, we want to show matching options (and update the live region).
+We're only really interested when the user presses <kbd>down</kbd> or a character to match on. When the user types a character, we want to show matching options (and update the live region).
 
 ```JS
-Autocomplete.prototype.onTextBoxType = function() {
+Autocomplete.prototype.onTextBoxType = function(e) {
 	if(this.textBox.val().trim().length > 0) {
 		var options = this.getOptions(this.textBox.val().trim().toLowerCase());
-		// there are matches
-		if(options.length > 0) {
-			this.buildOptions(options);
-			this.showOptionsPanel();
-		// there are no matches
-		} else {
-			this.buildNoResultsMenu();
-			this.showOptionsPanel();
-		}
-		// update live region
+		this.buildMenu(options);
+		this.showMenu();
 		this.updateStatus(options.length);
 	}
+	this.updateSelectBox();
 };
 ```
 
-Pressing <kbd>down</kbd> should move focus and highlight the first suggestion. If the user presses <kbd>down</kbd> without typing anything then we show users all the options.
+Let's run through this function. The condition checks to see if the user has typed a value. If they have then it calls `this.getOptions()` which takes that value, and returns any matching options. It then builds and shows the menu before updating the live region. Finally, the hidden select box is updated.
+
+Pressing <kbd>down</kbd> should move focus and highlight the first suggestion. If the user presses <kbd>down</kbd> without typing anything then all the possible options are shown.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
@@ -221,9 +216,7 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 		this.buildOptions(options);
 		this.showOptionsPanel();
 		option = this.getFirstOption();
-		if(option[0]) {
-			this.highlightOption(option);
-		}
+		this.highlightOption(option);
 	} else {
 		options = this.getOptions(this.textBox.val().trim());
 		if(options.length > 0) {
@@ -236,7 +229,7 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 };
 ```
 
-The `getOptions` method takes the text box value which is used to filter matching options. The `buildOptions` method is responsible for creating the HTML that is then injected into the menu. The `highlightOption` (shown below) takes an option to highlight.
+This function is quite similar to the one just described. The difference is that, the first option is retrieved before highlighting it. The `highlightOption` (shown below) takes an option to highlight.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
@@ -259,14 +252,9 @@ Autocomplete.prototype.highlightOption = function(option) {
 
 ```
 
-This runs through the following steps:
+The function first checks to see if there is highlighted option already. If there is, the highlight is removed by removing the class and setting `aria-selected` to `false`. Then, the new option is given that class and sets the same attribute to `true`. Then it checks to see if the element is visible within the menu, because that option may not be visible. If it's not visible, we bring it into view. Finally, the new option is focused.
 
-1. If there is an active option, then remove the highligh style (by removing the class) and setting `aria-selected` to `false`.
-2. Highlight the new option by adding the same class and setting `aria-selected` to `true`.
-3. Make sure the option is visible within the menu panel.
-4. Focus the option.
-
-Now we need to talk about how users interact with the menu. First we need to handle mouse users. Users can scroll the menu and click an option.
+Now we need to talk about how users interact with the menu. Mouse (or touch) users can scroll the menu and click an option. First we listen to the menu's click event. the handler then grabs the suggestion (`e.currentTarget`) and hands that off to the `selectSuggestion` method, which we'll discuss next.
 
 ```JS
 Autocomplete.prototype.addSuggestionEvents = function() {
@@ -277,7 +265,11 @@ Autocomplete.prototype.onSuggestionClick = function(e) {
 	var suggestion = $(e.currentTarget);
 	this.selectSuggestion(suggestion);
 };
+```
 
+The `selectionSuggestion` method grabs the corresponding value out of the `data-option-value` attribute. It then uses that value to update the text box and the hidden select box. Finally, it hides the options and sets focus to the text box.
+
+```JS
 Autocomplete.prototype.selectSuggestion = function(suggestion) {
 	var value = suggestion.attr('data-option-value');
 	this.textBox.val(value);
@@ -287,17 +279,15 @@ Autocomplete.prototype.selectSuggestion = function(suggestion) {
 };
 ```
 
-First we listen to the option's click event. The handler gets the list item, and calls `selectSuggestion` passing in that item. Then that method sets the text box value and hidden select box value accordingly. The last thing it does, is hide the menu and focus the text box.
+For keyboard we end up performing the exact same routine. It's just that this time we perform that routine when the user presses <kbd>space</kbd> or <kbd>enter</kbd>.
 
-For keyboard users we do much the same thing, except we listen for when the user presses <kbd>space</kbd> or <kbd>enter</kbd> instead. Doing so performs the same routine.
+The other actions can be summed up briefly. When the user presses:
 
-Here's a summary of the other actions. When the user presses:
-
-- <kbd>up</kbd>, focus is set to the previous option. If it's the first option, it's set to text box.
-- <kbd>down</kbd>, focus is set to the next option.
-- <kbd>tab</kbd>, hide the menu.
-- <kbd>escape</kbd>, hide the menu and focus the text box.
-- a character, then focus is set to the text box for them to continue typing.
+- <kbd>up</kbd>, the previous option is focused. If it's the first option, focus is set to the text box.
+- <kbd>down</kbd>, the next option is focused.
+- <kbd>tab</kbd>, the menu is hidden.
+- <kbd>escape</kbd>, the menu is hidden and focus is set to the text box.
+- a character, then focus is set to the text box so users can continue typing.
 
 ## 2. Choosing When To Fly
 

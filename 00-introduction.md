@@ -82,7 +82,7 @@ This book is about designing forms that let users interact over the web. As such
 
 Whatever we build, in the end, it's about the users. I don't want to leave a single person behind. The web is for everyone. Therefore, I can't think of a better set of principles than those written by  Heydon Pickering and Heni Swan of Paciello Group[^]. Interestingly, only one of the seven principles pertains to accessibility. The other ones are just *good* design. They're laid out below:
 
-1. **Provide comparable experience**. Ensure your interface provides a comparable experience for all so people can accomplish tasks in a way that suits their needs without undermining the quality of the content.
+1. **Provide a comparable experience**. Ensure your interface provides a comparable experience for all so people can accomplish tasks in a way that suits their needs without undermining the quality of the content.
 2. **Consider situation**. People use your interface in different situations. Make sure your interface delivers a valuable experience to people regardless of their circumstances.
 3. **Be consistent**. Use familiar conventions and apply them consistently.
 4. **Give control**. Ensure people are in control. People should be able to access and interact with content in their preferred way.

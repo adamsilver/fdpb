@@ -173,26 +173,33 @@ Despite it's simple appearance there are some important details that have gone i
 
 The label itself is “Email address” and uses sentence case. In “Making a Case of Letter Case”[^7], John Saito explains that sentence case (as opposed to title case) is generally easier to read, friendlier and makes it easier to spot nouns. Whether you take heed of this advice is up to you, but whatever style you choose, be sure to use it consistently.
 
-The input's `type` attribute is set to `email` which triggers an email-specific on-screen keyboard on mobile devices. Specifically, it gives users easy access to the ‘@’ and ‘.’ symbols which every email address must contain.
+The input's `type` attribute is set to `email` which triggers an email-specific on-screen keyboard on mobile devices. Specifically, it gives users easy access to the ‘@’ and ‘.’ symbols which every email address contains.
 
 ![Email keyboard](.)
 
-People using a non-supporting browser will see a standard text input (`input type="text"`). This is a form of Progressive Enhancement which is a cornerstone of designing inclusive experiences for the web.
+People using a non-supporting browser will see a standard text input (`input type="text"`). This is a form of progressive enhancement which is a cornerstone of designing inclusive experiences.
 
 ### Progressive Enhancement
 
-- what is it with regard to html, css and js
-- everyone has js
-- some examples
-- its used throughout the book
+Progressive enhancement is about users. It just happens to make our lives (as designers/developers) easier too. This is because instead of keeping up with a set of browsers and devices (which is impossible!) we can just focus on features.
 
-Progressive enhancement is a cornerstone of inclusive design. It's about designing experiences that work for everyone as a matter of course, even in the event of network and scripting failures. For example, a piece of Javascript may fail to load. Or a particular browser may not recognise a particular method call, one that another browser understands perfectly well.
+First and foremost, progressive enhancement is about always giving users an experience, no matter their browser or device or quality of connection. When things go wrong—and they will—users shouldn't suffer. That's bad design.
 
-Whatever it is, progressive enhancement as an approach to design, means that the website will continue to work. This is because progressively enhanced patterns are formed first with robust and well-structured HTML. Then, and only when it *adds value* enhancing the experience for people who use a more capable browser.
+There are a lot of ways an experience can go wrong. Perhaps the stylesheet or script failed to load. Maybe everything loaded fine, but the user's browser doesn't recognise some HTML, CSS or Javascript. Whatever happens, using progressive enhancement as an approach to designing experiences stops users having an especially bad time.
 
-![Some diagram](.)
+It starts with HTML, which is for structure and content. If CSS or Javascript doesn't load, it's fine because the content is there.
 
-For example, some browsers can check your GPS location, others cant. But all browsers can be given a postcode field in which to determine their location. Starting off with a postcode field, and offering capable browsers an enhanced GPS feature is progressive enhancement.
+If everything loads okay, perhaps various HTML elements aren't recognised. For example, some browsers don't understand `input type="email"`. That's okay though because users will get a text box (`input type="text"`) instead. Users can still enter an email address, they just don't get an email-specific keyboard.
+
+Maybe the browser doesn't understand some fancy CSS. In this case, browsers just ignore it. For example, some browsers that don't understand `border-radius` will show straight edges instead of round ones. Users are left unharmed.
+
+Then there is Javascript, which is more complicated. When the browser tries to parse methods it doesn't recognise, it will just throw a hissy fit. This can mean half the script executed, but the rest didn't. If your script doesn't first check if the methods exist (and function) before using them, then users may get a broken interface. For example, if a button's click handler calls a method that the browser doesn't recognise, the button will do nothing. That's bad.
+
+What's even better is not needing an enhancement at all. HTML with a little CSS, can give users a geat experience. It's the content that counts and Javascript doesn't give you that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value*.
+
+Of course, there are times when the basic user experience isn't as good as it might be. And that's when it's time to enhance. If the browser, or network fails things still work. If the user has a capable browser, they'll get the enhanced experience—great!
+
+Progressive enhancement makes us think about what happens when things fail. This way we end up building experiences with resilience baked-in. But equally, it makes us think about whether an enhancement is needed at all and if it is, how best to go about it.
 
 ## The password field
 

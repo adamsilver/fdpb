@@ -44,22 +44,24 @@ Users need a control that lets them filter a long list of destinations—one tha
 
 Autocomplete works by suggesting options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field—hence the name. This saves users having to scroll (unless they want to) while being able to forgive small typos at the same time. 
 
-HTML5's `datalist` element combines with a text box to create this exact behaviour. Unfortunately, it's particularly buggy[^3]. If your project is locked down to a browser that doesn't contain bugs, then you could use it. But we want to design an experience that works for as many people as possible, no matter their choice of browser and mobile phone. 
+HTML5's `datalist` element combines with a text box to create this exact behaviour. Unfortunately, it's particularly buggy[^3]. If your project is locked down to a browser that doesn't contain bugs, then you could use it. But we want to design an experience that works for as many people as possible, no matter their browser and device choices. 
 
 Instead, we'll build a custom autocomplete component from scratch. A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is challenging work.
 
-To help us through, accessibility expert Steve Faulkner has what he calls a *punch list*[^4]. It's a list of rules that state that a custom component should:
+### Building An Autocomplete Component
+
+Accessibility expert Steve Faulkner has what he calls a *punch list*[^4] which is a list of rules anyone should follow to make sure that any custom Javascript component is designed and built to a good standard. The rules state that a component should:
 
 1. work without Javascript
 2. be focusable with the keyboard
 3. be operable with the keyboard
 4. work with assistive devices
 
-To satisfy the first rule we need to choose a native form control to fall back to. There are too many options to use radio buttons, a search box requires a round-trip to the server and could lead to no results and the datalist is buggy. With that in mind a select box seems appropriate.
+To satisfy the first rule we need to choose a native form control to fall back to. There are too many options to use radio buttons, and a search box requires a round-trip to the server and may lead to no results. That leaves us with a select box.
 
-![The core experience](/etc/)
+![The core experience](.)
 
-```html
+```HTML
 <div class="field">
 	<label for="destination">
 		<span class="field-label">Destination</span>
@@ -73,21 +75,25 @@ To satisfy the first rule we need to choose a native form control to fall back t
 </div>
 ```
 
-The other rules are handled through the implementation itself. And let's not forget the importance of handling mouse and touch-screen users. They're only excluded from the punch list because they aren't usually forgotten about.
+We'll cover off the other rules as we design the component itself.
 
-First we need to hide (not remove!) the select box. It's not removed because it's the select box value that is sent to the server on submission. To hide the select box we need to a few things:
+First, we need to hide (not remove!) the select box. It shouldn't be removed because it's the select box value that is sent to the server on submission. To hide the select box we need to add:
 
-1. Add a class to make it visually hidden
-2. Add `aria-hidden="true"` so that screen readers ignore it.
-3. Add `tabindex="-1"` so that it is not focusable by the user.
+- a class to make it visually hidden with CSS
+- `aria-hidden="true"` so it's not perceivable by screen readers
+- `tabindex="-1"` so that it is not focusable by keyboard
 
 ```HTML
+<select aria-hidden="true" tabindex="-1" class="visuallyhidden">
 ```
 
 ```CSS
+.visuallyhidden {
+	/*code*/
+}
 ```
 
-Then we need to inject a text box to replace the select box. To make sure the label still works, we transfer the select box `id` to the text box.
+Then we need to inject the text box that users will interact with. To make sure the label still works, we transfer the `id` to the text box.
 
 ```HTML
 <input
@@ -103,23 +109,23 @@ Then we need to inject a text box to replace the select box. To make sure the la
 
 Notes:
 
-- The `name` attribute is not included, because this value is not sent to the server. Remember, it's the select box that will do that.
-- The role is set to `combobox` denoting it's enhanced behaviour beyond a regular text box.
-- The `aria-autocomplete` attribute indicates that a list of options will appear from which the user can choose.
-- The `aria-expanded` attributes tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
-- The `autocomplete` attribute is set to `off` to stop browsers making their own suggestions interfering with those offered by the component itself.
+- The `name` attribute is not included, because the `select`s value is sent to the server.
+- The `role="combobox"` attribute ensures this from control is announced as a combo box instead of a text box. A combo box, according to MDN, is “an edit control with an associated list box that provides a set of predefined choices.”
+- The `aria-autocomplete="list"` attribute tells users that a list of options will appear.
+- The `aria-expanded` attribute tells users whether the menu is showing or not by toggling it's value between `true` and `false`.
+- The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with those offered by the component.
 
-Then we need to inject a `ul` that will store the suggestions from which users can select. We'll discuss the interactions shortly.
+Next, we inject a `<ul>` after the text box which will store the suggestions.
 
-```html
+```HTML
 <ul
 	role="listbox"
 	class="autocomplete-options autocomplete-options-isHidden"
 	>
-	<li	role="option">
+	<li	role="option" tabindex="-1" aria-selected="false" data-option-value="1" id="autocomplete_1">
 		France
 	</li>
-	<li role="option" aria-selected="true">
+	<li role="option" tabindex="-1" aria-selected="true" data-option-value="2" id="autocomplete_2">
 		Germany
 	</li>
 </ul>
@@ -127,63 +133,200 @@ Then we need to inject a `ul` that will store the suggestions from which users c
 
 Notes:
 
-- The menu's role is set to `list` indicating that it contains a list of items. This is complimented by each item having a role of `option`.
-- The `aria-selected` attribute tells users whether the option is selected or not by toggling between values `true` and `false`.
+- The `role="list"` attribute tells users there is a list of choices from which the user can select. Each `<li>` has `role="option"` to denote it as a choice within the list.
+- The `aria-selected="true"` attribute tells users whether the option is selected or not by toggling the value between `true` and `false`.
+- The `tabindex="-1"` attribute allows us to set focus to the options programatically. More on this shortly.
+- The `data-option-value` attribute is to store the corresponding `select` option value. When the user selects an option, we populate the hidden `select` box accordingly so that the real value will be persisted on submission.
 
-#### The status box
+When suggestions appear in the menu, sighted users will get feedback visually. To give screen readers an equivalent experience we need to inject a live region. We can do this by injecting “13 results are available” into the `div`.
 
 ```HTML
 <div aria-live="polite" role="status"></div>
 ```
 
-- The role is set to `status` so that screen readers will announce the contents when the content changes. The script will inject *13 results are available* for example which screen readers will announce.
-- The `aria-live="polite"` attribute ensures that screen readers don't interrupt users as they type. Instead waiting until they've finished.
+The `role="status"` and `aria-live="polite"` attributes tell screen readers to announce the content when it changes, but only after the user stops typing—otherwise it would interupt them. Both attributes are functionally equivalent but we include both as older screen readers don't recognise `role`.
 
-#### The Javascript
+Next we need to enrich the text box with some Javascript events. Let's run through the main interactions now. First we need to listen to the text box `keyup` event.
 
-As noted earlier, Javascript is responsible for replacing the select box with an autocomplete control made up of the previously mentioned parts. But the enhanced HTML does nothing on its own. Javascript is responsible for adding event listeners, mostly to handle keyboard events as the user types and navigates the component with the arrow keys.
+```JS
+AutoComplete.prototype.addTextBoxEvents = function() {
+	this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'));
+};
 
-Interaction notes:
-
-- When focus is within the text box, pressing <kbd>down</kbd> moves focus to the first option in the panel.
-- When an option is focussed, pressing <kbd>down</kbd> moves focus to the next option. Pressing <kbd>up</kbd> moves focus to the previous option.
-- When an option is focused, pressing <kbd>enter</kbd> or <kbd>space</kbd> or clicking/tapping the option populates the text box with the value and closes the menu.
-- Pressing <kbd>enter</kbd> when focus is within the text box implicitly submits the form (like normal).
-- Clicking the down arrow button, reveals all the possible options.
-- Pressing <kbd>escape</kbd> closes the menu.
-
-The complete script:
-
-```Javascript
-Code here
+Autocomplete.prototype.onTextBoxKeyUp = function(e) {
+	switch (e.keyCode) {
+		case this.keys.esc:
+			// ignore when users presses escape
+			break;
+		case this.keys.up:
+			// ignore when the user presses up
+			break;
+		case this.keys.left:
+			// ignore when the user presses left
+			break;
+		case this.keys.right:
+			// ignore when the user presses right
+			break;
+		case this.keys.down:
+			// move onto first suggestion
+			this.onTextBoxDownPressed(e);
+			break;
+		case this.keys.space:
+			// ignore this, otherwise the
+			// the menu will show again.
+			break;
+		case this.keys.enter:
+			// ignore this, otherwise the menu 
+			// shows briefly before submission
+			break;
+		default:
+			// show suggestions
+			this.onTextBoxType(e);
+	}
+};
 ```
+
+We're only really interested when the user presses <kbd>down</kbd> or a character that we can match on. When the user types a character, we want to show matching options (and update the live region).
+
+```JS
+Autocomplete.prototype.onTextBoxType = function() {
+	if(this.textBox.val().trim().length > 0) {
+		var options = this.getOptions(this.textBox.val().trim().toLowerCase());
+		// there are matches
+		if(options.length > 0) {
+			this.buildOptions(options);
+			this.showOptionsPanel();
+		// there are no matches
+		} else {
+			this.buildNoResultsMenu();
+			this.showOptionsPanel();
+		}
+		// update live region
+		this.updateStatus(options.length);
+	}
+};
+```
+
+Pressing <kbd>down</kbd> should move focus and highlight the first suggestion. If the user presses <kbd>down</kbd> without typing anything then we show users all the options.
+
+```JS
+Autocomplete.prototype.onTextBoxDownPressed = function(e) {
+	var option;
+	var options;
+	var value = this.textBox.val().trim();
+	// Empty value or exactly matches an option 
+	// then show all the options
+	if(value.length === 0 || this.isExactMatch(value)) {
+		options = this.getAllOptions();
+		this.buildOptions(options);
+		this.showOptionsPanel();
+		option = this.getFirstOption();
+		if(option[0]) {
+			this.highlightOption(option);
+		}
+	} else {
+		options = this.getOptions(this.textBox.val().trim());
+		if(options.length > 0) {
+			this.buildOptions(options);
+			this.showOptionsPanel();
+			option = this.getFirstOption();
+			this.highlightOption(option);
+		}
+	}
+};
+```
+
+The `getOptions` method takes the text box value which is used to filter matching options. The `buildOptions` method is responsible for creating the HTML that is then injected into the menu. The `highlightOption` (shown below) takes an option to highlight.
+
+```JS
+Autocomplete.prototype.highlightOption = function(option) {
+	if(this.activeOptionId) {
+		var activeOption = this.getOptionById(this.activeOptionId);
+		activeOption.removeClass('autocomplete-option-isActive');
+		activeOption.attr('aria-selected', 'false');
+	}
+
+	option.addClass('autocomplete-option-isActive');
+	option.attr('aria-selected', 'true');
+
+	if(!this.isElementVisible(option.parent(), option)) {
+		option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
+	}
+
+	this.activeOptionId = option[0].id;
+	option.focus();
+};
+
+```
+
+This runs through the following steps:
+
+1. If there is an active option, then remove the highligh style (by removing the class) and setting `aria-selected` to `false`.
+2. Highlight the new option by adding the same class and setting `aria-selected` to `true`.
+3. Make sure the option is visible within the menu panel.
+4. Focus the option.
+
+Now we need to talk about how users interact with the menu. First we need to handle mouse users. Users can scroll the menu and click an option.
+
+```JS
+Autocomplete.prototype.addSuggestionEvents = function() {
+	this.optionsUl.on('click', '.autocomplete-option', $.proxy(this, 'onSuggestionClick'));
+};
+
+Autocomplete.prototype.onSuggestionClick = function(e) {
+	var suggestion = $(e.currentTarget);
+	this.selectSuggestion(suggestion);
+};
+
+Autocomplete.prototype.selectSuggestion = function(suggestion) {
+	var value = suggestion.attr('data-option-value');
+	this.textBox.val(value);
+	this.setValue(value);
+	this.hideOptions();
+	this.focusTextBox();
+};
+```
+
+First we listen to the option's click event. The handler gets the list item, and calls `selectSuggestion` passing in that item. Then that method sets the text box value and hidden select box value accordingly. The last thing it does, is hide the menu and focus the text box.
+
+For keyboard users we do much the same thing, except we listen for when the user presses <kbd>space</kbd> or <kbd>enter</kbd> instead. Doing so performs the same routine.
+
+Here's a summary of the other actions. When the user presses:
+
+- <kbd>up</kbd>, focus is set to the previous option. If it's the first option, it's set to text box.
+- <kbd>down</kbd>, focus is set to the next option.
+- <kbd>tab</kbd>, hide the menu.
+- <kbd>escape</kbd>, hide the menu and focus the text box.
+- a character, then focus is set to the text box for them to continue typing.
 
 ## 2. Choosing When To Fly
 
 Dates are notoriously hard[^5]. Different time zones, formats, delimiters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Traditionally 3 select boxes are used for dates: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said, that one of their redeeming qualities is that they stop users from entering wrong information. But in the case of dates, this quality isn't redeemable. This is because a user can, for example, select *31 February 2017* which is not a valid date.
+Often you'll see sites using 3 select boxes for dates: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said that one of their redeeming qualities is that they stop users entering wrong information. But in the case of dates, even *this* quality doesn't hold treu. This is because a user can select an invalid date such as *31 February 2017*.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
-The other reason select boxes are used is to avoid the problem of formats. Some dates start with the month, others with the day. Some delimit them with slashes, others with dashes. We can't accurately determine the user's intent based on what they enter. Therefore, we can't be as forgiving as we would like to be.
+Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine the user's intention based on what they enter. It's just one of those things.
 
-But let's step back for a moment. Before designing a date component, we need to understand what kind of date users need to enter. The Government Digital Services (GDS) talks about this in their Service Manual[^6]. It says ‘the way you should ask for dates depends on the types of date you’re asking for.' There are 3 main types of date. We'll step through each, in turn, to see if one of those suits the problem we're trying to solve.
+But we're getting ahead of ourselves. As the Goverment Digital Service (GDS) states:
 
-### Dates from documents
+> “The way you should ask for dates depends on the types of date you’re asking for.”
 
-GDS says *if you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* In fact, we followed this guidance to the letter, in chapter 2, for the expiry date field. IVE REMOVED THIS FROM CHAP 2 NOW so go into detail.
+Fortunately, GDS has done the hard work for us and they have come up with several types. Let's run through the main ones now to see which, if any, applies to this case.
 
-[As far as dates go, an expiry date is one of the easiest to collect from users. In short, it's a text box that closely matches the format found on the card itself. Making the interface match the format on the card reduces the cognitive burden on the user: they just copy what they see.]
+### Dates From Documents
 
-The field expects users to type a number matching the format found on the card. Users simply copy what they see, without needing to think. Obvious interfaces are good interfaces.
+> “If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* 
 
-### Memorable dates
+The expiry date from “A Checkout Flow” falls under this category perfectly. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
 
-The defacto thinking is that date pickers are always better than typing numbers into a text box. For memorable dates, such as date of birth, this is most certainly not true. It's arduous having to scroll and click through multiple years and months to find a date, when typing in 6 numbers unassisted is considerably quicker.
+### Memorable Dates
 
-GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, month and year. Why 3 boxes? Because it solves the formatting issues discussed earlier.
+Most people would assume that date pickers are always better than simply typing numbers into a text box. In the case of memorable dates, such as date of birth, this just isn't true. Scrolling and clicking through several years, and months is arduous in comparison to typing 6 digits unassisted.
+
+In this case, you should use three separate text boxes: one for day, month and year. Using three separate boxes solves the locale issues discussed earlier.
 
 ![GDS date of birth](./images/gds-dob.png)
 
@@ -196,33 +339,35 @@ GDS's research shows that 3 *separate* text boxes works best&mdash;one for day, 
 		</legend>
 		<div class="field-dayWrapper">
 			<label for="day">Day</label>
-			<input class="field-dayBox" type="number" pattern="[0-9]*" name="day" id="day" min="0" max="31">
+			<input class="field-dayBox" type="text" pattern="[0-9]*" name="day" id="day">
 		</div>
 		<div class="field-monthWrapper">
 			<label for="month">Month</label>
-			<input class="field-monthBox" type="number" pattern="[0-9]*" name="month" id="month" min="0" max="12">
+			<input class="field-monthBox" type="text" pattern="[0-9]*" name="month" id="month">
 		</div>
 		<div class="field-yearWrapper">
 			<label for="year">Year</label>
-			<input class="field-yearBox" type="number" pattern="[0-9]*" name="year" id="year" min="0" max="2050">
+			<input class="field-yearBox" type="text" pattern="[0-9]*" name="year" id="year">
 		</div>
 	</fieldset>
 </div>
 ```
 
-This is the second time we've encountered a need to group form controls inside a `fieldset`. It's crucial here because without labelling the group, there is some ambiguity as to what date the user is entering. Adding legend text *Date of birth* provides the context users need to understand the indivdual text boxes.
+Crucially, the three fields are wrapped in a `fieldset`. Without this, users wouldn't know what date they are entering. Here the legend's text “Date of birth” gives each text box context.
 
-You may have noticed that there's a pattern attribute on the inputs. Some versions of iOS don't show the numeric keyboard despite `type="number"` being present. The pattern attribute fixes this problem and gives those users a numeric keyboard.
+*(Note: the pattern attribute is used to trigger the numeric keyboard in iOS, as discussed in “A Checkout Flow”.)*
 
-### Finding dates with a calendar
+### Calendars
 
 In the case of booking a flight, users are neither entering a memorable date nor one found in a document. Booking a flight normally revolves around some date in the future. As humans, we conceptualise time in years, months, and days etc. And when we're diarising future plans we use a calendar, which aligns with that notion.
 
-Designing an interface that users are already familiar with makes wayfinding that much easier. People intuitively know how calendars work. In the interface design world, we call this component a date picker. Users can navigate through years, months and days easily with the context of what day of the week the date lands on. All useful information.
+Designing an interface that users are already familiar with makes wayfinding that much easier. People intuitively know how calendars work and crucially they give users context. On the web, a calendar that ise used to assist users entering dates in a form is called a date picker.
 
 ![Date picker](.)
 
-#### Other considerations
+---
+
+#### Other Considerations
 
 Interfaces that try to solve many problems at once cause problems. The primary user need for the calendar is to select a date. Trying to convey price and availability at the same time, for example, results in a busy interface that could overwhelm users.
 

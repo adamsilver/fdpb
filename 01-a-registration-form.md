@@ -224,7 +224,7 @@ Instead, it's better to let users reveal their password which speaks to principl
 
 ![Password reveal](.)
 
-To do this, you'll need to use Javascript to inject a button next to the input. When clicked it simulatenously toggles the `type` attribute from `password` to `text` and the label from “Show password” to “Hide password”.
+To do this, you'll need to use Javascript to inject a button next to the input. When clicked it toggles both the `type` attribute from `password` to `text` and the label from “Show password” to “Hide password”.
 
 ```JS
 function PasswordReveal(el) {
@@ -248,6 +248,8 @@ PasswordReveal.prototype.onButtonClick = function(e) {
     }
 };
 ```
+
+*(Note: `$.proxy` is a function that ensures the event handler is called with the object's context, not the element. If this wasn't done, then the method wouldn' recognise `this.el` or `this.button`.)*
 
 Some browsers provide this functionality natively, so if you're providing your own solution you can supress the browser's implementation as follows:
 

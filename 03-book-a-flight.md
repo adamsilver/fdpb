@@ -551,19 +551,17 @@ We have considered people who use a supporting browser. And we have considered t
 
 In this case users will see a text box asking for date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't just add a hint because browsers that support the date input will use a different format.
 
-![Demo](.)
+![Screenshot](.)
 
-The only thing we can do is be as forgiving as possible, by letting users type slashes, periods or spaces: whichever they prefer. But typing a two-digit year first, for example, will cause an error. In this case, a well-written error message will have to do.
+The only thing we can do is be as forgiving as possible, by letting users type slashes, periods or spaces: whichever they prefer. But typing a two-digit year first, for example, will cause a validation error. In this case, a well-written error message will have to be enough.
 
-Design, even inclusive design, is always a question of priorities. Sometimes what is good for the majority creates an experience that is less than ideal for the minority.
+Design is often a question of priorities. What is a good experience for most may create a less-than-ideal for some, which is especially the case on the web. Inclusive design is about making decisions that are unlikely to exclude people.
 
-Fortunately, in this case, it's okay: users are still able to enter a date. Sometimes that's the difference between inclusivity and accessibility. Inclusive design is about giving everyone a good experience. Accessibility is about giving users a way of doing it, even if it's not ideal.
-
-Designing inclusively is about doing our best and I think we've done that here.
+In this edge case, users are still able to enter a date which makes this pattern an accessible one. In the end, it's about doing our best and I think we've done that here.
 
 ## 3. Choosing passengers
 
-Users need to specify how many adults, children and infants are flying on the trip. Categorisations are based on age and affect the price of the ticket.
+Users need to specify how many people are travelling within certain categories: adults, children and infants. The categorisations are relevant as they affect the price of the ticket.
 
 ![Passengers](./images/choose-passengers.png)
 
@@ -572,25 +570,35 @@ Users need to specify how many adults, children and infants are flying on the tr
     <label for="adults">
     	<span class="field-label">How many adults, 16 years and over, are flying?</span>
     </label>
-    <input type="number" id="adults" name="adults">
+    <input type="number" id="adults" name="adults" min="0" max="9">
 </div>
 <div class="field">
     <label for="children">
     	<span class="field-label">How many children, aged between 2 and 15 years old, are flying?</span>
     </label>
-    <input type="number" id="children" name="children">
+    <input type="number" id="children" name="children" min="0" max="9">
 </div>
 <div class="field">
     <label for="infants">
     	<span class="field-label">How many infants, under 2 years old, are flying?</span>
     </label>
-    <input type="number" id="infants" name="infants">
+    <input type="number" id="infants" name="infants" min="0" max="9">
 </div>
 ```
 
-Each category is represented by a separate field. As we're asking users for an *amount* of something&mdash;in this case passengers&mdash;the number input makes sense.
+Each category is represented by a separate field. As we're asking users for an *amount* of something - in this case passengers - the number input makes sense. If you haven't read the book in order, you can read about the number input in detail in “A Checkout Flow”.
 
-Turn off spinners in webkit:
+Number inputs have little buttons called spinners. Spinners, also known as steppers, let users increase or decrease the value by a constant amount. They are great for making small adjustments. As Luke Wobrelkski says:
+
+> When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
+
+Unfortunately, they are so tiny that using them is difficult, especially if you're using a large touch screen display, or have motor impairments. And on mobile browsers they don't show up at all.
+
+### Custom Stepper Buttons
+
+Instead, we can create our own bigger buttons with Javascript. Not only are they easier to use on desktop, but they will save mobile users having to trigger the on-screen keyboard.
+
+The first thing to do is turn off the ones provided by the browser. In webkit based browsers you turn them off like this:
 
 ```CSS
 input::-webkit-outer-spin-button,
@@ -601,15 +609,11 @@ input::-webkit-inner-spin-button {
 }
 ```
 
-### A stepper component
+#### The Enhanced Interface
 
-Spinners, also known as steppers, let users increase or decrease the value by a constant amount. They are great for making small adjustments. In the same article as referenced earlier, Luke Wobrelkski says:
+The enhanced interface contains increment and decrement buttons that are a direct replacement for the native spinners.
 
-> When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
-
-Having discussed number inputs in chapter 2, we know that some browsers provide their own stepper buttons. The problem is that they are tiny and hard to click. And mobile browsers don't show them at all&mdash;they just show a numeric keyboard. Instead, we can disable the browser spinners and enhance the input with larger ones. Not only are they easier to use on desktop but it saves mobile users having to trigger their on-screen keyboard.
-
-![Thing](.)
+![Enhanced interface](.)
 
 ```HTML
 <div class="field">
@@ -638,10 +642,15 @@ Having discussed number inputs in chapter 2, we know that some browsers provide 
 </div>
 ```
 
-A few notes:
+Notes:
 
-- Whilst the best icons are text[^12] [need to expand this and talk about pros and cons, perhaps it's own section], the button text employs universally understood minus and plus symbols. This keeps the interface clean and in balance.
+- Whilst the best icons are text[^12] [need to expand this and talk about pros and cons, perhaps it's own section], the button text employs universally understood minus and plus symbols. This keeps the interface clean and balanced.
 - The `aria-label` describes the symbol with text for those using screen readers. Instead of hearing ‘Button, minus symbol’ they'll hear ‘Button, increment’ or similar.
+
+#### API
+
+Clicking increment, increases the value by one. Clicking decrement, decreases the value by one.
+
 
 ```JS
 function Stepper(input) {
@@ -684,12 +693,6 @@ Stepper.prototype.onIncrementClick = function(e) {
 	this.input.val(val+1);
 };
 ```
-
-Notes:
-
-- The script prepends and appends the decrement and increment buttons respectively.
-- Clicking *increment* increases the value by 1.
-- Clicking *decrement* decreases the value by 1.
 
 ## 4. Choosing a flight
 

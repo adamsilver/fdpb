@@ -391,7 +391,7 @@ In short, only use a number input if:
 - the value doesn't contain letters, slashes, minus signs and decimal points.
 - the number isn't very large
 
-Let's apply these rules to the expiry date. Incrementing doesn't make sense, and the number could start with a zero. And credit cards put a slash in the expiry date which users should be able to copy. Using a number input is not only inappropriate, but it also creates a jarring experience as the user types a slash which would be ignored.
+Let's apply these rules to the expiry date. Incrementing doesn't make sense, the number could start with a zero, and credit cards put a slash in the expiry date which users should be able to copy. Using a number input is not only inappropriate, but it creates a jarring experience as the user types a slash which would be ignored.
 
 We'll look at appropriate use cases of the number input in the next chapter.
 

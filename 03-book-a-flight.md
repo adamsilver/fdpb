@@ -291,34 +291,36 @@ The other actions can be summed up briefly. When the user presses:
 
 ## 2. Choosing When To Fly
 
-Dates are notoriously hard[^5]. Different time zones, formats, delimiters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
+Dates are notoriously hard[^5]: different time zones, formats, delimiters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
 
-Often you'll see sites using 3 select boxes for dates: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said that one of their redeeming qualities is that they stop users entering wrong information. But in the case of dates, even *this* quality doesn't hold treu. This is because a user can select an invalid date such as *31 February 2017*.
+Often three select boxes are used: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said that one of their redeeming qualities is that they stop users entering wrong information. But in the case of dates, even *this* quality doesn't hold true. For example, you can select an invalid date such as *31 February 2017*.
 
 ![Select boxes for dates](./images/date-select.png)
 [https://www.gov.uk/state-pension-age/y/age]
 
 Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine the user's intention based on what they enter. It's just one of those things.
 
+![What date is this 09/09/09](.)
+
 ### Types Of Date
 
-Most of us would assume that giving users some sort of calendar widget is always better than letting users type freely into a text box unassisted. But, this is not always the case. As the Goverment Digital Service (GDS) states:
+Many of us assume that using a calendar widget is always better than letting users type freely into a text box unassisted. But this is not always the case. As the Goverment Digital Service (GDS) states:
 
 > “The way you should ask for dates depends on the types of date you’re asking for.”
 
-Let's step through some of the main types of dates and how we might handle those. Then we can see which of them, if any, apply to the case of choosing a date to fly on.
+Let's step through some of the main types of dates and see how we can handle them. Then we can see if any match up to the case of choosing a date to fly on.
 
 #### Dates From Documents
 
-> “If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.* 
+> “If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.*
 
 The expiry date from “A Checkout Flow” falls perfectly under this category. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
 
 #### Memorable Dates
 
-A memorable date is one that you remember easily such as your date of birth. Here, it's far easier to give users three text boxes, than to give them a date picker. Scrolling and clicking through years and months is an arduous task in comparison to typing 6 digits unassisted.
+A memorable date is one that you remember easily such as your date of birth. Typing 6 digits unassisted into a text box is much quicker than scrolling, swiping and clicking through multiple years and months within a calendar.
 
-So in this case, you should use three separate text boxes: one for day, month and year. Using three separate boxes solves the locale and formatting issues discussed earlier.
+In this case, you should use three text boxes: one for day, month and year. Why three? Because it solves the locale and formating issues mentioned earlier.
 
 ![GDS date of birth](./images/gds-dob.png)
 
@@ -347,43 +349,45 @@ So in this case, you should use three separate text boxes: one for day, month an
 
 The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”) gives each text box context and would be read out as “Date of birth, day” (or similar) as the user steps through each field.
 
-*(Note: the pattern attribute is used to trigger the numeric keyboard in iOS, as discussed in “A Checkout Flow”. This enhances the experience for those using iOS.)*
+*(Note: the pattern attribute is used to trigger the numeric keyboard - a little enhancement for iOS users, as discussed in “A Checkout Flow”.)*
 
 #### Calendar Widgets
 
-When choosing when to fly, users are neither entering a memorable date, nor one found in a document. In this case, they are searching for a date in the future. 
+When choosing a date to fly, users are neither entering a memorable date, nor one found in a document. They are searching for a date in the future.
 
-We tend to think of time in days, weeks and months etc. And we organise our lives using a calendar which aligns with that notion. In which case, letting users find a date through a calendar is both familiar and useful.
+We tend to think of time in structured chunks: days, weeks and months etc. And we organise our lives using a calendar which aligns with that notion. It's sensible then, to let users find and pick a date through a familiar and intuitive calendar interface.
 
-The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
+The primary user need at this stage of the journey is to select a date — nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
 
-It's also not practical from a design perspective. Responsive design is partially about designing interfaces that work well no matter the viewport size: big or small. There's simply not enough room to add more information into each cell.
+It's also not practical from a design perspective. Responsive design is about designing interfaces that work well in large and small screens. There's simply not enough room to add more information into each cell of a date picker.
 
 Instead, we'll let users focus on choosing a date unencumbered and later we'll give users more information when it's both useful and practical to do so.
 
 ### The Date Input
 
-As usual, our first port of call is to look at what browsers give us for free. Along with HTML5 came the date input (`input type="date"`). Mobile browser support is excellent.
+As usual, our first port of call is to look at what browsers give us for free: HTML5 introduced the date input (`input type="date"`) which offers a special interface for picking dates while enforcing a standard format value that's sent to the server. And mobile browser support is really good too.
 
 ![Mobile Date Input](./images/mobile-date.png)
 
-Desktop browser support is not as good. Chrome and Edge work well but Firefox, for example, doesn't have any support (at time of writing).
+Desktop browser support is patchy. Chrome and Edge have support but Firefox, for example, doesn't have any support (at time of writing).
 
 ![Desktop native date control](./images/desktop-date.png)
 
 #### Things Look Different
 
-Don't be concerned about the difference in appearance. Users either don't notice or don't care. In any case, most people use the same browser over and over again. Unlike us, they are not agonising over subtle differences between devices.
+Don't be too concerned about the difference in appearance. Users either don't notice or don't care. And mose people use the same browser and device daily. Unlike us, they are not agonising over subtle differences during testing.
 
 > Nobody cares about your website as much as you do
 
-In “Progressive Enhancement 2.0”, at 16 minutes in[^8], Nicholas Zakas shows the audience a photo. He then moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. Remember the audience was full of designers and developers—people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
+If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 16 minutes in[^8]. Nicholas Zakas shows the audience a photo. He then moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. Remember the audience was full of designers and developers — people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
+
+And if that's not enough proof, may I point you in the direction of “Do Websites Need To Look Exactly The Same In Every Browser”[^].
 
 ### A Date Picker
 
-As noted earlier desktop support is patchy, so for those using one of these browsers, picking a date will be more aduous than it should be. Really, we should give users a better experience. But before we can do that, we need to first check whether the browser supports the date input, otherwise there will be two calendars: one provided by the browser and the one we implement ourselves.
+Mobile (and some desktop) users are fine - they get the native date input. But what about people using an unsupported browser? Unless we do something, picking a date is going to be harder than it should be. Really, we should give users a better experience by providing our own date picker.
 
-To check for support you can use this function:
+But we only want to give unsupported browsers the date picker, otherwise users will get two date pickers - the native one and ours. You can check support by using this function:
 
 ```JS
 function supportsDateInput() {
@@ -395,7 +399,9 @@ function supportsDateInput() {
 }
 ```
 
-This function tries to create a date input and then checks to see if the browser correctly reports the input's `type` as `date`. We can then call the function like this:
+The function first tries to create a date input. Then it checks to see if the browser reports the `type` as `date`. If it there is no support, browsers will show a text box and report the `type` as `text`.
+
+We can use the function like this:
 
 ```JS
 if(!supportsDateInput()) {
@@ -403,33 +409,19 @@ if(!supportsDateInput()) {
 }
 ```
 
-The `supportsDateInput` function tries to create a date input. Then we check to see if the browser correctly reports the `type` as `date`. If it does there is no need for us to do anything. If it doesn't this is our prompt to define our own date picker component.
+#### The Enhanced Interface
 
-#### Enhanced Interface
+The enhanced interface takes the text box and injects a button beside it. Clicking the button reveals the calendar.
 
-When there is no support, users get a standard text box. But our date picker component enhances the interface by injecting a button that toggles the calendar and the calendar itself.
+![The Date Picker](.)
 
-Notes on visual and interaction design for mouse users.
+Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't suffer from these issues.
+
+There is an inset left border which visually connects the calendat to the field. And the interactive elements within the calendar have large tap targets which are easier to tap with a finger or click with a mouse.
 
 #### Revealing The Calendar
 
-- button
-- focus management
-
-#### Calendar HTML
-
-#### Keyboard Interactions
-
-- should tabbing away from the calendar widget close the widget?
-
-
-
-
-
-
----
-
-When the date picker initialises, it updates the HTML with a toggle button and calendar widget:
+As noted earlier, clicking the toggle button, reveals the calendar.
 
 ```HTML
 <div class="field ">
@@ -439,55 +431,58 @@ When the date picker initialises, it updates the HTML with a toggle button and c
   <div class="datepicker">
   	<input type="text" id="when" name="when">
   	<button type="button" aria-expanded="true" aria-haspopup="true">Choose</button>
-  	<div class="datepicker-wrapper">
+  	<div class="datepicker-wrapper" hidden>
   		Calendar widget here
   	</div>
   </div>
 ```
 
-Clicking the toggle button 
+Notes:
 
+- The `type="button"` attribute stops the button from submitting the form. If it was left undefined or set to “submit” it would submit the form.
+- The `aria-haspopup="true"` attribute indicates that the button secretes a calendar. It acts as a warning that, when pressed, the focus will be moved to the calendar. Note: its value is always set to `true`.
+- The `aria-haspopup` attribute is complemented by `aria-expanded`. This tells screen reader users whether the calendar is currently in an open (expanded) or closed (collapsed) state by toggling between `true` and `false` values.
+- The calendar is hidden using the `hidden` attribute/property as explained in chapter 1, “A Registration Form”.
 
+#### Keyboard And Focus Behaviour
 
-
-The date picker component needs to inject a button next to the text box. When clicked, it should reveal the calendar and move focus to it.
-
-First we need toa button next to the field. When clicked it should reveal the calendar below it. This is the first of many design details that matter. Many date pickers are designed as overlays. But they obscure the rest of the page which isn't helpful. Also, there's an inset left border which visually connects the calendar to the field. The interactive elements with the calendar have large tap targets[^11] which are easier to tap or click.
- 
-![Date widget showing underneath](./images/date-widget.png)
-
-While sighted users can see the calendar hide and show, visually-impaired users who rely on screen reader software wouldn't be notified. We can satisfy principle 1, *provide a comparable experience* for them by using the `aria-expanded` attribute. Toggling between `true` and `false` tells screen reader users that the calendar is showing or not. The `type="button"` attribute stops it from submitting the form which is undesirable.
+When the button is clicked, focus is set to the calendar widget programmatically by giving the element `tabindex="-1"`. Using `tabindex="0"` means the the calendar will be permanently focusable by way of the tab key which is a 2.4.3 Focus Order WCAG fail. That's because if users can tab to something, they expect that it will actually do something.
 
 ```HTML
-<button type="button" aria-expanded="true">Choose</button>
+<div class="datepicker-calendar" tabindex="-1" aria-labelledby="datepicker-header">
+	<div id="datepicker-title">May 2018</div>
+</div>
 ```
 
-*(Note: the calendar is hidden using the `hidden` attribute/property as explained in chapter 1, “A Registration Form”.)*
-
-
-
-When the user reveals the calendar, pressing <kbd>tab</kbd> focuses the calendar/first focusable element????. Talk about focus and aria here. The live region seems to be announced anyway.
-
----
-
-Despite providing our own date picker, users don't have to use it. Instead, they can type directly into the text box unassisted if they choose, which speaks to principle 5, *offer choice*.
+When focus is set to the calendar, the month and year is read out thanks to the `aria-labelledby` attribute. The user can then <kbd>tab</kbd> between the three calendar controls: the previous month button, the next month button and the currently selected date, which defaults to today.
 
 ```HTML
-
+<table role="grid">
+  <thead>...</thead>
+  <tbody>
+    <tr>
+      <td tabindex="-1" aria-selected="false" aria-label="1 October, 2017" data-date="Sun Oct 01 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_1" class="datepicker-day">1</td>
+      <td tabindex="-1" aria-selected="false" aria-label="2 October, 2017" data-date="Mon Oct 02 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_2" class="datepicker-day">2</td>
+      <td tabindex="-1" aria-selected="false" aria-label="3 October, 2017" data-date="Tue Oct 03 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_3" class="datepicker-day">3</td>
+      <td tabindex="-1" aria-selected="false" aria-label="4 October, 2017" data-date="Wed Oct 04 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_4" class="datepicker-day">4</td>
+      <td tabindex="-1" aria-selected="false" aria-label="5 October, 2017" data-date="Thu Oct 05 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_5" class="datepicker-day">5</td>
+      <td tabindex="0" aria-selected="true" aria-label="6 October, 2017" data-date="Fri Oct 06 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_6" class="datepicker-day datepicker-day-isToday datepicker-day-isSelected">6</td>
+      <td tabindex="-1" aria-selected="false" aria-label="7 October, 2017" data-date="Sat Oct 07 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_7" class="datepicker-day">7</td>
+    </tr>
+  </tbody>
+</table>
 ```
 
+Notes:
+
+- Each `<td>` has `tabindex="-1"` except for the selected day. As the user presses the arrow keys to select a different day in the grid, the `tabindex` attributes are updated so that only the selected day is set to `-1`. This is known has roving tabs. The beauty of which is that the entire grid is just one tab stop. Otherwise users would have to press tab 30 odd times in order to move beyond the calendar with their keyboard.
+- The `aria-selected="true"` denotes the selected day as selected and is also toggled as the user selects different days within the grid.
+- Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> in a cell, will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
 - The heading lives inside a live region. This ensures that when the user navigates between months, the date is announced.
 - The table has a role of `grid` so that the screen reader treats the table as a special widget. In JAWS, for example, this means the arrow keys can be used to navigate between days. More on this shortly.
 - The `thead` contains the column headings representing each day of the week. The days are abbreviated and use the `abbr` element. This saves space whilst letting screen readers announce them in full.
 - The `tbody` contains the days organised by week which are represented as table `row`s.
-
-Cell notes:
-
-- The `tabindex` is set to `-1` which allows the focus to be set programmatically but that it's not in the standard tab sequence. This is dicussed more later. ROVING.
-- ????`aria-selected` allows the selected state to be announced. This is set to true when the cell is selected.
-- ???? ID
 - `aria-label` enables screen readers to announce the full day. Without it, the cell's value is ambiguous.
-
 
 JS notes:
 
@@ -499,6 +494,12 @@ JS notes:
 - Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date and sets focus to the text box, hiding the calendar at the same time.
 
 Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to principle 5, *give users choice* by letting them do either.
+
+---
+
+- should tabbing away from the calendar widget close the widget?
+
+Despite providing our own date picker, users don't have to use it. Instead, they can type directly into the text box unassisted if they choose, which speaks to principle 5, *offer choice*.
 
 #### Future Considerations
 

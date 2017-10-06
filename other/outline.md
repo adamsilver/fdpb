@@ -92,7 +92,7 @@
 		- Detecting Support
 		- The Enhanced Interface
 		- Revealing The Calendar
-		- Keyboard Interactions
+		- Keyboard And Focus Behaviour
 		- The Future
 		- Loose Ends
 - (3) Specifying Passengers

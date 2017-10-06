@@ -495,8 +495,7 @@ Notes:
 - Pressing <kbd>left</kbd> moves to the previous day. Pressing <kbd>right</kbd> moves to the next day. Pressing <kbd>up</kbd> moves to the same day in the previous week. Pressing <kbd>down</kbd> moves to the same day in the next week. Users can move freely between months using this approach.
 - Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
 - Pressing <kbd>escape</kbd> hides the calendar and moves focus to the button.
-
-TODO: should tabbing away from the calendar widget hide the calendar?
+- Pressing <kbd>tab</kbd> within the grid should hide the calendar and move to the next control, whatever that may be.
 
 #### Screen Readers
 
@@ -536,25 +535,31 @@ While screen reader users *can* operate the calendar, it's not especially useful
 
 #### Future Considerations
 
-Jeremy Keith often talks about the web as a *continuum*[^10]. By that, he means the web is constantly changing. New browsers are released frequently. All of them have varying features and capabilities. At any particular moment in time, we need to think about what level of support makes sense for any given component.
+I love how Jeremy Keith thinks about the web as a *continuum*[^10]. By that he means it's constantly changing. Technology evolves at a rapid pace and browsers and devices are released all the time. Each of which have varying features and capabilities.
 
-As discussed earlier, there is a lack of (desktop) browser support for date inputs. But we fixed that with the date picker component. In future things will change. The number of people experiencing the degraded version will diminish as browser support broadens. And, when it does, we can remove the script. This creates a faster page as there is no script to download, and gives us less code to maintain.
+At any particular moment in time we need to decide what level of support makes sense for a given feature.
 
-#### Tying Up Loose Ends
+Earlier, we made the decision to create an enhanced experience for (desktop) browsers that don't support the native date input by creating our own date picker. As time goes by browser support will get better and better. At the same time, the number of people who would have experienced the degraded version will diminish.
 
-> There is something to be said for design that ignores people, people ignore it.&mdash;person
+At which time, we can quietly remove the Javascript code, giving us less to maintain and users a faster experience (as they won't have to load that code). Lovely.
 
-There are some browsers that don't support date inputs. If someone users one of these browsers and experiences a Javascript failure, they'll see an interface that doesn't clarify the expected date format.
+#### Doing Our Best
+
+We have considered people who use a supporting browser. And we have considered those using an unsupported browser. But we haven't considered those using an unsupported browser that experiences a network or Javascript failure as described in “A Registration Form”.
+
+> There is something to be said for design that ignores people, people ignore it.
+
+In this case users will see a text box asking for date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't just add a hint because browsers that support the date input will use a different format.
 
 ![Demo](.)
 
-Unfortunately, we can't simply add a hint because supporting browsers will show the date input with a differing format. In this case, the core experience isn't quite as good as we would like but there's not much we can do.
+The only thing we can do is be as forgiving as possible, by letting users type slashes, periods or spaces: whichever they prefer. But typing a two-digit year first, for example, will cause an error. In this case, a well-written error message will have to do.
 
-We'll have to be as forgiving as possible by letting users delimit by slashes, periods and spaces, whichever their preference. But typing a two-digit year first, for example, *will* cause an error. A well-written error message will have to do.
+Design, even inclusive design, is always a question of priorities. Sometimes what is good for the majority creates an experience that is less than ideal for the minority.
 
-What is great for a majority, is in this case, not ideal for a minority. Whilst accessible (the user can enter a date) it's not inclusive (they may have to rely on error text). [Consider explaining this more. Maybe a heading of its own]
+Fortunately, in this case, it's okay: users are still able to enter a date. Sometimes that's the difference between inclusivity and accessibility. Inclusive design is about giving everyone a good experience. Accessibility is about giving users a way of doing it, even if it's not ideal.
 
-Design is about doing our best, there is no perfect.
+Designing inclusively is about doing our best and I think we've done that here.
 
 ## 3. Choosing passengers
 

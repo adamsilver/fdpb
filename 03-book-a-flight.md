@@ -461,13 +461,13 @@ When focus is set to the calendar, the month and year is read out thanks to the 
   <thead>...</thead>
   <tbody>
     <tr>
-      <td tabindex="-1" aria-selected="false" aria-label="1 October, 2017" data-date="Sun Oct 01 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_1" class="datepicker-day">1</td>
-      <td tabindex="-1" aria-selected="false" aria-label="2 October, 2017" data-date="Mon Oct 02 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_2" class="datepicker-day">2</td>
-      <td tabindex="-1" aria-selected="false" aria-label="3 October, 2017" data-date="Tue Oct 03 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_3" class="datepicker-day">3</td>
-      <td tabindex="-1" aria-selected="false" aria-label="4 October, 2017" data-date="Wed Oct 04 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_4" class="datepicker-day">4</td>
-      <td tabindex="-1" aria-selected="false" aria-label="5 October, 2017" data-date="Thu Oct 05 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_5" class="datepicker-day">5</td>
-      <td tabindex="0" aria-selected="true" aria-label="6 October, 2017" data-date="Fri Oct 06 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_6" class="datepicker-day datepicker-day-isToday datepicker-day-isSelected">6</td>
-      <td tabindex="-1" aria-selected="false" aria-label="7 October, 2017" data-date="Sat Oct 07 2017 00:00:00 GMT+0100 (BST)" id="tdate_day_7" class="datepicker-day">7</td>
+      <td tabindex="-1" aria-selected="false" aria-label="1 October, 2017" data-date="Sun Oct 01 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">1</span></td>
+      <td tabindex="-1" aria-selected="false" aria-label="2 October, 2017" data-date="Mon Oct 02 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">2</span></td>
+      <td tabindex="-1" aria-selected="false" aria-label="3 October, 2017" data-date="Tue Oct 03 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">3</span></td>
+      <td tabindex="-1" aria-selected="false" aria-label="4 October, 2017" data-date="Wed Oct 04 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">4</span></td>
+      <td tabindex="-1" aria-selected="false" aria-label="5 October, 2017" data-date="Thu Oct 05 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">5</span></td>
+      <td tabindex="0" aria-selected="true" aria-label="6 October, 2017" data-date="Fri Oct 06 2017 00:00:00 GMT+0100 (BST)" class="datepicker-day datepicker-day-isToday datepicker-day-isSelected">6</td>
+      <td tabindex="-1" aria-selected="false" aria-label="7 October, 2017" data-date="Sat Oct 07 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">7</span></td>
     </tr>
   </tbody>
 </table>
@@ -475,23 +475,17 @@ When focus is set to the calendar, the month and year is read out thanks to the 
 
 Notes:
 
-- Each `<td>` has `tabindex="-1"` except for the selected day. As the user presses the arrow keys to select a different day in the grid, the `tabindex` attributes are updated so that only the selected day is set to `-1`. This is known has roving tabs. The beauty of which is that the entire grid is just one tab stop. Otherwise users would have to press tab 30 odd times in order to move beyond the calendar with their keyboard.
-- The `aria-selected="true"` denotes the selected day as selected and is also toggled as the user selects different days within the grid.
-- Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> in a cell, will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
+- Each `<td>` has `tabindex="-1"` except for the selected day. As the user presses the arrow keys to select a different day in the grid, the `tabindex` attributes are updated so that only the selected day is set to `-1`. This is known as roving tabs, the beauty of which is that the entire grid is just one tab stop. Otherwise users would have to tab 30 times to move beyond the calendar with their keyboard.
+<!-- - The `aria-selected="true"` denotes the selected day as selected and is also toggled as the user selects different days within the grid. -->
+- Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
 - The heading lives inside a live region. This ensures that when the user navigates between months, the date is announced.
 - The table has a role of `grid` so that the screen reader treats the table as a special widget. In JAWS, for example, this means the arrow keys can be used to navigate between days. More on this shortly.
 - The `thead` contains the column headings representing each day of the week. The days are abbreviated and use the `abbr` element. This saves space whilst letting screen readers announce them in full.
 - The `tbody` contains the days organised by week which are represented as table `row`s.
 - `aria-label` enables screen readers to announce the full day. Without it, the cell's value is ambiguous.
-
-JS notes:
-
-- Pressing *previous* shows the previous month and selects the first day of the previes month.
-- Pressing *next* shows the next month and selects the first day of the next month.
+- The `<span aria-hidden>` stops the cell value from being announced as we only want the value inside `aria-label` to be read out to screen readers. Otherwise the day would be announced twice which is mildly frustrating.
 - When the grid is focussed, the arrow keys let the user move freely between days and weeks. Pressing <kbd>left</kbd> moves to the previous day. Pressing <kbd>right</kbd> moves to the next day. Pressing <kbd>up</kbd> moves to the same day in the previous week. Pressing <kbd>down</kbd> moves to the same day in the next week.
-- Only the selected day is in the natural tab sequence. This is because keyboard users would otherwise have to tab ~30 times in order to leave the calendar.
 - Pressing <kbd>escape</kbd> hides the calendar and moves focus to the button.
-- Pressing <kbd>enter</kbd> or <kbd>space</kbd> populates the date and sets focus to the text box, hiding the calendar at the same time.
 
 Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to principle 5, *give users choice* by letting them do either.
 

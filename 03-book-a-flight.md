@@ -300,7 +300,7 @@ Often three select boxes are used: one for day, month and year. Admittedly, we'v
 
 Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine the user's intention based on what they enter. It's just one of those things.
 
-![What date is this 09/09/09](.)
+![What date is this 10/09/17](.)
 
 ### Types Of Date
 
@@ -449,51 +449,90 @@ Notes:
 When the button is clicked, focus is set to the calendar widget programmatically by giving the element `tabindex="-1"`. Using `tabindex="0"` means the the calendar will be permanently focusable by way of the tab key which is a 2.4.3 Focus Order WCAG fail. That's because if users can tab to something, they expect that it will actually do something.
 
 ```HTML
-<div class="datepicker-calendar" tabindex="-1" aria-labelledby="datepicker-header">
-	<div id="datepicker-title">May 2018</div>
+<div class="datepicker-calendar" tabindex="-1">
 </div>
 ```
 
-When focus is set to the calendar, the month and year is read out thanks to the `aria-labelledby` attribute. The user can then <kbd>tab</kbd> between the three calendar controls: the previous month button, the next month button and the currently selected date, which defaults to today.
+When focus is set to the calendar, the user can then <kbd>tab</kbd> between the three calendar controls: the previous month button, the next month button and the currently selected date, which defaults to today.
 
 ```HTML
 <table role="grid">
   <thead>...</thead>
   <tbody>
     <tr>
-      <td tabindex="-1" aria-selected="false" aria-label="1 October, 2017" data-date="Sun Oct 01 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">1</span></td>
-      <td tabindex="-1" aria-selected="false" aria-label="2 October, 2017" data-date="Mon Oct 02 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">2</span></td>
-      <td tabindex="-1" aria-selected="false" aria-label="3 October, 2017" data-date="Tue Oct 03 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">3</span></td>
-      <td tabindex="-1" aria-selected="false" aria-label="4 October, 2017" data-date="Wed Oct 04 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">4</span></td>
-      <td tabindex="-1" aria-selected="false" aria-label="5 October, 2017" data-date="Thu Oct 05 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">5</span></td>
-      <td tabindex="0" aria-selected="true" aria-label="6 October, 2017" data-date="Fri Oct 06 2017 00:00:00 GMT+0100 (BST)" class="datepicker-day datepicker-day-isToday datepicker-day-isSelected">6</td>
-      <td tabindex="-1" aria-selected="false" aria-label="7 October, 2017" data-date="Sat Oct 07 2017 00:00:00 GMT+0100 (BST)"><span aria-hidden="true">7</span></td>
+      <td tabindex="-1" aria-label="1 October, 2017">
+      	<span aria-hidden="true">1</span>
+      </td>
+      <td tabindex="-1" aria-label="2 October, 2017">
+      	<span aria-hidden="true">2</span>
+      </td>
+      <td tabindex="-1" aria-label="3 October, 2017">
+      	<span aria-hidden="true">3</span>
+      </td>
+      <td tabindex="-1" aria-label="4 October, 2017">
+      	<span aria-hidden="true">4</span>
+      </td>
+      <td tabindex="-1" aria-label="5 October, 2017">
+      	<span aria-hidden="true">5</span>
+      </td>
+      <td tabindex="0" aria-label="6 October, 2017">6</td>
+      <td tabindex="-1" aria-lael="7 October, 2017">
+      	<span aria-hidden="true">7</span>
+      </td>
     </tr>
+    <tr>...</tr>
+    <tr>...</tr>
+    <tr>...</tr>
   </tbody>
 </table>
 ```
 
 Notes:
 
-- Each `<td>` has `tabindex="-1"` except for the selected day. As the user presses the arrow keys to select a different day in the grid, the `tabindex` attributes are updated so that only the selected day is set to `-1`. This is known as roving tabs, the beauty of which is that the entire grid is just one tab stop. Otherwise users would have to tab 30 times to move beyond the calendar with their keyboard.
-<!-- - The `aria-selected="true"` denotes the selected day as selected and is also toggled as the user selects different days within the grid. -->
+- The `role="grid"` attribute tells screen readers, such as JAWS, that this is not a regular table and that the arrow keys can be used to navigate it with Javascript.
+- Each `<td>` has `tabindex="-1"` except for the selected day, which has `tabindex="0"`. This means that the user can tab straight onto the selected day and navigate from there using the arrow keys.
+- When the user presses the arrow keys to select a new day the previously selected day will be set to `tabindex="-1"` and the newly selected day will be set to `tabindex="0"`. This is known as roving tabs, which makes the grid just one tab stop. Otherwise users would have to tab ~30 times to move beyond the calendar with their keyboard.
+- Pressing <kbd>left</kbd> moves to the previous day. Pressing <kbd>right</kbd> moves to the next day. Pressing <kbd>up</kbd> moves to the same day in the previous week. Pressing <kbd>down</kbd> moves to the same day in the next week. Users can move freely between months using this approach.
 - Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
-- The heading lives inside a live region. This ensures that when the user navigates between months, the date is announced.
-- The table has a role of `grid` so that the screen reader treats the table as a special widget. In JAWS, for example, this means the arrow keys can be used to navigate between days. More on this shortly.
-- The `thead` contains the column headings representing each day of the week. The days are abbreviated and use the `abbr` element. This saves space whilst letting screen readers announce them in full.
-- The `tbody` contains the days organised by week which are represented as table `row`s.
-- `aria-label` enables screen readers to announce the full day. Without it, the cell's value is ambiguous.
-- The `<span aria-hidden>` stops the cell value from being announced as we only want the value inside `aria-label` to be read out to screen readers. Otherwise the day would be announced twice which is mildly frustrating.
-- When the grid is focussed, the arrow keys let the user move freely between days and weeks. Pressing <kbd>left</kbd> moves to the previous day. Pressing <kbd>right</kbd> moves to the next day. Pressing <kbd>up</kbd> moves to the same day in the previous week. Pressing <kbd>down</kbd> moves to the same day in the next week.
 - Pressing <kbd>escape</kbd> hides the calendar and moves focus to the button.
 
-Whilst screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. In any case, we don't assume they won't use it. Instead, we adhere to principle 5, *give users choice* by letting them do either.
+TODO: should tabbing away from the calendar widget hide the calendar?
 
----
+#### Screen Readers
 
-- should tabbing away from the calendar widget close the widget?
+When the button is pressed, sighted users will see visual feedback because the calendar appears. As clicking the button moves focus to the calendar, we can give screen reader users feedback by using a live region which contains “October 2017”. The same thing is read out as users move between months (more on this shortly).
 
-Despite providing our own date picker, users don't have to use it. Instead, they can type directly into the text box unassisted if they choose, which speaks to principle 5, *offer choice*.
+```HTML
+<div role="status" aria-live="polite">October 2017</div>
+```
+
+The `thead` contains the column headings which represent each day of the week. The days are abbreviated visually to save space - tables aren't stylistically malleable, something that we'll discuss at length in chapter 5. While abbreviations work here, we can give greater clarity for screen reader users by putting the full version inside the `aria-label` attribute.
+
+```HTML
+<thead>
+  <tr>
+    <th aria-label="Sunday">Sun</th>
+    <th aria-label="Monday">Mon</th>
+    <th aria-label="Tuesday">Tue</th>
+    <th aria-label="Wednesday">Wed</th>
+    <th aria-label="Thursday">Thu</th>
+    <th aria-label="Friday">Fri</th>
+    <th aria-label="Saturday">Sat</th>
+  </tr>
+</thead>
+```
+
+The same technique is used for the day of the month. That is, just the number is shown visually which isn't enough for visually-impaired users. For them, we store the full date inside the `aria-label` attribute, which speaks to principle 1, *provide a comparable experience*.
+
+```HTML
+<td tabindex="-1" aria-lael="7 October, 2017">
+  <span aria-hidden="true">7</span>
+</td>
+```
+
+*(Note: the hidden span stops the number being read out twice by some screen readers.)*
+
+While screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. But we don't make those assumptions. Instead, we adhere to principle 5, *offer choice* by letting them do either.
 
 #### Future Considerations
 

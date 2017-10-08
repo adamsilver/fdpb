@@ -630,67 +630,50 @@ When the buttons are pressed the input's value updates but this isn't announced 
 
 #### A Note On Iconography
 
-In “The Best Icon is a Text label”[^12], Thomas Byttebier explains explains that the there are some advantages in using iconography over text.
+In “The Best Icon is a Text label”[^12], Thomas Byttebier explains explains that while there are some advantages and using iconography in-place of text, they have a tendency to confuse users because their meaning is unclear.
 
-First, they are useful for wayfinding in multi-cultural environments like an airport where traditional language would not suffice. Second, they save space, which is particularly useful on smaller viewports. I'll add a third: they can draw attention from the user.
+Icons have three advantages over text:
 
-The first advantage doesn't so much apply to the web because text can be changed to match users' locale. In any case, Thomas goes on to explain that icons are often used in exchange for clarity:
+- In multi-cultural environments, like an airport, traditional language doesn't suffice. Icons (at least good ones) mean something to everyone.
+- They save space, which is useful in small viewports.
+- In a page with a lot of text, icons can draw attention to something important.
+
+The downside to icons are that they aren't always understood. In this case, the interface becomes unclear and difficult to use: to the user they might as well be looking at hieroglyphics. As Thomas says:
 
 > What good has a beautiful interface if it’s unclear? Hence it’s simple: only use an icon if its message is a 100% clear to everyone. Never give in.
 
-In using plus and minus icons, the interface is kept clean and the buttons equally weighted, which also happen to save space on smaller viewports. The icons themselves are universally understood which makes their usage more paletable. Where possible, conduct user research, and if you need to swap the icons for text, do so.
+The custom buttons we've used to enhance the interface use plus and minus icons. This is helpful in some ways because it means the interface will work, even on small viewports. It also keeps the interface clean and the buttons equally-weighted. Moreover, these particular icons should be well-understood, all of which make their usage more palatable.
 
-TODO: ARIA browser translation.
+Where possible, test your icons with a diverse set of users and if need be, switch over to text.
 
 ## 4. Choosing a flight
 
-Up to now, we've merely been collecting user's information. All with the goal of letting users choose a preferential flight. Now we have what we need, we can display a list of flights from which the user can choose. Here's how it might look:
+Up until this point, we've merely been collecting user's information, with the goal of letting users choose a preferential flight. Now we have what we need, we can display a list of flights from which the user can choose. Here's how it might look:
 
 ![Image](./images/image.png)
 
+Earlier on in the flow, users specified a date to depart so we're using that here to show flights that match. Additionally, the interface allows users to move back and forth between days. This conforms to principle 5, *offer choice*.
+
+Each flight is represented as a radio button. The label contains departure time, arrival time and ticket price: all relevant in deciding which to select. This is one of the advantages of radio buttons: you can add whatever details you need inside the label, and style it in a hierarchical fashion too.
+
 ```HTML
-<div class="field">
-	<fieldset>
-		<legend>
-			<span class="field-legend">Flights on Friday 19 June 2019</span>
-		</legend>
-		<div class="field-radioButton">
-			<label for="flight">
-				<input type="radio" name="flight" value="" id="flight" >
-				Departing at 7:20am. Arriving at 10:30am. £169.
-			</label>
-		</div>
-		<div class="field-radioButton">
-			<label for="flight1">
-				<input type="radio" name="flight" value="" id="flight1" >
-				Departing at 12:20pm. Arriving at 14:30pm. £125.
-			</label>
-		</div>
-		<div class="field-radioButton">
-			<label for="flight1">
-				<input type="radio" name="flight" value="" id="flight1" >
-				Departing at 18:20pm. Arriving at 20:30pm. £99.
-			</label>
-		</div>
-	</fieldset>
+<div class="field-radioButton">
+  <label for="flight1">
+    <input type="radio" name="flight" value="" id="flight1" >
+    Departing at 18:20pm. Arriving at 20:30pm. £99.
+  </label>
 </div>
 ```
 
-Earlier, the user specified a date on which to fly. Therefore we're showing flights that match that date. However, we give users the freedom to move back and forth between days using a standard pagination component. This, by the way, conforms to principle 5, *offer choice*.
+## 5. Choosing A Seat
 
-Each flight is represented as a radio button. The label contains departure time, arrival time and ticket price which is everything they need to make their selection. This is one of the nice things about radio buttons, they grant you the flexibility to add as much information to the label as necessary, with the flexibility to lay out the information hierarchically.
+Intro this properly.
 
-Earlier I noted that one of the advantages to radio buttons is that we can format the content of the label to suit the needs of users. This is because we can put constructs inside the `<label>` that can be targetted with CSS.
+### Checkboxes Are Never Round
 
-```HTML
-<label>
-	TODO stuff etc
-</label>
-```
+In Checkboxes Are Never Round[^13], Daniel De Laney says:
 
-## 5. Choosing where to sit
-
-In Checkboxes Are Never Round[^13], Daniel De Laney says that ‘interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show&mdash;it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.’
+> interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show&mdash;it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.
 
 Essentially, Daniel is saying that radio buttons tell you that just one can be selected; and checkboxes tell you that *more than one* can. Therefore if one person is travelling use radio buttons, otherwise use checkboxes.
 
@@ -761,7 +744,7 @@ Before now, we've ‘stacked’ form fields beneath one an other. Here we've lai
 </fieldset>
 ```
 
-Screen readers will announce the seat description text as it's part of the label. Sighted users don't need it so we hide this with CSS:
+Screen readers will announce the seat description text as it's part of the label. Sighted users don't need it so it's hidden with CSS:
 
 ```CSS
 .plane-seatDescription {
@@ -868,69 +851,7 @@ Without user research it's hard to know if this is a problem or not. If it prove
 Savvy users may realise they have to deselect currently-selected seats first. Less savvy users probably won't. Instead, let's do the hard work for them. As the user surpasses their quota the script should uncheck the previous selection automatically.
 
 ```JS
-function SeatEnhancer(max) {
-	this.max = max;
-	this.checkboxes = $('.plane-seat input');
-	this.checkboxes.on('focus', $.proxy(this, 'onCheckboxFocus'));
-	this.checkboxes.on('blur', $.proxy(this, 'onCheckboxBlur'));
-	this.checkboxes.on('click', $.proxy(this, 'onCheckboxClick'));
-}
-
-SeatEnhancer.prototype.onCheckboxFocus = function(e) {
-	$(e.target).parents('.plane-seat').addClass('plane-seat-isFocussed');
-};
-
-SeatEnhancer.prototype.onCheckboxBlur = function(e) {
-	$(e.target).parents('.plane-seat').removeClass('plane-seat-isFocussed');
-};
-
-SeatEnhancer.prototype.onCheckboxClick = function(e) {
-	if(this.getCheckedSeats().length > this.max) {
-		var last = this.getLastCheckedSeat();
-		this.markAsUnchecked(last);
-		last[0].checked = false;
-	}
-
-	var checkbox = $(e.target);
-	if(checkbox[0].checked) {
-		this.markAsChecked(checkbox);
-		this.lastChecked = checkbox;
-	} else {
-		this.markAsUnchecked(checkbox);
-		if(this.lastChecked) {
-			if(checkbox[0] == this.lastChecked[0]) {
-				this.lastChecked = null;
-			}
-		}
-	}
-
-};
-
-SeatEnhancer.prototype.markAsChecked = function(checkbox) {
-	checkbox.parents('.plane-seat').addClass('plane-seat-isSelected');
-};
-
-SeatEnhancer.prototype.markAsUnchecked = function(checkbox) {
-	checkbox.parents('.plane-seat').removeClass('plane-seat-isSelected');
-};
-
-SeatEnhancer.prototype.getLastCheckedSeat = function() {
-	if(this.lastChecked) {
-		return this.lastChecked;
-	} else {
-		var checked = this.getCheckedSeats();
-		if(checked.length) {
-			return $(checked[checked.length-1]);
-		} else {
-			return null;
-		}
-	}
-};
-
-SeatEnhancer.prototype.getCheckedSeats = function() {
-	return this.checkboxes.filter(':checked');
-};
-
+Seat code
 ```
 
 Notes:
@@ -951,7 +872,7 @@ This chapter continued where we left off from the previous: by leveraging One Th
 ### Things to avoid
 
 - Using radio buttons instead of checkboxes and vice versa.
-- Using select boxes when better alternatives exist.
+- Using select boxes when there are better alternatives available.
 - Letting users do the hard work when the interface can be designed to do it for them.
 - Adding complexity later on in a flow, when a little friction upfront drastically reduces it.
 - Blindly following age-old advice without consideration of the specific problem.
@@ -971,3 +892,5 @@ This chapter continued where we left off from the previous: by leveraging One Th
 [^11]: https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately
 [^12]: https://thomasbyttebier.be/blog/the-best-icon-is-a-text-label
 [^13]: http://danieldelaney.net/checkboxes/?utm_source=designernews
+
+TODO: ARIA browser translation.

@@ -63,15 +63,15 @@ To satisfy the first rule we need to choose a native form control to fall back t
 
 ```HTML
 <div class="field">
-	<label for="destination">
-		<span class="field-label">Destination</span>
-	</label>
-	<select name="destination" id="destination">
-		<option value="">Select</option>
-		<option value="france">France</option>
-		<option value="germany">Germany</option>
-		<option value="spain">Spain</option>
-	</select>
+    <label for="destination">
+        <span class="field-label">Destination</span>
+    </label>
+    <select name="destination" id="destination">
+        <option value="">Select</option>
+        <option value="france">France</option>
+        <option value="germany">Germany</option>
+        <option value="spain">Spain</option>
+    </select>
 </div>
 ```
 
@@ -89,7 +89,7 @@ First, we need to hide (not remove!) the select box. It shouldn't be removed bec
 
 ```CSS
 .visuallyhidden {
-	/*code*/
+    /*code*/
 }
 ```
 
@@ -97,13 +97,13 @@ Then we need to inject the text box that users will interact with. To make sure 
 
 ```HTML
 <input
-	type="text"
-	id="destination"
-	autocomplete="off"
-	role="combobox"
-	aria-autocomplete="list"
-	aria-expanded="true"
-	class="autocomplete-textBox"
+    type="text"
+    id="destination"
+    autocomplete="off"
+    role="combobox"
+    aria-autocomplete="list"
+    aria-expanded="true"
+    class="autocomplete-textBox"
 >
 ```
 
@@ -119,15 +119,15 @@ Next, we inject a `<ul>` after the text box which will store the suggestions.
 
 ```HTML
 <ul
-	role="listbox"
-	class="autocomplete-options autocomplete-options-isHidden"
-	>
-	<li	role="option" tabindex="-1" aria-selected="false" data-option-value="1" id="autocomplete_1">
-		France
-	</li>
-	<li role="option" tabindex="-1" aria-selected="true" data-option-value="2" id="autocomplete_2">
-		Germany
-	</li>
+    role="listbox"
+    class="autocomplete-options autocomplete-options-isHidden"
+    >
+    <li role="option" tabindex="-1" aria-selected="false" data-option-value="1" id="autocomplete_1">
+        France
+    </li>
+    <li role="option" tabindex="-1" aria-selected="true" data-option-value="2" id="autocomplete_2">
+        Germany
+    </li>
 </ul>
 ```
 
@@ -150,39 +150,39 @@ Next we need to enrich the text box with some Javascript events. Let's run throu
 
 ```JS
 AutoComplete.prototype.addTextBoxEvents = function() {
-	this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'));
+    this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'));
 };
 
 Autocomplete.prototype.onTextBoxKeyUp = function(e) {
-	switch (e.keyCode) {
-		case this.keys.esc:
-			// ignore when users presses escape
-			break;
-		case this.keys.up:
-			// ignore when the user presses up
-			break;
-		case this.keys.left:
-			// ignore when the user presses left
-			break;
-		case this.keys.right:
-			// ignore when the user presses right
-			break;
-		case this.keys.down:
-			// move onto first suggestion
-			this.onTextBoxDownPressed(e);
-			break;
-		case this.keys.space:
-			// ignore this, otherwise the
-			// the menu will show again.
-			break;
-		case this.keys.enter:
-			// ignore this, otherwise the menu 
-			// shows briefly before submission
-			break;
-		default:
-			// show suggestions
-			this.onTextBoxType(e);
-	}
+    switch (e.keyCode) {
+        case this.keys.esc:
+            // ignore when users presses escape
+            break;
+        case this.keys.up:
+            // ignore when the user presses up
+            break;
+        case this.keys.left:
+            // ignore when the user presses left
+            break;
+        case this.keys.right:
+            // ignore when the user presses right
+            break;
+        case this.keys.down:
+            // move onto first suggestion
+            this.onTextBoxDownPressed(e);
+            break;
+        case this.keys.space:
+            // ignore this, otherwise the
+            // the menu will show again.
+            break;
+        case this.keys.enter:
+            // ignore this, otherwise the menu 
+            // shows briefly before submission
+            break;
+        default:
+            // show suggestions
+            this.onTextBoxType(e);
+    }
 };
 ```
 
@@ -190,13 +190,13 @@ We're only really interested when the user presses <kbd>down</kbd> or a characte
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
-	if(this.textBox.val().trim().length > 0) {
-		var options = this.getOptions(this.textBox.val().trim().toLowerCase());
-		this.buildMenu(options);
-		this.showMenu();
-		this.updateStatus(options.length);
-	}
-	this.updateSelectBox();
+    if(this.textBox.val().trim().length > 0) {
+        var options = this.getOptions(this.textBox.val().trim().toLowerCase());
+        this.buildMenu(options);
+        this.showMenu();
+        this.updateStatus(options.length);
+    }
+    this.updateSelectBox();
 };
 ```
 
@@ -206,26 +206,26 @@ Pressing <kbd>down</kbd> should move focus and highlight the first suggestion. I
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
-	var option;
-	var options;
-	var value = this.textBox.val().trim();
-	// Empty value or exactly matches an option 
-	// then show all the options
-	if(value.length === 0 || this.isExactMatch(value)) {
-		options = this.getAllOptions();
-		this.buildOptions(options);
-		this.showOptionsPanel();
-		option = this.getFirstOption();
-		this.highlightOption(option);
-	} else {
-		options = this.getOptions(this.textBox.val().trim());
-		if(options.length > 0) {
-			this.buildOptions(options);
-			this.showOptionsPanel();
-			option = this.getFirstOption();
-			this.highlightOption(option);
-		}
-	}
+    var option;
+    var options;
+    var value = this.textBox.val().trim();
+    // Empty value or exactly matches an option 
+    // then show all the options
+    if(value.length === 0 || this.isExactMatch(value)) {
+        options = this.getAllOptions();
+        this.buildOptions(options);
+        this.showOptionsPanel();
+        option = this.getFirstOption();
+        this.highlightOption(option);
+    } else {
+        options = this.getOptions(this.textBox.val().trim());
+        if(options.length > 0) {
+            this.buildOptions(options);
+            this.showOptionsPanel();
+            option = this.getFirstOption();
+            this.highlightOption(option);
+        }
+    }
 };
 ```
 
@@ -233,21 +233,21 @@ This function is quite similar to the one just described. The difference is that
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
-	if(this.activeOptionId) {
-		var activeOption = this.getOptionById(this.activeOptionId);
-		activeOption.removeClass('autocomplete-option-isActive');
-		activeOption.attr('aria-selected', 'false');
-	}
+    if(this.activeOptionId) {
+        var activeOption = this.getOptionById(this.activeOptionId);
+        activeOption.removeClass('autocomplete-option-isActive');
+        activeOption.attr('aria-selected', 'false');
+    }
 
-	option.addClass('autocomplete-option-isActive');
-	option.attr('aria-selected', 'true');
+    option.addClass('autocomplete-option-isActive');
+    option.attr('aria-selected', 'true');
 
-	if(!this.isElementVisible(option.parent(), option)) {
-		option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
-	}
+    if(!this.isElementVisible(option.parent(), option)) {
+        option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
+    }
 
-	this.activeOptionId = option[0].id;
-	option.focus();
+    this.activeOptionId = option[0].id;
+    option.focus();
 };
 
 ```
@@ -258,12 +258,12 @@ Now we need to talk about how users interact with the menu. Mouse (or touch) use
 
 ```JS
 Autocomplete.prototype.addSuggestionEvents = function() {
-	this.optionsUl.on('click', '.autocomplete-option', $.proxy(this, 'onSuggestionClick'));
+    this.optionsUl.on('click', '.autocomplete-option', $.proxy(this, 'onSuggestionClick'));
 };
 
 Autocomplete.prototype.onSuggestionClick = function(e) {
-	var suggestion = $(e.currentTarget);
-	this.selectSuggestion(suggestion);
+    var suggestion = $(e.currentTarget);
+    this.selectSuggestion(suggestion);
 };
 ```
 
@@ -271,11 +271,11 @@ The `selectionSuggestion` method grabs the corresponding value out of the `data-
 
 ```JS
 Autocomplete.prototype.selectSuggestion = function(suggestion) {
-	var value = suggestion.attr('data-option-value');
-	this.textBox.val(value);
-	this.setValue(value);
-	this.hideOptions();
-	this.focusTextBox();
+    var value = suggestion.attr('data-option-value');
+    this.textBox.val(value);
+    this.setValue(value);
+    this.hideOptions();
+    this.focusTextBox();
 };
 ```
 
@@ -326,24 +326,24 @@ In this case, you should use three text boxes: one for day, month and year. Why 
 
 ```HTML
 <div class="field">
-	<fieldset>
-		<legend>
-			<span class="field-legend">Date of birth</span>
-			<span class="field-hint">DD MM YYYY</span>
-		</legend>
-		<div class="field-dayWrapper">
-			<label for="day">Day</label>
-			<input class="field-dayBox" type="text" pattern="[0-9]*" name="day" id="day">
-		</div>
-		<div class="field-monthWrapper">
-			<label for="month">Month</label>
-			<input class="field-monthBox" type="text" pattern="[0-9]*" name="month" id="month">
-		</div>
-		<div class="field-yearWrapper">
-			<label for="year">Year</label>
-			<input class="field-yearBox" type="text" pattern="[0-9]*" name="year" id="year">
-		</div>
-	</fieldset>
+    <fieldset>
+        <legend>
+            <span class="field-legend">Date of birth</span>
+            <span class="field-hint">DD MM YYYY</span>
+        </legend>
+        <div class="field-dayWrapper">
+            <label for="day">Day</label>
+            <input class="field-dayBox" type="text" pattern="[0-9]*" name="day" id="day">
+        </div>
+        <div class="field-monthWrapper">
+            <label for="month">Month</label>
+            <input class="field-monthBox" type="text" pattern="[0-9]*" name="month" id="month">
+        </div>
+        <div class="field-yearWrapper">
+            <label for="year">Year</label>
+            <input class="field-yearBox" type="text" pattern="[0-9]*" name="year" id="year">
+        </div>
+    </fieldset>
 </div>
 ```
 
@@ -391,11 +391,11 @@ But we only want to give unsupported browsers the date picker, otherwise users w
 
 ```JS
 function supportsDateInput() {
-	var el = document.createElement('input');
-	try {
-		el.type = "date";
-	} catch(e) {}
-	return el.type == "date";
+    var el = document.createElement('input');
+    try {
+        el.type = "date";
+    } catch(e) {}
+    return el.type == "date";
 }
 ```
 
@@ -429,11 +429,11 @@ As noted earlier, clicking the toggle button, reveals the calendar.
     <span class="field-label">Date</span>
   </label>
   <div class="datepicker">
-  	<input type="text" id="when" name="when">
-  	<button type="button" aria-expanded="true" aria-haspopup="true">Choose</button>
-  	<div class="datepicker-wrapper" hidden>
-  		Calendar widget here
-  	</div>
+    <input type="text" id="when" name="when">
+    <button type="button" aria-expanded="true" aria-haspopup="true">Choose</button>
+    <div class="datepicker-wrapper" hidden>
+        Calendar widget here
+    </div>
   </div>
 ```
 
@@ -461,23 +461,23 @@ When focus is set to the calendar, the user can then <kbd>tab</kbd> between: the
   <tbody>
     <tr>
       <td tabindex="-1" aria-label="1 October, 2017">
-      	<span aria-hidden="true">1</span>
+        <span aria-hidden="true">1</span>
       </td>
       <td tabindex="-1" aria-label="2 October, 2017">
-      	<span aria-hidden="true">2</span>
+        <span aria-hidden="true">2</span>
       </td>
       <td tabindex="-1" aria-label="3 October, 2017">
-      	<span aria-hidden="true">3</span>
+        <span aria-hidden="true">3</span>
       </td>
       <td tabindex="-1" aria-label="4 October, 2017">
-      	<span aria-hidden="true">4</span>
+        <span aria-hidden="true">4</span>
       </td>
       <td tabindex="-1" aria-label="5 October, 2017">
-      	<span aria-hidden="true">5</span>
+        <span aria-hidden="true">5</span>
       </td>
       <td tabindex="0" aria-label="6 October, 2017">6</td>
       <td tabindex="-1" aria-lael="7 October, 2017">
-      	<span aria-hidden="true">7</span>
+        <span aria-hidden="true">7</span>
       </td>
     </tr>
     <tr>...</tr>
@@ -568,19 +568,19 @@ Airlines typically ask how many people are travelling. They also want to know wh
 ```HTML
 <div class="field">
     <label for="adults">
-    	<span class="field-label">How many adults, 16 years and over, are flying?</span>
+        <span class="field-label">How many adults, 16 years and over, are flying?</span>
     </label>
     <input type="number" id="adults" name="adults" min="0" max="9">
 </div>
 <div class="field">
     <label for="children">
-    	<span class="field-label">How many children, aged between 2 and 15 years old, are flying?</span>
+        <span class="field-label">How many children, aged between 2 and 15 years old, are flying?</span>
     </label>
     <input type="number" id="children" name="children" min="0" max="9">
 </div>
 <div class="field">
     <label for="infants">
-    	<span class="field-label">How many infants, under 2 years old, are flying?</span>
+        <span class="field-label">How many infants, under 2 years old, are flying?</span>
     </label>
     <input type="number" id="infants" name="infants" min="0" max="9">
 </div>
@@ -669,9 +669,26 @@ The flights are represented as radio buttons as the user can select just one. Ea
 
 ## 5. Choosing A Seat
 
-The final step before payment is to select a seat.
+Finally, users need to choose a seat. Whilst this step is not especially complicated, the combination of affordance, layout and interaction can make or break this part of the booking flow.
 
-Intro this properly.
+### How It Might Look
+
+![Basic design with nested fieldsets](.)
+
+- Talk about
+
+
+---
+
+- Intro and how it looks
+- Nested fieldsets
+- Affordance of checkboxes and radio buttons
+- Breaking the 7 choice rule
+- Breaking convention
+- Unavailable Seats
+- Enhancing the interface
+
+---
 
 ### Checkboxes Are Never Round
 
@@ -691,60 +708,58 @@ Our context is different. Choosing a seat is a niche interaction and therefore b
 
 ### Layout
 
-Before now, we've ‘stacked’ form fields beneath one an other. Here we've laid them out in rows a bit like they are on a plane. Designing the interface based on a user's mental model makes choosing a seat that bit easier, at least for sighted users. To conform to principle 1&mdash;*provide a comparable experience*&mdash;we need to add visually hidden text just for screen readers.
+Before now, we've ‘stacked’ form fields beneath one an other. Here we've laid them out in rows a bit like they are on a plane. Designing the interface based on a user's mental model makes choosing a seat that bit easier, at least for sighted users. To conform to principle 1&mdash;*provide a comparable experience*&mdash;we need to add visually hidden text for screen reader users.
 
 ```
 <fieldset>
-	<legend>
-		Choose seats (WORDS)
-	</legend>
-	<fieldset>
-		<legend>First class</legend>
-		<div class="plane-row">
-			<div class="plane-seat">
-				<label for="S1A">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
-					1A <span class="plane-seatDescripion">Window</span>
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1B">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
-					1B <span class="plane-seatDescripion">Isle</span>
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1C">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
-					1C <span class="plane-seatDescripion">Isle</span>
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1D">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
-					1D <span class="plane-seatDescripion">Window</span>
-				</label>
-			</div>
-		</div>
-		<div class="plane-row">...</div>
-	</fieldset>
-	<fieldset>
-		<legend>Economy class</legend>
-		<div class="plane-row">
-			<div class="plane-seat">
-				<label for="S1A">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
-					1A <span class="plane-seatDescripion">Window</span>
-				</label>
-			</div>
-			<div class="plane-seat">...</div>
-			<div class="plane-seat">...</div>
-			<div class="plane-seat">...</div>
-			<div class="plane-seat">...</div>
-			<div class="plane-seat">...</div>
-		</div>
-		<div class="plane-row">...</div>
-	</fieldset>
+  <legend>Choose seats (WORDS)</legend>
+  <fieldset>
+    <legend>First class</legend>
+    <div class="plane-row">
+      <div class="plane-seat">
+        <label for="S1A">
+          <input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
+          1A <span class="plane-seatDescripion">Window</span>
+        </label>
+      </div>
+      <div class="plane-seat">
+        <label for="S1B">
+          <input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
+          1B <span class="plane-seatDescripion">Isle</span>
+        </label>
+      </div>
+      <div class="plane-seat">
+        <label for="S1C">
+          <input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
+          1C <span class="plane-seatDescripion">Isle</span>
+        </label>
+      </div>
+      <div class="plane-seat">
+        <label for="S1D">
+          <input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
+          1D <span class="plane-seatDescripion">Window</span>
+        </label>
+      </div>
+    </div>
+    <div class="plane-row">...</div>
+  </fieldset>
+  <fieldset>
+    <legend>Economy class</legend>
+    <div class="plane-row">
+      <div class="plane-seat">
+        <label for="S1A">
+          <input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
+          1A <span class="plane-seatDescripion">Window</span>
+        </label>
+      </div>
+      <div class="plane-seat">...</div>
+      <div class="plane-seat">...</div>
+      <div class="plane-seat">...</div>
+      <div class="plane-seat">...</div>
+      <div class="plane-seat">...</div>
+    </div>
+    <div class="plane-row">...</div>
+  </fieldset>
 </fieldset>
 ```
 
@@ -752,8 +767,8 @@ Screen readers will announce the seat description text as it's part of the label
 
 ```CSS
 .plane-seatDescription {
-	position: absolute;
-	left: -9999em;
+    position: absolute;
+    left: -9999em;
 }
 ```
 
@@ -767,56 +782,56 @@ To mitigate this extra, albeit, tiny amount of friction we can use smart default
 
 ```HTML
 <div class="field field--seats">
-	<fieldset>
-		<legend>
-			<span class="field-legend">Choose seats</span>
-		</legend>
-		<div class="plane-row">
-			<div class="plane-seat">
-				<label for="S1A">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
-					1A <span class="plane-seatDescripion">Window</span>
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1B">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
-					1B
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1C">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
-					1C <span class="plane-seatDescripion">Isle</span>
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1D">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
-					1D <span class="plane-seatDescripion">Isle</span>
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1E">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1E" id="S1E">
-					1E
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1F">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1F" id="S1F">
-					1F <span class="plane-seatDescripion">Window</span>
-				</label>
-			</div>
-		</div>
-		<div class="plane-row">
-			...
-		</div>
-	</fieldset>
+    <fieldset>
+        <legend>
+            <span class="field-legend">Choose seats</span>
+        </legend>
+        <div class="plane-row">
+            <div class="plane-seat">
+                <label for="S1A">
+                    <input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
+                    1A <span class="plane-seatDescripion">Window</span>
+                </label>
+            </div>
+            <div class="plane-seat">
+                <label for="S1B">
+                    <input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
+                    1B
+                </label>
+            </div>
+            <div class="plane-seat">
+                <label for="S1C">
+                    <input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
+                    1C <span class="plane-seatDescripion">Isle</span>
+                </label>
+            </div>
+            <div class="plane-seat">
+                <label for="S1D">
+                    <input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
+                    1D <span class="plane-seatDescripion">Isle</span>
+                </label>
+            </div>
+            <div class="plane-seat">
+                <label for="S1E">
+                    <input type="checkbox" class="plane-checkbox" name="seat" value="1E" id="S1E">
+                    1E
+                </label>
+            </div>
+            <div class="plane-seat">
+                <label for="S1F">
+                    <input type="checkbox" class="plane-checkbox" name="seat" value="1F" id="S1F">
+                    1F <span class="plane-seatDescripion">Window</span>
+                </label>
+            </div>
+        </div>
+        <div class="plane-row">
+            ...
+        </div>
+    </fieldset>
 </div>
 ```
 
-Note: Unavailable seats are marked as disabled (by setting a disabled attribute on the checkbox). Disabled controls aren't perceivable meaning you can't tab to them and screen readers won't announce them.
+Note: Unavailable seats are marked as disabled (by setting a disabled attribute on the checkbox). Disabled controls aren't perceivable to screen readers nor are the accessible to keyboard or mouse users: you can't tab to them and screen readers won't announce them.
 
 ### Enhancing the interface
 
@@ -830,13 +845,13 @@ To fix this, we need to use Javascript by listening to `focus` and `blur` events
 
 ```CSS
 .enhanced .plane-seat input {
-	position: absolute;
-	left: -9999em;
-	top: 0;
+    position: absolute;
+    left: -9999em;
+    top: 0;
 }
 
 .enhanced .plane-seat-isFocussed label {
-	/* etc */
+    /* etc */
 }
 ```
 
@@ -866,12 +881,12 @@ Notes:
 
 ## Summary
 
-This chapter continued where we left off from the previous: by leveraging One Thing Per Page, we could design simple but innovative interfaces that fully utilise the available screen estate. As much as we tried to use native form controls, it became necessary to break new ground by designing 4 custom components from scratch.
+In this chapter we continued to employ One Thing Per Page, which meant we could provide users with simple, but innovative interfaces that make full use of the available screen estate. As much as we tried to use native form controls, it became apparant that breaking new ground was necessary if we wanted to provide the best user experience. In the end we designed four custom components from scratch:
 
-- An autocomplete component which lets users search through a long list of destinations quickly and accurately.
-- A date picker which lets users find a date in the future matching people's concept of time.
+- An autocomplete control which lets users search through a long list of destinations quickly and accurately.
+- A date picker components which lets users find a date in the future without having to worry about formatting issues.
 - A stepper component which lets users make small adjustments to an amount of passengers effortlessly.
-- A seat chooser which makes seat selection simple, even on mobile.
+- A seat chooser which makes seat selection simple, even on small viewports.
 
 ### Things to avoid
 

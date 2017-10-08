@@ -453,7 +453,7 @@ When the button is clicked, focus is set to the calendar widget programmatically
 </div>
 ```
 
-When focus is set to the calendar, the user can then <kbd>tab</kbd> between the three calendar controls: the previous month button, the next month button and the currently selected date, which defaults to today.
+When focus is set to the calendar, the user can then <kbd>tab</kbd> between: the previous month button, the next month button and the currently selected date, which defaults to today.
 
 ```HTML
 <table role="grid">
@@ -533,7 +533,7 @@ The same technique is used for the day of the month. That is, just the number is
 
 While screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. But we don't make those assumptions. Instead, we adhere to principle 5, *offer choice* by letting them do either.
 
-#### Future Considerations
+#### Future Support
 
 I love how Jeremy Keith thinks about the web as a *continuum*[^10]. By that he means it's constantly changing. Technology evolves at a rapid pace and browsers and devices are released all the time. Each of which have varying features and capabilities.
 
@@ -561,7 +561,7 @@ In this edge case, users are still able to enter a date which makes this pattern
 
 ## 3. Choosing passengers
 
-Users need to specify how many people are travelling within certain categories: adults, children and infants. The categorisations are relevant as they affect the price of the ticket.
+Next, users need to specify how many people are travelling within certain categories: adults, children and infants. The categorisations are relevant as they affect the price of the ticket.
 
 ![Passengers](./images/choose-passengers.png)
 
@@ -586,19 +586,19 @@ Users need to specify how many people are travelling within certain categories: 
 </div>
 ```
 
-Each category is represented by a separate field. As we're asking users for an *amount* of something - in this case passengers - the number input makes sense. If you haven't read the book in order, you can read about the number input in detail in “A Checkout Flow”.
+Each category is represented by a separate field. As we're asking users for an *amount* of something - in this case passengers - the number input makes sense. (Note: we discussed the number input in “A Checkout Flow”.)
 
-Number inputs have little buttons called spinners. Spinners, also known as steppers, let users increase or decrease the value by a constant amount. They are great for making small adjustments. As Luke Wobrelkski says:
+Number inputs have little spinner buttons. Spinners, also known as steppers, let users increase or decrease the input's value by a constant amount. They are great for making small adjustments. As Luke Wobrelkski says:
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-Unfortunately, they are so tiny that using them is difficult, especially if you're using a large touch screen display, or have motor impairments. And on mobile browsers they don't show up at all.
+The downside is the the default spinners are really small, which make them especially difficult to use on a touch screen display or for people have motor impairements. On mobile, they don't show up at all.
 
 ### Custom Stepper Buttons
 
-Instead, we can create our own bigger buttons with Javascript. Not only are they easier to use on desktop, but they will save mobile users having to trigger the on-screen keyboard.
+We can create bigger buttons with Javascript. Not only are they easier to use on desktop, but they will save mobile users having to trigger the on-screen keyboard.
 
-The first thing to do is turn off the ones provided by the browser. In webkit based browsers you turn them off like this:
+The first thing we need to do is turn off the ones provided by the browser. In webkit browsers you can do this:
 
 ```CSS
 input::-webkit-outer-spin-button,
@@ -611,88 +611,32 @@ input::-webkit-inner-spin-button {
 
 #### The Enhanced Interface
 
-The enhanced interface contains increment and decrement buttons that are a direct replacement for the native spinners.
-
 ![Enhanced interface](.)
 
+Each field is enhanced with this HTML:
+
 ```HTML
-<div class="field">
-    <label for="adults">
-    	<span class="field-label">How many adults, 16 years and over, are flying?</span>
-    </label>
-    <button type="button" aria-label="Decrement">-</button>
-    <input type="number" id="adults" name="adults">
-    <button type="button" aria-label="Increment">+</button>
-</div>
-<div class="field">
-    <label for="children">
-    	<span class="field-label">How many children, between 2 and 15 years old, are flying?</span>
-    </label>
-    <button type="button" aria-label="Decrement">-</button>
-    <input type="number" id="children" name="children">
-    <button type="button" aria-label="Increment">+</button>
-</div>
-<div class="field">
-    <label for="infants">
-    	<span class="field-label">How many infants, under 2 years old, are flying?</span>
-    </label>
-    <button type="button" aria-label="Decrement">-</button>
-    <input type="number" id="infants" name="infants">
-    <button type="button" aria-label="Increment">+</button>
+<div class="stepper">
+  <button type="button" aria-label="Decrement people aged 16 and over">&minus;</button>
+  <input type="number" id="adults" name="adults">
+  <button type="button" aria-label="Increment people aged 16 and over">&plus;</button>
+  <div class="vh" role="status" aria-live=""></div>
 </div>
 ```
 
-Notes:
+The custom buttons have large tap targets. Once again they have `type="button"` so that they don't submit the form. Each button has an `aria-label` attribute giving screen reader users extra clarity. This is particularly useful given that there are 3 fields on the page. We don't want screen readers thinking “Decrement - decrement what exactly?”.
+
+This component also uses a live region. This is because when the user taps a button, focus remains there so that users can tap repeatedly until they are done. To give users feedback each time they click, we inject the number into the live region.
+
+```HTML
+<div class="vh" role="status" aria-live="">2</div>
+```
+
+#### A Note On Iconography
+
+Generally speaking the best icons are text.
 
 - Whilst the best icons are text[^12] [need to expand this and talk about pros and cons, perhaps it's own section], the button text employs universally understood minus and plus symbols. This keeps the interface clean and balanced.
-- The `aria-label` describes the symbol with text for those using screen readers. Instead of hearing ‘Button, minus symbol’ they'll hear ‘Button, increment’ or similar.
-
-#### API
-
-Clicking increment, increases the value by one. Clicking decrement, decreases the value by one.
-
-
-```JS
-function Stepper(input) {
-	this.input = $(input);
-	this.container = this.input.parent();
-	this.wrapper = $('<div class="stepper"></div>');
-	this.wrapper.append(this.input);
-	this.container.append(this.wrapper);
-	this.createDecrementButton();
-	this.createIncrementButton();
-	this.wrapper.on('click', '.stepper-decrementButton', $.proxy(this, 'onDecrementClick'));
-	this.wrapper.on('click', '.stepper-incrementButton', $.proxy(this, 'onIncrementClick'));
-}
-
-Stepper.prototype.createDecrementButton = function() {
-	this.decrementButton = $('<button tabindex="-1" aria-label="Decrement" class="stepper-decrementButton" type="button">&#45;</button>');
-	this.wrapper.prepend(this.decrementButton);
-};
-
-Stepper.prototype.createIncrementButton = function() {
-	this.incrementButton = $('<button tabindex="-1" aria-label="Increment" class="stepper-incrementButton" type="button">&#43;</button>');
-	this.wrapper.append(this.incrementButton);
-};
-
-Stepper.prototype.getInputValue = function() {
-	var val = parseInt(this.input.val(), 10);
-	if(isNaN(val)) {
-		val = 0;
-	}
-	return val;
-};
-
-Stepper.prototype.onDecrementClick = function(e) {
-	var val = this.getInputValue();
-	this.input.val(val-1);
-};
-
-Stepper.prototype.onIncrementClick = function(e) {
-	var val = this.getInputValue();
-	this.input.val(val+1);
-};
-```
 
 ## 4. Choosing a flight
 
@@ -802,36 +746,11 @@ Before now, we've ‘stacked’ form fields beneath one an other. Here we've lai
 					1A <span class="plane-seatDescripion">Window</span>
 				</label>
 			</div>
-			<div class="plane-seat">
-				<label for="S1B">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
-					1B
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1C">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
-					1C <span class="plane-seatDescripion">Isle</span>
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1D">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
-					1D <span class="plane-seatDescripion">Isle</span>
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1E">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1E" id="S1E">
-					1E
-				</label>
-			</div>
-			<div class="plane-seat">
-				<label for="S1F">
-					<input type="checkbox" class="plane-checkbox" name="seat" value="1F" id="S1F">
-					1F <span class="plane-seatDescripion">Window</span>
-				</label>
-			</div>
+			<div class="plane-seat">...</div>
+			<div class="plane-seat">...</div>
+			<div class="plane-seat">...</div>
+			<div class="plane-seat">...</div>
+			<div class="plane-seat">...</div>
 		</div>
 		<div class="plane-row">...</div>
 	</fieldset>

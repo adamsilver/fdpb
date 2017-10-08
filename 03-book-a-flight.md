@@ -561,7 +561,7 @@ In this edge case, users are still able to enter a date which makes this pattern
 
 ## 3. Choosing passengers
 
-Next, users need to specify how many people are travelling within certain categories: adults, children and infants. The categorisations are relevant as they affect the price of the ticket.
+Airlines typically ask how many people are travelling. They also want to know what age the travellers are because this affects the price of the ticket. Here's how it might look:
 
 ![Passengers](./images/choose-passengers.png)
 
@@ -648,24 +648,28 @@ Where possible, test your icons with a diverse set of users and if need be, swit
 
 ## 4. Choosing a flight
 
-Up until this point, we've merely been collecting user's information, with the goal of letting users choose a preferential flight. Now we have what we need, we can display a list of flights from which the user can choose. Here's how it might look:
+Now all the relevant information has been collected, we can give users a list of flights from which the user can choose one.
 
 ![Image](./images/image.png)
 
-Earlier on in the flow, users specified a date to depart so we're using that here to show flights that match. Additionally, the interface allows users to move back and forth between days. This conforms to principle 5, *offer choice*.
+The system shows flights that match the date the user specified earlier. Additionally, the interface allows users to move back and forth between days. This conforms to principle 5, *offer choice*.
 
-Each flight is represented as a radio button. The label contains departure time, arrival time and ticket price: all relevant in deciding which to select. This is one of the advantages of radio buttons: you can add whatever details you need inside the label, and style it in a hierarchical fashion too.
+The flights are represented as radio buttons as the user can select just one. Each label contains the departure time, arrival time and ticket price: all useful information. One advantage of using this pattern is that you can add whatever details you need inside the label and style it in a hierarchical fashion.
 
 ```HTML
 <div class="field-radioButton">
   <label for="flight1">
     <input type="radio" name="flight" value="" id="flight1" >
-    Departing at 18:20pm. Arriving at 20:30pm. £99.
+    <span>Departing at 18:20pm</span>
+    <span>Arriving at 20:30pm</span>
+    <span>£99</span>
   </label>
 </div>
 ```
 
 ## 5. Choosing A Seat
+
+The final step before payment is to select a seat.
 
 Intro this properly.
 
@@ -683,7 +687,7 @@ Essentially, Daniel is saying that radio buttons tell you that just one can be s
 
 There are many seats on a plane, therefore there are many inputs on-screen. Traditional advice says radio buttons should be used when there are less than 7 choices, otherwise use a select box. As designers, rules allow us to think less. In the context of a long form, the rule makes sense. But there are always exceptions to the rule. When blindly accept rules, without thinking about the context, the resulting solution can suffer.
 
-Our context is different. Choosing a seat is a niche interaction and therefore benefits from special treatment. Also, we don't have the same problem as a standard form because we're using One Thing Per Page from chapter 2. This lets us use the majority of the screen to design something better.
+Our context is different. Choosing a seat is a niche interaction and therefore benefits from special treatment. Also, we don't have the same problem as a standard form because we're using One Thing Per Page from chapter 2. This lets us use the majority of the screen to design something better: we're not limited for space.
 
 ### Layout
 

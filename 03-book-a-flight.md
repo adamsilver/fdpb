@@ -624,19 +624,23 @@ Each field is enhanced with this HTML:
 </div>
 ```
 
-The custom buttons have large tap targets. Once again they have `type="button"` so that they don't submit the form. Each button has an `aria-label` attribute giving screen reader users extra clarity. This is particularly useful given that there are 3 fields on the page. We don't want screen readers thinking “Decrement - decrement what exactly?”.
+Each button has `type="button"` attribute so that they don't submit the form. Each button has an `aria-label` attribute giving screen reader users extra clarity. This is particularly useful given that there are 3 fields on the page. We don't want users thinking “Decrement - decrement what exactly?”.
 
-This component also uses a live region. This is because when the user taps a button, focus remains there so that users can tap repeatedly until they are done. To give users feedback each time they click, we inject the number into the live region.
-
-```HTML
-<div class="vh" role="status" aria-live="">2</div>
-```
+When the buttons are pressed the input's value updates but this isn't announced by screen readers. To solve this, we can inject the input's value into the live region every time it changes.
 
 #### A Note On Iconography
 
-Generally speaking the best icons are text.
+In “The Best Icon is a Text label”[^12], Thomas Byttebier explains explains that the there are some advantages in using iconography over text.
 
-- Whilst the best icons are text[^12] [need to expand this and talk about pros and cons, perhaps it's own section], the button text employs universally understood minus and plus symbols. This keeps the interface clean and balanced.
+First, they are useful for wayfinding in multi-cultural environments like an airport where traditional language would not suffice. Second, they save space, which is particularly useful on smaller viewports. I'll add a third: they can draw attention from the user.
+
+The first advantage doesn't so much apply to the web because text can be changed to match users' locale. In any case, Thomas goes on to explain that icons are often used in exchange for clarity:
+
+> What good has a beautiful interface if it’s unclear? Hence it’s simple: only use an icon if its message is a 100% clear to everyone. Never give in.
+
+In using plus and minus icons, the interface is kept clean and the buttons equally weighted, which also happen to save space on smaller viewports. The icons themselves are universally understood which makes their usage more paletable. Where possible, conduct user research, and if you need to swap the icons for text, do so.
+
+TODO: ARIA browser translation.
 
 ## 4. Choosing a flight
 

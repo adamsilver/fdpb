@@ -669,169 +669,62 @@ The flights are represented as radio buttons as the user can select just one. Ea
 
 ## 5. Choosing A Seat
 
-Finally, users need to choose a seat. Whilst this step is not especially complicated, the combination of affordance, layout and interaction can make or break this part of the booking flow.
+Finally, users need to choose a seat. Whilst this step is not especially complicated, the combination of affordance, layout and interaction can make or break this part of the journey.
 
-### How It Might Look
+### Layout
+
+Up to now, radio buttons have been stacked beneath one an other, which is enough for most situations. For seat selection, this makes the page especially long, and more importantly, harder to scan as there is a lack of structure.
+
+![No structure - stacked](.)
+
+We can provide that structure by laying out seats in rows, just like they are on a plane. This will help users map their location. Users might be looking for isle or window seats, for example.
 
 ![Basic design with nested fieldsets](.)
 
-- Talk about
+To denote window seats and isle seats for screen reader users we can put hidden text inside the seat's label.
 
+```HTML
+<label for="S1A">
+  <input type="checkbox" name="seat" value="1A" id="S1A">
+  1A <span class="vh">Window</span>
+</label>
+```
 
----
+### Nested Fieldsets
 
-- Intro and how it looks
-- Nested fieldsets
-- Affordance of checkboxes and radio buttons
-- Breaking the 7 choice rule
-- Breaking convention
-- Unavailable Seats
-- Enhancing the interface
+The radio buttons are housed inside an extra fieldset (and legend) to incidate which class the seat belongs to: first class or economy. Visually this is fine, but screen readers don't always behave as expected. Sometimes, they announce both `legends` when the first radio button is focused. Sometimes they don't announce the outer `legend` at all. You can read Leonie Watson's article, “Using the fieldset and legend elements”[^] for more information.
 
----
+Where possible, you should avoid nested fieldsets, not only for screen reader users, but because their use often signifies extra complexity that can be designed out of a system. For example, we're showing both first class and economy class seats because user's never specified which class they wanted.
+
+Instead, we could ask users to specify their preference beforehand. At the same time, we can mark *economy* as checked by default. Marking the most common choice expedites the process.
+
+![Class chooser](./images/image.png)
 
 ### Checkboxes Are Never Round
 
 In Checkboxes Are Never Round[^13], Daniel De Laney says:
 
-> interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show&mdash;it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.
+> interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show - it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.
 
-Essentially, Daniel is saying that radio buttons tell you that just one can be selected; and checkboxes tell you that *more than one* can. Therefore if one person is travelling use radio buttons, otherwise use checkboxes.
+In practical terms, a radio button tells you that just one can be selected. Checkboxes tell you that more than one can be. So if one person is travelling use radio buttons, otherwise use checkboxes.
 
-![Image](./images/image.png)
+### Oops, We Broke The Rules
 
-### Breaking the rules
+Traditional advice says you should only use radio buttons if there are less than 7 choices, otherwise use a select box. Rules are good: they allow us to think less and avoid the same mistakes others have made in the past. 
 
-There are many seats on a plane, therefore there are many inputs on-screen. Traditional advice says radio buttons should be used when there are less than 7 choices, otherwise use a select box. As designers, rules allow us to think less. In the context of a long form, the rule makes sense. But there are always exceptions to the rule. When blindly accept rules, without thinking about the context, the resulting solution can suffer.
+But there are always exceptions to rules. I prefer guidance to rules because they guidance doesn't presume to know everything. It offers up everything it knows, and gives you the power to break the rules when appropriate.
 
-Our context is different. Choosing a seat is a niche interaction and therefore benefits from special treatment. Also, we don't have the same problem as a standard form because we're using One Thing Per Page from chapter 2. This lets us use the majority of the screen to design something better: we're not limited for space.
+A Boeing 747 commerical jet airliner has over 400 seats so we've more shattered, than broken the 7 choice rule. Call me a rebel, but I'm struggling to see a better way of presenting seats. Choosing a seat is quite a unique interaction and benefits from this layout.
 
-### Layout
+And using One Thing Per Page gives us maximal screen space to design something better. The screen whilst long is far less overwhelming as it'd dedicated to just one thing: choosing a seat.
 
-Before now, we've ‘stacked’ form fields beneath one an other. Here we've laid them out in rows a bit like they are on a plane. Designing the interface based on a user's mental model makes choosing a seat that bit easier, at least for sighted users. To conform to principle 1&mdash;*provide a comparable experience*&mdash;we need to add visually hidden text for screen reader users.
+### Unavailable Seats
 
-```
-<fieldset>
-  <legend>Choose seats (WORDS)</legend>
-  <fieldset>
-    <legend>First class</legend>
-    <div class="plane-row">
-      <div class="plane-seat">
-        <label for="S1A">
-          <input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
-          1A <span class="plane-seatDescripion">Window</span>
-        </label>
-      </div>
-      <div class="plane-seat">
-        <label for="S1B">
-          <input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
-          1B <span class="plane-seatDescripion">Isle</span>
-        </label>
-      </div>
-      <div class="plane-seat">
-        <label for="S1C">
-          <input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
-          1C <span class="plane-seatDescripion">Isle</span>
-        </label>
-      </div>
-      <div class="plane-seat">
-        <label for="S1D">
-          <input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
-          1D <span class="plane-seatDescripion">Window</span>
-        </label>
-      </div>
-    </div>
-    <div class="plane-row">...</div>
-  </fieldset>
-  <fieldset>
-    <legend>Economy class</legend>
-    <div class="plane-row">
-      <div class="plane-seat">
-        <label for="S1A">
-          <input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
-          1A <span class="plane-seatDescripion">Window</span>
-        </label>
-      </div>
-      <div class="plane-seat">...</div>
-      <div class="plane-seat">...</div>
-      <div class="plane-seat">...</div>
-      <div class="plane-seat">...</div>
-      <div class="plane-seat">...</div>
-    </div>
-    <div class="plane-row">...</div>
-  </fieldset>
-</fieldset>
-```
-
-Screen readers will announce the seat description text as it's part of the label. Sighted users don't need it so it's hidden with CSS:
-
-```CSS
-.plane-seatDescription {
-    position: absolute;
-    left: -9999em;
-}
-```
-
-You'll notice the use of nested fieldsets. They're needed to indicate which seat belongs to which class (first class or economy). The manner in which we've asked for information before now has increased the complexity here. That is, we didn't ask users how they want to travel, and therefore we need to capture that here.
-
-If, for example, we asked users how they wanted to travel beforehand, we could simplify the experience by showing less seats and not needing the extra level of grouping. Adding a little friction upfront is a worthwhile trade-off.
-
-To mitigate this extra, albeit, tiny amount of friction we can use smart defaults (as discussed in chapter 2) by simply marking *economy* by default. After all, this is the most common choice. Here's how the simplified experience looks:
-
-![Image](./images/image.png)
+Unavailable seats are denoted by marking the checkbox (or radio button) as disabled. They are grayed out so that sighted users know they aren't selectable. Similarly screen readers won't announced them, and keyboard users can't focus to them.
 
 ```HTML
-<div class="field field--seats">
-    <fieldset>
-        <legend>
-            <span class="field-legend">Choose seats</span>
-        </legend>
-        <div class="plane-row">
-            <div class="plane-seat">
-                <label for="S1A">
-                    <input type="checkbox" class="plane-checkbox" name="seat" value="1A" id="S1A">
-                    1A <span class="plane-seatDescripion">Window</span>
-                </label>
-            </div>
-            <div class="plane-seat">
-                <label for="S1B">
-                    <input type="checkbox" class="plane-checkbox" name="seat" value="1B" id="S1B">
-                    1B
-                </label>
-            </div>
-            <div class="plane-seat">
-                <label for="S1C">
-                    <input type="checkbox" class="plane-checkbox" name="seat" value="1C" id="S1C">
-                    1C <span class="plane-seatDescripion">Isle</span>
-                </label>
-            </div>
-            <div class="plane-seat">
-                <label for="S1D">
-                    <input type="checkbox" class="plane-checkbox" name="seat" value="1D" id="S1D">
-                    1D <span class="plane-seatDescripion">Isle</span>
-                </label>
-            </div>
-            <div class="plane-seat">
-                <label for="S1E">
-                    <input type="checkbox" class="plane-checkbox" name="seat" value="1E" id="S1E">
-                    1E
-                </label>
-            </div>
-            <div class="plane-seat">
-                <label for="S1F">
-                    <input type="checkbox" class="plane-checkbox" name="seat" value="1F" id="S1F">
-                    1F <span class="plane-seatDescripion">Window</span>
-                </label>
-            </div>
-        </div>
-        <div class="plane-row">
-            ...
-        </div>
-    </fieldset>
-</div>
+  <input type="checkbox" name="seat" value="1A" id="S1A" disabled>
 ```
-
-Note: Unavailable seats are marked as disabled (by setting a disabled attribute on the checkbox). Disabled controls aren't perceivable to screen readers nor are the accessible to keyboard or mouse users: you can't tab to them and screen readers won't announce them.
 
 ### Enhancing the interface
 

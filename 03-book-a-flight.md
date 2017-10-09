@@ -723,54 +723,71 @@ And using One Thing Per Page gives us maximal screen space to design something b
 Unavailable seats are denoted by marking the checkbox (or radio button) as disabled. They are grayed out so that sighted users know they aren't selectable. Similarly screen readers won't announced them, and keyboard users can't focus to them.
 
 ```HTML
-  <input type="checkbox" name="seat" value="1A" id="S1A" disabled>
+<input type="checkbox" name="seat" value="1A" disabled>
 ```
 
-### Enhancing the interface
+### Layout Enhancements
 
-Visually presenting seats by row may cause seats to wrap (or cause a horizontal scroll bar) on small screens. Whilst this is certainly accessible, it's not ideal. If user research shows this to be a problem, we can look at ways to save space.
+Laying out seats in rows can cause seats to wrap in small viewports. Alternatively, seats can be styled not to wrap, but this causes a horizontal scroll bar. Neither of these problems are deal breakers, but if we can reduce the chance of this happening we should.
 
-One way to do that is by hiding the checkboxes and making the seats look clickable. Hiding the checkboxes through CSS alone is dangerous because pressing <kbd>tab</kbd> moves focus to the checkbox, not the label. This breaks the interface because as a user tabs to the hidden checkbox, there is no feedback to know which, if any, checkbox is focussed.
+One approach would be hiding the checkboxes and make the remaining label look clickable. Hiding checkboxes with CSS alone is dangerous because pressing <kbd>tab</kbd> moves focus to the checkbox, not the label. On its own this breaks the interface for keyboard users because as the user focuses each checkbox there is no visual feedback.
 
-To fix this, we need to use Javascript by listening to `focus` and `blur` events. As the user moves focus to the visually hidden checkbox, a class is added to the *visible* label giving users the illusion that it is focused.
+To fix this problem, we can use Javascript to listen to the `focus` and `blur` events on the checkboxes. As the user moves focus to the visually hidden checkbox, a class of `plane-seat-isFocused` is added to the label which can be used to style the label.
 
-![Focus](.)
-
-```CSS
-.enhanced .plane-seat input {
-    position: absolute;
-    left: -9999em;
-    top: 0;
+```JS
+function SeatEnhancer() {
+  this.checkboxes = $('.plane-seat input');
+  this.checkboxes.on('focus', $.proxy(this, 'onCheckboxFocus'));
+  this.checkboxes.on('blur', $.proxy(this, 'onCheckboxBlur'));
 }
 
-.enhanced .plane-seat-isFocussed label {
-    /* etc */
-}
+SeatEnhancer.prototype.onCheckboxFocus = function(e) {
+  $(e.target).parents('.plane-seat').addClass('plane-seat-isFocussed');
+};
+
+SeatEnhancer.prototype.onCheckboxBlur = function(e) {
+  $(e.target).parents('.plane-seat').removeClass('plane-seat-isFocussed');
+};
 ```
 
-The CSS is applied only once we know Javascript is available. This is achieved by adding a class of `enhanced` to the document element in the `<head>` of the document:
+The CSS should only be applied when Javascript is available. This is done by adding a class of `enhanced` to the document element in the `<head>` of the document like this:
 
 ```JS
 document.documentElement.className = 'enhanced';
 ```
 
-While we're adding these enhancements, we should consider limiting how many seats users can select based on how many passengers they specified earlier. Radio buttons don't need this enhancement as only one is selectable. In the case of checkboxes, however, the user can select more than their quota. When they do, they'll get an error.
-
-Without user research it's hard to know if this is a problem or not. If it proves to be, we can limit selection with Javascript. One way to do this is to disable the remaining seats as soon as the limit is reached. But what if the user wants to choose another seat as a replacement? If we disable the remaining seats the interface won't respond.
-
-![Showing no feedback](.)
-
-Savvy users may realise they have to deselect currently-selected seats first. Less savvy users probably won't. Instead, let's do the hard work for them. As the user surpasses their quota the script should uncheck the previous selection automatically.
-
-```JS
-Seat code
+```CSS
+.enhanced .plane-seat-isFocused label {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 3px solid rgba(81, 203, 238, 1);
+}
 ```
 
-Notes:
+### Limiting Selection
 
-- The script listens to the checkbox `focus` and `blur` events.
-- When the user focuses a checkbox, a class is added to the container enabling the seat to be styled to mimic a focus state. On `blur` the class is removed.
-- If the user selects an extra seat, the previously chosen seat is automatically unchecked removing the need for error messages.
+If the user specified 2 travellers, then users shouldn't be able to select more than 2 seats. Checkboxes don't limit users in any way. that is, if they select more than their quota, they'll get an error message. Without user research, it's hard to know whether this is a problem. If it is, we can enhance the experience with Javascript. 
+
+One way to do this is to disable the remaining seats as soon as the limit is reached. But this assumes users will pick the right seat the first time. If they try to click another seat, as the other seats are disabled, the interface won't respond.
+
+Savvy users may realise they have to deselect the currently-selected seat first, but they shouldn't have to. And what about less savvy users? We should do the hard work for them. That is, if they surpass their quota we should uncheck their currently-selected seat for them automatically.
+
+```JS
+function SeatLimiter(max) {
+  this.max = max;
+  this.checkboxes = $('.plane-seat input');
+  this.checkboxes.on('click', $.proxy(this, 'onCheckboxClick'));
+}
+
+SeatLimiter.prototype.onCheckboxClick = function(e) {
+  var checkbox = e.target;
+  var selected = this.checkboxes.filter(':checked');
+  if(checkbox.checked && selected.length > this.max) {
+    selected.not(checkbox)[0].checked = false;
+  }
+};
+```
+
+When a checkbox is clicked the `onCheckboxClick` method is called. The first thing it does is check to see if the the checkbox has been checked or not. If it has, then we check to see if the quota has been surpassed. If both conditions are met, then we find a previously selected checkbox and uncheck it.
 
 ## Summary
 

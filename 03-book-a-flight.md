@@ -787,11 +787,13 @@ SeatLimiter.prototype.onCheckboxClick = function(e) {
 };
 ```
 
-When a checkbox is clicked the `onCheckboxClick` method is called. The first thing it does is check to see if the the checkbox has been checked or not. If it has, then we check to see if the quota has been surpassed. If both conditions are met, then we find a previously selected checkbox and uncheck it.
+When a checkbox is clicked, the `onCheckboxClick` method is called. The first thing it does is check to see if the the checkbox has been checked or not. If it has, then it checks to see if the quota has been surpassed. If both conditions are met, then the previously selected checkbox is unchecked.
 
 ## Summary
 
-In this chapter we continued to employ One Thing Per Page, which meant we could provide users with simple, but innovative interfaces that make full use of the available screen estate. As much as we tried to use native form controls, it became apparant that breaking new ground was necessary if we wanted to provide the best user experience. In the end we designed four custom components from scratch:
+In this chapter, we continued to use One Thing Per Page which allowed us to make use of the total screen estate. We looked at ways of reducing friction, not only through interface design, but also by looking at the journey as a whole.
+
+As much as we tried to use native form controls, in their standard format, it became apparant that custom components were necessary to give users the best user experience. In the end we designed four custom components:
 
 - An autocomplete control which lets users search through a long list of destinations quickly and accurately.
 - A date picker components which lets users find a date in the future without having to worry about formatting issues.
@@ -800,11 +802,10 @@ In this chapter we continued to employ One Thing Per Page, which meant we could 
 
 ### Things to avoid
 
-- Using radio buttons instead of checkboxes and vice versa.
-- Using select boxes when there are better alternatives available.
-- Letting users do the hard work when the interface can be designed to do it for them.
-- Adding complexity later on in a flow, when a little friction upfront drastically reduces it.
-- Blindly following age-old advice without consideration of the specific problem.
+- Using radio buttons instead of checkboxes.
+- Using select boxes when there are better alternatives.
+- Letting users do the hard work when the interface can be designed to it for them.
+- Nested fieldsets.
 
 ## Footnotes
 

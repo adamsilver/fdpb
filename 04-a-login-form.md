@@ -120,33 +120,35 @@ When interacting with a form, the main task is filling out each field and then s
 
 This is because users expect <kbd>tab</kbd> to move to the next form control. But in this case, the user tabs and starts typing before realising focus is on the link instead. Or even more frustrating is when they are expecting to <kbd>tab</kbd> to the submit button to submit the form. They tab and press enter, which instead of submitting the form, navigates the user to reset their password. This sort of experience may result in keyboard users switching to the mouse if they are able to.
 
-Whilst placing the link in close proximity to the password field makes sense from a visual perspective this is not the primary need. The reset password link is a secondary action of the page and should therefore come after the form.
+While placing the “forgotten password” link in close proximity to the password field makes sense from a visual perspective, the primary user need is to login in. The link should be outside of the form, before it, to the side of it or after it.
 
 ![Forgot password link](./images/forgot-password-link.png)
 
 ## Auto-tabbing Between Fields
 
-Some niche login forms, such as those found on bank sites, ask users for certain characters of a password, memorable word or security pin. They'll then present 3 text boxes or worse, 3 select boxes from which to choose from.
+Some niche login forms, such as those found on bank sites, ask users for certain characters of a password. Or they may ask for certain digits of a security pin. In either case they normally give users three text boxes, or even worse, three select boxes from which to choose from.
 
 ![Image](.)
 
-There is no reason to have 3 separate boxes, much less 3 separate select boxes, but in doing so, they decide to auto-tab between the fields. What this means is focus is moved to the next field automatically as the user enters a pre-determined number of characters.
+The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next field automatically as the user enters a pre-determined number of characters. The BBC's UX guidance[^3] says:
 
-BBC's UX guidance[^3] says *it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.*
+> it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.*
 
-And, Leonie Watson, accessibility expert, and someone that uses a screen reader and keyboard says:
+Leonie Watson, accessibility expert, and screen reader user says:
 
 > I strongly dislike having auto-tab functionality imposed on me. It is unexpected, and based on a flawed assumption that it is helpful. It's worth noting that it takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
 
-This point of view is unsurprising considering that the solution itself is founded on assumptions. Assumptions that take control away and explicitly moves away from convention. These are two qualities we want to adhere to as priority, not move away from.
+This point of view should be hardly surprising given that the solution itself is founded on assumptions. Assumptions that take control away from the user while simultaneously breaking convention. Two qualities we want to move toward, not away from.
+
+The other problem with such interfaces is that they separate what should be one text box into three. There is absolutely no reason to do this.
 
 ## One Form Per Page
 
-Some sites put the registration and login forms on the same page beside each other (or below one another on small screens). In previous chapters, we leveraged One Thing Per Page to put one question on a page. Similarly we can apply this rule to the entire form.
+Some sites put the registration and login forms on the same page beside each other (or below one another on small screens). In previous chapters, we leveraged One Thing Per Page to start with one question on a page in a longer process. We can also apply this principle to pages and forms as a whole.
 
-The registration and login forms are remarkably similiar. Putting them together makes them hard to differentiate. It's also confusing for users to be presented with a registration form, having clicking a specific call to action such as *login*.
+The registration and login forms are remarkably similiar. Putting them together makes them hard to differentiate. It's also confusing for users to be presented with a registration form, having clicked a specific call to action such as *login*.
 
-Give each form a separate and offer a link before or after the login form allowing users to register or vice versa.
+Give each form a separate page and offer a link before or after the login form allowing users to register or vice versa.
 
 ![](.)
 

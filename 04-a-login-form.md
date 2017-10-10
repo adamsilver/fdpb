@@ -56,11 +56,11 @@ Some sites have login-only areas. Often login form pages are designed without co
 
 Take a shopping basket page. Below the basket is a *checkout* button. Clicking it, takes the user to the beginning of the checkout journey. However, if they're logged out, they're prompted to login.
 
-As discussed in chapter 2, we used a checkout-specific layout&mdash;one with a minimal header to streamline that process. The login form should be given the same treatment. That is the login form should use the checkout-specific layout&mdash;after all, the user clicked *checkout* in the first place.
+As discussed in chapter 2, we used a checkout-specific layout - one with a minimal header to streamline the process. When the user is taken to the login page, it should be housed inside the checkout layout. After all, the user clicked *checkout* in the first place.
 
 This reinforces that the user is midway through a process and helps them focus. That's the reason the checkout layout exists in the first place.
 
-Tesco, for example, don't do this. When the user adds a product to their basket, they are prompted to login elsewhere&mdash;somewhere out of context which feels somewhat disorientating.
+Tesco, for example, don't do this. When the user adds a product to their basket, they are prompted to login elsewhere - somewhere out of context which feels somewhat disorientating.
 
 ![Forced to login](./images/tesco-logged-out.png)
 
@@ -96,36 +96,35 @@ The ‘Connections’ section shows Facebook and Twitter options. Users can conn
 
 ### Choice Versus Choice Paralysis
 
-‘They aren’t many laws in psychology, but here’s one you should know’
--- https://medium.com/@userfocus/10-findings-from-psychology-that-every-user-researcher-should-know-9900973ec186
+Standard thinking is that choice is good. That it offers freedom, autonomy and personal responsibility. Heck, even one of the principles is to “offer choice”. But *more* choice is often not better for the user.
 
-However, with choice comes choice *paralysis*. If there are many ways to login then users have to spend time and energy *deciding*. To make the choices obvious, lay out the choices clearly:
+Barry Schwartz, author of “The Paradox of Choice” has one case study where researchers set up two displays of jams at a gourmet food store. Customers could try samples, who were then given a coupon for a dollar off if they bought a jar. One display had 24 jams, the other had just 6. 30% of people exposed to the smaller selection bought a jam, but only 3% of those exposed to the larger selection did.
 
-![Login form](./images/kidly-login.png)
+Then consider companies who offer their employers pension plans. There's interesting data on this too. One of Barry's colleagues got access to the records of Vanguard, a huge mutual-fund company, and found that for every 10 mutual funds the employer offered, the rate of participation went down 2%. Even though employees were aware that by not participating, they were passing up as much as 5000 dollars a year.
 
-If you're going to provide social login capabilities, then first work out why. If the why is compelling, then be sure to make this seamless for users and make the choices clear.
+This phenomenon is actually called Hick's Law (named after psychologist William Edmund Hick), which states that the time taken to make a decision increases as the number of choices expand. It predicts that the greater the number of alternative choices, the longer it will take a user to make a decision and select the correct one.
+
+Giving users multiple ways to log in will increase the time and energy it takes them to do so. Be sure that the choices are valuable to your users. Also, be sure to layout the options clearly, and don't force users to remember which way they logged in last time.
+
+![Medium login](.)
 
 ## ‘Forgotten password’ Placement
 
-As human-beings we're prone to forgetting something just at the moment we most need to remember it. As the saying goes, *we're only human*. I use a password manager[^2] to avoid having to remember, but password managers aren't infallible. If you don't remember to add your credentials into the password manager, then you're in the same position as anyone else. And, not everybody uses a password manager.
+As human-beings we're prone to forgetting something just at the moment we most need to remember it. I use a password manager[^2] to avoid having to remember passwords, but password managers aren't infallible. If you don't remember to save your credentials, then you're in the same position as anyone else. In any case, not everybody uses a password manager.
 
-Sites offer users a ‘Forgotten password’ link on the login screen which gives users the chance to ‘reset’ their password by following a few simple steps. The feature itself isn't the problem, it's the placement of the link which can cause unnecessary friction for users.
+Sites offer users a ‘Forgotten password’ link on the login screen which gives users the chance to ‘reset’ their password. The feature itself isn't the problem, it's the placement of the link which can cause a friction for users.
 
-Honouring people's interaction preferences is a cornerstone of inclusive design. Some prefer the keyboard. Some prefer the mouse. Some use both interchangeably.
+Honouring people's interaction preferences is a cornerstone of inclusive design. Some prefer the keyboard. Some prefer the mouse. Some use both interchangeably. When using forms, or more broadly, websites, pressing <kbd>tab<kbd> moves focus to the next focusable element. By default links and form controls are focusable.
 
-When using forms, or more broadly, websites, pressing <kbd>tab<kbd> moves focus to the next focusable element. Naturally, and with no  intervention, links and form controls are focusable.
+When interacting with a form, the main task is filling out each field and then submitting it. Some forms place the “forgotton password” link between the username and password fields. But this disrupts the the natural flow of filling in a form. Similarly, placing it after the password field, but before the submit button is just as frustrating.
 
-When interacting with a login form, or any form for that matter, the main task is filling out each field and then submitting it. Placing  the ‘Forgotten password’ link between the username and password fields disrupts the natural flow of filling in a form. Even placing the link between the password field and the submit button causes the same level of disruption.
+This is because users expect <kbd>tab</kbd> to move to the next form control. But in this case, the user tabs and starts typing before realising focus is on the link instead. Or even more frustrating is when they are expecting to <kbd>tab</kbd> to the submit button to submit the form. They tab and press enter, which instead of submitting the form, navigates the user to reset their password. This sort of experience may result in keyboard users switching to the mouse if they are able to.
 
-When inside a form, the user expects the <kbd>tab</kbd> to move to the next field, but instead focus moves to the link. And when they do, they start typing, and nothing happens. Eventually they realise they need to tab again. Alternatively, they lose trust, and switch to using the mouse which is a little more explicit. What you click is what becomes focussed.
-
-Whilst placing the link in close proximity to the password field makes some sense from a visual perspective we can a little better. The primary need of the login form is to login. This means the fields and the submit button should come first with the seconday action (reseting the password) shluld come right after it.
-
-It's still in context and works visually without fighting for attention and without disturbing the forms natural flow.
+Whilst placing the link in close proximity to the password field makes sense from a visual perspective this is not the primary need. The reset password link is a secondary action of the page and should therefore come after the form.
 
 ![Forgot password link](./images/forgot-password-link.png)
 
-## Auto-tabbing between fields
+## Auto-tabbing Between Fields
 
 Some niche login forms, such as those found on bank sites, ask users for certain characters of a password, memorable word or security pin. They'll then present 3 text boxes or worse, 3 select boxes from which to choose from.
 
@@ -141,7 +140,7 @@ And, Leonie Watson, accessibility expert, and someone that uses a screen reader 
 
 This point of view is unsurprising considering that the solution itself is founded on assumptions. Assumptions that take control away and explicitly moves away from convention. These are two qualities we want to adhere to as priority, not move away from.
 
-## One form per page
+## One Form Per Page
 
 Some sites put the registration and login forms on the same page beside each other (or below one another on small screens). In previous chapters, we leveraged One Thing Per Page to put one question on a page. Similarly we can apply this rule to the entire form.
 

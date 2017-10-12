@@ -219,6 +219,10 @@ The `textarea` is similar to a text box except that allows users to enter multip
 
 While this question *adds value*, we need to understand how it will be used by the delivery person as this may influence the design. In this case, the viewport on the device is small and can't be scrolled, so we need to limit the amount of text that can be entered.
 
+### Capitalise Sentences
+
+<textarea autocapitalize="sentences">
+
 ### Limiting Text
 
 Limiting the amount of a text a user can type can and should be handled by validation as set out in “A Registration Form.” But there are some additional considerations to discuss.

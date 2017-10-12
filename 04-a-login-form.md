@@ -2,57 +2,55 @@
 
 “As a user, I want to log in to [your service] so that I can [do stuff]”, said nobody, ever!
 
-Nobody *wants* to log into your site. They're forced to as security measure. Without this, everyone has access to everyone else's stuff. Not good.
+Nobody *wants* to log into your site. They're forced to as a security measure. Without this, everyone has access to everyone else's stuff. Bad.
 
-Given how long login forms have been around for and how basic they are in appearance, you'd be surprised at how often they contain usability failures. And the rise of social login hasn't necessarily made things easier for designers.
+Given how prevalent login forms have been around for and how basic they are in appearance, you'd be surprised at how often they contain usability failures. And social login hasn't necessarily made things any easier.
 
-In this chapter, we'll dissect each potential usability failure and provide a remedy for each of them. By process of elimination, users should be left with a straightforward and pleasant login experience.
+In this chapter, we'll dissect each usability failure and provide a remedy for each of them. By process of elimination, users should be left with a straightforward and pleasant login experience.
 
 ## How It Might Look
 
-The login form is remarkably similar to the registration form from chapter 1. It contains the same fields in the same order. In fact the microcopy is also the same. The only difference is the button text.
+The login form is remarkably similar to the registration form in chapter 1. It contains the same fields, in the same order with the same microcopy. In fact, the only difference is the button text.
 
 ![Login](./images/login.png)
 
 ## Button Text
 
-The button is labelled as ‘Sign in’ as opposed to ‘Log in’. Why *not* ‘Log in’? ‘Log in’ is jargon and relates to something computery, something digital. ‘Sign in’ is the same thing, but more human. When you visit a spa or hotel, you're asked to *sign in*, not *log in*. We should design words to be as human as possible, making the experience friendly and familiar regardless of the medium.
+The button's label is set to ‘Sign in’ as opposed to ‘Log in’. ‘Log in’ is jargon and relates to something digital. ‘Sign in’ is more human. For example, When you visit a spa you're asked to *sign in* - you're never asked to *log in*. We should design words to be as human as possible, making the experience friendly and familiar regardless of the medium.
 
-## Provide A Hint
+## Provide Hint Text
 
-Most login forms don't tell users what the password rules are (like they do when registering). This is usually in the name of security, but more on that shortly.
+Most login forms don't tell users what the password rules are (like they do when registering).
 
-Many times I've used the same password across different sites. When necessary I'll tweak it to pass the validation rules specific to those sites that deviate from the norm. For example, imagine my password is *password*. If a site requires a capital letter, I'll capitalise the first letter to *Password*. And if the site forces me to include a number, then I'll add the number to the end: *password1*.
+I've often used the same password for different applications. When necessary I tweak it to pass the validation rules that are specific to sites that deviate from the norm. For example, imagine my password is *password*. If a site requires a capital letter, I'll capitalise the first letter to *Password*. And if the site forces me to include a number, I'll add a number to the end: *password1*.
 
-Most people have accounts across many sites with many different password rules. This makes passwords hard to remember. Without supplying users with a hint, they're left to guess the rules. To find out if their guess works, they have to submit and hope for a useful error message.
+Because most people have accounts with different password rules, remembering these passwords is difficult. Without giving users hint text, they're left to guess what the rules are. Then, to find out if their guess is right, they have to submit and hope for a useful error message. Tedious.
 
-The point is that by providing a hint, users have a greater chance of getting it right without having to submit and wait for feedback.
-
-Often we omit hints due to “security reasons”. But if a hacker wanted to find out the rules, they just register for an account themselves - hardly taxing.
+With hint text, users have a greater chance of success without having to wait for feedback. Hint text is often omitted due to security reasons. But if the hacker wanted to find out the rules, they can just register for an account themselves - hardly taxing!
 
 ## Use Explicit Labels
 
-When we designed the registration form in chapter 1, we asked users for their email address, not *username* as many sites use. As such, the field is labelled *email address*. Many sites create a problem here, by expecting the user's email address but labelling the field as a username.
+Some sites ask for a username but expect an email address. Labels should be explicit. If your site accepts a username or an email address then the label should be “Username or email address”.
+
+Other sites, such as airlines or banks ask for other credentials to sign in. For example, Santander ask for a customer ID and pin number. If you must ask for something that is non-standard, then use an explicit label and tell users where they might find certain details.
+
+For example, some credentials might be in an email confirmation or a bank statement. Tell users that and make it easy.
 
 ## The ‘username and password doesn't match’ Problem
 
-Many users forget their username and password. As we discussed just before, omitting a hint makes matters worse. But worse still, is when a user enters their credentials incorrectly, only to be shown an error later on: *The username and password doesn't match*. Put simply, this is awful and Jared Spool comically explains the issue in “Design Is Metrically Opposed”[^1]:
+While omitting hint text increases the chance of an error, what's even worse is when users do make a mistake and see an error that says “The username and password doesn't match”. Put simply, this is awful and Jared Spool comically explains the issue in his talk “Design Is Metrically Opposed”[^1]:
 
 > We know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.*
 
-Hackers don't actually hack this way. But even if they did, all they have to do to find out if the username exists, is try and sign up for an account with that username.
+As Jared says, Hackers don't actually hack this way. But even if they did, all they have to do to find out if the username exists, is try and sign up for an account with that username.
 
-The problem for users is that they're often left with no other course of remediation other than to reset their password which is a tedious thing to have to do and is a cause for drop outs.
+The problem for users is that they're often left with no other course of remediation other than to reset their password which is a long-winded and can cause users to give up.
 
-Like with any other form, we must explicitly tell users what went wrong so they can fix the issue with as little stress as possible.
-
-## Non-standard Username And Password Fields
-
-Instead of asking for *email* and *password*, some sites ask users to sign in using other details. For example, airlines ask users to access their account with their booking reference. Similarly, banks often ask for a pin number. If you must use something that is non-standar then use an explicit label and where they might find it.
+Like with any other form, we should tell users exactly what went wrong so that fixing it is easy.
 
 ## Contextual Login Forms
 
-Some sites have login-only areas. Often login form pages are designed without considering the context in which they are being used. To explain, we'll use checkout as an example. And for purposes of demonstration, we'll ignore that forcing users to login before checkout is an anti-pattern.
+Some sites have login-only areas. Often login pages are designed without considering the context in which they are being used. To explain, we'll use checkout as an example. And for purposes of demonstration, we'll ignore that forcing users to login before checkout is an anti-pattern.
 
 Take a shopping basket page. Below the basket is a *checkout* button. Clicking it, takes the user to the beginning of the checkout journey. However, if they're logged out, they're prompted to login.
 
@@ -96,23 +94,27 @@ The ‘Connections’ section shows Facebook and Twitter options. Users can conn
 
 ### Choice Versus Choice Paralysis
 
-Standard thinking is that choice is good. That it offers freedom, autonomy and personal responsibility. Heck, even one of the principles is to “offer choice”. But *more* choice is often not better for the user.
+Standard thinking is that choice is good. That it offers freedom, autonomy and personal responsibility. Heck, even one of *the principles* is “offer choice”. But *more* choice is not necessarily better when it comes to features or products.
 
 Barry Schwartz, author of “The Paradox of Choice” has one case study where researchers set up two displays of jams at a gourmet food store. Customers could try samples, who were then given a coupon for a dollar off if they bought a jar. One display had 24 jams, the other had just 6. 30% of people exposed to the smaller selection bought a jam, but only 3% of those exposed to the larger selection did.
 
-Then consider companies who offer their employers pension plans. There's interesting data on this too. One of Barry's colleagues got access to the records of Vanguard, a huge mutual-fund company, and found that for every 10 mutual funds the employer offered, the rate of participation went down 2%. Even though employees were aware that by not participating, they were passing up as much as 5000 dollars a year.
+There's some interesting data on companies that offer employees pension plans. One of Barry's colleagues got access to the records of Vanguard, a huge mutual-fund company, and found that for every 10 mutual funds the employer offered, the rate of participation went down 2%. Consider that employees knew that by not participating, they were passing up as much as 5000 dollars a year.
 
-This phenomenon is actually called Hick's Law (named after psychologist William Edmund Hick), which states that the time taken to make a decision increases as the number of choices expand. It predicts that the greater the number of alternative choices, the longer it will take a user to make a decision and select the correct one.
+This phenomenon is actually called Hick's Law (named after psychologist William Edmund Hick), which states that the time taken to make a decision increases as the number of choices expand. It predicts that the greater the number of alternative choices, the longer it will take a user to make a decision.
 
-Giving users multiple ways to log in will increase the time and energy it takes them to do so. Be sure that the choices are valuable to your users. Also, be sure to layout the options clearly, and don't force users to remember which way they logged in last time.
+Giving users multiple ways to log in might seem useful but can cause friction for users, so make sure the extra choice is valuable to users. Once you're sure, layout the options clearly.
 
 ![Medium login](.)
 
 ## ‘Forgotten password’ Placement
 
-As human-beings we're prone to forgetting something just at the moment we most need to remember it. I use a password manager[^2] to avoid having to remember passwords, but password managers aren't infallible. If you don't remember to save your credentials, then you're in the same position as anyone else. In any case, not everybody uses a password manager.
+Human beings are forgetful. In fact we're most likely to forget something at the moment we most need it. Some people, myself included, use password managers[^2]. They store all your passwords in one place and all you have to do is remember a single master password.
 
-Sites offer users a ‘Forgotten password’ link on the login screen which gives users the chance to ‘reset’ their password. The feature itself isn't the problem, it's the placement of the link which can cause a friction for users.
+That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as someone without a password manager. In any case, not everyone uses one, nor should they have to.
+
+This is why sites give users a “Forgot password” or “Reset password” feature. The feature itself isn't especially problematic, nor is it the focus of this particular problem. It's the placement of the link within a login form that can cause tremendous frustration for users.
+
+---
 
 Honouring people's interaction preferences is a cornerstone of inclusive design. Some prefer the keyboard. Some prefer the mouse. Some use both interchangeably. When using forms, or more broadly, websites, pressing <kbd>tab<kbd> moves focus to the next focusable element. By default links and form controls are focusable.
 
@@ -152,6 +154,26 @@ Give each form a separate page and offer a link before or after the login form a
 
 ![](.)
 
+## Autocapitalisation
+
+https://stackoverflow.com/questions/5171764/how-do-you-turn-off-auto-capitalisation-in-html-form-fields-in-ios
+
+https://bitly.com/a/sign_in
+
+## Autocorrect
+
+If not using the right type, iOS for example will autocorrect the field thinking it's not valid.
+
+Using type=“text” instead of type=“email” or type=“number”. It means iOS autocorrects it because it’s a text field.
+
+https://www.bennadel.com/blog/2307-disabling-auto-correct-and-auto-capitalize-features-on-iphone-inputs.htm
+
+https://stackoverflow.com/questions/35513968/disable-auto-correct-in-safari-text-input
+
+https://uxcellence.com/2014/tweaking-automatic-form-input
+
+
+
 ## Summary
 
 In this chapter we covered the main problems associated with login forms. We looked at some of the usability failures that typically occur in the name of security and how in reality, it doesn't actually stop hackers at all.
@@ -177,3 +199,7 @@ We continued by looking at how social login behaviour introduces trade-offs and 
 - autofocus
 - https://sessioncam.com/reducing-dropout-during-your-online-checkout-process/
 - A note on logout?
+- https://twitter.com/adambsilver/status/917650810523267073
+- When autofill doesn't work?
+- autocapitalisation!!!
+https://twitter.com/slicknet/status/916704955129413632

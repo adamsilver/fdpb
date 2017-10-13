@@ -8,45 +8,43 @@ Given how prevalent login forms have been around for and how basic they are in a
 
 In this chapter, we'll dissect each usability failure and provide a remedy for each of them. By process of elimination, users should be left with a straightforward and pleasant login experience.
 
-## How It Might Look
+## Button Text
 
-The login form is remarkably similar to the registration form in chapter 1. It contains the same fields, in the same order with the same microcopy. In fact, the only difference is the button text.
+The login form is remarkably similar to the registration form in chapter 1. It contains the same fields, in the same order with the same microcopy. In fact, the only difference is the button text - instead of “Register” the button's label is “Sign in”.
 
 ![Login](./images/login.png)
 
-## Button Text
+“Sign in” is a softer and human version of “Log in”. When you enter a spa, hotel or office building, you sign in which grants you entry. And you sign out as you leave. We should try and use the same principles that people are familiar with digital experienes too.
 
-The button's label is set to ‘Sign in’ as opposed to ‘Log in’. ‘Log in’ is jargon and relates to something digital. ‘Sign in’ is more human. For example, When you visit a spa you're asked to *sign in* - you're never asked to *log in*. We should design words to be as human as possible, making the experience friendly and familiar regardless of the medium.
+Whichever you go for consistency is important. Don't use ”Sign in” here and then “Log out” elsewhere. “Log in” goes with “Log out”, and “Sign in” goes with “Sign out”.
 
 ## Provide Hint Text
 
-Most login forms don't tell users what the password rules are (like they do when registering).
+People often use the same password for different sites and applications. But password rules differ from site to site. Some sites ask for capital letter, others don't. When signing up people will tweak their password to match the rules. For example, if my password is “password” but the site requires a capital letter, I'll set it to “Password”.
 
-I've often used the same password for different applications. When necessary I tweak it to pass the validation rules that are specific to sites that deviate from the norm. For example, imagine my password is *password*. If a site requires a capital letter, I'll capitalise the first letter to *Password*. And if the site forces me to include a number, I'll add a number to the end: *password1*.
-
-Because most people have accounts with different password rules, remembering these passwords is difficult. Without giving users hint text, they're left to guess what the rules are. Then, to find out if their guess is right, they have to submit and hope for a useful error message. Tedious.
+That's all very well upon registering, but it doesn't help if I'm signing in later. Giving users a refresher of the rules stops users having to repeatedly guess or worse, having to reset their password.
 
 With hint text, users have a greater chance of success without having to wait for feedback. Hint text is often omitted due to security reasons. But if the hacker wanted to find out the rules, they can just register for an account themselves - hardly taxing!
 
 ## Use Explicit Labels
 
-Some sites ask for a username but expect an email address. Labels should be explicit. If your site accepts a username or an email address then the label should be “Username or email address”.
+Some sites ask for a username but expect an email address. Other sites, such as airlines or banks ask for alternative credentials such as a booking reference number, customer ID or pin number.
 
-Other sites, such as airlines or banks ask for other credentials to sign in. For example, Santander ask for a customer ID and pin number. If you must ask for something that is non-standard, then use an explicit label and tell users where they might find certain details.
+If you have to deviate from the standard email address and password fields, then label the fields explicitly. If you expect an email address use “Email address”, if it's a username say “Username”. If it's one or the other say “Username or email address”.
 
-For example, some credentials might be in an email confirmation or a bank statement. Tell users that and make it easy.
+If some of the credentials can be found on a document, such as a booking confirmation email or bank statement, then tell users where to find it. Leaving users to guess is an unnecessary source of friction.
 
 ## The ‘username and password doesn't match’ Problem
 
-While omitting hint text increases the chance of an error, what's even worse is when users do make a mistake and see an error that says “The username and password doesn't match”. Put simply, this is awful and Jared Spool comically explains the issue in his talk “Design Is Metrically Opposed”[^1]:
+While omitting hint text increases the chance of an error, what's worse is when users make a mistake and see an error that says “The username and password doesn't match”. Jared Spool comically explains why this is an issue in his talk “Design Is Metrically Opposed”[^1]:
 
 > We know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.*
 
 As Jared says, Hackers don't actually hack this way. But even if they did, all they have to do to find out if the username exists, is try and sign up for an account with that username.
 
-The problem for users is that they're often left with no other course of remediation other than to reset their password which is a long-winded and can cause users to give up.
+The problem for users is that they're often left with no other course of remediation other than to reset their password which is long-winded and can cause users to give up.
 
-Like with any other form, we should tell users exactly what went wrong so that fixing it is easy.
+Like with any other form, we should tell users exactly what went wrong so that they can fix it easily.
 
 ## Contextual Login Forms
 
@@ -106,51 +104,47 @@ Giving users multiple ways to log in might seem useful but can cause friction fo
 
 ![Medium login](.)
 
-## ‘Forgotten password’ Placement
+## Forgotten Password Link Placement
 
 Human beings are forgetful. In fact we're most likely to forget something at the moment we most need it. Some people, myself included, use password managers[^2]. They store all your passwords in one place and all you have to do is remember a single master password.
 
-That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as someone without a password manager. In any case, not everyone uses one, nor should they have to.
+That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as everyone else. In any case, not everyone uses one, nor should they have to.
 
-This is why sites give users a “Forgot password” or “Reset password” feature. The feature itself isn't especially problematic, nor is it the focus of this particular problem. It's the placement of the link within a login form that can cause tremendous frustration for users.
+Most sites give users a way to reset their password if they forget it. The feature itself isn't especially problematic. It's the placement of the link within a login form that can cause tremendous frustration for users.
 
----
+If the link is just above the password field, when users tab from the email field, it's the link that will have focus, not the password field. Some users will tab and start typing not realising what's happened. 
 
-Honouring people's interaction preferences is a cornerstone of inclusive design. Some prefer the keyboard. Some prefer the mouse. Some use both interchangeably. When using forms, or more broadly, websites, pressing <kbd>tab<kbd> moves focus to the next focusable element. By default links and form controls are focusable.
-
-When interacting with a form, the main task is filling out each field and then submitting it. Some forms place the “forgotton password” link between the username and password fields. But this disrupts the the natural flow of filling in a form. Similarly, placing it after the password field, but before the submit button is just as frustrating.
-
-This is because users expect <kbd>tab</kbd> to move to the next form control. But in this case, the user tabs and starts typing before realising focus is on the link instead. Or even more frustrating is when they are expecting to <kbd>tab</kbd> to the submit button to submit the form. They tab and press enter, which instead of submitting the form, navigates the user to reset their password. This sort of experience may result in keyboard users switching to the mouse if they are able to.
-
-While placing the “forgotten password” link in close proximity to the password field makes sense from a visual perspective, the primary user need is to login in. The link should be outside of the form, before it, to the side of it or after it.
+Worse still is when the link is placed before the submit button. When keyboard users tab from the password field and press <kbd>Return</kbd>, they will expect the form to submit, but instead, they will be taken reset their password. Once they realise, they'll have to go back, re-enter their credentials and be careful to either tab twice or switch to using their trusty mouse.
 
 ![Forgot password link](./images/forgot-password-link.png)
 
+While placing the link in close proximity to the password field makes some sense visually, the primary user need is to log in. Therefore, the link shouldn't disturb the act of loggin in. Instead, you should place it before the form or after the submit button.
+
 ## Auto-tabbing Between Fields
 
-Some niche login forms, such as those found on bank sites, ask users for certain characters of a password. Or they may ask for certain digits of a security pin. In either case they normally give users three text boxes, or even worse, three select boxes from which to choose from.
+Some login forms, such as those found on bank sites, ask users for certain characters of their password. Or they may ask for certain digits of their security pin. In either case they normally give users three text boxes, or even worse, three select boxes from which to choose from.
 
-![Image](.)
+![Hargreaves](.)
 
-The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next field automatically as the user enters a pre-determined number of characters. The BBC's UX guidance[^3] says:
+The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next field automatically as the user enters a pre-determined number of characters. But as the BBC's UX guidance[^3] says:
 
-> it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.*
+> it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.
 
-Leonie Watson, accessibility expert, and screen reader user says:
+Leonie Watson, accessibility expert, and screen reader user backs this point up:
 
 > I strongly dislike having auto-tab functionality imposed on me. It is unexpected, and based on a flawed assumption that it is helpful. It's worth noting that it takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
 
-This point of view should be hardly surprising given that the solution itself is founded on assumptions. Assumptions that take control away from the user while simultaneously breaking convention. Two qualities we want to move toward, not away from.
+This point of view should be hardly surprising given that the solution is founded on assumptions. Assumptions that take control away from the user while simultaneously breaking convention. Two qualities we want to move toward, not away from.
 
-The other problem with such interfaces is that they separate what should be one text box into three. There is absolutely no reason to do this.
+The other problem with these interfaces is that they separate what should be one text box into three. There is absolutely no reason to do this. Give users one text box and allow them to type freely.
 
 ## One Form Per Page
 
-Some sites put the registration and login forms on the same page beside each other (or below one another on small screens). In previous chapters, we leveraged One Thing Per Page to start with one question on a page in a longer process. We can also apply this principle to pages and forms as a whole.
+In previous chapters, we leveraged One Thing Per Page to start with one question on a page but we can also apply this pattern to pages and forms as a whole.
 
-The registration and login forms are remarkably similiar. Putting them together makes them hard to differentiate. It's also confusing for users to be presented with a registration form, having clicked a specific call to action such as *login*.
+Some sites put the registration and login forms on the same page beside each other (or below one another on small screens). Registration and login forms are remarkably similiar. Putting them together makes them hard to differentiate. It's also confusing for users to be presented with two forms when they clicked a link labelled “Sign in”.
 
-Give each form a separate page and offer a link before or after the login form allowing users to register or vice versa.
+Instead, put each form on a separate page. To let users switch between them, use a link that allows them to switch easily.
 
 ![](.)
 

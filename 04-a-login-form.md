@@ -197,3 +197,4 @@ We continued by looking at how social login behaviour introduces trade-offs and 
 - When autofill doesn't work?
 - autocapitalisation!!!
 https://twitter.com/slicknet/status/916704955129413632
+https://web.archive.org/web/20130416031325/http://0xtc.com/2009/06/25/login-logout-vs-sign-in-sign-out-vs-log-in-sign-out-a-short-roundup.xhtml/

@@ -148,25 +148,25 @@ Instead, put each form on a separate page. To let users switch between them, use
 
 ![](.)
 
-## Autocapitalisation
+## Auto-captalisation and Autocorrect
 
-https://stackoverflow.com/questions/5171764/how-do-you-turn-off-auto-capitalisation-in-html-form-fields-in-ios
+By default iOS will automatically convert the first letter in text fields to uppercase. This includes the email input. Fortunately, since iOS 5, the email input won't do this. However, Android and iOS will still auto capitalise the first letter if you use a text input. So if, you're asking for a username, then you can turn off `autocapitalize` like this:
 
-https://bitly.com/a/sign_in
+```HTML
+<input type="text" autocapitalize="none">
+```
 
-## Autocorrect
+Similarly, iOS will try and autocorrect words that it recognises if using a text input. So if you're using a text input to capture a username, for example, then you can turn it off like this:
 
-If not using the right type, iOS for example will autocorrect the field thinking it's not valid.
+```HTML
+<input type="text" autocorrect="off">
+```
 
-Using type=“text” instead of type=“email” or type=“number”. It means iOS autocorrects it because it’s a text field.
+Finally, some browsers will mark mispelt words with an underline. You can turn off this functionality in supporting browsers like this:
 
-https://www.bennadel.com/blog/2307-disabling-auto-correct-and-auto-capitalize-features-on-iphone-inputs.htm
-
-https://stackoverflow.com/questions/35513968/disable-auto-correct-in-safari-text-input
-
-https://uxcellence.com/2014/tweaking-automatic-form-input
-
-
+```HTML
+<input type="text" spellcheck="false">
+```
 
 ## Summary
 
@@ -196,5 +196,7 @@ We continued by looking at how social login behaviour introduces trade-offs and 
 - https://twitter.com/adambsilver/status/917650810523267073
 - When autofill doesn't work?
 - autocapitalisation!!!
-https://twitter.com/slicknet/status/916704955129413632
-https://web.archive.org/web/20130416031325/http://0xtc.com/2009/06/25/login-logout-vs-sign-in-sign-out-vs-log-in-sign-out-a-short-roundup.xhtml/
+- https://twitter.com/slicknet/status/916704955129413632
+- https://web.archive.org/web/20130416031325/http://0xtc.com/2009/06/25/login-logout-vs-sign-in-sign-out-vs-log-in-sign-out-a-short-roundup.xhtml/
+- https://bitly.com/a/sign_in
+- https://weblog.west-wind.com/posts/2015/jun/15/turn-off-html-input-auto-fixups-for-mobile-devices

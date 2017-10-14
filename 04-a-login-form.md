@@ -160,7 +160,7 @@ Finally, some browsers will mark misspelled words with an underline. You can tur
 
 In this chapter we started by quashing traditional advice that omiting hint text and explicit error messages improve security on login forms. We then looked at some of the subtle usability issues that can be introduced with social login. Finally, we looked at ways of improving the experience for keyboard and mobile users which meant avoiding auto-tabbing, auto-correcting and auto-capitalising input.
 
-### Things to avoid
+### Things To Avoid
 
 - Using ambiguous microcopy and error messages in the name of security.
 - Putting the login form next to the registration form.

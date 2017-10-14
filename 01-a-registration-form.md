@@ -231,7 +231,7 @@ Instead, it's better to let users reveal their password which speaks to principl
 
 ![Password reveal](.)
 
-To do this, you'll need to use Javascript to inject a button next to the input. When clicked it toggles both the `type` attribute from `password` to `text` and the label from “Show password” to “Hide password”.
+To do this, you'll need to use Javascript to inject a `<button>` next to the input. The `<button>` is perfect and most of the time it should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for.  When clicked it toggles both the `type` attribute between `password` and `text` and the label between “Show password” to “Hide password”.
 
 ```JS
 function PasswordReveal(el) {

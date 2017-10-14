@@ -268,13 +268,21 @@ In this case the big screen view entirely discards the select box in favour of a
 
 If that weren't enough, the server needs to be aware of how both menus transmit data. The select box sends different data to the submit buttons creating yet more work and a maintenance burden.
 
-### Hover Veruss Click
+### Hover Versus Click
 
-TODO: Work out where to weave this.
+On the web, menus are often opened on hover. There are many problems with opening a menu or revealing anything else for that matter this way.
 
-### A responsive menu component
+First, hovering is not an intention to open the menu. When a user moves over a menu that opens on hover it can obscure the content behind which disrupts the experience. In the case of the inbox, as the user goes to select the first checkbox, they may accidentally end up clicking one of the items in the menu which fails principles 4, *Give Control*.
 
-Instead of bending a `select` box to our will, we'll design a true and responsive menu.
+![Illustrate](.)
+
+Second, users have to be careful to keep the cursor within the bounds of the menu, otherwise it will close. This is known as a hover tunnel, and is especially difficult to user for motor-impaired users.
+
+Third, not all users use a mouse and many touch-screen devices are typically operated without one. In which case, you need to show the menu on click anyway. If you wanted to open the menu on hover for large viewports and on click for small ones, think again. There are many large touch screen devices.
+
+### A True Menu
+
+Now we know the downsides to both adaptive design, and opening a menu, we need to design a true responsive menu that opens on click. Here's how it might look:
 
 ![Responsive Menu](.)
 
@@ -286,14 +294,34 @@ Instead of bending a `select` box to our will, we'll design a true and responsiv
 </div>
 ```
 
-The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, so screen readers can announce it as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved in using ARIA is to convey the same meaning for screen readers.
+The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, so screen readers can announce it as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved in using ARIA is to convey the meaning for screen reader users.
 
-When there isn't enough room to display them inline, they'll stack beneath each other. To avoid this, we can tweak the CSS and Javascript to collapse the submit buttons inside a traditional menu.
+When there isn't enough room to display the menu items inline, they'll stack beneath each other. To avoid this, we can use the CSS and Javascript's `matchMedia` API to collapse the submit buttons inside a traditional menu.
 
-![Menu closed and open](./images/etc.png)
+```JS
+Menu.prototype.setupResponsiveChecks = function() {
+  this.mq = window.matchMedia('(min-width: 40em)'');
+  this.mq.addListener($.proxy(this, 'checkMode'));
+  this.checkMode(this.mq);
+};
+
+Menu.prototype.checkMode = function(mq) {
+  if(mq.matches) {
+    this.enableBigMode();
+  } else {
+    this.enableSmallMode();
+  }
+};
+```
+
+The `matchMedia` API is the Javascript equivalent of a media query. Where `@media() {}` is for CSS, `matchMedia()` is for Javascript. It's a way of keeping behaviour and style in-sync based on the same media query. In this case, when the viewport's width is less than `45em` the script will construct a toggle menu (small mode). When it's more than `45em` it will construct a horizontal menubar (big mode).
+
+Before `matchMedia` we had to use flakey techniques to get the width of the viewport[^]. Even then, you could only get the value in pixels, not `em`s. It's preferrable to use ems because if the user increases the the size of text the layout will adapt in proportion.
+
+When small mode is enabled, the enhanced HTML is updated:
 
 ```HTML
-<button aria-haspopup="true" aria-expanded="false">
+<button type="button" aria-haspopup="true" aria-expanded="false">
   Actions
   <span aria-hidden="true">&#x25be;</span>
 </button>
@@ -307,194 +335,53 @@ When there isn't enough room to display them inline, they'll stack beneath each 
 Notes:
 
 - The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
-- The `<span>` contains the unicode character for a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something below it. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
-- The `aria-haspopup` attribute is complemented by `aria-expanded` which tells users whether the menu is currently expanded or collapsed by toggling between `true` and `false` values.
-- The role is now set to `menu` instead of `menubar` because it now expands and collapses. Where as a `menubar` is always visible.
+- The `<span>` contains the unicode character for a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
+- The `aria-haspopup` attribute is complemented by `aria-expanded` which tells users whether the menu is currently expanded (open) or collapsed (closed) by toggling between `true` and `false` values.
+- The role is now set to `menu` instead of `menubar` because it now expands and collapses - a `menubar` is always visible.
 
-Here's the Javascript:
+#### Keyboard And Focus Behaviour
+
+When the menu button is clicked, the script checks to see if the menu is currently open be checking whether `aria-expanded` is set to `false`. If it is, we show the menu and focus the first menu item. If it isn't, we hide the menu and move focus back to the menu button.
 
 ```JS
-function Menu(container, options) {
-	this.container = container;
-	this.menu = this.container.find('.menu-items');
-	this.setupOptions(options);
-	this.setupKeys();
-	this.menu.on('keydown', 'input', $.proxy(this, 'onButtonKeydown'));
-	this.createToggleButton();
-	this.setupResponsiveChecks();
-}
-
-Menu.prototype.setupOptions = function(options) {
-	options = options || {};
-	options.mq = options.mq || '(min-width: 40em)';
-	this.options = options;
-};
-
-Menu.prototype.setupResponsiveChecks = function() {
-	this.mq = window.matchMedia(this.options.mq);
-	this.mq.addListener($.proxy(this, 'checkMode'));
-	this.checkMode(this.mq);
-};
-
-Menu.prototype.createToggleButton = function() {
-	this.menuButton = $('<button class="secondaryButton" type="button" aria-haspopup="true" aria-expanded="false">Actions<span aria-hidden="true">&#x25be;</span></button>');
-	this.menuButton.on('click', $.proxy(this, 'onMenuButtonclick'));
-};
-
-Menu.prototype.checkMode = function(mq) {
-	if(mq.matches) {
-		this.enableBigMode();
-	} else {
-		this.enableSmallMode();
-	}
-};
-
-Menu.prototype.enableSmallMode = function() {
-	this.container.prepend(this.menuButton);
-	this.hideMenu();
-	this.menu[0].setAttribute('role', 'menu');
-	this.setupTabIndex();
-};
-
-Menu.prototype.enableBigMode = function() {
-	this.menuButton.detach();
-	this.showMenu();
-	this.menu[0].setAttribute('role', 'menubar');
-	this.resetTabIndex();
-};
-
-Menu.prototype.hideMenu = function() {
-	this.menu[0].hidden = true;
-	this.menuButton[0].setAttribute('aria-expanded', 'false');
-};
-
-Menu.prototype.showMenu = function(first_argument) {
-	this.menu[0].hidden = false;
-	this.menuButton[0].setAttribute('aria-expanded', 'true');
-};
-
-Menu.prototype.onMenuButtonclick = function(e) {
-	if(this.menu[0].hidden) {
-		this.showMenu();
-		this.menu.find('input')[0].focus();
-	} else {
-		this.hideMenu();
-		this.menuButton.focus();
-	}
-};
-
-Menu.prototype.setupKeys = function() {
-	this.keys = {
-		enter: 13,
-		esc: 27,
-		space: 32,
-		left: 37,
-		up: 38,
-		right: 39,
-		down: 40,
-		tab: 9
-   };
-};
-
-Menu.prototype.setupTabIndex = function() {
-	this.container.find('input').each($.proxy(function(index, el) {
-		el.tabIndex = -1;
-	}, this));
-};
-
-Menu.prototype.resetTabIndex = function() {
-	this.container.find('input').each($.proxy(function(index, el) {
-		el.tabIndex = 0;
-	}, this));
-};
-
-Menu.prototype.onButtonKeydown = function(e) {
-	switch (e.keyCode) {
-		case this.keys.right:
-			e.preventDefault();
-			this.focusNext(e.currentTarget);
-			break;
-		case this.keys.up:
-			e.preventDefault();
-			this.focusPrevious(e.currentTarget);
-			break;
-		case this.keys.down:
-			e.preventDefault();
-			this.focusNext(e.currentTarget);
-			break;
-		case this.keys.left:
-			e.preventDefault();
-			this.focusPrevious(e.currentTarget);
-			break;
-
-		case this.keys.esc:
-			if(!this.mq.matches) {
-				this.menuButton.focus();
-				this.hideMenu();
-			}
-			break;
-		case this.keys.tab:
-			if(!this.mq.matches) {
-				this.hideMenu();
-			}
-	}
-};
-
-Menu.prototype.focusNext = function(currentButton) {
-	var next = $(currentButton).next();
-	if(next[0]) {
-		next.focus();
-	} else {
-		this.container.find('input').first().focus();
-	}
-};
-
-Menu.prototype.focusPrevious = function(currentButton) {
-	var prev = $(currentButton).prev();
-	if(prev[0]) {
-		prev.focus();
-	} else {
-		this.container.find('input').last().focus();
-	}
+Menu.prototype.onMenuButtonClick = function() {
+  if(this.menuButton.attr('aria-expanded') == 'false') {
+    this.showMenu();
+    this.menu.find('input').first().focus();
+  } else {
+    this.hideMenu();
+    this.menuButton.focus();
+  }
 };
 ```
 
-Notes:
-
-- Pressing the button shows the menu and moves focus to the first `menuitem`.
-- Pressing <kbd>down</kbd> or <kbd>up</kbd> on a `menuitem` moves to the next or previous item (on loop).
-- Pressing <kbd>escape</kbd> on a `menuitem` moves focus to the menu button and closes the menu.
-- All `menuitems`s have `tabindex="-1"` which means pressing <kbd>tab</kbd> won't move focus to the them. Instead, users can traverse the items with the arrow keys, which saves them having to wade through each of the menu items to get to the next discrete component.
-
-### A note about `matchmedia`
-
-The `matchMedia` API is the Javascript equivalent of a media query. It's a way of keeping behaviour and style in-sync based on the same media query. Where `@media() {}` is for CSS, `matchMedia()` is for Javascript.
-
-In this case, when the viewport has a width less than `45em` the script will construct a toggle menu. When it's more than `45em` it will construct a horizontal menubar. The related CSS is below.
+We can use the `[aria-expanded]` CSS attribute selector to toggle the menu's display:
 
 ```CSS
-/* other styles */
+[aria-expanded="true"] + .menu-items {
+  display: block;
+}
 
-@media(min-width: 45em) {
-	/* styles that only apply when the viewport is at least 45ems wide */
+[aria-expanded="false"] + .menu-items {
+  display: none;
 }
 ```
 
-Before `matchMedia` we had to use flakey techniques to get the width of the viewport[^]. Even then, you could only get the value in pixels, not `em`s. It's preferrable to use ems as they honour users' browser CSS preferences or an increase in font size because they are a relative unit. For further reading, see X.
+When focus is on a menu item, pressing <kbd>down</kbd> or <kbd>up</kbd> arrows will move to the next or previous item, on loop. Pressing <kbd>escape</kbd> on a menu item will move focus to the menu button and closes the menu.
 
-## Select all
+## Select All
 
-Users may want to, for example, archive every email in their inbox. Rather than selecting each one manually, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the others creating a visual connection. Clicking it checks every checkbox at once.
+Users may want to, for example, archive every email in their inbox. Rather than selecting each one manually, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the others creating a visual connection. Clicking it checks every checkbox in one fell swoop.
 
 [!Checkbox mailchimp?](.)
 
-Arguably, this standard input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this behaviour without an sniff of Javascript.
+Arguably, this standard input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this behaviour without any Javascript.
 
-By now the benefits of using standard elements should be well understood. Depsite this control being accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. These controls have to look like what they do.
+By now the benefits of using standard elements should be well understood. Despite this control being accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. This control should look like what it does.
 
-The trouble with using a checkboxes is that they don't signal what they do. Checkboxes, like select boxes, are associated with collecting data for submission. We should match peoples's expectation by using the same interface component for the same job. In doing so the interface becomes familiar and happens to conform to principles 3, *be consistent*.
+The trouble with using a checkbox is that they don't signal what they do. Like select boxes, they are associated with collecting data for submission. We should match peoples's expectation by using the same interface component for the same job. In doing so, the interface becomes familiar and consistent which speaks to principle 3, *Be consistent*.
 
-Let's do this by creating a true toggle button. HTML's `<button>` is perfect and most of the time it should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. The button element, however, doesn't have the concept of *toggling*, so we'll enhance the button with ARIA.
+Like the menu button, we can use the `<button>` element again to create a true toggle button. What's missing is that buttons don't have the concept of *toggling*, but we can enrich their semantics with ARIA.
 
 ```HTML
 <button type="button" aria-pressed="false">Select all</button>
@@ -512,11 +399,11 @@ button[aria-pressed="true"] {
 }
 ```
 
-## Success messages
+## Success Messages
 
-When the user submits the form, the selected emails will disppear from their inbox. When an action has been completed, telling users is simply the respectful thing to do. Not doing so leaves users to wonder what happened, if at all.
+When the user submits the form, the selected emails will disppear from their inbox. When an action has been completed, telling users that it has been completeed a respectful thing to do. Not doing so leaves users to wonder what happened, if at all.
 
-In chapter 1, we designed and constructed an error summary panel that resides at the top of the page. A success message needs a similar treatment with just a few tweaks. First is that instead of having red colouration, it should be green which is universally associated with success. And the content should be ‘You successfully archived 15 emails’ or similar.
+In chapter 1, “A Registration Form”, we designed and constructed an error summary panel that resides at the top of the page. A success message needs a similar treatment with just a few tweaks. First, is that instead of having red colouration, it should be green which is universally associated with success. And the content should be ‘You successfully archived 15 emails’ (or similar).
 
 ![Success](.)
 
@@ -526,64 +413,47 @@ In chapter 1, we designed and constructed an error summary panel that resides at
 </div>
 ```
 
-Both the error and success message panels are placed within the natural flow of the document toward the top of the page to indicate their importance. The `role="alert"` as noted in ‘A Registration Form’ ensures that screen readers will announced it when the page loads.
+Both the error and success message panels are placed within the natural flow of the document and toward the top of the page to indicate their importance. The `role="alert"` attribute as noted in “A Registration Form” ensures that screen readers will announced it when the page loads.
 
-### Toast messages
+### Toast Messages
 
-Some applications employ what is known as a ‘toast’ message or notification. When the application wants notify users of something, a little (non modal!) dialog will pop-up on top of the page&mdash;a little bit like a piece of toast. Then, after a certain amount of time has elapsed the notification disppears automatically, by fading out.
+Some applications employ what is known as a ‘toast’ message or notification. When the application needs to notify users, a little (non modal) dialog will pop-up on top of the page - a bit like a piece of toast. Then, after a certain amount of time the notification disappears automatically, usually with a fading out animation.
 
 ![Toast message](.)
 
 This is all very interesting from a design perspective, but it's hardly a useful way to communicate. First, the message obscures the content beneath. Second, users have to read the message before it disappears. This makes comprehension a stressful task and takes control *away* from the user.
 
-Really, a success message should be laid out bare and naturally within the flow of the page. There is no need to obscure the content. After all the message is temporary and will naturally disappear when the user leaves the page.
+Really, a success message should be laid out bare and placed within the natural flow of the page. There is no need to obscure parts of interface. After all the message is temporary and will naturally disappear when the user leaves the page.
 
-However, if research shows that being able to dismiss a message *adds value* offer the functionality in the form of a button. Clicking it, simply hides the message.
+However, if research shows that being able to dismiss a message *adds value*, you can offer the functionality in the form of a button. When clicked, it hides the message.
 
-![Success with dismiss](.)
+![Success With Dismiss](.)
 
-Be careful to inject the `<button>` with Javascript. If we put it in directly in the HTML, then the interface will appear broken when Javascript is available. That is because clicking the button without Javascript will do nothing.
+Be careful to inject the `<button>` with Javascript. If we put it in directly in the HTML, then the interface will appear broken when Javascript is unavailable. That is, clicking the button will do nothing.
 
-```JS
-function MessageDismisser(panel) {
-	this.panel = panel;
-	this.createButton();
-}
+### Confirming Versus Undoing
 
-MessageDismisser.prototype.createButton = function() {
-	var button = $('<button>Dismiss message</button>');
-	this.panel.append(button);
-	button.on('click', $.proxy(function(e) {
-		this.panel.remove();
-	}, this);
-};
-```
-
-### Confirming versus undoing an action
-
-As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can achieve the same thing in an interface by asking users to confirm their action:
+As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can create a digital speed bump by asking users to confirm their action (shown below. This is fine for infrequent tasks but it quikcly becomes tedious when that action needs to be performed more often. Continuing with the driving analogy then: it's a bit like puttings speed bumps on the motorway. They'd probably cause more accidents, not less.
 
 ![Are you sure](./images/etc.png)
 
-This is fine for infrequent tasks but it quickly gets tedious when they need to be performed more often. To continue with the driving analogy, it's a bit like putting speed bumps on motorways: they'd cause more problems than they'd solve.
-
-An alternative approach is to let users perform the action immediately, without warning. Then, along with the success message, give users the choice to undo their action. Clicking *undo* reverses the action by restoring their emails. If only we could *undo* accidents on the road.
+An alternative approach would be letting users perform the action immediately, without any warning. Then, along with the success message, give users the choice to undo their action. Clicking *undo*, would reverse the action by restoring their emails back into their inbox. If only we could *undo* accidents on the road.
 
 ![Undo](./images/undo.png)
 
 ## Summary
 
-In this chapter we began by choosing the right way to present a collection of emails and the impact of combining two disparate modes&mdash;reading email and actioning it&mdash;into one interface. We looked at how a mult-select form is different to most other types of form and how this caused us to consider several other aspects of design. Finally we looked at ways in which to *add value* and put users firmly in control by designing consistent interfaces that give users feedback and a way to undo their actions.
+In this chapter we began by choosing the right way to present a collection of emails and the impact of combining two disparate modes - reading email and actioning it - into one interface. We then looked at how a mult-select form is different to most other types of form and how this caused us to consider several other visual and interactive design treatments. Finally, we looked at ways in which to *add value* and put users firmly in control by designing consistent interfaces that give users feedback and a way to undo their actions.
 
-### Things to avoid
+### Things To Avoid
 
-- Ploughing ahead without deeply understanding the materials we design with.
-- Fixing bad HTML with Javascript.
-- Using ARIA when the functionality can be achieved with HTML.
-- Using checkboxes and select boxes for interface components that don't collect data.
-- Highlighting rows and doing more work for the sake it.
+- Using the wrong element for the job and fixing it with Javascript.
+- Using ARIA when standard HTML can be used instead.
+- Using checkboxes and select boxes for buttons and menu components.
+- Doing work that doesn't *add value*, such as highlighting selected rows.
 - Disabling submit buttons until the form becomes valid.
-- Putting *Are you sure?* messages in-front of repeated tasks.
+- Hiding notifications automatically.
+- Putting “speed bumps” in front of repetitive tasks.
 
 ## Footnotes
 

@@ -608,3 +608,7 @@ After that, we looked at other issues: giving users the ability to review their 
 [^13]: https://articles.uie.com/three_hund_million_button/
 [^autofillattrs]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
 [^backlink]: https://baymard.com/blog/back-button-expectations
+
+
+
+Once a user has clicked to checkout it’s important to keep them focussed on moving through the checkout process and not getting distracted by links/other navigation that take them away from checkout. Most of the big retailers now use ‘enclosed checkouts’, so remove the main navigation that is featured on the rest of the site and replace it with a very clear progress bar. It’s important to pare down and simplify the checkout pages to only include information relevant to checkout. By doing this you can highlight important information like secure payment icons, accepted payment methods, and so forth. Also ensure any relevant links to information like delivery and returns opens within a lightbox rather than taking the user away from the checkout process.

@@ -8,7 +8,7 @@ In this chapter, we'll look at an inbox. That is, a list of emails sent from oth
 
 First, we're going to look at how best to mark-up a list of emails. Discussing lists may seem out of place in a book about forms, but forms rarely form part of an interface on their own. Ignoring their surroundings can result in disagreeable experiences.
 
-The meaning—or semantics—behind elements should drive their visual design. Put simply, things should look like they function. There are 4 elements we can use to construct lists each with different semantics: description lists, tables, ordered lists and unordered lists. Let's discuss the pros and cons of each now.
+The meaning—or semantics—behind elements should drive their visual design[lizard brain]. Put simply, things should look like they function. There are 4 elements we can use to construct lists each with different semantics: description lists, tables, ordered lists and unordered lists. Let's discuss the pros and cons of each now.
 
 ### Description lists
 
@@ -29,15 +29,15 @@ A description list (`<dl>`), formerly called a definition list, is for grouping 
 
 A table (`<table>`) is an arrangement of data, typically laid out in rows and columns. Like a spreadsheet, they are particularly suited when the data needs to be compared and sorted. And numbers totalled at the bottom too.
 
-Tables unfortunately, are difficult to style on mobile, because there is no room to show more than two or three columns. Even then, it could be a squeeze depending on the data, creating layout issues. Content could wrap prefusly and could force a horizontal scroll bar to appear.
+Tables unfortunately, are difficult to style on mobile, because there is no room to show more than two or three columns. Even then, it could be a squeeze depending on the data, creating layout issues. Content could wrap profusly and could force a horizontal scroll bar to appear.
 
-Making tables responsive isn't the most straightforward thing to do. This is because they are inherently tied to the way they look. Put another way, making a table not look like a table, is not only very difficult, but it would be deceptive and counterproductive as we'll see in a moment.
+Making tables responsive isn't the most straightforward thing to do. This is because they are inherently tied to the way they look. Put another way, making a table not look like a table, is not only very difficult, but it would be deceptive and counterproductive.
 
-Gmail uses tables and puts recipient, subject and date sent into columns. Interestingly though, there are no headings, which is a clue that tables have been used for layout purposes rather than their semantic qualities. Jeremy Keith talks about the idea of material dishonesty is in his book Resilient Web Design[^]:
+Gmail uses tables and puts recipient, subject and date sent into columns. Interestingly though, there are no headings, which is a clue that tables have been used for layout purposes rather than their semantic qualities. Jeremy Keith talks about the idea of material dishonesty in his book Resilient Web Design[^]:
 
 > Using TABLEs for layout is materially dishonest. The TABLE element is intended for marking up the structure of tabular data. The end result [...] is a façade. At first glance everything looks fine, but it won’t stand up to scrutiny. As soon as such a website is stress‐tested by actual usage across a range of browsers, the façade crumbles.
 
-See the following table mark-up as an example of this. The `<tr>` is wrapped in an `<a>` to let users read the email. The problem is that browsers ignore this code. It's simply not allowed. Gmail fixes this by using Javascript, but not everyone has Javascript and frankly, it's unnecessary. We'll discuss a better approach next.
+See the following table mark-up as an example of this. The `<tr>` is wrapped in an `<a>` to let users read the email. The problem is that browsers ignore this code. It's simply not allowed. Gmail fixes this by using Javascript, but not everyone has Javascript and frankly, it's unnecessary.
 
 ```HTML
 <table class="inbox">
@@ -75,7 +75,7 @@ In the case of an inbox, list items are more suited anyway: not only are column 
 
 ## Marking email for action
 
-To let users select emails, we'll need to add checkboxes. Let's do that now.
+To let users select emails, we'll need to add a checkbox to each item.
 
 ```
 <ul class="inbox">
@@ -91,15 +91,15 @@ To let users select emails, we'll need to add checkboxes. Let's do that now.
 </ul>
 ```
 
-Note the checkbox is missing a label. The problem is that we want the contents of the link to be the contents of the label. In other words, two opposing behaviours need to occupy the same space. Clicking a label should mark the checkbox, clicking a link should take the user to the email. We're faced with a challenge.
+Note that the checkbox is missing a label. The problem is that we want the contents of the link to be the contents of the label. In other words, two opposing behaviours need to occupy the same space. Clicking a label should mark the checkbox, clicking a link should take the user to the email.
 
 ![Illustrate the above with a useful caption](.)
 
-It could be argued that the interface doesn't need a visual label. After all, the label would need to mirror, and therefore duplicate, the links content. This would make for a confusing experience for sighted users. Let's see if the concept of modes can solve this for us.
+It could be argued that the interface doesn't need a visual label. After all, the label would need to mirror, and therefore duplicate, the links content. This would make for a confusing experience for sighted users. Let's see if the concept of modes can help.
 
 ### Using modes
 
-Trying to combine two user needs into a single interface is what's caused this design problem in the first place. One way to avoid the issue would be to split apart the two needs by using the concept of modes. This just means letting users switch between managing email and reading it by offering a link as shown below.
+Trying to combine two user needs into a single interface is what's caused this problem in the first place. One way to avoid the issue would be to split apart the two needs by using the concept of modes. This just means letting users switch between managing email and reading it by way of a link as shown below.
 
 ![Mode](.)
 

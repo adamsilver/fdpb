@@ -182,93 +182,93 @@ However sticky menus also obscure the content beneath and can distract users fro
 
 Fortunately, sticky menus are only beneficial if the page is particularly long. Like Gmail, the inbox will show 20 emails per page, meaning that the menu is, at most, a quick flick away on mobile.
 
-### Disabling and hiding buttons
+### Disabling And Hiding Buttons
 
-Some multi-select interfaces choose to hide or disable the buttons until users select at least one item in the list. It could be argued that showing (or enabling) action buttons in response to checking a checkbox may help users take the next step more easily. In the case of hiding them, the interface becomes more streamlined and only shows the action buttons once they become relevant.
+Some multi-select interfaces choose to hide or disable the menu buttons until users select at least one item in the list. It could be argued that showing (or enabling) action buttons in response to checking a checkbox may help users take the next step more easily. In the case of hiding them, the interface becomes more streamlined and only shows the action buttons once they become relevant.
 
-On the flipside, this only (and potentially) helps sighted users. And even so, they'd have to be using a large screen whereby the items and the menu are in full view. This is not a particularly inclusive approach to design. We also discussed the full range of problems associated with disabling buttons in ‘A Registration Form’. As a quick reminder, they don't let users know why they're disabled and they are not perceivable to screen readers.
+On the flipside, this only (and potentially) helps sighted users. And even so, they'd have to be using a large screen whereby the items and the menu are always in full view. This is not a particularly inclusive approach to design. We also discussed the full range of problems associated with disabling buttons in “A Registration Form”. As a quick reminder, they don't let users know why they're disabled and they are not perceivable to screen readers.
 
 Decluttering an interface is a noble goal, but never at the cost of clarity and inclusivity. Instead make room for the buttons early in the design process. Hiding functionality away from users and requiring them to perform an additional action to reveal that functonality should always be a last resort.
 
-### Menu types
+### Menu Types
 
-On big screens&mdash;or responsively speaking, when there is enough space to do so&mdash;we should just lay out the submit buttons to make them available to users at all times. In desktop viewports, there's rarely any reason to hide the buttons. However, the inbox could have other components such as a search bar or layout controls such as Gmail's *comfortable*, *cozy* and *compact* menu. This means there may not be enough space to show them comfortably.
+On large viewports - or responsively speaking, when there is enough space - we should just lay out the submit buttons to make them available to users at all times. On desktop, there's rarely any reason to hide the buttons. However, the inbox could have other components such as a search bar or Gmail's layout menu *comfortable*, *cozy* and *compact* menu. This means there may not be enough space to lay out the buttons comfortably.
 
-Similarly, on small screens, if there are more than two or three buttons, they're likely to stack beneath each other. This in itself is not a huge problem except for the fact it pushes the main content down the page. Having the buttons dominate the interface like this is problematic. *Dominance* is a quality we should use sparingly. After all, if everything dominates, nothing does. The inbox itself should take center stage with the menu taking a back-seat role.
+Similarly, on small viewports, if there are more than two or three buttons, they're likely to stack beneath each other. This pushes the main content down the page - having the menu dominate the interface like this is problematic. *Dominance* is a quality we should use sparingly. After all, if everything dominates, nothing does. The inbox itself should take center stage with the menu taking a back-seat role.
 
 As noted earlier if there's enough room to lay out the submit buttons then do so. But if there isn't, we can keep the interface clean and easy-to-scan by hiding the options in a menu.
 
 There are two ways to create a menu. First by using a standard `select` box and second by creating a custom menu component. Let's discuss the pros and cons of each next.
 
-### A select box menu
+#### A Select Box Menu
 
-Select boxes are a menu of sorts. In fact, select boxes, are also  referred to as drop-down *menus*.
+Select boxes are a menu of sorts. In fact, select boxes, are also referred to as drop-down *menus*.
 
-Like a menu, they group similar items together that users can select. And they hide the items behind a click and keep the interface clean. They're an attractive option because, as we know, browsers supply them for free. However, even though select boxes look like menus and behave like them; and even though they are sometimes referred to as menus&mdash;they aren't true menus.
+Like a menu, they group similar items together that users can select. And they hide the items behind a click, keeping the interface clean. They're an attractive option because, as we know, browsers supply them for free. However, even though select boxes look like menus and behave like them; and even though they are sometimes referred to as menus - they aren't true menus.
 
-Select boxes are for input. That's why forms that contain select boxes&mdash;like any other input&mdash;must be accompanied by a submit button to submit the choice. Not only is this convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
+Select boxes are for input. That's why forms that contain select boxes - like any other input - must be accompanied by a submit button to submit the choice. Not only is this convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-The reason I bring this to your attention is because using a select box as a menu, usually means omitting the submit button and causing the form to submit `onchange` using Javascript. This goes against principle 4 by taking control *away* from the user.
+The reason I bring this to your attention is because using a select box as a menu, usually means omitting the submit button and causing the form to submit `onchange` using Javascript. This goes against principle 4, “Give Control” by taking control *away* from the user.
 
-Unsurprisingly, this causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the form is submitted as soon as the user presses <kbd>down</kbd> to select the next option. Moving beyond that option is impossible.
+This also causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the form is submitted as soon as the user presses <kbd>down</kbd> to select the next option. Moving beyond that option is impossible.
 
 ![Illustrate this](.)
 
-This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. Unfortunately, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for users.
+This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. Unfortunately, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for them.
 
-The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adapative (not responsive!) design, which we'll discuss next.
+The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adapative design.
 
-### Adaptive design versus responsive design
+### Adaptive Design Versus Responsive Design
 
-First a little history. When the web came along, we settled on 640px widths. Then a few years later, when larger monitors came to market, we changed to 960px widths. We no longer cared about people with small monitors.
+When the web came along, we settled on 640px widths. Then a few years later, when larger monitors came to market, we changed to 960px widths. We no longer cared about people with small monitors.
 
 Then more years passed. The mobile web was born. Or more accurately, we could use websites on our phones, which happen to have small screens. A million browsers came out. A million devices came out. And browsers gave us CSS media queries.
 
-Accordingly, we started to design for 320px widths. Why? because many of us had iPhones and this happened to be its portrait width.
+Accordingly, we started to design for 320px widths. Why? because many of us had iPhones and this happened to be its width in portrait mode.
 
-Then there was landscape view. Then tablet (is that mobile?). Then desktop. Then really big desktop screens. Then TV. Then all the way back down to wristwatches. If your head is spinning, don't worry, so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
+Then there was landscape view. Then tablet. Then desktop. Then really big desktop screens. Then TV. Then all the way back down to watches with tiny viewports. If your head is spinning, don't worry, so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
 
-The difference between responsive and adaptive design is both subtle and crucial. Both techniques are based on viewport width. And both use CSS media queries to do so. Let's take a look at each in turn now.
+The difference between responsive and adaptive design is both subtle and crucial. Both techniques are based on viewport width. And both use CSS media queries to change the layout. But they are quite different.
 
 Adaptive design means defining several predefined layouts for specificly chosen viewport widths that correspond to a particular device. All the code for all of the layouts are sent to the browser. Then the layout that matches the predefined media query is applied accordingly. These media queries are known as device breakpoints. That is, a breakpoint which is defined based on a device's width.
 
 ```CSS
-iphoneLayout {
-
-}
-
-ipadLayout {
-
-}
-
-desktopLayout {
-
-}
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) { /* STYLES GO HERE */}
 ```
 
-Using this approach is normally unnecessary and counterproductive. First, there is an endless stream of devices and browsers with different widths and it's only going to get harder. Designing specific layouts for every device width is sysiphean. And the extra code needed to produce such layouts would result in very slow loading pages. Generally speaking adapative design should be a last resort.
+Using this approach is normally unnecessary and counterproductive. First, there is an endless stream of devices and browsers with different widths. Designing specific layouts for every device width is sysiphean. And the extra code needed to produce such layouts would result in very slow loading pages. Generally speaking adapative design should be a last resort.
 
 Responsive design takes a different approach. It's based on a single fluid layout that should work well at any size regardless of device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when and if the layout breaks. These media queries are known as content breakpoints.
 
-![](.)
+```CSS
+@media only screen and (min-device-width : 61.37em) { /* Fix broken layout for a particular selector here */}
+```
 
 Where adaptive design tries to bend the web to its will, responsive design embraces it. Responsive design understands that you can't possibly design for every device and browser individually. That's just not how the web works. I've come to call the web, a continuum of edgelessness.
 
-With this in mind, let's look at why the select box menu requires an adaptive approach to design. By default, and on small screens, users get a select box. Then, when there is enough space, it's swapped for set of submit buttons, laid out in a row.
+With this in mind, let's look at why the select box menu requires an adaptive approach to design. By default, and on small viewports, users get a select box. Then, when there is enough space, it's swapped for set of submit buttons, laid out in a row.
 
 ![Adaptive select box](.)
 
-In this case the big screen view entirely discards the select box in favour of a completely different design using CSS and Javascript. Not only does this mean more work, but the page will take longer to load. And we either have to change the HTML dynamically with Javascript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
+In this case the big screen view entirely discards the select box in favour of a completely different interface using CSS and Javascript. Not only does this mean more work, but the page will take longer to load. And we either have to change the HTML dynamically with Javascript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
 
 ```CSS
-Example {}
+@media only screen and (min-device-width : 30em) {
+  .smallScreenMenu {
+    display: none;
+  }
+
+  .largeScreenMenu {
+    display: block;
+  }
+}
 ```
 
-That's not all. The server now needs to be aware of how both layouts transmit data. The select box sends `selectName="value"` and the submit buttons sends `buttonName="value"` creating yet more work and a maintenance overhead.
+If that weren't enough, the server needs to be aware of how both menus transmit data. The select box sends different data to the submit buttons creating yet more work and a maintenance burden.
 
-### Hover vs click
+### Hover Veruss Click
 
 TODO: Work out where to weave this.
 

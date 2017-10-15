@@ -70,7 +70,7 @@ There are more appropriate times to ask users to sign up as we'll see later on i
 
 In chapter one, “A Registration Form,” we had to ask users for an email address. We can reuse that pattern here saving us the effort of solving the same problem again from scratch.
 
-There is, however, an opportunity to adapt the content to fit this context. By that I mean, users may wonder why their being asked for an email address just to purchase something. One of the main takeaways from chapter one, was the need to justify the existence of each and every form field.
+There is, however, an opportunity to adapt the content to fit this context better. By that I mean, users may wonder why their being asked for an email address just to purchase something. One of the main takeaways from chapter one, was the need to justify the existence of each and every form field.
 
 Here, it's because we can send users a receipt of purchase, which is essential when checking out anonymously. Additionally that email might also provide details about how to return it. We can tell users this transparently via the hint text.
 
@@ -80,7 +80,7 @@ Here, it's because we can send users a receipt of purchase, which is essential w
 
 ## 2. Mobile Phone
 
-Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint&mdash;this pattern doesn't just pertain to formatting rules. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
+Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint - this pattern doesn't just pertain to formatting rules. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
 
 ![Mobile screen](.)
 
@@ -266,7 +266,6 @@ The container has a `role` attribute set to `status` and `aria-live` set to `pol
 Here
 ```
 
-
 *(Note: both `role="status"` and `aria-live="polite"` are functionally equivalent, but older versions of JAWS don't support `role`.)*
 
 ## 6. Payment
@@ -301,9 +300,9 @@ This also shows that we should constantly be questioning the existence of form f
 
 ### Autofill
 
-Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored&mdash;if it does, the user can select it without having to type. Additionally, since iOS 8, the Safari browser lets users scan their card using the iPhone's camera&mdash;it uses the same mechanism to automatically fill out those fields.
+Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored - if it does, the user can select it without having to type. Additionally, since iOS 8, the Safari browser lets users scan their card using the iPhone's camera - it uses the same mechanism to automatically fill out those fields.
 
-Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos&mdash;two very helpful usability improvements on a form that has the highest drop-off rates in e-commerce.
+Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos - two very helpful usability improvements on a form that has the highest drop-off rates in e-commerce.
 
 As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Most modern browsers support, but for those that don't some older browsers offer similar functionality by using the `name` attribute instead. For the widest support, you should specify the correct values for both attributes as shown below.
 

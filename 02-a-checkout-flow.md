@@ -35,7 +35,7 @@ While this pattern often bares wonderful and delicious fruit (or orders and conv
 - Conversely, a long form takes a long time to complete. It it takes too long there's a risk that the page times out or the computer freezes causing data loss. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
 
-## Flow and order
+## Flow And Order
 
 In “Forms That Work”[^], Caroline Jarett and Gerry Gaffney explain the importance of asking questions in a sensible order:
 
@@ -382,7 +382,7 @@ For example, IE11 and Chrome will ignore non-numeric input such as a letter or a
 
 Some numbers contain a decimal point such as a price; other numbers are negative which need a minus sign. Unfortunately, some browsers don't provide buttons for these symbols on the keypad. If that wasn't enough some desktop versions of Firefox will round up huge numbers.
 
-In these cases, it's safer to use a regular text box to avoid excluding users unnecessarily. Remember users are still able to type numbers this way it's just that the buttons are a smaller. And to soften the blow a little bit, the numeric keyboard can be triggered for iOS users by using the pattern attribute as shown below.
+In these cases, it's safer to use a regular text box to avoid excluding users unnecessarily. Remember users are still able to type numbers this way it's just that the buttons are a smaller. And to soften the blow a little bit, the numeric keyboard can be triggered for iOS users by using the pattern attribute.
 
 ```HTML
 <input type="text" pattern="[0-9]*">
@@ -401,7 +401,7 @@ We'll look at appropriate use cases of the number input in the next chapter.
 
 ### Forgiving Bad Input
 
-In “A Registration Form” we briefly talked about forgiving little input mistakes. In fact, the success of the Internet is largely down to its robustness, otherwise known as Postel's law which states:
+In “A Registration Form” we briefly talked about forgiving little input mistakes. In fact, the success of the Internet is largely down to its robustness, otherwise known as Postel's law:
 
 > Be conservative in what you send; be liberal in what you accept.
 
@@ -470,15 +470,15 @@ This also saves your (client's) business time and money. If Mary wants to cancel
 
 This shows that solely relying on completion time as a metric for success is dangerous. You should also look at how accurate people's orders are by checking how often items are returned. Ideally, you should use both metrics together.
 
-*(Note: as this is the final step in the flow, the button's text should be set to “Place order” or similar. Leaving it as “Continue” would mislead the user into thinking there is another step to complete. This will result in a lot of frustration and canceled orders.)*
+*(Note: as this is the final step in the flow, the button's text should be set to “Place order” or similar. Leaving it as “Continue” would mislead the user into thinking there is another step to complete. This is likely to result canceled orders.)*
 
 ### Visual Design
 
-Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information—that would defeat the purpose of this page. Users should only need to go back if they spot a mistake.
+Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information — that would defeat the purpose of this page. Users should only need to go back if they spot a mistake.
 
 ![](.)
 
-Users can click *edit* to make amendments which is another advantage of using the One Thing Per Page pattern. As pages are small they will load fast; as each page has just one thing, making a change is simple.
+Users can click *edit* to make amendments which is another advantage of using One Thing Per Page. As pages are small they will load fast; as each page has just one thing, making a change is simple.
 
 ![Flow diagram: Click edit, make a change, go back to summary](.)
 

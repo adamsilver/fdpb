@@ -431,7 +431,7 @@ To create an instance of the `FormValidator` you need to pass the form element a
 var validator = new FormValidator(document.getElementById('registration'));
 ```
 
-To validate the email field, for example, call the `addValidator` method as shown below. The first rule's method trims the value before checking the length in order to forgive trivial mistakes. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^16], at 42 minutes in. He says “it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong”. 
+To validate the email field, for example, call the `addValidator` method (shown below). The first rule's method trims the value before checking the length in order to forgive trivial mistakes. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^16], at 42 minutes in. He says “it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong.” 
 
 ```JS
 validator.addValidator('email', [{
@@ -447,11 +447,11 @@ validator.addValidator('email', [{
 }]);
 ```
 
-The first parameter takes the control name and the second takes rules (as an array of objects). Each rule contains two properties: method and messsage. The `method` is a function that test various conditions to return either `true` or `false`. False puts the field into an error state which is used to populate the interface with errors. 
+The first parameter takes the name of the control and the second takes rules (as an array of objects). Each rule contains two properties: method and messsage. The `method` is a function that test various conditions to return either `true` or `false`. False puts the field into an error state which is used to populate the interface with errors.
 
 ### Live Inline Validation
 
-Live inline validation gives users feedback as they type or when they leave the field (`onblur`). There's some evidence to show that live inline validation improves accuracy and decreases completition times in long forms[^]. This is partially to do with giving users feedback when the field requirements are fresh in user's minds. But, live inline validation (or live validation for short) poses several problems.
+Live inline validation gives users feedback as they type or when they leave the field (`onblur`). There's some evidence to show that live inline validation improves accuracy and decreases completition times in long forms[^]. This is partially to do with giving users feedback when the field's requirements are fresh in user's minds. But, live inline validation (or live validation for short) poses several problems.
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted early and often causing them to switch mental contexts. That is, between entering information and fixing it.
 
@@ -459,7 +459,7 @@ For entries that require a certain number of characters, the first keystroke wil
 
 Alternatively, we could wait until the user enters enough characters before showing an error. But this means users only get feedback after they have entered a correct value which is somewhat pointless.
 
-We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Some users switch windows or use a password manager when using a form. Doing so will trigger the blur event and causing an error to show before the user is finished. All very frustrating.
+We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Moreover, some users switch windows or use a password manager when using a form. Doing so will trigger the blur event, causing an error to show before the user is finished. All very frustrating.
 
 Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields) - we've done this already. The problem with live feedback is that we're interupting users either too early or too late which causes a jarring user experience.
 
@@ -467,15 +467,15 @@ If users are seeing errors, there's probably something wrong elsewhere. Focus on
 
 ### Checklist Affirmation Pattern
 
-A variation of live inline validation involves ticking off rules (marking them as complete) as the user types. This is less invasive than live inline validation but isn't suited to every type of field. Here's an example of Mailchimp's sign up form which employs this technique for the password field.
+A variation of live validation involves ticking off rules (marking them as complete) as the user types. This is less invasive than live validation but isn't suited to every type of field. Here's an example of Mailchimp's sign up form which employs this technique for the password field.
 
 ![Mailchimp example](.)
 
-You should put the rules above the field otherwise the on-screen keyboard could obscure the feedback and cause the user to stop typing, hide the keyboard in order to check it.
+You should put the rules above the field otherwise the on-screen keyboard could obscure the feedback and cause the user to stop typing, to then hide the keyboard to check the feedback.
 
 ### A Note On Disabling Submit Buttons
 
-Some forms will disable the submit button until all the form fields are valid. Don't do this because users are left to ponder what is actually wrong with their entries. Instead, keep users in control by allowing them to submit when they are ready. When they do, the form validation component will on hand to provide useful feedback.
+Some forms will disable the submit button until all the form fields are valid. This leaves users wondering what's actually wrong with their entries. Instead, keep users in control by allowing them to submit when they're ready. When they do submit, form validation will be on-hand to provide useful feedback.
 
 ### Crafting Error Messages
 
@@ -495,20 +495,20 @@ Consider frequency of use. People who use the system daily, it's probably a good
 
 Whatever approach you take, there's going to be some repetition due to the nature of the content. And when we test form validation we often submit the form without entering any information at all.
 
-![Wall of errors](.)
+![Wall of errors on a larger form](.)
 
-Whilst this scenario makes the repetition glaringly obvious. As content designers this may cause us to flip out, but consider how often a user submits a long form without entering a single field. Most users aren't trying to break the interface.
+This scenario makes the repetition glaringly obvious and as content designers this may cause us to flip out, but consider how often a user submits a long form without entering a single field. Most users aren't trying to break the interface.
 
 Here's a checklist:
 
 - **Use punctuation.** Some errors have clauses and contain more than one sentence.
-- **Be specific.** If you know why something has gone wrong, say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and provides instant clarity.
+- **Be specific.** If you know why something has gone wrong, say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and clear.
 - **Use the active voice**. For example, ‘Enter your name’ not ‘Your name must have an entry’.
 - Don't blame the user. Just let them know what's gone wrong and how to fix it.
-- **Use plain language.** Error messages are not an opportunity to promote your brand's tone of voice. Keep it simple and obvious.
+- **Use plain language.** Error messages are not an opportunity to promote your brand's tone of voice.
 - **Be human, avoid jargon.** Avoid avoid words like *invalid*, *unrecognised* and *mandatory*.
 - **Be terse.** Don't use more words than is necessary, but don't omit words at the cost of clarity.
-- **Be consistent.** Use the same tone, the same words and the same punctuation throughout the system and across different forms.
+- **Be consistent.** Use the same tone, the same words and the same punctuation throughout the site.
 
 ## Summary
 

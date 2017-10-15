@@ -41,7 +41,7 @@ By looking at labels from each of these standpoints, we can see just how importa
 
 ![Hit area](.)
 
-For these reasons, every control that accepts input should have an auxilary `<label>`. Submit buttons, for example, don't accept input so don't need a label&mdash;the `value` attribute which renders the text inside the button acts as the accessible label.
+For these reasons, every control that accepts input should have an auxilary `<label>`. Submit buttons, for example, don't accept input so don't need a label - the `value` attribute which renders the text inside the button acts as the accessible label.
 
 To *connect* an input to a label, the input's `id` and label's `for` attribute should match and be unique to the page. In the case of the email field, the value is “email”:
 
@@ -54,21 +54,21 @@ Failing to include a label means ignoring the needs of (motor and visually-impai
 
 ## Placeholders
 
-The `placeholder` attribute is intended to store a hint. It gives users extra guidance when filling out a field&mdash;particularly useful for fields that have complex rules such as a password field (more on this shortly). As placeholder text is not a real value, it's ‘grayed out’ so that it can be differentiated from user-entered values.
+The `placeholder` attribute is intended to store a hint. It gives users extra guidance when filling out a field - particularly useful for fields that have complex rules such as a password field. As placeholder text is not a real value, it's ‘grayed out’ so that it can be differentiated from user-entered values.
 
 ![Placeholder example from above](.)
 
-Hints, unlike labels, are optional and shouldn't be used as a matter of course. Just because the placeholder attribute exists doesn't mean we have to use it. For example, you don't need a placeholder of ‘Enter your first name’ as a hint when the label is ‘First name’&mdash;that's needless duplication.
+Hints, unlike labels, are optional and shouldn't be used as a matter of course. Just because the placeholder attribute exists doesn't mean we have to use it. For example, you don't need a placeholder of ‘Enter your first name’ as a hint when the label is ‘First name’ - that's needless duplication.
 
 ![Placeholder and label with same value](.)
 
-Placeholders appeal to designers because of their minimal, space-saving aesthetic. This is because placeholder text is placed *inside* the field. But, this is a problematic way to give users a hint.
+Placeholders are appealing because of their minimal, space-saving aesthetic. This is because placeholder text is placed *inside* the field. But, this is a problematic way to give users a hint.
 
 First, they disappear when the user types. Disappearing text is hard to remember which could cause errors if for example the user forgets to satisify one of the password rules. Users often mistake placeholder text for a value[^], causing them to skip the field, which again, would cause errors. Gray-on-white text lacks sufficient contrast making it generally hard-to-read[^]. And to top it off, some browsers don't support them, some screen readers don't announce them and long hint text may get cut off.
 
 ![Long hint text cut off](.)
 
-That's a lot of problems for something that is essentially just text. All content, especially a form hint, shouldn't be considered a ‘nice to have’. So instead of using placeholders, it's better to position hint text above the control:
+That's a lot of problems for what is essentially just text. All content, especially a form hint, shouldn't be considered a ‘nice to have’. So instead of using placeholders, it's better to position hint text above the control:
 
 ![Hint pattern](.)
 
@@ -94,7 +94,7 @@ This is not the only way to achieve this design. We could use Accessible Rich In
 </div>
 ```
 
-Here, the `aria-describedby` attribute is used to connect the hint via its `id`. Whilst this has visual and audible parity with a standard label, this solution is not the same. Clicking the `<p>` will not set focus to the control, reducing the hit area. Also despite ARIA's ever-improving support, it's never going to be as well supported as native elements. This is why the first rule of ARIA is not to use ARIA. The specification states:
+The `aria-describedby` attribute is used to connect the hint by its `id`. While this has visual and audible parity with a standard label, this solution is not the same. Clicking the `<p>` will not set focus to the control, reducing the hit area. Also despite ARIA's ever-improving support, it's never going to be as well supported as native elements. This is why the first rule of ARIA is not to use ARIA.
 
 > If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.
 
@@ -120,11 +120,11 @@ One powerful and *natural* way to reduce the size of a form is to use the Questi
 
 Does the registration form need to collect first name, last name, email address and password? Are there better or alternative ways to ask for this information that simplifies the experience?
 
-In all likeliness you don't need to ask for the user's first and last name just to register. If you need that information later, for whatever reason, then ask for it then. By removing these fields, we've reduced the size of the form by 50%&mdash;without resorting to novel and problematic patterns.
+In all likeliness you don't need to ask for the user's first and last name just to register. If you need that information later, for whatever reason, then ask for it then. By removing these fields, we've reduced the size of the form by 50% - without resorting to novel and problematic patterns.
 
 ### No Password Sign In
 
-One way to avoid asking users for a password is to use the No Password Sign In pattern. It works be leveraging the security of email (that already has a password). Users enter just their email address, and the service sends a special login link to their inbox. Clicking it, logs the user into the service immediately.
+One way to avoid asking users for a password is to use the No Password Sign In pattern. It works by leveraging the security of email (which already has a password). Users only have to enter their email address and the service sends a special link to their inbox. Clicking it, logs the user into the service immediately.
 
 ![Medium No Password Sign In](.)
 
@@ -138,7 +138,7 @@ It's not that one technique is always better than the other. It's that the Quest
 
 Passwords are generally short, hard to remember and easy to crack. Users often have to create a password with at least eight characters made up of at least one uppercase and lowercase latter and a number. This micro interaction is hardly ideal.
 
-Instead of a password, we could ask users for a passphrase[^5]. A passphrase is a series of words such as ‘monkeysinmygarden’ (sorry, that's the first thing that comes to mind). They are generally easier to remember than passwords and they are more secure due to their length&mdash;passphrases must be at least 16 characters long.
+Instead of a password, we could ask users for a passphrase[^5]. A passphrase is a series of words such as ‘monkeysinmygarden’ (sorry, that's the first thing that comes to mind). They are generally easier to remember than passwords and they are more secure due to their length - passphrases must be at least 16 characters long.
 
 The downside is that they are unfamiliar, which may cause anxiety for users, that are already worried about online security.
 
@@ -150,13 +150,11 @@ The way you style your form components will, at least in part, be determined by 
 
 Broadly speaking, you should place the label above the form control. In “Label Placement In Forms”[^6], Matteo Penzo shows this is best. But, there are more practical reasons for doing so. On small viewports there's no room beside the control. And on large viewports, zooming increases the chance of the text disappearing off screen[^x1].
 
-Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control. Whilst you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content&mdash;by positioning labels above the control&mdash;is a good strategy.
+Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control. Whilst you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content - by positioning labels above the control - is a good strategy.
 
 Focus styles are a simpler prospect. Browsers put an outline around the in-focus element by default so that users, especially those who use a keyboard, know where they are. You might be tempted to remove this styling for aesthetic reasons but again, that's hardly a good reason to diminish usability. If you wish to remove it, then make sure you replace it with something more preferable.
 
-![Focus styles, where am i, oh there I am](.)
-
-## The email field
+## The Email Field
 
 ![The email field](.)
 
@@ -169,7 +167,7 @@ Focus styles are a simpler prospect. Browsers put an outline around the in-focus
 </div>
 ```
 
-Despite it's simple appearance there are some important details that have gone into the field's construction that affects the user experience. As noted earlier, some fields have a hint in addition to the label which is why it's contained in a child `<span class="field-label">`. The class lets us style it through CSS.
+Despite it's simple appearance there are some important details that have gone into the field's construction that affects the user experience. As noted earlier, some fields have a hint in addition to the label which is why the label is inside a child span. The class lets us style it through CSS.
 
 The label itself is “Email address” and uses sentence case. In “Making a Case of Letter Case”[^7], John Saito explains that sentence case (as opposed to title case) is generally easier to read, friendlier and makes it easier to spot nouns. Whether you take heed of this advice is up to you, but whatever style you choose, be sure to use it consistently.
 
@@ -183,9 +181,9 @@ People using a non-supporting browser will see a standard text input (`input typ
 
 Progressive enhancement is about users. It just happens to make our lives (as designers/developers) easier too. This is because instead of keeping up with a set of browsers and devices (which is impossible!) we can just focus on features.
 
-First and foremost, progressive enhancement is about always giving users an experience, no matter their browser or device or quality of connection. When things go wrong—and they will—users shouldn't suffer. That's bad design.
+First and foremost, progressive enhancement is about always giving users an experience, no matter their browser or device or quality of connection. When things go wrong — and they will — users shouldn't suffer. That's bad design.
 
-There are a lot of ways an experience can go wrong. Perhaps the stylesheet or script failed to load. Maybe everything loaded fine, but the user's browser doesn't recognise some HTML, CSS or Javascript. Whatever happens, using progressive enhancement as an approach to designing experiences stops users having an especially bad time.
+There are a lot of ways an experience can go wrong. Perhaps the stylesheet or script fails to load. Maybe everything loads, but the user's browser doesn't recognise some HTML, CSS or Javascript. Whatever happens, using progressive enhancement as an approach to designing experiences, stops users having an especially bad time.
 
 It starts with HTML, which is for structure and content. If CSS or Javascript doesn't load, it's fine because the content is there.
 
@@ -193,15 +191,15 @@ If everything loads okay, perhaps various HTML elements aren't recognised. For e
 
 Maybe the browser doesn't understand some fancy CSS. In this case, browsers just ignore it. For example, some browsers that don't understand `border-radius` will show straight edges instead of round ones. Users are left unharmed.
 
-Then there is Javascript, which is more complicated. When the browser tries to parse methods it doesn't recognise, it will just throw a hissy fit. This can mean half the script executed, but the rest didn't. If your script doesn't first check if the methods exist (and function) before using them, then users may get a broken interface. For example, if a button's click handler calls a method that the browser doesn't recognise, the button will do nothing. That's bad.
+Then there is Javascript, which is more complicated. When the browser tries to parse methods it doesn't recognise, it will just throw a hissy fit. This can mean only half the script executes, but the rest doesn't. If your script doesn't first check if the methods exist (feature detection) and work (feature testing) before using them, then users may get a broken interface. For example, if a button's click handler calls a method that the browser doesn't recognise, the button will do nothing. That's bad.
 
-What's even better is not needing an enhancement at all. HTML with a little CSS, can give users a geat experience. It's the content that counts and Javascript doesn't give you that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value*.
+What's even better is not needing an enhancement at all. HTML with a little CSS, can give users an excellent experience. It's the content that counts and Javascript doesn't give you that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value*.
 
-Of course, there are times when the basic user experience isn't as good as it might be. And that's when it's time to enhance. If the browser, or network fails things still work. If the user has a capable browser, they'll get the enhanced experience—great!
+Of course, there are times when the basic user experience isn't as good as it might be. And that's when it's time to enhance. If the browser, or network fails things still work. If the user has a capable browser, they'll get the enhanced experience — great!
 
 Progressive enhancement makes us think about what happens when things fail. This way we end up building experiences with resilience baked-in. But equally, it makes us think about whether an enhancement is needed at all and if it is, how best to go about it.
 
-## The password field
+## The Password Field
 
 ![The password field](.)
 
@@ -215,11 +213,11 @@ Progressive enhancement makes us think about what happens when things fail. This
 </div>
 ```
 
-Here, we're using the same mark-up as the email field discussed just before. If you're using a template language, then you'll be able to abstract this into a component which will ensure that every field is styled consistently throughout the application which speaks to principle 3, *Be consistent*.
+We're using the same mark-up as the email field discussed earlier. If you're using a template language, then you'll be able to abstract this into a component which will ensure that every field is styled consistently throughout the application which speaks to principle 3, *Be consistent*.
 
-The password field contains a hint. Without one, the user won't understand the password's requirements which is likely to cause an error once the user tries to proceed.
+The password field contains a hint. Without one, the user won't understand the requirements which is likely to cause an error once the user tries to proceed.
 
-The input's `type` attribute is set to `password"` which masks the input's value by replacing what the user types with small black circles. This is a security measure that guards against “over the shoulder” attacks.
+The `type="password"` attribute masks the input's value by replacing what the user types with small black circles. This is a security measure that guards against “over the shoulder” attacks.
 
 ### A Password Reveal
 
@@ -231,32 +229,32 @@ Instead, it's better to let users reveal their password which speaks to principl
 
 ![Password reveal](.)
 
-To do this, you'll need to use Javascript to inject a `<button>` next to the input. The `<button>` is perfect and most of the time it should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for.  When clicked it toggles both the `type` attribute between `password` and `text` and the label between “Show password” to “Hide password”.
+To do this, we need to inject a `<button>` next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked it toggles both the `type` attribute between `password` and `text` and the label between “Show password” to “Hide password”.
 
 ```JS
 function PasswordReveal(el) {
-    this.el = el;
-    this.createButton();
+  this.el = el;
+  this.createButton();
 };
 
 PasswordReveal.prototype.createButton = function() {
-    this.button = $('<button type="button">Show password</button>');
-    $(this.el).parent().append(this.button);
-    this.button.on('click', $.proxy(this, 'onButtonClick'));
+  this.button = $('<button type="button">Show password</button>');
+  $(this.el).parent().append(this.button);
+  this.button.on('click', $.proxy(this, 'onButtonClick'));
 };
 
 PasswordReveal.prototype.onButtonClick = function(e) {
-    if(this.el.type === 'password') {
-        this.el.type = 'password';
-        this.button.text('Show password');
-    } else {
-        this.el.type = 'text';
-        this.button.text('Hide password');
-    }
+  if(this.el.type === 'password') {
+    this.el.type = 'password';
+    this.button.text('Show password');
+  } else {
+    this.el.type = 'text';
+    this.button.text('Hide password');
+  }
 };
 ```
 
-*(Note: `$.proxy` is a function that ensures the event handler is called with the object's context, not the element. If this wasn't done, then the method wouldn' recognise `this.el` or `this.button`.)*
+*(Note: `$.proxy` is a function that ensures the event handler is called with the object's context, not the element. Not using it would mean `this.el` or `this.button` wouldn't be recognised.)*
 
 Some browsers provide this functionality natively, so if you're providing your own solution you can supress the browser's implementation as follows:
 
@@ -266,11 +264,11 @@ input[type=password]::-ms-reveal {
 }
 ```
 
-## Button styles
+## Button Styles
 
 The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned in a navigation bar so that they are visually identifiable amongst regular text. When hovering a link, the cursor will change to a hand. This is because, unlike buttons, links have weak affordance[^8].
 
-In “Resilient Web Design”[^9], Jeremy Keith discusses the idea of material honesty. He says that *one material should not be used as a substitute for another. Otherwise the end result is deceptive.* Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not.
+In “Resilient Web Design”[^9], Jeremy Keith discusses the idea of material honesty. He says that “one material should not be used as a substitute for another. Otherwise the end result is deceptive.” Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not.
 
 Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons which have naturally strong affordance. Whether they have rounded corners, drop shadows, borders is up to you, but they should look like buttons regardless.
 
@@ -292,7 +290,7 @@ The exact words can match your brand's tone of voice, but don't exchange clarity
 
 Despite our efforts to create an inclusive, simple and friction-free registration experience, we can't eliminate human error. People make mistakes and when they do, we should make remedying them as easy as possible. 
 
-When it comes to form validaton, there are a number of important details to consider. Choosing when to give feedback, through to how to display that feedback, down to the formulation of a good error message&mdash;all of these things need to be taken into account.
+When it comes to form validaton, there are a number of important details to consider. Choosing when to give feedback, through to how to display that feedback, down to the formulation of a good error message - all of these things need to be taken into account.
 
 ### HTML5 Validation
 
@@ -333,7 +331,7 @@ The document's `<title>` is the first part of a web page to be read out by scree
 
 Even though we're enhancing the user experience by catching errors on the client with Javascript, not all errors can be caught this way. For example, checking that an email address hasn't already been taken can only be checked on the server. And in any case, Javascript is prone to failure[^] so we can't solely rely on it's availability.
 
-Where the original page title might read “Register for [service]”, onerror it should read “(2 errors) Register for [service]” (or similar). The exact words is somewhat down to opinion.
+Where the original page title might read “Register for [service]”, on error it should read “(2 errors) Register for [service]” (or similar). The exact words is somewhat down to opinion.
 
 Updating the title with Javascript is as follows:
 
@@ -350,15 +348,15 @@ As noted above this is primarly for screen reader users, but as is often the cas
 
 The error summary is visually more dominant and is essential for telling sighted users that something has gone wrong. But it's also responsible for letting users understand what's gone wrong and how to fix it. We place it at the top of the page so that users don't have to scroll after a page refresh.
 
-Conventionally speaking, errors should be in a red colouration, but we shouldn't rely on colour to demarcate it within the interface as this excludes colour blind users. You might use position, size, text and iconography in addition to colour.
+Conventionally speaking, errors should be in a red colouration, but we shouldn't rely on colour to demarcate it within the interface as this excludes colour-blind users. You might use position, size, text and iconography in addition to colour.
 
 ![Error summary](.)
 
 The panel consists of a heading to indicate the problem. Beneath that, there is a list of errors, which are links. Clicking a link, will set focus to the erroneous field thanks to the `href` value matching the form control's `id` value. This let's users jump into the form quickly.
 
 ```HTML
-<div class="errorSummary" role="alert" tabindex="-1">
-  <h2>There's a problem</h2>
+<div class="errorSummary" role="alert" tabindex="-1" aria-labelledby="errorSummary-heading">
+  <h2 id="errorSummary-heading">There's a problem</h2>
   <ul>
     <li><a href="#emailaddress">Enter an email address</a></li>
     <li><a href="#password">The password must contain an uppercase letter</a></li>
@@ -366,7 +364,7 @@ The panel consists of a heading to indicate the problem. Beneath that, there is 
 </div>
 ```
 
-The `div` has a role of `alert` which tells supporting screen readers to announce the region immediately. The heading's `tabindex` attribute is set to `-1`, which allows us to programmatically set focus to it using Javascript. This ensures the error summary panel is scrlled into view automatically. Otherwise, the interface would appear unresponsive and broken.
+The `div` has a role of `alert` which tells supporting screen readers to announce the region immediately. The heading's `tabindex` attribute is set to `-1`, so that it can be focused programmatically with Javascript. This ensures the error summary panel is scrolled into view. Otherwise, the interface would appear unresponsive and broken.
 
 ```JS
 FormValidator.prototype.focusSummary = function() {
@@ -374,16 +372,14 @@ FormValidator.prototype.focusSummary = function() {
 };
 ```
 
-When there aren't any errors, the summary panel should be hidden. This ensures that there is only ever one summary panel on the page. And, that it appears consistently in the same location whether errors are rendered by the client or the server. To hide the panel we need to add a `hidden` attribute to the containing element.
+When there aren't any errors, the summary panel should be hidden. This ensures that there is only ever one summary panel on the page. And, that it appears consistently in the same location whether errors are rendered by the client or the server. To hide the panel we need to add a class of `hidden`.
 
 ```HTML
-<div class="errorSummary" hidden></div>
+<div class="errorSummary hidden"></div>
 ```
 
-Some browsers don't support the `hidden` attribute, so we need to add the following rule to the stylesheet:
-
 ```CSS
-[hidden] {
+.hidden {
   display: none;
 }
 ```
@@ -465,7 +461,7 @@ Alternatively, we could wait until the user enters enough characters before show
 
 We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Some users switch windows or use a password manager when using a form. Doing so will trigger the blur event and causing an error to show before the user is finished. All very frustrating.
 
-Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields)&mdash;we've done this already. The problem with live feedback is that we're interupting users either too early or too late which causes a jarring user experience.
+Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields) - we've done this already. The problem with live feedback is that we're interupting users either too early or too late which causes a jarring user experience.
 
 If users are seeing errors, there's probably something wrong elsewhere. Focus on shortening your form and providing better guidance (good labeling and hint text). This way users shouldn't see more than the odd error. We'll look at long forms in the next chapter.
 
@@ -487,7 +483,7 @@ Arguably there is nothing more important than content. Users don't come to your 
 
 > “Content is the user experience”
 
-Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content&mdash;not the other way around. But in this particular case understanding how messages are going to be shown and why influences the design of the words themselves. This is why Jared Spool says content and design are inseparable work partners.
+Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content - not the other way around. But in this particular case understanding how messages are going to be shown and why influences the design of the words themselves. This is why Jared Spool says content and design are inseparable work partners.
 
 As we know, we're going to inject messages into a summary panel at the top and next to the fields in context. This means, we need to make sure that content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
 

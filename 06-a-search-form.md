@@ -20,17 +20,30 @@ The returns policy isn't a product. Nor does it reside in the database. But this
 
 On a side note, you should use analytics to track what your users are searching for. If the most popular searches are retriving empty results, then you can make provisions to improve the experience based on data.
 
-## Responsive Design
+## Interface Design
 
-The search form itself is really simple: a single text box (`input type="search"`) and a submit button. The search form is usually positioned within the header. The purpose of placing it at the top is not only for cognition, but interaction. Like navigation, we want to make search readily accessible to both mouse and keyboard users. Putting such important and commonly used features elsewhere is counterintuitive.
+*TODO: reference Heydon's TODO article, but talk about how the placeholder shouldn't duplicate the hidden labels contents. And if you need to tell users what they can search, then you'll need to adjust your approach. That is by having a visible descriptive label and hint outside the field. Giving an example may be counter intuitive.*
 
-The problem with placing it inside the header is that the header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main page content is pushed down the page. On mobile, of course, space is even more limited.
+The form itself is simple enough and will contain a label, a search input (`input type="search"`) and a submit button. What's tricky is that it's usually placed within the header. The purpose of placing it at the top is not only for cognition, but interaction. Like navigation, we want to make search readily accessible to both mouse and keyboard users. Putting such an important and commonly used feature elsewhere is counterintuitive.
 
-As we've talked about previously, designers are often seduced by novel space-saving design patterns such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, this isn't a problem as there's ample space in which to show the form entirely. On mobile, though, we're going to have to try and save space.
+The problem with placing it inside the header is that the header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, space is even more limited.
 
-One space-saving tactic is to (visually) hide the label, replacing it with placeholder text. But, we've talked about how problematic this is in “A registration form”. Crucially though, removing the label doens't save that much space anyway. Even without a one, it's still going to be hard to squeeze the rest of the form into the header.
+![Search form with label underneath a header pushing page down](.)
 
-Really, for mobile, we're going to have to toggle the search form's visibility using CSS and Javascript. *(Note: toggling the behaviour for small and large viewports is set out in the previous chapter, “An Inbox”, for the action menu.)*
+As we've talked about previously, designers are often seduced by novel, space-saving design patterns such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, this isn't as much of a problem as there's usually plenty of room. On mobile though, we're going to have to think about it.
+
+One space-saving tactic is to (visually) hide the label, replacing it with placeholder text. [But, we've talked about how problematic this is in “A registration form”.] In any case, removing the label doesn't save all that much space. And without one, it's still going to be hard to squeeze the rest of the form into the header.
+
+![Selfridges no label](.)
+
+One approach is to give users a different treatment on small and large viewports. Harrods do this, for example. On large viewports they show the entire form. On small viewports, they toggle the search form's visibility with a button (usually styled as a magnifying glass).
+
+Another, increasingly popular approach is to toggle the search form's visibility no matter the viewport size: big or small. Medium and Kidly take this approach.
+
+- https://www.gov.uk/government/organisations/hm-revenue-customs
+- https://www.harrods.com/en-gb
+
+Really, for small viewports, we're going to have to toggle the search form's visibility using CSS and Javascript.
 
 With this decision in place, accomodating a visual label and optional hint is easy. This way, the toggle button can be placed inside the header, with the search form directly below.
 
@@ -53,3 +66,5 @@ In this chapter, we reused patterns from previous chapters to design a responsiv
 
 [^1]: https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
 [^2]: http://jamesarcher.me/hamburger-menu
+
+ *(Note: toggling the behaviour for small and large viewports is set out in the previous chapter, “An Inbox”, for the action menu.)*

@@ -67,4 +67,9 @@ In this chapter, we reused patterns from previous chapters to design a responsiv
 [^1]: https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
 [^2]: http://jamesarcher.me/hamburger-menu
 
+## TODO
+
+- Search results page?
+- Predictive search - annoying?
+
  *(Note: toggling the behaviour for small and large viewports is set out in the previous chapter, “An Inbox”, for the action menu.)*

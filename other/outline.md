@@ -123,7 +123,7 @@
 - Auto-tabbing
 - One form per page
 
-## 5. An inbox (5500)
+## 5. An Inbox
 
 - Introduction
 - List types

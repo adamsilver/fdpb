@@ -20,9 +20,9 @@ The returns policy isn't a product. Nor does it reside in the database. But this
 
 On a side note, you should use analytics to track what your users are searching for. If the most popular searches are retriving empty results, then you can make provisions to improve the experience based on data.
 
-## Interface Design
+## Interface design consideration
 
-*TODO: reference Heydon's TODO article, but talk about how the placeholder shouldn't duplicate the hidden labels contents. And if you need to tell users what they can search, then you'll need to adjust your approach. That is by having a visible descriptive label and hint outside the field. Giving an example may be counter intuitive.*
+*TODO: reference Heydon's TODO article, but talk about how the placeholder shouldn't duplicate the hidden labels contents. And if you need to tell users what they can search, then you'll need to adjust your approach. That is by having a visible descriptive label and hint outside the field. Giving an example may be counterintuitive.*
 
 The form itself is simple enough and will contain a label, a search input (`input type="search"`) and a submit button. What's tricky is that it's usually placed within the header. The purpose of placing it at the top is not only for cognition, but interaction. Like navigation, we want to make search readily accessible to both mouse and keyboard users. Putting such an important and commonly used feature elsewhere is counterintuitive.
 
@@ -36,12 +36,15 @@ One space-saving tactic is to (visually) hide the label, replacing it with place
 
 ![Selfridges no label](.)
 
-One approach is to give users a different treatment on small and large viewports. Harrods do this, for example. On large viewports they show the entire form. On small viewports, they toggle the search form's visibility with a button (usually styled as a magnifying glass).
+One approach is to give users a different treatment on small and large viewports. Harrods do this, for example. On large viewports they show the entire form. On small viewports, they toggle the search form's visibility with a button (usually styled conventionally as a magnifying glass).
 
-Another, increasingly popular approach is to toggle the search form's visibility no matter the viewport size: big or small. Medium and Kidly take this approach.
+Another, increasingly popular approach is to toggle the search form's visibility no matter the viewport size: big or small. Both Medium and Kidly take this approach. This simplies the code, but does mean making search unnecessarily less prevalent when there's plenty of space. 
 
 - https://www.gov.uk/government/organisations/hm-revenue-customs
 - https://www.harrods.com/en-gb
+
+
+
 
 Really, for small viewports, we're going to have to toggle the search form's visibility using CSS and Javascript.
 
@@ -69,7 +72,18 @@ In this chapter, we reused patterns from previous chapters to design a responsiv
 
 ## TODO
 
-- Search results page?
-- Predictive search - annoying?
-
  *(Note: toggling the behaviour for small and large viewports is set out in the previous chapter, “An Inbox”, for the action menu.)*
+
+ Every form needs a submit button. And the related implicit submission issue again without js.
+
+Don't reduce hit area just to squeeze it in.
+
+Field size. Don't crop too much
+
+## After search
+
+- Maintain entered text
+- Display count
+- ‎Let them sort
+- ‎pagination not show more. When show more works and doesn't.
+- ‎let them filter (next chapter)

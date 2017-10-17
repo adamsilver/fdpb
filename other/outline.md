@@ -154,7 +154,11 @@
 
 - Introduction
 - Search everything
-- Responsive design
+- There's not enough room
+	- Hiding the form
+	- Omitting the label
+	- Omitting the button
+- How to build one (haspopup)
 
 ## 7. A filter
 

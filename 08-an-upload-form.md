@@ -259,3 +259,5 @@ We then looked at the shortcomings of the native input's drag and drop behaviour
 - accept attribute
 - capture=camera
 - The file input is always wiped due to security
+
+- https://govuk-design-system-prototypes.cloudapps.digital/design-patterns/patterns/components/file-upload/

@@ -2,7 +2,7 @@
 
 At first I wanted to fold this chapter into the last one because there is certainly some overlap. Adding multiple files needn't be different from adding multiple of anything else really. It's just that uploading files has some unique considerations (such as drag and drop) that made sense to tackle in isolation.
 
-Unlike file inputs, other form controls don't let you add multiple values. So it's up to us to design a solution from scratch here. There are three main approaches that are applicable to all sorts of data&mdash;files included. Whether it's adding collaborators to your Github repo or adding monthly expenses into an accounting service, you'll find the patterns in this chapter useful.
+Unlike file inputs, other form controls don't let you add multiple values. So it's up to us to design a solution from scratch. There are three main approaches that are applicable to all sorts of data&mdash;files included. Whether it's adding collaborators to your Github repo or adding monthly expenses into an accounting service, you'll find the patterns in this chapter useful.
 
 Of course, if you know how many things that need to be added, then simply display that amount of fields (and make them required). But if you don't keep reading.
 
@@ -12,7 +12,7 @@ The drag and drop interface from ‘An upload form’ in some respects uses this
 
 ![Github](.)
 
-The way it works is to have an ever-present form on the page (hence the name). Submitting it adds an item to a list above (or perhaps beside) the form. When the user is finished they can proceed. If this was part of a flow, you'd click next. On Github, you just exit the settings view.
+The way it works is to have an ever-present form on the page (hence the name). Submitting it adds an item to a list above (or perhaps beside) the form. When the user is finished they can proceed. If this was part of a flow, you'd click continue. On Github, you just exit the settings view.
 
 This is suitable for simple forms that can be submitted in one step. The potential downside is that as the list grows, the form is pushed down, which could be troublesome on mobile.
 
@@ -36,7 +36,7 @@ Obviously this pattern is particularly adept at handling branching. But it's als
 
 ## Add another
 
-This pattern consists of one form, on one page, submitted in single step. It works by using Javascript to create extra items instantaneously. This is particularly useful for high confidence users who need to perform the task often.
+This pattern consists of one form, on one page, submitted in one step. It works by using Javascript to create extra items instantaneously. This is particularly useful for high confidence users who need to perform the task frequently.
 
 ### How it might look
 
@@ -44,7 +44,7 @@ This pattern consists of one form, on one page, submitted in single step. It wor
 
 Clicking the add another button creates new expense fields. Pressing the remove button deletes it. Users can keep adding expenses easily. Once they're finished, they can submit all of the expenses in one go which expedites the process.
 
-The degraded experience is the same, except clicking the buttons refresh the page.
+The degraded experience is the same, except clicking a button refreshes the page.
 
 ### Managing focus
 
@@ -60,15 +60,15 @@ Instead, we'll set focus to the heading at the beginning of the form.
 
 ### Feedback
 
-For sighted users there is nothing we need to do. The act of adding and removing items is obvious. But to provide a *comparable experience* we can include a live region, as set out in “Book A Flight”, so that screen readers announce the feedback.
+For sighted users there is nothing we need to do. The act of adding and removing items is obvious. But to provide a *comparable experience* we can include a live region, as set out in “Book A Flight”, so that screen readers announce the feedback. [Check heydon article for more on this: two feedback panels not good]
 
 ### Cloning explained
 
 Every time the user adds or removes an item, we need to do some important work behind the scenes. The cloning works by taking the first item in the list, and cloning it. But this isn't enough on its own because this clones everything: ids and name attributes included.
 
-We first discussed the importance of labels in “A Registration Form”. If we don't update the label's `for` attribute and the matching input `id` attribute, then the interface will break.
+We first discussed the importance of labels in “A Registration Form”. If we don't update the label's `for` attribute and the matching input `id` attribute, then the interface will break. That is, clicking a label may focus another field entirely.
 
-Perhaps even more importantly, is that if you don't update the name of the input, then the server won't necessarily be able to recognise it and therefore process the submitted data.
+Perhaps even more importantly, is that if you don't update the name of the input, then the server won't necessarily be able to recognise it and therefore process the submitted data. The contract between the browser and the server is forged by the name of the form controls.
 
 ```HTML
 <form class="addAnother">
@@ -93,7 +93,7 @@ Perhaps even more importantly, is that if you don't update the name of the input
 </form>
 ```
 
-The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server side frameworks such as Ruby on Rails and Express look for names like this in the request payload and convert this nicely into an array of items.
+The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server side frameworks such as Ruby on Rails and Express look for names like this in the request payload and convert them into an array of items.
 
 The crucial part is that the index needs to increase from 0 to 1 and so forth. To make this easy to parse in Javascript, the pattern is stored in data attributes. This way, the script simply replaces `%index%` with the actual index number.
 
@@ -101,7 +101,11 @@ The crucial part is that the index needs to increase from 0 to 1 and so forth. T
 Put that code here
 ```
 
-The reason there is attributes for id and name is that in the case of radio buttons and checkboxes, the name differs from the id.
+The reason there are attributes for `id` and `name` is that in the case of radio buttons and checkboxes, the `name` differs from the `id`.
+
+```HTML
+Example
+```
 
 ## Summary
 

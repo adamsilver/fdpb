@@ -150,7 +150,7 @@
 	- A note on toast notifications and dismissing messages
 	- Confirming vs undoing
 
-## 6. A search form
+## 6. A Search Form
 
 - Introduction
 - Search everything

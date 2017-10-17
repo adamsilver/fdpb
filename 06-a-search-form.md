@@ -20,28 +20,50 @@ The returns policy isn't a product. Nor does it reside in the database. But this
 
 On a side note, you should use analytics to track what your users are searching for. If the most popular searches are retriving empty results, then you can make provisions to improve the experience based on data.
 
-## Interface design consideration
+## Interface Design
 
-*TODO: reference Heydon's TODO article, but talk about how the placeholder shouldn't duplicate the hidden labels contents. And if you need to tell users what they can search, then you'll need to adjust your approach. That is by having a visible descriptive label and hint outside the field. Giving an example may be counterintuitive.*
+The form itself is simple enough. It contains just a label, search input and a submit button. What's tricky is that it's usually placed within the header. The purpose of placing it at the top is not only for cognition, but interaction. Like navigation, we want to make search readily accessible to both mouse and keyboard users. Putting such a commonly used feature elsewhere would be counterintuitive.
 
-The form itself is simple enough and will contain a label, a search input (`input type="search"`) and a submit button. What's tricky is that it's usually placed within the header. The purpose of placing it at the top is not only for cognition, but interaction. Like navigation, we want to make search readily accessible to both mouse and keyboard users. Putting such an important and commonly used feature elsewhere is counterintuitive.
+![Standalone search form](.)
 
-The problem with placing it inside the header is that the header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, space is even more limited.
+### There's No Room
 
-![Search form with label underneath a header pushing page down](.)
+The problem with placing it inside the header is that the header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
 
-As we've talked about previously, designers are often seduced by novel, space-saving design patterns such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, this isn't as much of a problem as there's usually plenty of room. On mobile though, we're going to have to think about it.
+As we've talked about before, we are often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, this isn't as much of a problem as there's usually plenty of room. On mobile though, we're going to have to think a bit more about it.
 
-One space-saving tactic is to (visually) hide the label, replacing it with placeholder text. [But, we've talked about how problematic this is in “A registration form”.] In any case, removing the label doesn't save all that much space. And without one, it's still going to be hard to squeeze the rest of the form into the header.
+I've seen a combination of techniques employed to save space and to keep the content high up the page (dare I say it, above the fold).
 
-![Selfridges no label](.)
+#### Hiding The Label
+
+The first space-saving technique is to (visually) hide the label. If search returns everything, then you could argue that a visible label is unnecessary. This is especially the case if the label was “Search”. But it's still necessary to provide a comparable experience for screen reader users. To do that, you can just use a visually hidden class as first set out in “Blah”.
+
+Of course if search doesn't actually search everything, that you may need to tell users that they can only search products or articles or videos, for example. Hiding the label here would then exclude sighted users. In any case, removing the label doesn't save all that much space. Even without one, getting a well-designed search box (with a decent width and height) and submit button with a large tap target is going to be hard.
+
+If you remember, in chapter 2, we discussed how reducing the width removes the affordance. And making the interface smaller just to fit it in, somewhat defeats the purpose of putting it in the header in the first place. Now's not the time to abandon sound design principles.
+
+#### Hiding The Button
+
+The second approach is to (visually) hide the button. The problem with this is that it's not clear to users how to submit the form. Not all users are aware of implicit submission, nor should they have to be. Most sites that do hide the submit button, still provide a magnifying glass icon to solve this problem but it's exclusive to sighted users.
+
+If you're going to include a magnifiying glass icon, combine it with the submit button and make it look like it's clickable. It should also be placed after the input, not before, like some sights make the mistake of doing.
+
+- see medium
+- past submit button and implicit blah
+- hiding the submit button means using tabindex="-1"
+
+#### Toggle The Form
+
+---
 
 One approach is to give users a different treatment on small and large viewports. Harrods do this, for example. On large viewports they show the entire form. On small viewports, they toggle the search form's visibility with a button (usually styled conventionally as a magnifying glass).
 
 Another, increasingly popular approach is to toggle the search form's visibility no matter the viewport size: big or small. Both Medium and Kidly take this approach. This simplies the code, but does mean making search unnecessarily less prevalent when there's plenty of space. 
 
+![Selfridges no label](.)
 - https://www.gov.uk/government/organisations/hm-revenue-customs
 - https://www.harrods.com/en-gb
+- medium
 
 
 
@@ -62,28 +84,22 @@ In this chapter, we reused patterns from previous chapters to design a responsiv
 
 ### Things To Avoid
 
-- Only searching the database for content.
-- Using placeholder text as a label replacement.
+- Hiding the label
+- Abandoning sound design principles to squeeze search into the header to shave pixesl.
+- Hiding the submit button
+- Only searching the database for content
 
 ## Footnotes
 
 [^1]: https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
 [^2]: http://jamesarcher.me/hamburger-menu
 
-## TODO
-
- *(Note: toggling the behaviour for small and large viewports is set out in the previous chapter, “An Inbox”, for the action menu.)*
-
- Every form needs a submit button. And the related implicit submission issue again without js.
-
-Don't reduce hit area just to squeeze it in.
-
-Field size. Don't crop too much
-
-## After search
+## After search perhaps
 
 - Maintain entered text
 - Display count
 - ‎Let them sort
 - ‎pagination not show more. When show more works and doesn't.
 - ‎let them filter (next chapter)
+
+ *(Note: toggling the behaviour for small and large viewports is set out in the previous chapter, “An Inbox”, for the action menu.)*

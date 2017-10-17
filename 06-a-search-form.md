@@ -60,6 +60,7 @@ Some fancy sites use AJAX to search as the user types but this is unconventional
 
 #### Toggle The Form
 
+haspopup
 ---
 
 One approach is to give users a different treatment on small and large viewports. Harrods do this, for example. On large viewports they show the entire form. On small viewports, they toggle the search form's visibility with a button (usually styled conventionally as a magnifying glass).

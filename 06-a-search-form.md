@@ -30,27 +30,33 @@ The form itself is simple enough. It contains just a label, search input and a s
 
 The problem with placing it inside the header is that the header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
 
-As we've talked about before, we are often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, this isn't as much of a problem as there's usually plenty of room. On mobile though, we're going to have to think a bit more about it.
+As we've talked about before, we are often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue, as there's usually plenty of room. On mobile though, we're going to have to think a bit more about it.
 
-I've seen a combination of techniques employed to save space and to keep the content high up the page (dare I say it, above the fold).
+I've seen a combination of techniques employed to save space and to keep the content high up the page or dare I say, above the fold.
 
 #### Hiding The Label
 
-The first space-saving technique is to (visually) hide the label. If search returns everything, then you could argue that a visible label is unnecessary. This is especially the case if the label was “Search”. But it's still necessary to provide a comparable experience for screen reader users. To do that, you can just use a visually hidden class as first set out in “Blah”.
+The first space-saving technique is to hide the label. You might consider using a placeholder to supplant the label but we've already talked about why you shouldn't do this in chapter 1, “A Registration Form”. As noted in the same discussion, using a placeholder in addition to a label is certainly less troublesome, but not trouble free.
 
-Of course if search doesn't actually search everything, that you may need to tell users that they can only search products or articles or videos, for example. Hiding the label here would then exclude sighted users. In any case, removing the label doesn't save all that much space. Even without one, getting a well-designed search box (with a decent width and height) and submit button with a large tap target is going to be hard.
+You could argue that a visible label is unnecessary because the submit button's label is enough for sighted users. However, you should still include a label for screen reader users, because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
 
-If you remember, in chapter 2, we discussed how reducing the width removes the affordance. And making the interface smaller just to fit it in, somewhat defeats the purpose of putting it in the header in the first place. Now's not the time to abandon sound design principles.
+```HTML
+Hidden label code
+```
+
+With that said, if your search mechanism doesn't return everything, then you might need a more descriptive label. For example, if the search only retrieves products, then the label should read “Search products” (or similar). Hiding the label in this case would then exclude sighted users.
+
+In any case, removing the label doesn't save all that much space. And even without a label, it's still going to be hard to squeeze in the search box and submit button without abandoning sound design principles such as making sure the width of the field provides affordance and that the size of the button makes for an ergonomic tap target.
 
 #### Hiding The Button
 
-The second approach is to (visually) hide the button. The problem with this is that it's not clear to users how to submit the form. Not all users are aware of implicit submission, nor should they have to be. Most sites that do hide the submit button, still provide a magnifying glass icon to solve this problem but it's exclusive to sighted users.
+The second approach is to (visually) hide the button. Obviously, if you hide the button and the label, much of the previous advice should be discarded. That's not all though. Without a submit button, it's not clear how a user can submit their search term. Not all users are aware of implicit submission, nor should they have to be.
 
-If you're going to include a magnifiying glass icon, combine it with the submit button and make it look like it's clickable. It should also be placed after the input, not before, like some sights make the mistake of doing.
+Some fancy sites use AJAX to search as the user types but this is unconventional, jarring and eats up people's data allowance. Medium takes this approach and funnily enough, they place a magnifying glass icon before the search box to give users a clue. They could just as easily place the magnifying glass after the search box and combine it with a visible submit button. This way, the form would work in a familiar way.
 
-- see medium
-- past submit button and implicit blah
-- hiding the submit button means using tabindex="-1"
+![Medium no button](.)
+
+*(Note: Some sites omit the `<form>` element because they're rendering and routing with Javascript. But in doing so users aren't able to press <kbd>Enter</kbd> to submit the form. Even users who primarily use the mouse, may choose to submit by pressing <kbd>Enter</kbd> as it's easier.)*
 
 #### Toggle The Form
 
@@ -63,10 +69,6 @@ Another, increasingly popular approach is to toggle the search form's visibility
 ![Selfridges no label](.)
 - https://www.gov.uk/government/organisations/hm-revenue-customs
 - https://www.harrods.com/en-gb
-- medium
-
-
-
 
 Really, for small viewports, we're going to have to toggle the search form's visibility using CSS and Javascript.
 

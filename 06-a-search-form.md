@@ -64,24 +64,30 @@ Medium is an example of a site that omits the submit button. To give the form af
 
 #### Toggle The Form
 
-The last approach is to toggle the form's visibility using a button. The button, (usually styled as a magnifying glass) is easy to fit into the header. The form might be revealed as an overlay, or immediately underneath the header. Whatever the approach, accomodating a visual label, optional hint and submit button is easy.
-
-![Expanded and collapsed](.)
+The last approach is to toggle the form's visibility using a button. It's much easier to accomodate a button inside the header. The form might be revealed as an overlay, or immediately underneath the header. No matter which approach you take, including a visual label, optional hint and submit button is no longer a problem.
 
 ```HTML
 <header>
   <button type="button" aria-haspopup="true" aria-expanded="false">
 </header>
 <form class="search hidden">
-
+	...
 </form>
 ```
 
-Clicking the button should show the form, and move focus to the search box, saving uses an unnecessary click. Pressing <kbd>Escape</kbd> should close the search box and return focus to the button.
+In this example, the search form is placed directly after the header. Clicking the button should show the form, and move focus to the search box, saving uses an unnecessary click. At the same time `aria-expanded` should be set to `true` so that the state is reflected for screen reader users.
+
+![Click button -> move focus](.)
+
+Most users at this point will search and submit the form. But we can accomodate users who change their mind by letting them press <kbd>Escape</kbd>. In this case, the search form should be hidden again and focus returned to the button.
+
+```JS
+Code here
+```
 
 ## Summary
 
-In this chapter, we reused patterns from previous chapters to design a responsive and togglable search form that saves space on mobile. We also ensured the quality of the interface is married to the quality of the search results: that whatever the user searches for is retrieved accordingly.
+In this chapter, we combined 2 vital concepts with regards to search. First, we looked at how important it is to give users what they searched for, that's anything in the site, not just products. Second, we looked at how the page can accomodate the search form as part of the header, where it makes most sense to reside. By marrying these two concepts together, users should be able to find what they're looking for with minimal fuss.
 
 ### Checklist
 

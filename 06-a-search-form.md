@@ -1,4 +1,4 @@
-# A search form
+# A Search Form
 
 I'm an organised person. Even as a boy, I remember always having ‘a place’ for things. To be fair, I've always been minimalist too. Organising things when you only own a few things is easy. So I guess, it's unsurprising that I rarely lost things. On the odd occasion that I did, I just shouted in the general direction of the resident search engine: ‘Where's my..., ’ and I'd have my answer.
 
@@ -66,8 +66,10 @@ Medium is an example of a site that omits the submit button. To give the form af
 
 The last approach is to toggle the form's visibility using a button. It's much easier to accomodate a button inside the header. The form might be revealed as an overlay, or immediately underneath the header. No matter which approach you take, including a visual label, optional hint and submit button is no longer a problem.
 
+
 ```HTML
 <header>
+	...
   <button type="button" aria-haspopup="true" aria-expanded="false">
 </header>
 <form class="search hidden">
@@ -75,40 +77,33 @@ The last approach is to toggle the form's visibility using a button. It's much e
 </form>
 ```
 
-In this example, the search form is placed directly after the header. Clicking the button should show the form, and move focus to the search box, saving uses an unnecessary click. At the same time `aria-expanded` should be set to `true` so that the state is reflected for screen reader users.
+The search form is placed directly after the header. Clicking the button should show the form, and move focus to the search box, saving uses an unnecessary extra click. At the same time `aria-expanded` should be set to `true` so that its state is reflected to screen reader users. Clicking the button for a second time, will hide the form and set `aria-expanded` back to `false`.
 
 ![Click button -> move focus](.)
-
-Most users at this point will search and submit the form. But we can accomodate users who change their mind by letting them press <kbd>Escape</kbd>. In this case, the search form should be hidden again and focus returned to the button.
 
 ```JS
 Code here
 ```
 
+## Displaying Search Results
+
+Displaying search results is somewhat out of scope for a book about forms, but lets run through some important details quickly now:
+
+- **Maintain search text**. When the user arrives at the search page, what they typed should be persisted. This way users can make tweaks without having to retype the entire query.
+- **Display result count**. Tell users how many results have been returned so they can deduce what their next action is. For example, they might decide to filter the results - more on this in the next chapter.
+- **Let users sort**. Depending on the thing that's being searched it's often useful to let users sort by relevance, popularity, recency.
+- **Let users paginate**. Avoid infinite scrolling - it's an inclusive design anti-pattern with several usability issues[^]. This leaves “Show more” or standard pagination. Show more is more appropriate for sites that have a lot of user-generated content where the location of the result is not important. Pagination is more appropriate for ecommerce sites where users are looking for a specific item - not just browsing aimlessly.
+
 ## Summary
 
-In this chapter, we combined 2 vital concepts with regards to search. First, we looked at how important it is to give users what they searched for, that's anything in the site, not just products. Second, we looked at how the page can accomodate the search form as part of the header, where it makes most sense to reside. By marrying these two concepts together, users should be able to find what they're looking for with minimal fuss.
+In this chapter, we started by looking at how important it is to give users what they searched for - not just products, or articles, but anything the site contains. We then went onto look at the interface. Specifically, how we can accomodate a search form as part of the header so that it's readily accessible from every page in the site. 
 
-### Checklist
-
-- Search everything
-- Include a visible label and submit button
-- Don't sacrifice affordance just to fit the form inside the header
+Marrying the usability of the interface with the quality of the search engine gives users the best experience.
 
 ## Footnotes
 
 [^1]: https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
 [^2]: http://jamesarcher.me/hamburger-menu
-
-## After search perhaps
-
-- Maintain entered text
-- Display count
-- ‎Let them sort
-- ‎pagination not show more. When show more works and doesn't.
-- ‎let them filter (next chapter)
-
- *(Note: toggling the behaviour for small and large viewports is set out in the previous chapter, “An Inbox”, for the action menu.)*
 
  - https://www.gov.uk/government/organisations/hm-revenue-customs
 - https://www.harrods.com/en-gb

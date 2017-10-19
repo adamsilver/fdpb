@@ -22,7 +22,7 @@ On a side note, you should use analytics to track what your users are searching 
 
 ## Interface Design
 
-The form itself is simple enough. It contains just a label, search input and a submit button. What's tricky is that it's usually placed within the header. The purpose of placing it at the top is not only for cognition, but interaction. Like navigation, we want to make search readily accessible to both mouse and keyboard users. Putting such a commonly used feature elsewhere would be counterintuitive.
+The form itself is simple enough and contains just a label, search input and a submit button. What's tricky is that it's usually placed within the header which is not only for cognition, but interaction. Like navigation, we want to make search readily accessible to both mouse and keyboard users. Putting such a commonly-used feature somewhere else would be counterintuitive.
 
 ![Standalone search form](.)
 
@@ -30,29 +30,33 @@ The form itself is simple enough. It contains just a label, search input and a s
 
 The problem with placing it inside the header is that the header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
 
-As we've talked about before, we are often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue, as there's usually plenty of room. On mobile though, we're going to have to think a bit more about it.
+As noted previously, we're often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue, as there's usually plenty of room. On mobile though, we're going to have to think a little harder.
 
-I've seen a combination of techniques employed to save space and to keep the content high up the page or dare I say, above the fold.
+To reduce the amount of vertical space, we can place the submit button beside the search box. As discussed in the first chapter, the best place to put it is underneath the last field. But this is a bit of a special case.
+
+There are other techniques employed to save space, and to keep the content high up the page - or dare I say, above the fold.
 
 #### Hiding The Label
 
 The first space-saving technique is to hide the label. You might consider using a placeholder to supplant the label but we've already talked about why you shouldn't do this in chapter 1, “A Registration Form”. As noted in the same discussion, using a placeholder in addition to a label is certainly less troublesome, but not trouble free.
 
-You could argue that a visible label is unnecessary because the submit button's label is enough for sighted users. However, you should still include a label for screen reader users, because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
+You could argue that a visible label is unnecessary because the submit button's label is enough for sighted users. But, you should still include a label for screen reader users, because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
 
 ```HTML
 Hidden label code
 ```
 
-With that said, if your search mechanism doesn't return everything, then you might need a more descriptive label. For example, if the search only retrieves products, then the label should read “Search products” (or similar). Hiding the label in this case would then exclude sighted users.
+With that said, if your search mechanism doesn't return everything, then you might need a more descriptive label. For example, if the search only retrieves products, then the label should read “Search products” (or similar). Hiding the label in this case would exclude sighted users.
 
-In any case, removing the label doesn't save all that much space. And even without a label, it's still going to be hard to squeeze in the search box and submit button without abandoning sound design principles such as making sure the width of the field provides affordance and that the size of the button makes for an ergonomic tap target.
+In any case, removing the label doesn't save all that much space. And even without a label, it's still going to be hard to fit the search box and submit button without sacrificing the affordance and usability of it.
 
 #### Hiding The Button
 
 The second approach is to (visually) hide the button. Obviously, if you hide the button and the label, much of the previous advice should be discarded. That's not all though. Without a submit button, it's not clear how a user can submit their search term. Not all users are aware of implicit submission, nor should they have to be.
 
-Some fancy sites use AJAX to search as the user types but this is unconventional, jarring and eats up people's data allowance. Medium takes this approach and funnily enough, they place a magnifying glass icon before the search box to give users a clue. They could just as easily place the magnifying glass after the search box and combine it with a visible submit button. This way, the form would work in a familiar way.
+Some fancy sites use AJAX to search as the user types but this is unconventional, jarring and eats up people's data allowance. It also doesn't eradicate the need for a button - if the predicted results are no good, the user can't proceed with a full search.
+
+Medium is an example of a site that omits the submit button. To give the form affordance, they use a magnifying glass icon before the search box. But they could just as easily place it after and combine it with a submit button. This way, the form would work conventionally.
 
 ![Medium no button](.)
 
@@ -60,37 +64,30 @@ Some fancy sites use AJAX to search as the user types but this is unconventional
 
 #### Toggle The Form
 
-haspopup
----
+The last approach is to toggle the form's visibility using a button. The button, (usually styled as a magnifying glass) is easy to fit into the header. The form might be revealed as an overlay, or immediately underneath the header. Whatever the approach, accomodating a visual label, optional hint and submit button is easy.
 
-One approach is to give users a different treatment on small and large viewports. Harrods do this, for example. On large viewports they show the entire form. On small viewports, they toggle the search form's visibility with a button (usually styled conventionally as a magnifying glass).
+![Expanded and collapsed](.)
 
-Another, increasingly popular approach is to toggle the search form's visibility no matter the viewport size: big or small. Both Medium and Kidly take this approach. This simplies the code, but does mean making search unnecessarily less prevalent when there's plenty of space. 
+```HTML
+<header>
+  <button type="button" aria-haspopup="true" aria-expanded="false">
+</header>
+<form class="search hidden">
 
-![Selfridges no label](.)
-- https://www.gov.uk/government/organisations/hm-revenue-customs
-- https://www.harrods.com/en-gb
+</form>
+```
 
-Really, for small viewports, we're going to have to toggle the search form's visibility using CSS and Javascript.
-
-With this decision in place, accomodating a visual label and optional hint is easy. This way, the toggle button can be placed inside the header, with the search form directly below.
-
-![Collapsed](.)
-
-When the toggle button is clicked, the search form is shown and focus set to the search box. Not only does this save users an extra click, but on focus, screen readers will announce the label.
-
-![Expanded](.)
+Clicking the button should show the form, and move focus to the search box, saving uses an unnecessary click. Pressing <kbd>Escape</kbd> should close the search box and return focus to the button.
 
 ## Summary
 
 In this chapter, we reused patterns from previous chapters to design a responsive and togglable search form that saves space on mobile. We also ensured the quality of the interface is married to the quality of the search results: that whatever the user searches for is retrieved accordingly.
 
-### Things To Avoid
+### Checklist
 
-- Hiding the label
-- Abandoning sound design principles to squeeze search into the header to shave pixesl.
-- Hiding the submit button
-- Only searching the database for content
+- Search everything
+- Include a visible label and submit button
+- Don't sacrifice affordance just to fit the form inside the header
 
 ## Footnotes
 
@@ -106,3 +103,6 @@ In this chapter, we reused patterns from previous chapters to design a responsiv
 - ‎let them filter (next chapter)
 
  *(Note: toggling the behaviour for small and large viewports is set out in the previous chapter, “An Inbox”, for the action menu.)*
+
+ - https://www.gov.uk/government/organisations/hm-revenue-customs
+- https://www.harrods.com/en-gb

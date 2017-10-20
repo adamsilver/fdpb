@@ -1,12 +1,12 @@
-# An upload form
+# An Upload Form
 
 Some forms involve users having to upload files: documents, images or anything else really. On the one hand, uploading a file is only marginally more complex than inputting text or selecting options. On the other, there are some nuances and opportunites that need to be taken into account.
 
 The problem increases by orders of magnitude as soon as you need to let users upload *multiple* files in one go.
 
-## A file input
+## A File Picker
 
-A file input is similar to most types of input. But instead of typing into it, the control just spawns a dialog in which to choose a file from your computer. Here's how it looks:
+A file picker (`input type="file"`) is similar to most types of input. But instead of typing into it, the control spawns a dialog in which users can select a file from their computer or device.
 
 ![File input](.)
 
@@ -19,13 +19,15 @@ A file input is similar to most types of input. But instead of typing into it, t
 </div>
 ```
 
-Everything here should be familiar as it's almost identical to most of the other form components we've used so far. The only difference is the input's type attribute is set to `file`. So if you want to let users upload a single file, then add this field along with a submit button and you're done.
+There's not much to see here. The component uses the same structure as many other form components. The only difference is the input's `type` attribute.
 
-### A note on aesthetics
+If all users need to to do is upload a single file, then you can add this field to your form and you're done.
 
-Some designers like to restyle the file input because it's quite ugly. As designers (not artists!), we know that *pretty and useless* is far worse than *ugly and useful*, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
+### Aesthetics
 
-Styling file inputs is really tricky because browsers mostly ignore any attempt at doing so in CSS. One approach is to visually hide the input, demarcating it solely via the label. Unlike file inputs, labels are far easier to style.
+Some designers like to restyle the file picker because it looks quite ugly. We know that *pretty and useless* is far worse than *ugly and useful*, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
+
+Styling file inputs is tricky because most browsers ignore any attempt at doing so with CSS. One approach is to visually hide the input, demarcating it solely via its label. Unlike file inputs, labels are far easier to style.
 
 ![Hidden input, styled label](.)
 
@@ -35,27 +37,27 @@ Having hidden the input, and styled the label, Javascript should be used to hand
 
 On the face of it, this implementation is visually pleasing and it's still accessible. Keyboard and mouse users can operate it like normal and screen readers will announce the state of the input and associated label.
 
-But operating the interface is not the only thing that needs consideration. Unfortunately, this enhancement crumbles under further scrutiny.
+But operating the interface is not the only thing that needs consideration. This enhancement crumbles under further scrutiny.
 
-First, updating the label to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, screen reader users will hear ‘some-file.pdf selected’ (or similar) as opposed to ‘Attach file’.
+First, updating the label to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, screen reader users will hear ‘some-file.pdf selected’ (or similar) as opposed to “Attach document”.
 
-Second, the interface makes no allowances for a visual hint or error message which is normally positioned inside the label, as set out in ‘A Registration Form’.
+Second, the interface makes no allowances for a visual hint or error message which is should be positioned inside the label, as explained and set out in “A Registration Form”.
 
-Third, file inputs let mouse users drag and drop files. The input itself acts as a ‘drop zone’, which savvy users may prefer. Hiding the input means forgoing this functionality.
+Third, file inputs let mouse users drag and drop files. The input itself acts as a “drop zone”, which savvy users may prefer. Hiding the input means forgoing this functionality.
 
-Unfortunately, the improvement to aesthetics isn't worth the degradation in functionality and utility.
+Any improvement to aesthetics just isn't worth the degradation in functionality and utility.
 
-## A multiple file input
+## Multiple Files
 
-Some tasks involve having to upload multiple files at once. One way to do this is to add a `multiple` attribute onto the input. The only difference now is that users can select multiple files from dialog.
+Some tasks involve users needed to upload multiple files at once. One way to do this is to add the `multiple` attribute onto the input. Now, when the user activates the file picker dialog, the user can select multiple files.
 
 ![Multiple file input](.)
 
 This inocuous attribute grants a lot of power and seems to solve the multiple file problem in one fell swoop, but it's not perfect.
 
-First, users can only select files within a single directory within the file explorer. If they want to upload files residing across different folders they'll be stuck. Of course they could move all the files into a single folder beforehand but this puts the onus on the user.
+First, users can only select files within a single directory within the dialog. If they need to upload files withing different folders they can't. Of course, users could move all the files into a single folder beforehand but this puts the onus on the user.
 
-Second, some browsers don't recognise `multiple` and so degrades into a single file input. This may result in a broken experience.
+Second, some browsers don't recognise the `multiple` attribute. In this case it will degrade into a standard file picker, which could result in a broken experience.
 
 ![Show a design that means they can't upload more than one file](.)
 
@@ -65,13 +67,18 @@ You could solve this by considering the full journey:
 - ![2. Confirmation of uploaded file, can delete it, add another or continue/finish](.)
 - ![3. Selecting another starts back at (1) again](.)
 
-Note that this journey works with and without multiple file support and may be the right solution in many cases. The only potential downside is the journey could become a little long winded.
+Note that this journey works with and without multiple file support and may be the right solution in many cases. The only downside is the journey could become a little long winded, which isn't useful if users need to use it a lot.
 
-## A drag and drop enhancement
+## A Drag And Drop Enhancement
 
-As noted earlier, file inputs let users drag and drop files onto the control. The problem is that it's not immediately obvious users you can do this and the hit area is relatively small, making it especially hard to use for motor-impaired users. Implementating our own solution lets us solve these issues.
+As noted earlier, file pickers let users drag and drop files onto the control. The problem is twofold: 
 
-### How it might look
+1. It's not immediately obvious to users that they can do this.
+2. The hit area is relatively small, making it hard to use, especially for users with motor impairments.
+
+Implementating our own solution lets us solve both issues.
+
+### How It Might Look
 
 ![Design with progress bar](.)
 
@@ -81,15 +88,15 @@ Below the text sits a button. Really, it's a label *styled* as a button which is
 
 There's no submit button because the files are uploaded as soon as they're dropped. This is because browser's won't let you update the file input's value programmatically (`ondrop`) due to security reasons[^1]t. And because of this, selecting a file (as opposed to dropping one) also uploads it immediately (`onchange`). This way, both interactions behave similarly.
 
-This technical constraint is the reason we've veered away from convention, which is the first time we've done that in the book and it is not without issue. I'll be talking about that later in the ‘small print’.
+This technical constraint is the reason we've veered away from convention, which is the first time we've done that in the book and it is not without issue. I'll address these issues later.
 
 The user can keep uploading documents using both methods (interchangeably), should they choose. After they've uploaded the files successfully, they can review and delete files uploaded in error if they need to.
 
-When they're done, clicking continue takes users to the next step (whatever that is). Gmail users, for example, upload files using a similar interface and clicking send. It's the same pattern with a different veneer.
+When they're done, clicking continue takes users to the next step (whatever that is). Gmail users, for example, upload files using a similar interface and clicking send. That's the same pattern with a different veneer.
 
 ![Gmail compose?](.)
 
-### The drop zone
+### The Drop Zone
 
 Here's the Javascript-enhanced mark-up:
 
@@ -106,9 +113,9 @@ Here's the Javascript-enhanced mark-up:
 </form>
 ```
 
-The `enctype` attribute is necessary so that the files are transmitted to the server for processing. This is only relevant to the degraded experience which is discussed later, because the enhanced experience uses AJAX.
+The `enctype` attribute is necessary so that the files are transmitted to the server for processing. This is only relevant to the degraded experience which is discussed later. Remember the enhanced experience uses AJAX.
 
-Keyboard users can tab to the visually hidden input  which will pseudo focus the label&mdash;similar to how we handled focus states for the seat chooser component set out in “Book a flight”.
+Keyboard users can tab to the visually hidden input which will pseudo focus the label&mdash;similar to how we handled focus states for the seat chooser component set out in “Book a flight”.
 
 To create the drag and drop behaviour there are three javascript events: `ondragover`, `ondragleave` and `ondrop`.
 
@@ -122,9 +129,9 @@ The `ondrop` handler is where the magic happens. The event handler receives an e
 Some code here
 ```
 
-### Providing feedback
+### Feedback
 
-Whether files are dropped or selected with the input itself, we need to give users feedback. Each file is represented as an item in a list. Progress is demarcated by the `<progress>` element.
+Whether files are dropped or selected with the file picker, we need to give users feedback. Each file is represented as an item in a list. Progress is demarcated by the `<progress>` element.
 
 ![Progress](.)
 
@@ -142,7 +149,7 @@ The text inside the element is for browsers that lack support for it, meaning th
 
 The progress bar is updated in response to the AJAX request that has an `onprogress` event.
 
-When the file is completely uploaded, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added, letting users delete the uploaded file if they wish.
+When the file is completely uploaded, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added, letting users delete the uploaded file if they uploaded it by mistake.
 
 ![Success](.)
 
@@ -178,7 +185,7 @@ The only thing missing is a hidden live region in order to *provide a comparable
 - Upload ends: ‘file.pdf has been uploaded.’
 - Upload error: ‘file.pdf could not be uploaded because it was too big.’
 
-### Feature detection
+### Feature Detection
 
 This enhancement uses several Javascript APIs that not all browsers recognise. Before referencing them, we should detect them first to ensure users don't get a broken experience.
 
@@ -210,13 +217,13 @@ if(typeof Dropzone !== 'undefined') {
 }
 ```
 
-### The degraded experience
+### The Degraded Experience
 
-When Javascript isn't available or the browser fails the feature detection, users won't get the enhanced interface. Instead, they'll see a file input and an upload button. In the absence of script or capability, uploading a file gives users the same feedback view, just via a page refresh.
+When Javascript isn't available or the browser fails the feature detection, users won't get the enhanced interface. Instead, they'll see a file picker and an upload button. In the absence of script or capability, uploading a file gives users the same feedback view, just via a page refresh.
 
 ![Degraded view](.)
 
-### The small print
+### The Small Print
 
 Granted, there's rationale behind moving away from convention, but that doesn't mean it's perfectly
 robust. In fact, doing this goes against what the standards say which was discussed in chapter 6, ‘An inbox’. Here it is again:

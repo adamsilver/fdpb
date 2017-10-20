@@ -6,7 +6,7 @@ Whatever it is, a registration form is often the first form a user sees. Despite
 
 In choosing such a simple form, we can zoom in on the foundational qualities found in well-designed forms.
 
-## How it might look
+## How It Might Look
 
 ![Registration Form](.)
 
@@ -179,7 +179,7 @@ People using a non-supporting browser will see a standard text input (`input typ
 
 ### Progressive Enhancement
 
-Progressive enhancement is about users. It just happens to make our lives (as designers/developers) easier too. This is because instead of keeping up with a set of browsers and devices (which is impossible!) we can just focus on features.
+Progressive enhancement is about users. It just happens to make our lives (as designers and developers) easier too. This is because instead of keeping up with a set of browsers and devices (which is impossible!) we can just focus on features.
 
 First and foremost, progressive enhancement is about always giving users an experience, no matter their browser or device or quality of connection. When things go wrong — and they will — users shouldn't suffer. That's bad design.
 
@@ -187,15 +187,15 @@ There are a lot of ways an experience can go wrong. Perhaps the stylesheet or sc
 
 It starts with HTML, which is for structure and content. If CSS or Javascript doesn't load, it's fine because the content is there.
 
-If everything loads okay, perhaps various HTML elements aren't recognised. For example, some browsers don't understand `input type="email"`. That's okay though because users will get a text box (`input type="text"`) instead. Users can still enter an email address, they just don't get an email-specific keyboard.
+If everything loads okay, perhaps various HTML elements aren't recognised. For example, some browsers don't understand `input type="email"`. That's okay though because users will get a text box (`input type="text"`) instead. Users can still enter an email address, they just don't get an email-specific keyboard on mobile.
 
-Maybe the browser doesn't understand some fancy CSS. In this case, browsers just ignore it. For example, some browsers that don't understand `border-radius` will show straight edges instead of round ones. Users are left unharmed.
+Maybe the browser doesn't understand some fancy CSS. In this case, browsers just ignore it. In most cases, this isn't a problem. For example, some browsers that don't understand `border-radius` will show straight edges instead of round ones. Users are left unharmed. In other cases you might need to detect support using Feature Queries[^].
 
-Then there is Javascript, which is more complicated. When the browser tries to parse methods it doesn't recognise, it will just throw a hissy fit. This can mean only half the script executes, but the rest doesn't. If your script doesn't first check if the methods exist (feature detection) and work (feature testing) before using them, then users may get a broken interface. For example, if a button's click handler calls a method that the browser doesn't recognise, the button will do nothing. That's bad.
+Then there is Javascript, which is more complicated. When the browser tries to parse methods it doesn't recognise, it will just throw a hissy fit. This can mean not all of the script executes. If your script doesn't first check if the methods exist (feature detection) and work (feature testing) before using them, then users may get a broken interface. For example, if a button's click handler calls a method that's not recognised, the button won't work. That's bad.
 
-What's even better is not needing an enhancement at all. HTML with a little CSS, can give users an excellent experience. It's the content that counts and Javascript doesn't give you that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value*.
+That's how you enhance. But what's better, is not needing an enhancement at all. HTML with a little CSS, can give users an excellent experience. It's the content that counts and Javascript doesn't give you that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value*.
 
-Of course, there are times when the basic user experience isn't as good as it might be. And that's when it's time to enhance. If the browser, or network fails things still work. If the user has a capable browser, they'll get the enhanced experience — great!
+Of course, there are times when the basic experience isn't as good as it could be. And that's when it's time to enhance. But if we follow the principles above, when the browser or network fails things will still work.
 
 Progressive enhancement makes us think about what happens when things fail. This way we end up building experiences with resilience baked-in. But equally, it makes us think about whether an enhancement is needed at all and if it is, how best to go about it.
 
@@ -479,31 +479,31 @@ Some forms will disable the submit button until all the form fields are valid. T
 
 ### Crafting Error Messages
 
-Arguably there is nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the result of using a service. Even the most thought-out, inclusive and beautifully designed experience counts for nothing if we ignored the words we use to craft error messages. One study showed that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^15].
+Arguably there is nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the result of using a service. Even the most thought-out, inclusive and beautifully designed experience counts for nothing if we ignored the words used to form error messages. One study showed that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^15].
 
 > “Content is the user experience”
 
-Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content - not the other way around. But in this particular case understanding how messages are going to be shown and why influences the design of the words themselves. This is why Jared Spool says content and design are inseparable work partners.
+Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content - not the other way around. But in this case, understanding how messages are going to be shown and why, influences the design of the words themselves. This is why Jared Spool says “content and design are inseparable work partners.”
 
 As we know, we're going to inject messages into a summary panel at the top and next to the fields in context. This means, we need to make sure that content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
 
 Maintaining 2 versions of the same message is a hard sell for small gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol.’ works well regardless of location.
 
-Then there's pleasantries, like start each message with “Please”. On the hand this is noisey and repetitive. On the other it's polite and softens the command. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to answer this question’ may work better.
+Then there's pleasantries, like starting each message with “Please”. On one hand, this is noisey and repetitive. On the other it's polite and softens the command. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to answer this question’ may work better.
 
-Consider frequency of use. People who use the system daily, it's probably a good idea to remove the pleasantries and get to the point. For those using a system once of twice, removing the pleasantires may seem blunt and rude. Without testing it's hard to know.
+Consider frequency of use. People who use the system daily, it's probably a good idea to remove the pleasantries and get to the point. For those using a system once or twice, removing the pleasantires may seem blunt and rude. Without user research it's hard to know.
 
 Whatever approach you take, there's going to be some repetition due to the nature of the content. And when we test form validation we often submit the form without entering any information at all.
 
 ![Wall of errors on a larger form](.)
 
-This scenario makes the repetition glaringly obvious and as content designers this may cause us to flip out, but consider how often a user submits a long form without entering a single field. Most users aren't trying to break the interface.
+This scenario makes the repetition glaringly obvious and as content designers this may cause us to flip out. But consider how often a user submits a long form without entering a single field. Most users aren't trying to break the interface.
 
 Here's a checklist:
 
 - **Use punctuation.** Some errors have clauses and contain more than one sentence.
 - **Be specific.** If you know why something has gone wrong, say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and clear.
-- **Use the active voice**. For example, ‘Enter your name’ not ‘Your name must have an entry’.
+- **Use the active voice**. For example, ‘Enter your name’ not ‘First name must be entered’.
 - Don't blame the user. Just let them know what's gone wrong and how to fix it.
 - **Use plain language.** Error messages are not an opportunity to promote your brand's tone of voice.
 - **Be human, avoid jargon.** Avoid avoid words like *invalid*, *unrecognised* and *mandatory*.
@@ -545,3 +545,5 @@ In this chapter we solved several fundamental form design challenges that are ap
 [^x2]: http://www.outlinenone.com/
 
 - https://www.tjvantoll.com/speaking/slides/constraint-validation/chicago/#/18
+
+-[^featurequeries]: https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/

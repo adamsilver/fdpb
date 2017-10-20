@@ -4,7 +4,7 @@ Some forms involve users having to upload files: documents, images or anything e
 
 The problem increases by orders of magnitude as soon as you need to let users upload *multiple* files in one go.
 
-## A File Picker
+## The File Picker
 
 A file picker (`input type="file"`) is similar to most types of input. But instead of typing into it, the control spawns a dialog in which users can select a file from their computer or device.
 
@@ -47,7 +47,7 @@ Third, file inputs let mouse users drag and drop files. The input itself acts as
 
 Any improvement to aesthetics just isn't worth the degradation in functionality and utility.
 
-## Multiple Files
+## Multiple File Pickers
 
 Some tasks involve users needed to upload multiple files at once. One way to do this is to add the `multiple` attribute onto the input. Now, when the user activates the file picker dialog, the user can select multiple files.
 
@@ -196,9 +196,9 @@ This enhancement uses several Javascript APIs that not all browsers recognise. B
 		return ('draggable' in div) || ('ondragstart' in div && 'ondrop' in div);
 	}());
 
-	var formDataSupported = typeof Formdata == 'function';
+	var formDataSupported = (typeof Formdata == 'function');
 
-	var fileReaderSupported = typeof FileReader == 'function';
+	var fileReaderSupported = (typeof FileReader == 'function');
 
 	if(dragAndDropSupported && formDataSupported && fileReaderSupported) {
 		function Dropzone() {
@@ -248,7 +248,7 @@ In this chapter, we looked at the intricacies of uploading files in bulk and one
 
 We then looked at the shortcomings of the native input's drag and drop behaviour and because of this decided to roll our own custom solution using the latest Javascript APIs. In doing so we veered away from convention partly due to browser constraints associated with security.
 
-### Things to avoid
+### Things To Avoid
 
 - Visually hiding the file input for solely for aesthetic reasons.
 - Using multiple file inputs without considering the degraded experience and end-to-end flow.

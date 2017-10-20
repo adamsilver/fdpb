@@ -1,34 +1,34 @@
-# An expense form
+# An Expense Form
 
-At first I wanted to fold this chapter into the last one because there is certainly some overlap. Adding multiple files needn't be different from adding multiple of anything else really. It's just that uploading files has some unique considerations (such as drag and drop) that made sense to tackle in isolation.
+At first I wanted to fold this chapter into the last one because there's some overlap. Adding multiple files needn't be different from adding multiple of anything else really. It's just that uploading files has some unique considerations (such as drag and drop) that made sense to tackle in isolation.
 
 Unlike file inputs, other form controls don't let you add multiple values. So it's up to us to design a solution from scratch. There are three main approaches that are applicable to all sorts of data&mdash;files included. Whether it's adding collaborators to your Github repo or adding monthly expenses into an accounting service, you'll find the patterns in this chapter useful.
 
-Of course, if you know how many things that need to be added, then simply display that amount of fields (and make them required). But if you don't keep reading.
+Of course, if you know how many things that need to be added in advance, then simply display that amount of fields (and make them required). If you don't, keep reading.
 
 ## The Ever Present Form Pattern
 
-The drag and drop interface from ‘An upload form’ in some respects uses this pattern and so does the infamous ‘Todo list pattern’[^]. Even Github uses this pattern to let users add collaborators. What I'm trying to say is that you've most probably seen this pattern before.
+The drag and drop interface from “An Upload Form” in some respects uses this pattern and so does the infamous “Todo list pattern”[^]. Even Github uses this pattern to let users add collaborators. What I'm trying to say is that you've most probably seen it in action many times.
 
 ![Github](.)
 
-The way it works is to have an ever-present form on the page (hence the name). Submitting it adds an item to a list above (or perhaps beside) the form. When the user is finished they can proceed. If this was part of a flow, you'd click continue. On Github, you just exit the settings view.
+The way it works is to have an ever-present form on the page (hence the name). Submitting it adds an item to a list above (or perhaps beside) the form. When the user is finished they can proceed. If this is part of a flow, you'd click a continue button. On Github, you just leave the page.
 
-This is suitable for simple forms that can be submitted in one step. The potential downside is that as the list grows, the form is pushed down, which could be troublesome on mobile.
+This is suitable for simple forms that can be submitted in one step. The potential downside is that as the list grows, the form is pushed down, which could cause trouble, especially for mobile users.
 
 Also, there are multiple buttons: one to submit and one to proceed which could cause mild confusion. As mentioned in previous chapters, providing one button is preferable because it requires less cognitive effort.
 
-The other thing worth noting is that each submission is a request to the server. Whilst not a huge deal it could become frustrating if the form is used frequently. Bare this in-mind as we explore other patterns.
+Also, each submission is a server request. While not a huge deal, it coyld become frustrating if that form is used more frequently. Bare this in-mind.
 
 ## One Thing Per Page Again
 
-Imagine you need to add a bunch of expenses. But the type of expense determines the information you need to enter. For example, if you're expensing a car, then you have to enter mileage, but if you're expensing a train ticket then you have to enter a monetary amount.
+Imagine you need to add a bunch of expenses, but the type of expense determines the information you need to enter. For example, if you're expensing a car, then you have to enter mileage, but if you're expensing a train ticket then you have to enter a monetary amount.
 
 ![Show the flow with branching diagram](.)
 
 In this case, the Ever Present Form pattern is less suitable. Using One Thing Per Page as first discussed in “A Checkout Flow” is appropriate because it guides the user to provide the right information at the right time.
 
-But what if the user wants to add another one? Simply add a question to the end of that flow asking the user if they'd like to add another. Selecting no completes the task. Selecting *yes* goes through the same familiar flow again. Not answering with either prompts the user with an error message as dicussed in “A Registration Form”.
+But what if the user wants to add another one? Simply add a question to the end of that flow asking the user if they'd like to add another. Selecting no completes the task. Selecting *yes* goes through the same flow again. Of course, not selecting an answer will prompt the user with an error message.
 
 ![Do you want to add another, yes no with button](.)
 
@@ -75,27 +75,27 @@ Perhaps even more importantly, is that if you don't update the name of the input
   <div class="addAnother-items">
     <div class="addAnother-item">
   	  <div class="field">
-	    <label for="items[0][name]">
-		  <span class="field-label">Description</span>
-	    </label>
-	    <input class="field-textBox" type="text" id="items[0][description]" name="items[0][description]" value="" data-name="items[%index%][description]" data-id="items[%index%][description]">
+        <label for="items[0][name]">
+		      <span class="field-label">Description</span>
+	      </label>
+        <input class="field-textBox" type="text" id="items[0][description]" name="items[0][description]" value="" data-name="items[%index%][description]" data-id="items[%index%][description]">
       </div>
       <div class="field">
-	    <label for="items[0][amount]">
-		  <span class="field-label">Amount</span>
-	    </label>
-	    <input class="field-textBox" type="text" id="items[0][amount]" name="items[0][amount]" value="" data-name="items[%index%][amount]" data-id="items[%index%][amount]">
+        <label for="items[0][amount]">
+          <span class="field-label">Amount</span>
+        </label>
+        <input class="field-textBox" type="text" id="items[0][amount]" name="items[0][amount]" value="" data-name="items[%index%][amount]" data-id="items[%index%][amount]">
       </div>
-  	  <input type="submit" name="remove" value="Remove expense">
+      <input type="submit" name="remove" value="Remove expense">
     </div>
     <input type="submit" name="addAnother" value="Add another expense">
   </div>
 </form>
 ```
 
-The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server side frameworks such as Ruby on Rails and Express look for names like this in the request payload and convert them into an array of items.
+The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server side frameworks, such as Ruby on Rails or Express, look for names like this in the request payload and convert them into an array of items.
 
-The crucial part is that the index needs to increase from 0 to 1 and so forth. To make this easy to parse in Javascript, the pattern is stored in data attributes. This way, the script simply replaces `%index%` with the actual index number.
+The crucial part is that the index needs to increase from 0 to 1 and so forth. To make this easy to parse in Javascript, the pattern is stored in data attributes. This way, all the script has to do is replace `%index%` with the index number.
 
 ```JS
 Put that code here

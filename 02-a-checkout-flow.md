@@ -219,10 +219,6 @@ The `textarea` is similar to a text box except that allows users to enter multip
 
 While this question *adds value*, we need to understand how it will be used by the delivery person as this may influence the design. In this case, the viewport on the device is small and can't be scrolled, so we need to limit the amount of text that can be entered.
 
-### Capitalise Sentences
-
-<textarea autocapitalize="sentences">
-
 ### Limiting Text
 
 Limiting the amount of a text a user can type can and should be handled by validation as set out in “A Registration Form.” But there are some additional considerations to discuss.
@@ -263,7 +259,9 @@ CharacterCountdown.prototype.onFieldChange = function(e) {
 The container has a `role` attribute set to `status` and `aria-live` set to `polite`. When the status box is updated, screen readers will announce it, but only after the user finishes typing. This way, users aren't rudely interrupted. 
 
 ```HTML
-Here
+<div role="status" aria-live="polite">
+  You have 100 characters remaining.
+</div>
 ```
 
 *(Note: both `role="status"` and `aria-live="polite"` are functionally equivalent, but older versions of JAWS don't support `role`.)*
@@ -308,40 +306,40 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
 
 ```HTML
 <div class="field">
-    <label for="ccname">
-        <span class="field-label">Name on card</span>
-    </label>
-    <input type="text" id="ccname" name="ccname" autocomplete="cc-name">
+  <label for="ccname">
+    <span class="field-label">Name on card</span>
+  </label>
+  <input type="text" id="ccname" name="ccname" autocomplete="cc-name">
 </div>
 <div class="field">
-    <label for="cardnumber">
-        <span class="field-label">Card number</span>
-    </label>
-    <input type="text" id="cardnumber" name="cardnumber" autocomplete="cc-number">
+  <label for="cardnumber">
+    <span class="field-label">Card number</span>
+  </label>
+  <input type="text" id="cardnumber" name="cardnumber" autocomplete="cc-number">
 </div>
 <div class="field">
-    <label for="expdate">
-        <span class="field-label">Expiry date</span>
-    </label>
-    <input type="text" id="expdate" name="expdate" autocomplete="cc-exp">
+  <label for="expdate">
+    <span class="field-label">Expiry date</span>
+  </label>
+  <input type="text" id="expdate" name="expdate" autocomplete="cc-exp">
 </div>
 <div class="field">
-    <label for="cvc">
-        <span class="field-label">Security code</span>
-    </label>
-    <input type="number" id="cvc" name="cvc" autocomplete="cc-csc">
+  <label for="cvc">
+    <span class="field-label">Security code</span>
+  </label>
+  <input type="number" id="cvc" name="cvc" autocomplete="cc-csc">
 </div>
 <div class="field">
   <fieldset>
-      <legend>
-          <span class="field-legend">Is your billing address the same as delivery?</span>
-      </legend>
-      <div class="field-checkbox">
-          <label for="things">
-              <input type="checkbox" name="things" value="" id="things" checked>
-              Yes, it's the same
-          </label>
-      </div>
+    <legend>
+      <span class="field-legend">Is your billing address the same as delivery?</span>
+    </legend>
+    <div class="field-checkbox">
+      <label for="things">
+        <input type="checkbox" name="things" value="" id="things" checked>
+        Yes, it's the same
+      </label>
+    </div>
   </fieldset>
 </div>
 ```

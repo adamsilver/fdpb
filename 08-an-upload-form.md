@@ -82,19 +82,17 @@ Implementating our own solution lets us solve both issues.
 
 ![Design with progress bar](.)
 
-The design&mdash;slightly biased toward mouse users&mdash;presents a large ‘drop zone’ making it easier to use, especially for motor-impaired users. Inside the drop zone is some instructional text that makes the behaviour immediately obvious.
+The design&mdash;slightly biased toward mouse users&mdash;presents a large ‘drop zone’ making it easier to use, especially for motor-impaired users. Inside the drop zone is some instructional text that makes the behaviour more obvious.
 
-Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier. To reiterate: this works because the label is a proxy for the input. Clicking the label is like clicking the (hidden) file input.
+Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier. To reiterate: this works because the label is a proxy for the input. Clicking the label behaves as if the file input was clicked - even if hidden.
 
-There's no submit button because the files are uploaded as soon as they're dropped. This is because browser's won't let you update the file input's value programmatically (`ondrop`) due to security reasons[^1]t. And because of this, selecting a file (as opposed to dropping one) also uploads it immediately (`onchange`). This way, both interactions behave similarly.
+There's no submit button because the files are uploaded as soon as they're dropped. This is because browsers don't let you programmatically update a file input's value due to security reasons[^1]. The act of selecting a file (as opposed to dropping one) also uploads immediately (`onchange`). This is so that both interactions behave consistently within the same component. 
 
-This technical constraint is the reason we've veered away from convention, which is the first time we've done that in the book and it is not without issue. I'll address these issues later.
-
-The user can keep uploading documents using both methods (interchangeably), should they choose. After they've uploaded the files successfully, they can review and delete files uploaded in error if they need to.
-
-When they're done, clicking continue takes users to the next step (whatever that is). Gmail users, for example, upload files using a similar interface and clicking send. That's the same pattern with a different veneer.
+The user can keep uploading documents either by draging and dropping or selecting or both. When they're finished, they can review and if need be, delete files. Clicking continue, takes the user to the next step, whatever that is. Gmail users, for example, upload files using a similar interface and clicking send. Essentially this is the same pattern with a different veneer.
 
 ![Gmail compose?](.)
+
+*(Note: the technical constraints regarding security have driven us to abandon convention which is not without issues. I'll be addressing them later.)*
 
 ### The Drop Zone
 
@@ -113,25 +111,78 @@ Here's the Javascript-enhanced mark-up:
 </form>
 ```
 
-The `enctype` attribute is necessary so that the files are transmitted to the server for processing. This is only relevant to the degraded experience which is discussed later. Remember the enhanced experience uses AJAX.
+The `enctype` attribute is necessary so that the files are transmitted to the server for processing. This is only relevant to the degraded experience. That is, when Javascript isn't available, users will see a file picker and upload button.
 
-Keyboard users can tab to the visually hidden input which will pseudo focus the label&mdash;similar to how we handled focus states for the seat chooser component set out in “Book a flight”.
+![Degraded view](.)
+
+Keyboard users can tab to the visually hidden input which will pseudo focus the label. This is similar to the seat chooser component as set out in chapter 3, “Book a flight”.
 
 To create the drag and drop behaviour there are three javascript events: `ondragover`, `ondragleave` and `ondrop`.
 
-The `ondragover` handler adds a class of `dropzone--dragover` and the `ondragleave` handler removes it. The class is used to give feedback so users know they are within the drop zone.
+The `ondragover` handler adds a class of `dropzone--dragover` and the `ondragleave` handler removes it. The class is used to give visual feedback so users know they are within the drop zone.
 
 ![on drag over](.)
 
-The `ondrop` handler is where the magic happens. The event handler receives an event object (`e.dataTransfer.files`) that holds data about the files. These are then iterated over in order to upload them via AJAX.
+The `ondrop` handler is where the magic happens. The event handler receives an event object (`e.dataTransfer.files`) that holds data about the files. For each file dropped an AJAX request is made.
 
 ```JS
-Some code here
+Dropzone.prototype.onDrop = function(e) {
+	e.preventDefault();
+	this.removeHighlight();
+	this.upload(e.originalEvent.dataTransfer.files);
+};
 ```
+
+By default, dragging a file into a browser will load the file in the browser. This component shouldn't do that, so we need to prevent the default action. Next, the highlight is removed. And finally, the `upload()` method is called parsing in the dropped files. 
+
+```JS
+Dropzone.prototype.upload = function(files) {
+    for(var i = 0; i < files.length; i++) {
+      var formData = new FormData();
+      formData.append('documents', files[i]);
+      this.makeRequest(formData);
+    }
+    $('.fileList').removeClass('hidden');
+  };
+```
+
+For each file dropped, we create the data using the `FormData` object. And then passing that data to `makeRequest`. Finally, the fileList component is revealed so that we can inject feedback.
 
 ### Feedback
 
-Whether files are dropped or selected with the file picker, we need to give users feedback. Each file is represented as an item in a list. Progress is demarcated by the `<progress>` element.
+Whether files are dropped or selected with the file picker, we need to give users feedback.
+
+```JS
+Dropzone.prototype.makeRequest = function(formData) {
+    var li = $('<li>'+ formData.get('documents').name +'<br><progress value="0" max="100">0%</progress></li>');
+    $('.fileList ul').append(li);
+  	$.ajax({
+      url: '/ajax-upload',
+      type: 'post',
+      data: formData,
+      xhr: function() {
+        var xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('progress', function(evt) {
+          if (evt.lengthComputable) {
+            // calculate the percentage of upload completed
+            var percentComplete = evt.loaded / evt.total;
+            percentComplete = parseInt(percentComplete * 100);
+
+            li.find('progress').text(percentComplete + '%');
+            li.find('progress')[0].value = percentComplete;
+          }
+
+        }, false);
+
+        return xhr;
+      }
+    });
+  };
+```
+
+This function injects a list item into the file list panel and fires the request. We're listening for the `progress` event on the `XMLHttpRequest` object. This lets us provide feedback in real time, which is particularly useful if you're uploading large files or using a slow network.
+
+Each file is represented as a list item. Progress is demarcated by the `<progress>` element.
 
 ![Progress](.)
 
@@ -145,7 +196,7 @@ Whether files are dropped or selected with the file picker, we need to give user
 </ul>
 ```
 
-The text inside the element is for browsers that lack support for it, meaning they'll just see the text.
+The text inside the element is for browsers that lack support for the progress element, meaning they'll just see the text. It's also useful to screen reader users.
 
 The progress bar is updated in response to the AJAX request that has an `onprogress` event.
 
@@ -179,11 +230,19 @@ If there's an error, a message is shown in place of the progress bar, letting us
 </ul>
 ```
 
-The only thing missing is a hidden live region in order to *provide a comparable experience* for screen readers. Here are the 3 types of messages:
+The only thing missing is a hidden live region in order to *provide a comparable experience* for screen readers. There are three scenarios that need to be announced:
 
-- Upload starts: ‘3 files are being uploaded.’
-- Upload ends: ‘file.pdf has been uploaded.’
-- Upload error: ‘file.pdf could not be uploaded because it was too big.’
+1. The user starts uploading: “3 files are being uploaded”
+2. The upload finishes successfully: “file.pdf has been uploaded”
+3. The file couldn't be uploaded: “file.pdf couldn't be uploaded because it was too big”
+
+These messages are only need for screen reader users, and so they should be placed inside a hidden live regions:
+
+```HTML
+<div class="vh" role="status" aria-live="polite">
+	3 files are being uploaded
+</div>
+```
 
 ### Feature Detection
 
@@ -209,7 +268,7 @@ This enhancement uses several Javascript APIs that not all browsers recognise. B
 }());
 ```
 
-The calling application simply detects `Dropzone` before creating an instant.
+The calling application simply detects `Dropzone` before creating an instant. When it's undefined, that indicates the browser either lacks support or there was a network failure. Either way, users get the degraded experience.
 
 ```JS
 if(typeof Dropzone !== 'undefined') {
@@ -217,40 +276,35 @@ if(typeof Dropzone !== 'undefined') {
 }
 ```
 
-### The Degraded Experience
-
-When Javascript isn't available or the browser fails the feature detection, users won't get the enhanced interface. Instead, they'll see a file picker and an upload button. In the absence of script or capability, uploading a file gives users the same feedback view, just via a page refresh.
-
-![Degraded view](.)
-
 ### The Small Print
 
-Granted, there's rationale behind moving away from convention, but that doesn't mean it's perfectly
-robust. In fact, doing this goes against what the standards say which was discussed in chapter 6, ‘An inbox’. Here it is again:
+As noted earlier, we're breaking convention by uploading files immediately `ondrop` and `onchange`. And whilst there is rationale behin this approach, doing so actually goes against WCAG guidelines, as first discussed in chapter 5, “An Inbox”. Here it is again:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-This is more than just an academic endeavour. The `onchange` event is historically problematic, particularly when it's applied to a file input. For example, in some browsers, if you upload the same file for a second time, the `onchange` event won't fire[^2]. This creates a broken interface.
+This is more than just an academic endeavour. The `onchange` event is historically problematic, particularly when it's applied to a file input. For example, in some browsers, if you upload the same file for a second time, the `onchange` event won't fire at all[^2]. This creates a broken interface.
 
-The solution requires the entire file input to be replaced after the `onchange` event fires. This means we need to set focus to the newly created file input , which causes screen readers to announce it for a second time.
+The solution requires the entire file input to be replaced after the `onchange` event fires. This would mean having to set focus to the cloned file input, which causes screen readers to announce it for a second time. Mildly annoying.
 
 The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^3]. Fortunately, our feature detection happens to rule out those browsers which is fortunate for us in this case, but still worth baring in mind.
 
-Lastly, some older browsers won't trigger the file input by clicking the label[^4]. Fortunately, the feature detection happens to rule out these browsers too because the same browsers don't support the new APIs.
+Lastly, some older browsers won't trigger the file input by clicking the label[^4]. Fortunately, the feature detection happens to rule out these browsers too because none of them support the new APIs.
 
-Anything like this needs a healthy amount of diverse testing to ensure what is enhanced for some, doesn't break for others. As you can see, going against standards can lead to very real problems.
+Anything like this needs a significant amount of diverse testing to ensure what is better for some, doesn't exclude others. As you can see, going against WCAG guidelines can, if we're not careful, lead to usability failures.
 
-It's also worth baring in mind that users may not want, or benefit, from drag and drop. Before embarking on your own drag and drop solution, make sure there is a user need.
+It's also worth baring in mind that users may not want, or benefit, from drag and drop at all. Before embarking on your own drag and drop solution, make sure there is a user need.
 
 ## Summary
 
-In this chapter, we looked at the intricacies of uploading files in bulk and one at a time. The file input is necessary but ugly and so looked at ways of making it aesthetically pleasing and functional at the same time.
+In this chapter, we looked at the intricacies of uploading files - not just one at a time, in bulk. 
 
-We then looked at the shortcomings of the native input's drag and drop behaviour and because of this decided to roll our own custom solution using the latest Javascript APIs. In doing so we veered away from convention partly due to browser constraints associated with security.
+We looked at ways to mitigate the file input's ugliness, but soon realised that making it look better is at the cost of usability.
+
+Finally, we lookat ways to enhance the native file input's drag and drop behaviour by creating a large custom drop zone. In doing so we had to use some cutting edge Javascript APIs that meant breaking convention due to security reasons.
 
 ### Things To Avoid
 
-- Visually hiding the file input for solely for aesthetic reasons.
+- Visually hiding the file input for aesthetic reasons.
 - Using multiple file inputs without considering the degraded experience and end-to-end flow.
 - Creating your own drag and drop solution without first ensuring there's a demand for it.
 

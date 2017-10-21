@@ -471,7 +471,7 @@ This shows that solely relying on completion time as a metric for success is dan
 
 ### Visual Design
 
-Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information — that would defeat the purpose of this page. Users should only need to go back if they spot a mistake.
+Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information — that would defeat the purpose of the page. Users should only need to go back if they spot a mistake.
 
 ![](.)
 
@@ -512,21 +512,21 @@ Here's a checklist of things to consider including on the confirmation page:
 
 ## The Second Time Experience 
 
-I've made so many purchases with Amazon that I can't even remember Amazon's first-time experience. That is to say, I've made hundreds of purchases as a second-time user than I have as a first-time user.
+I've made so many purchases with Amazon that I can't even remember Amazon's first-time experience. That is to say, I've made hundreds of purchases as a second-time user, and just one as a first-time user.
 
-Once you've done everything right with the first time experience, it's time to focus on the second-time experience. As we have collected and stored all the user's information, we shouldn't have to ask for it a second time.
+Once everything is good with the first-time experience, it's time to focus on the second-time experience. As we have collected and stored all the user's information, we shouldn't have to ask for it again.
 
-In which case, we can bypass almost every step of the checkout flow including, email, mobile, delivery address and options and of course payment. Instead, we can take users straight to the *Check Your Answers* page. This way users get a reminder of their default preferences with the chance to make amends.
+In which case, we can bypass almost every step of the checkout flow including, email, mobile, delivery address and options and of course payment. Instead, we can take users straight to the *Review* page. This way users get a reminder of their default preferences with the chance to make amends.
 
-All in all, this reduces friction to nil and significantly improves conversion. Remember Mary from earlier: the next time she runs out of nappies, buying them should be far easier and quicker, something I'm sure she would appreciate if she was a real person.
+All in all, this reduces friction to nil and significantly improves conversion. Remember Mary from earlier: the next time she runs out of nappies, buying them should be a breeze, something I'm sure she'd appreciate if she was real.
 
 ## Layout
 
-Up to now, we've focused on the design of the form within each page, but we haven't considered the interface holistically. In fact, this is one of the dangers of composing interfaces out of pre-defined smaller components.  In the end, the overall design can be neglected.
+Up to now, we've focused on the design of the form within each page, but we haven't considered the interface holistically. In fact, this is one of the dangers of composing interfaces out of pre-defined smaller components. In the end, the overall design can be neglected.
 
-Usually, checkout pages are given special treatment; a more streamlined layout that helps reduce noise and keeps users on task. For example, the header usually contains a logo and nothing else. 
+Usually, checkout pages are given special, more streamlined, layout that helps reduce noise and keep users on task. For example, the header usually contains a logo, security note and accept cards. 
 
-By omitting other components like the navigation bar and search form, users can focus on checking out without distraction while simultaneously prioritising the main content.
+By omitting navigation and search, users can focus on checking out which speaks to principle 6, *Prioritise content*.
 
 ![Layout](.)
 
@@ -558,9 +558,9 @@ Layout wise, the summary panel should be less prominent than the form. So it sho
 
 ### Back Links
 
-As the user is moving through a linear flow, we need to consider user's needs to step back. The browser's back button gives users this functionality for free, but some people mistrust the browser's back button when filling out forms because of negative experiences in the past where their data is lost.
+As the user is moving through a linear flow, we need to consider user's needs to step back. The browser's back button gives users this functionality for free, but some people mistrust the browser's back button when filling out forms because of bad past experience where their data is lost.
 
-AJAX-driven and modal-heavy sites haven't helped matters here because clicking the browser's back button often goes against user's expectations[^]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect the browser's back button to take them to the previous page in the state they left it in.
+AJAX-driven and modal-heavy sites haven't helped matters here because clicking the browser's back button often goes against user's expectations[^backlink]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect the browser's back button to take them to the previous page in the state they left it in.
 
 However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust its behaviour. In this case, position the link at the top left of the page (or after the submit button). By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
 
@@ -606,6 +606,6 @@ After that, we looked at other issues: giving users the ability to review their 
 [^autofillattrs]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
 [^backlink]: https://baymard.com/blog/back-button-expectations
 
-
-
-Once a user has clicked to checkout it’s important to keep them focussed on moving through the checkout process and not getting distracted by links/other navigation that take them away from checkout. Most of the big retailers now use ‘enclosed checkouts’, so remove the main navigation that is featured on the rest of the site and replace it with a very clear progress bar. It’s important to pare down and simplify the checkout pages to only include information relevant to checkout. By doing this you can highlight important information like secure payment icons, accepted payment methods, and so forth. Also ensure any relevant links to information like delivery and returns opens within a lightbox rather than taking the user away from the checkout process.
+<!--
+Once a user has clicked to checkout it’s important to keep them focussed on moving through the checkout process and not getting distracted by links/other navigation that take them away from checkout. It’s important to pare down and simplify the checkout pages to only include information relevant to checkout. By doing this you can highlight important information like secure payment icons and accepted payment methods.
+-->

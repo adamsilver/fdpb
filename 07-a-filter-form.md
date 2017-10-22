@@ -58,57 +58,52 @@ For keyboard and screen reader users, having a page refresh means having to wade
 
 In any case, AJAX can be used to avoid this problem. For example, clicking a radio button could instantly submit the form with AJAX. When the request finishes, the page is updated and the focus remains unaffected. This also reduces the chance of seeing no results because as soon as the user selects a filter, the interface updates.
 
-As many applications have materially dishonest filters, some users have acclimatised to this change in convention (that clicking form controls instantly submits the form). I'm sad to say that, in this context, it may not be obvious to users, that they have to submit their choices. AJAX may help because it removes the need for the submit button.
+As many applications have materially dishonest filters, some users have acclimatised to this change in convention (that clicking a checkbox, for example, submits the form). Users may not realise they have to submit their choices. AJAX may help because it removes the need for the submit button.
 
 You'd be forgiven then, for thinking this is a must-have, totally-beneficial enhancement. Unfortunately, using AJAX like this goes against principle 4, to *give users control*. By removing the explicit act of submission, it's possible that triggering multiple AJAX requests will cause an unexpected and confusing experience.
 
-Additionally, keyboard users who are operating the filter must use their arrow keys to move through each radio button. Arrow keypresses not only set focus to the option but selects it too. Selecting the fourth radio button will have inadvertently created four AJAX requests unknowingly. This adds increased load on the server, but more importantly, it will eat users' data allowance and cause battery drain on their device.
+Additionally, keyboard users who are operating the filter must use their arrow keys to move through each radio button. Not only does this set focus to the radio button, but it selects it too. Selecting the fourth radio button will inadvertently create four AJAX requests unknowingly. This adds increased load on the server, but more importantly, it will eat users' data allowance and cause battery drain on their device.
 
-That's not all though. Using AJAX requires a certain number of provisions such as a live region to indicate loading states. When the user selects an option, the live region would have to be populated with ‘Loading results, please wait.’, for example. Then when the request finishes, it would have to be populated with ‘212 results returned.’. Having to hear this four times would be like listening to an overzealous disc jockey - headache inducing.
+That's not all though. Using AJAX requires a certain number of provisions such as a live region to indicate loading states. When the user selects an option, the live region would have to be populated with ‘Loading results, please wait’, for example. Then when the request finishes, it would have to be populated with ‘212 results returned’. Having to hear this four times would be like listening to an overzealous disc jockey - headache inducing.
 
 Despite what you may have heard, AJAX isn't necessarily better or faster than a standard page refresh[^3]. This is for a number of reasons. First, it requires more Javascript code to be sent initially. Second, and more importantly, it engineers away progressive rendering ( chunking) and removes loading states, both of which the browser provides for free.
 
-AJAX is more suited and beneficial when making updates to small parts of the page. Filters involve updating the majority of the page, making AJAX somewhat counterproductive. All that said, only thorough and diverse user research will show what works best.
+AJAX is more suited and beneficial when making updates to small parts of the page. Filters involve updating the majority of the page, making AJAX somewhat counterproductive. 
+
+All that said, we can only be sure of what's best if we research with a diverse set of users using a diverse set of devices.
 
 ## An Adaptive Approach
 
 In chapter 5, “An Inbox”, we discussed the differences between responsive design and adaptive design. In short, a responsive approach is normally preferred because not only is it less work, but it's more robust and performant for users.
 
-Mobile first to me just means small screen first. Which really means essential first, which to me just really really means essential only. What are the essential parts to the search results pages?
+Mobile first to me just means small screen first. Which really means essential first, which to me just really really means essential only. The essential components here are the results panel and the filter widget.
 
-It probably needs just 2 main components: the results and the filter widget. As part of the results we can include some sort of pagination too.
+Normally speaking, if you cut out all the superfluous content and lay the essential content out on a small viewport, the experience works well. Of course, this translates well to large viewports too. An increase in font-size and whitespace is usually enough.
 
-Normally speaking, if you cut out all the superfluous content and lay the essential content out on a small viewport, the experience works well. This usually translates well to large viewports too. An increase in font-size and whitespace is usually enough.
+But because the filter widget is important it needs to be almost as prominent as the results. On large viewports this is easy: you just lay them out side by side. But on small viewports, you'd have to place the results underneath the filter which would push the main content down.
 
-But because the filter widget is so important we want it to be almost as prominent as the results theselves. On large viewports this is easy: you just lay them out side by side. 
-
-![Side by side](.)
-
-On small viewports you'd have to stack the results beneath the widget which is far to much scrolling to get the main content. If the filter widget was placed after the results, then users would have to scroll a long way in order to discover the widget.
+If the filter is placed after the results, then users would have to scroll past all the results just to discover the it. Many users would miss it.
 
 ![Below](.)
 
-Naturally then, we could collapse the filter widget behind a menu above the results. This way the filters are discoverable without pushing the main content below the fold. Whilst this would be a responsive approach, it wouldn't necessarily give users a good experience.
+We could collapse the filter widget above the results. This way the filters are discoverable without pushing the main content below the fold. While this would be a responsive approach, it wouldn't necessarily give users a good experience.
 
-I interviewed David House, a designer at the GDS, formely of Gumtree and Autotrader, where filters are a major part of the experience. As such, they conducted a lot of user research regarding these pages. Here's what David had to say:
+I interviewed David House, a designer at GDS, formely of Gumtree and Autotrader. Filters are a major part of the experience for both sites. As such, they conducted a lot of user research regarding this functionality. Here's what David had to say:
 
-1. On desktop, Gumtree's users expected AJAX. They weren't expecting to have to submit their choices. User's often said the filters were broken. We tried making the apply button more prominent: to the top, bottom and making it sticky. Nothing worked. They needed AJAX.
-2. On mobile, AJAX isn't desirable because users can't see any visible refresh. You could scroll users to the results, but they may not have finished with the filter. Not to mention this is a waste of bandwidth.
+> On desktop, Gumtree users expected AJAX. Filters were selected but not submitted. They didn't realise they had to submit their choices. We got a lot of feedback saying “Your filters are broken.” We tried moving the apply button to the top (and the bottom) along with making it sticky; loads of things that didn't really make a difference.
 
+But what about mobile?
 
+> On mobile, AJAX wasn't desirable because users couldn't see any visible refresh. We didn't want to move focus to the results, because users wanted to pick more than one filter. Not to mention that using AJAX is a waste of bandwidth.
 
+That's two opposing problems which are solvable with completely different approaches.
+
+> We reluctantly had to use an adaptive approach. On mobile, clicking the filter menu, would send users down a guided flow, without AJAX. On Desktop (when there's enough space to show the filters next to the results), users got an AJAX experience where filters were immediately applied.
 
 ---
 
-The problem that users face is that when they expand the filter and select various filters, users can struggle in two ways. First, if using AJAX, it's not immediately obvious that results have been loaded. You can't just move focus to the results because the user may not be finished making their selection. Second, without using AJAX, users may not realise they need to submit.
-
-> Filters were being selected, but not submitted. We got a lot of feedback that said the filters were broken. We tried moving the apply button to the top (and the bottom) along with making it sticky; loads of things that didn't really make a difference.
-
-David explained that they reluctantly ended up using an adaptive approach. On mobile, clicking the filter menu button, would send users down a guided flow. But, on desktop, users got an ever-present filter on the side that worked with AJAX.
-
 ![Gumtree mobile view](.)
 
-I know what you're thinking though: in chapter 6, ‘An inbox’ I lambasted the use of adaptive design due to the many associated pitfalls. But considering the breadth of the problems users faced along with the importance of the feature itself, it seems to be the most pragmatic thing to do.
 
 Of course, I don't advise you start with this approach. David wouldn't either. It's also worth noting that Gumtree is full of adverts which cognitvely speaking, doesn't help matters. Perhaps with careful design, a responsive solution can work. Once again, user research will guide you in the right direction.
 

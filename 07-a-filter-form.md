@@ -100,26 +100,20 @@ That's two opposing problems which are solvable with completely different approa
 
 > We reluctantly had to use an adaptive approach. On mobile, clicking the filter menu, would send users down a guided flow, without AJAX. On Desktop (when there's enough space to show the filters next to the results), users got an AJAX experience where filters were immediately applied.
 
----
+I asked Dave if he would use the same approach in future.
 
-![Gumtree mobile view](.)
-
-
-Of course, I don't advise you start with this approach. David wouldn't either. It's also worth noting that Gumtree is full of adverts which cognitvely speaking, doesn't help matters. Perhaps with careful design, a responsive solution can work. Once again, user research will guide you in the right direction.
+> Not necessarily. I wouldn't start with this approach. If a site doesn't have a million ads [like Gumtree does], we'd have better luck drawing attention to the submit button.
 
 ## Summary
 
-This chapter looked at some of the important details that are often missed when design a responsive filter component. We looked at how design can shape users&mdash;so much so&mdash;that occasionally we may have to break convention and best practice.
-
-We also looked at ways to design an adaptive filter menu given that a responsive solution may not be good enough. We also noted that the only way to be sure of any of this is by testing with a diverse set of users.
+This chapter looked at various interaction design details pertaining to responsive search results page. We looked at how design can shape users&mdash;so much so&mdash;that occasionally we may have to abandon convention and best practice. To that end, we looked at how adapative design may be better for users.
 
 ### Things To Avoid
 
-- Making links look like form controls
-- Making form controls behave like links
-- Assuming that AJAX will always create a faster and better experience
-- Not breaking the rules when necessary
-- Ignoring user research
+- Making links look like radio buttons and checkboxes
+- Making checkboxes and radio buttons behave like links
+- Assuming AJAX always creates a faster and better user experience
+- Prioritising best practice above user research
 
 ## Footnotes
 

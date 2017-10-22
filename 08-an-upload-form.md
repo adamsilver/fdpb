@@ -315,10 +315,4 @@ Finally, we lookat ways to enhance the native file input's drag and drop behavio
 [^3]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
 [^4]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
 
-## Todo
-
-- accept attribute
-- capture=camera
-- The file input is always wiped due to security
-
 - https://govuk-design-system-prototypes.cloudapps.digital/design-patterns/patterns/components/file-upload/

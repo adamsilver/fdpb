@@ -70,23 +70,41 @@ Despite what you may have heard, AJAX isn't necessarily better or faster than a 
 
 AJAX is more suited and beneficial when making updates to small parts of the page. Filters involve updating the majority of the page, making AJAX somewhat counterproductive. All that said, only thorough and diverse user research will show what works best.
 
-## Responsive Design
+## An Adaptive Approach
 
-Wherever possible, we should design interfaces using mobile first. What this means is designing for small-screens first. To me though, what this really means is essential only. If you put the most essential content and features on screen, then normally speaking, designing for small screens is easy.
+In chapter 5, “An Inbox”, we discussed the differences between responsive design and adaptive design. In short, a responsive approach is normally preferred because not only is it less work, but it's more robust and performant for users.
 
-Of course, this translates well on large screens: a small increase to font-size perhaps and more whitespace is usually enough. When it comes to filters, though, it's not quite so straightforward. This is because the results themselves are only slightly more important than the ability to actually filter them. What I'm trying to say is that they both need to be prominent within the viewport.
+Mobile first to me just means small screen first. Which really means essential first, which to me just really really means essential only. What are the essential parts to the search results pages?
 
-On larger viewports, we can position the filter to the side of the results laid out in plain site. On small viewports, this just isn't possible. One approach would be collapsing the filters behind a button above the results. This way the filters are still discoverable without taking up too much room.
+It probably needs just 2 main components: the results and the filter widget. As part of the results we can include some sort of pagination too.
 
-![Stacked](.)
+Normally speaking, if you cut out all the superfluous content and lay the essential content out on a small viewport, the experience works well. This usually translates well to large viewports too. An increase in font-size and whitespace is usually enough.
+
+But because the filter widget is so important we want it to be almost as prominent as the results theselves. On large viewports this is easy: you just lay them out side by side. 
+
+![Side by side](.)
+
+On small viewports you'd have to stack the results beneath the widget which is far to much scrolling to get the main content. If the filter widget was placed after the results, then users would have to scroll a long way in order to discover the widget.
+
+![Below](.)
+
+Naturally then, we could collapse the filter widget behind a menu above the results. This way the filters are discoverable without pushing the main content below the fold. Whilst this would be a responsive approach, it wouldn't necessarily give users a good experience.
+
+I interviewed David House, a designer at the GDS, formely of Gumtree and Autotrader, where filters are a major part of the experience. As such, they conducted a lot of user research regarding these pages. Here's what David had to say:
+
+1. On desktop, Gumtree's users expected AJAX. They weren't expecting to have to submit their choices. User's often said the filters were broken. We tried making the apply button more prominent: to the top, bottom and making it sticky. Nothing worked. They needed AJAX.
+2. On mobile, AJAX isn't desirable because users can't see any visible refresh. You could scroll users to the results, but they may not have finished with the filter. Not to mention this is a waste of bandwidth.
+
+
+
+
+---
 
 The problem that users face is that when they expand the filter and select various filters, users can struggle in two ways. First, if using AJAX, it's not immediately obvious that results have been loaded. You can't just move focus to the results because the user may not be finished making their selection. Second, without using AJAX, users may not realise they need to submit.
 
-David House, a designer who used to work for Gumtree, explained that some users didn't realise they had to submit their choice. Here's what he had to say:
-
 > Filters were being selected, but not submitted. We got a lot of feedback that said the filters were broken. We tried moving the apply button to the top (and the bottom) along with making it sticky; loads of things that didn't really make a difference.
 
-David told me that they reluctantly ended up using an adaptive approach so that on mobile, clicking the menu button, sends users down a guided flow that users understood. But, on desktop, users got an ever-present filter on the side.
+David explained that they reluctantly ended up using an adaptive approach. On mobile, clicking the filter menu button, would send users down a guided flow. But, on desktop, users got an ever-present filter on the side that worked with AJAX.
 
 ![Gumtree mobile view](.)
 

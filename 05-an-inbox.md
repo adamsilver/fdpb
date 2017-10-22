@@ -230,29 +230,29 @@ Accordingly, we started to design for 320px widths. Why? because many of us had 
 
 Then there was landscape view. Then tablet. Then desktop. Then really big desktop screens. Then TV. Then all the way back down to watches with tiny viewports. If your head is spinning, don't worry, so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
 
-The difference between responsive and adaptive design is both subtle and crucial. Both techniques are based on viewport width. And both use CSS media queries to change the layout. But they are quite different.
+The difference between responsive and adaptive design is both subtle and crucial. Both techniques are based on viewport width. And both use CSS media queries to change the interface. But they are quite different.
 
-Adaptive design means defining several predefined layouts for specificly chosen viewport widths that correspond to a particular device. All the code for all of the layouts are sent to the browser. Then the layout that matches the predefined media query is applied accordingly. These media queries are known as device breakpoints. That is, a breakpoint which is defined based on a device's width.
+Adaptive design means defining several predefined interfaces for specifically chosen viewport widths that correspond to a particular device. All the code for the different interfaces are sent to the browser. Then the interface that matches the predefined media query is applied accordingly. These media queries are known as device breakpoints. That is, a breakpoint which is defined based on a device's width.
 
 ```CSS
 @media only screen and (min-device-width : 375px) and (max-device-width : 667px) { /* STYLES GO HERE */}
 ```
 
-Using this approach is normally unnecessary and counterproductive. First, there is an endless stream of devices and browsers with different widths. Designing specific layouts for every device width is sysiphean. And the extra code needed to produce such layouts would result in very slow loading pages. Generally speaking adapative design should be a last resort.
+Using this approach is normally unnecessary and counterproductive. First, there is an endless stream of devices and browsers with different widths. Creating specific designs for every device width is sysiphean. And the extra code needed to produce such designs would result in slow loading pages. Generally speaking adaptive design should be a last resort.
 
-Responsive design takes a different approach. It's based on a single fluid layout that should work well at any size regardless of device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when and if the layout breaks. These media queries are known as content breakpoints.
+Responsive design takes a different approach. It's about designing a single, fluid interface that works well at any size regardless of device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when and if the something breaks. These media queries are known as content breakpoints.
 
 ```CSS
 @media only screen and (min-device-width : 61.37em) { /* Fix broken layout for a particular selector here */}
 ```
 
-Where adaptive design tries to bend the web to its will, responsive design embraces it. Responsive design understands that you can't possibly design for every device and browser individually. That's just not how the web works. I've come to call the web, a continuum of edgelessness.
+Where adaptive design tries to bend the web to its will, responsive design embraces it. Responsive design understands that you can't possibly design for every device and browser individually. That's just not how the web works. Instead, responsive design encourages us to design interfaces that work on any size screen.
 
-With this in mind, let's look at why the select box menu requires an adaptive approach to design. By default, and on small viewports, users get a select box. Then, when there is enough space, it's swapped for set of submit buttons, laid out in a row.
+The select box design from earlier requires an adaptive approach. By default, and on small viewports, users get a select box. Then, when there is enough space, it's swapped for set of submit buttons, laid out in a row.
 
 ![Adaptive select box](.)
 
-In this case the big screen view entirely discards the select box in favour of a completely different interface using CSS and Javascript. Not only does this mean more work, but the page will take longer to load. And we either have to change the HTML dynamically with Javascript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
+In this case, the big screen view entirely discards the select box in favour of a different interface using CSS and Javascript. Not only does this mean more work, but the page will take longer to load. And we either have to change the HTML dynamically with Javascript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
 
 ```CSS
 @media only screen and (min-device-width : 30em) {
@@ -266,7 +266,7 @@ In this case the big screen view entirely discards the select box in favour of a
 }
 ```
 
-If that weren't enough, the server needs to be aware of how both menus transmit data. The select box sends different data to the submit buttons creating yet more work and a maintenance burden.
+If that weren't enough, the server needs to be aware of how both menus transmit data. That is, the select box sends different data to the submit buttons. Not only is all of this more work, but there are now two separate features to maintain indefinitely.
 
 ### Hover Versus Click
 
@@ -282,7 +282,7 @@ Third, not all users use a mouse and many touch-screen devices are typically ope
 
 ### A True Menu
 
-Now we know the downsides to both adaptive design, and opening a menu, we need to design a true responsive menu that opens on click. Here's how it might look:
+Aware of the pitfalls of both adapative design and opening a menu on hover, we can proceed to design a true, responsive menu that opens on click.
 
 ![Responsive Menu](.)
 
@@ -294,9 +294,9 @@ Now we know the downsides to both adaptive design, and opening a menu, we need t
 </div>
 ```
 
-The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, so screen readers can announce it as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved in using ARIA is to convey the meaning for screen reader users.
+The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, so screen readers can announce it as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved by using ARIA is to convey the meaning for screen reader users.
 
-When there isn't enough room to display the menu items inline, they'll stack beneath each other. To avoid this, we can use the CSS and Javascript's `matchMedia` API to collapse the submit buttons inside a traditional menu.
+When there isn't enough room to display the menu items inline, they'll stack beneath each other. To avoid this, we can use media queries and Javascript's `matchMedia` API to collapse the buttons inside a traditional menu.
 
 ```JS
 Menu.prototype.setupResponsiveChecks = function() {

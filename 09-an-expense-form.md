@@ -2,23 +2,23 @@
 
 At first I wanted to fold this chapter into the last one because there's some overlap. Adding multiple files needn't be different from adding multiple of anything else really. It's just that uploading files has some unique considerations (such as drag and drop) that made sense to tackle in isolation.
 
-Unlike file inputs, other form controls don't let you add multiple values. So it's up to us to design a solution from scratch. There are three main approaches that are applicable to all sorts of data&mdash;files included. Whether it's adding collaborators to your Github repo or adding monthly expenses into an accounting service, you'll find the patterns in this chapter useful.
+Unlike file inputs, other form controls don't let you add multiple values. So it's up to us to design a solution from scratch. There are three main approaches that are applicable to all sorts of data - files included. Whether it's adding collaborators to your Github repo or adding monthly expenses into an accounting service, you'll find the patterns in this chapter useful.
 
 Of course, if you know how many things that need to be added in advance, then simply display that amount of fields (and make them required). If you don't, keep reading.
 
 ## The Ever Present Form Pattern
 
-The drag and drop interface from “An Upload Form” in some respects uses this pattern and so does the infamous “Todo list pattern”[^]. Even Github uses this pattern to let users add collaborators. What I'm trying to say is that you've most probably seen it in action many times.
+The drag and drop interface from “An Upload Form” in some respects uses this pattern and so does the infamous “Todo list pattern”[^]. Even Github uses this pattern to let users add collaborators. What I'm trying to say is that you've most probably seen this pattern before even if you didn't have a name for it.
 
 ![Github](.)
 
-The way it works is to have an ever-present form on the page (hence the name). Submitting it adds an item to a list above (or perhaps beside) the form. When the user is finished they can proceed. If this is part of a flow, you'd click a continue button. On Github, you just leave the page.
+The way it works is to have an ever-present form on the page (hence the name). Submitting it adds an item to a list above (or perhaps beside) the form. When the user is finished they can proceed. If this is part of a flow, you'd click a continue button (like the one in “An Upload Form”. On Github, you just leave the page.
 
-This is suitable for simple forms that can be submitted in one step. The potential downside is that as the list grows, the form is pushed down, which could cause trouble, especially for mobile users.
+This is suitable for simple forms that can be submitted in one step. The potential downside is that as the list grows, the form is pushed down, which could cause trouble, especially on mobile.
 
-Also, there are multiple buttons: one to submit and one to proceed which could cause mild confusion. As mentioned in previous chapters, providing one button is preferable because it requires less cognitive effort.
+Also, there are multiple buttons: one to submit and one to proceed which could be confusing, especially for those with cognitive impairements. One primary action and button is always preferrable anyway as it requires less thinking.
 
-Also, each submission is a server request. While not a huge deal, it coyld become frustrating if that form is used more frequently. Bare this in-mind.
+Also, each submission is a server request. While not a huge deal, it could get frustrating if used frequently.
 
 ## One Thing Per Page Again
 
@@ -28,7 +28,7 @@ Imagine you need to add a bunch of expenses, but the type of expense determines 
 
 In this case, the Ever Present Form pattern is less suitable. Using One Thing Per Page as first discussed in “A Checkout Flow” is appropriate because it guides the user to provide the right information at the right time.
 
-But what if the user wants to add another one? Simply add a question to the end of that flow asking the user if they'd like to add another. Selecting no completes the task. Selecting *yes* goes through the same flow again. Of course, not selecting an answer will prompt the user with an error message.
+But what if the user wants to add another one? Add a question to the end of that flow asking the user if they'd like to add another. Selecting no completes the task. Selecting *yes* goes through the same flow again. Of course, not selecting an answer will prompt the user with an error message.
 
 ![Do you want to add another, yes no with button](.)
 

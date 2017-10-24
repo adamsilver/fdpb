@@ -78,17 +78,17 @@ In chapter 5, “An Inbox”, we discussed the differences between responsive de
 
 Mobile first to me just means small screen first. Which really means essential first, which to me just really really means essential only. The essential components here are the results panel and the filter widget.
 
-Normally speaking, if you cut out all the superfluous content and lay the essential content out on a small viewport, the experience works well. Of course, this translates well to large viewports too. An increase in font-size and whitespace is usually enough.
+Normally speaking, if you cut out all the superfluous content and lay the essential content out on a small viewport, the experience works well. Of course, this translates well to large viewports too: an increase in font-size and whitespace is usually enough.
 
-But because the filter widget is important it needs to be almost as prominent as the results. On large viewports this is easy: you just lay them out side by side. But on small viewports, you'd have to place the results underneath the filter which would push the main content down.
+But because the filter widget is important, it needs to be almost as prominent as the results. On large viewports this is easy: you just lay them out side by side. But on small viewports, you'd have to place the results underneath the filter which pushes the main content down.
 
-If the filter is placed after the results, then users would have to scroll past all the results just to discover the it. Many users would miss it.
+If the filter is placed after the results, then users would have to scroll all the way past the results just to discover it. Many users would miss it.
 
 ![Below](.)
 
-We could collapse the filter widget above the results. This way the filters are discoverable without pushing the main content below the fold. While this would be a responsive approach, it wouldn't necessarily give users a good experience.
+We could collapse the filter widget above the results. This way the filters are discoverable without pushing the main content below the fold. While this is a responsive approach, it's not the whole story.
 
-I interviewed David House, a designer at GDS, formely of Gumtree and Autotrader. Filters are a major part of the experience for both sites. As such, they conducted a lot of user research regarding this functionality. Here's what David had to say:
+I interviewed David House, a designer at GDS, formely of Gumtree and Autotrader where filters are a major part of the experience for both sites. As such, they conducted a lot of user research around their search results page. Here's what David had to say:
 
 > On desktop, Gumtree users expected AJAX. Filters were selected but not submitted. They didn't realise they had to submit their choices. We got a lot of feedback saying “Your filters are broken.” We tried moving the apply button to the top (and the bottom) along with making it sticky; loads of things that didn't really make a difference.
 
@@ -96,9 +96,9 @@ But what about mobile?
 
 > On mobile, AJAX wasn't desirable because users couldn't see any visible refresh. We didn't want to move focus to the results, because users wanted to pick more than one filter. Not to mention that using AJAX is a waste of bandwidth.
 
-That's two opposing problems which are solvable with completely different approaches.
+That's two opposing problems which are solved with completely different approaches.
 
-> We reluctantly had to use an adaptive approach. On mobile, clicking the filter menu, would send users down a guided flow, without AJAX. On Desktop (when there's enough space to show the filters next to the results), users got an AJAX experience where filters were immediately applied.
+> We reluctantly had to use an adaptive approach. On mobile, clicking the filter menu, would send users down a guided flow without AJAX. On Desktop (when there's enough space to show the filters next to the results), users got an AJAX experience where filters were immediately applied.
 
 I asked Dave if he would use the same approach in future.
 
@@ -112,7 +112,7 @@ This chapter looked at various interaction design details pertaining to responsi
 
 - Making links look like radio buttons and checkboxes
 - Making checkboxes and radio buttons behave like links
-- Assuming AJAX always creates a faster and better user experience
+- Assuming AJAX always creates a faster and better experience
 - Prioritising best practice above user research
 
 ## Footnotes

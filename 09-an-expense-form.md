@@ -22,53 +22,71 @@ Also, each submission is a server request. While not a huge deal, it could get f
 
 ## One Thing Per Page Again
 
-Imagine you need to add a bunch of expenses, but the type of expense determines the information you need to enter. For example, if you're expensing a car, then you have to enter mileage, but if you're expensing a train ticket then you have to enter a monetary amount.
+Imagine you need to add a bunch of expenses, but the type of expense determines the information you need to enter. For example, if you're expensing a car, then you have to enter mileage, but if you're expensing a train ticket then you have to enter the ticket price.
 
 ![Show the flow with branching diagram](.)
 
-In this case, the Ever Present Form pattern is less suitable. Using One Thing Per Page as first discussed in “A Checkout Flow” is appropriate because it guides the user to provide the right information at the right time.
+In this case, the Ever Present Form pattern is less suitable. Using One Thing Per Page as first discussed in “A Checkout Flow” is more appropriate. This is because it guides the user to provide the right information at the right time, which is especially useful for cognitively impaired users.
 
-But what if the user wants to add another one? Add a question to the end of that flow asking the user if they'd like to add another. Selecting no completes the task. Selecting *yes* goes through the same flow again. Of course, not selecting an answer will prompt the user with an error message.
+If users need to add multiple expenses at a time, then you'd need an extra question at the end of the flow asking if they'd like to add another one. Yes would take the user down the same flow again. No would complete the task. Not selecting either option will cause a validation error message to show.
 
 ![Do you want to add another, yes no with button](.)
 
-Obviously this pattern is particularly adept at handling branching. But it's also suitable for infrequent tasks and low confidence users.
+This pattern is particularly appropriate for:
 
-## Add another
+- handling branching
+- infrequent tasks
+- low-confidence users
 
-This pattern consists of one form, on one page, submitted in one step. It works by using Javascript to create extra items instantaneously. This is particularly useful for high confidence users who need to perform the task frequently.
+## The Add Another Pattern
 
-### How it might look
+If your interface needs to be used more frequently and doesn't need branching, then you can consider the Add Another pattern. This consists of a single form, on a single page, submitted in a single step.
+
+It works by using Javascript to create extra form fields instantaneously which expedites the process.
+
+### How It Might Look
 
 ![Add another](.)
 
-Clicking the add another button creates new expense fields. Pressing the remove button deletes it. Users can keep adding expenses easily. Once they're finished, they can submit all of the expenses in one go which expedites the process.
+Clicking the add another button creates new expense fields. Pressing the remove button deletes the field. Users keep adding expenses and when they're finished, they can submit all of the expenses in one go.
 
 The degraded experience is the same, except clicking a button refreshes the page.
 
-### Managing focus
+### Managing Focus
 
-Throughout the book, we've conscientiously thought about how things work for keyboard users. When the add button is clicked, focus should be set to the first newly-created form field. This is useful for screen reader users too, as the announcement of that field naturally prompts the user to continue.
+When the add button is clicked, focus should be set to the first newly-created form field. This is useful for screen reader users too, as the announcement of that field naturally prompts the user to continue.
 
-When the user clicks the remove button, the fields in the row, including the button itself are removed. What happens to the focus when you delete the currently focused element? In ‘A Todo List’[^], Heydon Pickering explains exactly what happens:
+When the user clicks the remove button, the fields in the row, including the button itself are removed. What happens to the focus when you delete the currently focused element? In “A Todo List”[^], Heydon Pickering explains exactly what happens:
 
 > [...] browsers don’t know where to place focus when it has been destroyed in this way. Some maintain a sort of “ghost” focus where the item used to exist, while others jump to focus the next focusable element. Some flip out completely and default to focusing the outer document — meaning keyboard users have to crawl through the DOM back to where the removed element was.
 
+So we don't want to leave focus down to the browser but where do we move it to? 
+
 We could set focus to the previous or next expense item but this is confusing. Alternatively, we could set focus to the add another button, but that's both presumptuous and a little odd.
 
-Instead, we'll set focus to the heading at the beginning of the form.
+Instead, we should set focus to the heading at the beginning of the form.
 
 ### Feedback
 
-For sighted users there is nothing we need to do. The act of adding and removing items is obvious. But to provide a *comparable experience* we can include a live region, as set out in “Book A Flight”, so that screen readers announce the feedback. [Check heydon article for more on this: two feedback panels not good]
+For most users, feedback is given implicitly by the new fields appearing in the form. There's no need, for example, an additional notification at the top of the form. Having two parts of the interface update at the same time would be overbaring. And, as more items are added users wouldn't see the notification anyway. Remember, it's the only one thing can be focused at a time and it's the newly injected fields that are focused - not the notification.
 
-### Cloning explained
+For screen reader users, the act of focusing the new field will announce its label or legend depending on the field type.
 
-Every time the user adds or removes an item, we need to do some important work behind the scenes. The cloning works by taking the first item in the list, and cloning it. But this isn't enough on its own because this clones everything: ids and name attributes included.
+> ADHD: If there's a “subtle” animation always running, I cannot focus. — @tigt_
 
-We first discussed the importance of labels in “A Registration Form”. If we don't update the label's `for` attribute and the matching input `id` attribute, then the interface will break. That is, clicking a label may focus another field entirely.
+> I'm also autistic and can get frustrated with, or repelled by, glitzy mouseover effects/animations - @elementnumber46
 
-Perhaps even more importantly, is that if you don't update the name of the input, then the server won't necessarily be able to recognise it and therefore process the submitted data. The contract between the browser and the server is forged by the name of the form controls.
+The only remaining consideration would be animation. Perhaps by fading-in the new fields, the chance of the fields being missed is reduced. However, motion is often unnecessary, clunky and harmful to users, especially those suffering from cognitive impairements such as ADHD and Autism.
+
+### Cloning Explained
+
+Every time the user adds or removes an item, we need to do some important work behind the scenes. Cloning works by taking the first item in the list, and cloning it. But this isn't enough on its own because this clones everything: `id` and `name` attributes included.
+
+If we don't update the label's `for` attribute and the matching input's `id` attribute, then when the user clicks the label, focus will be moved to another field entirely.
+
+![Illustrate](.)
+
+Crucially, if you don't update the `name` attribute, the server won't be able to recognise and process the submitted data. The contract between the browser and the server is forged by the `name` of form controls.
 
 ```HTML
 <form class="addAnother">
@@ -93,9 +111,9 @@ Perhaps even more importantly, is that if you don't update the name of the input
 </form>
 ```
 
-The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server side frameworks, such as Ruby on Rails or Express, look for names like this in the request payload and convert them into an array of items.
+The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server-side frameworks, such as Express, look for names with array indexes in the request payload. They then can use the convention to convert the items into an array to group them.
 
-The crucial part is that the index needs to increase from 0 to 1 and so forth. To make this easy to parse in Javascript, the pattern is stored in data attributes. This way, all the script has to do is replace `%index%` with the index number.
+The important bit is that the index needs to increase by 1 each time. To make this easy to parse in Javascript, the pattern is stored in data attributes. This way, all the script has to do is replace `%index%` with the index number.
 
 ```JS
 Put that code here
@@ -109,9 +127,9 @@ Example
 
 ## Summary
 
-In this chapter, we've looked at the different ways to let users add multiple expenses or any other type of information they need to manage. The solutions offered have been based on frequency of use, user ability and the constraints of the collected data (branching).
+In this chapter, we've looked at the different ways to let users add multiple expenses or any other type of information that needs to be included. The patterns are based on frequency of use, digital ability and whether there is a need to branch.
 
-There's no right and wrong way here, it's about picking the most appropriate technique for your particular problem.
+There's no right and wrong way here, it's about picking the most appropriate pattern for your particular problem.
 
 ## Footnotes
 
@@ -119,4 +137,4 @@ There's no right and wrong way here, it's about picking the most appropriate tec
 [^]:
 [^]:
 
-‘UNIQUE, DESCRIPTIVE LINK TEXT’ heydon
+https://axesslab.com/trends/ - animation quote tweets

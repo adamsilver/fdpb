@@ -40,7 +40,7 @@ This pattern is particularly appropriate for:
 
 ## The Add Another Pattern
 
-If your interface needs to be used more frequently and doesn't need branching, then you can consider the Add Another pattern. This consists of a single form, on a single page, submitted in a single step.
+If your interface needs to be used more frequently and doesn't need to branch, then you can consider the Add Another pattern. This consists of a single form, on a single page, submitted in a single step.
 
 It works by using Javascript to create extra form fields instantaneously which expedites the process.
 
@@ -56,7 +56,7 @@ The degraded experience is the same, except clicking a button refreshes the page
 
 When the add button is clicked, focus should be set to the first newly-created form field. This is useful for screen reader users too, as the announcement of that field naturally prompts the user to continue.
 
-When the user clicks the remove button, the fields in the row, including the button itself are removed. What happens to the focus when you delete the currently focused element? In “A Todo List”[^], Heydon Pickering explains exactly what happens:
+When the user clicks the remove button, the fields in the row, including the button itself are removed. What happens to the focus when you delete the currently focused element? In “A Todo List”[^2], Heydon Pickering explains exactly what happens:
 
 > [...] browsers don’t know where to place focus when it has been destroyed in this way. Some maintain a sort of “ghost” focus where the item used to exist, while others jump to focus the next focusable element. Some flip out completely and default to focusing the outer document — meaning keyboard users have to crawl through the DOM back to where the removed element was.
 
@@ -68,25 +68,25 @@ Instead, we should set focus to the heading at the beginning of the form.
 
 ### Feedback
 
-For most users, feedback is given implicitly by the new fields appearing in the form. There's no need, for example, an additional notification at the top of the form. Having two parts of the interface update at the same time would be overbaring. And, as more items are added users wouldn't see the notification anyway. Remember, it's the only one thing can be focused at a time and it's the newly injected fields that are focused - not the notification.
+For most users, feedback is given implicitly by the new fields appearing in the form. There's no need to show an additional notification at the top of the form, for example. Having two parts of the interface update at the same time would be overbearing. And, as more expenses are added, the notification would be outside the viewport, meaning uses wouldn't see it anyway.
 
-For screen reader users, the act of focusing the new field will announce its label or legend depending on the field type.
+For screen reader users, the act of focusing the new field will announce its label (or legend).
+
+The only remaining consideration would be animation. Perhaps by fading-in the new fields, the chance of the fields being missed is reduced. However, motion is often unnecessary, clunky and harmful to users, especially those suffering from cognitive impairements such as ADHD and Autism.
 
 > ADHD: If there's a “subtle” animation always running, I cannot focus. — @tigt_
 
 > I'm also autistic and can get frustrated with, or repelled by, glitzy mouseover effects/animations - @elementnumber46
 
-The only remaining consideration would be animation. Perhaps by fading-in the new fields, the chance of the fields being missed is reduced. However, motion is often unnecessary, clunky and harmful to users, especially those suffering from cognitive impairements such as ADHD and Autism.
-
 ### Cloning Explained
 
 Every time the user adds or removes an item, we need to do some important work behind the scenes. Cloning works by taking the first item in the list, and cloning it. But this isn't enough on its own because this clones everything: `id` and `name` attributes included.
 
-If we don't update the label's `for` attribute and the matching input's `id` attribute, then when the user clicks the label, focus will be moved to another field entirely.
+If we don't update the label's `for` attribute and the matching input's `id` attribute, when the user clicks the label, focus will be moved to the first field.
 
 ![Illustrate](.)
 
-Crucially, if you don't update the `name` attribute, the server won't be able to recognise and process the submitted data. The contract between the browser and the server is forged by the `name` of form controls.
+Crucially, if you don't update the `name` attribute, the server won't be able to recognise and process the submitted data. Remember: the contract between the browser and the server is forged by the `name` of the form controls.
 
 ```HTML
 <form class="addAnother">
@@ -111,7 +111,7 @@ Crucially, if you don't update the `name` attribute, the server won't be able to
 </form>
 ```
 
-The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server-side frameworks, such as Express, look for names with array indexes in the request payload. They then can use the convention to convert the items into an array to group them.
+The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server-side frameworks, such as Express, look for names with array indexes in the request payload. They use this convention to convert the form fields and values into groups.
 
 The important bit is that the index needs to increase by 1 each time. To make this easy to parse in Javascript, the pattern is stored in data attributes. This way, all the script has to do is replace `%index%` with the index number.
 
@@ -119,11 +119,13 @@ The important bit is that the index needs to increase by 1 each time. To make th
 Put that code here
 ```
 
-The reason there are attributes for `id` and `name` is that in the case of radio buttons and checkboxes, the `name` differs from the `id`.
+The reason there are attributes for `id` and `name` is that in the case of radio buttons and checkboxes, the `name` differs from the `id`. That is the name of every radio button in a single group should match, but the id's should differ.
 
 ```HTML
 Example
 ```
+
+While this pattern is more complex, it may help more digitally savyy users complete frequent tasks.
 
 ## Summary
 
@@ -133,8 +135,5 @@ There's no right and wrong way here, it's about picking the most appropriate pat
 
 ## Footnotes
 
-[^]:
-[^]:
-[^]:
-
-https://axesslab.com/trends/ - animation quote tweets
+[^1]: http://todomvc.com/
+[^2]: https://inclusive-components.design/a-todo-list/

@@ -24,11 +24,11 @@ Besides hiding options behind an unnecessary extra click, users generally don't 
 
 ### Radio Buttons
 
-Radio buttons, unlike select boxes, are generally well-understood and easy-to-use, not least because they don't hide options. They are fully exposed making them easy to compare, scan and select. They're also malleable. That is, they let us put whatever content in whatever format we want, inside the label (more on that shortly).
+Radio buttons, unlike select boxes, are generally well-understood and easy-to-use, not least because they don't hide options. They are exposed making them easy to compare, scan and select. They're also malleable. That is, they let us use whatever content, in whatever format, we want, inside the label (more on that shortly).
 
-The problem with radio buttons is that they're less suitable when there are many of them. As an airline could fly to hundreds of destinations, the page would be long and unwieldy, causing users to scroll (and keyboard users to tab) a lot.
+The problem with radio buttons is that they're less suitable when there are many of them. As an airline could fly to hundreds of destinations, making the page long and unwieldy. This in turn, means users have to scroll (and keyboard users to tab) a lot more.
 
-Don't get me wrong, users are more than happy to scroll, and we shouldn't use this as a crutch for changing course. But if we can naturally eliminate the need to scroll without introducing new problems we should.
+Don't get me wrong, users are more than happy to scroll[^], and we shouldn't use this as a crutch for changing course. But if we can naturally eliminate the need to scroll without introducing new problems we should.
 
 ### Search Input
 

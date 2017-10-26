@@ -522,13 +522,11 @@ All in all, this reduces friction to nil and significantly improves conversion. 
 
 ## Layout
 
-Up to now, we've focused on the design of the form within each page, but we haven't considered the interface holistically. In fact, this is one of the dangers of composing interfaces out of pre-defined smaller components. In the end, the overall design can be neglected.
+Up to now, we've focused on the design of the form within each page, but we haven't considered the interface holistically. In fact, this is one of the dangers of composing interfaces out of pre-defined smaller components. In the end, the overall design can end up neglected.
 
-Usually, checkout pages are given special, more streamlined, layout that helps reduce noise and keep users on task. For example, the header usually contains a logo, security note and accept cards. 
+Usually, checkout pages are given a special and more streamlined layout that helps reduce noise and keep users on task. For example, the header usually contains a logo, security note and accept cards.
 
 By omitting navigation and search, users can focus on checking out which speaks to principle 6, *Prioritise content*.
-
-![Layout](.)
 
 ### Progress Bar
 
@@ -536,13 +534,13 @@ Progress bars are often used within checkout because they give users an idea of 
 
 ![Progress indicator](./images/Progress_indicators_2.png)
 
-There are practical reasons for avoiding progress bars too. First, they take up a lot of space at the top of the page which is of particular importance on mobile as the main content is pushed further down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. And to top it off, handling conditional sections is hard because you either always show the step which is misleading, or you show it when it's relevant which is dishonest.
+There are practical reasons for avoiding progress bars too. First, they take up a lot of space at the top of the page which is of particular importance on mobile as the main content is pushed down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. And to top it off, handling conditional sections is hard because you either always show the step which is misleading, or you show it when it's relevant which is dishonest.
 
-Instead, it's better to start without a progress bar. Then you can test to see if your users struggle without one by conducting research. Remember, it's far easier (and cheaper) to add features than to remove them after the fact.
+Instead, it's better to start without a progress bar. Then you can test to see if your users struggle without one by conducting research. Remember, it's far easier (and cheaper) to add features than it is to remove them after the fact.
 
-Not having a progress bar prioritises the main content, by moving it further up the page, which speaks to principle 6 again, *prioritise content*. Having meticulously considered many other details, users should get through the process with little fuss anyway.
+Not having a progress bar prioritises the main content, by moving it further up the page, which again speaks to principle 6, *prioritise content*. Having meticulously considered many other details, users should get through the process with little fuss anyway.
 
-*(Note: some forms are especially long—a lot longer than the checkout. In this case, you might need some indication of progress, which is something we'll look in detail in chapter 10, “A Really Long Form.”)*
+*(Note: some forms are especially long — a lot longer than the checkout. In this case, you might need some indication of progress, which is something we'll look at in chapter 10, “A Really Long Form.”)*
 
 ### Order Summary
 
@@ -558,15 +556,15 @@ Layout wise, the summary panel should be less prominent than the form. So it sho
 
 ### Back Links
 
-As the user is moving through a linear flow, we need to consider user's needs to step back. The browser's back button gives users this functionality for free, but some people mistrust the browser's back button when filling out forms because of bad past experience where their data is lost.
+As the user is moving through a linear flow, we need to consider the need to step back. The browser's back button provides this functionality for free, but some people mistrust the browser's back button when filling out forms because of bad past experience where their data was lost.
 
 AJAX-driven and modal-heavy sites haven't helped matters here because clicking the browser's back button often goes against user's expectations[^backlink]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect the browser's back button to take them to the previous page in the state they left it in.
 
 However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust its behaviour. In this case, position the link at the top left of the page (or after the submit button). By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
 
-Whatever you do, don't put the back link before the submit button. When keyboard users press <kbd>tab</kbd> on the final field and press <kbd>enter</kbd> they'll be taken back instead of submitting the form which is very frustrating.
+Whatever you do, don't place it before the submit button. When keyboard users press <kbd>tab</kbd> when inside the last field, pressing <kbd>enter</kbd> will take them back to the previous step instead of submitting the form which is very frustrating.
 
-Consider making the link text explicit. Where “Back” is ambiguous, “Back to delivery address” is more obvious.
+Consider making the link text explicit. “Back” is ambiguous; “Back to delivery address” is clearer.
 
 ## Summary
 

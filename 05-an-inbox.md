@@ -8,7 +8,7 @@ In this chapter, we'll look at an inbox. That is, a list of emails sent from oth
 
 First, we're going to look at how best to mark-up a list of emails. Discussing lists may seem out of place in a book about forms, but forms rarely form part of an interface on their own. Ignoring their surroundings can result in disagreeable experiences.
 
-The meaning — or semantics — behind elements should drive their visual design. Put simply, things should look like they function. There are 4 elements we can use to construct lists each with different semantics: description lists, tables, ordered lists and unordered lists. Let's discuss the pros and cons of each now.
+The meaning — or semantics — behind elements should influence their appearance. In other words, form should follow function. There are 4 elements we can use to construct lists each with different semantics: description lists, tables, ordered lists and unordered lists. Let's discuss the pros and cons of each now.
 
 ### Description Lists
 
@@ -91,17 +91,17 @@ To let users mark emails for action, we need to give each row a checkbox.
 </ul>
 ```
 
-You'll notice each checkbox is missing a label. The problem is that we want the contents of the link to be the contents of the label. In other words, two opposing interactions need to occupy the same space on the interface. Remember, clicking the label should mark the checkbox but clicking the link should navigate the user to the email.
+You'll notice each checkbox is missing a label. The problem is that the contents of the link should also be the contents of the label. In other words, two opposing interactions need to occupy the same space. Remember, clicking the label should mark the checkbox but clicking the link should navigate the user to the email.
 
-![Illustrate the above with a useful caption](.)
+![Label and link](.)
 
 In this case, you could argue that a visible label is redundant. After all, the label would duplicate the link's content. This would make for a confusing experience for sighted users.
 
 ### Using modes
 
-Trying to combine two user needs into a single interface has partially caused this problem in the first place. One way to avoid the issue would be to split these needs apart using the concept of modes. This just means letting users switch between managing email and reading it.
+Trying to meet two user needs in one a single interface is partially responsible for the problem in the first place. So, one way to avoid the issue would be to split these needs apart using the concept of modes. This just means letting users switch between managing email and reading it.
 
-![Mode](.)
+![Modes](.)
 
 Clicking *Organise* puts users into *manage-mode*. When in manage-mode, the link's label changes to ‘Finished’ (or similar), which when clicked, takes the user back to read mode.
 
@@ -144,7 +144,7 @@ Fortunately, there is a silver lining in duplicating the contents. The contents 
 
 The deal with human-computer interaction is that when the human does something, the computer should respond. In this case, clicking a checkbox makes a little tick appear (and disappear) accordingly. As with every other checkbox in any other form, this is probably enough feedback.
 
-![Hey I'm checked, oh dear nobody loves me](.)
+![Checked](.)
 
 It is, however, possible to highlight the entire row with CSS and Javascript. As designers, we're tempted to do more than the minimum. We think that more is better. We think that more is a symbol of hard work. It's actually a lot harder to *resist* doing more, than simply *doing* more. Constantly striving for less in a world that rewards you for doing more is very hard work indeed.
 
@@ -156,17 +156,13 @@ Letting users select multiple emails is all well and good, but we're going to wa
 
 ### Implicit Submission And Multiple Submit Buttons
 
-Implicit submission lets you press <kbd>enter</kbd> when a field is focused. This is a convention that lets users submit a form more quickly without having to move focus to the submit button. This is particularly useful for a search form because it only consists of a text box and submit button. Users can type and press <kbd>enter</kbd> without leaving the field.
+Implicit submission lets you press <kbd>Enter</kbd> when a field is focused. This is a convention that lets users submit a form more quickly without having to move focus to the submit button. This is particularly useful for a search form because it only consists of a text box and submit button. Users can type and press <kbd>Enter</kbd> without leaving the field.
 
-![Stuff](.)
+![Implicit submission](.)
 
-The problem comes when a form has multiple submit buttons because each button performs a different action. If the user presses <kbd>enter</kbd>, which action should be taken? Browsers will choose the first button in the document flow.
+The problem comes when a form has multiple submit buttons because each button performs a different action. If the user presses <kbd>Enter</kbd>, which action should be taken? The answer is that browsers will choose the first button in the document flow.
 
-![Update/delete example with caption](.)
-
-To mitigate this, split the forms up into separate pages will ensure there's just one action per form. Depending on the design, this may not be easy or possible. And in the case of the inbox, it isn't straightforward. One way would be to ask users which action they want to take before selecting the emails, but this seems a little long-winded.
-
-![Click action link -> present checkboxes (with submit at bottom) ->confirm action](.)
+To mitigate this, split the forms up into separate pages will ensure there's just one action per form. Depending on the design, this may not be easy or possible. And in the case of the inbox, it isn't straightforward. One way would be to ask users which action they want to perform before selecting the emails, but this seems a little long-winded.
 
 Fortunately and by convention, multi-select interfaces typically place the action buttons at the top of the page in vertical alignment to the checkboxes. This gives users a chance to discover the available actions before making their selection.
 
@@ -210,13 +206,13 @@ Select boxes are for input. That's why forms that contain select boxes - like an
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-The reason I bring this to your attention is because using a select box as a menu, usually means omitting the submit button and causing the form to submit `onchange` using Javascript. This goes against principle 4, “Give Control” by taking control *away* from the user.
+The reason I bring this to your attention is because using a select box as a menu, usually means omitting the submit button and causing the form to submit `onchange` using Javascript. This fails principle 4 (*Give control*) by taking control *away* from the user.
 
-This also causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the form is submitted as soon as the user presses <kbd>down</kbd> to select the next option. Moving beyond that option is impossible.
+This also causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the form is submitted as soon as the user presses <kbd>Down</kbd> to select the next option. Moving beyond that option is impossible.
 
-![Illustrate this](.)
+![Select submit onchange](.)
 
-This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>space</kbd> or <kbd>enter</kbd>. Unfortunately, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for them.
+This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>Space</kbd> or <kbd>Enter</kbd>. Unfortunately, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for them.
 
 The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adapative design.
 
@@ -248,7 +244,7 @@ Responsive design takes a different approach. It's about designing a single, flu
 
 Where adaptive design tries to bend the web to its will, responsive design embraces it. Responsive design understands that you can't possibly design for every device and browser individually. That's just not how the web works. Instead, responsive design encourages us to design interfaces that work on any size screen.
 
-The select box design from earlier requires an adaptive approach. By default, and on small viewports, users get a select box. Then, when there is enough space, it's swapped for set of submit buttons, laid out in a row.
+The select box design from earlier requires an adaptive approach. On small viewports, users get a select box. Then, when there is enough space, it's swapped for set of submit buttons, laid out in a row.
 
 ![Adaptive select box](.)
 
@@ -284,7 +280,7 @@ Third, not all users use a mouse and many touch-screen devices are typically ope
 
 Aware of the pitfalls of both adapative design and opening a menu on hover, we can proceed to design a true, responsive menu that opens on click.
 
-![Responsive Menu](.)
+![True menu](.)
 
 ```HTML
 <div role="menubar">
@@ -296,7 +292,7 @@ Aware of the pitfalls of both adapative design and opening a menu on hover, we c
 
 The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, so screen readers can announce it as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved by using ARIA is to convey the meaning for screen reader users.
 
-When there isn't enough room to display the menu items inline, they'll stack beneath each other. To avoid this, we can use media queries and Javascript's `matchMedia` API to collapse the buttons inside a traditional menu.
+When there isn't enough room to display the menu items inline, they'll stack beneath each other taking up a lot of space. To avoid this, we can use media queries and Javascript's `matchMedia` API to collapse the buttons inside a traditional menu.
 
 ```JS
 Menu.prototype.setupResponsiveChecks = function() {
@@ -371,9 +367,9 @@ When focus is on a menu item, pressing <kbd>down</kbd> or <kbd>up</kbd> arrows w
 
 ## Select All
 
-Users may want to, for example, archive every email in their inbox. Rather than selecting each one manually, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the others creating a visual connection. Clicking it checks every checkbox in one fell swoop.
+Users may want to, for example, archive every email in their inbox. Rather than selecting each email, one by one, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the others creating a visual connection. Clicking it checks every checkbox in one fell swoop.
 
-[!Checkbox mailchimp?](.)
+![Select all mailchimp](.)
 
 Arguably, this standard input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this behaviour without any Javascript.
 
@@ -403,7 +399,9 @@ button[aria-pressed="true"] {
 
 When the user submits the form, the selected emails will disppear from their inbox. When an action has been completed, telling users that it has been completeed a respectful thing to do. Not doing so leaves users to wonder what happened, if at all.
 
-In chapter 1, “A Registration Form”, we designed and constructed an error summary panel that resides at the top of the page. A success message needs a similar treatment with just a few tweaks. First, is that instead of having red colouration, it should be green which is universally associated with success. And the content should be ‘You successfully archived 15 emails’ (or similar).
+In chapter 1, “A Registration Form”, we designed and constructed an error summary panel that resides at the top of the page. A success message needs a similar treatment with a couple of tweaks.
+
+Instead of having red colouration, it should be green which is universally associated with success. Second, the content should be “You've successfully archived 15 emails” (or similar).
 
 ![Success](.)
 
@@ -433,9 +431,11 @@ Be careful to inject the `<button>` with Javascript. If we put it in directly in
 
 ### Confirming Versus Undoing
 
-As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can create a digital speed bump by asking users to confirm their action (shown below. This is fine for infrequent tasks but it quikcly becomes tedious when that action needs to be performed more often. Continuing with the driving analogy then: it's a bit like puttings speed bumps on the motorway. They'd probably cause more accidents, not less.
+As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can create a digital speed bump by asking users to confirm their action (shown below. 
 
-![Are you sure](./images/etc.png)
+![Are you sure](.)
+
+This is fine for infrequent tasks but it quikcly becomes tedious when that action needs to be performed more often. Continuing with the driving analogy then: it's a bit like puttings speed bumps on the motorway. They'd probably cause more accidents, not less.
 
 An alternative approach would be letting users perform the action immediately, without any warning. Then, along with the success message, give users the choice to undo their action. Clicking *undo*, would reverse the action by restoring their emails back into their inbox. If only we could *undo* accidents on the road.
 

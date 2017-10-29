@@ -552,7 +552,7 @@ Having an overview throughout the shopping experience is important, and so we ne
 
 As the user completes each step, the order summary will contain more and more information. For example, on the first screen (email address), it will contain what they're buying. On the next screen it will also contain their email address, and so forth. If the user spots a mistake, they can jump back to any previous step by clicking the edit link — just like the review page.
 
-Layout wise, the summary panel should be less prominent than the form. So it should be placed beside the form on large viewports, and below the form on mobile, where there isn't enough room for <it class=""></it>
+Layout wise, the summary panel should be less prominent than the form. So it should be placed beside the form on large viewports, and below the form on mobile, where there isn't enough room for it.
 
 ### Back Links
 
@@ -603,7 +603,3 @@ After that, we looked at other issues: giving users the ability to review their 
 [^13]: https://articles.uie.com/three_hund_million_button/
 [^autofillattrs]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
 [^backlink]: https://baymard.com/blog/back-button-expectations
-
-<!--
-Once a user has clicked to checkout it’s important to keep them focussed on moving through the checkout process and not getting distracted by links/other navigation that take them away from checkout. It’s important to pare down and simplify the checkout pages to only include information relevant to checkout. By doing this you can highlight important information like secure payment icons and accepted payment methods.
--->

@@ -22,7 +22,9 @@ Of course it depends on the type of service you're designing. Banks and investme
 
 People often use the same password for different sites and applications. But password rules differ from site to site. Some sites ask for a capital letter, others ask for numbers and symbols. 
 
-Many users will tweak their password to match the rules of the site. For example, if their password is “password”, and the site requires a capital letter, they'll use “Password”. That's fine for registration where users are often told what the rules are, but many sites don't offer provide a hint on the login form. In this case, users have to guess and hope for a useful error message (more in this later). Or worse, they have to reset their password.
+Many users will tweak their password to match the rules of the site. For example, if their password is “password”, and the site requires a capital letter, they'll just capitalise the first letter to “Password”. 
+
+That's fine for registration where users are often told what the rules are, but many sites don't provide a hint on the login form. In this case, users have to guess and hope for a useful error message (more in this later). Or worse, they have to reset their password.
 
 ![What are the rules](.)
 
@@ -48,15 +50,13 @@ Leaving users to guess is an unnecessary source of friction.
 
 ## Contextual Login Forms
 
-In chapter 2, “A Checkout Flow”, we noted the importance of paring down the checkout pages to only include information relevant to checkout lets users focus and proceed more easily. Specifically, using a checkout-specific header without the navigation bar.
+Often login forms are designed as an interstial page with a login-specific layout. Users perform an action which requires being logged in. The site navigates to the login page. The user is then taken back to where they were, or where they were trying to get to in the first place.
 
-When the user clicks “Checkout” they'll arrive on a page that lets them continue as a guest or to log in first if they wish, which expedites the process. When they go to log in, the login form shouldn't take users outside of the checkout flow.
+For example, in chapter 2, “A Checkout Flow”, we pared down the layout to only include information pertinent to the checkout. Specificall, giving users a header without navigation or search. When users checkout, and opt to log in first, the login form should employ the checkout-specific layout.
 
-Tesco don't do this. When you add a product to your basket, the user is prompted to log in but they are taken somewhere completely different which is disorientating.
+Conversely, when users try to add a product to their basket on the Tesco site, they are taken to a login page. However, the login form is housed in a completely different layout which is disorientating.
 
-![Forced to login](./images/tesco-logged-out.png)
-
-![Login form](./images/tesco-login-form.png)
+![Contextless](.)
 
 ## One Form Per Page
 
@@ -64,7 +64,7 @@ Some sites put the registration and login forms on the same page beside each oth
 
 Instead, put each form on a separate page and let users switch between them by giving them a link.
 
-![Link to switch](.)
+![Link](.)
 
 ## Social Login
 
@@ -74,17 +74,15 @@ Some sites will integrate with your social media account. For example, Medium.co
 
 But, social login is not without its problems. First their are issues of privacy. So telling users exactly what you will and won't do with their details is essential. Medium does a good job by stating that “They won't post without asking”.
 
-![Medium Login](./images/medium-login.png)
+![Medium login](.)
 
 ### Seamless Interchange
 
 Some users may not remember how they created an account. At Kidly, we detected that users had signed up with a different method and showed an error message instead. But this puts the burden on the user.
 
-![Login form](./images/kidly-error.png)
-
 Medium lets users log in interchangeably without users ever knowing what happened. For example, if I log in to Medium with my email but have already registered previously with Facebook, Medium logs me in automatically and merges my accounts without me knowing. As a user the only way I would know is if I bother to visit the settings page.
 
-![Medium settings page](./images/medium-settings.png)
+![Medium settings](.)
 
 The ‘Connections’ section shows Facebook and Twitter options. Users can connect or disconnect their social media account easily, keeping users informed and in control.
 
@@ -114,7 +112,7 @@ If the link is just above the password field, when users tab from the email fiel
 
 Worse is when the link is placed before the submit button. When keyboard users tab from the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. Instead they'll be taken to reset their password. If and when they realise what's happened, they'll need to go back, re-enter their credentials and be careful to either tab twice or switch to using the mouse.
 
-![Forgot password link](./images/forgot-password-link.png)
+![Forgot password](.)
 
 While placing the link in close proximity to the password field makes some sense visually, the primary user need is to log in. The link shouldn't disturb the act of loggin in. You should place the link before the form or after the submit button.
 

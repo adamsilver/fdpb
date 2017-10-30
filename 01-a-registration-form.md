@@ -296,9 +296,11 @@ When it comes to form validaton, there are a number of important details to cons
 
 HTML5 validation has been around for a while now. By adding just a few HTML attributes, supporting browsers will mark erroneous fields on submission. Non supporting browsers fall back to server-side validation.
 
-Normally I would recommend using functionality that the browser provides for free because it's often performant, robust and accessible by default. Not to mention, that it becomes more and more familiar to users as more and more sites use the standard functionality.
+Normally I would recommend using functionality that the browser provides for free because it's often more performant, robust and accessible. Not to mention, that it becomes more and more familiar to users as more and more sites use the standard functionality.
 
-Whilst browser support is quite good, many browsers have patchy support[^]. To simultaneously avoid these issues and grant oursleves the ability to design for a number of provisions, we'll provide our own solution. In this case, the first thing to do is turn off HTML5 validation as follows.
+Whilst browser support is quite good, many browsers have patchy support[^]. For example, some implementations such as Firefox 45.7 just says “Please enter an email address” even if I've entered something in the box. Where as Chrome says “Please include an '@' in the email address” which is more helpful.
+
+Similarly, we should give users the same interface whether errors are caught on the server or the client. To simultaneously avoid these issues and grant oursleves the ability to design for a number of provisions, we'll provide our own solution. In this case, the first thing to do is turn off HTML5 validation as follows.
 
 ```HTML
 <form novalidate>

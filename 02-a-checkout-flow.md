@@ -187,7 +187,7 @@ This is the first field that consists of multiple controls, in this case, radio 
 
 To group multiple controls, we must wrap them in a `fieldset`. The `legend` describes the group like a `label` describes the individual control.
 
-In most screen readers, the `legend` is read out in combination with the radio button's `label`. In this case, “Delivery options, Standard (Free, 2-3 days)” (or similar). If we omitted the `fieldset` and `legend` screen reader users would only hear “Standard (Free, 2-3 days)” which is ambiguous.
+In most screen readers, the `legend` is read out in combination with the radio button's `label` which in this case would be “Delivery options, Standard (Free, 2-3 days)”. If we omitted the `fieldset` and `legend` elements, screen reader users would only hear “Standard (Free, 2-3 days)” which is ambiguous.
 
 You may be tempted to group all fields this way. For example, the address form from earlier could be wrapped inside a `fieldset` with a `legend` set to “Address.” While this is technically valid, it's unnecessary and verbose as the field labels make sense without a `legend`. Users don't need to hear “Address: Address Line 1” as it doesn't *add value*.
 
@@ -544,9 +544,11 @@ Not having a progress bar prioritises the main content, by moving it further up 
 
 ### Order Summary
 
-When you're shopping in a physical shop you, pick up your items and place them in your shopping basket. Eventually you checkout at the till. All the while, you can see what you're buying. Sometimes at the last minute, we change our mind and take an item off the conveyor belt. Or we realise we forgot something and dash off to get it.
+When you're shopping in a physical shop, you pick up your items and place them in your shopping basket. Eventually you checkout at the till. All the while, you can see what you're buying. Sometimes at the last minute, we change our mind and take an item off the conveyor belt. Or we realise we forgot something and dash off to get it.
 
-Having an overview throughout the shopping experience is important, and so we need a way to give users the same thing digitally. An order summary placed on every page keeps users informed without having to rely on memory to know what they're buying.
+> “The system should always keep users informed about what is going on, through appropriate feedback” - 10 Usability Heuristics
+
+Giving users this ability through a digital interface is also important. An order summary placed on every page keeps users informed without having to rely on memory to know what they're buying.
 
 ![Order Summary](.)
 

@@ -24,8 +24,6 @@ On a side note, you should use analytics to track what your users are searching 
 
 The form itself is simple enough and contains just a label, search input and a submit button. What's tricky is that it's usually placed within the header which is not only for cognition, but interaction. Like navigation, we want to make search readily accessible to both mouse and keyboard users. Putting such a commonly-used feature somewhere else would be counterintuitive.
 
-![Standalone search form](.)
-
 ### There's No Room
 
 The problem with placing it inside the header is that the header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
@@ -68,13 +66,11 @@ The last approach is to toggle the form's visibility using a button. It's much e
 
 
 ```HTML
-<header>
-	...
-  <button type="button" aria-haspopup="true" aria-expanded="false">
-</header>
-<form class="search hidden">
-	...
-</form>
+<!-- Inside the header -->
+<button type="button" aria-haspopup="true" aria-expanded="false"></button>
+
+<!-- Directly after the header -->
+<form class="search hidden"></form>
 ```
 
 The search form is placed directly after the header. Clicking the button should show the form, and move focus to the search box, saving uses an unnecessary extra click. At the same time `aria-expanded` should be set to `true` so that its state is reflected to screen reader users. Clicking the button for a second time, will hide the form and set `aria-expanded` back to `false`.
@@ -82,7 +78,16 @@ The search form is placed directly after the header. Clicking the button should 
 ![Click button -> move focus](.)
 
 ```JS
-Code here
+SearchForm.prototype.onButtonClick = function() {
+	if(this.button.attr('aria-expanded') == 'false') {
+		this.button.attr('aria-expanded', 'true');
+		this.form.removeClass('hidden');
+		this.form.find('input').first().focus();
+	} else {
+		this.form.addClass('hidden');
+		this.button.attr('aria-expanded', 'false');
+	}
+};
 ```
 
 ## Displaying Search Results
@@ -104,6 +109,3 @@ Marrying the usability of the interface with the quality of the search engine gi
 
 [^1]: https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
 [^2]: http://jamesarcher.me/hamburger-menu
-
- - https://www.gov.uk/government/organisations/hm-revenue-customs
-- https://www.harrods.com/en-gb

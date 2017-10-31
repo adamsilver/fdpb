@@ -31,7 +31,7 @@ Styling file inputs is tricky because most browsers ignore any attempt at doing 
 
 ![Hidden input, styled label](.)
 
-Having hidden the input, and styled the label, Javascript should be used to handle focus states. That is, when the input is focused, add a class to the input, so CSS can pseudo-focus the label. When the user selects a file for upload, the `onchange` event updates the label text as shown.
+Having hidden the input, and styled the label, Javascript should be used to handle focus states. When the input is focused, you should add a class to the input, so CSS can be used to give the visual appearance of being focused. When the user selects a file for upload, the `onchange` event updates the label text as shown.
 
 ![Label text updated](.)
 
@@ -39,21 +39,21 @@ On the face of it, this implementation is visually pleasing and it's still acces
 
 But operating the interface is not the only thing that needs consideration. This enhancement crumbles under further scrutiny.
 
-First, updating the label to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, screen reader users will hear ‘some-file.pdf selected’ (or similar) as opposed to “Attach document” (or similar).
+First, updating the label to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, screen reader users will hear ‘some-file.pdf selected’ (or similar) as opposed to “Attach document”.
 
 Second, the interface makes no allowances for a visual hint or error message which should be positioned inside the label, as set out in chapter 1, “A Registration Form”.
 
-Third, file inputs let mouse users drag and drop files. The input itself acts as a “drop zone”, which savvy users may prefer. Hiding the input means forgoing this functionality.
+Third, file inputs let mouse users drag and drop files. The input itself acts as a “drop zone”, which some users may prefer. Hiding the input means jettisoning this functionality.
 
 Any improvement to aesthetics just isn't worth the degradation in functionality and utility.
 
 ## Multiple Files
 
-Some tasks involve users needed to upload multiple files at once. One way to do this is to add the `multiple` attribute onto the input. Now, when the user activates the file picker dialog, the user can select multiple files.
+Some tasks involve users uploading multiple files at once. One way to do this is to add the `multiple` attribute onto the input. Now, when the user activates the file picker dialog, the user can select multiple files.
 
 ![Multiple file input](.)
 
-This inocuous attribute grants a lot of power and seems to solve the multiple file problem in one fell swoop, but it's not flawless.
+This inocuous attribute grants a lot of power and seems to solve the multiple file problem in one fell swoop, but unfortunately it's not that simple.
 
 First, users can only select files within a single folder. If they need to upload files within different folders they can't. Of course, users could move all the files into a single folder beforehand but this puts the onus on the user.
 
@@ -67,11 +67,11 @@ You could solve this by considering the full journey:
 - ![2. Confirmation of uploaded file, can delete it, add another or continue/finish](.)
 - ![3. Selecting another starts back at (1) again](.)
 
-Note that this journey works with and without multiple file support and may be the right solution in many cases. The only downside is that it's long-winded if users are using it a lot.
+Note that this journey works with and without multiple file support and may be the right solution in many cases. The only downside is that it's long-winded if the flow is used frequently.
 
 ## A Drag And Drop Enhancement
 
-As noted earlier, file pickers let users drag and drop files onto the control but there are two problems:
+While file pickers let users drag and drop files onto the control there are two problems:
 
 First, it's not immediately obvious to users that they can do this. Second, the hit area is relatively small, making it hard to use, especially for people with motor impairments.
 

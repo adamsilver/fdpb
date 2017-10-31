@@ -78,7 +78,7 @@ In chapter 5, “An Inbox”, we discussed the differences between responsive de
 
 Mobile first to me just means small screen first. Which really means essential first, which to me just really really means essential only. The essential components here are the results panel and the filter widget.
 
-Normally speaking, if you cut out all the superfluous content and lay the essential content out on a small viewport, the experience works well. Of course, this translates well to large viewports too: an increase in font-size and whitespace is usually enough.
+Normally speaking, if you cut out the superfluous content and lay what remains out on a small viewport, the experience works well. Of course, this translates well to large viewports too: an increase in font-size and whitespace is usually enough.
 
 But because the filter widget is important, it needs to be almost as prominent as the results. On large viewports this is easy: you just lay them out side by side. But on small viewports, you'd have to place the results underneath the filter which pushes the main content down.
 

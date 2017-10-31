@@ -8,7 +8,7 @@ The problem increases by orders of magnitude as soon as users need to upload *mu
 
 A file picker (`input type="file"`) is similar to most types of input. But instead of typing into it, the control spawns a dialog in which users can select a file from their computer or device. Mildly more complicated than a select box.
 
-![File input](.)
+![Single file picker](.)
 
 ```HTML
 <div class="field">
@@ -29,9 +29,9 @@ Some designers like to restyle the file picker because it looks quite ugly. We k
 
 Styling file inputs is tricky because most browsers ignore any attempt at doing so with CSS. One approach is to visually hide the input, demarcating it solely via its label. Unlike file inputs, labels are easy to style.
 
-![Hidden input, styled label](.)
+![Hidden input, styled label, tympanus.net](.)
 
-Having hidden the input, and styled the label, Javascript should be used to handle focus states. When the input is focused, you should add a class to the input, so CSS can be used to give the visual appearance of being focused. When the user selects a file for upload, the `onchange` event updates the label text as shown.
+Having hidden the input, and styled the label, Javascript should be used to handle focus states. When the input is focused, you should add a class to the input, so CSS can be used to give the appearance of being focused. When the user selects a file for upload, the `onchange` event updates the label text as shown.
 
 ![Label text updated](.)
 
@@ -45,7 +45,7 @@ Second, the interface makes no allowances for a visual hint or error message whi
 
 Third, file inputs let mouse users drag and drop files. The input itself acts as a “drop zone”, which some users may prefer. Hiding the input means jettisoning this functionality.
 
-Any improvement to aesthetics just isn't worth the degradation in functionality and utility.
+Any improvement to aesthetics just isn't worth the degradation in usability and utility.
 
 ## Multiple Files
 
@@ -57,15 +57,15 @@ This inocuous attribute grants a lot of power and seems to solve the multiple fi
 
 First, users can only select files within a single folder. If they need to upload files within different folders they can't. Of course, users could move all the files into a single folder beforehand but this puts the onus on the user.
 
-Second, some browsers don't recognise the `multiple` attribute. In this case it will degrade into a standard, single file picker, which could result in a broken experience.
+Second, some browsers don't recognise the `multiple` attribute. In this case it will degrade into a standard, single file picker, which could result in a broken experience. 
 
-![Show a design that means they can't upload more than one file](.)
+The following message form, for example, lets users type a message and attach files. The degraded experience means that users can only ever send a message with one attachment which is probably not good enough. 
 
-You could solve this by considering the full journey:
+![Send message](.)
 
-- ![1. User uploads file(s)](.)
-- ![2. Confirmation of uploaded file, can delete it, add another or continue/finish](.)
-- ![3. Selecting another starts back at (1) again](.)
+One approach would be to ask users if they'd like to add another attachment, each time they upload a file. This way the journey works whether the browser supports multiple or single file uploads. The downside is that it's a long-winded solution, which is particularly annoying if the feature is used repeatedly.
+
+![Flow](.)
 
 Note that this journey works with and without multiple file support and may be the right solution in many cases. The only downside is that it's long-winded if the flow is used frequently.
 

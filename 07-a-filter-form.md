@@ -36,13 +36,17 @@ Remember, that a broad and shallow taxonomy creates a better experience without 
 
 ## Material Honesty (again)
 
-We've talked about material honesty several times in the book. That's because it's both important and prevelant in the world of interface design. As a reminder of what it is, Jeremy Keith says that “one material should not be used as a substitute for another. Otherwise the end result is deceptive.”
+We've talked about material honesty several times in the book. That's because it's both important and prevelant in the world of interface design. In short, one material shouldn't be used as a substitute for another because in this case the end result is deceptive.
 
-In the case of filters, often links are made to look like radio buttons or checkboxes (using CSS backgrounds). The problem, of course, is that a radio button is not a link. When a link is clicked, it will immediately make a request and take the user to that page.
+In the case of filters links are often styled to look like radio buttons or checkboxes (using CSS backgrounds images for example). The problem, of course, is that a radio button is not a link. When a link is clicked, it takes the user to that page.
 
-![Example](.)
+As the design of form controls varies so widely across browsers and operating systems, the CSS styling always differs from native inputs. This creates a slightly jarring, inconsistent and unprofessional aesthetic. 
 
-As the design of form controls varies so widely across browsers and operating systems, the CSS styling always differs from native inputs which creates a slightly jarring, inconsistent and unprofessional visual tone. But there's more to this than just vaneer. If a user sees a radio button, conventionally speaking, they'll know that they can move through the choices before submitting it as a separate action. That's just how forms work. It would be confusing if clicking - what looks like - a radio button, suddenly submitted the form automatically. This is materially dishonest and therefore deceptive.
+But there's more to this than just vaneer. If a user sees a checkbox, conventionally speaking, they'll know that they can move through the choices before submitting it as a separate action. That's just how forms work.
+
+![Ebay links with checkboxes](.)
+
+It would be confusing if clicking - what looks like - a radio button, suddenly submitted the form automatically. That's materially dishonest and therefore deceptive.
 
 > ‘Use checkboxes and radio buttons only to change settings, not as action buttons’ - Jakob Nielsen
 
@@ -84,11 +88,9 @@ But because the filter widget is important, it needs to be almost as prominent a
 
 If the filter is placed after the results, then users would have to scroll all the way past the results just to discover it. Many users would miss it.
 
-![Below](.)
-
 We could collapse the filter widget above the results. This way the filters are discoverable without pushing the main content below the fold. While this is a responsive approach, it's not the whole story.
 
-I interviewed David House, a designer at GDS, formely of Gumtree and Autotrader where filters are a major part of the experience for both sites. As such, they conducted a lot of user research around their search results page. Here's what David had to say:
+I interviewed David House, a designer at GDS, formely of Gumtree where filters are a major part of the experience. As such, they conducted a lot of user research around their search results page. Here's what David had to say:
 
 > On desktop, Gumtree users expected AJAX. Filters were selected but not submitted. They didn't realise they had to submit their choices. We got a lot of feedback saying “Your filters are broken.” We tried moving the apply button to the top (and the bottom) along with making it sticky; loads of things that didn't really make a difference.
 
@@ -102,7 +104,7 @@ That's two opposing problems which are solved with completely different approach
 
 I asked Dave if he would use the same approach in future.
 
-> Not necessarily. I wouldn't start with this approach. If a site doesn't have a million ads [like Gumtree does], we'd have better luck drawing attention to the submit button.
+> Not necessarily. I wouldn't start with this approach. If a site doesn't have a lot of ads [like Gumtree does], we'd have better luck drawing attention to the submit button.
 
 ## Summary
 

@@ -57,39 +57,40 @@ This inocuous attribute grants a lot of power and seems to solve the multiple fi
 
 First, users can only select files within a single folder. If they need to upload files within different folders they can't. Of course, users could move all the files into a single folder beforehand but this puts the onus on the user.
 
-Second, some browsers don't recognise the `multiple` attribute. In this case it will degrade into a standard, single file picker, which could result in a broken experience. 
+Second, some browsers don't recognise the `multiple` attribute. In this case it will degrade into a standard, single file picker, which could result in a broken experience. This may or may not be okay depending on your design.
 
-The following message form, for example, lets users type a message and attach files. The degraded experience means that users can only ever send a message with one attachment which is probably not good enough. 
+For example, take the following form. It asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit. But when it's not supported, users can only upload a single receipt which may not be enough.
 
-![Send message](.)
+![Receipt](.)
 
-One approach would be to ask users if they'd like to add another attachment, each time they upload a file. This way the journey works whether the browser supports multiple or single file uploads. The downside is that it's a long-winded solution, which is particularly annoying if the feature is used repeatedly.
+One way to solve this, is to ask users if they'd like to add another receipt as part of a flow. It also gives users the chance to review their submission. Crucially, this journey works whether the browser supports multiple or single file uploads. One potential downside is that it's long-winded - something that could be problematic if the form is used repeatedly.
 
-![Flow](.)
-
-Note that this journey works with and without multiple file support and may be the right solution in many cases. The only downside is that it's long-winded if the flow is used frequently.
+![Receipt Flow](.)
 
 ## A Drag And Drop Enhancement
 
 While file pickers let users drag and drop files onto the control there are two problems:
 
-First, it's not immediately obvious to users that they can do this. Second, the hit area is relatively small, making it hard to use, especially for people with motor impairments.
+1. It's notimmediately obvious to uses they can do this
+2. The drop zone is quite small making it harder to drop files, especially for motor-impaired users.
 
-Implementating our own solution lets us solve both issues.
+Creating a custom interface lets us solve both issues simultaneously.
 
 ### How It Might Look
 
-![Design with progress bar](.)
+![Dropzone](.)
 
 The design - slightly biased toward mouse users - presents a large drop zone making it easier to use, especially for motor-impaired users. Inside the drop zone is instructional text that clarifies the behaviour.
 
 Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier. This only works because the label is a proxy for the input. Clicking the label behaves as if the file input was clicked - even if the input is visually hidden.
 
+## Interaction
+
 There's no submit button because the files are uploaded as soon as they're dropped. This is because browsers don't let you programmatically update a file input's value due to security reasons[^1]. 
 
-The act of selecting a file (as opposed to dropping one) also uploads them immediately (`onchange`). This is so that both interactions behave consistently within the same component.
+The act of selecting a file (as opposed to dropping one) also uploads them immediately (`onchange`). This is so both interactions behave consistently within the same component.
 
-The user can keep uploading documents either by dragging and dropping, or selecting, or using both interchangeably. When they're finished, they can review and if they need, delete files. 
+The user can keep uploading documents either by dragging and dropping, or selecting, or using both interchangeably. When they're finished, they can review the files and if needed, delete them too. 
 
 Clicking continue, takes the user to the next step, whatever that is. Gmail users, for example, upload files using a similar interface and clicking send. Essentially this is the same pattern with a different veneer.
 

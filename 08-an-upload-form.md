@@ -65,7 +65,11 @@ For example, take the following form. It asks users to submit receipts. When the
 
 One way to solve this, is to ask users if they'd like to add another receipt as part of a flow. It also gives users the chance to review their submission. Crucially, this journey works whether the browser supports multiple or single file uploads. One potential downside is that it's long-winded - something that could be problematic if the form is used repeatedly.
 
+<<<<<<< a7f8f043ea06a02f6a63de150170acd3824f5a5a
 ![Receipt Flow](.)
+=======
+Note that this journey works with and without multiple file support and may be the right solution in many cases. The only downside is that it's long-winded if the flow is used repeatedly.
+>>>>>>> Typos
 
 ## A Drag And Drop Enhancement
 
@@ -137,7 +141,7 @@ Dropzone.prototype.onDrop = function(e) {
 };
 ```
 
-By default, dragging a file into a browser will load the file in the browser. This component shouldn't do that, so we need to prevent the default action. Next, the highlight is removed. And finally, the `upload()` method is called parsing in the dropped files. 
+By default, dragging and dropping a file into the viewport will load the file in the browser which we prevent from happening on the firt line. Next, the highlight is removed. And finally, the `upload()` method is called passing in the dropped files. 
 
 ```JS
 Dropzone.prototype.upload = function(files) {
@@ -158,33 +162,33 @@ Whether files are dropped or selected with the file picker, we need to give user
 
 ```JS
 Dropzone.prototype.makeRequest = function(formData) {
-    var li = $('<li>'+ formData.get('documents').name +'<br><progress value="0" max="100">0%</progress></li>');
-    $('.fileList ul').append(li);
-  	$.ajax({
-      url: '/ajax-upload',
-      type: 'post',
-      data: formData,
-      xhr: function() {
-        var xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener('progress', function(evt) {
-          if (evt.lengthComputable) {
-            // calculate the percentage of upload completed
-            var percentComplete = evt.loaded / evt.total;
-            percentComplete = parseInt(percentComplete * 100);
+  var li = $('<li>'+ formData.get('documents').name +'<br><progress value="0" max="100">0%</progress></li>');
+  $('.fileList ul').append(li);
+	$.ajax({
+    url: '/ajax-upload',
+    type: 'post',
+    data: formData,
+    xhr: function() {
+      var xhr = new XMLHttpRequest();
+      xhr.upload.addEventListener('progress', function(evt) {
+        if (evt.lengthComputable) {
+          // calculate the percentage of upload completed
+          var percentComplete = evt.loaded / evt.total;
+          percentComplete = parseInt(percentComplete * 100);
 
-            li.find('progress').text(percentComplete + '%');
-            li.find('progress')[0].value = percentComplete;
-          }
+          li.find('progress').text(percentComplete + '%');
+          li.find('progress')[0].value = percentComplete;
+        }
 
-        }, false);
+      }, false);
 
-        return xhr;
-      }
-    });
-  };
+      return xhr;
+    }
+  });
+};
 ```
 
-This function injects a list item into the file list panel and fires the request. It listens to the `progress` event on the `XMLHttpRequest` object, so that feedback can be given in real time. This is particularly useful if users are uploading large files or using a slow network or both.
+This function injects a list item into the file list panel and fires the request. It listens to the `progress` event on the `XMLHttpRequest` object, so that feedback can be given in real time. This is particularly useful if users are uploading large files or using a slow network (or both).
 
 Each file is represented as a list item. Progress is demarcated by the `<progress>` element.
 
@@ -204,7 +208,7 @@ The text inside the element is for browsers that lack support for the progress e
 
 The progress bar is updated in response to the AJAX request that has an `onprogress` event.
 
-When the file is finished uploading, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added, letting users delete the uploaded file if they uploaded it by mistake, for example.
+When the file is finished uploading, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added, letting users delete the file if they uploaded it by mistake, for example.
 
 ![Success](.)
 
@@ -219,7 +223,7 @@ When the file is finished uploading, the `<span>` is converted into a link so th
 </ul>
 ```
 
-If there's an error, a message is shown in place of the progress bar, letting users dismiss that file to try again by clicking the `<button>`.
+If there's an error, a message is shown in place of the progress bar, letting users dismiss that file to try again by clicking the button.
 
 ![An error](.)
 

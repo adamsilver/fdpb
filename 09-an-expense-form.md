@@ -24,11 +24,11 @@ Also, each submission is a server request. While not a huge deal, it could get f
 
 Imagine you need to add a bunch of expenses, but the type of expense determines the information you need to enter. For example, if you're expensing a car, then you have to enter mileage, but if you're expensing a train ticket then you have to enter the ticket price.
 
-![Show the flow with branching diagram](.)
+![Flow](.)
 
 In this case, the Ever Present Form pattern is less suitable. Using One Thing Per Page as first discussed in “A Checkout Flow” is more appropriate. This is because it guides the user to provide the right information at the right time, which is especially useful for cognitively impaired users.
 
-If users need to add multiple expenses at a time, then you'd need an extra question at the end of the flow asking if they'd like to add another one. Yes would take the user down the same flow again. No would complete the task. Not selecting either option will cause a validation error message to show.
+If users need to add multiple expenses at a time, then we'd need to ask them if they'd like to add another one at the end of the flow. Selecting *Yes* would take the user down the same flow again. Selecting *No* would complete the task. Not selecting either option will cause a validation error message to show.
 
 ![Do you want to add another, yes no with button](.)
 

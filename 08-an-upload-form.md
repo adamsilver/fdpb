@@ -61,15 +61,11 @@ Second, some browsers don't recognise the `multiple` attribute. In this case it 
 
 For example, take the following form. It asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit. But when it's not supported, users can only upload a single receipt which may not be enough.
 
-![Receipt](.)
+
 
 One way to solve this, is to ask users if they'd like to add another receipt as part of a flow. It also gives users the chance to review their submission. Crucially, this journey works whether the browser supports multiple or single file uploads. One potential downside is that it's long-winded - something that could be problematic if the form is used repeatedly.
 
-<<<<<<< a7f8f043ea06a02f6a63de150170acd3824f5a5a
-![Receipt Flow](.)
-=======
-Note that this journey works with and without multiple file support and may be the right solution in many cases. The only downside is that it's long-winded if the flow is used repeatedly.
->>>>>>> Typos
+![Receipt flow](.)
 
 ## A Drag And Drop Enhancement
 

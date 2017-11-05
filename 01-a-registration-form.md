@@ -122,15 +122,15 @@ We'll be discussing several, less artificial techniques to reduce the size of fo
 
 ## The Question Protocol
 
-One powerful and *natural* way to reduce the size of a form is to use the Question Protocol[^] by the Government Digital Service. It urges you to determine what information is needed and why. Only then can you justify the existence of each question (or form field).
+One powerful and *natural* way to reduce the size of a form is to use the Question Protocol[^] by the Government Digital Service. It helps ensure you know why you are asking every question (or form field).
 
 Does the registration form need to collect first name, last name, email address and password? Are there better or alternative ways to ask for this information that simplifies the experience?
 
-In all likeliness you don't need to ask for the user's first and last name just to register. If you need that information later, for whatever reason, then ask for it then. By removing these fields, we've reduced the size of the form by 50% - without resorting to novel and problematic patterns.
+In all likeliness you don't need to ask for the user's first and last name just to register. If you need that information later, for whatever reason, then ask for it then. By removing these fields, we can half the size of the form. All without resorting to novel and problematic patterns.
 
 ### No Password Sign In
 
-One way to avoid asking users for a password is to use the No Password Sign In pattern. It works by leveraging the security of email (which already has a password). Users only have to enter their email address and the service sends a special link to their inbox. Clicking it, logs the user into the service immediately.
+One way to avoid asking users for a password is to use the No Password Sign In pattern. It works by leveraging the security of email (which already needs a password). Users only have to enter their email address and the service sends a special link to their inbox. Clicking it, logs the user into the service immediately.
 
 ![Medium No Password Sign In](./images/01/no-password.png)
 
@@ -138,11 +138,11 @@ Not only does this reduce the size of the form to just one field, but it also sa
 
 First, users might be less familiar with this approach, and many people are worried about online security. Second, having to move away from the app to your email account is long winded, especially for users who know their password (or use a password manager).
 
-It's not that one technique is always better than the other. It's that the Question Protocol urges us to think about this as a matter of course. Otherwise, you'd mindlessly add a password field on the form and be done with it.
+It's not that one technique is always better than the other. It's that the Question Protocol urges us to think about this as part of the design process. Otherwise, you'd mindlessly add a password field on the form and be done with it.
 
 ### Passphrases
 
-Passwords are generally short, hard to remember and easy to crack. Users often have to create a password with at least eight characters made up of at least one uppercase and lowercase latter and a number. This micro interaction is hardly ideal.
+Passwords are generally short, hard to remember and easy to crack. Users often have to create a password with at least eight characters made up of at least one uppercase, one lowercase letter and a number. This micro interaction is hardly ideal.
 
 Instead of a password, we could ask users for a passphrase[^5]. A passphrase is a series of words such as ‘monkeysinmygarden’ (sorry, that's the first thing that comes to mind). They are generally easier to remember than passwords and they are more secure due to their length - passphrases must be at least 16 characters long.
 
@@ -156,9 +156,13 @@ The way you style your form components will, at least in part, be determined by 
 
 Broadly speaking, you should place the label above the form control. In “Label Placement In Forms”[^6], Matteo Penzo shows this is best. But, there are more practical reasons for doing so. On small viewports there's no room beside the control. And on large viewports, zooming increases the chance of the text disappearing off screen[^x1].
 
-Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control. Whilst you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content - by positioning labels above the control - is a good strategy.
+Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control. 
 
-Focus styles are a simpler prospect. Browsers put an outline around the in-focus element by default so that users, especially those who use a keyboard, know where they are. You might be tempted to remove this styling for aesthetic reasons but again, that's hardly a good reason to diminish usability. If you wish to remove it, then make sure you replace it with something more preferable.
+Whilst you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content - by positioning labels above the control - is a good strategy.
+
+Focus styles are a simpler prospect. Browsers put an outline around the in-focus element by default so that users, especially those who use a keyboard, know where they are. 
+
+You might be tempted to remove this styling for aesthetic reasons but again, that's hardly a good reason to diminish the experience. If you wish to remove it, then make sure you replace it with something more preferable.
 
 ## The Email Field
 
@@ -173,11 +177,11 @@ Focus styles are a simpler prospect. Browsers put an outline around the in-focus
 </div>
 ```
 
-Despite it's simple appearance there are some important details that have gone into the field's construction that affects the user experience. As noted earlier, some fields have a hint in addition to the label which is why the label is inside a child span. The class lets us style it through CSS.
+Despite it's simple appearance there are some important details that have gone into the field's construction which affect the experience. As noted earlier, some fields have a hint in addition to the label which is why the label is inside a child span. The class (`field-label`) lets us style it through CSS.
 
-The label itself is “Email address” and uses sentence case. In “Making a Case of Letter Case”[^7], John Saito explains that sentence case (as opposed to title case) is generally easier to read, friendlier and makes it easier to spot nouns. Whether you take heed of this advice is up to you, but whatever style you choose, be sure to use it consistently.
+The label itself is “Email address” and uses sentence case. In “Making A Case For Letter Case”[^7], John Saito explains that sentence case (as opposed to title case) is generally easier to read, friendlier and makes it easier to spot nouns. Whether you take heed of this advice is up to you, but whatever style you choose, be sure to use it consistently.
 
-The input's `type` attribute is set to `email` which triggers an email-specific on-screen keyboard on mobile devices. Specifically, it gives users easy access to the ‘@’ and ‘.’ symbols which every email address contains.
+The input's `type` attribute is set to `email` which triggers an email-specific on-screen keyboard on mobile devices. Specifically, it gives users easy access to the ‘@’ and ‘.’ symbols which every email address must contain.
 
 ![Email keyboard](./images/01/email-keyboard.png)
 
@@ -231,11 +235,11 @@ Obscuring the value as the user types makes it hard to fix typos. So when one is
 
 Due to the increased risk of typos, some registration forms include an additional ‘confirm password’ field. This is a precautionary measure that requires the user to type the same password twice, doubling the effort and degrading the user experience.
 
-Instead, it's better to let users reveal their password which speaks to principles 4 and 5, *Give control* and *Offer choice*. This way users get the security of the mask without increasing the risk of typos.
+Instead, it's better to let users reveal their password which speaks to principles 4 and 5, *Give control* and *Offer choice* respectively. This way users get the security of the mask without increasing the risk of typos.
 
 ![Password reveal](./images/01/password-reveal.png)
 
-To do this, we need to inject a `<button>` next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked it toggles both the `type` attribute between `password` and `text` and the label between “Show password” to “Hide password”.
+To do this, we need to inject a button next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked, it should toggle the `type` attribute between `password` and `text` and the label between “Show password” and “Hide password”.
 
 ```JS
 function PasswordReveal(el) {
@@ -278,19 +282,21 @@ In “Resilient Web Design”[^9], Jeremy Keith discusses the idea of material h
 
 Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons which have naturally strong affordance. Whether they have rounded corners, drop shadows, borders is up to you, but they should look like buttons regardless.
 
-Buttons should still give feedback on hover by changing the background colour for example.
+Buttons can still give feedback on hover by changing the background colour for example.
 
 ### Placement
 
-Submit buttons are typically placed at the foot of the form. This is because with most forms, users fill out the fields from top to bottom and then submit. But should the button be aligned left, right or center? To answer this question, we need to think about where users will naturally look for it.
+Submit buttons are typically placed at the bottom of the form. This is because with most forms, users fill out the fields from top to bottom and then submit. But should the button be aligned left, right or center? To answer this question, we need to think about where users will naturally look for it.
 
-Field labels and form controls are aligned left and run from top to bottom. Users are going to look for the next field below the last one. Naturally then, the submit button should also be positioned in that location: to the left and directly below the last field. Eye tracking tests prove this to be so. This also helps users who zoom in as a right-aligned button could disappear off screen more easily.
+Field labels and form controls are aligned left and run from top to bottom. Users are going to look for the next field below the last one. Naturally then, the submit button should also be positioned in that location: to the left and directly below the last field. Eye tracking tests prove this to be the case. This also helps users who zoom in as a right-aligned button could disappear off screen more easily.
 
 ### Text
 
 The button's text is just as important as its styling. The text should explicitly describe the action being taken. And because it's an action, it should be a verb. We should aim to use as fewer words as possible because less words are quicker to read. But we shouldn't remove words at the cost of clarity.
 
-The exact words can match your brand's tone of voice, but don't exchange clarity for quirkiness. Using simple and plain language is easy to understand for everyone. The exact words will depend on the type of service. In this case “Register” is fine but depending on your service “Join” or “Sign up” might be more appropriate.
+The exact words can match your brand's tone of voice, but don't exchange clarity for quirkiness. 
+
+Using simple and plain language is easy to understand for everyone. The exact words will depend on the type of service. In this case “Register” is fine but depending on your service “Join” or “Sign up” might be more appropriate.
 
 ## Validation
 
@@ -300,9 +306,9 @@ When it comes to form validaton, there are a number of important details to cons
 
 ### HTML5 Validation
 
-HTML5 validation has been around for a while now. By adding just a few HTML attributes, supporting browsers will mark erroneous fields on submission. Non supporting browsers fall back to server-side validation.
+HTML5 validation has been around for a while now. By adding just a few HTML attributes, supporting browsers will mark erroneous fields when the form is submitted. Non supporting browsers fall back to server-side validation.
 
-Normally I would recommend using functionality that the browser provides for free because it's often more performant, robust and accessible. Not to mention, that it becomes more and more familiar to users as more and more sites use the standard functionality.
+Normally I would recommend using functionality that the browser provides for free because it's often more performant, robust and accessible. Not to mention, it becomes more and more familiar to users as more and more sites use the standard functionality.
 
 Whilst browser support is quite good, many browsers have patchy support[^]. For example, some implementations such as Firefox 45.7 just says “Please enter an email address” even if I've entered something in the box. Where as Chrome says “Please include an '@' in the email address” which is more helpful.
 
@@ -344,19 +350,18 @@ Where the original page title might read “Register for [service]”, on error 
 Updating the title with Javascript is as follows:
 
 ```JS
-var original = document.title;
-document.title = "(" + this.errors.length + ")" + original;
+document.title = "(" + this.errors.length + ")" + document.title;
 ```
 
-As noted above this is primarly for screen reader users, but as is often the case with inclusive design, what helps one set of users helps everyone else too. In this case, the updated title acts as a notification in the tab.
+As noted above this is primarly for screen reader users, but as is often the case with inclusive design, what helps one set of users helps everyone else too. This time, the updated title acts as a notification in the tab.
 
 ![Whatsapp and this side by side](./images/01/title-notification.png)
 
 #### Error Summary
 
-The error summary is visually more dominant and is essential for telling sighted users that something has gone wrong. But it's also responsible for letting users understand what's gone wrong and how to fix it. We place it at the top of the page so that users don't have to scroll after a page refresh.
+The error summary is visually more dominant and is essential for telling sighted users that something has gone wrong. But it's also responsible for letting users understand what's gone wrong and how to fix it. It's positioned at the top of the page so that users don't have to scroll down to see it after a page refresh.
 
-Conventionally speaking, errors should be in a red colouration, but we shouldn't rely on colour to demarcate it within the interface as this excludes colour-blind users. You might use position, size, text and iconography in addition to colour.
+Conventionally speaking, errors should be in a red colouration, but we shouldn't rely on colour alone as this excludes colour-blind users. You might use position, size, text and iconography in addition to colour.
 
 ![Error summary](./images/01/error-summary.png)
 
@@ -409,13 +414,13 @@ The message is placed above the field and inside the label. Placing it above the
 </div>
 ```
 
-Like the hint pattern mentioned earlier, the error message is injected inside the label. So when the field is focused, screen reader users will hear the message in context so they can freely move through the form without having to refer to the summary.
+Like the hint pattern mentioned earlier, the error message is injected inside the label. When the field is focused, screen reader users will hear the message in context so they can freely move through the form without having to refer to the summary.
 
 *Note: the registration form only consists of text inputs. In the next chapter we'll look at how to inject errors accessibly for groups of fields such as radio buttons.*
 
 ### Submitting The Form Again
 
-When submitting the form for a second time, we need to clear the existing errors from view. Otherwise users may see duplicate errors. And in the case that there are no errors, this cleans up the interface momentarily before submission.
+When submitting the form for a second time, we need to clear the existing errors from view. Otherwise users may see duplicate errors.
 
 ```JS
 FormValidator.prototype.onSubmit = function(e) {
@@ -433,13 +438,13 @@ FormValidator.prototype.onSubmit = function(e) {
 
 ### Technical Design
 
-To create an instance of the `FormValidator` you need to pass the form element as the first parameter.
+To create an instance of `FormValidator` you need to pass the form element as the first parameter.
 
 ```JS
 var validator = new FormValidator(document.getElementById('registration'));
 ```
 
-To validate the email field, for example, call the `addValidator` method (shown below). The first rule's method trims the value before checking the length in order to forgive trivial mistakes. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^16], at 42 minutes in. He says “it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong.” 
+To validate the email field, for example, call the `addValidator` method as shown below. 
 
 ```JS
 validator.addValidator('email', [{
@@ -455,6 +460,8 @@ validator.addValidator('email', [{
 }]);
 ```
 
+The first rule's method trims the value before checking the length in order to forgive trivial mistakes. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^16], at 42 minutes in. He says “it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong.” 
+
 The first parameter takes the name of the control and the second takes rules (as an array of objects). Each rule contains two properties: method and messsage. The `method` is a function that test various conditions to return either `true` or `false`. False puts the field into an error state which is used to populate the interface with errors.
 
 ### Live Inline Validation
@@ -467,7 +474,7 @@ Alternatively, we could wait until the user enters enough characters before show
 
 We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Moreover, some users switch windows or use a password manager when using a form. Doing so will trigger the blur event, causing an error to show before the user is finished. All very frustrating.
 
-Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields) - we've done this already. The problem with live feedback is that we're interupting users either too early or too late which causes a jarring user experience.
+Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields) - we've done this already. The problem with live feedback is that it interupts users either too early or too late which causes a jarring user experience.
 
 If users are seeing errors, there's probably something wrong elsewhere. Focus on shortening your form and providing better guidance (good labeling and hint text). This way users shouldn't see more than the odd error. We'll look at long forms in the next chapter.
 
@@ -485,19 +492,21 @@ Some forms will disable the submit button until all the form fields are valid. T
 
 ### Crafting Error Messages
 
-Arguably there is nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the result of using a service. Even the most thought-out, inclusive and beautifully designed experience counts for nothing if we ignored the words used to form error messages. One study showed that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^15].
+Arguably there is nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the result of using a service. 
+
+Even the most thought-out, inclusive and beautifully designed experience counts for nothing if we ignore the words used to construct error messages. One study shows that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^15].
 
 > “Content is the user experience”
 
 Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content - not the other way around. But in this case, understanding how messages are going to be shown and why, influences the design of the words themselves. This is why Jared Spool says “content and design are inseparable work partners.”
 
-As we know, we're going to inject messages into a summary panel at the top and next to the fields in context. This means, we need to make sure that content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
+As we know, we're going to inject messages into a summary panel at the top and next to the fields in context. This means, we need to make sure the content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
 
-Maintaining 2 versions of the same message is a hard sell for small gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol.’ works well regardless of location.
+Maintaining 2 versions of the same message is a hard sell for an unconvincing gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol’ works well in both locations.
 
-Then there's pleasantries, like starting each message with “Please”. On one hand, this is noisey and repetitive. On the other it's polite and softens the command. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to answer this question’ may work better.
+Then there's pleasantries, like starting each message with “Please”. On one hand, this is noisey and repetitive. On the other it's polite and softens the experience. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to answer this question’ may work better.
 
-Consider frequency of use. People who use the system daily, it's probably a good idea to remove the pleasantries and get to the point. For those using a system once or twice, removing the pleasantires may seem blunt and rude. Without user research it's hard to know.
+Consider frequency of use. For people who use the system regularly, removing pleasantries gets to the point quicker. For those using a system once or twice, removing the pleasantires may seem blunt and rude. Without user research it's hard to know.
 
 Whatever approach you take, there's going to be some repetition due to the nature of the content. And when we test form validation we often submit the form without entering any information at all.
 

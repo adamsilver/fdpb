@@ -40,7 +40,7 @@ This pattern is particularly appropriate for:
 
 ## The Add Another Pattern
 
-If your interface needs to be used more frequently and doesn't need to branch, then you can consider the Add Another pattern. This consists of a single form, on a single page, submitted in a single step.
+If your interface needs to be used more frequently and doesn't need to branch, you can consider the Add Another pattern. This consists of a single form, on a single page, submitted in a single step.
 
 It works by using Javascript to create extra form fields instantaneously which expedites the process.
 
@@ -48,7 +48,7 @@ It works by using Javascript to create extra form fields instantaneously which e
 
 ![Add another](.)
 
-Clicking the add another button creates new expense fields. Pressing the remove button deletes the field. Users keep adding expenses and when they're finished, they can submit all of the expenses in one go.
+Clicking the add another button creates a new set of expense fields. Pressing the remove button deletes the field. Users keep adding expenses and when they're finished, they can submit all of the expenses in one go.
 
 The degraded experience is the same, except clicking a button refreshes the page.
 
@@ -84,7 +84,7 @@ Every time the user adds or removes an item, we need to do some important work b
 
 If we don't update the label's `for` attribute and the matching input's `id` attribute, when the user clicks the label, focus will be moved to the first field.
 
-![Illustrate](.)
+![Focus issue](.)
 
 Crucially, if you don't update the `name` attribute, the server won't be able to recognise and process the submitted data. Remember: the contract between the browser and the server is forged by the `name` of the form controls.
 
@@ -93,7 +93,7 @@ Crucially, if you don't update the `name` attribute, the server won't be able to
   <div class="addAnother-items">
     <div class="addAnother-item">
   	  <div class="field">
-        <label for="items[0][name]">
+        <label for="items[0][description]">
 		      <span class="field-label">Description</span>
 	      </label>
         <input class="field-textBox" type="text" id="items[0][description]" name="items[0][description]" value="" data-name="items[%index%][description]" data-id="items[%index%][description]">
@@ -116,16 +116,12 @@ The `id`, `for` and `name` attributes have a particular format. This is because 
 The important bit is that the index needs to increase by 1 each time. To make this easy to parse in Javascript, the pattern is stored in data attributes. This way, all the script has to do is replace `%index%` with the index number.
 
 ```JS
-Put that code here
+el.name = $(el).attr('data-name').replace(/%index%/, index);
 ```
 
-The reason there are attributes for `id` and `name` is that in the case of radio buttons and checkboxes, the `name` differs from the `id`. That is the name of every radio button in a single group should match, but the id's should differ.
+The reason there are attributes for `id` and `name` is that in the case of radio buttons and checkboxes, the `name` differs from the `id`. As laid out in, chapter 2, “A Checkout Flow”, the name of each radio button is the same, but the id need to be unique of course.
 
-```HTML
-Example
-```
-
-While this pattern is more complex, it may help more digitally savyy users complete frequent tasks.
+While this pattern is more complex, it may speed up the task for users who are more confident and familiar with a particular system which is used frequently.
 
 ## Summary
 

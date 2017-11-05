@@ -10,7 +10,7 @@ Of course, if you know how many things that need to be added in advance, then si
 
 The drag and drop interface from “An Upload Form” in some respects uses this pattern and so does the infamous “Todo list pattern”[^]. Even Github uses this pattern to let users add collaborators. What I'm trying to say is that you've most probably seen this pattern before even if you didn't have a name for it.
 
-![Github](.)
+![Github](./images/09/github.png)
 
 The way it works is to have an ever-present form on the page (hence the name). Submitting it adds an item to a list above (or perhaps beside) the form. When the user is finished they can proceed. If this is part of a flow, you'd click a continue button (like the one in “An Upload Form”. On Github, you just leave the page.
 
@@ -24,13 +24,13 @@ Also, each submission is a server request. While not a huge deal, it could get f
 
 Imagine you need to add a bunch of expenses, but the type of expense determines the information you need to enter. For example, if you're expensing a car, then you have to enter mileage, but if you're expensing a train ticket then you have to enter the ticket price.
 
-![Flow](.)
+![Flow](./images/09/expense-branching-flow.png)
 
 In this case, the Ever Present Form pattern is less suitable. Using One Thing Per Page as first discussed in “A Checkout Flow” is more appropriate. This is because it guides the user to provide the right information at the right time, which is especially useful for cognitively impaired users.
 
 If users need to add multiple expenses at a time, then we'd need to ask them if they'd like to add another one at the end of the flow. Selecting *Yes* would take the user down the same flow again. Selecting *No* would complete the task. Not selecting either option will cause a validation error message to show.
 
-![Do you want to add another, yes no with button](.)
+![Add another question](./images/09/add-another-radios.png)
 
 This pattern is particularly appropriate for:
 
@@ -46,7 +46,7 @@ It works by using Javascript to create extra form fields instantaneously which e
 
 ### How It Might Look
 
-![Add another](.)
+![Add another](./images/09/add-another-pattern.png)
 
 Clicking the add another button creates a new set of expense fields. Pressing the remove button deletes the field. Users keep adding expenses and when they're finished, they can submit all of the expenses in one go.
 
@@ -84,7 +84,7 @@ Every time the user adds or removes an item, we need to do some important work b
 
 If we don't update the label's `for` attribute and the matching input's `id` attribute, when the user clicks the label, focus will be moved to the first field.
 
-![Focus issue](.)
+![Focus issue](./images/09/add-another-pattern-focus.png)
 
 Crucially, if you don't update the `name` attribute, the server won't be able to recognise and process the submitted data. Remember: the contract between the browser and the server is forged by the `name` of the form controls.
 

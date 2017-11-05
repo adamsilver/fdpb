@@ -16,7 +16,7 @@ Links, radio buttons and checkboxes: all of them can be, and are used to constru
 
 Links, let users filter a list of a results via the querystring. Admittedly, links are nothing to do with forms, but they are often used interchangeably with form controls so talking about them in-context now is important. Here's an example of a link filter used to find a car.
 
-![Link filter](.)
+![Link filter](./images/07/link-filter.png)
 
 Each time a user chooses a filter, such as Honda, that option will disappear from the list. The advantage of using links in this manner, is that every click is guaranteed to return results. This is becaue the link only appears in the first place, if there are results that lie behind it.
 
@@ -24,7 +24,7 @@ The disadvantage of using links is that each click requires a page refresh. In i
 
 If the user wants to select Honda and Audi, for example, a form that uses checkboxes may provide a better experience. By offering users a familiar set of form controls, we give them power and control to select as many options as they want in one go&mdash;both across and within different filters, such as brand and colour.
 
-![Checkbox filter](.)
+![Checkbox filter](./images/07/checkbox-filter.png)
 
 Unlike links, letting users choose multiple filters at once may result in zero results. If, for example, they select Red + Hondas, there may be none of those available. Of course, there will be away to remove a filter one at a time at the users discretion, but this doesn't eradicate the potential added friction.
 
@@ -44,7 +44,7 @@ As the design of form controls varies so widely across browsers and operating sy
 
 But there's more to this than just vaneer. If a user sees a checkbox, conventionally speaking, they'll know that they can move through the choices before submitting it as a separate action. That's just how forms work.
 
-![Ebay links with checkboxes](.)
+![Ebay links with checkboxes](./images/links-as-checkboxes.png)
 
 It would be confusing if clicking - what looks like - a radio button, suddenly submitted the form automatically. That's materially dishonest and therefore deceptive.
 

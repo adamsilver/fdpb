@@ -8,7 +8,7 @@ The problem increases by orders of magnitude as soon as users need to upload *mu
 
 A file picker (`input type="file"`) is similar to most types of input. But instead of typing into it, the control spawns a dialog in which users can select a file from their computer or device. Mildly more complicated than a select box.
 
-![Single file picker](.)
+![Single file picker](./images/09/single-file-picker.png)
 
 ```HTML
 <div class="field">
@@ -29,11 +29,11 @@ Some designers like to restyle the file picker because it looks quite ugly. We k
 
 Styling file inputs is tricky because most browsers ignore any attempt at doing so with CSS. One approach is to visually hide the input, demarcating it solely via its label. Unlike file inputs, labels are easy to style.
 
-![Hidden input, styled label, tympanus.net](.)
+![Label as proxy](./images/08/file-picker-hidden-input.png)
 
 Having hidden the input, and styled the label, Javascript should be used to handle focus states. When the input is focused, you should add a class to the input, so CSS can be used to give the appearance of being focused. When the user selects a file for upload, the `onchange` event updates the label text as shown.
 
-![Label text updated](.)
+![Label text updated](./images/08/file-picker-onchange.png)
 
 On the face of it, this implementation is visually pleasing and it's still accessible. Keyboard and mouse users can operate it as normal and screen readers will announce the state of the input and associated label.
 
@@ -51,7 +51,7 @@ Any improvement to aesthetics just isn't worth the degradation in usability and 
 
 Some tasks involve users uploading multiple files at once. One way to do this is to add the `multiple` attribute onto the input. Now, when the user activates the file picker dialog, the user can select multiple files.
 
-![Multiple file input](.)
+![Multiple file input](./images/08/multiple-dialog.png)
 
 This inocuous attribute grants a lot of power and seems to solve the multiple file problem in one fell swoop, but unfortunately it's not that simple.
 
@@ -61,11 +61,11 @@ Second, some browsers don't recognise the `multiple` attribute. In this case it 
 
 For example, take the following form. It asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit. But when it's not supported, users can only upload a single receipt which may not be enough.
 
-
+![Degraded](./images/08/multiple-degrade.png)
 
 One way to solve this, is to ask users if they'd like to add another receipt as part of a flow. It also gives users the chance to review their submission. Crucially, this journey works whether the browser supports multiple or single file uploads. One potential downside is that it's long-winded - something that could be problematic if the form is used repeatedly.
 
-![Receipt flow](.)
+![Degraded solution](./images/08/multiple-degrade-solution.png)
 
 ## A Drag And Drop Enhancement
 
@@ -78,7 +78,7 @@ Creating a custom interface lets us solve both issues simultaneously.
 
 ### How It Might Look
 
-![Dropzone](.)
+![Dropzone](./images/08/drop-zone.png)
 
 The design - slightly biased toward mouse users - presents a large drop zone making it easier to use, especially for motor-impaired users. Inside the drop zone is instructional text that clarifies the behaviour.
 
@@ -94,7 +94,7 @@ The user can keep uploading documents either by dragging and dropping, or select
 
 Clicking continue, takes the user to the next step, whatever that is. Gmail users, for example, upload files using a similar interface and clicking send. Essentially this is the same pattern with a different veneer.
 
-![Gmail compose?](.)
+![Gmail compose?](./images/08/gmail-compose.png)
 
 *(Note: the technical constraints regarding security have driven us to abandon convention which is not without issues. I'll address this later.)*
 
@@ -117,7 +117,7 @@ Here's the Javascript-enhanced mark-up:
 
 The `enctype` attribute is necessary so that the files are transmitted to the server for processing. This is only relevant to the degraded experience. That is, when Javascript isn't available, users will see a file picker and upload button.
 
-![Degraded view](.)
+![Degraded view](./images/08/degraded.png)
 
 Keyboard users can tab to the visually hidden input which will pseudo focus the label with Javascript as described earlier. This is also the same technique used for the seat chooser interface as set out in chapter 3, “Book a flight”.
 
@@ -125,7 +125,7 @@ To create the drag and drop behaviour there are three javascript events: `ondrag
 
 The `ondragover` handler adds a class of `dropzone--dragover` and the `ondragleave` handler removes it. The class is used to give feedback so users know they are within the drop zone.
 
-![on drag over](.)
+![on drag over](./images/08/drag-over.png)
 
 The `ondrop` handler is where the magic happens. The event handler receives an event object (`e.dataTransfer.files`) that holds data about the files. For each file dropped an AJAX request is made.
 
@@ -188,7 +188,7 @@ This function injects a list item into the file list panel and fires the request
 
 Each file is represented as a list item. Progress is demarcated by the `<progress>` element.
 
-![Progress](.)
+![Progress](./images/08/progress.png)
 
 ```HTML
 <ul>
@@ -206,14 +206,14 @@ The progress bar is updated in response to the AJAX request that has an `onprogr
 
 When the file is finished uploading, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added, letting users delete the file if they uploaded it by mistake, for example.
 
-![Success](.)
+![Success](./images/08/success.png)
 
 ```HTML
 <ul>
 	<li>
 		<a href="/path/to/file.pdf">file.pdf</a>
 		<progress max="100" value="100">100% complete</progress>
-		<input type="submit" name="delete1" value="Delete">
+		<input type="submit" name="remove1" value="Remove">
 	</li>
 	...
 </ul>
@@ -221,7 +221,7 @@ When the file is finished uploading, the `<span>` is converted into a link so th
 
 If there's an error, a message is shown in place of the progress bar, letting users dismiss that file to try again by clicking the button.
 
-![An error](.)
+![An error](./images/08/error.png)
 
 ```HTML
 <ul>
@@ -317,5 +317,3 @@ Finally, we lookat ways to enhance the native file input's drag and drop behavio
 [^2]: https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
 [^3]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
 [^4]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
-
-- https://govuk-design-system-prototypes.cloudapps.digital/design-patterns/patterns/components/file-upload/

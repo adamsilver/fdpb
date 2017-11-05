@@ -20,19 +20,17 @@ Most of us work in teams employing Agile methodologies. One of the main aspects 
 
 What's really happening is that tasks seem far easier to achieve when they're broken down. Crucially, if tasks are small enough, then we'll get that hit of dopamine frequently, which creates momentum. Momentum improves morale and morale improves quality.
 
-This is where the task list pattern comes in.
+The task list pattern, as coined by the Government Digital Service (GDS) shows a service that has several top level tasks. Each top level task is broken down into several sub tasks. Each one of those takes users through a flow. Whether it's one screen or several doesn't matter.  Once a task a sub task is completed, users come back to the view with that task marked as complete.
 
-![Task list Pattern](.)
+![Task list Pattern](./images/10/task-list-pattern-gds.png)
 
-This particular example involves three top level tasks, each containing sub tasks. Clicking the task link takes the user down a flow. Whether that's one screen or several doesn't matter. Once it's complete, users come back to this view with the task marked as complete.
-
-This is not a pattern reserved for Government services. As I mentioned earlier, Mailchimp users have a remarkably similar need. The only difference is the visual design and the flatter hierarchy of tasks.
-
-![Mailchimp](./images/mailchimp_task_list.png)
+This is not a pattern reserved for Government services. Mailchimp users have a similar need. The only difference is the visual design and the flatter hierarchy of tasks.
 
 Instead of text, Mailchimp uses iconography to mark tasks as complete. I've discussed the pros and cons of iconography in chapter 3, “Book A Flight”. Additionally, instead of standard looking links, they use call-to-action buttons with labelled as ‘resolve’ to prompt the user.
 
-The exact design details you choose to employ will come down to your product's design language and user research. As a starting point, you can read how GDS iterated their version in “We've Published The Task List Pattern”[^2]. 
+![Mailchimp](./images/10/task-list-pattern-mailchimp.png)
+
+The exact design details you choose to employ will come down to your product's design language and user research.
 
 Key points:
 
@@ -42,11 +40,9 @@ Key points:
 
 ## When All Tasks Are Complete
 
-When the last task in the list is completed, the user can still go back to the task list page with all the tasks marked as completed. This let's users bask in the glory of completing everything (which is another hit of dopamine). After all, the best part of completing a long to-do list is seeing all the ticks.
+When the last task in the list is completed, the user can still go back to the task list page with all the tasks marked as completed. This let's users bask in the glory of completing everything (which is another hit of dopamine). After all, the best part of completing a long to-do list is seeing all those ticks.
 
-It also gives users a chance to review all their answers and make any amends if necessary, which speaks to principle 4, *give control*. The only other thing to remember, is to give users an extra button or link in this state that lets users proceed.
-
-![Extra button](.)
+It also gives users a chance to review all their answers and make any amends if necessary, which speaks to principle 4, *give control*. The only other thing to remember, is to give users an obvious way to proceed.
 
 ## Additional Considerations
 
@@ -57,7 +53,7 @@ The points discussed above are probably applicable to any super long form you're
 - Using verbs for task names. For example, ‘Agree to the terms, ‘Create subject line’, ‘Choose template’.
 - Listing tasks in order. If so, use an ordered list, the advantages of which are discussed in chapter 5, “An Inbox”.
 - Marking who needs to complete the task. This is only useful if the tasks are performed by different people.
-- Sizing all the tasks the same. Don't take this too literally, but if one task is 20 questions and another is 2, then maybe it should be looked at again.
+- Sizing all the tasks the same. Don't take this too literally, but if one task is 20 questions and another is 2, then maybe you should take another look.
 
 ## Summary
 
@@ -71,6 +67,5 @@ In this chapter, we looked at how to break down really long forms into smaller f
 
 ## Footnotes
 
-[^]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/
-[^]: Mailchimp
-[^]:
+[^1]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/
+[^2]: Mailchimp

@@ -40,10 +40,6 @@ The first space-saving technique is to hide the label. You might consider using 
 
 You could argue that a visible label is unnecessary because the submit button's label is enough for sighted users. But, you should still include a label for screen reader users, because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
 
-```HTML
-Hidden label code
-```
-
 With that said, if your search mechanism doesn't return everything, then you might need a more descriptive label. For example, if the search only retrieves products, then the label should read “Search products” (or similar). Hiding the label in this case would exclude sighted users.
 
 In any case, removing the label doesn't save all that much space. And even without a label, it's still going to be hard to fit the search box and submit button without sacrificing the affordance and usability of it.
@@ -56,9 +52,9 @@ Some fancy sites use AJAX to search as the user types but this is unconventional
 
 Medium is an example of a site that omits the submit button. To give the form affordance, they use a magnifying glass icon before the search box. But they could just as easily place it after and combine it with a submit button. This way, the form would work conventionally.
 
-![Medium no button](.)
+![Medium no button](./images/06/medium-search-no-button.png)
 
-*(Note: Some sites omit the `<form>` element because they're rendering and routing with Javascript. But in doing so users aren't able to press <kbd>Enter</kbd> to submit the form. Even users who primarily use the mouse, may choose to submit by pressing <kbd>Enter</kbd> as it's easier.)*
+*(Note: Some sites omit the `<form>` element because they're rendering and routing on the client using Javascript. But in doing so users aren't able to press <kbd>Enter</kbd> to submit the form. Even users who primarily use the mouse, may choose to submit by pressing <kbd>Enter</kbd> as it's easier.)*
 
 #### Toggle The Form
 
@@ -75,7 +71,7 @@ The last approach is to toggle the form's visibility using a button. It's much e
 
 The search form is placed directly after the header. Clicking the button should show the form, and move focus to the search box, saving uses an unnecessary extra click. At the same time `aria-expanded` should be set to `true` so that its state is reflected to screen reader users. Clicking the button for a second time, will hide the form and set `aria-expanded` back to `false`.
 
-![Click button -> move focus](.)
+![Click button -> move focus](./images/06/collapsible-search-form.png)
 
 ```JS
 SearchForm.prototype.onButtonClick = function() {

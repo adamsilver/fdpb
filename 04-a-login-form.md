@@ -12,7 +12,7 @@ In this chapter, we'll dissect each issue and provide ways to remedy them. By pr
 
 The login form is almost identical to the registration form from chapter 1. It contains the same fields, in the same order with the same microcopy. In fact, the only difference is the button's label. Instead of “Register” it's “Sign in”.
 
-![Login](./images/login.png)
+![Login](./images/04/login.png)
 
 “Sign in” is arguably softer and more human than “Log in”. When you enter a spa, hotel or office building, you sign in which grants you entry. And you sign out as you leave. We should try and use the same and familiar language digitally that people are used to in the physical world.
 
@@ -26,7 +26,7 @@ Many users will tweak their password to match the rules of the site. For example
 
 That's fine for registration where users are often told what the rules are, but many sites don't provide a hint on the login form. In this case, users have to guess and hope for a useful error message (more in this later). Or worse, they have to reset their password.
 
-![What are the rules](.)
+![What are the rules](./images/04/login-hintless.png)
 
 With hint text, users have a better chance of success without waiting for a useful error message.
 
@@ -56,7 +56,7 @@ For example, in chapter 2, “A Checkout Flow”, we pared down the layout to on
 
 Conversely, when users try to add a product to their basket on the Tesco site, they are taken to a login page. However, the login form is housed in a completely different layout which is disorientating.
 
-![Contextless](.)
+![Contextless](./images/04/contextless.png)
 
 ## One Form Per Page
 
@@ -64,7 +64,7 @@ Some sites put the registration and login forms on the same page beside each oth
 
 Instead, put each form on a separate page and let users switch between them by giving them a link.
 
-![Link](.)
+![Link](./images/04/link.png)
 
 ## Social Login
 
@@ -74,7 +74,7 @@ Some sites will integrate with your social media account. For example, Medium.co
 
 But, social login is not without its problems. First their are issues of privacy. So telling users exactly what you will and won't do with their details is essential. Medium does a good job by stating that “They won't post without asking”.
 
-![Medium login](.)
+![Medium login](./images/04/medium-login-usage.png)
 
 ### Seamless Interchange
 
@@ -82,7 +82,7 @@ Some users may not remember how they created an account. At Kidly, we detected t
 
 Medium lets users log in interchangeably without users ever knowing what happened. For example, if I log in to Medium with my email but have already registered previously with Facebook, Medium logs me in automatically and merges my accounts without me knowing. As a user the only way I would know is if I bother to visit the settings page.
 
-![Medium settings](.)
+![Medium settings](./images/04/medium-settings.png)
 
 The ‘Connections’ section shows Facebook and Twitter options. Users can connect or disconnect their social media account easily, keeping users informed and in control.
 
@@ -98,7 +98,7 @@ This phenomenon is actually called Hick's Law (named after psychologist William 
 
 Giving users multiple ways to log in might seem useful but can cause friction for users. Make sure the extra choice is valuable to users. Once you're sure, layout the options clearly.
 
-![Medium login](.)
+![Medium login](./images/04/medium-login.png)
 
 ## Forgotten Password Link Placement
 
@@ -112,7 +112,7 @@ If the link is just above the password field, when users tab from the email fiel
 
 Worse is when the link is placed before the submit button. When keyboard users tab from the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. Instead they'll be taken to reset their password. If and when they realise what's happened, they'll need to go back, re-enter their credentials and be careful to either tab twice or switch to using the mouse.
 
-![Forgot password](.)
+![Forgot password](./images/04/forgot-password.png)
 
 While placing the link in close proximity to the password field makes some sense visually, the primary user need is to log in. The link shouldn't disturb the act of loggin in. You should place the link before the form or after the submit button.
 
@@ -120,7 +120,7 @@ While placing the link in close proximity to the password field makes some sense
 
 Some login forms, such as those found on bank sites, ask users for certain characters of their password. Or they may ask for certain digits of their security pin. In either case, they normally give users three text boxes, or worse, three select boxes.
 
-![Hargreaves](.)
+![Hargreaves](./images/04/hargeaves.png)
 
 The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next field automatically as the user enters a pre-determined number of characters. But as the BBC's UX guidance[^3] says:
 

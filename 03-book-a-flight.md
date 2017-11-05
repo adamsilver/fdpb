@@ -16,7 +16,7 @@ You'd be forgiven for thinking you were spoiled for choice when it comes to form
 
 Select boxes, also known as drop-down menus, hide options behind a menu. Clicking the select box reveals the options. Once one is selected, the menu collapses back to its original state. Select boxes are often used because of their space-saving qualities. What's particularly interesting though, is why we need to save space in the first place.
 
-![Select box](.)
+![Select box](./images/03/select-box.png)
 
 Often an interface is crammed with features, usually to please stakeholders, not users. It's understandable then that learning ways to hide discrete pieces of an interface has become part of a designer's skillset. But design is about so much more than saving space. After all, if an interface really is crammed, then our first job as designers is to declutter it.
 
@@ -28,7 +28,7 @@ Besides hiding options behind an unnecessary extra click, users generally don't 
 
 Radio buttons, unlike select boxes, are generally well-understood and easy to use, not least because they don't hide options. They are exposed making them easy to compare, scan and select. They're also malleable. That is, they let us use whatever content, in whatever format, we want, inside the related label (more on that shortly).
 
-![Radio buttons](.)
+![Radio buttons](./images/03/radio-buttons.png)
 
 The problem with radio buttons is that they're less suitable when there are many of them. As an airline could fly to hundreds of destinations, making the page long and unwieldy. This in turn, means users have to scroll (and keyboard users to tab) a lot more.
 
@@ -38,7 +38,7 @@ Don't get me wrong, users are more than happy to scroll[^], and we shouldn't use
 
 A search box (`input type="search"`) is a standard text box with some added extras. You can clear the contents of the field, by tapping *X* or pressing <kbd>Escape</kbd>. With a text box (`input type="text"`) you have to select the text and press <kbd>delete</kbd> which takes a little longer.
 
-![Search input](.)
+![Search input](./images/03/search-input.png)
 
 Using a search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a ‘no results’ page due to typos or a data mismatch.
 
@@ -50,7 +50,7 @@ Autocomplete works by suggesting options (destinations in this case) as the user
 
 HTML5's `datalist` element combines with a text box to create this exact behaviour. Unfortunately, it's particularly buggy[^3]. If your project is locked down to a browser that doesn't contain bugs, then you could use it. But we want to design an experience that works for as many people as possible, no matter their browser or device choices.
 
-![Date list](.)
+![Datalist](./images/03/datalist.png)
 
 Instead, we'll build a custom autocomplete component from scratch. A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is challenging work.
 
@@ -306,11 +306,11 @@ Dates are notoriously hard[^5]: different time zones, formats, delimiters, days 
 
 Often three select boxes are used: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said that one of their redeeming qualities is that they stop users entering wrong information. But in the case of dates, even *this* quality doesn't hold up. For example, you can select an invalid date such as *31 February 2017*.
 
-![Select box date](.)
+![Select box date](./images/03/dob-select.png)
 
 Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine the user's intention based on what they enter. It's just one of those things.
 
-![What date?](.)
+![What date?](./images/03/what-date.png)
 
 ### Types Of Date
 
@@ -332,7 +332,7 @@ A memorable date is one that you remember easily such as your date of birth. Typ
 
 In this case, you should use three text boxes: one for day, month and year. Why three? Because it solves the locale and formating issues mentioned earlier.
 
-![memorable date](.)
+![memorable date](./images/03/memorable-date.png)
 
 ```HTML
 <div class="field">
@@ -377,7 +377,7 @@ Instead, we'll let users focus on choosing a date unencumbered and later we'll g
 
 As usual, our first port of call is to look at what browsers give us for free: HTML5 introduced the date input (`input type="date"`) which offers a special interface for picking dates while enforcing a standard format value that's sent to the server. Mobile browser support is really good too.
 
-![Mobile Date Input](.)
+![Mobile Date Input](./images/03/date-input-mobile.png)
 
 Desktop browser support is patchy. Chrome and Edge have support but Firefox, for example, doesn't have any support (at time of writing).
 
@@ -421,7 +421,7 @@ if(!supportsDateInput()) {
 
 The enhanced interface takes the text box and injects a button beside it. Clicking the button reveals the calendar.
 
-![Date picker](.)
+![Date picker](./images/03/date-picker.png)
 
 Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't suffer from these issues.
 
@@ -559,7 +559,7 @@ We have catered for people who use a supporting browser and considered those usi
 
 In this case users will see a text box asking for a date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't just add a hint because browsers that support the date input will use a different format which would cause confusion.
 
-![Date picker no hint](.)
+![Date picker no hint](./images/03/date-picker-no-hint.png)
 
 The only thing we can do is be as forgiving as possible, by letting users type slashes, periods or spaces: whichever they prefer. But typing a two-digit year first, for example, will cause a validation error. In this case, a well-written error message will have to be enough.
 
@@ -571,7 +571,7 @@ In this edge case, users are still able to enter a date which makes this pattern
 
 Airlines typically ask how many people are travelling. They also want to know what age the travellers are because this affects the price of the ticket. Here's how it might look:
 
-![Passengers](.)
+![Passengers](./images/03/passengers.png)
 
 ```HTML
 <div class="field">
@@ -619,7 +619,7 @@ input::-webkit-inner-spin-button {
 
 #### The Enhanced Interface
 
-![Passengers enhanced](.)
+![Passengers enhanced](./images/03/passengers-enhanced.png)
 
 Each field is enhanced with this HTML:
 
@@ -658,7 +658,7 @@ Where possible, test your icons with a diverse set of users and if need be, swit
 
 Now all the relevant information has been collected, we can give users a list of flights from which the user can choose one.
 
-![Choose flight](./images/image.png)
+![Choose flight](./images/03/choose-flight.png)
 
 The system shows flights that match the date the user specified earlier. Additionally, the interface allows users to move back and forth between days. This follows principle 5, *Offer choice*.
 
@@ -683,11 +683,11 @@ Finally, users need to choose a seat. Whilst this step is not especially complic
 
 Up to now, radio buttons have been stacked beneath one an other, which is enough for most situations. For seat selection, this makes the page especially long, and more importantly, harder to scan as there is a lack of structure.
 
-![Stacked](.)
+![Stacked](./images/choose-seat-stacked.png)
 
 We can provide that structure by laying out seats in rows, just like they are on a plane. This will help users map their location. Users might be looking for isle or window seats, for example.
 
-![Nested](.)
+![Nested](./images/choose-seat-nested.png)
 
 To denote window seats and isle seats for screen reader users we can put hidden text inside the seat's label.
 
@@ -706,7 +706,7 @@ Where possible, you should avoid nested fieldsets, not only for screen reader us
 
 Instead, we could ask users to specify their preference beforehand. At the same time, we can mark *economy* as checked by default. Marking the most common choice expedites the process.
 
-![Class chooser](.)
+![Choose class](./images/03/choose-class)
 
 ### Checkboxes Are Never Round
 

@@ -8,7 +8,7 @@ In choosing such a simple form, we can zoom in on the foundational qualities fou
 
 ## How It Might Look
 
-![Registration Form](.)
+![Registration Form](./images/01/regform-four-fields.png)
 
 Here's the HTML:
 
@@ -39,7 +39,7 @@ In “Accessibility For Everyone”, Laura Kalbag sets out four broad parameters
 
 By looking at labels from each of these standpoints, we can see just how important labels are. Sighted users can read them, visually-impaired users can hear the instructions using a screen reader and motor-impaired users can more easily set focus to the field thanks to the larger hit area. This is because clicking a label sets focus to the field.
 
-![Hit area](.)
+![Hit area](./images/01/regform-label-hit-area.png)
 
 For these reasons, every control that accepts input should have an auxilary `<label>`. Submit buttons, for example, don't accept input so don't need a label - the `value` attribute which renders the text inside the button acts as the accessible label.
 
@@ -56,21 +56,21 @@ Failing to include a label means ignoring the needs of (motor and visually-impai
 
 The `placeholder` attribute is intended to store a hint. It gives users extra guidance when filling out a field - particularly useful for fields that have complex rules such as a password field. As placeholder text is not a real value, it's ‘grayed out’ so that it can be differentiated from user-entered values.
 
-![Placeholder example from above](.)
+![Placeholder example from above](./images/01/placeholder-example.png)
 
 Hints, unlike labels, are optional and shouldn't be used as a matter of course. Just because the placeholder attribute exists doesn't mean we have to use it. For example, you don't need a placeholder of ‘Enter your first name’ as a hint when the label is ‘First name’ - that's needless duplication.
 
-![Placeholder and label with same value](.)
+![Placeholder and label with same value](./images/01/placeholder-label-same-value.png)
 
 Placeholders are appealing because of their minimal, space-saving aesthetic. This is because placeholder text is placed *inside* the field. But, this is a problematic way to give users a hint.
 
 First, they disappear when the user types. Disappearing text is hard to remember which could cause errors if for example the user forgets to satisify one of the password rules. Users often mistake placeholder text for a value[^], causing them to skip the field, which again, would cause errors. Gray-on-white text lacks sufficient contrast making it generally hard-to-read[^]. And to top it off, some browsers don't support them, some screen readers don't announce them and long hint text may get cut off.
 
-![Long hint text cut off](.)
+![Long hint text cut off](./images/01/placeholder-cutoff.png)
 
 That's a lot of problems for what is essentially just text. All content, especially a form hint, shouldn't be considered a ‘nice to have’. So instead of using placeholders, it's better to position hint text above the control:
 
-![Hint pattern](.)
+![Hint pattern](./images/01/hint-pattern.png)
 
 ```HTML
 <div class="field">
@@ -102,7 +102,7 @@ The `aria-describedby` attribute is used to connect the hint by its `id`. While 
 
 The float label[^] pattern by Matt Smith is a technique that uses the label as a placeholder. The label starts *inside* the control, but floats above the control as the user types, hence the name. This technique is often lauded for it's quirky, minimalist and space saving qualities.
 
-![Float label](.)
+![Float label](./images/01/float-label.png)
 
 Unfortunately, there are several problems with this approach. First, there is no space for a hint because the label and hint are one and the same. Second, they're hard-to-read due to their (affordance giving) poor contrast and small text as they're typically designed. Like placeholders, they may be mistaken for a value and could get cropped.  
 
@@ -126,7 +126,7 @@ In all likeliness you don't need to ask for the user's first and last name just 
 
 One way to avoid asking users for a password is to use the No Password Sign In pattern. It works by leveraging the security of email (which already has a password). Users only have to enter their email address and the service sends a special link to their inbox. Clicking it, logs the user into the service immediately.
 
-![Medium No Password Sign In](.)
+![Medium No Password Sign In](./images/01/no-password.png)
 
 Not only does this reduce the size of the form to just one field, but it also saves users having to remember another password. Whilst this reduces friction on the form in isolation, in other ways it adds some too.
 
@@ -156,7 +156,7 @@ Focus styles are a simpler prospect. Browsers put an outline around the in-focus
 
 ## The Email Field
 
-![The email field](.)
+![The email field](./image/01/email.png)
 
 ```HTML
 <div class="field">
@@ -173,7 +173,7 @@ The label itself is “Email address” and uses sentence case. In “Making a C
 
 The input's `type` attribute is set to `email` which triggers an email-specific on-screen keyboard on mobile devices. Specifically, it gives users easy access to the ‘@’ and ‘.’ symbols which every email address contains.
 
-![Email keyboard](.)
+![Email keyboard](./images/01/email-keyboard.png)
 
 People using a non-supporting browser will see a standard text input (`input type="text"`). This is a form of progressive enhancement which is a cornerstone of designing inclusive experiences.
 
@@ -201,7 +201,7 @@ Progressive enhancement makes us think about what happens when things fail. This
 
 ## The Password Field
 
-![The password field](.)
+![The password field](./images/01/password.png)
 
 ```HTML
 <div class="field">
@@ -227,7 +227,7 @@ Due to the increased risk of typos, some registration forms include an additiona
 
 Instead, it's better to let users reveal their password which speaks to principles 4 and 5, *Give control* and *Offer choice*. This way users get the security of the mask without increasing the risk of typos.
 
-![Password reveal](.)
+![Password reveal](./images/01/password-reveal.png)
 
 To do this, we need to inject a `<button>` next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked it toggles both the `type` attribute between `password` and `text` and the label between “Show password” to “Hide password”.
 
@@ -344,7 +344,7 @@ document.title = "(" + this.errors.length + ")" + original;
 
 As noted above this is primarly for screen reader users, but as is often the case with inclusive design, what helps one set of users helps everyone else too. In this case, the updated title acts as a notification in the tab.
 
-![Whatsapp and this side by side](.)
+![Whatsapp and this side by side](./images/01/title-notification.png)
 
 #### Error Summary
 
@@ -352,7 +352,7 @@ The error summary is visually more dominant and is essential for telling sighted
 
 Conventionally speaking, errors should be in a red colouration, but we shouldn't rely on colour to demarcate it within the interface as this excludes colour-blind users. You might use position, size, text and iconography in addition to colour.
 
-![Error summary](.)
+![Error summary](./images/01/error-summary.png)
 
 The panel consists of a heading to indicate the problem. Beneath that, there is a list of errors, which are links. Clicking a link, will set focus to the erroneous field thanks to the `href` value matching the form control's `id` value. This let's users jump into the form quickly.
 
@@ -390,7 +390,7 @@ When there aren't any errors, the summary panel should be hidden. This ensures t
 
 We need to place the relevant error message next to the field. This saves users scrolling up and down the page in order to check the error message, which keeps them moving down the form.
 
-![In-context Errors](.)
+![In-context Errors](./images/01/inline-error.png)
 
 The message is placed above the field and inside the label. Placing it above the field reduces the chance of the message being obscured by the browser autocomplete panel or by the on-screen keyboard.
 
@@ -457,8 +457,6 @@ Live inline validation gives users feedback as they type or when they leave the 
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted early and often causing them to switch mental contexts. That is, between entering information and fixing it.
 
-![Instant error](.)
-
 Alternatively, we could wait until the user enters enough characters before showing an error. But this means users only get feedback after they have entered a correct value which is somewhat pointless.
 
 We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Moreover, some users switch windows or use a password manager when using a form. Doing so will trigger the blur event, causing an error to show before the user is finished. All very frustrating.
@@ -471,7 +469,7 @@ If users are seeing errors, there's probably something wrong elsewhere. Focus on
 
 A variation of live validation involves ticking off rules (marking them as complete) as the user types. This is less invasive than live validation but isn't suited to every type of field. Here's an example of Mailchimp's sign up form which employs this technique for the password field.
 
-![Mailchimp example](.)
+![Mailchimp example](./images/01/mailchimp-affirmation.png)
 
 You should put the rules above the field otherwise the on-screen keyboard could obscure the feedback and cause the user to stop typing, to then hide the keyboard to check the feedback.
 
@@ -497,7 +495,7 @@ Consider frequency of use. People who use the system daily, it's probably a good
 
 Whatever approach you take, there's going to be some repetition due to the nature of the content. And when we test form validation we often submit the form without entering any information at all.
 
-![Wall of errors on a larger form](.)
+![Wall of errors on a larger form](./images/01/wall-of-errors.png)
 
 This scenario makes the repetition glaringly obvious and as content designers this may cause us to flip out. But consider how often a user submits a long form without entering a single field. Most users aren't trying to break the interface.
 

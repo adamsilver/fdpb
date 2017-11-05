@@ -2,13 +2,15 @@
 
 In 2008 I worked on Boots.com where we designed a single-page checkout flow. This involved the trendiest of techniques from that era including accordions, AJAX and client-side validation. Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened.
 
+![Boots accordion](./images/02/boots-accordion.png)
+
 Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the accordion was a distraction. Inevitably, Boots asked us to make changes. We redesigned it so that each panel became a page removing the need for an accordion and AJAX. (We kept the client-side validation to avoid an unnecessary trip to the server.)
 
-![Multiple pages, no accordion](./images/boots2.png)
+![Boots One Thing Per Page](./images/02/boots-one-thing-per-page.png)
 
 This converted a lot better. Although I can't remember the exact numbers, the client was happy with the results. Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became a page. This time I noted the numbers. The result was a whopping 5% increase in conversion. This equated to 2 million orders a year. That’s *orders*, not revenue.
 
-![Just Eat checkout](./images/justeat.png)
+![Just Eat checkout](./images/02/justeat.png)
 
 Two years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Apart from the numbers, there are many reasons why it drastically improves the user experience.
 
@@ -34,6 +36,7 @@ While this pattern often bares wonderful and delicious fruit (or orders and conv
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
 - Conversely, a long form takes a long time to complete. It it takes too long there's a risk that the page times out or the computer freezes causing data loss. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
+- It allows you to innovate as the entire screen is dedicated to one thing.
 
 ## Flow And Order
 
@@ -74,7 +77,7 @@ There is, however, an opportunity to adapt the content to fit this context bette
 
 Here, it's because we can send users a receipt of purchase, which is essential when checking out anonymously. Additionally that email might also provide details about how to return it. We can tell users this transparently via the hint text.
 
-![We need this to send you a receipt](.)
+![We need this to send you a receipt](./images/02/email-field.png)
 
 *(Note: the button's positioning and styling is the same as what was set out in “A Registration Form”. But the label is set to “Continue” which implies progress and is perfectly suited to the linear checkout flow)*.
 
@@ -82,7 +85,7 @@ Here, it's because we can send users a receipt of purchase, which is essential w
 
 Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint - this pattern doesn't just pertain to formatting rules. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
 
-![Mobile screen](.)
+![Mobile screen](./images/02/mobile-field.png)
 
 ```html
 <div class="field">
@@ -96,9 +99,9 @@ Like the email field, we should be asking ourselves why we're asking for their p
 
 The input's `type` attribute is set to `tel` which on mobile will spawn a telephone-specific keyboard. This makes it easier to enter a phone number thanks to the larger keypad.
 
-![Tel keyboard](.)
+![Tel keyboard](./images/02/tel-keyboard.png)
 
-### Marking Optional/Required Fields
+### Marking Optional Or Required Fields
 
 While real-time notifications *add value*, we shouldn't assume everyone wants to receive them, nor that everyone has a mobile phone. So we follow principle 5, *Offer choice*, by marking the field as optional. This way, users can opt-in if they like.
 
@@ -108,7 +111,7 @@ You might also be wondering why we're marking optional fields, instead of requir
 
 ## 3. Delivery Address
 
-![Delivery form](.)
+![Delivery form](./images/02/delivery-form.png)
 
 ```HTML
 <div class="field">
@@ -153,7 +156,7 @@ As we know that postcodes consist of 6-8 characters, the field's width should be
 
 Capture Plus[^6] is a third party plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, users type into just one. As the user types the first line of their address, suggestions will appear from which they can select. This reduces the number of keystrokes and therefore the chance of typos. 
 
-![Capture+ Enhancement](.)
+![Capture+ Enhancement](./images/02/capture-plus.png)
 
 If no address is found, users can change the interface back to the original address form. In doing so, we conform to principle 5, *offer choice*.
 
@@ -161,7 +164,7 @@ Capture+ has a third-party script which you can include on your page. But most t
 
 ## 4. Delivery Options
 
-![Delivery options](./images/?.png)
+![Delivery options](./images/02/deliver-options.png)
 
 ```html
 <div class="field">
@@ -203,7 +206,7 @@ Imagine you're at work. You get a notification to say your item is being deliver
 
 A delivery note, which you can provide at your discretion, stops this from happening. The delivery note tells the delivery person what to do if you're not home. Perhaps you'd prefer it to be left with a neighbour, or inside your recycle bin which Amazon[^] refers to as a “safe place.” This, by the way, works surprisingly well.
 
-![Delivery notes](.)
+![Delivery notes](./images/02/delivery-notes.png)
 
 ```HTML
 <div class="field">
@@ -231,7 +234,7 @@ But, even if it was well supported, I don't recommend using it because some user
 
 Instead, we should let users type freely and tell users how many characters they have left. This way, users can see the feedback when they finally look up at the screen and can edit their entry accordingly. If they don't notice the feedback, an error will show when they submit the form, thanks to our validation routine.
 
-![Character count](.)
+![Character count](./images/02/character-countdown.png)
 
 To create this component, we need to use Javascript to inject a status box below the field. Then we need to listen to the textarea's `keydown` event.
 
@@ -278,7 +281,7 @@ There are a number of details on a credit or debit card: name on card, card numb
 
 When I worked on Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe as the payment provider. This way, we didn't have to worry about PCI compliance and the cost of developing a solution from scratch. Here's the payment form we ended up with:
 
-![Payment](.)
+![Payment](./images/02/payment.png)
 
 You'll notice *valid from* date is missing so I spoke with Øyvind to find out why that was:
 
@@ -350,7 +353,7 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
 
 The number input (`input type="number"`) lets mobile users more quickly type a number via a numeric keypad. On desktop, the input will contain increment and decrement buttons called spinners which makes it easy to make small adjustments without having to select and type.
 
-![Numeric keyboard](./images/numeric-keyboard.png)
+![Spinners](./images/02/spinners.png)
 
 You might then be thinking that the number input is appropriate for the card number, expiry date, and CVC number—after all, they are all made up of numbers. But it's far more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate.
 
@@ -473,11 +476,11 @@ This shows that solely relying on completion time as a metric for success is dan
 
 Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information — that would defeat the purpose of the page. Users should only need to go back if they spot a mistake.
 
-![](.)
+![](./images/02/review.png)
 
 Users can click *edit* to make amendments which is another advantage of using One Thing Per Page. As pages are small they will load fast; as each page has just one thing, making a change is simple.
 
-![Flow diagram: Click edit, make a change, go back to summary](.)
+![Flow diagram: Click edit, make a change, go back to summary](./image/02/review-edit-flow.png)
 
 When the user makes a change, they are taken back to this page again for a final review which puts users firmly in control and is something that should reduce stress and anxiety.
 
@@ -497,7 +500,7 @@ And by giving users value, they will probably want to sign up. By value, I mean 
 
 Up to now, we've also been sure to use plain and simple language for labels, hints, and errors. On the confirmation page, there is a natural opportunity to let your brand's personality shine through. Mailchimp's confirmation page show's their Chimp mascot high-fiving you which is a nice touch.
 
-![Mailchimp high five](.)
+![Mailchimp high five](./images/02/mailchimp.png)
 
 Here's a checklist of things to consider including on the confirmation page:
 
@@ -532,8 +535,6 @@ By omitting navigation and search, users can focus on checking out which speaks 
 
 Progress bars are often used within checkout because they give users an idea of where they are in the process and how long's left. While this makes sense, there's very little data to show including one *adds value*.
 
-![Progress indicator](./images/Progress_indicators_2.png)
-
 There are practical reasons for avoiding progress bars too. First, they take up a lot of space at the top of the page which is of particular importance on mobile as the main content is pushed down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. And to top it off, handling conditional sections is hard because you either always show the step which is misleading, or you show it when it's relevant which is dishonest.
 
 Instead, it's better to start without a progress bar. Then you can test to see if your users struggle without one by conducting research. Remember, it's far easier (and cheaper) to add features than it is to remove them after the fact.
@@ -550,7 +551,7 @@ When you're shopping in a physical shop, you pick up your items and place them i
 
 Giving users this ability through a digital interface is also important. An order summary placed on every page keeps users informed without having to rely on memory to know what they're buying.
 
-![Order Summary](.)
+![Order Summary](./images/02/order-summary.png)
 
 As the user completes each step, the order summary will contain more and more information. For example, on the first screen (email address), it will contain what they're buying. On the next screen it will also contain their email address, and so forth. If the user spots a mistake, they can jump back to any previous step by clicking the edit link — just like the review page.
 

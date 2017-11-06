@@ -34,7 +34,7 @@ If you're not sure which filters to show, carry out user research and check your
 
 Remember, that a broad and shallow taxonomy creates a better experience without sending users too far down a funnel.
 
-## Material Honesty (again)
+## Material Honesty (Again)
 
 We've talked about material honesty several times in the book. That's because it's both important and prevelant in the world of interface design. In short, one material shouldn't be used as a substitute for another because in this case the end result is deceptive.
 

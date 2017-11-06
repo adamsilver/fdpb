@@ -20,7 +20,7 @@ Also, there are multiple buttons: one to submit and one to proceed which could b
 
 Also, each submission is a server request. While not a huge deal, it could get frustrating if used frequently.
 
-## One Thing Per Page Again
+## One Thing Per Page (Again)
 
 Imagine you need to add a bunch of expenses, but the type of expense determines the information you need to enter. For example, if you're expensing a car, then you have to enter mileage, but if you're expensing a train ticket then you have to enter the ticket price.
 

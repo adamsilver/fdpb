@@ -67,15 +67,15 @@ To satisfy the first rule we need to choose a native form control to fall back t
 
 ```HTML
 <div class="field">
-    <label for="destination">
-        <span class="field-label">Destination</span>
-    </label>
-    <select name="destination" id="destination">
-        <option value="">Select</option>
-        <option value="france">France</option>
-        <option value="germany">Germany</option>
-        <option value="spain">Spain</option>
-    </select>
+  <label for="destination">
+    <span class="field-label">Destination</span>
+  </label>
+  <select name="destination" id="destination">
+    <option value="">Select</option>
+    <option value="france">France</option>
+    <option value="germany">Germany</option>
+    <option value="spain">Spain</option>
+  </select>
 </div>
 ```
 
@@ -108,13 +108,13 @@ Then we need to inject the text box that users will interact with. To make sure 
 
 ```HTML
 <input
-    type="text"
-    id="destination"
-    autocomplete="off"
-    role="combobox"
-    aria-autocomplete="list"
-    aria-expanded="true"
-    class="autocomplete-textBox"
+  type="text"
+  id="destination"
+  autocomplete="off"
+  role="combobox"
+  aria-autocomplete="list"
+  aria-expanded="true"
+  class="autocomplete-textBox"
 >
 ```
 
@@ -130,15 +130,15 @@ Next, we inject a `<ul>` after the text box which will store the suggestions.
 
 ```HTML
 <ul
-    role="listbox"
-    class="autocomplete-options autocomplete-options-isHidden"
-    >
-    <li role="option" tabindex="-1" aria-selected="false" data-option-value="1" id="autocomplete_1">
-        France
-    </li>
-    <li role="option" tabindex="-1" aria-selected="true" data-option-value="2" id="autocomplete_2">
-        Germany
-    </li>
+  role="listbox"
+  class="autocomplete-options autocomplete-options-isHidden"
+  >
+  <li role="option" tabindex="-1" aria-selected="false" data-option-value="1" id="autocomplete_1">
+    France
+  </li>
+  <li role="option" tabindex="-1" aria-selected="true" data-option-value="2" id="autocomplete_2">
+    Germany
+  </li>
 </ul>
 ```
 
@@ -161,39 +161,39 @@ Next we need to enrich the text box with some Javascript events. Let's run throu
 
 ```JS
 AutoComplete.prototype.addTextBoxEvents = function() {
-    this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'));
+  this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'));
 };
 
 Autocomplete.prototype.onTextBoxKeyUp = function(e) {
-    switch (e.keyCode) {
-        case this.keys.esc:
-            // ignore when users presses escape
-            break;
-        case this.keys.up:
-            // ignore when the user presses up
-            break;
-        case this.keys.left:
-            // ignore when the user presses left
-            break;
-        case this.keys.right:
-            // ignore when the user presses right
-            break;
-        case this.keys.down:
-            // move onto first suggestion
-            this.onTextBoxDownPressed(e);
-            break;
-        case this.keys.space:
-            // ignore this, otherwise the
-            // the menu will show again.
-            break;
-        case this.keys.enter:
-            // ignore this, otherwise the menu 
-            // shows briefly before submission
-            break;
-        default:
-            // show suggestions
-            this.onTextBoxType(e);
-    }
+  switch (e.keyCode) {
+    case this.keys.esc:
+      // ignore when users presses escape
+      break;
+    case this.keys.up:
+      // ignore when the user presses up
+      break;
+    case this.keys.left:
+      // ignore when the user presses left
+      break;
+    case this.keys.right:
+      // ignore when the user presses right
+      break;
+    case this.keys.down:
+      // move onto first suggestion
+      this.onTextBoxDownPressed(e);
+      break;
+    case this.keys.space:
+      // ignore this, otherwise the
+      // the menu will show again.
+      break;
+    case this.keys.enter:
+      // ignore this, otherwise the menu 
+      // shows briefly before submission
+      break;
+    default:
+      // show suggestions
+      this.onTextBoxType(e);
+  }
 };
 ```
 
@@ -201,13 +201,13 @@ We're only really interested when the user presses <kbd>down</kbd> or a characte
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
-    if(this.textBox.val().trim().length > 0) {
-        var options = this.getOptions(this.textBox.val().trim().toLowerCase());
-        this.buildMenu(options);
-        this.showMenu();
-        this.updateStatus(options.length);
-    }
-    this.updateSelectBox();
+  if(this.textBox.val().trim().length > 0) {
+    var options = this.getOptions(this.textBox.val().trim().toLowerCase());
+    this.buildMenu(options);
+    this.showMenu();
+    this.updateStatus(options.length);
+  }
+  this.updateSelectBox();
 };
 ```
 
@@ -217,26 +217,26 @@ Pressing <kbd>down</kbd> should move focus and highlight the first suggestion. I
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
-    var option;
-    var options;
-    var value = this.textBox.val().trim();
-    // Empty value or exactly matches an option 
-    // then show all the options
-    if(value.length === 0 || this.isExactMatch(value)) {
-        options = this.getAllOptions();
-        this.buildOptions(options);
-        this.showOptionsPanel();
-        option = this.getFirstOption();
-        this.highlightOption(option);
-    } else {
-        options = this.getOptions(this.textBox.val().trim());
-        if(options.length > 0) {
-            this.buildOptions(options);
-            this.showOptionsPanel();
-            option = this.getFirstOption();
-            this.highlightOption(option);
-        }
+  var option;
+  var options;
+  var value = this.textBox.val().trim();
+  // Empty value or exactly matches an option 
+  // then show all the options
+  if(value.length === 0 || this.isExactMatch(value)) {
+    options = this.getAllOptions();
+    this.buildOptions(options);
+    this.showOptionsPanel();
+    option = this.getFirstOption();
+    this.highlightOption(option);
+  } else {
+    options = this.getOptions(this.textBox.val().trim());
+    if(options.length > 0) {
+      this.buildOptions(options);
+      this.showOptionsPanel();
+      option = this.getFirstOption();
+      this.highlightOption(option);
     }
+  }
 };
 ```
 
@@ -244,21 +244,21 @@ This function is quite similar to the one just described. The difference is that
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
-    if(this.activeOptionId) {
-        var activeOption = this.getOptionById(this.activeOptionId);
-        activeOption.removeClass('autocomplete-option-isActive');
-        activeOption.attr('aria-selected', 'false');
-    }
+  if(this.activeOptionId) {
+    var activeOption = this.getOptionById(this.activeOptionId);
+    activeOption.removeClass('autocomplete-option-isActive');
+    activeOption.attr('aria-selected', 'false');
+  }
 
-    option.addClass('autocomplete-option-isActive');
-    option.attr('aria-selected', 'true');
+  option.addClass('autocomplete-option-isActive');
+  option.attr('aria-selected', 'true');
 
-    if(!this.isElementVisible(option.parent(), option)) {
-        option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
-    }
+  if(!this.isElementVisible(option.parent(), option)) {
+    option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
+  }
 
-    this.activeOptionId = option[0].id;
-    option.focus();
+  this.activeOptionId = option[0].id;
+  option.focus();
 };
 
 ```
@@ -269,12 +269,12 @@ Now we need to talk about how users interact with the menu. Mouse (or touch) use
 
 ```JS
 Autocomplete.prototype.addSuggestionEvents = function() {
-    this.optionsUl.on('click', '.autocomplete-option', $.proxy(this, 'onSuggestionClick'));
+  this.optionsUl.on('click', '.autocomplete-option', $.proxy(this, 'onSuggestionClick'));
 };
 
 Autocomplete.prototype.onSuggestionClick = function(e) {
-    var suggestion = $(e.currentTarget);
-    this.selectSuggestion(suggestion);
+  var suggestion = $(e.currentTarget);
+  this.selectSuggestion(suggestion);
 };
 ```
 
@@ -282,11 +282,11 @@ The `selectionSuggestion` method grabs the corresponding value out of the `data-
 
 ```JS
 Autocomplete.prototype.selectSuggestion = function(suggestion) {
-    var value = suggestion.attr('data-option-value');
-    this.textBox.val(value);
-    this.setValue(value);
-    this.hideOptions();
-    this.focusTextBox();
+  var value = suggestion.attr('data-option-value');
+  this.textBox.val(value);
+  this.setValue(value);
+  this.hideOptions();
+  this.focusTextBox();
 };
 ```
 
@@ -336,24 +336,24 @@ In this case, you should use three text boxes: one for day, month and year. Why 
 
 ```HTML
 <div class="field">
-    <fieldset>
-        <legend>
-            <span class="field-legend">Date of birth</span>
-            <span class="field-hint">DD MM YYYY</span>
-        </legend>
-        <div class="field-dayWrapper">
-            <label for="day">Day</label>
-            <input class="field-dayBox" type="text" pattern="[0-9]*" name="day" id="day">
-        </div>
-        <div class="field-monthWrapper">
-            <label for="month">Month</label>
-            <input class="field-monthBox" type="text" pattern="[0-9]*" name="month" id="month">
-        </div>
-        <div class="field-yearWrapper">
-            <label for="year">Year</label>
-            <input class="field-yearBox" type="text" pattern="[0-9]*" name="year" id="year">
-        </div>
-    </fieldset>
+  <fieldset>
+    <legend>
+      <span class="field-legend">Date of birth</span>
+      <span class="field-hint">DD MM YYYY</span>
+    </legend>
+    <div class="field-dayWrapper">
+      <label for="day">Day</label>
+      <input class="field-dayBox" type="text" pattern="[0-9]*" name="day" id="day">
+    </div>
+    <div class="field-monthWrapper">
+      <label for="month">Month</label>
+      <input class="field-monthBox" type="text" pattern="[0-9]*" name="month" id="month">
+    </div>
+    <div class="field-yearWrapper">
+      <label for="year">Year</label>
+      <input class="field-yearBox" type="text" pattern="[0-9]*" name="year" id="year">
+    </div>
+  </fieldset>
 </div>
 ```
 
@@ -440,7 +440,7 @@ As noted earlier, clicking the toggle button, reveals the calendar.
     <input type="text" id="when" name="when">
     <button type="button" aria-expanded="true" aria-haspopup="true">Choose</button>
     <div class="datepicker-wrapper" hidden>
-        Calendar widget here
+      Calendar widget here
     </div>
   </div>
 ```
@@ -457,8 +457,7 @@ Notes:
 When the button is clicked, focus is set to the calendar widget programmatically by giving the element `tabindex="-1"`. Using `tabindex="0"` means the the calendar will be permanently focusable by way of the tab key which is a 2.4.3 Focus Order WCAG fail. That's because if users can tab to something, they expect that it will actually do something.
 
 ```HTML
-<div class="datepicker-calendar" tabindex="-1">
-</div>
+<div class="datepicker-calendar" tabindex="-1"></div>
 ```
 
 When focus is set to the calendar, the user can then <kbd>tab</kbd> between: the previous month button, the next month button and the currently selected date, which defaults to today.
@@ -575,22 +574,22 @@ Airlines typically ask how many people are travelling. They also want to know wh
 
 ```HTML
 <div class="field">
-    <label for="adults">
-        <span class="field-label">How many adults, 16 years and over, are flying?</span>
-    </label>
-    <input type="number" id="adults" name="adults" min="0" max="9">
+  <label for="adults">
+    <span class="field-label">How many adults, 16 years and over, are flying?</span>
+  </label>
+  <input type="number" id="adults" name="adults" min="0" max="9">
 </div>
 <div class="field">
-    <label for="children">
-        <span class="field-label">How many children, aged between 2 and 15 years old, are flying?</span>
-    </label>
-    <input type="number" id="children" name="children" min="0" max="9">
+  <label for="children">
+    <span class="field-label">How many children, aged between 2 and 15 years old, are flying?</span>
+  </label>
+  <input type="number" id="children" name="children" min="0" max="9">
 </div>
 <div class="field">
-    <label for="infants">
-        <span class="field-label">How many infants, under 2 years old, are flying?</span>
-    </label>
-    <input type="number" id="infants" name="infants" min="0" max="9">
+  <label for="infants">
+    <span class="field-label">How many infants, under 2 years old, are flying?</span>
+  </label>
+  <input type="number" id="infants" name="infants" min="0" max="9">
 </div>
 ```
 
@@ -611,9 +610,9 @@ The first thing we need to do is turn off the ones provided by the browser. In w
 ```CSS
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
 }
 ```
 

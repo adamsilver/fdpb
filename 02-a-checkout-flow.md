@@ -26,7 +26,7 @@ However, she also explains that “questions that naturally ‘go together’ fr
 
 Like most designers, Caroline thought that putting them on separate pages would be overkill. In reality, users weren’t bothered. So start with one thing (field or question) per page, then, through research, find out if grouping fields improves the experience.
 
-That is not to say you’ll always end up combining screens—in my experience the best results come from splitting things apart, period.
+That is not to say you’ll always end up combining screens — in my experience the best results come from splitting things apart, period.
 
 While this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies), it’s useful to understand why it works so well.
 
@@ -48,7 +48,7 @@ In “Forms That Work”[^], Caroline Jarett and Gerry Gaffney explain the impor
 
 > Now think about the point where you’ve told the salesperson which car you want to buy. Now it’s appropriate to start negotiating about payment. It would be quite odd if the salesperson did not do so.
 
-Just like the car salesperson, we'll ask for the right information at the right time. For example, payment happens toward the end. And users will be given a chance to check their order before finally submitting it. Finally, the confirmation page acts a sales receipt for administrative purposes. Here's the complete flow:
+Just like the car salesperson, we'll ask for the right information at the right time. For example, payment happens toward the end. And users will be given a chance to check their order before submitting it. Finally, the confirmation page acts a sales receipt for administrative purposes. Here's the complete flow:
 
 1. Email address
 2. Mobile phone (optional)
@@ -61,11 +61,11 @@ Just like the car salesperson, we'll ask for the right information at the right 
 
 ## A Note On Guest Checkout
 
-This flow is designed primarily for anonymous users. Not letting users check out as a guest user is one of the worst things we can do as Jared spool attests to beautifully in “The 300 Million Dollar Button”[^]. 
+This flow is designed primarily for anonymous users. Not letting users check out as a guest is one of the worst things we can do as Jared spool attests to beautifully in “The 300 Million Dollar Button”[^]. 
 
-The article tells a story of one company losing 300 million dollars because they thought forcing users to register first would help speed up subsequent purchases. While this is true, it also assumes users want to sign up at all.
+The article tells a story of one company losing 300 million dollars because they thought forcing users to register first would help speed up subsequent purchases. While this is true, it also assumes users want to sign up in the first place.
 
-Considering what we learned with regards to flow and order and applying the question protocol, the story is hardly surprising. What value does a first-time user get in return for the added effort of signing up? Nothing. And that's mostly all you need to know.
+Considering what we learned with regards to flow and order and applying the question protocol, the story is hardly surprising. What value does a first-time user get in return for the added effort of signing up? Nothing. And that's all you really need to know.
 
 There are more appropriate times to ask users to sign up as we'll see later on in the chapter.
 
@@ -73,17 +73,17 @@ There are more appropriate times to ask users to sign up as we'll see later on i
 
 In chapter one, “A Registration Form,” we had to ask users for an email address. We can reuse that pattern here saving us the effort of solving the same problem again from scratch.
 
-There is, however, an opportunity to adapt the content to fit this context better. By that I mean, users may wonder why their being asked for an email address just to purchase something. One of the main takeaways from chapter one, was the need to justify the existence of each and every form field.
+There is, however, an opportunity to adapt the content to fit this context better. By that I mean, users may wonder why their being asked for an email address just to purchase something. One of the main takeaways from chapter one was the need to justify the existence of each and every form field.
 
-Here, it's because we can send users a receipt of purchase, which is essential when checking out anonymously. Additionally that email might also provide details about how to return it. We can tell users this transparently via the hint text.
+Here, it's because we can send users a receipt of purchase, which is particularly important if checking out anonymously. Additionally the email may provide details about how to return it. We can tell users this transparently via the hint text.
 
 ![We need this to send you a receipt](./images/02/email-field.png)
 
-*(Note: the button's positioning and styling is the same as what was set out in “A Registration Form”. But the label is set to “Continue” which implies progress and is perfectly suited to the linear checkout flow)*.
+*(Note: the button's positioning and styling is the same as set out in “A Registration Form”. But the label is set to “Continue” which implies progress and is better suited to the linear checkout flow)*.
 
 ## 2. Mobile Phone
 
-Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint - this pattern doesn't just pertain to formatting rules. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
+Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint. Remember, the hint is not just for formatting rules - it's for anything that will help users fill out the field. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
 
 ![Mobile screen](./images/02/mobile-field.png)
 
@@ -105,9 +105,15 @@ The input's `type` attribute is set to `tel` which on mobile will spawn a teleph
 
 While real-time notifications *add value*, we shouldn't assume everyone wants to receive them, nor that everyone has a mobile phone. So we follow principle 5, *Offer choice*, by marking the field as optional. This way, users can opt-in if they like.
 
-Traditionally, required fields are marked with an asterisk. A legend is usually placed above the form to denote its meaning but as Luke Wroblewski says “including the phrase ‘optional’ after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder ‘what does this asterisk mean?’ and have to go hunting for a legend that explains it.”
+Traditionally, required fields are marked with an asterisk. A legend is usually placed above the form to denote its meaning but as Luke Wroblewski says:
 
-You might also be wondering why we're marking optional fields, instead of required ones. In “Required Versus Optional Fields”[^], Jessica Enders says “think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.” Thanks to the Question Protocol, most fields should be required, so we mark optional fields instead.
+> “including the phrase ‘optional’ after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder ‘what does this asterisk mean?’ and have to go hunting for a legend that explains it.”
+
+You might also be wondering why we're marking optional fields, instead of required ones. In “Required Versus Optional Fields”[^], Jessica Enders says:
+
+> “think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.” 
+
+Thanks to the Question Protocol, most fields should be required, so we mark optional fields instead.
 
 ## 3. Delivery Address
 
@@ -144,23 +150,27 @@ The delivery address contains five fields that together make up an address. Visu
 
 ### Field Width
 
-In “Write Less Damn Code”[^4], Heydon Pickering jokingly points out, that the reason some people added XHTML 1.1 Complaint banners to their website was to ensure the height of the menu matches the height of the content. Similarly, you might be tempted to give every address field the same width.
+In “Write Less Damn Code”[^4], Heydon Pickering jokingly points out, that the reason some people used to add XHTML 1.1 Complaint banners to their website was to ensure the height of the menu matches the height of the content. Similarly, you might be tempted to give every address field the same width.
 
 But giving the postcode field the same width as every other field increases the cognitive effort needed to fill it out. This is because the width gives users a clue as to the length of the content it requires.
 
-Baymard Institute's study[^5] found that “if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.”
+Baymard Institute's study[^5] found that:
 
-As we know that postcodes consist of 6-8 characters, the field's width should be smaller than the other fields. You should apply this rule to every field where the length of the content is known.
+> “if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.”
+
+As postcodes consist of 6-8 characters, the field's width should be smaller than the other fields. You should apply this rule to every field where the length of the content is known.
 
 ### Capture+ Enhancement
 
-Capture Plus[^6] is a third party plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, users type into just one. As the user types the first line of their address, suggestions will appear from which they can select. This reduces the number of keystrokes and therefore the chance of typos. 
+Capture Plus[^6] is a third party plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, users type into just one. 
+
+As the user types the first line of their address, suggestions will appear from which they can select. This reduces the number of keystrokes and therefore the chance of typos.
 
 ![Capture+ Enhancement](./images/02/capture-plus.png)
 
 If no address is found, users can change the interface back to the original address form. In doing so, we conform to principle 5, *offer choice*.
 
-Capture+ has a third-party script which you can include on your page. But most third-party scripts don't consider the broad range of interaction preferences, usability and accessibility considerations that need to be taken into account. But, we'll look at all of this and more in the next chapter, when we build our own accessible autocomplete component.
+Capture+ has a third-party script which you can include on your page. But most third-party scripts don't account for the broad range of interaction preferences, usability and accessibility considerations. But, we'll look at all of this in the next chapter, when we build our own accessible autocomplete component from scratch.
 
 ## 4. Delivery Options
 
@@ -190,19 +200,23 @@ This is the first field that consists of multiple controls, in this case, radio 
 
 To group multiple controls, we must wrap them in a `fieldset`. The `legend` describes the group like a `label` describes the individual control.
 
-In most screen readers, the `legend` is read out in combination with the radio button's `label` which in this case would be “Delivery options, Standard (Free, 2-3 days)”. If we omitted the `fieldset` and `legend` elements, screen reader users would only hear “Standard (Free, 2-3 days)” which is ambiguous.
+In most screen readers, the `legend` is read out in combination with the radio button's `label` which in this case would be “Delivery options, Standard (Free, 2-3 days)”. 
 
-You may be tempted to group all fields this way. For example, the address form from earlier could be wrapped inside a `fieldset` with a `legend` set to “Address.” While this is technically valid, it's unnecessary and verbose as the field labels make sense without a `legend`. Users don't need to hear “Address: Address Line 1” as it doesn't *add value*.
+If we omitted the `fieldset` and `legend` elements, screen reader users would only hear “Standard (Free, 2-3 days)” which isn't as clear.
+
+You may be tempted to group all fields this way. For example, the address form from earlier could be wrapped inside a `fieldset` with a `legend` set to “Address.” While this is technically valid, it's unnecessary and verbose as the field labels make sense without a `legend`. 
+
+Put another way, users don't need to hear “Address: Address Line 1” as it doesn't *add value*.
 
 ### Smart Defaults
 
-The first radio button is selected by default thanks to the `checked` attribute which stops users from seeing an error and giving users less work to do.
+As most users will want free delivery, that option comes first. It's also selected by default thanks to the `checked` attribute. This stops users from seeing an error and giving users less work to do.
 
-As most users will select free delivery, we put that option first and select it for them. This way users can proceed effortlessly.
+> “Design for common circumstances first” - Caroline Jarett
 
 ## 5. Delivery Notes
 
-Imagine you're at work. You get a notification to say your item is being delivered. When you arrive home, instead of seeing the package, you see a delivery note saying it couldn't be delivered because it was too big to fit through the letter box. This is frustrating.
+Imagine you're at work. You get a notification to say your item is being delivered. When you arrive home, instead of seeing the package, you see a delivery note saying it couldn't be delivered because it was too big to fit through the letter box. Frustrating.
 
 A delivery note, which you can provide at your discretion, stops this from happening. The delivery note tells the delivery person what to do if you're not home. Perhaps you'd prefer it to be left with a neighbour, or inside your recycle bin which Amazon[^] refers to as a “safe place.” This, by the way, works surprisingly well.
 
@@ -224,15 +238,15 @@ While this question *adds value*, we need to understand how it will be used by t
 
 ### Limiting Text
 
-Limiting the amount of a text a user can type can and should be handled by validation as set out in “A Registration Form.” But there are some additional considerations to discuss.
+Limiting the amount of text a user can type can and should be handled by validation as set out in “A Registration Form.” But there are some additional considerations.
 
-The `maxlength` attribute (which takes a number value) limits the amount of a text a user can type. As soon as the limit is reached, the browser will ignore the input. The support for this attribute on the `textarea` control is both lacking and buggy[^8]. 
+The `maxlength` attribute (which takes a number value) limits the amount of a text a user can type. As soon as the limit is reached, the browser will ignore the input. The support for this attribute on a `textarea` is both lacking and buggy[^8].
 
-But, even if it was well supported, I don't recommend using it because some users don't look at the screen as they type—they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated causing immense frustration.
+But, even if it was well supported, I don't recommend using it because some users don't look at the screen as they type — they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated. Not good.
 
 ### Character Countdown
 
-Instead, we should let users type freely and tell users how many characters they have left. This way, users can see the feedback when they finally look up at the screen and can edit their entry accordingly. If they don't notice the feedback, an error will show when they submit the form, thanks to our validation routine.
+Instead, we should let users type freely and tell users how many characters they have left. This way, users can see the feedback when they finally look up at the screen and can edit their entry accordingly. If they don't notice the feedback, an error will show when they submit the form, thanks to the validation routine.
 
 ![Character count](./images/02/character-countdown.png)
 
@@ -273,7 +287,7 @@ The container has a `role` attribute set to `status` and `aria-live` set to `pol
 
 It's hardly surprising that most transactions are abandoned at the payment page. Not only is this screen shown toward the end of the journey (where users have had the most time to reconsider their decision, for example), but they may have to stop and find their credit card.
 
-Fortunately, there are some usability provisions we can apply here. By leveraging autofill, removing unnecessary fields, using the right input types and crafting the label (and hint) text—we can drastically reduce friction and keep users on-task.
+Fortunately, there are some usability provisions we can apply here. By leveraging autofill, removing unnecessary fields, using the right input types and crafting label (and hint) text — we can drastically reduce friction and keep users on-task.
 
 ### Removing Fields
 
@@ -301,11 +315,13 @@ This also shows that we should constantly be questioning the existence of form f
 
 ### Autofill
 
-Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored - if it does, the user can select it without having to type. Additionally, since iOS 8, the Safari browser lets users scan their card using the iPhone's camera - it uses the same mechanism to automatically fill out those fields.
+Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored - if it does, the user can select it without having to type. 
 
-Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos - two very helpful usability improvements on a form that has the highest drop-off rates in e-commerce.
+Since iOS 8, the Safari browser lets users scan their card using the iPhone's camera - it uses the same mechanism to automatically fill out those fields.
 
-As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Most modern browsers support, but for those that don't some older browsers offer similar functionality by using the `name` attribute instead. For the widest support, you should specify the correct values for both attributes as shown below.
+Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos - two very helpful improvements to a form that has the highest drop-off rates in e-commerce.
+
+As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Most modern browsers support it, but for those that don't some older browsers offer similar functionality by using the `name` attribute instead. For the widest support, you should specify the correct values for both attributes as shown below.
 
 ```HTML
 <div class="field">
@@ -351,11 +367,11 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
 
 ### Number Input
 
-The number input (`input type="number"`) lets mobile users more quickly type a number via a numeric keypad. On desktop, the input will contain increment and decrement buttons called spinners which makes it easy to make small adjustments without having to select and type.
+The number input (`input type="number"`) lets mobile users more quickly type a number via a numeric keypad. On desktop, the input will contain increment and decrement buttons called spinners which make it easy to make small adjustments without having to select and type.
 
 ![Spinners](./images/02/spinners.png)
 
-You might then be thinking that the number input is appropriate for the card number, expiry date, and CVC number—after all, they are all made up of numbers. But it's far more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate.
+You might think that the number input is appropriate for the card number, expiry date, and CVC number — after all, they are all consist of numbers. But it's a lot more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate or not.
 
 Let's start with some definitions. Wikipedia says that:
 
@@ -365,24 +381,24 @@ Most of us think of numbers this way. We use them to count and measure, but equa
 
 > `type=number` is not appropriate for input that happens to only consist of numbers but isn’t strictly speaking a number. If it doesn’t make much sense to use number with spinners, `type=text` is probably the right choice (possibly with a pattern attribute).
 
-In other words, numbers and digits are different. Numbers  represent an amount of something such as:
+In other words, numbers and numerals are different. Numbers represent an amount of something such as:
 
 - my age (announced “thirty-four years old”)
 - the price of an apple (announced “forty-five pence”)
 - the time it took me to cook breakfast (announced “ten mins”)
 
-Conversely, digits might be used for dates and codes such as:
+Conversely, numerals might be used for dates and codes such as:
 
 - birth date (“nineteenth of June, nineteen eighty-three”)
 - pin code (“eight, double five, three, two, six”)
 
-There is a difference between the way these values are announced. Understanding this helps us see why we might perceive the way some browsers implement the number input are not bugs—though they may seem to be at first.
+There is a difference between the way these values are announced. Understanding this helps to see why we might perceive the way some browsers implement the number input are not bugs — though they may seem to be at first.
 
-For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each example seems undesirable, but none of them stop users from entering numbers.
+For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each example seems undesirable, but none of them stop users from entering true numbers.
 
 Some numbers contain a decimal point such as a price; other numbers are negative which need a minus sign. Unfortunately, some browsers don't provide buttons for these symbols on the keypad. If that wasn't enough some desktop versions of Firefox will round up huge numbers.
 
-In these cases, it's safer to use a regular text box to avoid excluding users unnecessarily. Remember users are still able to type numbers this way it's just that the buttons are a smaller. And to soften the blow a little bit, the numeric keyboard can be triggered for iOS users by using the pattern attribute.
+In these cases, it's safer to use a regular text box to avoid excluding users unnecessarily. Remember users are still able to type numbers this way it's just that the buttons are smaller. To further soften the blow, the numeric keyboard can be triggered for iOS users by using the pattern attribute.
 
 ```HTML
 <input type="text" pattern="[0-9]*">
@@ -395,7 +411,7 @@ In short, only use a number input if:
 - the value doesn't contain letters, slashes, minus signs and decimal points.
 - the number isn't very large
 
-Let's apply these rules to the expiry date. Incrementing doesn't make sense, the number could start with a zero, and credit cards put a slash in the expiry date which users should be able to copy. Using a number input is not only inappropriate, but it creates a jarring experience as the user types a slash which would be ignored.
+Let's apply these rules to the expiry date. Incrementing it doesn't make sense, the number could start with a zero, and credit cards put a slash in the expiry date which users should be able to copy. Using a number input is not only inappropriate, but it creates a jarring experience as the user types a slash which would be ignored.
 
 We'll look at appropriate use cases of the number input in the next chapter.
 
@@ -407,13 +423,13 @@ In “A Registration Form” we briefly talked about forgiving little input mist
 
 We can apply this principle to the fields in the payment form. For example, a card number typically appears as 16 digits split into four parts by a space. Some users may type the space; others may not. Similarly, for the expiry date, some users may type a slash, others may leave it out. 
 
-Whether it's a slash or space, or a card number or an expiry date, we should be forgiving wherever possible. 
+Whether it's a slash or space, or a card number or an expiry date, we should be forgiving. 
 
 ### Card Verification Code (CVC) Field
 
 Every payment provider needs the user's CVC number. It's usually the last three digits found on the back of the card.
 
-The first problem is that sites don't always refer to this field as CVC number. Sometimes it's referred to as a security code number or card verification value (CVV). Being specified as an acronym doesn't help matters either. And to top it off, the number is never beside a label to demarcate it making the field rather ambiguous.
+The first problem is that sites don't always refer to this field as CVC number. Sometimes it's referred to as a security code number or card verification value (CVV). Being specified as an acronym doesn't help either. And to top it off, the number is never beside a label to demarcate it making the field rather ambiguous.
 
 To fix this, we should employ the hint text pattern to tell users exactly what it is and where to find it. For example, “This is the last three digits on the back of the card.”
 
@@ -425,7 +441,7 @@ First, we need to add an extra field, this time a checkbox which asks the user i
 
 With Javascript, we can enhance the experience even more by hiding the billing address until the user unchecks the checkbox. This is a form of progressive disclosure which reduces noise in the interface. That is, we only show the fields when they are relevant to the user.
 
-To do this, we need to listen to the checkbox click event.
+To do this, we need to listen to the checkbox's click event.
 
 ```JS
 function CheckboxCollapser(checkbox, element) {

@@ -462,15 +462,13 @@ CheckboxCollapser.prototype.onCheckboxClick = function(e) {
 CheckboxCollapser.prototype.check = function() {
   if(this.checkbox.checked) {
     this.element.hide();
-    this.element.attr('aria-hidden', 'true');
   } else {
     this.element.show();
-    this.element.attr('aria-hidden', 'false');
   }
 };
 ```
 
-The container is hidden with CSS by toggling the display property between `block` and `none`. Screen readers are catered for by toggling the `aria-hidden` attribute between `true` and `false`.
+The container is hidden with CSS by toggling the display property between `block` and `none`.
 
 ## 7. Review Page
 

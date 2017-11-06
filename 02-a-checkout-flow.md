@@ -444,9 +444,9 @@ With Javascript, we can enhance the experience even more by hiding the billing a
 To do this, we need to listen to the checkbox's click event.
 
 ```JS
-function CheckboxCollapser(checkbox, element) {
+function CheckboxCollapser(checkbox, container) {
   this.checkbox = checkbox;
-  this.element = $(element);
+  this.container = $(container);
   $(this.checkbox).on('click', $.proxy(this, 'onCheckboxClick'));
   this.check();
 };
@@ -460,11 +460,7 @@ CheckboxCollapser.prototype.onCheckboxClick = function(e) {
 };
 
 CheckboxCollapser.prototype.check = function() {
-  if(this.checkbox.checked) {
-    this.element.hide();
-  } else {
-    this.element.show();
-  }
+  this.container[this.checkbox.checked ? 'hide' : 'show']();
 };
 ```
 
@@ -472,7 +468,7 @@ The container is hidden with CSS by toggling the display property between `block
 
 ## 7. Review Page
 
-At this point in the flow, we have collected all the information needed to complete the order. But instead of processing the order after payment, it's a good idea to let users review their order on first. As counterintuitive as this may sound, adding an extra step in the flow reduces friction.
+At this point in the flow, we have collected all the information needed to complete the order. But instead of processing the order after payment, you should let users review their order. As counterintuitive as this may sound, adding an extra step in the flow reduces friction.
 
 Take Mary (I made her up), a mother of two infants. It's the middle of the night, and her baby is crying inconsolably. Naturally, Mary is tired and stressed. To make things worse, she's run out of nappies.
 
@@ -490,29 +486,29 @@ This shows that solely relying on completion time as a metric for success is dan
 
 Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information — that would defeat the purpose of the page. Users should only need to go back if they spot a mistake.
 
-![](./images/02/review.png)
+![Review](./images/02/review.png)
 
-Users can click *edit* to make amendments which is another advantage of using One Thing Per Page. As pages are small they will load fast; as each page has just one thing, making a change is simple.
+Users can click *edit* to make amendments which is another advantage of using the One Thing Per Page pattern. As pages are small they will load fast; as each page has just one thing, making a change is simple.
 
-![Flow diagram: Click edit, make a change, go back to summary](./image/02/review-edit-flow.png)
+![Flow diagram](./image/02/review-edit-flow.png)
 
-When the user makes a change, they are taken back to this page again for a final review which puts users firmly in control and is something that should reduce stress and anxiety.
+When the user makes a change, they are taken back to this page again for a final review which puts users firmly in control and which reduces stress and anxiety.
 
 ## 8. Confirmation Page
 
 Confirmation pages are so much more than just confirming the order. Neglecting the user experience here is a great way to lose out on return business.
 
-We've all probably experienced neglect after purchasing goods. For example, if you want to take out insurance, you call the free sales number and are quickly put through to a helpful agent. Parting with money is always made easy. But then, when you need to make a claim, it's usually more painful as this number isn't free and calls take a long time be picked up. All very stressful.
+We've all probably experienced neglect after purchasing goods. For example, if you want to take out insurance, you call the free sales number and are quickly put through to a helpful agent. Parting with money is always made easy. But then, when you need to make a claim, it's usually more painful as that number isn't free and calls take a long time be answered. All very stressful.
 
-A confirmation page is the first opportunity to start forging a long-term relationship. And this is done in two ways: by looking after them and giving them an incentive to come back.
+A confirmation page is the first opportunity to start forging a long-term relationship. And this is done in two ways: by looking after the user and giving them an incentive to come back.
 
-You probably want to tell users what happens next, such as when delivery will take place. You might also want to tell users what to do if something goes wrong.
+You should also tell users what happens next, such as when delivery will take place and what to do if something goes wrong.
 
-It's also the best time to ask users to sign up (if they checked out anonymously). And as we have collected all the necessary information, all we need is a password making this step both optional and easy. And users should have had a good experience due to all the previous design details we've implemented up to this point.
+It's also the best time to ask users to sign up (if they checked out anonymously). As we have most of the information to hand, we only need to ask for a password making this step both optional and easy. As users should have had a good experience up to this point, which should naturally encourage sign up.
 
-And by giving users value, they will probably want to sign up. By value, I mean something as simple as offering a faster checkout next time or offering them a discount for their next order. Depending on the service, you might even ask users to tweet or Instagram their purchase in return for a voucher. Whatever it is, now's as good a time as any to mention it.
+By giving users value, they'll probably want to sign up. By value, I mean something as simple as offering a faster checkout next time or offering them a discount for their next order. Depending on the service, you might even ask users to tweet or Instagram their purchase in return for a voucher. Whatever it is, now's as good a time as any to mention it.
 
-Up to now, we've also been sure to use plain and simple language for labels, hints, and errors. On the confirmation page, there is a natural opportunity to let your brand's personality shine through. Mailchimp's confirmation page show's their Chimp mascot high-fiving you which is a nice touch.
+Up to now, we've also been sure to use plain and simple language for labels, hints, and errors. On the confirmation page, there is an opportunity to let your brand's personality shine through. Mailchimp's confirmation page show's their chimp mascot giving you a virtual high-five. Nice.
 
 ![Mailchimp high five](./images/02/mailchimp.png)
 
@@ -535,23 +531,23 @@ Once everything is good with the first-time experience, it's time to focus on th
 
 In which case, we can bypass almost every step of the checkout flow including, email, mobile, delivery address and options and of course payment. Instead, we can take users straight to the *Review* page. This way users get a reminder of their default preferences with the chance to make amends.
 
-All in all, this reduces friction to nil and significantly improves conversion. Remember Mary from earlier: the next time she runs out of nappies, buying them should be a breeze, something I'm sure she'd appreciate if she was real.
+All in all, this reduces friction to nil and significantly improves conversion. Remember Mary from earlier: the next time she runs out of nappies, buying them should be a breeze, something I'm sure she'd appreciate if she was a real human being.
 
 ## Layout
 
 Up to now, we've focused on the design of the form within each page, but we haven't considered the interface holistically. In fact, this is one of the dangers of composing interfaces out of pre-defined smaller components. In the end, the overall design can end up neglected.
 
-Usually, checkout pages are given a special and more streamlined layout that helps reduce noise and keep users on task. For example, the header usually contains a logo, security note and accept cards.
+Usually, checkout pages are given a special and more streamlined layout that helps reduce noise and keep users on task. For example, the header usually contains a logo, security note and accepted cards.
 
 By omitting navigation and search, users can focus on checking out which speaks to principle 6, *Prioritise content*.
 
 ### Progress Bar
 
-Progress bars are often used within checkout because they give users an idea of where they are in the process and how long's left. While this makes sense, there's very little data to show including one *adds value*.
+Progress bars are often used within checkout because they give users an idea of where they are in the process and how long's left. While this makes sense, there's little data that shows including one *adds value*. There are practical reasons for avoiding progress bars too. 
 
-There are practical reasons for avoiding progress bars too. First, they take up a lot of space at the top of the page which is of particular importance on mobile as the main content is pushed down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. And to top it off, handling conditional sections is hard because you either always show the step which is misleading, or you show it when it's relevant which is dishonest.
+First, they take up a lot of space at the top of the page which is of particular importance on mobile as the main content is pushed down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. To top it off, handling conditional sections is hard because you either always show the step which is misleading, or you show it when it's relevant which is dishonest.
 
-Instead, it's better to start without a progress bar. Then you can test to see if your users struggle without one by conducting research. Remember, it's far easier (and cheaper) to add features than it is to remove them after the fact.
+Instead, it's better to start without a progress bar. Then you can test to see if your users struggle without one by conducting research. Remember, it's far easier (and cheaper) to add features than it is to remove them later on.
 
 Not having a progress bar prioritises the main content, by moving it further up the page, which again speaks to principle 6, *prioritise content*. Having meticulously considered many other details, users should get through the process with little fuss anyway.
 
@@ -563,29 +559,29 @@ When you're shopping in a physical shop, you pick up your items and place them i
 
 > “The system should always keep users informed about what is going on, through appropriate feedback” - 10 Usability Heuristics
 
-Giving users this ability through a digital interface is also important. An order summary placed on every page keeps users informed without having to rely on memory to know what they're buying.
+Giving users this ability digitally is of similar important. An order summary placed on every page keeps users informed without having to remember what they're buying.
 
 ![Order Summary](./images/02/order-summary.png)
 
-As the user completes each step, the order summary will contain more and more information. For example, on the first screen (email address), it will contain what they're buying. On the next screen it will also contain their email address, and so forth. If the user spots a mistake, they can jump back to any previous step by clicking the edit link — just like the review page.
+As the user completes each step, the order summary will populate with more information. For example, on the first screen (email address), it will contain what they're buying. On the next screen it will also contain their email address, and so forth. If the user spots a mistake, they can jump back to any previous step by clicking the edit link — just like the review page.
 
-Layout wise, the summary panel should be less prominent than the form. So it should be placed beside the form on large viewports, and below the form on mobile, where there isn't enough room for it.
+Layout wise, the summary panel should be less prominent than the form. So it should be placed beside the form on desktop, and below the form on mobile (where there's insufficient room).
 
 ### Back Links
 
-As the user is moving through a linear flow, we need to consider the need to step back. The browser's back button provides this functionality for free, but some people mistrust the browser's back button when filling out forms because of bad past experience where their data was lost.
+As the user is moving through a linear flow, we need to consider the need to step back. The browser's back button provides this functionality for free, but some people mistrust it because of bad past experience where their data was lost.
 
-AJAX-driven and modal-heavy sites haven't helped matters here because clicking the browser's back button often goes against user's expectations[^backlink]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect the browser's back button to take them to the previous page in the state they left it in.
+AJAX-driven and modal-heavy sites haven't helped matters because clicking the browser's back button often goes against user's expectations[^backlink]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect it to take them to the previous page in the state they left it in.
 
-However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust its behaviour. In this case, position the link at the top left of the page (or after the submit button). By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
+However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust it. In this case, position the link at the top left of the page. By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
 
-Whatever you do, don't place it before the submit button. When keyboard users press <kbd>tab</kbd> when inside the last field, pressing <kbd>enter</kbd> will take them back to the previous step instead of submitting the form which is very frustrating.
+Whatever you do, don't place it before the submit button. When keyboard users press <kbd>Tab</kbd> when inside the last field, pressing <kbd>Enter</kbd> will take them back to the previous step instead of submitting the form which is frustrating.
 
 Consider making the link text explicit. “Back” is ambiguous; “Back to delivery address” is clearer.
 
 ## Summary
 
-In this chapter, we started out by looking at the One Thing Per Page pattern which helps to break down large forms into small chunks making it easy for users to fill out and make amendments to large forms.
+In this chapter, we started out by looking at the One Thing Per Page pattern which helps to break down large forms into small chunks making it easy for users to fill out and make amendments.
 
 We then looked at capturing optional information, making choices with radio buttons, entering long-form content via the `textarea` and several ways to improve the payment form experience.
 

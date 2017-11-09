@@ -116,6 +116,8 @@ Unfortunately, there are several problems with this approach. First, there is no
 
 And, float labels don't actually save space. That's because the label needs space to move into in the first place. Even if they did save space, that's hardly a good reason to diminish the usability of forms.
 
+> “Seems like a lot of effort when you could simply put labels above inputs and get all the benefits/none of the issues” -- Luke W on Float Labels
+
 Quirky and minimalist interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do. Artificially reducing the height of forms like this is both uncompelling and problematic.
 
 Instead, you should priortise making room for an ever-present, readily-available label (and hint if necessary) at the start of the design process. This way you won't have to squeeze content into a small space which may drive users crazy.
@@ -277,6 +279,12 @@ input[type=password]::-ms-reveal {
   display: none;
 }
 ```
+
+### Microcopy
+
+The label is set to “Choose password” rather than “Password”. The latter is somewhat confusing and could suggest the user needs to type a password they already posess, which is bad for security. More subtly it might suggest the user is already registered causing users with cognitive impairments to think they are logging in instead.
+
+Where “Password” is ambiguous, “Choose passwrod” provides clarity.
 
 ## Button Styles
 

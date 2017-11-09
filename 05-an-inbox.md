@@ -111,7 +111,7 @@ Modes are best suited when one mode is used more frequently than the other. But,
 
 ### Visually Hide The Label
 
-Instead of using modes, we can add a visually hidden label. There are two ways to do this. The first is to use the `aria-labelledby` attribute (shown below) which uses existening content to denote the checkbox. The downside is that it uses ARIA which should always be a last resort. It also means adding `id` attributes. In any case, ARIA shouldn't be used unless there is no better alternative&mdash;something we talked about in chapter 1, “A Registration Form”.
+Instead of using modes, we can add a visually hidden label. There are two ways to do this. The first is to use the `aria-labelledby` attribute (shown below) which uses existening content to denote the checkbox. The downside is that it means adding `id` attributes. In any case, ARIA shouldn't be used unless there is no better alternative&mdash;something first noted in chapter 1, “A Registration Form”.
 
 ```HTML
 <li>
@@ -137,6 +137,8 @@ Alternatively, a standard `<label>` has excellent and broader support than ARIA 
   </a>
 </li>
 ```
+
+*(Note: The CSS for the visually-hidden class is set out in “Book A Flight”.)*
 
 Fortunately, there is a silver lining in duplicating the contents. The contents of the label is just for screen readers, meaning we can craft a specific message that reads better audibly. For example, the hidden label has the word “subject” prefixed which may be unnecessary for sighted users.
 

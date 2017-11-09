@@ -163,6 +163,7 @@ In this chapter we started by quashing traditional advice that omiting hint text
 - Using ambiguous microcopy and error messages in the name of security.
 - Putting the login form next to the registration form.
 - Auto-tabbing between multiple fields.
+- Using multiple text boxes for one field.
 - Putting the forgot password link inside the form.
 - Enabling autocorrect, autocapitalise and spellcheck on fields that may not expect real words: username, for example.
 

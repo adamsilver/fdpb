@@ -98,9 +98,11 @@ As with most things in design, and life for that matter, this isn't the only way
 </div>
 ```
 
-The `aria-describedby` attribute is used to connect the hint by its `id`. While this has visual and audible parity with a standard label, this solution is not equal.
+The `aria-describedby` attribute is used to connect the hint by its `id`. It's appended to the control's label and read out after a short pause. In this example, “Password [pause] Must contain eight plus characters with at least one number and one uppercase letter”.
 
-First, clicking the `<p>` will not set focus to the control, which in turn reduces its hit area. Second, despite ARIA's ever-growing support, it's never going to be as well supported as native elements. This is why the first rule of ARIA is not to use ARIA.
+While this provides similar behaviour, these two solutions are not created equal.
+
+First, clicking the hint (a `<p>` in this case) won't focus the control, which reduces the hit area. Second, despite ARIA's ever-growing support, it's never going to be as well supported as native elements. This is why the first rule of ARIA is not to use ARIA:
 
 > If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.
 
@@ -143,6 +145,8 @@ It's not that one technique is always better than the other. It's that the Quest
 ### Passphrases
 
 Passwords are generally short, hard to remember and easy to crack. Users often have to create a password with at least eight characters made up of at least one uppercase, one lowercase letter and a number. This micro interaction is hardly ideal.
+
+> Sorry but your password must contain an uppercase letter, a number, a haiku, a gang sign, a hieroglyph, and the blood of a virgin. -- Adrian Zumbrunnen
 
 Instead of a password, we could ask users for a passphrase[^5]. A passphrase is a series of words such as ‘monkeysinmygarden’ (sorry, that's the first thing that comes to mind). They are generally easier to remember than passwords and they are more secure due to their length - passphrases must be at least 16 characters long.
 

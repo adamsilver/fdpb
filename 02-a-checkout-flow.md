@@ -1,5 +1,7 @@
 # A Checkout Flow
 
+> Here’s what I bring to the table: a valid credit card, 90 seconds of my time, and my right thumb. The rest is up to you. -- Melanie Jones
+
 In 2008 I worked on Boots.com where we designed a single-page checkout flow. This involved the trendiest of techniques from that era including accordions, AJAX and client-side validation. Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened.
 
 ![Boots accordion](./images/02/boots-accordion.png)

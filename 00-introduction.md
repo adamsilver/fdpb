@@ -82,9 +82,9 @@ In any case, what are we, without our principles? We can either steal other peop
 
 Our principles normally stem from a belief system. We believe something should be a certain way. We normally have good reason for this. Without a good reason for our belief system, principles crumble under scrutiny.
 
-This book is about designing forms that let users interact over the web. As such, it would be remiss of me to ignore the essence of the web itself. The very power of the web is one of reach and accessibility. Anyone with a browser and an Internet connection gets to use it. And so the principles in this book need to align with this notion. To upload its inherent qualities.
+This book is about designing forms that let users interact over the web. As such, it would be remiss of me to ignore the essence of the web itself. The very power of the web is one of reach and accessibility. Anyone with a browser and an Internet connection gets to use it. And so the principles in this book need to align with this notion. To uphold its inherent qualities.
 
-Whatever we build, in the end, is about users. I don't want to leave a single person behind. The web is for everyone. Therefore, I can't think of a better set of principles than the Inclusive Design Principles[^2]. 
+Whatever we build, in the end, is about users. I don't want to leave a single person behind if I can help it. The web is for everyone. Therefore, I can't think of a better set of principles than the Inclusive Design Principles[^2]. 
 
 Interestingly, only one of the seven principles pertains to accessibility. The other ones are just *good* design.
 

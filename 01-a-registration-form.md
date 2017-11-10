@@ -172,7 +172,7 @@ You might be tempted to remove this styling for aesthetic reasons but again, tha
 
 ## The Email Field
 
-![The email field](./image/01/email.png)
+![The email field](./images/01/email.png)
 
 ```HTML
 <div class="field">

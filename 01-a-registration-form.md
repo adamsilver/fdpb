@@ -433,6 +433,8 @@ When there aren't any errors, the summary panel should be hidden. This ensures t
 }
 ```
 
+*(Note: you could use the `hidden` attribute/property to toggle an element's visibility, but there's less support for it. Inclusive design is about making decisions that you know are unlikely to exclude people. Using a class matches this philosophy.)*
+
 #### 3. Inline Errors
 
 We need to place the relevant error message next to the field. This saves users scrolling up and down the page in order to check the error message, which keeps them moving down the form.

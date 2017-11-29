@@ -220,7 +220,7 @@ Then there is Javascript, which is more complicated. When the browser tries to p
 
 That's how you enhance. But what's better, is not needing an enhancement at all. HTML with a little CSS, can give users an excellent experience. It's the content that counts and Javascript doesn't give you that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value* (see principle 7).
 
-Of course, there are times when the basic experience isn't as good as it could be. And that's when it's time to enhance. But if we follow the principles above, when the browser or network fails things will still work.
+Of course, there are times when the basic experience isn't as good as it could be. And that's when it's time to enhance. But if we follow the principles above, when a piece of CSS or Javascript isn't recognised or executed things will still work.
 
 Progressive enhancement makes us think about what happens when things fail. This way we end up building experiences with resilience baked-in. But equally, it makes us think about whether an enhancement is needed at all and if it is, how best to go about it.
 
@@ -238,11 +238,11 @@ Progressive enhancement makes us think about what happens when things fail. This
 </div>
 ```
 
-We're using the same mark-up as the email field discussed earlier. If you're using a template language, then you'll be able to abstract this into a component which will ensure that every field is styled consistently throughout the application which speaks to principle 3, *Be consistent*.
+We're using the same mark-up as the email field discussed earlier. If you're using a template language, you'll be able to create a component that accomodates both types of field. This helps to enforce principle 3, *Be consistent*.
 
 The password field contains a hint. Without one, the user won't understand the requirements which is likely to cause an error once the user tries to proceed.
 
-The `type="password"` attribute masks the input's value by replacing what the user types with small black circles. This is a security measure that guards against “over the shoulder” attacks.
+The `type="password"` attribute masks the input's value by replacing what the user types with small black circles. This is a security measure that guards against “over the shoulder” attacks. That is, people that happen to be able to see your screen as you're typing your password.
 
 ### A Password Reveal
 
@@ -268,22 +268,20 @@ function PasswordReveal(input) {
 PasswordReveal.prototype.createButton = function() {
   // create a button
   this.button = $('<button type="button">Show password</button>');
-
   // inject button
   $(this.input).parent().append(this.button);
-
   // listen to the button's click event
   this.button.on('click', $.proxy(this, 'onButtonClick'));
 };
 
 PasswordReveal.prototype.onButtonClick = function(e) {
-  // if the input's type property is password
+  // Toggle input type and button text
   if(this.input.type === 'password') {
-    this.input.type = 'password'; // CHECK
-    this.button.text('Show password');
-  } else {
     this.input.type = 'text';
     this.button.text('Hide password');
+  } else {
+    this.input.type = 'password';
+    this.button.text('Show password');
   }
 };
 ```
@@ -300,29 +298,37 @@ input[type=password]::-ms-reveal {
 
 ### Microcopy
 
-The label is set to “Choose password” rather than “Password”. The latter is somewhat confusing and could suggest the user needs to type a password they already posess, which is bad for security. More subtly it might suggest the user is already registered causing users with cognitive impairments to think they are logging in instead.
+The label is set to “Choose password” rather than “Password”. The latter is somewhat confusing and could suggest the user needs to type a password they already posess, which could be a security issue. More subtly it might suggest the user is already registered causing users with cognitive impairments to think they are logging in instead.
 
-Where “Password” is ambiguous, “Choose passwrod” provides clarity.
+Where “Password” is ambiguous, “Choose password” provides clarity.
 
 ## Button Styles
 
-The first thing to know about buttons is that they aren't links. Links are typically underlined or specially positioned in a navigation bar so that they are visually identifiable amongst regular text. When hovering a link, the cursor will change to a hand. This is because, unlike buttons, links have weak affordance[^8].
+What's a button? often we refer to many different types of components on a web page as a button. In fact, I've already covered two different types of button without calling them out. Let's do that now.
+
+Buttons that submit forms are “submit buttons” and they are coded typically as either `<input type="submit">` or `<button type="submit">`. The latter is more maleable in that you can nest other elements inside it. But there's rarely a need for that. Most submit buttons contain just text. 
+
+*(Note: if you have multiple , in old versions of Internet Explorer, if you have multiple `<button type="submit">`s you'll experience trouble[^buttontrouble]. This is because the form will send the value of all the buttons to the server regardless. What you want is to know which button was clicked so that you can determine the right course of action to take.)*
+
+Other buttons are injected into the interface to enhance the experience with Javascript - much like we did with the password reveal component discussed earlier. That was also a `<button>` but it's type was set to `button` (not `submit`).
+
+In both cases, the first thing to know about buttons is that they aren't links. Links are typically underlined (by user agent styles) or specially positioned (in a navigation bar) so that they are visually identifiable amongst regular text. When hovering a link, the cursor will change to a hand. This is because, unlike buttons, links have weak perceived affordance[^8].
 
 In “Resilient Web Design”[^9], Jeremy Keith discusses the idea of material honesty. He says that “one material should not be used as a substitute for another. Otherwise the end result is deceptive.” Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not.
 
-Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons which have naturally strong affordance. Whether they have rounded corners, drop shadows, borders is up to you, but they should look like buttons regardless.
+Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons which have naturally strong perceived affordance. Whether they have rounded corners, drop shadows, borders is up to you, but they should look like buttons regardless.
 
-Buttons can still give feedback on hover by changing the background colour for example.
+Buttons can still give feedback on hover (and on focus) by changing the background colour for example.
 
 ### Placement
 
 Submit buttons are typically placed at the bottom of the form. This is because with most forms, users fill out the fields from top to bottom and then submit. But should the button be aligned left, right or center? To answer this question, we need to think about where users will naturally look for it.
 
-Field labels and form controls are aligned left and run from top to bottom. Users are going to look for the next field below the last one. Naturally then, the submit button should also be positioned in that location: to the left and directly below the last field. Eye tracking tests prove this to be the case. This also helps users who zoom in as a right-aligned button could disappear off screen more easily.
+Field labels and form controls are aligned left and run from top to bottom. Users are going to look for the next field below the last one. Naturally then, the submit button should also be positioned in that location: to the left and directly below the last field. This also helps users who zoom in as a right-aligned button could disappear off screen more easily.
 
 ### Text
 
-The button's text is just as important as its styling. The text should explicitly describe the action being taken. And because it's an action, it should be a verb. We should aim to use as fewer words as possible because less words are quicker to read. But we shouldn't remove words at the cost of clarity.
+The button's text is just as important as its styling. The text should explicitly describe the action being taken. And because it's an action, it should be a verb. We should aim to use as few words as possible because its quicker to read. But we shouldn't remove words at the cost of clarity.
 
 The exact words can match your brand's tone of voice, but don't exchange clarity for quirkiness. 
 
@@ -367,7 +373,7 @@ FormValidator.prototype.onSubmit = function(e) {
 
 ### Displaying Feedback
 
-It's all very well detecting the presence of errors, but at the moment our user's are none the wiser. There are three disparate parts of the interface that need to be updated. We'll talk about each of those now.
+It's all very well detecting the presence of errors, but currently users are none the wiser. There are three disparate parts of the interface that need to be updated. We'll talk about each of those now.
 
 #### Document Title
 
@@ -377,7 +383,7 @@ Even though we're enhancing the user experience by catching errors on the client
 
 Where the original page title might read “Register for [service]”, on error it should read “(2 errors) Register for [service]” (or similar). The exact words is somewhat down to opinion.
 
-Updating the title with Javascript is as follows:
+The following JavaScript updates the title:
 
 ```JS
 document.title = "(" + this.errors.length + ")" + document.title;
@@ -496,7 +502,7 @@ The first parameter takes the name of the control and the second takes rules (as
 
 ### Live Inline Validation
 
-Live inline validation gives users feedback as they type or when they leave the field (`onblur`). There's some evidence to show that live inline validation improves accuracy and decreases completition times in long forms[^]. This is partially to do with giving users feedback when the field's requirements are fresh in user's minds. But, live inline validation (or live validation for short) poses several problems.
+Live inline validation gives users feedback as they type or when they leave the field (`onblur`). There's some evidence to show that live inline validation improves accuracy and decreases completition times in long forms[^]. This is partially to do with giving users feedback when the field's requirements are fresh in users' minds. But, live inline validation (or live validation for short) poses several problems.
 
 For entries that require a certain number of characters, the first keystroke will always constitute an invalid entry. This means users will be interrupted early and often causing them to switch mental contexts. That is, between entering information and fixing it.
 
@@ -518,7 +524,11 @@ You should put the rules above the field otherwise the on-screen keyboard could 
 
 ### A Note On Disabling Submit Buttons
 
-Some forms will disable the submit button until all the form fields are valid. This leaves users wondering what's actually wrong with their entries. Instead, keep users in control by allowing them to submit when they're ready. When they do submit, form validation will be on-hand to provide useful feedback.
+Some forms are designed to disable the submit button until all the fields become valid. There are several problems with this.
+
+First, users are left to wonder what's actually wrong with their entries. Second, disabled buttons are not focusable, which makes it hard for the button to be discovered using some software. Third, disabled buttons are hard to read as they are greyed out.
+
+As we're providing users with clear feedback when the user expects it, there is no good reason to take control away from the user by disabling the button anyway.
 
 ### Crafting Error Messages
 
@@ -589,7 +599,9 @@ In this chapter we solved several fundamental form design challenges that are ap
 [^x1]: https://www.w3.org/TR/WCAG20-TECHS/G162.html
 [^x2]: http://www.outlinenone.com/
 [^IE11]: http://www.html5accessibility.com/tests/aria-labelledby-input.html
+[^IE BUTTON TROUBLTE]: http://www.dev-archive.net/articles/forms/multiple-submit-buttons.html 
+[^IE BUTTON TROUBLE 2]: https://allinthehead.com/retro/330/coping-with-internet-explorers-mishandling-of-buttons
+[^IE BUTTON ISSUE EXPLAINED WELL IN COMMENTS]: https://www.peterbe.com/plog/button-tag-in-IE
 
 - https://www.tjvantoll.com/speaking/slides/constraint-validation/chicago/#/18
-
 -[^featurequeries]: https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/

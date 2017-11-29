@@ -1,8 +1,8 @@
 # A Registration Form
 
-We're going to start with a registration form. Most companies want long-term relationships with their users. To do that they need users to sign up. And to do *that*, they need to give users value in return. Nobody wants to actually sign up to your service. They just want access to it, the tools you offer or the promise of a faster experience next time.
+We're going to start with a registration form. Most companies want long-term relationships with their users. To do that they need users to sign up. And to do *that*, they need to give users value in return. Nobody wants to actually sign up to your service. They just want to access whatever it is you offer, or just the promise of a faster experience next time they visit.
 
-Whatever it is, a registration form is often the first form a user sees. Despite it's basic appearance, there are many things to consider: the primitive elements that make up a form (labels, buttons and inputs), how to reduce friction (even on small forms like this) all the way through to form validation.
+Despite the registration form's basic appearance, there are many things to consider: the primitive elements that make up a form (labels, buttons and inputs), reduce effort (even on small forms like this) all the way through to form validation.
 
 In choosing such a simple form, we can zoom in on the foundational qualities found in well-designed forms.
 
@@ -26,7 +26,7 @@ Here's the HTML:
 </form>
 ```
 
-The form is made up 4 fields and a submit button. Each field is made up a of a control (the input) and its associated label. Labels are where our discussion begins.
+The form is made up of 4 fields and a submit button. Each field is made up a of a control (the input) and its associated label. Labels are where our discussion begins.
 
 ## Labels
 
@@ -37,11 +37,11 @@ In “Accessibility For Everyone”[^], Laura Kalbag sets out four broad paramet
 - Motor: make it easy to interact with.
 - Cognitive: make it easy to understand.
 
-By looking at labels from each of these standpoints, we can see just how important labels are. Sighted users can read them, visually-impaired users can hear them by using a screen reader and motor-impaired users can more easily set focus to the field thanks to the larger hit area. That's because clicking a label sets focus to the field.
+By looking at labels from each of these standpoints, we can see just how important labels are. Sighted users can read them, visually-impaired users can hear them by using a screen reader and motor-impaired users can more easily set focus to the field thanks to the larger hit area. That's because clicking a label sets focus to the associated form element.
 
 ![Hit area](./images/01/regform-label-hit-area.png)
 
-For these reasons, every control that accepts input should have an auxilary `<label>`. Submit buttons, for example, don't accept input so they don't need a label - the `value` attribute which renders the text inside the button acts as the accessible label.
+For these reasons, every control that accepts input should have an auxilary `<label>`. Submit buttons, for example, don't accept input so they don't need an auxilary label - the `value` attribute which renders the text inside the button acts as the accessible label.
 
 To *connect* an input to a label, the input's `id` and label's `for` attribute should match and be unique to the page. In the case of the email field, the value is “email”:
 
@@ -50,9 +50,9 @@ To *connect* an input to a label, the input's `id` and label's `for` attribute s
 <input id="email">
 ```
 
-Failing to include a label means ignoring the needs of (motor and visually-impaired) users. As we're designing for people, we can use their ability (or lack thereof) as constraints that guide is to design robust experiences. After all, what helps some users often helps others. 
+Failing to include a label means ignoring the needs of many users including those with physical and cognitive impairments. By focusing on the recognized barriers of people with disabilities, we can make our forms easier and more robust for everyone.
 
-For example, a larger hit area is crucial for motor-impaired users but is easier to hit for those without impairments.
+For example, a larger hit area is crucial for motor-impaired users but is easier to hit for those without impairments too.
 
 ## Placeholders
 
@@ -98,11 +98,9 @@ As with most things in design, and life for that matter, this isn't the only way
 </div>
 ```
 
-The `aria-describedby` attribute is used to connect the hint by its `id`. It's appended to the control's label and read out after a short pause. In this example, “Password [pause] Must contain eight plus characters with at least one number and one uppercase letter”.
+The `aria-describedby` attribute is used to connect the hint by its `id` - just like the `for` attribute for labels, but in reverse. It's appended to the control's label and read out after a short pause. In this example, “Password [pause] Must contain eight plus characters with at least one number and one uppercase letter.”
 
-While this provides similar behaviour, these two solutions are not created equal.
-
-First, clicking the hint (a `<p>` in this case) won't focus the control, which reduces the hit area. Second, despite ARIA's ever-growing support, it's never going to be as well supported as native elements. This is why the first rule of ARIA is not to use ARIA:
+There are other differences too. First, clicking the hint (a `<p>` in this case) won't focus the control, which reduces the hit area. Second, despite ARIA's ever-growing support, it's never going to be as well supported as native elements. In this case, for example, Internet Explorer 11 doesn't support `aria-describedby`[^IE11].  This is why the first rule of ARIA is not to use ARIA:
 
 > If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.
 
@@ -112,7 +110,7 @@ The float label[^] pattern by Matt Smith is a technique that uses the label as a
 
 ![Float label](./images/01/float-label.png)
 
-Unfortunately, there are several problems with this approach. First, there is no space for a hint because the label and hint are one and the same. Second, they're hard-to-read due to their (affordance giving) poor contrast and small text as they're typically designed. Like placeholders, they may be mistaken for a value and could get cropped.
+Unfortunately, there are several problems with this approach. First, there is no space for a hint because the label and hint are one and the same. Second, they're hard-to-read due to their poor contrast and small text as they're typically designed. Lower contrast is necessary so that users have a chance to differentiate between a real value and a placeholder. And, like placeholders, they may be mistaken for a value and could get cropped.
 
 And, float labels don't actually save space. That's because the label needs space to move into in the first place. Even if they did save space, that's hardly a good reason to diminish the usability of forms.
 
@@ -120,7 +118,7 @@ And, float labels don't actually save space. That's because the label needs spac
 
 Quirky and minimalist interfaces don't make users feel awesome. Obvious, inclusive and robust interfaces do. Artificially reducing the height of forms like this is both uncompelling and problematic.
 
-Instead, you should priortise making room for an ever-present, readily-available label (and hint if necessary) at the start of the design process. This way you won't have to squeeze content into a small space which may drive users crazy.
+Instead, you should priortise making room for an ever-present, readily-available label (and hint if necessary) at the start of the design process. This way you won't have to squeeze content into a small space.
 
 We'll be discussing several, less artificial techniques to reduce the size of forms shortly.
 
@@ -134,11 +132,11 @@ In all likeliness you don't need to ask for the user's first and last name just 
 
 ### No Password Sign In
 
-One way to avoid asking users for a password is to use the No Password Sign In pattern. It works by leveraging the security of email (which already needs a password). Users only have to enter their email address and the service sends a special link to their inbox. Clicking it, logs the user into the service immediately.
+One way to avoid asking users for a password is to use the No Password Sign In pattern. It works by leveraging the security of email (which already needs a password). Users only have to enter their email address and the service sends a special link to their inbox. Clicking it logs the user into the service immediately.
 
 ![Medium No Password Sign In](./images/01/no-password.png)
 
-Not only does this reduce the size of the form to just one field, but it also saves users having to remember another password. Whilst this reduces friction on the form in isolation, in other ways it adds some too.
+Not only does this reduce the size of the form to just one field, but it also saves users having to remember another password. Whilst this simplifies the form in isolation, in other ways it adds some additional complexity for the user.
 
 First, users might be less familiar with this approach, and many people are worried about online security. Second, having to move away from the app to your email account is long winded, especially for users who know their password (or use a password manager).
 
@@ -160,15 +158,26 @@ Whether it's the No Password Sign In pattern or passphrases, we should only move
 
 The way you style your form components will, at least in part, be determined by your product or company's brand. Still, label position and focus styles are important considerations.
 
-Broadly speaking, you should place the label above the form control. In “Label Placement In Forms”[^6], Matteo Penzo shows this is best. But, there are more practical reasons for doing so. On small viewports there's no room beside the control. And on large viewports, zooming increases the chance of the text disappearing off screen[^x1].
+Matteo Penzo's eye-tracking tests showed that positioning the label above (as opposed to beside) the form control works best. He notes that:
+
+“Placing a label right over its input field permitted users to capture both elements with a single eye movement.” 
+
+But, there are other, more practical, reasons for putting the label above the field. On small viewports there's no room beside the control. And on large viewports, zooming increases the chance of the text disappearing off screen[^x1].
 
 Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control. 
 
-Whilst you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content - by positioning labels above the control - is a good strategy.
+While you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content - by positioning labels above the control - is a good strategy.
 
-Focus styles are a simpler prospect. Browsers put an outline around the in-focus element by default so that users, especially those who use a keyboard, know where they are. 
+Focus styles are a simpler prospect. Browsers put an outline around the in-focus element by default so that users, especially those who use a keyboard, know where they are. The problem with the default styling is that it is often faint (hard to see) and somewhat ugly.
 
-You might be tempted to remove this styling for aesthetic reasons but again, that's hardly a good reason to diminish the experience. If you wish to remove it, then make sure you replace it with something more preferable.
+While this is the case, don't be tempted to remove it, because this will diminish the user experience greatly for those traversing the screen with their keyboard. We can override the default styling to make it clear and more aesthetically pleasing.
+
+```HTML
+input:focus {
+  outline: 4px solid #ffbf47;
+  outline-offset: 0;
+}
+```
 
 ## The Email Field
 
@@ -197,7 +206,7 @@ People using a non-supporting browser will see a standard text input (`input typ
 
 Progressive enhancement is about users. It just happens to make our lives (as designers and developers) easier too. This is because instead of keeping up with a set of browsers and devices (which is impossible!) we can just focus on features.
 
-First and foremost, progressive enhancement is about always giving users an experience, no matter their browser or device or quality of connection. When things go wrong — and they will — users shouldn't suffer. That's bad design.
+First and foremost, progressive enhancement is about always giving users an experience, no matter their browser or device or quality of connection. When things go wrong — and they will — users won't suffer in that they can still get things done.
 
 There are a lot of ways an experience can go wrong. Perhaps the stylesheet or script fails to load. Maybe everything loads, but the user's browser doesn't recognise some HTML, CSS or Javascript. Whatever happens, using progressive enhancement as an approach to designing experiences, stops users having an especially bad time.
 
@@ -207,9 +216,9 @@ If everything loads okay, perhaps various HTML elements aren't recognised. For e
 
 Maybe the browser doesn't understand some fancy CSS. In this case, browsers just ignore it. In most cases, this isn't a problem. For example, some browsers that don't understand `border-radius` will show straight edges instead of round ones. Users are left unharmed. In other cases you might need to detect support using Feature Queries[^].
 
-Then there is Javascript, which is more complicated. When the browser tries to parse methods it doesn't recognise, it will just throw a hissy fit. This can mean not all of the script executes. If your script doesn't first check if the methods exist (feature detection) and work (feature testing) before using them, then users may get a broken interface. For example, if a button's click handler calls a method that's not recognised, the button won't work. That's bad.
+Then there is Javascript, which is more complicated. When the browser tries to parse methods it doesn't recognise, it will just throw a hissy fit. This can cause your other (valid and supported) scripts to fail too. If your script doesn't first check if the methods exist (feature detection) and work (feature testing) before using them, then users may get a broken interface. For example, if a button's click handler calls a method that's not recognised, the button won't work. That's bad.
 
-That's how you enhance. But what's better, is not needing an enhancement at all. HTML with a little CSS, can give users an excellent experience. It's the content that counts and Javascript doesn't give you that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value*.
+That's how you enhance. But what's better, is not needing an enhancement at all. HTML with a little CSS, can give users an excellent experience. It's the content that counts and Javascript doesn't give you that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value* (see principle 7).
 
 Of course, there are times when the basic experience isn't as good as it could be. And that's when it's time to enhance. But if we follow the principles above, when the browser or network fails things will still work.
 
@@ -241,36 +250,45 @@ Obscuring the value as the user types makes it hard to fix typos. So when one is
 
 Due to the increased risk of typos, some registration forms include an additional ‘confirm password’ field. This is a precautionary measure that requires the user to type the same password twice, doubling the effort and degrading the user experience.
 
-Instead, it's better to let users reveal their password which speaks to principles 4 and 5, *Give control* and *Offer choice* respectively. This way users get the security of the mask without increasing the risk of typos.
+Instead, it's better to let users reveal their password which speaks to principles 4 and 5, *Give control* and *Offer choice* respectively. This way users can choose to reveal their password, when they know nobody is looking. This reduces the risk of typos.
 
 ![Password reveal](./images/01/password-reveal.png)
 
 To do this, we need to inject a button next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked, it should toggle the `type` attribute between `password` and `text` and the label between “Show password” and “Hide password”.
 
 ```JS
-function PasswordReveal(el) {
-  this.el = el;
+function PasswordReveal(input) {
+  // store input as a property of the instance
+  // so that it can be referenced in methods
+  // on the prototype
+  this.input = input;
   this.createButton();
 };
 
 PasswordReveal.prototype.createButton = function() {
+  // create a button
   this.button = $('<button type="button">Show password</button>');
-  $(this.el).parent().append(this.button);
+
+  // inject button
+  $(this.input).parent().append(this.button);
+
+  // listen to the button's click event
   this.button.on('click', $.proxy(this, 'onButtonClick'));
 };
 
 PasswordReveal.prototype.onButtonClick = function(e) {
-  if(this.el.type === 'password') {
-    this.el.type = 'password';
+  // if the input's type property is password
+  if(this.input.type === 'password') {
+    this.input.type = 'password'; // CHECK
     this.button.text('Show password');
   } else {
-    this.el.type = 'text';
+    this.input.type = 'text';
     this.button.text('Hide password');
   }
 };
 ```
 
-*(Note: `$.proxy` is a function that ensures the event handler is called with the object's context, not the element. Not using it would mean `this.el` or `this.button` wouldn't be recognised.)*
+*(Note: `$.proxy` is a wider supported version of `Function.prototype.bind` which ensures that the event handler is called with the object's context, not the element. Not using it would mean `this.el` or `this.button` wouldn't be recognised.*
 
 Some browsers provide this functionality natively, so if you're providing your own solution you can supress the browser's implementation as follows:
 
@@ -570,6 +588,7 @@ In this chapter we solved several fundamental form design challenges that are ap
 [^16]: https://vimeo.com/138359368
 [^x1]: https://www.w3.org/TR/WCAG20-TECHS/G162.html
 [^x2]: http://www.outlinenone.com/
+[^IE11]: http://www.html5accessibility.com/tests/aria-labelledby-input.html
 
 - https://www.tjvantoll.com/speaking/slides/constraint-validation/chicago/#/18
 

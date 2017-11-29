@@ -373,7 +373,7 @@ The number input (`input type="number"`) lets mobile users more quickly type a n
 
 ![Spinners](./images/02/spinners.png)
 
-You might think that the number input is appropriate for the card number, expiry date, and CVC number — after all, they are all consist of numbers. But it's a lot more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate or not.
+You might think that the number input is appropriate for the card number, expiry date, and CVC number — after all, they all consist of numbers. But it's a lot more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate or not.
 
 Let's start with some definitions. Wikipedia says that:
 

@@ -14,7 +14,7 @@ This converted a lot better. Although I can't remember the exact numbers, the cl
 
 ![Just Eat checkout](./images/02/justeat.png)
 
-Two years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Apart from the numbers, there are many reasons why it drastically improves the user experience.
+Two years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Behind the improved numbers, there are many reasons why it drastically improves the user experience.
 
 ## One Thing Per Page
 
@@ -28,17 +28,15 @@ However, she also explains that “questions that naturally ‘go together’ fr
 
 Like most designers, Caroline thought that putting them on separate pages would be overkill. In reality, users weren’t bothered. So start with one thing (field or question) per page, then, through research, find out if grouping fields improves the experience.
 
-That is not to say you’ll always end up combining screens — in my experience the best results come from splitting things apart, period.
-
 While this pattern often bares wonderful and delicious fruit (or orders and conversions if you hate my analogies), it’s useful to understand why it works so well.
 
 - Principle 6 says that we should *design interfaces that help users focus on core tasks by prioritising it*. It even goes on to say that *people should be able to focus on one thing at a time*. One Thing Per Page is simply following this principle to the letter, and in doing so, it drastically reduces the cognitive burden on users.
 - When users fill in a small form, errors are caught and shown early and often. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up on the task.
 - If pages have little on them, they'll load quickly. Faster pages reduce the risk of users leaving and they build trust.
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
-- Conversely, a long form takes a long time to complete. It it takes too long there's a risk that the page times out or the computer freezes causing data loss. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
+- Conversely, a long form increases the chance of a page time out or the computer freezing. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
-- It allows you to innovate as the entire screen is dedicated to one thing.
+- It allows you to innovate as the entire screen is dedicated to just one thing.
 
 ## Flow And Order
 
@@ -105,7 +103,7 @@ The input's `type` attribute is set to `tel` which on mobile will spawn a teleph
 
 ### Marking Optional Or Required Fields
 
-While real-time notifications *add value*, we shouldn't assume everyone wants to receive them, nor that everyone has a mobile phone. So we follow principle 5, *Offer choice*, by marking the field as optional. This way, users can opt-in if they like.
+While real-time notifications *add value*, we shouldn't assume everyone wants to receive them, nor that everyone has a mobile phone. So we let users choose to skip this field by marking the field as optional. This way, users can opt-in if they like.
 
 Traditionally, required fields are marked with an asterisk. A legend is usually placed above the form to denote its meaning but as Luke Wroblewski says:
 
@@ -170,7 +168,7 @@ As the user types the first line of their address, suggestions will appear from 
 
 ![Capture+ Enhancement](./images/02/capture-plus.png)
 
-If no address is found, users can change the interface back to the original address form. In doing so, we conform to principle 5, *offer choice*.
+If no address is found, users can change the interface back to the original address form. In doing so, we conform to principle 5, *Offer choice*.
 
 Capture+ has a third-party script which you can include on your page. But most third-party scripts don't account for the broad range of interaction preferences, usability and accessibility considerations. But, we'll look at all of this in the next chapter, when we build our own accessible autocomplete component from scratch.
 
@@ -379,7 +377,7 @@ Let's start with some definitions. Wikipedia says that:
 
 > A number is a mathematical object used to count, measure, and label. [...] numerals are often used for labels (as with telephone numbers), for ordering (as with serial numbers), and for codes (as with ISBNs).
 
-Most of us think of numbers this way. We use them to count and measure, but equally, we use them to in dates and codes. However, the HTML specification only agrees in part with this definition. It says that:
+Most of us think of numbers this way. We use them to count and measure, but equally, we use them in dates and codes. However, the HTML specification only agrees in part with this definition. It says that:
 
 > `type=number` is not appropriate for input that happens to only consist of numbers but isn’t strictly speaking a number. If it doesn’t make much sense to use number with spinners, `type=text` is probably the right choice (possibly with a pattern attribute).
 
@@ -391,10 +389,10 @@ In other words, numbers and numerals are different. Numbers represent an amount 
 
 Conversely, numerals might be used for dates and codes such as:
 
-- birth date (“nineteenth of June, nineteen eighty-three”)
-- pin code (“eight, double five, three, two, six”)
+- birth date (announced “nineteenth of June, nineteen eighty-three”)
+- pin code (announced “eight, double five, three, two, six”)
 
-There is a difference between the way these values are announced. Understanding this helps to see why we might perceive the way some browsers implement the number input are not bugs — though they may seem to be at first.
+There is a difference between the way these values are announced. Understanding this helps to see that while the way browsers implement the number input may seem buggy at first - they aren't.
 
 For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each example seems undesirable, but none of them stop users from entering true numbers.
 
@@ -431,7 +429,7 @@ Whether it's a slash or space, or a card number or an expiry date, we should be 
 
 Every payment provider needs the user's CVC number. It's usually the last three digits found on the back of the card.
 
-The first problem is that sites don't always refer to this field as CVC number. Sometimes it's referred to as a security code number or card verification value (CVV). Being specified as an acronym doesn't help either. And to top it off, the number is never beside a label to demarcate it making the field rather ambiguous.
+The first problem is that sites don't always refer to this field as CVC number. Sometimes it's referred to as a security code number or card verification value (CVV). Being specified as an acronym doesn't help either. And to top it off, on the card, the number is never accompanied by a description making it hard to reconcile the requirements.
 
 To fix this, we should employ the hint text pattern to tell users exactly what it is and where to find it. For example, “This is the last three digits on the back of the card.”
 
@@ -482,7 +480,7 @@ This also saves your (client's) business time and money. If Mary wants to cancel
 
 This shows that solely relying on completion time as a metric for success is dangerous. You should also look at how accurate people's orders are by checking how often items are returned. Ideally, you should use both metrics together.
 
-*(Note: as this is the final step in the flow, the button's text should be set to “Place order” or similar. Leaving it as “Continue” would mislead the user into thinking there is another step to complete. This is likely to result canceled orders.)*
+*(Note: as this is the final step in the flow, the button's text should be set to “Place order” or similar. Leaving it as “Continue” would mislead the user into thinking there is another step to complete. This is likely to result in canceled orders.)*
 
 ### Visual Design
 

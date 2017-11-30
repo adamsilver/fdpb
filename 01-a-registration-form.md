@@ -304,7 +304,7 @@ Where “Password” is ambiguous, “Choose password” provides clarity.
 
 ## Button Styles
 
-What's a button? often we refer to many different types of components on a web page as a button. In fact, I've already covered two different types of button without calling them out. Let's do that now.
+What's a button? Often we refer to many different types of components on a web page as a button. In fact, I've already covered two different types of button without calling them out. Let's do that now.
 
 Buttons that submit forms are “submit buttons” and they are coded typically as either `<input type="submit">` or `<button type="submit">`. The latter is more maleable in that you can nest other elements inside it. But there's rarely a need for that. Most submit buttons contain just text. 
 

@@ -14,15 +14,15 @@ You'd be forgiven for thinking you were spoiled for choice when it comes to form
 
 ### Select Box
 
-Select boxes, also known as drop-down menus, hide options behind a menu. Clicking the select box reveals the options. Once one is selected, the menu collapses back to its original state. Select boxes are often used because of their space-saving qualities. What's particularly interesting though, is why we need to save space in the first place.
+Select boxes, also known as drop-down menus, hide options behind a menu. Clicking the select box reveals the options. Once one is selected, the menu collapses back to its original state. Select boxes are often used because of their space-saving qualities. What's most interesting though, is why we need to save space in the first place.
 
 ![Select box](./images/03/select-box.png)
 
 Often an interface is crammed with features, usually to please stakeholders, not users. It's understandable then that learning ways to hide discrete pieces of an interface has become part of a designer's skillset. But design is about so much more than saving space. After all, if an interface really is crammed, then our first job as designers is to declutter it.
 
-Select boxes are hard to use. Usability expert Luke Wobrelski even goes as far to say that they should be the “UI of Last Resort”[^1] and suggests some better alternatives, some of which we'll discuss in this chapter. 
+In her talk “Burn Your Select Tags”[^burn], Alice Bartlett shares the user research she undertook at the UK Government Digital Service. In short, select boxes are hard to use. Besides hiding options behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focused options with selected ones. And, if that weren't enough, users can't pinch-zoom the options on certain devices.
 
-Besides hiding options behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focused options with selected ones. And to top it off users can't pinch-zoom the options on mobile.
+Usability expert, Luke Wobrelksi even wrote an article titled “Dropdowns Should be the UI of Last Resort”[^1]. In it, he suggests some better alternatives, some of which we'll discuss later in this chapter.
 
 ### Radio Buttons
 
@@ -36,7 +36,7 @@ Don't get me wrong, users are more than happy to scroll[^], and we shouldn't use
 
 ### Search Input
 
-A search box (`input type="search"`) is a standard text box with some added extras. You can clear the contents of the field, by tapping *X* or pressing <kbd>Escape</kbd>. With a text box (`input type="text"`) you have to select the text and press <kbd>delete</kbd> which takes a little longer.
+A search box (`<input type="search">`) is a similar to a regular text box (`<input type="text">`). A search box, however, lets users clear the field by tapping *X* or pressing <kbd>Escape</kbd> when focused. With a text box you have to select the text and press <kbd>Delete</kbd> which takes a little longer.
 
 ![Search input](./images/03/search-input.png)
 
@@ -48,7 +48,7 @@ Users need a control that lets them filter a long list of destinations—one tha
 
 Autocomplete works by suggesting options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field — hence the name. This saves users having to scroll (unless, of course, they want to) while being able to forgive small typos at the same time. 
 
-HTML5's `datalist` element combines with a text box to create this exact behaviour. Unfortunately, it's particularly buggy[^3]. If your project is locked down to a browser that doesn't contain bugs, then you could use it. But we want to design an experience that works for as many people as possible, no matter their browser or device choices.
+HTML5's `datalist` element combines with a text box to create this exact behaviour. Unfortunately, it's particularly buggy[^3]. If your project is locked down to a browser that doesn't contain bugs, then you could use it. But we want to design an inclusive experience - one that works for as many people as possible, no matter their browser or device choices.
 
 ![Datalist](./images/03/datalist.png)
 
@@ -81,7 +81,7 @@ To satisfy the first rule we need to choose a native form control to fall back t
 
 We'll cover off the other rules as we go.
 
-First, we need to hide (not remove!) the select box. It shouldn't be removed because it's the select box value that is sent to the server on submission. To hide the select box we need to add:
+First, we need to hide (not remove!) the select box. It shouldn't be removed because its value will be sent to the server on submission. To hide the select box we need to add:
 
 - a class of `visuallyhidden` to make it visually hidden with CSS
 - `aria-hidden="true"` so it's not perceivable by screen readers
@@ -155,7 +155,7 @@ Suggestions appear in the menu giving sighted users feedback. To give screen rea
 <div aria-live="polite" role="status"></div>
 ```
 
-The `role="status"` and `aria-live="polite"` attributes tell screen readers to announce the content when it changes, but only after the user stops typing—otherwise it would interupt them. Both attributes are functionally equivalent but we include both as older screen readers don't recognise `role`.
+The `role="status"` and `aria-live="polite"` attributes tell screen readers to announce the content when it changes, but only after the user stops typing — otherwise it would interupt them. Both attributes are functionally equivalent but both are included as some screen readers don't recognise `role`.
 
 Next we need to enrich the text box with some Javascript events. Let's run through the main interactions now. First we need to listen to the text box `keyup` event.
 
@@ -314,7 +314,7 @@ Select boxes are also used to avoid locale and formatting differences. Some date
 
 ### Types Of Date
 
-Many of us assume that using a calendar widget is always better than letting users type freely into a text box unassisted. But this is not always the case. As the Goverment Digital Service (GDS) states:
+Many of us assume that using a calendar widget is always better than letting users type freely into a text box unassisted. But this is not always the case. As the UK Goverment Digital Service (GDS) Service Manual states:
 
 > “The way you should ask for dates depends on the types of date you’re asking for.”
 
@@ -359,7 +359,7 @@ In this case, you should use three text boxes: one for day, month and year. Why 
 
 The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”) gives each text box context and would be read out as “Date of birth, day” (or similar) as the user steps through each field.
 
-*(Note: the pattern attribute is used to trigger the numeric keyboard - a little enhancement for iOS users, as discussed in “A Checkout Flow”.)*
+*(Note: the pattern attribute is used to trigger the numeric keyboard - a little enhancement for iOS users. If you're wondering why the number input isn't used here, we discussed the issues in “A Checkout Flow”.)*
 
 #### Calendar Widgets
 
@@ -375,7 +375,7 @@ Instead, we'll let users focus on choosing a date unencumbered and later we'll g
 
 ### The Date Input
 
-As usual, our first port of call is to look at what browsers give us for free: HTML5 introduced the date input (`input type="date"`) which offers a special interface for picking dates while enforcing a standard format value that's sent to the server. Mobile browser support is really good too.
+As usual, our first port of call is to look at what browsers give us for free: HTML5 introduced the date input (`<input type="date">`) which offers a special interface for picking dates while enforcing a standard format value that's sent to the server. Mobile browser support is really good too.
 
 ![Mobile Date Input](./images/03/date-input-mobile.png)
 
@@ -383,11 +383,11 @@ Desktop browser support is patchy. Chrome and Edge have support but Firefox, for
 
 #### Things Look Different
 
-Don't be too concerned about the difference in appearance. Users either don't notice or don't care. And most people use the same browsers and devices daily. Unlike us, they are not agonising over subtle differences during testing.
+Don't be too concerned about the difference in appearance. Most users aren't aware and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during testing.
 
 > Nobody cares about your website as much as you do
 
-If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 16 minutes in[^8]. Nicholas Zakas shows the audience a photo. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. Remember the audience was full of designers and developers — people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
+If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^8]. Nicholas Zakas shows the audience a photo. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. Remember the audience was full of designers and developers — people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
 
 And if that's not enough proof, visit “Do Websites Need To Look Exactly The Same In Every Browser”[^].
 
@@ -425,7 +425,7 @@ The enhanced interface takes the text box and injects a button beside it. Clicki
 
 Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't suffer from these issues.
 
-There is an inset left border which visually connects the calendat to the field. And the interactive elements within the calendar have large tap targets which are easier to tap with a finger or click with a mouse.
+There is an inset left border which visually connects the calendar to the field. And the interactive elements within the calendar have large tap targets which are easier to tap (or click) with a finger (or mouse).
 
 #### Revealing The Calendar
 
@@ -448,7 +448,7 @@ As noted earlier, clicking the toggle button, reveals the calendar.
 Notes:
 
 - The `type="button"` attribute stops the button from submitting the form. If it was left undefined or set to “submit” it would submit the form.
-- The `aria-haspopup="true"` attribute indicates that the button secretes a calendar. It acts as a warning that, when pressed, the focus will be moved to the calendar. Note: its value is always set to `true`.
+- The `aria-haspopup="true"` attribute indicates that the button reveals a calendar. It acts as a warning that, when pressed, the focus will be moved to the calendar. Note: its value is always set to `true`.
 - The `aria-haspopup` attribute is complemented by `aria-expanded`. This tells screen reader users whether the calendar is currently in an open (expanded) or closed (collapsed) state by toggling between `true` and `false` values.
 - The calendar is hidden using the `hidden` attribute/property as explained in chapter 1, “A Registration Form”.
 
@@ -512,7 +512,7 @@ When the button is pressed, sighted users will see visual feedback because the c
 <div role="status" aria-live="polite">October 2017</div>
 ```
 
-The `thead` contains the column headings which represent each day of the week. The days are abbreviated visually to save space - tables aren't stylistically malleable, something that we'll discuss at length in chapter 5. While abbreviations work here, we can give greater clarity for screen reader users by putting the full version inside the `aria-label` attribute.
+The `thead` contains the column headings which represent each day of the week. The days are abbreviated visually to save space - tables aren't stylistically malleable, something that we'll discuss more in chapter 5. While abbreviations work here, we can give greater clarity for screen reader users by putting the full version inside the `aria-label` attribute.
 
 ```HTML
 <thead>
@@ -531,7 +531,7 @@ The `thead` contains the column headings which represent each day of the week. T
 The same technique is used for the day of the month. That is, just the number is shown visually which isn't enough for visually-impaired users. For them, we store the full date inside the `aria-label` attribute, which speaks to principle 1, *provide a comparable experience*.
 
 ```HTML
-<td tabindex="-1" aria-lael="7 October, 2017">
+<td tabindex="-1" aria-label="7 October, 2017">
   <span aria-hidden="true">7</span>
 </td>
 ```
@@ -554,7 +554,7 @@ At which time, we can quietly remove the Javascript code, giving us less to main
 
 We have catered for people who use a supporting browser and considered those using an unsupported browser. But we haven't thought about people using an unsupported browser that experiences a network or Javascript failure as described in “A Registration Form”.
 
-> There is something to be said for design that ignores people, people ignore it.
+> People ignore design that ignores people. - Frank Chimero
 
 In this case users will see a text box asking for a date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't just add a hint because browsers that support the date input will use a different format which would cause confusion.
 
@@ -599,7 +599,7 @@ Number inputs have little spinner buttons. Spinners, also known as steppers, let
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-The downside is the the default spinners are really small, which make them especially difficult to use on a touch screen display or for people have motor impairements. On mobile, they don't show up at all.
+The downside is the the default spinners are really small, which make them especially difficult to use on a touch screen display or for people have motor impairements. On many mobile devices, they don't show up at all.
 
 ### Custom Stepper Buttons
 
@@ -637,7 +637,7 @@ When the buttons are pressed the input's value updates but this isn't announced 
 
 #### A Note On Iconography
 
-In “The Best Icon is a Text label”[^12], Thomas Byttebier explains that while there are some advantages and using iconography in-place of text, they have a tendency to confuse users because their meaning is unclear.
+In “The Best Icon is a Text label”[^12], Thomas Byttebier explains that while there are some advantages in using iconography in-place of text, they have a tendency to confuse users because their meaning is unclear.
 
 Icons have three advantages over text:
 
@@ -645,11 +645,11 @@ Icons have three advantages over text:
 - They save space, which is useful in small viewports.
 - In a page with a lot of text, icons can draw attention to something important.
 
-The downside to icons are that they aren't always understood making the interface unclear and difficult to use. In other words, the user they might as well be looking at hieroglyphics. And, as Thomas says:
+The downside to icons is that they aren't always understood. This would make the interface unclear. In other words, the user they might as well be looking at hieroglyphics. And, as Thomas says:
 
 > What good has a beautiful interface if it’s unclear? Hence it’s simple: only use an icon if its message is a 100% clear to everyone. Never give in.
 
-The custom buttons we've used to enhance the interface use plus and minus icons. This is helpful in some ways because it means the interface will work, even on small viewports. It also keeps the interface clean and the buttons equally-weighted. Moreover, these particular icons should be well-understood, all of which make their usage more palatable.
+The custom buttons we've used to enhance the interface use plus and minus icons. This is helpful in some ways because it means the interface will fit, even on small viewports. It also keeps the interface clean and the buttons equally-weighted. Moreover, these particular icons should be well-understood, all of which make their usage more palatable.
 
 Where possible, test your icons with a diverse set of users and if need be, switch over to text.
 
@@ -659,7 +659,7 @@ Now all the relevant information has been collected, we can give users a list of
 
 ![Choose flight](./images/03/choose-flight.png)
 
-The system shows flights that match the date the user specified earlier. Additionally, the interface allows users to move back and forth between days. This follows principle 5, *Offer choice*.
+The system shows flights that match the date the user specified earlier. Additionally, the interface lets users move back and forth between days. The group's label is set as normal via the `<legend>` and is set to “Available flights on 18 August 2018.”
 
 The flights are represented as radio buttons as the user can select just one. Each label contains the departure time, arrival time and ticket price: all useful information. One advantage of using this pattern is that you can add whatever details you need inside the label and style it in a hierarchical fashion.
 
@@ -684,7 +684,7 @@ Up to now, radio buttons have been stacked beneath one an other, which is enough
 
 ![Stacked](./images/choose-seat-stacked.png)
 
-We can provide that structure by laying out seats in rows, just like they are on a plane. This will help users map their location. Users might be looking for isle or window seats, for example.
+We can provide that structure by laying out seats in rows, just like they are on a plane. This will help users map their location. Users might be looking for aisle or window seats, for example.
 
 ![Nested](./images/choose-seat-nested.png)
 
@@ -701,7 +701,7 @@ To denote window seats and isle seats for screen reader users we can put hidden 
 
 The radio buttons are housed inside an extra fieldset (and legend) to incidate which class the seat belongs to: first class or economy. Visually this is fine, but screen readers don't always behave as expected. Sometimes, they announce both `legends` when the first radio button is focused. Sometimes they don't announce the outer `legend` at all. You can read Leonie Watson's article, “Using the fieldset and legend elements”[^] for more information.
 
-Where possible, you should avoid nested fieldsets, not only for screen reader users, but because their use often signifies extra complexity that can be designed out of a system. For example, we're showing both first class and economy class seats because user's never specified which class they wanted.
+Where possible, you should avoid nested fieldsets, not only for screen reader users, but because their use often signifies extra complexity that can be designed out of a system. For example, we're showing both first class and economy class seats because users' never specified which class they wanted.
 
 Instead, we could ask users to specify their preference beforehand. At the same time, we can mark *economy* as checked by default. Marking the most common choice expedites the process.
 
@@ -719,15 +719,15 @@ In practical terms, a radio button tells you that just one can be selected. Chec
 
 Traditional advice says you should only use radio buttons if there are less than 7 choices, otherwise use a select box. Rules are good: they allow us to think less and avoid the same mistakes others have made in the past. 
 
-But there are always exceptions to rules. I prefer guidance to rules because they guidance doesn't presume to know everything. It offers up everything it knows, and gives you the power to break the rules when appropriate.
+But there are always exceptions to rules. I prefer guidance to rules. Unlike rules, guidance offers up everything it knows, and gives you the power to break the rules when appropriate.
 
-A Boeing 747 commerical jet airliner has over 400 seats so we've more shattered, than broken the 7 choice rule. Call me a rebel, but I'm struggling to see a better way of presenting seats. Choosing a seat is quite a unique interaction and benefits from this layout.
+A Boeing 747 commerical plane has over 400 seats so we've shattered the 7 choice rule. Call me a rebel, but I'm struggling to see a better way of presenting seats. Choosing a seat is quite a unique interaction and benefits from this layout.
 
-And using One Thing Per Page gives us maximal screen space to design something better. The screen whilst long is far less overwhelming as it'd dedicated to just one thing: choosing a seat.
+And using the One Thing Per Page pattern gives us maximal screen space to design something better. The screen, while long, is far less overwhelming as it'd dedicated to just one thing: choosing a seat.
 
 ### Unavailable Seats
 
-Unavailable seats are denoted by marking the checkbox (or radio button) as disabled. They are grayed out so that sighted users know they aren't selectable. Similarly screen readers won't announced them, and keyboard users can't focus to them.
+Unavailable seats are denoted by marking the checkbox (or radio button) as disabled. They are grayed out so that sighted users know they aren't selectable. Similarly screen readers won't announced them, and keyboard users can't focus to them. This is where disabling elements works nicely.
 
 ```HTML
 <input type="checkbox" name="seat" value="1A" disabled>
@@ -749,11 +749,11 @@ function SeatEnhancer() {
 }
 
 SeatEnhancer.prototype.onCheckboxFocus = function(e) {
-  $(e.target).parents('.plane-seat').addClass('plane-seat-isFocussed');
+  $(e.target).parents('.plane-seat').addClass('plane-seat-isFocused');
 };
 
 SeatEnhancer.prototype.onCheckboxBlur = function(e) {
-  $(e.target).parents('.plane-seat').removeClass('plane-seat-isFocussed');
+  $(e.target).parents('.plane-seat').removeClass('plane-seat-isFocused');
 };
 ```
 
@@ -809,8 +809,8 @@ As much as we tried to use native form controls, in their standard format, it be
 
 ### Things to avoid
 
-- Using radio buttons instead of checkboxes.
-- Using select boxes when there are better alternatives.
+- Using radio buttons that look like checkboxes (or vice versa).
+- Using select boxes when better alternatives exist.
 - Letting users do the hard work when the interface can be designed to it for them.
 - Nested fieldsets.
 
@@ -823,9 +823,10 @@ As much as we tried to use native form controls, in their standard format, it be
 [^5]: http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
 [^6]: https://www.gov.uk/service-manual/design/dates
 [^7]: http://html5doctor.com/html5-forms-input-types/#input-number
-[^8]: https://www.youtube.com/watch?v=hdTxeR90_1E
+[^8]: https://youtu.be/hdTxeR90_1E?t=29m27s
 [^9]: http://dowebsitesneedtolookexactlythesameineverybrowser.com/
 [^10]: https://adactio.com/journal/6692
 [^11]: https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately
 [^12]: https://thomasbyttebier.be/blog/the-best-icon-is-a-text-label
 [^13]: http://danieldelaney.net/checkboxes/?utm_source=designernews
+[^burn]: https://www.youtube.com/watch?v=CUkMCQR4TpY

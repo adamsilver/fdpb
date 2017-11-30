@@ -81,15 +81,17 @@ To satisfy the first rule we need to choose a native form control to fall back t
 
 We'll cover off the other rules as we go.
 
-First, we need to hide (not remove!) the select box. It shouldn't be removed because its value will be sent to the server on submission. To hide the select box we need to add:
+#### Hiding the select box
 
-- a class of `visuallyhidden` to make it visually hidden with CSS
-- `aria-hidden="true"` so it's not perceivable by screen readers
-- `tabindex="-1"` so that it is not focusable by keyboard
+First, we need to hide the select box like this:
 
 ```HTML
 <select aria-hidden="true" tabindex="-1" class="visuallyhidden">
 ```
+
+If the select box was completely unnecessary, we could have just removed it from the Document using Javascript. But if we did it this way (or by using `display: none`) it wouldn't be sent to the server.
+
+Instead, the `visuallyhidden` class contains a special set of properties, carefully devised to hide the element visually, while still being perceivable to the server once submitted. This way, it's also still perceivable to screen reader and keyboard users.
 
 ```CSS
 .visuallyhidden {
@@ -103,6 +105,10 @@ First, we need to hide (not remove!) the select box. It shouldn't be removed bec
   width: 1px!important;
 }
 ```
+
+With that said, we don't actually want the select box to be perceivable to screen readers, nor focusable by keyboard users. By setting `aria-hidden="true"` screen reader users won't announce it. And setting `tabindex="-1"` ensures it's not focusable by keyboard.
+
+#### Enhancing the interface
 
 Then we need to inject the text box that users will interact with. To make sure the label still works, we transfer the `id` to the text box.
 
@@ -155,7 +161,7 @@ Suggestions appear in the menu giving sighted users feedback. To give screen rea
 <div aria-live="polite" role="status"></div>
 ```
 
-The `role="status"` and `aria-live="polite"` attributes tell screen readers to announce the content when it changes, but only after the user stops typing — otherwise it would interupt them. Both attributes are functionally equivalent but both are included as some screen readers don't recognise `role`.
+The `role="status"` and `aria-live="polite"` attributes tell screen readers to announce the content when it changes, but only after the user stops typing — otherwise it would interupt them. Both attributes are functionally equivalent but are included as some screen readers don't recognise `role`.
 
 Next we need to enrich the text box with some Javascript events. Let's run through the main interactions now. First we need to listen to the text box `keyup` event.
 
@@ -240,7 +246,7 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 };
 ```
 
-This function is quite similar to the one just described. The difference is that, the first option is retrieved before highlighting it. The `highlightOption` (shown below) takes an option to highlight.
+This function is quite similar to the one just described. The difference is that, the first option is retrieved before highlighting it. The `highlightOption` method (shown below) takes an option to highlight.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
@@ -290,14 +296,14 @@ Autocomplete.prototype.selectSuggestion = function(suggestion) {
 };
 ```
 
-For keyboard we end up performing the exact same routine. It's just that this time we perform that routine when the user presses <kbd>space</kbd> or <kbd>enter</kbd>.
+For keyboard we end up performing the exact same routine. It's just that this time we perform that routine when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd>.
 
 The other actions can be summed up briefly. When the user presses:
 
-- <kbd>up</kbd>, the previous option is focused. If it's the first option, focus is set to the text box.
-- <kbd>down</kbd>, the next option is focused.
-- <kbd>tab</kbd>, the menu is hidden.
-- <kbd>escape</kbd>, the menu is hidden and focus is set to the text box.
+- <kbd>Up</kbd>, the previous option is focused. If it's the first option, focus is set to the text box.
+- <kbd>Down</kbd>, the next option is focused.
+- <kbd>Tab</kbd>, the menu is hidden.
+- <kbd>Escape</kbd>, the menu is hidden and focus is set to the text box.
 - a character, then focus is set to the text box so users can continue typing.
 
 ## 2. Choosing When To Fly

@@ -219,7 +219,7 @@ Autocomplete.prototype.onTextBoxType = function(e) {
 
 Let's run through this function. The condition checks to see if the user has typed a value. If they have then it calls `this.getOptions()` which takes that value, and returns any matching options. It then builds and shows the menu before updating the live region. Finally, the hidden select box is updated.
 
-Pressing <kbd>down</kbd> should move focus and highlight the first suggestion. If the user presses <kbd>down</kbd> without typing anything then all the possible options are shown.
+Pressing <kbd>Down</kbd> should move focus and highlight the first suggestion. If <kbd>Down</kbd> is pressed without typing anything then all the possible options are shown.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
@@ -250,26 +250,28 @@ This function is quite similar to the one just described. The difference is that
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
+  // remove currently selected option if there is one
   if(this.activeOptionId) {
     var activeOption = this.getOptionById(this.activeOptionId);
-    activeOption.removeClass('autocomplete-option-isActive');
     activeOption.attr('aria-selected', 'false');
   }
 
-  option.addClass('autocomplete-option-isActive');
+  // set new option to selected
   option.attr('aria-selected', 'true');
 
+  // Ensure option is visible within the menu
   if(!this.isElementVisible(option.parent(), option)) {
     option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
   }
 
+  // store new active option for next time
   this.activeOptionId = option[0].id;
+
+  // focus the option
   option.focus();
 };
 
 ```
-
-The function first checks to see if there is highlighted option already. If there is, the highlight is removed by removing the class and setting `aria-selected` to `false`. Then, the new option is given that class and sets the same attribute to `true`. Then it checks to see if the element is visible within the menu, because that option may not be visible. If it's not visible, we bring it into view. Finally, the new option is focused.
 
 Now we need to talk about how users interact with the menu. Mouse (or touch) users can scroll the menu and click an option. First we listen to the menu's click event. the handler then grabs the suggestion (`e.currentTarget`) and hands that off to the `selectSuggestion` method, which we'll discuss next.
 

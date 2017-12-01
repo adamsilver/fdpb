@@ -163,63 +163,62 @@ Suggestions appear in the menu giving sighted users feedback. To give screen rea
 
 The `role="status"` and `aria-live="polite"` attributes tell screen readers to announce the content when it changes, but only after the user stops typing — otherwise it would interupt them. Both attributes are functionally equivalent but are included as some screen readers don't recognise `role`.
 
-Next we need to enrich the text box with some Javascript events. Let's run through the main interactions now. First we need to listen to the text box `keyup` event.
+Next we need to enrich the text box with some Javascript events. Here's the event handler that runs when the user types:
 
 ```JS
-AutoComplete.prototype.addTextBoxEvents = function() {
-  this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'));
-};
-
 Autocomplete.prototype.onTextBoxKeyUp = function(e) {
   switch (e.keyCode) {
     case this.keys.esc:
-      // ignore when users presses escape
-      break;
     case this.keys.up:
-      // ignore when the user presses up
-      break;
     case this.keys.left:
-      // ignore when the user presses left
-      break;
     case this.keys.right:
-      // ignore when the user presses right
+    case this.keys.space:
+    case this.keys.enter:
+      // ignore these keys otherwise
+      // the menu will show briefly
       break;
     case this.keys.down:
-      // move onto first suggestion
       this.onTextBoxDownPressed(e);
       break;
-    case this.keys.space:
-      // ignore this, otherwise the
-      // the menu will show again.
-      break;
-    case this.keys.enter:
-      // ignore this, otherwise the menu 
-      // shows briefly before submission
-      break;
     default:
-      // show suggestions
       this.onTextBoxType(e);
   }
 };
 ```
 
-We're only really interested when the user presses <kbd>down</kbd> or a character to match on. When the user types a character, we want to show matching options (and update the live region).
+Notice that we're filtering out <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd> and <kbd>Enter</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check for the keys we're interested in. But, this would mean specifying a huge range of keys increasing the chance that one could be missed, which would break the experience.
+
+We only want to do something when the user presses <kbd>Down</kbd> or a character to match on (which are the last two cases in the above function). When the user presses a character, matching options are shown in the menu and the live region is updated.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
+  // only show options if user typed something
   if(this.textBox.val().trim().length > 0) {
+    // get options based on value
     var options = this.getOptions(this.textBox.val().trim().toLowerCase());
+
+    // build the menu based on the options
     this.buildMenu(options);
+
+    // show the menu
     this.showMenu();
+
+    // update the live region
     this.updateStatus(options.length);
   }
+
+  // update the select box value which
+  // the server uses to process the data
   this.updateSelectBox();
 };
 ```
 
-Let's run through this function. The condition checks to see if the user has typed a value. If they have then it calls `this.getOptions()` which takes that value, and returns any matching options. It then builds and shows the menu before updating the live region. Finally, the hidden select box is updated.
+When the user presses <kbd>Down</kbd> there are two scenarios to handle:
 
-Pressing <kbd>Down</kbd> should move focus and highlight the first suggestion. If <kbd>Down</kbd> is pressed without typing anything then all the possible options are shown.
+1. If the text box value is empty or exactly matches an option then all the available options are shown
+2. Otherwise, the matching options are shown (if any)
+
+In either case, the first option is focused and highlighted which we'll walk through next.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
@@ -230,15 +229,15 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
   // then show all the options
   if(value.length === 0 || this.isExactMatch(value)) {
     options = this.getAllOptions();
-    this.buildOptions(options);
-    this.showOptionsPanel();
+    this.buildMenu(options);
+    this.showMenu();
     option = this.getFirstOption();
     this.highlightOption(option);
   } else {
-    options = this.getOptions(this.textBox.val().trim());
+    options = this.getOptions(value);
     if(options.length > 0) {
-      this.buildOptions(options);
-      this.showOptionsPanel();
+      this.buildMenu(options);
+      this.showMenu();
       option = this.getFirstOption();
       this.highlightOption(option);
     }
@@ -246,11 +245,11 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 };
 ```
 
-This function is quite similar to the one just described. The difference is that, the first option is retrieved before highlighting it. The `highlightOption` method (shown below) takes an option to highlight.
+The `highlightOption` method is shown below with comments inline.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
-  // remove currently selected option if there is one
+  // remove currently selected option if there is one as only one option should be selected and highlighted.
   if(this.activeOptionId) {
     var activeOption = this.getOptionById(this.activeOptionId);
     activeOption.attr('aria-selected', 'false');
@@ -273,7 +272,7 @@ Autocomplete.prototype.highlightOption = function(option) {
 
 ```
 
-Now we need to talk about how users interact with the menu. Mouse (or touch) users can scroll the menu and click an option. First we listen to the menu's click event. the handler then grabs the suggestion (`e.currentTarget`) and hands that off to the `selectSuggestion` method, which we'll discuss next.
+Now we need to talk about how users interact with the menu. Mouse (or touch) users can scroll the menu and click an option. First, we listen to the menu's click event. the handler then grabs the suggestion (`e.currentTarget`) and hands that off to the `selectSuggestion` method, which we'll discuss next.
 
 ```JS
 Autocomplete.prototype.addSuggestionEvents = function() {

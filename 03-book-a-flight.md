@@ -81,7 +81,7 @@ To satisfy the first rule we need to choose a native form control to fall back t
 
 We'll cover off the other rules as we go.
 
-#### Hiding the select box
+#### Hiding The Select Box
 
 First, we need to hide the select box like this:
 
@@ -108,7 +108,7 @@ Instead, the `visuallyhidden` class contains a special set of properties, carefu
 
 With that said, we don't actually want the select box to be perceivable to screen readers, nor focusable by keyboard users. By setting `aria-hidden="true"` screen reader users won't announce it. And setting `tabindex="-1"` ensures it's not focusable by keyboard.
 
-#### Enhancing the interface
+#### Enhancing The Interface
 
 Then we need to inject the text box that users will interact with. To make sure the label still works, we transfer the `id` to the text box.
 
@@ -163,6 +163,8 @@ Suggestions appear in the menu giving sighted users feedback. To give screen rea
 
 The `role="status"` and `aria-live="polite"` attributes tell screen readers to announce the content when it changes, but only after the user stops typing — otherwise it would interupt them. Both attributes are functionally equivalent but are included as some screen readers don't recognise `role`.
 
+#### Text Box Interactions
+
 Next we need to enrich the text box with some Javascript events. Here's the event handler that runs when the user types:
 
 ```JS
@@ -186,9 +188,9 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 };
 ```
 
-Notice that we're filtering out <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd> and <kbd>Enter</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check for the keys we're interested in. But, this would mean specifying a huge range of keys increasing the chance that one could be missed, which would break the experience.
+Note that we're filtering out <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd> and <kbd>Enter</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check for the keys we're interested in. But, this would mean specifying a huge range of keys which would increase the chance of one being missed - this would then break the experience.
 
-We only want to do something when the user presses <kbd>Down</kbd> or a character to match on (which are the last two cases in the above function). When the user presses a character, matching options are shown in the menu and the live region is updated.
+We only want to do handle the cases when the user presses <kbd>Down</kbd> or a character to match on (which are the last two cases in the above function). When the user presses a character, matching options are shown in the menu and the live region is updated.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
@@ -249,7 +251,8 @@ The `highlightOption` method is shown below with comments inline.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
-  // remove currently selected option if there is one as only one option should be selected and highlighted.
+  // remove currently selected option if there is one as 
+  // only one option should be selected and highlighted.
   if(this.activeOptionId) {
     var activeOption = this.getOptionById(this.activeOptionId);
     activeOption.attr('aria-selected', 'false');
@@ -272,32 +275,37 @@ Autocomplete.prototype.highlightOption = function(option) {
 
 ```
 
-Now we need to talk about how users interact with the menu. Mouse (or touch) users can scroll the menu and click an option. First, we listen to the menu's click event. the handler then grabs the suggestion (`e.currentTarget`) and hands that off to the `selectSuggestion` method, which we'll discuss next.
+#### Menu Interactions
+
+Now we need to talk about how users interact with the menu. Mouse (and touch) users can scroll the menu and click an option. First, we listen to the menu's click event using event delegation[^]. This way, instead of adding a listener onto each option, we just add one listener onto the container.
 
 ```JS
 Autocomplete.prototype.addSuggestionEvents = function() {
   this.optionsUl.on('click', '.autocomplete-option', $.proxy(this, 'onSuggestionClick'));
 };
+```
 
+The `onSuggestionClick` handler (shown below), retrieves the clicked suggestion and hands it off to the `selectSuggestion` method:
+
+```JS
 Autocomplete.prototype.onSuggestionClick = function(e) {
   var suggestion = $(e.currentTarget);
   this.selectSuggestion(suggestion);
 };
 ```
 
-The `selectionSuggestion` method grabs the corresponding value out of the `data-option-value` attribute. It then uses that value to update the text box and the hidden select box. Finally, it hides the options and sets focus to the text box.
+The `selectionSuggestion` method (shown below), first takes the suggestion's value and uses it to populate the text box and select box (via the `setValue` method). Additionally, the menu is hidden and the text box is focused.
 
 ```JS
 Autocomplete.prototype.selectSuggestion = function(suggestion) {
   var value = suggestion.attr('data-option-value');
-  this.textBox.val(value);
   this.setValue(value);
-  this.hideOptions();
+  this.hideMenu();
   this.focusTextBox();
 };
 ```
 
-For keyboard we end up performing the exact same routine. It's just that this time we perform that routine when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd>.
+We perform the exact same routine when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard.
 
 The other actions can be summed up briefly. When the user presses:
 

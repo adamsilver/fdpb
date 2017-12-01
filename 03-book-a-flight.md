@@ -54,7 +54,7 @@ HTML5's `datalist` element combines with a text box to create this exact behavio
 
 Instead, we'll build a custom autocomplete component from scratch. A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is challenging work.
 
-### Building An Autocomplete Component
+#### Building An Accessible Autocomplete
 
 Accessibility expert Steve Faulkner has what he calls a *punch list*[^4] which is a list of rules anyone should follow to make sure that any custom Javascript component is designed and built to a good standard. The rules state that a component should:
 
@@ -464,7 +464,7 @@ Notes:
 
 - The `type="button"` attribute stops the button from submitting the form. If it was left undefined or set to “submit” it would submit the form.
 - The `aria-haspopup="true"` attribute indicates that the button reveals a calendar. It acts as a warning that, when pressed, the focus will be moved to the calendar. Note: its value is always set to `true`.
-- The `aria-haspopup` attribute is complemented by `aria-expanded`. This tells screen reader users whether the calendar is currently in an open (expanded) or closed (collapsed) state by toggling between `true` and `false` values.
+- The `aria-expanded` attribute indicates whether the calendar is currently in an open (expanded) or closed (collapsed) state by toggling between `true` and `false` values.
 - The calendar is hidden using the `hidden` attribute/property as explained in chapter 1, “A Registration Form”.
 
 #### Keyboard And Focus Behaviour
@@ -691,7 +691,7 @@ The flights are represented as radio buttons as the user can select just one. Ea
 
 ## 5. Choosing A Seat
 
-Finally, users need to choose a seat. Whilst this step is not especially complicated, the combination of affordance, layout and interaction can make or break this part of the journey.
+Finally, users need to choose a seat. While this step is not especially complicated, the combination of affordance, layout and interaction can make or break this part of the journey.
 
 ### Layout
 
@@ -708,7 +708,7 @@ To denote window seats and isle seats for screen reader users we can put hidden 
 ```HTML
 <label for="S1A">
   <input type="checkbox" name="seat" value="1A" id="S1A">
-  1A <span class="vh">Window</span>
+  <span class="plane-seatNumber">1A <span class="vh">Window</span></span>
 </label>
 ```
 
@@ -752,37 +752,20 @@ Unavailable seats are denoted by marking the checkbox (or radio button) as disab
 
 Laying out seats in rows can cause seats to wrap in small viewports. Alternatively, seats can be styled not to wrap, but this causes a horizontal scroll bar. Neither of these problems are deal breakers, but if we can reduce the chance of this happening we should.
 
-One approach would be hiding the checkboxes and make the remaining label look clickable. Hiding checkboxes with CSS alone is dangerous because pressing <kbd>Tab</kbd> moves focus to the checkbox, not the label. On its own this breaks the interface for keyboard users because as the user focuses each checkbox there is no visual feedback.
+One approach would be to hide the checkboxes and make the remaining label look clickable. Hiding checkboxes with CSS alone is dangerous because pressing <kbd>Tab</kbd> moves focus to the checkbox, not the label. On its own this breaks the interface for keyboard users because as the user focuses each checkbox there is no visual feedback.
 
-To fix this problem, we can use Javascript to listen to the `focus` and `blur` events on the checkboxes. As the user moves focus to the visually hidden checkbox, a class of `plane-seat-isFocused` is added to the label which can be used to style the label.
+To fix this problem, we can give the (still) visible `<span class="plane-seatNumber">` the appearance of focus using the adjacent sibling selector:
 
 ```JS
-function SeatEnhancer() {
-  this.checkboxes = $('.plane-seat input');
-  this.checkboxes.on('focus', $.proxy(this, 'onCheckboxFocus'));
-  this.checkboxes.on('blur', $.proxy(this, 'onCheckboxBlur'));
+.enhanced [type="checkbox"]:focus + .plane-seatNumber {
+  border: 3px solid #ffbf47;
 }
-
-SeatEnhancer.prototype.onCheckboxFocus = function(e) {
-  $(e.target).parents('.plane-seat').addClass('plane-seat-isFocused');
-};
-
-SeatEnhancer.prototype.onCheckboxBlur = function(e) {
-  $(e.target).parents('.plane-seat').removeClass('plane-seat-isFocused');
-};
 ```
 
-The CSS should only be applied when Javascript is available. This is done by adding a class of `enhanced` to the document element in the `<head>` of the document like this:
+Note that `.enhanced` is at the start of the selector. This is because these styles should only be applied when Javascript is available. This is done by adding a class of `enhanced` to the document element in the `<head>` of the document like this:
 
 ```JS
 document.documentElement.className = 'enhanced';
-```
-
-```CSS
-.enhanced .plane-seat-isFocused label {
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-  border: 3px solid rgba(81, 203, 238, 1);
-}
 ```
 
 ### Limiting Selection
@@ -791,7 +774,7 @@ If the user specified 2 travellers, then users shouldn't be able to select more 
 
 One way to do this is to disable the remaining seats as soon as the limit is reached. But this assumes users will pick the right seat the first time. If they try to click another seat, as the other seats are disabled, the interface won't respond.
 
-Savvy users may realise they have to deselect the currently-selected seat first, but they shouldn't have to. And what about less savvy users? We should do the hard work for them. That is, if they surpass their quota we should uncheck their currently-selected seat for them automatically.
+Savvy users may realise they have to deselect the currently-selected seat first, but they shouldn't have to. And what about less savvy users? We should do the hard work ourselves, to make it simple for them. To do that, if they surpass their quota, the currently-selected seat should be unchecked automatically.
 
 ```JS
 function SeatLimiter(max) {

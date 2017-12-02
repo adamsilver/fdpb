@@ -83,14 +83,14 @@ Here, it's because we can send users a receipt of purchase, which is particularl
 
 ## 2. Mobile Phone
 
-Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint. Remember, the hint is not just for formatting rules - it's for anything that will help users fill out the field. This transparency builds trust, reduces friction, and promotes the feature all at the same time.
+Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint. Remember, the hint is not just for formatting rules - it's for anything that will help users fill out the field. This transparency builds trust, reduces effort, and promotes the feature all at the same time.
 
 ![Mobile screen](./images/02/mobile-field.png)
 
 ```html
 <div class="field">
   <label for="mobile">
-    <span class="field-label">Your mobile (optional)</span>
+    <span class="field-label">Mobile number (optional)</span>
     <span class="field-hint">So we can notify you about delivery</span>
   </label>
   <input type="tel" id="mobile" name="mobile">
@@ -470,13 +470,13 @@ The container is hidden with CSS by toggling the display property between `block
 
 At this point in the flow, we have collected all the information needed to complete the order. But instead of processing the order after payment, you should let users review their order. As counterintuitive as this may sound, adding an extra step in the flow reduces friction.
 
-Take Mary (I made her up), a mother of two infants. It's the middle of the night, and her baby is crying inconsolably. Naturally, Mary is tired and stressed. To make things worse, she's run out of nappies.
+Take Jack (I made him up), a father of two infants. It's the middle of the night, and his baby is crying inconsolably. Naturally, he's tired and stressed. To make things worse, there's no more nappies.
 
-She grabs her phone, adds them to her basket, fills out all the checkout details and submits the order. Great, except it isn't. She ordered the wrong size nappies and paid with the wrong card. Even the most sophisticated validation pattern cannot eradicate human error. Even if everything *looks* right and is formatted correctly, there could still be mistakes.
+He grabs the phone, adds them to the basket, fills out all the checkout details and submits the order. Great, except it isn't. He ordered the wrong size nappies and paid with the wrong card. Even the most sophisticated validation pattern cannot eradicate human error. Even if everything *looks* right and is formatted correctly, there could still be mistakes.
 
-Instead, we can save Mary a lot of frustration by giving her the chance to review her order on a separate page. That way she can focus on the order details. Remember, filling out forms and checking information are two different mental contexts.
+Instead, we can save Jack a lot of frustration by giving him the chance to review the order on a separate page. That way he can focus on the order details. Remember, filling out forms and checking information are two different mental contexts.
 
-This also saves your (client's) business time and money. If Mary wants to cancel the order, then handling calls and processing would be costly—especially if the business offers free returns.
+This also saves your (client's) business time and money. If Jack wants to cancel the order, then handling calls and processing would be costly — especially if the business offers free returns.
 
 This shows that solely relying on completion time as a metric for success is dangerous. You should also look at how accurate people's orders are by checking how often items are returned. Ideally, you should use both metrics together.
 
@@ -498,17 +498,17 @@ When the user makes a change, they are taken back to this page again for a final
 
 Confirmation pages are so much more than just confirming the order. Neglecting the user experience here is a great way to lose out on return business.
 
-We've all probably experienced neglect after purchasing goods. For example, if you want to take out insurance, you call the free sales number and are quickly put through to a helpful agent. Parting with money is always made easy. But then, when you need to make a claim, it's usually more painful as that number isn't free and calls take a long time be answered. All very stressful.
+We've all probably experienced neglect after purchasing goods. For example, if you want to take out insurance, you call the free sales number and are quickly put through to a helpful agent. Parting with money is usually made easy. But then, when you need to make a claim, it's more painful: the number isn't free and calls take a long time be answered. All very stressful.
 
 A confirmation page is the first opportunity to start forging a long-term relationship. And this is done in two ways: by looking after the user and giving them an incentive to come back.
 
-You should also tell users what happens next, such as when delivery will take place and what to do if something goes wrong.
+You should tell users what happens next, such as when delivery will take place and what to do if something goes wrong.
 
-It's also the best time to ask users to sign up (if they checked out anonymously). As we have most of the information to hand, we only need to ask for a password making this step both optional and easy. As users should have had a good experience up to this point, which should naturally encourage sign up.
+It's also the best time to ask users to sign up (if they checked out anonymously). As we have most of the information to hand, we only need to ask for a password making this step both optional and easy. Users should have had a good experience up to now, which should naturally encourage sign up.
 
 By giving users value, they'll probably want to sign up. By value, I mean something as simple as offering a faster checkout next time or offering them a discount for their next order. Depending on the service, you might even ask users to tweet or Instagram their purchase in return for a voucher. Whatever it is, now's as good a time as any to mention it.
 
-Up to now, we've also been sure to use plain and simple language for labels, hints, and errors. On the confirmation page, there is an opportunity to let your brand's personality shine through. Mailchimp's confirmation page show's their chimp mascot giving you a virtual high-five. Nice.
+Up to now, we've also been sure to use plain and simple language for labels, hints, and errors. On the confirmation page, there is an opportunity to let your brand's personality shine through because the important stuff has already been done. Mailchimp's confirmation page show's their chimp mascot giving you a virtual high-five. Nice.
 
 ![Mailchimp high five](./images/02/mailchimp.png)
 
@@ -525,13 +525,13 @@ Here's a checklist of things to consider including on the confirmation page:
 
 ## The Second Time Experience 
 
-I've made so many purchases with Amazon that I can't even remember Amazon's first-time experience. That is to say, I've made hundreds of purchases as a second-time user, and just one as a first-time user.
+I've made so many purchases with Amazon that I can't even remember Amazon's first-time experience. That is to say, I've made hundreds of purchases as a second-time user, and only one as a first-time user.
 
 Once everything is good with the first-time experience, it's time to focus on the second-time experience. As we have collected and stored all the user's information, we shouldn't have to ask for it again.
 
-In which case, we can bypass almost every step of the checkout flow including, email, mobile, delivery address and options and of course payment. Instead, we can take users straight to the *Review* page. This way users get a reminder of their default preferences with the chance to make amends.
+In which case, we can bypass most of the steps. Instead, we can send users straight to the *Review* page. This way users get a reminder of their default preferences with the chance to make amends, should they wish to.
 
-All in all, this reduces friction to nil and significantly improves conversion. Remember Mary from earlier: the next time she runs out of nappies, buying them should be a breeze, something I'm sure she'd appreciate if she was a real human being.
+All in all, this significantly reduces the effort and in-turn improve conversion. Remember Jack from earlier: the next time he's out of nappies, buying them should be a breeze, something I'm sure he'd appreciate.
 
 ## Layout
 
@@ -543,15 +543,23 @@ By omitting navigation and search, users can focus on checking out which speaks 
 
 ### Progress Bar
 
-Progress bars are often used within checkout because they give users an idea of where they are in the process and how long's left. While this makes sense, there's little data that shows including one *adds value*. There are practical reasons for avoiding progress bars too. 
+Progress bars are often used within checkout because - at least in theory - they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence showing that progress bars are all that useful.
 
-First, they take up a lot of space at the top of the page which is of particular importance on mobile as the main content is pushed down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. To top it off, handling conditional sections is hard because you either always show the step which is misleading, or you show it when it's relevant which is dishonest.
+![Progress bar](./images/02/progress-bar.png)
 
-Instead, it's better to start without a progress bar. Then you can test to see if your users struggle without one by conducting research. Remember, it's far easier (and cheaper) to add features than it is to remove them later on.
+Progress bars pose some practical design challenges too. First, they take up a lot of space on the page which is particularly important on mobile where they push the main content down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. 
 
-Not having a progress bar prioritises the main content, by moving it further up the page, which again speaks to principle 6, *prioritise content*. Having meticulously considered many other details, users should get through the process with little fuss anyway.
+If that wasn't enough, they are very tricky to design if the journey consists of conditional steps. For example, imagine a checkout journey that offers “collect in store” instead of having it delivered. In this case, the user is taken down a different path - one that doesn't need to collect payment - they'll pay in-store.
 
-*(Note: some forms are especially long — a lot longer than the checkout. In this case, you might need some indication of progress, which is something we'll look at in chapter 10, “A Really Long Form.”)*
+![Flow](.)
+
+The problem is that, a progress bar should tell the user what steps exist in advance of going through them. But the steps are based on users' answers. So either you show every possible step which is misleading, or you update the progress bar (by removing or adding steps) as you go, which somewhat defeats the purpose of having one.
+
+Not including a progress bar prioritises the main content, by elevating it up the page which speaks to principle 6, *Prioritse content*. In any case, having meticulously designed the journey to be as simple as possible, users should make their way through the journey with little fuss.
+
+For these reasons, consider starting without a progress bar. Then test your journey with users to see if they struggle. Remember, it's far easier (and cheaper) to add features, than it is to remove them later on.
+
+*(Note: some forms are especially long — a lot longer than a checkout flow. In this case, you might need some indication of progress, which is something we'll look at in chapter 10, “A Really Long Form.”)*
 
 ### Order Summary
 
@@ -559,7 +567,7 @@ When you're shopping in a physical shop, you pick up your items and place them i
 
 > “The system should always keep users informed about what is going on, through appropriate feedback” - 10 Usability Heuristics
 
-Giving users this ability digitally is of similar important. An order summary placed on every page keeps users informed without having to remember what they're buying.
+Giving users a comparable experience digitally is important too. An order summary placed on every page keeps users informed without having to remember what they're buying.
 
 ![Order Summary](./images/02/order-summary.png)
 

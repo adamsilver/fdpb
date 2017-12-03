@@ -200,13 +200,11 @@ This is the first field that consists of multiple controls, in this case, radio 
 
 To group multiple controls, we must wrap them in a `fieldset`. The `legend` describes the group like a `label` describes the individual control.
 
-In most screen readers, the `legend` is read out in combination with the radio button's `label` which in this case would be “Delivery options, Standard (Free, 2-3 days)”. 
+Some screen readers, such as NVDA - will read the `legend` out along with the first individual radio button's `label` when entering the field (in either direction). In this case, “Delivery options, Standard (Free 2-3 days)” is announced. In other screen readers - such as Voiceover with Safari - the legend is announced for every field.
 
-If we omitted the `fieldset` and `legend` elements, screen reader users would only hear “Standard (Free, 2-3 days)” which isn't as clear.
+If we omitted the `fieldset` and `legend` elements, screen reader users would only hear “Standard (Free, 2-3 days)” which is less clear.
 
-You may be tempted to group all fields this way. For example, the address form from earlier could be wrapped inside a `fieldset` with a `legend` set to “Address.” While this is technically valid, it's unnecessary and verbose as the field labels make sense without a `legend`. 
-
-Put another way, users don't need to hear “Address: Address Line 1” as it doesn't *add value*.
+You may be tempted to group all fields this way. For example, the address form from earlier could be wrapped inside a `fieldset` with a `legend` set to “Address.” While this is technically valid, it's unnecessary and verbose as the field labels make sense without a `legend`. Put another way, users don't need to hear “Address: Address Line 1” as it doesn't *add value*.
 
 ### Smart Defaults
 
@@ -582,8 +580,6 @@ As the user is moving through a linear flow, we need to consider the need to ste
 AJAX-driven and modal-heavy sites haven't helped matters because clicking the browser's back button often goes against user's expectations[^backlink]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect it to take them to the previous page in the state they left it in.
 
 However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust it. In this case, position the link at the top left of the page. By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
-
-Whatever you do, don't place it before the submit button. When keyboard users press <kbd>Tab</kbd> when inside the last field, pressing <kbd>Enter</kbd> will take them back to the previous step instead of submitting the form which is frustrating.
 
 Consider making the link text explicit. “Back” is ambiguous; “Back to delivery address” is clearer.
 

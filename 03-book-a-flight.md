@@ -663,7 +663,7 @@ There are pros and cons with using iconography over text. The problem with icons
 
 > What good has a beautiful interface if it’s unclear? Hence it’s simple: only use an icon if its message is a 100% clear to everyone. Never give in.
 
-However, Thomas also points out that good icons can be internatioanlly recognised breaking language barriers which is why airports often use icons. They also save space which is particularly useful on mobile where there's less space.
+However, Thomas also points out that good icons can be internationally recognised breaking language barriers -  which is why airports use them, for example. They also save space which is particularly useful on mobile where there's less space.
 
 In the case of the stepper component, plus and minus icons also help to keep the interface equally weighted. That is, the buttons are the same size and have equal importance.
 

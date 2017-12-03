@@ -242,7 +242,7 @@ We're using the same mark-up as the email field discussed earlier. If you're usi
 
 The password field contains a hint. Without one, the user won't understand the requirements which is likely to cause an error once the user tries to proceed.
 
-The `type="password"` attribute masks the input's value by replacing what the user types with small black circles. This is a security measure that guards against “over the shoulder” attacks. That is, people that happen to be able to see your screen as you're typing your password.
+The `type="password"` attribute masks the input's value by replacing what the user types with small black circles. This is a security measure that stops people from seeing what you typed if they happen to be close by.
 
 ### A Password Reveal
 

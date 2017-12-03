@@ -567,11 +567,18 @@ At which time, we can quietly remove the Javascript code, giving us less to main
 
 #### Doing Our Best
 
-We have catered for people who use a supporting browser and considered those using an unsupported browser. But we haven't thought about people using an unsupported browser that experiences a network or Javascript failure as described in “A Registration Form”.
+We have covered users who:
+
+- use a browser that supports the date input
+- use a browser that doesn't support the date input
+
+But, we haven't covered users who:
+
+- use an unsupported browser and experience a network or Javascript failure (as described in “A Registration Form”).
 
 > People ignore design that ignores people. - Frank Chimero
 
-In this case users will see a text box asking for a date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't just add a hint because browsers that support the date input will use a different format which would cause confusion.
+In this case users will see a text box asking for a date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't just add a hint because browsers that support the date input may use a different format which would cause confusion.
 
 ![Date picker no hint](./images/03/date-picker-no-hint.png)
 
@@ -652,21 +659,13 @@ When the buttons are pressed the input's value updates but this isn't announced 
 
 #### A Note On Iconography
 
-In “The Best Icon is a Text label”[^12], Thomas Byttebier explains that while there are some advantages in using iconography in-place of text, they have a tendency to confuse users because their meaning is unclear.
-
-Icons have three advantages over text:
-
-- In multi-cultural environments, like an airport, traditional language doesn't suffice. Icons (at least good ones) mean something to everyone.
-- They save space, which is useful in small viewports.
-- In a page with a lot of text, icons can draw attention to something important.
-
-The downside to icons is that they aren't always understood. This would make the interface unclear. In other words, the user they might as well be looking at hieroglyphics. And, as Thomas says:
+There are pros and cons with using iconography over text. The problem with icons is that they aren't always understood. As Thomas Byttebier says in “The Best Icon is a Text Label”[^12]:
 
 > What good has a beautiful interface if it’s unclear? Hence it’s simple: only use an icon if its message is a 100% clear to everyone. Never give in.
 
-The custom buttons we've used to enhance the interface use plus and minus icons. This is helpful in some ways because it means the interface will fit, even on small viewports. It also keeps the interface clean and the buttons equally-weighted. Moreover, these particular icons should be well-understood, all of which make their usage more palatable.
+However, Thomas also points out that good icons can be internatioanlly recognised breaking language barriers which is why airports often use icons. They also save space which is particularly useful on mobile where there's less space.
 
-Where possible, test your icons with a diverse set of users and if need be, switch over to text.
+In the case of the stepper component, plus and minus icons also help to keep the interface equally weighted. That is, the buttons are the same size and have equal importance.
 
 ## 4. Choosing A flight
 

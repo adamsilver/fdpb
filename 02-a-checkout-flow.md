@@ -36,7 +36,7 @@ While this pattern often bares wonderful and delicious fruit (or orders and conv
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
 - Conversely, a long form increases the chance of a page time out or the computer freezing. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
-- It allows you to innovate as the entire screen is dedicated to just one thing.
+- It lets you design interfaces that captalise on maximal  screen space - interfaces that wouldn't work so well if part of a large form. We'll see an example of this in the next chapter, when we design a seat chooser. 
 
 ## Flow And Order
 
@@ -307,7 +307,7 @@ He goes on to talk about the billing address. That is the address to which the c
 
 Øyvind is not a designer per se, but his input into the design process was crucial. Many of us assume that back-end developers don't care about the user experience, but tapping into their knowledge is clearly valuable.
 
-> Design is a team sport
+> “Design is a team sport” - Anon?
 
 Design is a team sport, and so we should treat it as one. By designing (and researching) with a diverse set of people, we'll frequently end up producing a far better experience.
 
@@ -468,13 +468,13 @@ The container is hidden with CSS by toggling the display property between `block
 
 ## 7. Review Page
 
-At this point in the flow, we have collected all the information needed to complete the order. But instead of processing the order after payment, you should let users review their order. As counterintuitive as this may sound, adding an extra step in the flow reduces friction.
+At this point in the flow, we have collected all the information needed to complete the order. But instead of processing the order after payment, you should let users review their order. As counterintuitive as this may sound, adding an extra step in the flow actually reduces effort.
 
 Take Jack (I made him up), a father of two infants. It's the middle of the night, and his baby is crying inconsolably. Naturally, he's tired and stressed. To make things worse, there's no more nappies.
 
-He grabs the phone, adds them to the basket, fills out all the checkout details and submits the order. Great, except it isn't. He ordered the wrong size nappies and paid with the wrong card. Even the most sophisticated validation pattern cannot eradicate human error. Even if everything *looks* right and is formatted correctly, there could still be mistakes.
+He grabs the phone, adds them to the basket, fills out all the checkout details and submits the order. Great, except it isn't. He ordered the wrong size nappies and paid with the wrong card. That is, what Jack entered was “valid” but still a mistake.
 
-Instead, we can save Jack a lot of frustration by giving him the chance to review the order on a separate page. That way he can focus on the order details. Remember, filling out forms and checking information are two different mental contexts.
+We can save Jack a lot of frustration by giving him the chance to review the order on a separate page. That way he can focus on the order details. Remember, filling out forms and checking information are two different mental contexts.
 
 This also saves your (client's) business time and money. If Jack wants to cancel the order, then handling calls and processing would be costly — especially if the business offers free returns.
 
@@ -490,7 +490,7 @@ Every piece of information gathered during checkout should be represented on the
 
 Users can click *edit* to make amendments which is another advantage of using the One Thing Per Page pattern. As pages are small they will load fast; as each page has just one thing, making a change is simple.
 
-![Flow diagram](./image/02/review-edit-flow.png)
+![Flow diagram](./images/02/review-edit-flow.png)
 
 When the user makes a change, they are taken back to this page again for a final review which puts users firmly in control and which reduces stress and anxiety.
 
@@ -597,10 +597,10 @@ After that, we looked at other issues: giving users the ability to review their 
 
 ### Checklist
 
-- Don't force users to register before checking out.
 - Ask questions in a sensible order
+- Let users checkout anonymously
 - The width of the field should match the required input when the length is known.
-- Use the fieldset and legend elements with radio button and checkbox groups to give the choices an overarching description.
+- Use a fieldset and legend to give radio button and checkbox groups an accessible label.
 - Add extra questions if they add value. Remember completion time is not the only useful metric for success.
 - Let users check their answers before submission.
 - The confirmation page is the end of the transaction but the start of the relationship.

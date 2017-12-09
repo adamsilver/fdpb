@@ -578,15 +578,17 @@ But, we haven't covered users who:
 
 > People ignore design that ignores people. - Frank Chimero
 
-In this case users will see a text box asking for a date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't just add a hint because browsers that support the date input may use a different format which would cause confusion.
+In this case users will see a text box asking for a date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't use the hint pattern (first discussed in “A Registration Form”) because browsers that support the date input may use a different format which would cause confusion.
 
 ![Date picker no hint](./images/03/date-picker-no-hint.png)
 
-The only thing we can do is be as forgiving as possible, by letting users type slashes, periods or spaces: whichever they prefer. But typing a two-digit year first, for example, will cause a validation error. In this case, a well-written error message will have to be enough.
+We can be as forgiving as possible, by letting users type slashes, periods or spaces: whichever they prefer. But typing a two-digit year first, for example, will cause an error. In this case, a well-written error message message might have to suffice.
+
+We could add a hint via the placeholder attribute and then remove it with JavaScript when our own date picker will be injected. Despite the problems with placeholders (discussed in “A Registration Form”) this might be the lesser of two evils.
 
 Design is often a question of priorities. What is a good experience for most may create a less-than-ideal for some, which is especially the case on the web. Inclusive design is about making decisions that are unlikely to exclude people.
 
-In this edge case, users are still able to enter a date which makes this pattern an accessible one. In the end, it's about doing our best and I think we've done that here.
+In this edge case, users are still able to enter a date which makes this pattern an accessible one. In the end, it's about doing our best and we've done that here.
 
 ## 3. Choosing passengers
 

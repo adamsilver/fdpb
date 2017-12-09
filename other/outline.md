@@ -18,6 +18,9 @@
 	- No Password Sign In
 	- Passphrases
 - Field Styles
+	- Label Position
+	- Look, Size And Space
+	- Focus Styles
 - An Email Field
 	- Progressive Enhancement
 - A Password Field

@@ -158,15 +158,31 @@ Whether it's the No Password Sign In pattern or passphrases, we should only move
 
 The way you style your form components will, at least in part, be determined by your product or company's brand. Still, label position and focus styles are important considerations.
 
+### Label Position
+
 Matteo Penzo's eye-tracking tests showed that positioning the label above (as opposed to beside) the form control works best. He notes that:
 
 “Placing a label right over its input field permitted users to capture both elements with a single eye movement.” 
 
-But, there are other, more practical, reasons for putting the label above the field. On small viewports there's no room beside the control. And on large viewports, zooming increases the chance of the text disappearing off screen[^x1].
+But, there are other reasons for putting the label above the field. On small viewports there's no room beside the control. And on large viewports, zooming increases the chance of the text disappearing off screen[^x1].
 
-Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control. 
+Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control.
 
 While you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content - by positioning labels above the control - is a good strategy.
+
+### Look, Size And Space
+
+First, form fields should look like form fields. But what does that mean exactly? 
+
+It means that a text box should look like one. Empty boxes naturally signify “fill me in”. This happens to be part of the reason that placeholders are unhelpful. They remove the natural perceived affordance that an empty text box would otherwise provide.
+
+This also means that the empty space should be boxed in (bordered). Removing the border, or only having a bottom border for example, removes these perceived affordances. A bottom border, for example, first appears more as a separator. Even if you know that you have to fill something in, does it go above the line or below it?
+
+Space-wise, the label should be closest to it's form control. Not to the previous field's control. Things that appear close together naturally signifier that they *belong* together. Having equal spacing might improve aesthetics, but it would be at the cost of usability.
+
+Finally, the label and the text box itself should be large enough to read and tap. This probably means a font-size of at least 16 pixels and ideally an overall tap target of at least 44px[^tap].
+
+### Focus Styles
 
 Focus styles are a simpler prospect. Browsers put an outline around the in-focus element by default so that users, especially those who use a keyboard, know where they are. The problem with the default styling is that it is often faint (hard to see) and somewhat ugly.
 
@@ -604,6 +620,7 @@ In this chapter we solved several fundamental form design challenges that are ap
 [^IE BUTTON TROUBLTE]: http://www.dev-archive.net/articles/forms/multiple-submit-buttons.html 
 [^IE BUTTON TROUBLE 2]: https://allinthehead.com/retro/330/coping-with-internet-explorers-mishandling-of-buttons
 [^IE BUTTON ISSUE EXPLAINED WELL IN COMMENTS]: https://www.peterbe.com/plog/button-tag-in-IE
+[^tap]: https://www.lukew.com/ff/entry.asp?1085
 
 - https://www.tjvantoll.com/speaking/slides/constraint-validation/chicago/#/18
 -[^featurequeries]: https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/

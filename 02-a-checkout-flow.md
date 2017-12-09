@@ -212,6 +212,18 @@ As most users will want free delivery, that option comes first. It's also select
 
 > “Design for common circumstances first” - Caroline Jarett
 
+### Styling
+
+Radio buttons (and checkboxes) are small. This makes them hard to click or tap, especially for people with motor impairments. 
+
+We can increase the size using CSS. But this isn't as simple as it sounds. In “Making radio buttons and checkboxes easier to use”, Robin Whittleton lays out the problem.
+
+Some browsers, such as Internet Explorer 8, won't apply size changes. But undesirably, space will be created around the radio button. Other browsers, such as FireFox on OS X (10.10), will increase the size but they will appear blurry. Finally, there are browsers that will apply the changes without making them blurry.
+
+Fortunately, when the radio button's label is clicked, the radio button will be checked. But, unfortunately, most users don't realise they can do this[^gds?]. This is hardly surprising because labels have a weak perceived affordance. That is, there's nothing to signify that clicking it would do anything different to regular copy.
+
+To give users a better chance, we can colour them grey and make them respond to the mouse hovering. However, even with these enhancements, some users may still be unaware. After in-depth research, GDS decided to create custom controls - something that is very involved and not without issue.
+
 ## 5. Delivery Notes
 
 Imagine you're at work. You get a notification to say your item is being delivered. When you arrive home, instead of seeing the package, you see a delivery note saying it couldn't be delivered because it was too big to fit through the letter box. Frustrating.
@@ -313,7 +325,9 @@ This also shows that we should constantly be questioning the existence of form f
 
 ### Autofill
 
-Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored - if it does, the user can select it without having to type. 
+Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored - if it does, the user can select it without having to type.
+
+> Chrome autofill: used 9 billion times/month, saves an average of 12 seconds, 1.25 million days saved/month - Luke W, 24 October 2017[^luke autofill]
 
 Since iOS 8, the Safari browser lets users scan their card using the iPhone's camera - it uses the same mechanism to automatically fill out those fields.
 
@@ -620,3 +634,5 @@ After that, we looked at other issues: giving users the ability to review their 
 [^13]: https://articles.uie.com/three_hund_million_button/
 [^autofillattrs]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
 [^backlink]: https://baymard.com/blog/back-button-expectations
+[^luke autofill]: https://twitter.com/lukew/status/922630320293265408
+[^gds patchy]: https://gdstechnology.blog.gov.uk/2015/08/27/making-radio-buttons-and-checkboxes-easier-to-use/

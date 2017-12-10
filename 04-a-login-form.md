@@ -34,7 +34,7 @@ That's okay for registration where users are often told what the rules are, but 
 
 With hint text, users have a better chance of success without waiting for a useful error message.
 
-## The ‘username and password doesn't match’ Problem
+## The ‘username and password don't match’ Problem
 
 While omitting hint text increases the chance of an error, what's worse is when that error says “The username and password doesn't match” or something equally vague. Jared Spool comically explains why this is an issue in his talk “Design Is Metrically Opposed”[^1]:
 
@@ -44,13 +44,15 @@ As Jared says, Hackers don't actually hack this way. But even if they did, all t
 
 The problem is that users are left to reset their password which is long-winded and can cause users to give up. As with any other form, errors should tell users exactly what went wrong so that they can fix it easily.
 
+![What are the rules](./images/04/login-error.png)
+
 ## Use Explicit Labels
 
 Some sites ask for a username but expect an email address. Other sites, such as airlines or banks may ask for a booking reference number or pin number. If your service deviates from the standard login fields, you should label the fields explicitly.
 
-If you expect an “Email address” don't use “Username”.  If you accept one or the other then say so: “Username or email address”. Similarly, if you're asking for a booking reference number, say so, and tell users where they can find it.
+If you expect an “Email address” don't use “Username”. If you accept one or the other then say so: “Username or email address”. Similarly, if you're asking for a booking reference number, say so, and tell users where they can find it.
 
-Leaving users to guess is an unnecessary source of friction.
+Leaving users to guess is an unnecessary source of frustration.
 
 ## Contextual Login Forms
 
@@ -58,7 +60,7 @@ Often login forms are designed as an interstial page with a login-specific layou
 
 For example, in chapter 2, “A Checkout Flow”, we pared down the layout to only include information pertinent to the checkout. Specificall, giving users a header without navigation or search. When users checkout, and opt to log in first, the login form should employ the checkout-specific layout.
 
-Conversely, when users try to add a product to their basket on the Tesco site, they are taken to a login page. However, the login form is housed in a completely different layout which is disorientating.
+Conversely, when users try to add a product to their basket on the Tesco site, they are taken to a login page. However, the login form is housed in a completely different layout which is disorientating, especially for people using screen readers — they have to familiarise themselves with a completely different page structure.
 
 ![Contextless](./images/04/contextless.png)
 
@@ -76,13 +78,13 @@ Up until recently, most sites only offered people the standard username and pass
 
 Some sites will integrate with your social media account. For example, Medium.com, a social networking site for reading and writing articles, will post to Facebook automatically. Those who spend a lot of time on Facebook may appreciate this functionality.
 
-But, social login is not without its problems. First their are issues of privacy. So telling users exactly what you will and won't do with their details is essential. Medium does a good job by stating that “They won't post without asking”.
+But, social login is not without its problems. First there are issues of privacy. So telling users exactly what you will and won't do with their details is essential. Medium does a good job by stating that “They won't post without asking”.
 
 ![Medium login](./images/04/medium-login-usage.png)
 
 ### Seamless Interchange
 
-Some users may not remember how they created an account. At Kidly, we detected that users had signed up with a different method and showed an error message instead. But this puts the burden on the user.
+Some users won't remember how they originally created an account. At Kidly, we handled this by showing users an error message. For example, if users had signed up with standard login, then tried to sign up with social login, we'd show an error message saying so. But this puts the burden on the user.
 
 Medium lets users log in interchangeably without users ever knowing what happened. For example, if I log in to Medium with my email but have already registered previously with Facebook, Medium logs me in automatically and merges my accounts without me knowing. As a user the only way I would know is if I bother to visit the settings page.
 
@@ -100,7 +102,7 @@ There's also some interesting data on companies that offer employees pension pla
 
 This phenomenon is actually called Hick's Law (named after psychologist William Edmund Hick), which states that the time taken to make a decision increases as the number of choices expand. It predicts that the greater the number of alternative choices, the longer it will take a user to make a decision.
 
-Giving users multiple ways to log in might seem useful but can cause friction for users. Make sure the extra choice is valuable to users. Once you're sure, layout the options clearly.
+Giving users multiple ways to sign in might seem useful but it can create a burden on users. Make sure the extra choice is valuable to users. Once you're sure, layout the options clearly.
 
 ![Medium login](./images/04/medium-login.png)
 
@@ -118,13 +120,13 @@ Worse is when the link is placed before the submit button. When keyboard users t
 
 ![Forgot password](./images/04/forgot-password.png)
 
-While placing the link in close proximity to the password field makes some sense visually, the primary user need is to log in. The link shouldn't disturb the act of loggin in. You should place the link before the form or after the submit button.
+While placing the link in close proximity to the password field makes some sense visually, the primary user need is to log in. The link shouldn't disturb the act of logging in. You should place the link before the form or after the submit button.
 
 ## Auto-tabbing
 
 Some login forms, such as those found on bank sites, ask users for certain characters of their password. Or they may ask for certain digits of their security pin. In either case, they normally give users three text boxes, or worse, three select boxes.
 
-![Hargreaves](./images/04/hargeaves.png)
+![Hargreaves](./images/04/hargreaves.png)
 
 The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next field automatically as the user enters a pre-determined number of characters. But as the BBC's UX guidance[^3] says:
 

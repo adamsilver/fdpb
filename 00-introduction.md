@@ -36,7 +36,7 @@ Here's a chapter run down.
 
 ### 1. A Registration Form
 
-We'll start with a basic registration form which makes room to look at the foundational qualities of a well-designed form and how to think about them. By applying the Question Protocol, we'll look at how to reduce friction without even touching the interface. Then we'll look at some crucial patterns including validation that we'll want to use for every form.
+We'll start with a basic registration form which makes room to look at the foundational qualities of a well-designed form and how to think about them. By applying something called the Question Protocol, we'll look at how to reduce friction without even touching the interface. Then we'll look at some crucial patterns including validation that we'll want to use for every form.
 
 ### 2. A Checkout Flow
 

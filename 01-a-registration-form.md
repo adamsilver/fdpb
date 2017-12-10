@@ -230,11 +230,11 @@ It starts with HTML, which is for structure and content. If CSS or Javascript do
 
 If everything loads okay, perhaps various HTML elements aren't recognised. For example, some browsers don't understand `input type="email"`. That's okay though because users will get a text box (`input type="text"`) instead. Users can still enter an email address, they just don't get an email-specific keyboard on mobile.
 
-Maybe the browser doesn't understand some fancy CSS. In this case, browsers just ignore it. In most cases, this isn't a problem. For example, some browsers that don't understand `border-radius` will show straight edges instead of round ones. Users are left unharmed. In other cases you might need to detect support using Feature Queries[^].
+Maybe the browser doesn't understand some fancy CSS. In this case, browsers just ignore it. In most cases, this isn't a problem. For example, let's say you have a button that is applied with `border-radius: 10px`. Browsers that don't recognise this rule will show a button with straight edges. Arguably the button's perceived affordance is reduced, but ultimately users are left unharmed. In other cases it might be helpful to use Feature Queries[^].
 
 Then there is Javascript, which is more complicated. When the browser tries to parse methods it doesn't recognise, it will just throw a hissy fit. This can cause your other (valid and supported) scripts to fail too. If your script doesn't first check if the methods exist (feature detection) and work (feature testing) before using them, then users may get a broken interface. For example, if a button's click handler calls a method that's not recognised, the button won't work. That's bad.
 
-That's how you enhance. But what's better, is not needing an enhancement at all. HTML with a little CSS, can give users an excellent experience. It's the content that counts and Javascript doesn't give you that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value* (see principle 7).
+That's how you enhance. But what's better, is not needing an enhancement at all. HTML with a little CSS, can give users an excellent experience. It's the content that counts and you don't need Javascript for that. The more you can rely on HTML and CSS, the better. I can't emphasise this enough: so often, the basic experience is the best and most performant one[^]. There's no point in enhancing something if it doesn't *add value* (see principle 7).
 
 Of course, there are times when the basic experience isn't as good as it could be. And that's when it's time to enhance. But if we follow the principles above, when a piece of CSS or Javascript isn't recognised or executed things will still work.
 
@@ -360,15 +360,17 @@ When it comes to form validaton, there are a number of important details to cons
 
 HTML5 validation has been around for a while now. By adding just a few HTML attributes, supporting browsers will mark erroneous fields when the form is submitted. Non supporting browsers fall back to server-side validation.
 
-Normally I would recommend using functionality that the browser provides for free because it's often more performant, robust and accessible. Not to mention, it becomes more and more familiar to users as more and more sites use the standard functionality.
+Normally I would recommend using functionality that the browser provides for free because it's often more performant, robust and accessible. Not to mention, it becomes more familiar to users and more sites start to use the standard functionality.
 
-Whilst browser support is quite good, many browsers have patchy support[^]. For example, some implementations such as Firefox 45.7 just says “Please enter an email address” even if I've entered something in the box. Where as Chrome says “Please include an '@' in the email address” which is more helpful.
+While HTML5 validation support is quite good, many browsers have patchy support[^]. For example, some implementations such as Firefox 45.7 just says “Please enter an email address” even if I've entered something in the box. Where as Chrome says “Please include an '@' in the email address” which is more helpful.
 
-Similarly, we should give users the same interface whether errors are caught on the server or the client. To simultaneously avoid these issues and grant oursleves the ability to design for a number of provisions, we'll provide our own solution. In this case, the first thing to do is turn off HTML5 validation as follows.
+Similarly, we should give users the same interface whether errors are caught on the server or the client. To simultaneously avoid these issues and grant ourselves the ability to design for a number of provisions, we'll provide our own solution. In this case, the first thing to do is turn off HTML5 validation as follows.
 
 ```HTML
 <form novalidate>
 ```
+
+### Handling Submission
 
 When the user submits the form, we need to check if there are errors. If there are, we need to prevent the form from submitting the details to the server.
 
@@ -385,7 +387,7 @@ FormValidator.prototype.onSubmit = function(e) {
 };
 ```
 
-*(Note: we are listening to the form's submit event, not the button's click event. The latter will stop users being able to submit the form by pressing <kbd>enter</kbd> when focus is within one of the fields. This is also known as implicit form submission[^].)*
+*(Note: we are listening to the form's submit event, not the button's click event. The latter will stop users being able to submit the form by pressing <kbd>Enter</kbd> when focus is within one of the fields. This is also known as implicit form submission[^].)*
 
 ### Displaying Feedback
 
@@ -417,8 +419,6 @@ Conventionally speaking, errors should be in a red colouration, but we shouldn't
 
 ![Error summary](./images/01/error-summary.png)
 
-The panel consists of a heading to indicate the problem. Beneath that, there is a list of errors, which are links. Clicking a link, will set focus to the erroneous field thanks to the `href` value matching the form control's `id` value. This let's users jump into the form quickly.
-
 ```HTML
 <div class="errorSummary" role="alert" tabindex="-1" aria-labelledby="errorSummary-heading">
   <h2 id="errorSummary-heading">There's a problem</h2>
@@ -429,11 +429,24 @@ The panel consists of a heading to indicate the problem. Beneath that, there is 
 </div>
 ```
 
-The `div` has a role of `alert` which tells supporting screen readers to announce the region immediately. The heading's `tabindex` attribute is set to `-1`, so that it can be focused programmatically with Javascript. This ensures the error summary panel is scrolled into view. Otherwise, the interface would appear unresponsive and broken.
+The panel consists of a heading to indicate the problem. The `div` has a role of `alert` which tells supporting screen readers to announce the region immediately. The heading's `tabindex` attribute is set to `-1`, so that it can be focused programmatically with Javascript. This ensures the error summary panel is scrolled into view. Otherwise, the interface would appear unresponsive and broken.
 
 ```JS
 FormValidator.prototype.focusSummary = function() {
   this.summary.focus();
+};
+```
+
+Beneath that, there is a list of errors, which are links. Clicking a link will set focus to the erroneous field which lets users jump into the form quickly.
+
+With some newer browsers, setting the links `href` to match the form control's `id` is enough. In other browsers this won't work. More specifically, the internal anchor will scroll the input into view, but it won't be focused. To fix this we can use Javascript to explicitly set focus to the input.
+
+```JS
+FormValidator.prototype.onErrorClicked = function(e) {
+    e.preventDefault();
+    var href = e.target.href;
+    href = href.substring(href.indexOf("#")+1, href.length);
+    document.getElementById(href).focus();
 };
 ```
 
@@ -492,7 +505,7 @@ FormValidator.prototype.onSubmit = function(e) {
 
 ### Technical Design
 
-To create an instance of `FormValidator` you need to pass the form element as the first parameter.
+Having finished defining our `FormValidator` we're now ready to intitialise it. To create an instance of `FormValidator` you need to pass the form element as the first parameter.
 
 ```JS
 var validator = new FormValidator(document.getElementById('registration'));
@@ -544,7 +557,7 @@ You should put the rules above the field otherwise the on-screen keyboard could 
 
 Some forms are designed to disable the submit button until all the fields become valid. There are several problems with this.
 
-First, users are left to wonder what's actually wrong with their entries. Second, disabled buttons are not focusable, which makes it hard for the button to be discovered using some software. Third, disabled buttons are hard to read as they are greyed out.
+First, users are left to wonder what's actually wrong with their entries. Second, disabled buttons are not focusable, which makes it hard for the button to be discovered for blind users navigating using the <kbd>Tab</kbd> key. Third, disabled buttons are hard to read as they are greyed out.
 
 As we're providing users with clear feedback when the user expects it, there is no good reason to take control away from the user by disabling the button anyway.
 
@@ -589,7 +602,7 @@ In this chapter we solved several fundamental form design challenges that are ap
 
 ### Things To Avoid
 
-- Putting labels and hints inside form fields.
+- Using the placeholder attribute as a mechanism for storing label and hint text.
 - Using incorrect input types.
 - Styling buttons and links the same.
 - Validating fields as users type.

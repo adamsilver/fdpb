@@ -142,19 +142,23 @@ The other problem with these interfaces is that they separate what should be one
 
 ## Auto-captalisation and Autocorrect
 
-Some browsers, on Android and iOS will automatically capitalise the first letter if you use a text input. Prior to iOS 5, the email input also did this. If you're asking for a username, for example, you can turn off auto-capitalisation like this:
+Some browsers, for example on Android and iOS, try to help users fill out forms by autocapitalising and autocorrecting words. For example, if I type “adam” in a text box, these browsers will automatically change it “Adam” which is helpful.
+
+However, you may not always want this functionality, which is turned on by default. And prior to iOS 5, the email input also did this which is undesirable. If I type “adam@example.com” I expect this to be left alone. Similarly, if you're asking for a username that's case sensitive, users are going to find this causes more effort as they fix mistakes they didn't even make.
+
+Fortunately, you can turn off this behaviour like this:
 
 ```HTML
 <input type="text" autocapitalize="none">
 ```
 
-Similarly, iOS will autocorrect words typed into a text input. Again, if you're trying to capture a value that may contain a random string of characters, you can turn it off like this:
+Similarly, iOS will autocorrect words in a text input that it thinks are a mistake. Continuing with the same example: a username may contain a random string of characters that may look like a mistake but isn't. But, you can turn it off like this:
 
 ```HTML
 <input type="text" autocorrect="off">
 ```
 
-Finally, some browsers will mark misspelled words with an underline. You can turn it off like this:
+By the same token, some browsers will mark misspelled words with an underline. Of course, if they're not really mispelt, you should turn it off like this:
 
 ```HTML
 <input type="text" spellcheck="false">

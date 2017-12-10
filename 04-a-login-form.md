@@ -1,6 +1,6 @@
 # A Login Form
 
-“As a user, I want to log in to [your service] so that I can [do stuff],” said nobody, ever!
+> “As a user, I want to log in to [your service] so that I can [do stuff],” said nobody, ever!
 
 Nobody *wants* to log into your site. They're forced to as a security measure. Without this, everyone has access to everyone else's stuff. Bad.
 
@@ -14,17 +14,21 @@ The login form is almost identical to the registration form from chapter 1. It c
 
 ![Login](./images/04/login.png)
 
-“Sign in” is arguably softer and more human than “Log in”. When you enter a spa, hotel or office building, you sign in which grants you entry. And you sign out as you leave. We should try and use the same and familiar language digitally that people are used to in the physical world.
+“Sign in” is arguably softer and more human than “Log in”. When you enter a spa, hotel or office building, you sign in which grants you entry. And you sign out as you leave. We should use the same and familiar language digitally that people are used to in the physical world.
 
-Of course it depends on the type of service you're designing. Banks and investment services tend to use “Log in”. Whichever you go for, consistency is important. Make sure the URLs, link text, headings and button text all match. And if user's click “Log in” to log in, then they should click “Log out” to log out.
+Of course it depends on the type of service you're designing. Banks and investment services tend to use “Log in”. Interestingly though, the notion of “logging in” came along with computers in the 80s. And the operations that users do are logged for security reasons.
+
+Whichever you go for, consistency is important. Make sure URLs, link text, headings and button text all match. And if users click “Log in” to log in, then they should click “Log out” to log out.
 
 ## Provide Hint Text
 
-People often use the same password for different sites and applications. But password rules differ from site to site. Some sites ask for a capital letter, others ask for numbers and symbols. 
+People often use the same password for different sites and applications. But password rules differ from site to site. Some sites ask for a capital letter, others ask for numbers and symbols.
 
-Many users will tweak their password to match the rules of the site. For example, if their password is “password”, and the site requires a capital letter, they'll just capitalise the first letter to “Password”. 
+Many users will tweak their password to match the rules of the site. For example, if their password is “password”, and the site requires a capital letter, they'll just capitalise the first letter to “Password”.
 
-That's fine for registration where users are often told what the rules are, but many sites don't provide a hint on the login form. In this case, users have to guess and hope for a useful error message (more in this later). Or worse, they have to reset their password.
+*(Note: not to encourage bad practice, passphrases - discussed in “A Registration Form” - are a better alternative to complex password rules like this.)*
+
+That's okay for registration where users are often told what the rules are, but many sites don't provide a hint on the login form. In this case, users have to guess and hope for a useful error message. Or worse, they have to reset their password.
 
 ![What are the rules](./images/04/login-hintless.png)
 

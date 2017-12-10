@@ -214,15 +214,17 @@ As most users will want free delivery, that option comes first. It's also select
 
 ### Styling
 
-Radio buttons (and checkboxes) are small. This makes them hard to click or tap, especially for people with motor impairments. 
+By default, radio buttons (and checkboxes) are rendered small. This makes them hard to click or tap, especially for people with motor impairments.
 
-We can increase the size using CSS. But this isn't as simple as it sounds. In “Making radio buttons and checkboxes easier to use”, Robin Whittleton lays out the problem.
+We can increase the size using CSS. But this isn't as simple as it sounds. In “Making radio buttons and checkboxes easier to use”[^], Robin Whittleton explains that the way browsers respond to CSS differs.
 
 Some browsers, such as Internet Explorer 8, won't apply size changes. But undesirably, space will be created around the radio button. Other browsers, such as FireFox on OS X (10.10), will increase the size but they will appear blurry. Finally, there are browsers that will apply the changes without making them blurry.
 
-Fortunately, when the radio button's label is clicked, the radio button will be checked. But, unfortunately, most users don't realise they can do this[^gds?]. This is hardly surprising because labels have a weak perceived affordance. That is, there's nothing to signify that clicking it would do anything different to regular copy.
+Fortunately, a radio button's label acts as a proxy for the radio button itself. That is, when clicked, the radio button will become checked (or unchecked depending on state). Unfortunately, most users don't realise they can do this[^gds?]. This is hardly surprising because labels have weak perceived affordance. In other words, there's nothing to signify that clicking the label would do anything different to regular copy.
 
-To give users a better chance, we can colour them grey and make them respond to the mouse hovering. However, even with these enhancements, some users may still be unaware. After in-depth research, GDS decided to create custom controls - something that is very involved and not without issue.
+To give users a better chance, we can colour them grey and make them respond to the mouse hovering. However, even with these enhancements, some users may still be unaware. GDS's research showed this to be the case which is why they embarked upon custom radio button controls[^].
+
+The problem with creating custom controls is that you have to reimplement all of the behaviour that is provided natively for free. This is very involved and despite GDS's in-depth attempts, they aren't without issue[^radiobuttonissues].
 
 ## 5. Delivery Notes
 
@@ -636,3 +638,4 @@ After that, we looked at other issues: giving users the ability to review their 
 [^backlink]: https://baymard.com/blog/back-button-expectations
 [^luke autofill]: https://twitter.com/lukew/status/922630320293265408
 [^gds patchy]: https://gdstechnology.blog.gov.uk/2015/08/27/making-radio-buttons-and-checkboxes-easier-to-use/
+[^radiobuttonissue]: https://github.com/alphagov/govuk_elements/issues

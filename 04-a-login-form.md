@@ -114,13 +114,13 @@ That's great, but password managers aren't infallible. If you don't rememeber to
 
 Most sites give users a way to reset their password if they forget it. The feature itself isn't especially problematic. It's the placement of the link within a login form that can cause tremendous frustration for users.
 
-If the link is just above the password field, when users tab from the email field, it's the link that will have focus, not the password field. Some users will tab and start typing not realising what's happened. 
+If the link is just above the password field, when users tab from the email field, it's the link that will have focus, not the password field. Some users will tab and start typing not realising what's happened.
 
-Worse is when the link is placed before the submit button. When keyboard users tab from the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. Instead they'll be taken to reset their password. If and when they realise what's happened, they'll need to go back, re-enter their credentials and be careful to either tab twice or switch to using the mouse.
+Worse is when the link is placed before the submit button. When keyboard and screen reader users tab from within the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. Instead they'll be taken to reset their password. If and when they realise what's happened, they'll need to go back, re-enter their credentials and be careful to either tab twice or switch to using the mouse.
 
 ![Forgot password](./images/04/forgot-password.png)
 
-While placing the link in close proximity to the password field makes some sense visually, the primary user need is to log in. The link shouldn't disturb the act of logging in. You should place the link before the form or after the submit button.
+While placing the link in close proximity to the password field makes some sense visually, the primary user need is to still to sign in. Any link shouldn't disturb users from doing so. The submit button should be the last interactive element in the form, because that's what users expect. In which case, you should place the link before or after the form.
 
 ## Auto-tabbing
 

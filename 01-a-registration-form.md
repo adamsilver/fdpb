@@ -270,7 +270,16 @@ Instead, it's better to let users reveal their password which speaks to principl
 
 ![Password reveal](./images/01/password-reveal.png)
 
-To do this, we need to inject a button next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked, it should toggle the `type` attribute between `password` and `text` and the label between “Show password” and “Hide password”.
+Some browsers, such as Internet Explorer and Microsoft Edge
+ provide this functionality natively. As we'll be providing our own solution we should suppress this feature:
+
+```css
+input[type=password]::-ms-reveal {
+  display: none;
+}
+```
+
+Now we're ready to enhance the interface with our own version. First, we need to inject a button next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked, it should toggle the `type` attribute between `password` and `text` and the label between “Show password” and “Hide password”.
 
 ```JS
 function PasswordReveal(input) {
@@ -302,15 +311,28 @@ PasswordReveal.prototype.onButtonClick = function(e) {
 };
 ```
 
+#### Syntax, Architecture And Other Technical Notes
+
+- jQuery
+- Proxy
+- protoype/constructor
+- pattern library
+
 *(Note: `$.proxy` is a wider supported version of `Function.prototype.bind` which ensures that the event handler is called with the object's context, not the element. Not using it would mean `this.el` or `this.button` wouldn't be recognised.*
 
-Some browsers provide this functionality natively, so if you're providing your own solution you can supress the browser's implementation as follows:
+- https://github.com/adamsilver/f/issues/98
 
-```css
-input[type=password]::-ms-reveal {
-  display: none;
-}
-```
+#### Alternative Methods
+
+Heydon's heard of people getting confused when the label changes. Instead use a consistent label with an aria-pressed state.
+
+Checkbox
+
+We discussed this on Twitter before that a checkbox is for input, not so much for revealing things which could cause confusion. Using a checkbox, people might think they are “revealing their password” to the system/public etc.
+
+Toggle button
+
+Yes, I thought about this too. I think I even wrote the component as a toggle button at first but then didn't like relying on styling to signify pressed/unpressed state. That's partially due to my lack of visual design skills but also, changing the words seems to be most clear. It also happens to work without depending on ARIA.
 
 ### Microcopy
 

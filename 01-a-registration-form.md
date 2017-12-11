@@ -311,24 +311,29 @@ PasswordReveal.prototype.onButtonClick = function(e) {
 };
 ```
 
-#### Syntax, Architecture And Other Technical Notes
+#### Javascript Syntax and Architectural Notes
 
-There are many different ways to architect your Javascript components. But I've made a few decisions about how to go about setting out components.
+There are many ways to write Javascript components. The approach taken to create the password reveal component, is the same approach that will be used going forwards.
 
-First, I'm using constructors and specifying methods on the prototype. By using this pattern, we can create several instances of, in this case, the password reveal component. Prototype methods ensure that memory allocation is as efficient as possible. And by using “classes” as opposed to singletons, our components are easier to unit test.
+First, we're using constructor functions. In this case, the constructor function is `PasswordReveal` and conventionally is written in upper camel case. Using this approach means we can create several instances of a component on the same page without them conflicting.
 
-Second, jQuery is being used. Now, jQuery isn't perfect and as older browsers diminish there's certainly less of a need for it. However, this book is primarily about form design — not Javascript. In which case, I want to ensure that not only does the code work in as many browsers as possible, but that the barrier to understanding is kept as low as possible. That includes designers who are starting to dabble in code.
+```JS
+var passwordReveal1 = new PasswordReveal(document.getElementById('input1'));
 
-You'll also notice the use of `$.proxy`. This is a jQuery method that is gives us a wider supported version of `Function.prototype.bind`. This method ensures that when the event handler is called, `this` is the object, not the DOM element to which the event has been bound. Not using this function would mean `this.el`, for example, wouldn't be recognised and cause an error.
+var passwordReveal2 = new PasswordReveal(document.getElementById('input2'));
+```
 
-- pattern library
-- https://github.com/adamsilver/f/issues/98
+Second, all of the methods are defined on the prototype (`PasswordReveal.prototype`). This is so that all of the different instances share the same method which is the most performant approach when creating several instances of the same object.
 
-#### Alternative Methods
+Third, jQuery is being used. While jQuery isn't perfect, using it means that the book can focus on form design patterns — not on the depths of writing complex, rich cross-browser Javascript widgets. If you're a designer who doesn't code, then jQuery's low barrier to entry should be helpful. If you're more advanced and feel confident to ditch jQuery, you'll have no trouble rewriting these components to suit your preferences.
 
-Heydon's heard of people getting confused when the label changes. Instead use a consistent label with an aria-pressed state.
+One of jQuery's methods you'll see throughout most components is `$.proxy`. This method is a more widely supported version of Javascript's native `Function.prototype.bind` method. It's used because without it, when you listen to events on an element, the method is called in that element's context. That is, `this.button` in the code above, will be undefined and would therefore throw an error. We want `this` to be the password reveal object instead.
 
-Checkbox
+#### Alternative Approaches
+
+Our approach uses a single button and toggles the button's label. I've heard that screen reader users can be confused by such a technique, because once they encounter a button, they expect that button to always be there. Changing the button's label could cause users to think the option has disappeared altogether. If you're research shows this to be a problem you could use an alternative approach where the label stays the same.
+
+One way to do that would be with a checkbox. The checkbox's label would be permanently set to “Show password. Users will know the current state by way of the checked property.
 
 We discussed this on Twitter before that a checkbox is for input, not so much for revealing things which could cause confusion. Using a checkbox, people might think they are “revealing their password” to the system/public etc.
 

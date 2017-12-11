@@ -313,13 +313,15 @@ PasswordReveal.prototype.onButtonClick = function(e) {
 
 #### Syntax, Architecture And Other Technical Notes
 
-- jQuery
-- Proxy
-- protoype/constructor
+There are many different ways to architect your Javascript components. But I've made a few decisions about how to go about setting out components.
+
+First, I'm using constructors and specifying methods on the prototype. By using this pattern, we can create several instances of, in this case, the password reveal component. Prototype methods ensure that memory allocation is as efficient as possible. And by using “classes” as opposed to singletons, our components are easier to unit test.
+
+Second, jQuery is being used. Now, jQuery isn't perfect and as older browsers diminish there's certainly less of a need for it. However, this book is primarily about form design — not Javascript. In which case, I want to ensure that not only does the code work in as many browsers as possible, but that the barrier to understanding is kept as low as possible. That includes designers who are starting to dabble in code.
+
+You'll also notice the use of `$.proxy`. This is a jQuery method that is gives us a wider supported version of `Function.prototype.bind`. This method ensures that when the event handler is called, `this` is the object, not the DOM element to which the event has been bound. Not using this function would mean `this.el`, for example, wouldn't be recognised and cause an error.
+
 - pattern library
-
-*(Note: `$.proxy` is a wider supported version of `Function.prototype.bind` which ensures that the event handler is called with the object's context, not the element. Not using it would mean `this.el` or `this.button` wouldn't be recognised.*
-
 - https://github.com/adamsilver/f/issues/98
 
 #### Alternative Methods

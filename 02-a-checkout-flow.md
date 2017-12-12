@@ -220,11 +220,11 @@ We can increase the size using CSS. But this isn't as simple as it sounds. In â€
 
 Some browsers, such as Internet Explorer 8, won't apply size changes. But undesirably, space will be created around the radio button. Other browsers, such as FireFox on OS X (10.10), will increase the size but they will appear blurry. Finally, there are browsers that will apply the changes without making them blurry.
 
-Fortunately, a radio button's label acts as a proxy for the radio button itself. That is, when clicked, the radio button will become checked (or unchecked depending on state). Unfortunately, most users don't realise they can do this[^gds?]. This is hardly surprising because labels have weak perceived affordance. In other words, there's nothing to signify that clicking the label would do anything different to regular copy.
+Fortunately, a radio button's label acts as a proxy for the radio button itself. That is, when clicked, the radio button will become checked (or unchecked depending on state). But, unfortunately, most users don't realise they can do this[^gds?]. This is hardly surprising because labels have very little to signify that clicking it would do anything different to regular copy.
 
-To give users a better chance, we can colour them grey and make them respond to the mouse hovering. However, even with these enhancements, some users may still be unaware. GDS's research showed this to be the case which is why they embarked upon custom radio button controls[^].
+To give users a better chance, we can colour them grey and make them respond to the mouse on hover. However, even with these enhancements, some users may still be unaware. GDS's research showed this to be the case which is why they embarked upon custom radio button controls[^].
 
-The problem with creating custom controls is that you have to reimplement all of the behaviour that is provided natively for free. This is very involved and despite GDS's in-depth attempts, they aren't without issue[^radiobuttonissues].
+The problem with creating custom controls is that you have to reimplement all of the behaviour that is provided natively for free. This is very involved and despite GDS's in-depth attempts, they aren't without their problems[^radiobuttonissues].
 
 ## 5. Delivery Notes
 

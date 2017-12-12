@@ -208,7 +208,7 @@ You may be tempted to group all fields this way. For example, the address form f
 
 ### Smart Defaults
 
-As most users will want free delivery, that option comes first. It's also selected by default thanks to the `checked` attribute. This stops users from seeing an error and giving users less work to do.
+As most users will want free delivery, that option comes first. It's also selected by default thanks to the `checked` attribute. This stops users from ever seeing an error and gives users less to do.
 
 > “Design for common circumstances first” - Caroline Jarett
 

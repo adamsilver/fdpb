@@ -6,9 +6,8 @@
 - Why patterns?
 - Why these problems?
 - What about principles?
-- House keeping[?]
 
-## 1. A registration form
+## 1. A Registration Form
 
 - Introduction
 - Labels
@@ -25,6 +24,8 @@
 	- Progressive Enhancement
 - A Password Field
 	- Password Reveal
+		- Javascript Syntax and Architectural Notes
+		- Alternative Interface Options
 - Button styles
 	- Placement
 	- Text
@@ -41,7 +42,7 @@
 	- A Note On Disabling Submit Buttons
 	- Crafting The Message
 
-## 2. A checkout flow
+## 2. A Checkout Flow
 
 - Introduction
 - One Thing Per page
@@ -75,7 +76,7 @@
 	- Order Summary
 	- Back Links
 
-## 3. A flight booking service
+## 3. Book A Flight
 
 - Introduction
 - Flow and order
@@ -107,6 +108,7 @@
 - (3) Specifying Passengers
 	- A stepper component
 - (4) Selecting A Flight
+	- Handling Errors
 - (5) Choosing Seats
 	- Design considersations
 		- affordance
@@ -115,7 +117,7 @@
 		- disabling unavailable seats
 	- Enhancing the interface
 
-## 4. A login form
+## 4. A Login Form
 
 - Password hint
 - Use explicit labels

@@ -514,11 +514,9 @@ When there aren't any errors, the summary panel should be hidden. This ensures t
 
 #### 3. Inline Errors
 
-We need to place the relevant error message next to the field. This saves users scrolling up and down the page in order to check the error message, which keeps them moving down the form.
+First, we need to put the relevant error message just above the field. This saves users scrolling up and down the page in order to check the error message, which keeps them moving down the form. If the message was placed below the field we'd increase the chance of it being obscured by the browser autocomplete panel or by the on-screen keyboard.
 
 ![In-context Errors](./images/01/inline-error.png)
-
-The message is placed above the field and inside the label. Placing it above the field reduces the chance of the message being obscured by the browser autocomplete panel or by the on-screen keyboard.
 
 ```html
 <div class="field">
@@ -534,15 +532,15 @@ The message is placed above the field and inside the label. Placing it above the
 
 Like the hint pattern mentioned earlier, the error message is injected inside the label. When the field is focused, screen reader users will hear the message in context so they can freely move through the form without having to refer to the summary.
 
-The error message is coloured red and uses an SVG warning icon to draw users' attention. This works well for sighted users but leaves screen reader users less informed. To give sighted and non-sighted users an equivalent experience, the `aria-invalid="true"` attribute should be added to the form control. 
+The error message is coloured red and uses an SVG warning icon to draw users' attention. If we'd just used a colour change to denote an error, this would exclude color-blind users. So this works really well for sighted users. But what about screen reader users?
+
+To give both sighted and non-sighted users an equivalent experience, we can use the well-supported `aria-invalid` attribute. When the user focuses the input it will now announce “Invalid” (or similar) in screen readers.
 
 ```HTML
 <input aria-invalid="false">
 ```
 
-Taking the email address field as an example, when the   input is focused, screen readers will announce the label in combination with “invalid entry” (or similar). In doing so, this conforms to principle 1, *Provide a comparable experience*.
-
-*Note: the registration form only consists of text inputs. In the next chapter we'll look at how to inject errors accessibly for groups of fields such as radio buttons.*
+*Note: the registration form only consists of text inputs. In the chapter 3, “Book A Flight”, we'll look at how to inject errors accessibly for groups of fields such as radio buttons.*
 
 ### Submitting The Form Again
 

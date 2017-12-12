@@ -262,16 +262,13 @@ The `type="password"` attribute masks the input's value by replacing what the us
 
 ### A Password Reveal
 
-Obscuring the value as the user types makes it hard to fix typos. So when one is made, it's often easier to delete the whole entry and start over. This is frustrating as most users aren't using a computer with a person standing behind them.
+Obscuring the value as the user types makes it hard to fix typos. So when one is made, it's often easier to delete the whole entry and start again. This is frustrating as most users aren't using a computer with a person standing behind them.
 
 Due to the increased risk of typos, some registration forms include an additional ‘confirm password’ field. This is a precautionary measure that requires the user to type the same password twice, doubling the effort and degrading the user experience.
 
-Instead, it's better to let users reveal their password which speaks to principles 4 and 5, *Give control* and *Offer choice* respectively. This way users can choose to reveal their password, when they know nobody is looking. This reduces the risk of typos.
+Instead, it's better to let users reveal their password which speaks to principles 4 and 5, *Give control* and *Offer choice* respectively. This way users can choose to reveal their password, when they know nobody is looking - reducing the risk of typos.
 
-![Password reveal](./images/01/password-reveal.png)
-
-Some browsers, such as Internet Explorer and Microsoft Edge
- provide this functionality natively. As we'll be providing our own solution we should suppress this feature:
+Recent versions of Internet Explorer and Edge provide this behaviour natively. As we'll be creating our own solution we should suppress this feature like this:
 
 ```css
 input[type=password]::-ms-reveal {
@@ -279,7 +276,11 @@ input[type=password]::-ms-reveal {
 }
 ```
 
-Now we're ready to enhance the interface with our own version. First, we need to inject a button next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked, it should toggle the `type` attribute between `password` and `text` and the label between “Show password” and “Hide password”.
+Now we're ready to enhance the interface with our own version. 
+
+![Password reveal](./images/01/password-reveal.png)
+
+First, we need to inject a button next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked, it should toggle the `type` attribute between `password` and `text` and the label between “Show password” and “Hide password”.
 
 ```JS
 function PasswordReveal(input) {
@@ -313,9 +314,9 @@ PasswordReveal.prototype.onButtonClick = function(e) {
 
 #### Javascript Syntax and Architectural Notes
 
-There are many ways to write Javascript components. The approach taken to create the password reveal component, is the same approach that will be used going forwards.
+As there are many flavours of Javascript, and different ways in which to architect components, we're going to walk through the choices used to construct the password reveal component and all the upcoming components in the book.
 
-First, we're using constructor functions. In this case, the constructor function is `PasswordReveal` and conventionally is written in upper camel case. Using this approach means we can create several instances of a component on the same page without them conflicting.
+First, we're using a constructor. A constructor, is a function that is conventionally written in upper camel case — `PasswordReveal` not `passwordReveal`. It's initialised using the `new` keyword which lets us use the same code to create several instances of the component:
 
 ```JS
 var passwordReveal1 = new PasswordReveal(document.getElementById('input1'));
@@ -323,23 +324,41 @@ var passwordReveal1 = new PasswordReveal(document.getElementById('input1'));
 var passwordReveal2 = new PasswordReveal(document.getElementById('input2'));
 ```
 
-Second, all of the methods are defined on the prototype (`PasswordReveal.prototype`). This is so that all of the different instances share the same method which is the most performant approach when creating several instances of the same object.
+Second, the component's methods, are defined on the prototype — for example `PasswordReveal.prototype.onButtonClick`. The `prototype` is the most performant way to share methods across multiple different instances of the same component.
 
-Third, jQuery is being used. While jQuery isn't perfect, using it means that the book can focus on form design patterns — not on the depths of writing complex, rich cross-browser Javascript widgets. If you're a designer who doesn't code, then jQuery's low barrier to entry should be helpful. If you're more advanced and feel confident to ditch jQuery, you'll have no trouble rewriting these components to suit your preferences.
+Third, jQuery is being used to create and retrieve elements, and listen to events. While jQuery may not be necessary or preferred, using it means that the book can focus on forms — and not on the complexities of cross-browser components.
 
-One of jQuery's methods you'll see throughout most components is `$.proxy`. This method is a more widely supported version of Javascript's native `Function.prototype.bind` method. It's used because without it, when you listen to events on an element, the method is called in that element's context. That is, `this.button` in the code above, will be undefined and would therefore throw an error. We want `this` to be the password reveal object instead.
+If you're a designer who codes a little bit, then jQuery's ubiquity and low-barrier to entry should be helpful. By the same token, if you prefer not to use jQuery, you'll have no trouble refactoring the components to suit your preference.
 
-#### Alternative Approaches
+You may have also noticed the use of jQuery's `$.proxy` function. This function is a more widely supported version of `Function.prototype.bind`. If we didn't use this function to listen to events, then the event handler would be called in the element's context (`this`). In the above case, `this.button` would be undefined. But we want `this` to be the password reveal object instead so that we can access its properties and methods.
 
-Our approach uses a single button and toggles the button's label. I've heard that screen reader users can be confused by such a technique, because once they encounter a button, they expect that button to always be there. Changing the button's label could cause users to think the option has disappeared altogether. If you're research shows this to be a problem you could use an alternative approach where the label stays the same.
+#### Alternative Interface Options
 
-One way to do that would be with a checkbox. The checkbox's label would be permanently set to “Show password. Users will know the current state by way of the checked property.
+The password reveal interface we constructed before toggles the button's label between “Show password” and “Hide password”. I've heard that screen readers can be mildy confused when the labels of a button is changed. This is because once they encounter a button, they expect that button to persist. Even though the button is persistent, changing the label makes it appear to disappear.
 
-We discussed this on Twitter before that a checkbox is for input, not so much for revealing things which could cause confusion. Using a checkbox, people might think they are “revealing their password” to the system/public etc.
+If your research shows this to be a problem, you could try two alternative approaches:
 
-Toggle button
+1. Use a checkbox with a persistent label of “Show password”. The state will be signalled by the `checked` attribute. Screen reader users will hear “Show password, checkbox, checked” (or similar). Sighted users will see the checkbox tick mark. 
 
-Yes, I thought about this too. I think I even wrote the component as a toggle button at first but then didn't like relying on styling to signify pressed/unpressed state. That's partially due to my lack of visual design skills but also, changing the words seems to be most clear. It also happens to work without depending on ARIA.
+The problem with this approach is that checkboxes are for inputing data, not for controlling the interface. Some users might think their password will be revealed to the system.
+
+2. Change the button's state instead of the label. To can convey the state to screen reader users you can switch the `aria-pressed` attribute between `true` (pressed) and `false` (unpressed). 
+
+```HTML
+<button type="button" aria-pressed="true">  
+  Show password
+</button>  
+```
+
+When focusing the button using NVDA, the screen reader announces, “Show password, toggle button, pressed”. For sighted users, you can style the button to look pressed or unpressed accordingly using the attribute selector:
+
+```CSS
+[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 0.15rem #000, inset 0.25em 0.25em 0 #fff;
+}
+```
+
+However, it's not easy to tell between a pressed and unpressed button. Relying on styling alone to convey meaning isn't ideal. And this solution depends on ARIA. This is why this approach is included last for completeness.
 
 ### Microcopy
 

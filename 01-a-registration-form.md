@@ -410,9 +410,9 @@ HTML5 validation has been around for a while now. By adding just a few HTML attr
 
 Normally I would recommend using functionality that the browser provides for free because it's often more performant, robust and accessible. Not to mention, it becomes more familiar to users and more sites start to use the standard functionality.
 
-While HTML5 validation support is quite good, many browsers have patchy support[^]. For example, some implementations such as Firefox 45.7 just says “Please enter an email address” even if I've entered something in the box. Where as Chrome says “Please include an '@' in the email address” which is more helpful.
+While HTML5 validation support is quite good it's not implemented uniformly[^]. For example, the `required` attribute can mark fields as invalid from the outside which isn't desirable. And some browsers, such as Firefox 45.7, will show an error of “Please enter an email address” even if the user entered something in the box. Where as Chrome, for example, says “Please include an '@' in the email address” which is more helpful.
 
-Similarly, we should give users the same interface whether errors are caught on the server or the client. To simultaneously avoid these issues and grant ourselves the ability to design for a number of provisions, we'll provide our own solution. In this case, the first thing to do is turn off HTML5 validation as follows.
+We also want to give users the same interface whether errors are caught on the server or the client. For these reasons we'll design our own solution. In this case, the first thing to do is turn off HTML5 validation as follows.
 
 ```HTML
 <form novalidate>
@@ -523,13 +523,24 @@ The message is placed above the field and inside the label. Placing it above the
 ```html
 <div class="field">
   <label for="blah">
-    <span class="field-label">Email address</span>
+    <span class="field-error">
+      <svg width="1.5em" height="1.5em"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#warning-icon"></use></svg>
+      Enter your email address.
+    </span>
     <span class="field-error">Enter an email address</span>
   </label>
 </div>
 ```
 
 Like the hint pattern mentioned earlier, the error message is injected inside the label. When the field is focused, screen reader users will hear the message in context so they can freely move through the form without having to refer to the summary.
+
+The error message is coloured red and uses an SVG warning icon to draw users' attention. This works well for sighted users but leaves screen reader users less informed. To give sighted and non-sighted users an equivalent experience, the `aria-invalid="true"` attribute should be added to the form control. 
+
+```HTML
+<input aria-invalid="false">
+```
+
+Taking the email address field as an example, when the   input is focused, screen readers will announce the label in combination with “invalid entry” (or similar). In doing so, this conforms to principle 1, *Provide a comparable experience*.
 
 *Note: the registration form only consists of text inputs. In the next chapter we'll look at how to inject errors accessibly for groups of fields such as radio buttons.*
 

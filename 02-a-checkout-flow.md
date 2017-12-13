@@ -115,6 +115,8 @@ You might also be wondering why we're marking optional fields, instead of requir
 
 Thanks to the Question Protocol, most fields should be required, so we mark optional fields instead.
 
+*(Note: Putting the `aria-required="true"` attribute on an input will tell screen reader users that the field is required. As we're only marking optional fields, this attribute isn't necessary. And the optional text from within the label, will be announced by screen readers too giving sighted and non-sighted users an equivalent experience.)*
+
 ## 3. Delivery Address
 
 ![Delivery form](./images/02/delivery-form.png)

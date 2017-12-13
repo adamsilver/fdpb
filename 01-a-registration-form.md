@@ -461,9 +461,9 @@ As noted above this is primarly for screen reader users, but as is often the cas
 
 #### Error Summary
 
-The error summary is visually more dominant and is essential for telling sighted users that something has gone wrong. But it's also responsible for letting users understand what's gone wrong and how to fix it. It's positioned at the top of the page so that users don't have to scroll down to see it after a page refresh.
+In comparison to the title element, the error summary is more prominent, which tells sighted users that something has gone wrong. But it's also responsible for letting users understand what's gone wrong and how to fix it. 
 
-Conventionally speaking, errors should be in a red colouration, but we shouldn't rely on colour alone as this excludes colour-blind users. You might use position, size, text and iconography in addition to colour.
+It's positioned at the top of the page so that users don't have to scroll down to see it after a page refresh. Conventionally speaking, errors should be coloured red. However, relying on colour alone would exclude colour-blind users. To draw attention to the summary, consider using position, size, text and iconography in addition to colour.
 
 ![Error summary](./images/01/error-summary.png)
 
@@ -477,7 +477,7 @@ Conventionally speaking, errors should be in a red colouration, but we shouldn't
 </div>
 ```
 
-The panel consists of a heading to indicate the problem. The `div` has a role of `alert` which tells supporting screen readers to announce the region immediately. The heading's `tabindex` attribute is set to `-1`, so that it can be focused programmatically with Javascript. This ensures the error summary panel is scrolled into view. Otherwise, the interface would appear unresponsive and broken.
+The panel consists of a heading to indicate the problem. The `div` has a role of `alert` which tells supporting screen readers to announce the region immediately. The heading's `tabindex` attribute is set to `-1`, so that it can be focused programmatically with Javascript. This ensures the error summary panel is scrolled into view. Otherwise, the interface would appear unresponsive and broken when the form is submitted.
 
 ```JS
 FormValidator.prototype.focusSummary = function() {

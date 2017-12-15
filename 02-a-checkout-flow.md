@@ -256,11 +256,11 @@ Limiting the amount of text a user can type can and should be handled by validat
 
 The `maxlength` attribute (which takes a number value) limits the amount of a text a user can type. As soon as the limit is reached, the browser will ignore the input. The support for this attribute on a `textarea` is both lacking and buggy[^8].
 
-But, even if it was well supported, I don't recommend using it because some users don't look at the screen as they type — they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated. Not good.
+But, even if it was well supported, it's not recommended because some users don't look at the screen as they type — they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated. Not good.
 
 ### Character Countdown
 
-Instead, we should let users type freely and tell users how many characters they have left. This way, users can see the feedback when they finally look up at the screen and can edit their entry accordingly. If they don't notice the feedback, an error will show when they submit the form, thanks to the validation routine.
+Instead, we should let users type freely and tell users how many characters they have left. This way, users can see the feedback when they finally look up at the screen and can edit their entry in response. If they don't notice the feedback, an error will be shown when they submit the form, thanks to the validation routine (set out in chapter 1, “A Registration Form”).
 
 ![Character count](./images/02/character-countdown.png)
 
@@ -277,7 +277,7 @@ function CharacterCountdown(input) {
 };
 ```
 
-As the user types, the `keydown` event listener will fire. That method checks the `length` of the field against the configured max length. Then it will update the status box accordingly.
+As the user types, the `keydown` event listener will be invoked. This method will check the `length` of the field against the (configurable) max length and update the status box:
 
 ```javascript
 CharacterCountdown.prototype.onFieldChange = function(e) {
@@ -287,7 +287,7 @@ CharacterCountdown.prototype.onFieldChange = function(e) {
 
 ```
 
-The container has a `role` attribute set to `status` and `aria-live` set to `polite`. When the status box is updated, screen readers will announce it, but only after the user finishes typing. This way, users aren't rudely interrupted. 
+The container has a `role="status` attribute and an `aria-live="polite"`. This instructs screen readers to announce the contents as it's changed — but only after the user finishes typing. This way, users aren't rudely interrupted.
 
 ```HTML
 <div role="status" aria-live="polite">
@@ -296,6 +296,16 @@ The container has a `role` attribute set to `status` and `aria-live` set to `pol
 ```
 
 *(Note: both `role="status"` and `aria-live="polite"` are functionally equivalent, but older versions of JAWS don't support `role`.)*
+
+When the maximum number of characters has been exceeded, the number will change to a negative value.
+
+#### Announcing Only When It's Critical
+
+The character countdown we've designed so far has several provisions that carefully helps the user as they type their entry. First, it doesn't stop the user typing when they exceed the maximum amount of characters. And second, it will only inform users when they stop typing.
+
+Even so, if the user is able to type a large amount of characters, or if the maximum is rarely exceeded, it seems a bit overbearing to interupt users at all.
+
+A more considerate approach would be to give feedback when users get close to the limit. To do this we could add a “critical percentage” option. Setting this to 10 percent, for example, when the maximum is 100 would mean users start being informed when they have typed 90 characters.
 
 ## 6. Payment
 
@@ -430,6 +440,8 @@ In short, only use a number input if:
 Let's apply these rules to the expiry date. Incrementing it doesn't make sense, the number could start with a zero, and credit cards put a slash in the expiry date which users should be able to copy. Using a number input is not only inappropriate, but it creates a jarring experience as the user types a slash which would be ignored.
 
 We'll look at appropriate use cases of the number input in the next chapter.
+
+#### A Note About The Telephone Input
 
 ### Forgiving Bad Input
 

@@ -24,7 +24,9 @@ On a side note, you should use analytics to track what your users are searching 
 
 ## Interface Design
 
-The form itself is simple enough and contains just a label, search input and a submit button. What's tricky is that it's usually placed within the header which is not only for cognition, but interaction. Like navigation, we want to make search readily accessible to both mouse and keyboard users. Putting such a commonly-used feature somewhere else would be counterintuitive.
+The form itself is simple enough and contains just three elements: label, search input and submit button. Normally, search is placed within the header which like navigation, makes it easily discoverable and quick to navigate to. In fact, putting such an integral feature somewhere else would be counterintuitive.
+
+The challenge is that it's hard to fit search inside the header along with everything else.
 
 ### There's No Room
 

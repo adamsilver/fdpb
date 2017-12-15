@@ -97,7 +97,7 @@ Like the email field, we should be asking ourselves why we're asking for their p
 </div>
 ```
 
-The input's `type` attribute is set to `tel` which on mobile will spawn a telephone-specific keyboard. This makes it easier to enter a phone number thanks to the larger keypad.
+The input's `type="tel"` attribute will spawn a telephone-specific keyboard on mobile devices. This makes it easier to enter a phone number thanks to the larger keypad.
 
 ![Tel keyboard](./images/02/tel-keyboard.png)
 
@@ -442,6 +442,14 @@ Let's apply these rules to the expiry date. Incrementing it doesn't make sense, 
 We'll look at appropriate use cases of the number input in the next chapter.
 
 #### A Note About The Telephone Input
+
+The telephone input (`<input type="tel">`) is sometimes used as a makeshift number input because it gives users the benefits of a number-specific keypad on mobile without some of the pitfalls of the number input.
+
+Apart from the semantic incorrectness I've not come across practical reasons not to use it today. However, going against the specification is not recommended because we can't be sure how all browsers and devices will handle the input now and in the future.
+
+For example, perhaps a browsers autocomplete routine will try and autocomplete the telephone input to the user's telephone number instead of the credit card number for example. Or in the future, a device may choose to spawn the user's contact address book from which the user can choose an appropriate number. 
+
+Both of these features would be perfectly suited to a legitimate telephone field, but not for anything else, that happens to consist of numbers.
 
 ### Forgiving Bad Input
 

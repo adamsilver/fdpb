@@ -438,9 +438,9 @@ The enhanced interface takes the text box and injects a button beside it. Clicki
 
 ![Date picker](./images/03/date-picker.png)
 
-Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't suffer from these issues.
+Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't have these issues.
 
-There is an inset left border which visually connects the calendar to the field. And the interactive elements within the calendar have large tap targets which are easier to tap (or click) with a finger (or mouse).
+There is an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets which are easy to tap (or click) with a finger (or mouse).
 
 #### Revealing The Calendar
 
@@ -490,16 +490,16 @@ Here's the calendar's container:
 </div>
 ```
 
-When the toggle button is clicked, focus is set to the back button which is the first focusable element within the container. The container has two attributes:
+When the toggle button is clicked, focus is set to the previous month button — the first focusable element within the container. The container has two attributes:
 
-1. `aria-label="date picker"`
-2. `role="dialog"`
+1. `role="dialog"`
+2. `aria-label="date picker"`
 
-The `role="dialog"` attribute is used to denote an application dialog that is separate from the rest of the web application. While visually, our dialog doesn't isn't placed on top of the page, it's still a separate application.
+The `role="dialog"` attribute is used to denote an application dialog that is separate from the rest of the web application. While visually, our dialog isn't placed on top of the page, it's still a separate application.
 
-The `aria-label="date picker"` in combination with the `role` will inform users that they are now within a date picker dialog. For example, screen readers will announce “date picker, dialog, Previous month button” (or similar).
+The `aria-label="date picker"` in combination with the `role` will inform users that they are now within a date picker dialog. For example, screen readers will announce “date picker, dialog, previous month, button” (or similar).
 
-At this point pressing <kbd>Tab</kbd> moves to the next focusable element as standard which is the next month button. And tabbing again moves focus to the currently selected date within the grid, which defaults to today's date.
+At this point pressing <kbd>Tab</kbd> moves to the next focusable element (the next month button). And tabbing again moves focus to the currently selected date within the grid, which defaults to today's date.
 
 ```HTML
 <table role="grid">
@@ -537,21 +537,21 @@ Notes:
 
 - The `role="grid"` attribute tells screen readers, such as JAWS, that this is not a regular table and that the arrow keys can be used to navigate it with Javascript.
 - Each `<td>` has `tabindex="-1"` except for the selected day, which has `tabindex="0"`. This means that the user can tab straight onto the selected day and navigate from there using the arrow keys.
-- When the user presses the arrow keys to select a new day the previously selected day will be set to `tabindex="-1"` and the newly selected day will be set to `tabindex="0"`. This is known as roving tabs, which makes the grid just one tab stop. Otherwise users would have to tab ~30 times to move beyond the calendar with their keyboard.
-- Pressing <kbd>Left</kbd> moves to the previous day. Pressing <kbd>Right</kbd> moves to the next day. Pressing <kbd>Up</kbd> moves to the same day in the previous week. Pressing <kbd>Down</kbd> moves to the same day in the next week. This way, users can move freely between months.
+- When the user presses the arrow keys to select a new day, the previously selected day's `tabindex` will be set to `-1`; the newly selected day's `tabindex` will be set `0`. This is known as roving tabs, which makes sure the grid becomes just a single tab stop. Otherwise users would have to tab ~30 times to move beyond the calendar with their keyboard which is tiresome.
+- Pressing <kbd>Left</kbd> moves to the previous day. Pressing <kbd>Right</kbd> moves to the next day. Pressing <kbd>Up</kbd> moves to the same day in the previous week. Pressing <kbd>Down</kbd> moves to the same day in the next week. This way, users can move freely and efficiently between days and months.
 - Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
 - Pressing <kbd>Escape</kbd> hides the calendar and moves focus to the button.
-- Pressing <kbd>Tab</kbd> within the grid should hide the calendar and move to the next control, whatever that may be.
+- Pressing <kbd>Tab</kbd> within the grid should hide the calendar and move to the next focusable element in the Document — whatever that may be.
 
 #### Screen Readers
 
-When the button is pressed, sighted users will see visual feedback because the calendar appears. As clicking the button moves focus to the calendar, we can give screen reader users feedback by using a live region which contains “October 2017”. The same thing is read out as users move between months (more on this shortly).
+When the toggle button is pressed, sighted users will get feedback visually as the calendar appears. Because clicking the toggle button moves focus to the calendar, we can give screen reader users feedback by using a live region which contains the title: month name and year (“October 2017”, for example). This same information will be continually announced as users move between months and the title changes out as users move between months.
 
 ```HTML
 <div role="status" aria-live="polite">October 2017</div>
 ```
 
-The `thead` contains the column headings which represent each day of the week. The days are abbreviated visually to save space - tables aren't stylistically malleable, something that we'll discuss more in chapter 5. While abbreviations work here, we can give greater clarity for screen reader users by putting the full version inside the `aria-label` attribute.
+The `thead` contains the column headings which represent each day of the week. The days are abbreviated visually to save space. This is because tables aren't stylistically malleable, something that we'll discuss more in chapter 5, “An Inbox”. While abbreviations work in this context, we can give screen reader users greater clarity by putting the unabbreviated heading inside the `aria-label` attribute:
 
 ```HTML
 <thead>
@@ -567,7 +567,9 @@ The `thead` contains the column headings which represent each day of the week. T
 </thead>
 ```
 
-The same technique is used for the day of the month. That is, just the number is shown visually which isn't enough for visually-impaired users. For them, we store the full date inside the `aria-label` attribute, which speaks to principle 1, *provide a comparable experience*.
+The days need to use the same technique: while sighted users can see the day in context of the month and year, in some screen readers, only the number is announced. For example, they'll hear “17” which is ambiguous because they would have had to of remembered the previously announced month and year as they switch months.
+
+By storing the full date inside the `aria-label` attribute, we can give screen reader users an agreeable experience — one that speaks to principle 1, *Provide a comparable experience*:
 
 ```HTML
 <td role="gridcell" tabindex="-1" aria-label="7 October, 2017">
@@ -575,9 +577,9 @@ The same technique is used for the day of the month. That is, just the number is
 </td>
 ```
 
-*(Note: the hidden `span` stops the number being read out twice by some screen readers.)*
+*(Note: the `span` has an `aria-hidden="true"` attribute which stops the number being read out twice by some screen readers without hiding it from sighted users.)*
 
-While screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. But we don't make those assumptions. Instead, we adhere to principle 5, *Offer choice* by letting them do either.
+While screen reader users *can* operate the calendar, it's probably not that useful. Entering a date by typing directly into the text box is probably easier and quicker. But we don't make those assumptions. Instead, we adhere to principle 5, *Offer choice* by letting them do as they wish.
 
 #### Future Support
 

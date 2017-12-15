@@ -469,36 +469,60 @@ Notes:
 
 #### Keyboard And Focus Behaviour
 
-When the button is clicked, focus is set to the calendar widget programmatically by giving the element `tabindex="-1"`. Using `tabindex="0"` means the the calendar will be permanently focusable by way of the tab key which is a 2.4.3 Focus Order WCAG fail. That's because if users can tab to something, they expect that it will actually do something.
+Here's the calendar's container:
 
 ```HTML
-<div class="datepicker-calendar" tabindex="-1"></div>
+<div aria-label="date picker" role="dialog">
+  ...
+  <button aria-label="Previous month" type="button" 
+    >
+      <svg 
+        focusable="false" 
+        version="1.1" 
+        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+        viewBox="0 0 17 17" 
+        width="1em" 
+        height="1em">
+          ...
+      </svg>
+    </button>
+  ...
+</div>
 ```
 
-When focus is set to the calendar, the user can then <kbd>tab</kbd> between: the previous month button, the next month button and the currently selected date, which defaults to today.
+When the toggle button is clicked, focus is set to the back button which is the first focusable element within the container. The container has two attributes:
+
+1. `aria-label="date picker"`
+2. `role="dialog"`
+
+The `role="dialog"` attribute is used to denote an application dialog that is separate from the rest of the web application. While visually, our dialog doesn't isn't placed on top of the page, it's still a separate application.
+
+The `aria-label="date picker"` in combination with the `role` will inform users that they are now within a date picker dialog. For example, screen readers will announce “date picker, dialog, Previous month button” (or similar).
+
+At this point pressing <kbd>Tab</kbd> moves to the next focusable element as standard which is the next month button. And tabbing again moves focus to the currently selected date within the grid, which defaults to today's date.
 
 ```HTML
 <table role="grid">
   <thead>...</thead>
   <tbody>
     <tr>
-      <td tabindex="-1" aria-label="1 October, 2017">
+      <td role="gridcell" tabindex="-1" aria-label="1 October, 2017">
         <span aria-hidden="true">1</span>
       </td>
-      <td tabindex="-1" aria-label="2 October, 2017">
+      <td role="gridcell" tabindex="-1" aria-label="2 October, 2017">
         <span aria-hidden="true">2</span>
       </td>
-      <td tabindex="-1" aria-label="3 October, 2017">
+      <td role="gridcell" tabindex="-1" aria-label="3 October, 2017">
         <span aria-hidden="true">3</span>
       </td>
-      <td tabindex="-1" aria-label="4 October, 2017">
+      <td role="gridcell" tabindex="-1" aria-label="4 October, 2017">
         <span aria-hidden="true">4</span>
       </td>
-      <td tabindex="-1" aria-label="5 October, 2017">
+      <td role="gridcell" tabindex="-1" aria-label="5 October, 2017">
         <span aria-hidden="true">5</span>
       </td>
-      <td tabindex="0" aria-label="6 October, 2017">6</td>
-      <td tabindex="-1" aria-lael="7 October, 2017">
+      <td role="gridcell" tabindex="0" aria-label="6 October, 2017">6</td>
+      <td role="gridcell" tabindex="-1" aria-label="7 October, 2017">
         <span aria-hidden="true">7</span>
       </td>
     </tr>
@@ -514,10 +538,10 @@ Notes:
 - The `role="grid"` attribute tells screen readers, such as JAWS, that this is not a regular table and that the arrow keys can be used to navigate it with Javascript.
 - Each `<td>` has `tabindex="-1"` except for the selected day, which has `tabindex="0"`. This means that the user can tab straight onto the selected day and navigate from there using the arrow keys.
 - When the user presses the arrow keys to select a new day the previously selected day will be set to `tabindex="-1"` and the newly selected day will be set to `tabindex="0"`. This is known as roving tabs, which makes the grid just one tab stop. Otherwise users would have to tab ~30 times to move beyond the calendar with their keyboard.
-- Pressing <kbd>left</kbd> moves to the previous day. Pressing <kbd>right</kbd> moves to the next day. Pressing <kbd>up</kbd> moves to the same day in the previous week. Pressing <kbd>down</kbd> moves to the same day in the next week. Users can move freely between months using this approach.
+- Pressing <kbd>Left</kbd> moves to the previous day. Pressing <kbd>Right</kbd> moves to the next day. Pressing <kbd>Up</kbd> moves to the same day in the previous week. Pressing <kbd>Down</kbd> moves to the same day in the next week. This way, users can move freely between months.
 - Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
-- Pressing <kbd>escape</kbd> hides the calendar and moves focus to the button.
-- Pressing <kbd>tab</kbd> within the grid should hide the calendar and move to the next control, whatever that may be.
+- Pressing <kbd>Escape</kbd> hides the calendar and moves focus to the button.
+- Pressing <kbd>Tab</kbd> within the grid should hide the calendar and move to the next control, whatever that may be.
 
 #### Screen Readers
 
@@ -546,14 +570,14 @@ The `thead` contains the column headings which represent each day of the week. T
 The same technique is used for the day of the month. That is, just the number is shown visually which isn't enough for visually-impaired users. For them, we store the full date inside the `aria-label` attribute, which speaks to principle 1, *provide a comparable experience*.
 
 ```HTML
-<td tabindex="-1" aria-label="7 October, 2017">
+<td role="gridcell" tabindex="-1" aria-label="7 October, 2017">
   <span aria-hidden="true">7</span>
 </td>
 ```
 
-*(Note: the hidden span stops the number being read out twice by some screen readers.)*
+*(Note: the hidden `span` stops the number being read out twice by some screen readers.)*
 
-While screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. But we don't make those assumptions. Instead, we adhere to principle 5, *offer choice* by letting them do either.
+While screen reader users *can* operate the calendar, it's not especially useful to them. Entering a date by typing directly into the text box is probably easier and quicker. But we don't make those assumptions. Instead, we adhere to principle 5, *Offer choice* by letting them do either.
 
 #### Future Support
 

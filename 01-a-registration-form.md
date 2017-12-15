@@ -467,6 +467,8 @@ It's positioned at the top of the page so that users don't have to scroll down t
 
 ![Error summary](./images/01/error-summary.png)
 
+The panel consists of a heading, “There's a problem”, to indicate the problem. Notice, it doesn't say the word “Error” which isn't very human. Imagine you were filling out your details to purchase a car in real life and made a mistake. The salesperson wouldn't say “Error” — if they did it would be jarring and confusing.
+
 ```HTML
 <div class="errorSummary" role="alert" tabindex="-1" aria-labelledby="errorSummary-heading">
   <h2 id="errorSummary-heading">There's a problem</h2>
@@ -477,7 +479,9 @@ It's positioned at the top of the page so that users don't have to scroll down t
 </div>
 ```
 
-The panel consists of a heading to indicate the problem. The `div` has a role of `alert` which tells supporting screen readers to announce the region immediately. The heading's `tabindex` attribute is set to `-1`, so that it can be focused programmatically with Javascript. This ensures the error summary panel is scrolled into view. Otherwise, the interface would appear unresponsive and broken when the form is submitted.
+The container has a role of `alert` which tells supporting screen readers to announce the region immediately as its updated. The `tabindex` attribute is set to `-1`, so that it can be focused programmatically with Javascript (when the form is submitted with mistakes). This ensures the error summary panel is scrolled into view. Otherwise, the interface would appear unresponsive and broken when the form is submitted.
+
+*(Note: Using `tabindex="0"` means it will be permanently focusable by way of the tab key which is a 2.4.3 Focus Order WCAG fail. That's because if users can tab to something, they expect that it will actually do something.)*
 
 ```JS
 FormValidator.prototype.focusSummary = function() {

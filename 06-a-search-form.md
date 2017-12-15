@@ -1,6 +1,6 @@
 # A Search Form
 
-I'm an organised person. Even as a boy, I remember always having ‘a place’ for things. To be fair, I've always been minimalist too. Organising things when you only own a few things is easy. So I guess, it's unsurprising that I rarely lost things. On the odd occasion that I did, I just shouted in the general direction of the resident search engine: ‘Where's my..., ’ and I'd have my answer.
+I'm an organised person. Even as a boy, I remember always having ‘a place’ for things. To be fair, I've always been minimalist too. Organising things when you only own a few things is easy. So I guess, it's unsurprising that I rarely lost things. On the odd occasion that I did, I just shouted in the general direction of the resident search engine: ‘Where's my...,’ and I'd have my answer.
 
 By search engine, I mean Mum! Mum knew where everything was, not just my stuff — everyones. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to everything (at least that's how I remember it). If I had grown up with search engines, I might have nicknamed her Google.
 
@@ -32,15 +32,15 @@ The challenge is that it's hard to fit search inside the header along with every
 
 The problem with placing it inside the header is that the header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
 
-As noted previously, we're often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue, as there's usually plenty of room. On mobile though, we're going to have to think a little harder.
+As noted previously, we're often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue — there's usually plenty of room. On mobile though, we're going to have to think a bit more.
 
-To reduce the amount of vertical space, we can place the submit button beside the search box. As discussed in the first chapter, the best place to put it is underneath the last field. But this is a bit of a special case.
+To reduce the amount of vertical space, we can place the submit button beside the search box. As this is a special case, this is okay, despite the evidence to the contrary set out in “A Registration Form” — that it's best if the button is placed underneath the last field.
 
-There are other techniques employed to save space, and to keep the content high up the page - or dare I say, above the fold.
+Let's now look at some additional ways to reduce the size of the search form and have it fit inside the header more easily.
 
 #### Hiding The Label
 
-The first space-saving technique is to hide the label. You might consider using a placeholder to supplant the label but we've already talked about why you shouldn't do this in chapter 1, “A Registration Form”. As noted in the same discussion, using a placeholder in addition to a label is certainly less troublesome, but not trouble free.
+The first space-saving technique is to hide the label. You might consider using a placeholder to supplant the label but we've already talked about why you shouldn't do this in chapter 1, “A Registration Form”.
 
 You could argue that a visible label is unnecessary because the submit button's label is enough for sighted users. But, you should still include a label for screen reader users, because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
 

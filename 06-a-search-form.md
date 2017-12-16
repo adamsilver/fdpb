@@ -44,30 +44,46 @@ The first space-saving technique is to hide the label. You might consider using 
 
 You could argue that a visible label is unnecessary because the submit button's label is enough for sighted users. But, you should still include a label for screen reader users, because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
 
+```HTML
+<div class="field">
+  <label for="search" class="visually-hidden">
+    <span class="field-label">Search</span>
+  </label>
+  <input type="search" id="search" name="search">
+</div>
+```
+
+*(Note: The CSS for the visually-hidden class is set out in “Book A Flight”.)*
+
 With that said, if your search mechanism doesn't return everything, then you might need a more descriptive label. For example, if the search only retrieves products, then the label should read “Search products” (or similar). Hiding the label in this case would exclude sighted users.
 
-In any case, removing the label doesn't save all that much space. And even without a label, it's still going to be hard to fit the search box and submit button without sacrificing the affordance and usability of it.
+Moreover, if you recall the patterns from “A Registration Form”, the hint and error text is injected into the label. So if you need these, then you're going to have to think of a different and inconsistent technique just for the search form.
+
+In any case, removing the label doesn't save enough space to make the search form fit inside the header on mobile anyway — certainly not without sacrificing the user experience — or needing to remove the navigation menu.
 
 #### Hiding The Button
 
-The second approach is to (visually) hide the button. Obviously, if you hide the button and the label, much of the previous advice should be discarded. That's not all though. Without a submit button, it's not clear how a user can submit their search term. Not all users are aware of implicit submission, nor should they have to be.
+The second approach is to (visually) hide the button. If you hide the button, then you can no longer rely on it as a quasi label. 
 
-Some fancy sites use AJAX to search as the user types but this is unconventional, jarring and eats up people's data allowance. It also doesn't eradicate the need for a button - if the predicted results are no good, the user can't proceed with a full search.
+If you remove the submit button, it's unclear how a user can submit their search. Not all users are aware of implicit submission (discussed in “An Inbox”), nor should they have to be.
 
-Medium is an example of a site that omits the submit button. To give the form affordance, they use a magnifying glass icon before the search box. But they could just as easily place it after and combine it with a submit button. This way, the form would work conventionally.
+*(Note: if you decide to hide the button using the `visually-hidden` class, remember that the button is still focusable by way of the keyboard. This means, sighted screen reader users, for example, will find this problematic. You can fix this by adding the `tabindex="-1"` attribute.)*
+
+Some fancy sites use AJAX to search as the user types but this is unconventional, jarring and eats up people's data allowance. It also doesn't eradicate the need for a button - if the predicted results aren't helpful, the user can't proceed with a full search.
+
+Medium is an example of a site that omits the submit button. To signify the form, they use a magnifying glass icon before the search box. But they could just as easily place it after and combine it with a submit button. This way, the form would work conventionally. That is, keyboard users expect the text box to come before the submit button.
 
 ![Medium no button](./images/06/medium-search-no-button.png)
 
 *(Note: Some sites omit the `<form>` element because they're rendering and routing on the client using Javascript. But in doing so users aren't able to press <kbd>Enter</kbd> to submit the form. Even users who primarily use the mouse, may choose to submit by pressing <kbd>Enter</kbd> as it's easier.)*
 
-#### Toggle The Form
+#### Toggling The Form's Visibility
 
-The last approach is to toggle the form's visibility using a button. It's much easier to accomodate a button inside the header. The form might be revealed as an overlay, or immediately underneath the header. No matter which approach you take, including a visual label, optional hint and submit button is no longer a problem.
-
+The last approach is to toggle the form's visibility using a button. It's much easier to accomodate a button inside the header, than the entire form. The form might be revealed as an overlay, or immediately underneath the header. No matter which approach you take, including a visible label, optional hint and submit button is no longer a problem.
 
 ```HTML
 <!-- Inside the header -->
-<button type="button" aria-haspopup="true" aria-expanded="false"></button>
+<button type="button" aria-haspopup="true" aria-expanded="false"><SVG aria-hidden></SVG>Search form</button>
 
 <!-- Directly after the header -->
 <form class="search hidden"></form>
@@ -97,7 +113,7 @@ Displaying search results is somewhat out of scope for a book about forms, but l
 - **Maintain search text**. When the user arrives at the search page, what they typed should be persisted. This way users can make tweaks without having to retype the entire query.
 - **Display result count**. Tell users how many results have been returned so they can deduce what their next action is. For example, they might decide to filter the results - more on this in the next chapter.
 - **Let users sort**. Depending on the thing that's being searched it's often useful to let users sort by relevance, popularity, recency.
-- **Let users paginate**. Avoid infinite scrolling - it's an inclusive design anti-pattern with several usability issues[^]. This leaves “Show more” or standard pagination. Show more is more appropriate for sites that have a lot of user-generated content where the location of the result is not important. Pagination is more appropriate for ecommerce sites where users are looking for a specific item - not just browsing aimlessly.
+- **Don't employ infinite scrolling by default**. It's an inclusive design anti-pattern with several usability issues[^]. This leaves “Show more” or standard pagination. Show more is more appropriate for sites that have a lot of user-generated content where the location of the result is not important. Pagination is more appropriate for ecommerce sites where users are looking for a specific item - not just browsing aimlessly for entertainment.
 
 ## Summary
 

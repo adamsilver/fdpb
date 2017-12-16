@@ -26,7 +26,7 @@ The returns policy isn't a product. Nor does it reside in the database. But this
 
 The search form is simple enough and contains just three elements: the label, search input and submit button.
 
-![The search form laid out like a standard form](.)
+![Search form](./images/06/search-form.png)
 
 ```HTML
 <div role="search">
@@ -54,7 +54,7 @@ As noted previously, we're often seduced by novel, space-saving techniques such 
 
 As discussed in “A Registration Form”, the best place for the submit button is directly below last field. But one way to reduce the amount of vertical space the search form takes up, is to place the submit button next to the field. This is okay as it's a bit of a special case.
 
-![TODO: illustrate both versions](.)
+![Search button placement](./images/06/vertical-space.png)
 
 Let's look at some additional ways to reduce the size of the search form and make it fit inside the header more easily.
 

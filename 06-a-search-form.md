@@ -134,10 +134,10 @@ The full code is available on the accompanying Github repository[^].
 
 ## Displaying Search Results
 
-Displaying search results is somewhat out of scope for a book about forms, but lets run through some important details quickly now:
+Displaying search results is somewhat out of scope for a book about form design, but lets run through some important details quickly now:
 
 - **Maintain search text**. When the user arrives at the search page, what they typed should be persisted. This way users can make tweaks without having to retype the entire query.
-- **Display result count**. Tell users how many results have been returned so they can deduce what their next action is. For example, they might decide to filter the results — more on this in the next chapter.
+- **Display result count**. Tell users how many results have been returned. A simple approach would be to update the page's `<title>` text to read “Search results for [search term]” or similar. This way, users can decide what their next action is. For example, if there are many results, they may decide to filter them (more on this in the next chapter).
 - **Let users sort**. Depending on the thing that's being searched it's often useful to let users sort by relevance, popularity, recency.
 - **Don't employ infinite scrolling by default**. It's an inclusive design anti-pattern with several usability issues[^]. This leaves “Show more” or standard pagination. Show more is more appropriate for sites that have a lot of user-generated content where the location of the result is not important. Pagination is more appropriate for ecommerce sites where users are looking for a specific item - not just browsing aimlessly for entertainment.
 

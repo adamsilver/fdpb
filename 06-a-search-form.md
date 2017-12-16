@@ -6,25 +6,47 @@ By search engine, I mean Mum! Mum knew where everything was, not just my stuff �
 
 As I've gotten older and become a husband and father, my life is richer but also less minimalist. Even if I meticulously organise all our belongings, it's still hard to remember where it all is. Worst case scenario: I have to peruse each cupboard one-by-one hoping that the thing hasn't been lost which is time-consuming.
 
-In this chapter, we're going to design a responsive search form. Like Mum, we'll want it to be readily-available and on-hand to answer *any* question users have. To make this happen, there are a few crucial things to consider.
+In this chapter, we're going to design a responsive search form. Like Mum, we'll want it to be readily-available and on-hand to answer *any* question users have. To make this happen, there are some crucial things to consider.
 
 ## Search Everything
 
 When I recounted my childhood conversation with Mum, I was not only able to ask her where my stuff was, but really, I was able to ask her anything. When designing a global search form, users should be able to do the same thing. Too often, users can only find stuff that lives in the database. For example, on Amazon, the search will only return products. And on Youtube, the search will only return videos.
 
-In “Content and Design Are Inseparable Work Partners”[^1], Jared Spool explains that “content is the thing the user wants right now”. He recounts a story from user research where someone was trying to buy a purse. 
+In “Content and Design Are Inseparable Work Partners”[^1], Jared Spool explains that “content is the thing the user wants right now.” He recounts a story from user research where someone was trying to buy a purse. 
 
-The lady was happy enough to buy the purse on the proviso that she could return it. But the returns policy wasn't on the product page, or in the FAQ. In the end, she tries typing “Refund policy” into the search box but it returned no results. That was the end of the research session.
+The lady was happy enough to buy the purse on the proviso that she could return it. But the returns policy wasn't on the product page, or in the FAQ. In the end, she tries typing “Refund policy” into the search box but it didn't return any results. That was the end of the research session.
 
 The returns policy isn't a product. Nor does it reside in the database. But this is what she wanted. We often hear how content is king, but the design of the site lets the content down. Wherever possible search should search everything. And if it doesn't, the label should be explicit. If, for example, the search only returns products then make that clear within the interface.
 
 ![Search label](./images/06/search-label.png)
 
-On a side note, you should use analytics to track what your users are searching for. If the most popular searches are retriving empty results, then you can make provisions to improve the experience based on data.
+*(Tip: use analytics to track what users are searching for. If the most popular searches are retrieving empty results, make provisions to improve the experience based on data.)*
+
+## The Basic Form
+
+The search form is simple enough and contains just three elements: the label, search input and submit button.
+
+![The search form laid out like a standard form](.)
+
+```HTML
+<div role="search">
+  <form>
+    <div class="field">
+      <label for="search">
+        <span class="field-label">Search</span>
+      </label>
+      <input type="search" id="search" name="search">
+    </div>
+    <input type="submit" value="Search">
+  </form>
+</div>
+```
+
+The search form's container has a `role="search"` attribute. This role is a landmark role, so it's navigable by shortcuts and aggregated landmark lists in most screen readers. The extra `div` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^adrian].
+
+Normally, search is placed within the header, which like navigation, makes it easily discoverable and quick to access. In fact, putting such an integral feature somewhere else on the interface would be counterintuitive.
 
 ## There's No Room
-
-The form itself is simple enough and contains just three elements: label, search input and submit button. Normally, search is placed within the header which like navigation, makes it easily discoverable and quick to access. In fact, putting such an integral feature somewhere else on the in the interface would be counterintuitive.
 
 The challenge is that it's hard to fit the search form inside the header along with everything else. The header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
 
@@ -53,69 +75,77 @@ With that said, you could argue that a visible label is unnecessary because the 
 
 *(Note: The CSS for the visually-hidden class is set out in “Book A Flight”.)*
 
-If search only retrieves products, for example, then the button's label should be “Search products” (or similar). 
+If search only retrieves products, for example, then the button's label would be better as “Search products” (or similar). 
 
-If you recall the patterns from “A Registration Form”, the hint and error text is injected into the `<label>`. So if they're needed, you'll have to redesign how this will work just for the search form making for an inconsistent form experience.
+Also, if you recall the patterns from “A Registration Form”, the hint and error text is injected into the `<label>`. If they're needed, you'll have to rethink how this works when there is no visible label to work with.
 
-In any case, removing the label doesn't save enough space to make the search form fit inside the header on mobile anyway — certainly not without sacrificing the user experience — or needing to remove the navigation menu.
+In any case, removing the label doesn't save enough space to make the search form fit inside the header on mobile anyway — certainly not without sacrificing the user experience.
 
 ### Hiding The Button
 
-The second approach is to (visually) hide the button. If you hide the button, then you can no longer rely on it as a quasi label. 
+The second approach is to (visually) hide the button. However, this has several pitfalls.
 
-If you remove the submit button, it's unclear how a user can submit their search. Not all users are aware of implicit submission (discussed in “An Inbox”), nor should they have to be.
+First, without a button you can't use it as a quasi label, and would need to reinstate the actual label. Second, the button is a fundamental part of a form — without one, it's not clear how users are meant to perform the search. While we may be aware that pressing <kbd>Enter</kbd> submits the form, not everyone is.
 
-*(Note: if you decide to hide the button using the `visually-hidden` class, remember that the button is still focusable by way of the keyboard. This means, sighted screen reader users, for example, will find this problematic. You can fix this by adding the `tabindex="-1"` attribute.)*
+Being able to submit the form by pressing <kbd>Enter</kbd> is called implicit submission and it's something we first discussed in chapter 5, “An Inbox”. But implicit submission can break if you remove the submit button. But this is only the case if the form has more than one field. As the search form has a single field, implicit submission would fortunately still work.
 
-Some fancy sites use AJAX to search as the user types but this is unconventional, jarring and eats up people's data allowance. It also doesn't eradicate the need for a button - if the predicted results aren't helpful, the user can't proceed with a full search.
+*(Note: if you do decide to hide the button using the `visually-hidden` class, remember the button would still be focusable. This means, sighted screen reader users, for example, will find this problematic. You can fix this by adding the `tabindex="-1"` attribute.)*
 
-Medium is an example of a site that omits the submit button. To signify the form, they use a magnifying glass icon before the search box. But they could just as easily place it after and combine it with a submit button. This way, the form would work conventionally. That is, keyboard users expect the text box to come before the submit button.
+Some sites use AJAX to search as the user types but this can be jarring and it eats up people's data allowance. It also doesn't make the button any less useful. That is, if the predicted results aren't helpful, users should still be able to proceed with a full search by submitting the form and they should know exactly how to do that.
+
+Funnily enough, the same sites that omit the submit button, normally find at least some space to include a magnifying glass icon to signify its otherwise hidden affordance. In this case, they may as well place the icon inside a submit button solving both problems at the same time.
 
 ![Medium no button](./images/06/medium-search-no-button.png)
 
-*(Note: Some sites omit the `<form>` element because they're rendering and routing on the client using Javascript. But in doing so users aren't able to press <kbd>Enter</kbd> to submit the form. Even users who primarily use the mouse, may choose to submit by pressing <kbd>Enter</kbd> as it's easier.)*
+Caption: Medium puts a magnifying glass icon before the search box. If they combine the icon with a submit button placed after the search box, the form would work conventionally. That is, keyboard users, for example, would expect the search box to come before the submit button.
+
+### A Note About Removing the Form Element
+
+Some sites omit the `<form>` element because they're rendering and routing on the client using Javascript. But this also stops users from being able to press <kbd>Enter</kbd> to submit the form.
+
+Remember, even users who primarily use the mouse, may choose to submit the form by pressing <kbd>Enter</kbd> as it's easier.
 
 ### Toggling The Form's Visibility
 
-The last approach is to toggle the form's visibility using a button. Finding room in the header just for a button is relatively straightforward. The form might be revealed as an overlay, or immediately underneath the header. No matter which approach you take, including a visible label, optional hint and submit button becomes a simple task.
+The last approach is to toggle the form's visibility using a button. Finding room in the header just for a button is relatively straightforward. The form might be revealed as an overlay or immediately underneath the header. Either way, including a visible label, a hint (if you need one) and a submit button becomes a simple task.
+
+#### Hiding The Form
+
+First we need to hide the form and inject the toggle button into the header:
+
+```HTML
+<header>
+	<button type="button" aria-haspopup="true" aria-expanded="false">...</button>
+</header>
+<div role="search" class="hidden">...</div>
+```
+
+*(Note: this uses the same pattern as the menu from chapter 5, “An Inbox”. You can read about the `aria-haspopup` and `aria-expanded` attributes there. The `hidden` class is explained in chapter 1, “A Registration Form”.)*
+
+#### Clicking The Toggle Button
+
+When the user clicks the button, the form will be revealed by removing the `hidden` class. Simultaneously, the focus is moved to the search box, which saves users an unnecessary extra click (or <kbd>Tab</kbd>).
 
 ![Focus moved](./images/06/collapsible-search-form.png)
 
-The search form should be placed directly after the header. Clicking the button reveals the form and moves focus to the search box, saving uses an unnecessary extra click. At the same time `aria-expanded` should be set to `true` so that its state is reflected to screen reader users. Clicking the button for a second time, will hide the form and set `aria-expanded` back to `false`.
+We also need to update the state of the button by toggle the `aria-expanded` attribute to `true` so that it's reflected to screen reader users. Clicking the button for a second time, will hide the form and set `aria-expanded` back to `false`.
 
-```HTML
-<!-- Inside the header -->
-<button type="button" aria-haspopup="true" aria-expanded="false"><SVG aria-hidden></SVG>Search form</button>
-
-<!-- Directly after the header -->
-<form class="search hidden"></form>
-```
-
-```JS
-SearchForm.prototype.onButtonClick = function() {
-  if(this.button.attr('aria-expanded') == 'false') {
-    this.button.attr('aria-expanded', 'true');
-    this.form.removeClass('hidden');
-    this.form.find('input').first().focus();
-  } else {
-    this.form.addClass('hidden');
-    this.button.attr('aria-expanded', 'false');
-  }
-};
-```
+The full code is available on the accompanying Github repository[^].
 
 ## Displaying Search Results
 
 Displaying search results is somewhat out of scope for a book about forms, but lets run through some important details quickly now:
 
 - **Maintain search text**. When the user arrives at the search page, what they typed should be persisted. This way users can make tweaks without having to retype the entire query.
-- **Display result count**. Tell users how many results have been returned so they can deduce what their next action is. For example, they might decide to filter the results - more on this in the next chapter.
+- **Display result count**. Tell users how many results have been returned so they can deduce what their next action is. For example, they might decide to filter the results — more on this in the next chapter.
 - **Let users sort**. Depending on the thing that's being searched it's often useful to let users sort by relevance, popularity, recency.
 - **Don't employ infinite scrolling by default**. It's an inclusive design anti-pattern with several usability issues[^]. This leaves “Show more” or standard pagination. Show more is more appropriate for sites that have a lot of user-generated content where the location of the result is not important. Pagination is more appropriate for ecommerce sites where users are looking for a specific item - not just browsing aimlessly for entertainment.
 
 ## Summary
 
-In this chapter, we started by looking at how important it is to give users what they searched for - not just products, or articles, but anything the site contains. We then went onto look at the interface. Specifically, how we can accomodate a search form as part of the header so that it's readily accessible from every page in the site. 
+In this chapter, we started by looking at how important it is to give users what they searched for - not just products, or articles, but anything the site contains. We then went onto look at the interface. 
+
+Specifically, how we can accomodate a search form as part of the header so that it's readily accessible from every page in the site. We also enhanced the experience for screen reader users by using the `role="search"` landmark.
 
 Marrying the usability of the interface with the quality of the search engine gives users the best experience.
 
@@ -123,3 +153,4 @@ Marrying the usability of the interface with the quality of the search engine gi
 
 [^1]: https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
 [^2]: http://jamesarcher.me/hamburger-menu
+[^]: http://adrianroselli.com/2015/08/where-to-put-your-search-role.html

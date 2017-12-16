@@ -22,27 +22,25 @@ The returns policy isn't a product. Nor does it reside in the database. But this
 
 On a side note, you should use analytics to track what your users are searching for. If the most popular searches are retriving empty results, then you can make provisions to improve the experience based on data.
 
-## Interface Design
+## There's No Room
 
-The form itself is simple enough and contains just three elements: label, search input and submit button. Normally, search is placed within the header which like navigation, makes it easily discoverable and quick to navigate to. In fact, putting such an integral feature somewhere else would be counterintuitive.
+The form itself is simple enough and contains just three elements: label, search input and submit button. Normally, search is placed within the header which like navigation, makes it easily discoverable and quick to access. In fact, putting such an integral feature somewhere else on the in the interface would be counterintuitive.
 
-The challenge is that it's hard to fit search inside the header along with everything else.
-
-### There's No Room
-
-The problem with placing it inside the header is that the header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
+The challenge is that it's hard to fit the search form inside the header along with everything else. The header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
 
 As noted previously, we're often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue — there's usually plenty of room. On mobile though, we're going to have to think a bit more.
 
-To reduce the amount of vertical space, we can place the submit button beside the search box. As this is a special case, this is okay, despite the evidence to the contrary set out in “A Registration Form” — that it's best if the button is placed underneath the last field.
+As discussed in “A Registration Form”, the best place for the submit button is directly below last field. But one way to reduce the amount of vertical space the search form takes up, is to place the submit button next to the field. This is okay as it's a bit of a special case.
 
-Let's now look at some additional ways to reduce the size of the search form and have it fit inside the header more easily.
+![TODO: illustrate both versions](.)
 
-#### Hiding The Label
+Let's look at some additional ways to reduce the size of the search form and make it fit inside the header more easily.
+
+### Hiding The Label
 
 The first space-saving technique is to hide the label. You might consider using a placeholder to supplant the label but we've already talked about why you shouldn't do this in chapter 1, “A Registration Form”.
 
-You could argue that a visible label is unnecessary because the submit button's label is enough for sighted users. But, you should still include a label for screen reader users, because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
+With that said, you could argue that a visible label is unnecessary because the submit button acts as a quasi label for sighted users. But, you should still include a label for screen reader users, because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
 
 ```HTML
 <div class="field">
@@ -55,13 +53,13 @@ You could argue that a visible label is unnecessary because the submit button's 
 
 *(Note: The CSS for the visually-hidden class is set out in “Book A Flight”.)*
 
-With that said, if your search mechanism doesn't return everything, then you might need a more descriptive label. For example, if the search only retrieves products, then the label should read “Search products” (or similar). Hiding the label in this case would exclude sighted users.
+If search only retrieves products, for example, then the button's label should be “Search products” (or similar). 
 
-Moreover, if you recall the patterns from “A Registration Form”, the hint and error text is injected into the label. So if you need these, then you're going to have to think of a different and inconsistent technique just for the search form.
+If you recall the patterns from “A Registration Form”, the hint and error text is injected into the `<label>`. So if they're needed, you'll have to redesign how this will work just for the search form making for an inconsistent form experience.
 
 In any case, removing the label doesn't save enough space to make the search form fit inside the header on mobile anyway — certainly not without sacrificing the user experience — or needing to remove the navigation menu.
 
-#### Hiding The Button
+### Hiding The Button
 
 The second approach is to (visually) hide the button. If you hide the button, then you can no longer rely on it as a quasi label. 
 
@@ -77,9 +75,13 @@ Medium is an example of a site that omits the submit button. To signify the form
 
 *(Note: Some sites omit the `<form>` element because they're rendering and routing on the client using Javascript. But in doing so users aren't able to press <kbd>Enter</kbd> to submit the form. Even users who primarily use the mouse, may choose to submit by pressing <kbd>Enter</kbd> as it's easier.)*
 
-#### Toggling The Form's Visibility
+### Toggling The Form's Visibility
 
-The last approach is to toggle the form's visibility using a button. It's much easier to accomodate a button inside the header, than the entire form. The form might be revealed as an overlay, or immediately underneath the header. No matter which approach you take, including a visible label, optional hint and submit button is no longer a problem.
+The last approach is to toggle the form's visibility using a button. Finding room in the header just for a button is relatively straightforward. The form might be revealed as an overlay, or immediately underneath the header. No matter which approach you take, including a visible label, optional hint and submit button becomes a simple task.
+
+![Focus moved](./images/06/collapsible-search-form.png)
+
+The search form should be placed directly after the header. Clicking the button reveals the form and moves focus to the search box, saving uses an unnecessary extra click. At the same time `aria-expanded` should be set to `true` so that its state is reflected to screen reader users. Clicking the button for a second time, will hide the form and set `aria-expanded` back to `false`.
 
 ```HTML
 <!-- Inside the header -->
@@ -89,20 +91,16 @@ The last approach is to toggle the form's visibility using a button. It's much e
 <form class="search hidden"></form>
 ```
 
-The search form is placed directly after the header. Clicking the button should show the form, and move focus to the search box, saving uses an unnecessary extra click. At the same time `aria-expanded` should be set to `true` so that its state is reflected to screen reader users. Clicking the button for a second time, will hide the form and set `aria-expanded` back to `false`.
-
-![Click button -> move focus](./images/06/collapsible-search-form.png)
-
 ```JS
 SearchForm.prototype.onButtonClick = function() {
-	if(this.button.attr('aria-expanded') == 'false') {
-		this.button.attr('aria-expanded', 'true');
-		this.form.removeClass('hidden');
-		this.form.find('input').first().focus();
-	} else {
-		this.form.addClass('hidden');
-		this.button.attr('aria-expanded', 'false');
-	}
+  if(this.button.attr('aria-expanded') == 'false') {
+    this.button.attr('aria-expanded', 'true');
+    this.form.removeClass('hidden');
+    this.form.find('input').first().focus();
+  } else {
+    this.form.addClass('hidden');
+    this.button.attr('aria-expanded', 'false');
+  }
 };
 ```
 

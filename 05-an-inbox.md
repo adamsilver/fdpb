@@ -1,4 +1,4 @@
-# An inbox
+# An Inbox
 
 My sister loves to-do lists. In fact, she loves them so much, that one of her favourite things is making new lists out of old ones. The world is full of lists. There is even a list of great people[^1]. On the web, there are several types of lists, and there are some design patterns that have emerged over the years that help to manage them.
 
@@ -97,9 +97,9 @@ You'll notice each checkbox is missing a label. The problem is that the contents
 
 In this case, you could argue that a visible label is redundant. After all, the label would duplicate the link's content. This would make for a confusing experience for sighted users.
 
-### Using modes
+### Using Modes
 
-Trying to meet two user needs in one a single interface is partially responsible for the problem in the first place. So, one way to avoid the issue would be to split these needs apart using the concept of modes. This just means letting users switch between managing email and reading it.
+Trying to meet two user needs in a single interface is partially responsible for the problem in the first place. One way to avoid the issue would be to split these needs apart using the concept of modes. This just means letting users switch between managing email and reading it.
 
 ![Modes](./images/05/modes.png)
 
@@ -108,6 +108,8 @@ Clicking *Organise* puts users into *manage-mode*. When in manage-mode, the link
 When in read-mode there are no checkboxes or any other form paraphernalia. The row is a link which takes users to read the email. When in manage-mode, the row turns into a `<label>`. When clicked, it marks (or unmarks) the checkbox just like normal.
 
 Modes are best suited when one mode is used more frequently than the other. But, when both are used frequently, like an inbox, having to switch back and forth all the time is undesirable.
+
+*(Note: we should try and avoid modes, but if they are necessary, the interface must make it obvious which mode is invoked.)*
 
 ### Visually Hide The Label
 
@@ -124,7 +126,7 @@ Instead of using modes, we can add a visually hidden label. There are two ways t
 </li>
 ```
 
-Alternatively, a standard `<label>` has excellent and broader support than ARIA but the downside, is that the contents has to be duplicated. While this this isn't a huge performance issue, if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer&mdash;screen reader software can be unresponsive, for example.
+Alternatively, a standard `<label>` has far better support than ARIA but the downside, is that the content has to be duplicated. While this this isn't a huge performance issue, if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer — screen reader software can be unresponsive, for example.
 
 ```HTML
 <li>

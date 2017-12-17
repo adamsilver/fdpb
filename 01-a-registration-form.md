@@ -564,15 +564,15 @@ FormValidator.prototype.onSubmit = function(e) {
 };
 ```
 
-### Technical Design
+### Initialisation
 
-Having finished defining our `FormValidator` we're now ready to intitialise it. To create an instance of `FormValidator` you need to pass the form element as the first parameter.
+Having finished defining the `FormValidator` component we're now ready to initialise it. To create an instance of `FormValidator` you need to pass the form element as the first parameter.
 
 ```JS
 var validator = new FormValidator(document.getElementById('registration'));
 ```
 
-To validate the email field, for example, call the `addValidator` method as shown below. 
+To validate the email field, for example, call the `addValidator` method: 
 
 ```JS
 validator.addValidator('email', [{
@@ -588,9 +588,19 @@ validator.addValidator('email', [{
 }]);
 ```
 
-The first rule's method trims the value before checking the length in order to forgive trivial mistakes. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^16], at 42 minutes in. He says “it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong.” 
+The first parameter is the control's `name` and the second is an array of “rule” objects. Each rule contains two properties: `method` and `message`. The `method` is a function that tests various conditions to return either `true` or `false`. False puts the field into an error state which is used to populate the interface with errors as discussed earlier.
 
-The first parameter takes the name of the control and the second takes rules (as an array of objects). Each rule contains two properties: method and messsage. The `method` is a function that test various conditions to return either `true` or `false`. False puts the field into an error state which is used to populate the interface with errors.
+#### Forgiving Trivial Mistakes
+
+In “The Design of Everyday Things”, Don Norman talks about designing for error. He talks about the way people converse:
+
+> “If a person says something that we believe to be false, we question and debate. We don't issue a warning signal. We don't beep. We don't give error messages. In normal conversations, misstatements are taken as normal, as approximations to what was really meant.”
+
+Unlike humans, machines are not intelligent enough to determine the meaning of most actions but they are often far less forgiving of mistakes than they need to be. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^16], at 42 minutes in:
+
+> “it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong.”
+
+The `addValidator` (shown above) demonstrates how to design validation rules so that they forgive trivial mistakes. The first rule, for example, trims the value before checking its length, reducing the burden on the user.
 
 ### Live Inline Validation
 

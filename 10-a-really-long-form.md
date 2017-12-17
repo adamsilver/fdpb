@@ -2,17 +2,17 @@
 
 Different types of tasks take different amounts of time to complete. One Thing Per Page helps users complete tasks in one sitting, but what about those that take hours, or even days, to complete?
 
-In Mailchimp, for example, I'll usually start drafting an email campaign weeks before I send it. And there are a number of steps to complete and in a particular order too. First, I check the content reads well. Then I need to make sure it looks good in various email clients. Then days or even weeks later, I'll run through some final checks, decide the subject line and schedule it for release.
+In Mailchimp, for example, I'll usually start drafting an email campaign weeks before I send it. And there are a number of steps to complete, in a particular order too. First, I check the content reads well. Then I need to make sure it looks good in various email clients. Then days or even weeks later, I'll run through some final checks, decide the subject line and schedule it for release.
 
 Other tasks are performed by more than one person using the same application. For example, processing a return may involve someone receiving the goods at the warehouse. Then a decision maker may take a look at the goods to make sure it satisfies the returns policy.
 
-Some Government services take weeks to apply for and users need to provide lots of information about their identity, home, family and financial situation and sometimes they need to gather evidence and send it by post.
+Some Government services take weeks to apply for and users need to provide lots of information about their identity, home, family and financial situation. And sometimes people need to gather evidence and send it by post.
 
 Whatever the case, if you're designing a really long form, there's some patterns that we can use to improve the experience. 
 
 Of course, if you can simplify the process so that it's short in the first place, all the better.
 
-## The Task List Pattern
+## The Power Of Checklists
 
 In “The Psychology of Checklists”[^1], Lauren Marchese explains the importance of breaking down big tasks into smaller ones and doing so is bioligically proven to motivate people. When we experience even small amounts of success, our brains release a chemical called dopamine which gives us feelings of pleasure, learning and motivation.
 
@@ -20,17 +20,27 @@ Most of us work in teams employing Agile methodologies. One of the main aspects 
 
 What's really happening is that tasks seem far easier to achieve when they're broken down. Crucially, if tasks are small enough, then we'll get that hit of dopamine frequently, which creates momentum. Momentum improves morale and morale improves quality.
 
-The task list pattern, as coined by the Government Digital Service (GDS) shows a service that has several top level tasks. Each top level task is broken down into several sub tasks. Each one of those takes users through a flow. Whether it's one screen or several doesn't matter.  Once a task a sub task is completed, users come back to the view with that task marked as complete.
+That's not all checklists are good for. In “The Design of Everyday Things”, Don Norman says:
+
+> “Checklists are powerful tools, proven to increase the accuracy of behaviour and to reduce error [...]. They are especially important in situations with multiple, complex requirements, and even more so where there are interruptions.”
+
+As we are able to perform digital tasks on the go using different devices, the chances of interruption are always high. Designing for interruption and being able to fly back into a long and complex task is crucial.
+
+## The Task List Pattern
+
+The task list pattern, as coined by the Government Digital Service (GDS) shows a service that has several top level tasks. Each top level task is broken down into several sub tasks. Each one of those takes users through a flow. Whether it's one screen or several doesn't matter too much. As long as each sub task is achievable in a reasonable amount of time.
+
+Once a sub task is completed, users come back to the view with that task marked as complete.
 
 ![Task list Pattern](./images/10/task-list-pattern-gds.png)
 
 This is not a pattern reserved for Government services. Mailchimp users have a similar need. The only difference is the visual design and the flatter hierarchy of tasks.
 
-Instead of text, Mailchimp uses iconography to mark tasks as complete. I've discussed the pros and cons of iconography in chapter 3, “Book A Flight”. Additionally, instead of standard looking links, they use call-to-action buttons with labelled as ‘resolve’ to prompt the user.
+Instead of text, Mailchimp uses iconography to mark tasks as complete. I've discussed the pros and cons of iconography in chapter 3, “Book A Flight”. Additionally, instead of standard looking links, they use call-to-action buttons which are labelled as ‘resolve’ to prompt the user and reduce the effort on their part.
 
 ![Mailchimp](./images/10/task-list-pattern-mailchimp.png)
 
-The exact design details you choose to employ will come down to your product's design language and user research.
+The exact design details you choose to employ will come down to your product's design language and your own user research.
 
 Key points:
 

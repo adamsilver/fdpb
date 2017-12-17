@@ -168,9 +168,9 @@ The problem comes when a form has multiple submit buttons because each button pe
 
 To mitigate this, split the forms up into separate pages will ensure there's just one action per form. Depending on the design, this may not be easy or possible. And in the case of the inbox, it isn't straightforward. One way would be to ask users which action they want to perform before selecting the emails, but this seems a little long-winded.
 
-Fortunately and by convention, multi-select interfaces typically place the action buttons at the top of the page in vertical alignment to the checkboxes. This gives users a chance to discover the available actions before making their selection.
+Fortunately and by convention, multi-select interfaces typically place the action buttons at the top of the page in vertical alignment to the checkboxes. This gives users a way to discover the available actions before making their selection.
 
-It's worth noting that implicit submission is probably less useful on a form consisting solely of checkboxes. But, if you need multiple submit buttons, put the least invasive action first - in this case, *archive*. That way, in the unlikely event that users accidentally submit the form implicitly they'll be in far less of a predicament.
+It's worth noting that implicit submission is probably less useful on a form consisting solely of checkboxes. But, if you need multiple submit buttons, put the least invasive action first — in this case, *archive*. That way, in the unlikely event that users submit the form implicitly they'll be in far less of a predicament.
 
 Another way to mitigate this potential problem is to offer users a way to *undo* their last action. We'll discuss this more shortly.
 
@@ -178,9 +178,11 @@ Another way to mitigate this potential problem is to offer users a way to *undo*
 
 The menu is placed above the emails so as users scroll it would disappear off screen. Sticky menus are one potential solution to this problem. As users scroll, a sticky menu stays fixed to the top of the viewport. Similarly, Material Design has the floating action button. As users scroll, the action button floats on top of the content. Both of these techniques give users quick and easy access to the menu without having to scroll back up to the top.
 
-However sticky menus also obscure the content beneath and can distract users from fully immersing themselves in the page itself. And on small viewports, a sticky menu can dominate the layout and impede access to the content. The other downside is that implementing a sticky menu using fixed positioning is really problematic as Brad Frost catalogs in “Fixed Positioning In Mobile Browsers”[^6]. For example, some menus take a while to bounce back into position.
+However sticky menus also obscure the content beneath and can distract users from fully immersing themselves in the page content. And on small viewports, a sticky menu can dominate the layout and impede access to the content. The other downside is that implementing a sticky menu using fixed positioning is really problematic as Brad Frost catalogs in “Fixed Positioning In Mobile Browsers”[^6]. For example, some menus take a while to bounce back into position which creates a jarring and unprofessional experience for on a large range of devices.
 
-Fortunately, sticky menus are only beneficial if the page is particularly long. Like Gmail, the inbox will show 20 emails per page, meaning that the menu is, at most, a quick flick away on mobile.
+Sticky menus are normally used to solve surface level symptoms, that mask the true underlying problem. That is, that the page is probably too long in the first place. However, like Gmail, our inbox will only show 20 emails at a time. This means the menu is, at most, a quick flick away on mobile.
+
+*(Note: in newer browsers, `position: sticky` is available which works better than the techniques described in Brad Frost's article.)*
 
 ### Disabling And Hiding Buttons
 

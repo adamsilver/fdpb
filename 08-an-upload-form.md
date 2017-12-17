@@ -297,6 +297,34 @@ Anything like this needs a a lot of diverse testing to ensure what is better for
 
 It's also worth baring in mind that users may not want, or benefit, from drag and drop at all. Before embarking on your own drag and drop solution, make sure there is a user need.
 
+## A Note About The `accept` and `capture` Attributes
+
+The file input offers two interesting attributes that affect the experience of uploading files: `accept` and `capture`.
+
+The `accept` attribute takes a hint or mime type. When supported, the browser/device may offer users an optimised interface in which to choose files. 
+
+```HTML
+<input type="file" accept="image/*">
+```
+
+In Chrome and Safari on iOS and Android, for example, it will give the user a choice of which app to use to capture the image, including the option of taking a photo with the camera or choosing an existing image file.
+
+![iOS and Android accept dialogs](./images/08/accept-attribute.png)
+
+*(Note: On desktop it will prompt the user to upload an image file from the file system disabling files that aren't images, for example. The problem with this is that users won't know why the files are disabled as there's no feedback.)*
+
+You can also add the `capture` attribute, which indicates to supporting browsers that you prefer getting an image from the camera:
+
+```HTML
+<input type="file" accept="image/*" capture>
+<input type="file" accept="image/*" capture="user">
+<input type="file" accept="image/*" capture="environment">
+```
+
+Adding the capture attribute without a value let's the browser decide which camera to use (if there's one available), while the "user" and "environment" values tell the browser to prefer the front and rear cameras, respectively.
+
+The capture attribute works on Android and iOS, but is ignored on desktop. Be aware, however, that on Android this means that the user will no longer have the option of choosing an existing picture. The system camera app will be started directly, instead which is probably undesirable.
+
 ## Summary
 
 In this chapter, we looked at the intricacies of uploading files - not just one at a time, in bulk. 

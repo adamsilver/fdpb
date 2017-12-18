@@ -148,7 +148,7 @@ Alternatively, a standard `<label>` has better support and adheres to ARIA's fir
 
 While duplication isn't a big performance issue, if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer — screen reader software can be unresponsive, for example.
 
-Fortunately, there is a silver lining in duplicating the contents. The contents of the label is just for screen readers, meaning we can craft a specific message that reads better audibly. For example, the hidden label has the word “subject” prefixed which may be unnecessary for sighted users.
+On the other hand, duplication in this case, can be advantageous. As the label content is just for screen reader users, we can create a specific message just for them. For example, the label has the word “subject” prefixed which is useful in this context. This follows principle 1, *Provide a comparable experience*, which is not about giving users the same experience, but one of comparable value and utility.
 
 ### Highlighting Marked Emails
 
@@ -156,39 +156,55 @@ The deal with human-computer interaction is that when the human does something, 
 
 ![Checked](./images/05/checked.png)
 
-It is, however, possible to highlight the entire row with CSS and Javascript. As designers, we're tempted to do more than the minimum. We think that more is better. We think that more is a symbol of hard work. It's actually a lot harder to *resist* doing more, than simply *doing* more. Constantly striving for less in a world that rewards you for doing more is very hard work indeed.
+For example, Mailchimp, who have a reputation for their user-centered design philosophy, show that you don't need to highlight the entire row. They rely solely on the checked state of the checkbox. We can assume their research showed this to be enough. My own research aligns with this too.
 
-Mailchimp, known for their usability prowess, show that you don't necessarily need to highlight the entire row. They rely solely on the checked state of the checkbox. One can assume their research showed this to be good enough. My own research aligns with this too. Obviously, if your research shows that highlighting the row is beneficial then go ahead.
+![Mailchimp](./images/05/mailchimp-checkbox.png)
+
+We could highlight the entire row using CSS and Javascript, but we should only do that if user research shows this will *Add value* (principle 7).
 
 ## An Action Menu
 
 Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them too. Unlike the forms designed in previous chapters, this form contains multiple submit buttons with a new visual and interactive treatment that needs to be considered.
 
+![Multiple buttons](./images/05/multiple-buttons.png)
+
 ### Implicit Submission And Multiple Submit Buttons
 
-Implicit submission lets you press <kbd>Enter</kbd> when a field is focused. This is a convention that lets users submit a form more quickly without having to move focus to the submit button. This is particularly useful for a search form because it only consists of a text box and submit button. Users can type and press <kbd>Enter</kbd> without leaving the field.
+Implicit submission lets users submit the form by pressing <kbd>Enter</kbd> when focus is within a field. This is convenient convention that speeds up submission without having to move focus to the submit button. This is particularly useful for a search form because it normally only consists of a single field.
 
 ![Implicit submission](./images/05/implicit-submission.png)
 
-The problem comes when a form has multiple submit buttons because each button performs a different action. If the user presses <kbd>Enter</kbd>, which action should be taken? The answer is that browsers will choose the first button in the document source.
+The problem is when there's multiple buttons because each button performs a different action. If the user presses <kbd>Enter</kbd>, which action should be taken? The answer is that browsers will choose the first button in the document source.
 
-To mitigate this, split the forms up into separate pages will ensure there's just one action per form. Depending on the design, this may not be easy or possible. And in the case of the inbox, it isn't straightforward. One way would be to ask users which action they want to perform before selecting the emails, but this seems a little long-winded.
+To mitigate this, try and split the actions into separate pages so that there's just one action per form. Depending on the design, this may not be easy — as is the case wit the inbox.
 
-Fortunately and by convention, multi-select interfaces typically place the action buttons at the top of the page in vertical alignment to the checkboxes. This gives users a way to discover the available actions before making their selection.
+One way could be to ask users which action they want to perform before selecting the emails, but this seems a little long-winded.
 
-It's worth noting that implicit submission is probably less useful on a form consisting solely of checkboxes. But, if you need multiple submit buttons, put the least invasive action first — in this case, *archive*. That way, in the unlikely event that users submit the form implicitly they'll be in far less of a predicament.
+Fortunately, multi-select interfaces usually place related controls at the top of form in close alignment to the checkboxes. This gives users a way to discover the available actions before making their selection.
 
-Another way to mitigate this potential problem is to offer users a way to *undo* their last action. We'll discuss this more shortly.
+![Gmail menu proximity](./images/05/gmail-menu.png)
+
+It's worth noting that implicit submission is probably less useful on a form consisting solely of checkboxes. But, if you need multiple submit buttons, put the least critical action first — in this case, *archive*. That way, if the user accidentally submits the form implicitly they'll be in less of a predicament.
+
+Another way to design for this, is to offer users a way to *undo* their last action. We'll discuss this shortly.
 
 ### Sticky Menus
 
-The menu is placed above the emails so as users scroll it would disappear off screen. Sticky menus are one potential solution to this problem. As users scroll, a sticky menu stays fixed to the top of the viewport. Similarly, Material Design has the floating action button. As users scroll, the action button floats on top of the content. Both of these techniques give users quick and easy access to the menu without having to scroll back up to the top.
+The menu is placed above the list of emails so as users scroll it might disappear off screen. A sticky menu, however, would stay on-screen as soon as the menu gets to the top edge of the viewport.
 
-However sticky menus also obscure the content beneath and can distract users from fully immersing themselves in the page content. And on small viewports, a sticky menu can dominate the layout and impede access to the content. The other downside is that implementing a sticky menu using fixed positioning is really problematic as Brad Frost catalogs in “Fixed Positioning In Mobile Browsers”[^6]. For example, some menus take a while to bounce back into position which creates a jarring and unprofessional experience for on a large range of devices.
+![Sticky menu](./images/05/sticky-menu.png)
 
-Sticky menus are normally used to solve surface level symptoms, that mask the true underlying problem. That is, that the page is probably too long in the first place. However, like Gmail, our inbox will only show 20 emails at a time. This means the menu is, at most, a quick flick away on mobile.
+Similarly, Material Design has the floating action button. As users scroll, the action button floats on top of the content. Both of these techniques give users quick and easy access to the menu without having to scroll back up to the top.
 
-*(Note: in newer browsers, `position: sticky` is available which works better than the techniques described in Brad Frost's article.)*
+![Floating action button](./images/05/floating-action.png)
+
+However, sticky menus are problematic for several reasons. First, they obscure the content beneath which is especially jarring on smaller viewports as the menu imedes access to the primary content. In the case of the inbox, the primary need is to read and respond to email — not to bulk action it.
+
+Second, sticky menus are usually employed to solve symptoms that mask the true underlying problems. That is, that the page is often too long in the first place. An inbox typically shows just 20 emails at a time, which means the menu is, at most, a quick flick away on mobile and always in view on desktop.
+
+For these reasons, it's better to position the menu statically.
+
+*(Note: where sticky menus are useful, you can use `position: sticky` as a progressive enhancement. In the past, we had to resort to complicated techniques that create a terrible experience across a range of mobile and tablet devices[^6].)*
 
 ### Disabling And Hiding Buttons
 
@@ -280,11 +296,11 @@ If that weren't enough, the server needs to be aware of how both menus transmit 
 
 On the web, menus are often opened on hover. There are many problems with opening a menu or revealing anything else for that matter this way.
 
-First, hovering is not an intention to open the menu. When a user moves over a menu that opens on hover it can obscure the content behind which disrupts the experience. In the case of the inbox, as the user goes to select the first checkbox, they may accidentally end up clicking one of the items in the menu which fails principles 4, *Give Control*.
+First, hovering is not an intention to open the menu. When a user moves over a menu that opens on hover it can obscure the content behind which disrupts the experience. With the inbox, as the user goes to select the first checkbox, they may accidentally end up clicking one of the items in the menu which fails principles 4, *Give Control*.
 
-Second, users have to be careful to keep the cursor within the bounds of the menu, otherwise it will close. This is known as a hover tunnel, and is especially difficult to user for motor-impaired users.
+Second, users have to be careful to keep the cursor within the bounds of the menu, otherwise it will close. This is known as a hover tunnel, and is especially difficult to operate with motor impairments.
 
-Third, not all users use a mouse and many touch-screen devices are typically operated without one. In which case, you need to show the menu on click anyway. If you wanted to open the menu on hover for large viewports and on click for small ones, think again. There are many large touch screen devices.
+Third, not all users use a mouse (or other pointing device) and touch-screen devices are usually operated without one. So you need to show the menu on click anyway. If you wanted to open the menu on hover for large viewports and on click for small ones, think again. There are many large touch screen devices.
 
 ### A True Menu
 
@@ -293,20 +309,20 @@ Aware of the pitfalls of both adapative design and opening a menu on hover, we c
 ![True menu](./images/05/true-menu.png)
 
 ```HTML
-<div role="menubar">
+<div role="menu">
   <input role="menuitem" type="submit" name="archive" value="Archive">
   <input role="menuitem" type="submit" name="delete" value="Delete">
   <input role="menuitem" type="submit" name="spam" value="Mark as spam">
 </div>
 ```
 
-The menu has a role of `menubar` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, so screen readers can announce it as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved by using ARIA is to convey the meaning for screen reader users.
+The menu has a role of `menu` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, so screen readers can announce it as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved by using ARIA is to convey the meaning for screen reader users.
 
 When there isn't enough room to display the menu items inline, they'll stack beneath each other taking up a lot of space. To avoid this, we can use media queries and Javascript's `matchMedia` API to collapse the buttons inside a traditional menu.
 
 ```JS
 Menu.prototype.setupResponsiveChecks = function() {
-  this.mq = window.matchMedia('(min-width: 40em)'');
+  this.mq = window.matchMedia('(min-width: 40em)');
   this.mq.addListener($.proxy(this, 'checkMode'));
   this.checkMode(this.mq);
 };

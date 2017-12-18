@@ -208,11 +208,11 @@ For these reasons, it's better to position the menu statically.
 
 ### Disabling And Hiding Buttons
 
-Some multi-select interfaces choose to hide or disable the menu buttons until users select at least one item in the list. It could be argued that showing (or enabling) action buttons in response to checking a checkbox may help users take the next step more easily. In the case of hiding them, the interface becomes more streamlined and only shows the action buttons once they become relevant.
+Some multi-select interfaces will hide or disable the menu buttons until at least one item's been selected. You could argue that showing (or enabling) the buttons in response to selecting an item helps users take the next step. In the case of hiding the buttons, the interface becomes more streamlined as they're only shown as they become relevant.
 
-On the flipside, this only — potentially — helps sighted users. And even so, they'd have to be using a large screen whereby the items and the menu are always in full view. This is not a particularly inclusive approach to design. We also discussed the full range of problems associated with disabling buttons in “A Registration Form”. As a quick reminder, they don't let users know why they're disabled and they are not focusable to screen readers.
+On the flipside, this only — potentially — helps sighted users. Even then, they'd have to be within the viewport to notice them. This is not a particularly inclusive approach to design. We also discussed the full range of problems associated with disabling buttons in “A Registration Form”. As a quick reminder, they don't let users know why they're disabled and they are not focusable to screen readers.
 
-Decluttering an interface is a noble goal, but never at the cost of clarity and inclusivity. Instead of hiding buttons, make room for them early in the design process. Hiding functionality away from users and requiring them to perform an additional action to reveal that functonality should always be a last resort.
+Decluttering an interface is a noble goal, but not at the cost of clarity and inclusivity. Instead of hiding buttons, make room for them early in the design process. Hiding functionality away from users and requiring them to reveal that functonality should be a last resort.
 
 ### Menu Types
 
@@ -234,13 +234,13 @@ Select boxes are for input. That's why forms that contain select boxes — like 
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-The reason I bring this to your attention is because using a select box as a menu, usually means omitting the submit button and causing the form to submit `onchange` using Javascript. This fails principle 4 (*Give control*) by taking control *away* from the user.
+The reason I bring this to your attention is because using a select box as a menu, usually means omitting the submit button and causing the form to submit `onchange` using Javascript without the user's say-so. This fails principle 4, *Give control*, by taking control *away* from the user.
 
 This also causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the form is submitted as soon as the user presses <kbd>Down</kbd> to select the next option. Moving beyond that option is impossible.
 
 ![Select submit onchange](./images/05/select-onchange.png)
 
-This is not a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>Space</kbd> or <kbd>Enter</kbd>. Unfortunately, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for them.
+This isn't a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>Space</kbd> or <kbd>Enter</kbd>. Unfortunately, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for them.
 
 The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adapative design.
 
@@ -316,9 +316,9 @@ Aware of the pitfalls of both adapative design and opening a menu on hover, we c
 </div>
 ```
 
-The menu has a role of `menu` indicating that it contains menu items. That's why each submit button is given a role of `menuitem`, so screen readers can announce it as a three-item menu. Visually the three buttons are grouped together. So all we've really achieved by using ARIA is to convey the meaning for screen reader users.
+The menu has a role of `menu` indicating that it contains menu items. When the menu is focused, screen readers will announce it as a three-item menu. You should note that the `menu` role isn't commonly used in web applications. Only ones that mimic desktop applications (like this one, which is essentially a web-based Outlook application) apply.
 
-When there isn't enough room to display the menu items inline, they'll stack beneath each other taking up a lot of space. To avoid this, we can use media queries and Javascript's `matchMedia` API to collapse the buttons inside a traditional menu.
+When there isn't enough room to display the menu items inline, they'll stack beneath each other taking up a lot of space. To avoid this, we can use media queries and Javascript's `matchMedia` API to collapse the buttons inside a traditional menu:
 
 ```JS
 Menu.prototype.setupResponsiveChecks = function() {
@@ -336,9 +336,9 @@ Menu.prototype.checkMode = function(mq) {
 };
 ```
 
-The `matchMedia` API is the Javascript equivalent of a media query. Where `@media() {}` is for CSS, `matchMedia()` is for Javascript. It's a way of keeping behaviour and style in-sync based on the same media query. In this case, when the viewport's width is less than `45em` the script will construct a toggle menu (small mode). When it's more than `45em` it will construct a horizontal menubar (big mode).
+The `matchMedia` API is the Javascript equivalent of a media query. Where `@media() {}` is for CSS, `matchMedia()` is for Javascript. It's a way of keeping behaviour and style in-sync based on the same media query. In this case, when the viewport's width is less than `40em` the script will construct a toggle menu (small mode). When it's more than `40em` it will construct a horizontal menu (big mode).
 
-Before `matchMedia` we had to use flakey techniques to get the width of the viewport[^]. Even then, you could only get the value in pixels, not `em`s. It's preferrable to use ems because if the user increases the the size of text the layout will adapt in proportion.
+Before `matchMedia` we had to use flakey techniques to get the width of the viewport[^]. Even then, you could only get the value in pixels, not `em`s. It's preferrable to use `em`s because if the user increases the the size of text, the layout will adapt in proportion.
 
 When small mode is enabled, the enhanced HTML is updated:
 
@@ -357,13 +357,12 @@ When small mode is enabled, the enhanced HTML is updated:
 Notes:
 
 - The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
-- The `<span>` contains the unicode character for a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually&mdash;that pressing the button reveals something. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
+- The `<span>` contains the unicode character for a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually — that pressing the button reveals something. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
 - The `aria-haspopup` attribute is complemented by `aria-expanded` which tells users whether the menu is currently expanded (open) or collapsed (closed) by toggling between `true` and `false` values.
-- The role is now set to `menu` instead of `menubar` because it now expands and collapses - a `menubar` is always visible.
 
 #### Keyboard And Focus Behaviour
 
-When the menu button is clicked, the script checks to see if the menu is currently open be checking whether `aria-expanded` is set to `false`. If it is, we show the menu and focus the first menu item. If it isn't, we hide the menu and move focus back to the menu button.
+When the menu button is clicked, the script checks to see if the menu is currently open be checking whether `aria-expanded` is set to `false`. If it is, the menu is shown and focus is moved to the first item. If it isn't, we hide the menu and move focus back to the menu button.
 
 ```JS
 Menu.prototype.onMenuButtonClick = function() {
@@ -389,7 +388,7 @@ We can use the `[aria-expanded]` CSS attribute selector to toggle the menu's dis
 }
 ```
 
-When focus is on a menu item, pressing <kbd>down</kbd> or <kbd>up</kbd> arrows will move to the next or previous item, on loop. Pressing <kbd>escape</kbd> on a menu item will move focus to the menu button and closes the menu.
+When focus is on a menu item, pressing <kbd>down</kbd> or <kbd>up</kbd> arrows will move to the next or previous item, on loop. Pressing <kbd>escape</kbd> on a menu item will move focus to the menu button and closes the menu. Sometimes, <kbd>Home</kbd> and <kbd>End</kbd> are used to go to the first and last items directly which is particularly useful if there are lots of menu items.
 
 ## Select All
 

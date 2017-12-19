@@ -472,7 +472,7 @@ Notes:
 Here's the calendar's container:
 
 ```HTML
-<div aria-label="date picker" role="dialog">
+<div aria-label="date picker" role="group">
   ...
   <button aria-label="Previous month" type="button" 
     >
@@ -492,12 +492,12 @@ Here's the calendar's container:
 
 When the toggle button is clicked, focus is set to the previous month button — the first focusable element within the container. The container has two attributes:
 
-1. `role="dialog"`
+1. `role="group"`
 2. `aria-label="date picker"`
 
-The `role="dialog"` attribute is used to denote an application dialog that is separate from the rest of the web application. While visually, our dialog isn't placed on top of the page, it's still a separate application.
+The `role="group"` attribute is used to group a set of interface elements. In this case, the “previous month” button, the “next month” button and the days in the month.
 
-The `aria-label="date picker"` in combination with the `role` will inform users that they are now within a date picker dialog. For example, screen readers will announce “date picker, dialog, previous month, button” (or similar).
+The `aria-label="date picker"` in combination with the `role` will inform users that they are now entering the date picker component. For example, screen readers will announce “date picker, TEST, previous month, button” (or similar).
 
 At this point pressing <kbd>Tab</kbd> moves to the next focusable element (the next month button). And tabbing again moves focus to the currently selected date within the grid, which defaults to today's date.
 
@@ -541,7 +541,6 @@ Notes:
 - Pressing <kbd>Left</kbd> moves to the previous day. Pressing <kbd>Right</kbd> moves to the next day. Pressing <kbd>Up</kbd> moves to the same day in the previous week. Pressing <kbd>Down</kbd> moves to the same day in the next week. This way, users can move freely and efficiently between days and months.
 - Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
 - Pressing <kbd>Escape</kbd> hides the calendar and moves focus to the button.
-- Pressing <kbd>Tab</kbd> within the grid should hide the calendar and move to the next focusable element in the Document — whatever that may be.
 
 #### Screen Readers
 

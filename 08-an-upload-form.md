@@ -6,7 +6,7 @@ The problem increases by orders of magnitude as soon as users need to upload *mu
 
 ## The File Picker
 
-A file picker (`input type="file"`) is similar to most types of input. But instead of typing into it, the control spawns a dialog in which users can select a file from their computer or device. Mildly more complicated than a select box.
+A file picker (`input type="file"`) is similar to most types of input. But instead of typing into it, the control spawns a dialog in which users can select a file from their computer or device.
 
 ![Single file picker](./images/09/single-file-picker.png)
 
@@ -27,7 +27,7 @@ If users need to upload a single file, then you can add this field to your form 
 
 Some designers like to restyle the file picker because it looks quite ugly. We know that *pretty and useless* is much worse than *ugly and useful*, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
 
-Styling file inputs is tricky because most browsers ignore any attempt at doing so with CSS. One approach is to visually hide the input, demarcating it solely via its label. Unlike file inputs, labels are easy to style.
+Styling file inputs is tricky because most browsers ignore any attempt at doing so with CSS. One approach is to visually hide the input, representing it solely via its label. Unlike file inputs, labels are easy to style.
 
 ![Label as proxy](./images/08/file-picker-hidden-input.png)
 
@@ -92,7 +92,7 @@ The act of selecting a file (as opposed to dropping one) also uploads them immed
 
 The user can keep uploading documents either by dragging and dropping, or selecting, or using both interchangeably. When they're finished, they can review the files and if needed, delete them too. 
 
-Clicking continue, takes the user to the next step, whatever that is. Gmail users, for example, upload files using a similar interface and clicking send. Essentially this is the same pattern with a different veneer.
+Clicking continue takes the user to the next step, whatever that is. Gmail users, for example, upload files using a similar interface and clicking send. Essentially this is the same pattern with a different veneer.
 
 ![Gmail compose?](./images/08/gmail-compose.png)
 
@@ -186,7 +186,7 @@ Dropzone.prototype.makeRequest = function(formData) {
 
 This function injects a list item into the file list panel and fires the request. It listens to the `progress` event on the `XMLHttpRequest` object, so that feedback can be given in real time. This is particularly useful if users are uploading large files or using a slow network (or both).
 
-Each file is represented as a list item. Progress is demarcated by the `<progress>` element.
+Each file is represented as a list item. Progress is indicated by the `<progress>` element.
 
 ![Progress](./images/08/progress.png)
 

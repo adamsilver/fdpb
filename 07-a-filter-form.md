@@ -6,7 +6,7 @@ On the web, a filter widget, sometimes referred to as facet navigation or guided
 
 First of all, though, it needs to be said that if you don't need a filter, don't include one. They're only useful if a search returns a large amount of relevant items to wade through. In the case of Google, for example, most people aren't really willing to click through beyond the first or second page.
 
-On the web, a search can yield thousands, or even, millions of results depending on the content available. But, as humans, we can't juggle more than approximately seven things at one time[^1], so being able to narrow them down is crucial. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches users' own mental model. In “Designing for Faceted Search”[^2], Stephanie Lemieux says:
+On the web, a search can yield thousands, or even millions of results depending on the content available. But, as humans, we can't juggle more than approximately seven things at one time[^1], so being able to narrow them down is crucial. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches each user's own mental model. In “Designing for Faceted Search”[^2], Stephanie Lemieux says:
 
 > Think of a cookbook: authors have to organize the recipes in one way only - by course or by main ingredient - and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method, for example].
 
@@ -14,7 +14,7 @@ On the web, a search can yield thousands, or even, millions of results depending
 
 Links, radio buttons and checkboxes: all of them can be, and are used to construct filters on the web, with their varied semantics and behaviour, this is what we'll look at first.
 
-Links let users filter a list of a results via the querystring. Admittedly, links are nothing to do with forms, but they are often used interchangeably with form controls so talking about them in-context now is important. Here's an example of a link filter used to find a car.
+Links let users filter a list of a results via the querystring. Links are not form elements as such, but depending on the situation, they can be used in place of them. Here's an example of links being used to filter a car:
 
 ![Link filter](./images/07/link-filter.png)
 

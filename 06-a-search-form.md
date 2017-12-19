@@ -115,7 +115,7 @@ First we need to hide the form and inject the toggle button into the header:
 
 ```HTML
 <header>
-	<button type="button" aria-haspopup="true" aria-expanded="false">...</button>
+	<button type="button" aria-haspopup="true" aria-expanded="false">Search form</button>
 </header>
 <div role="search" class="hidden">...</div>
 ```

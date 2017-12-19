@@ -216,7 +216,9 @@ Decluttering an interface is a noble goal, but not at the cost of clarity and in
 
 ### Menu Types
 
-On large viewports - or responsively speaking, when there is enough space - we should just lay out the submit buttons to make them available to users at all times. On desktop, there's rarely any reason to hide the buttons. However, the inbox could have other components such as a search bar or Gmail's layout menu *comfortable*, *cozy* and *compact* menu. This means there may not be enough space to lay out the buttons comfortably.
+When there is enough space, we should just lay out the submit buttons to make them available to users at all times. On desktop, there's usually more space, but even then, there could be other components that take up space, such as Gmail's array of tool bars:
+
+![Gmail Toolbar](./images/05/gmail-toolbars.png)
 
 Similarly, on small viewports, if there are more than two or three buttons, they're likely to stack beneath each other. This pushes the main content down the page - having the menu dominate the interface like this is problematic. *Dominance* is a quality we should use sparingly. After all, if everything dominates, nothing does. The inbox itself should take center stage with the menu taking a back-seat role.
 
@@ -242,7 +244,7 @@ This also causes problems for screen reader and keyboard users. For example, on 
 
 This isn't a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>Space</kbd> or <kbd>Enter</kbd>. Unfortunately, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for them.
 
-The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adapative design.
+The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adapative design[^adaptive].
 
 ### Adaptive Design Versus Responsive Design
 
@@ -488,3 +490,4 @@ In this chapter we began by choosing the right way to present a collection of em
 [^4]: https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html
 [^5]: https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/
 [^6]: http://bradfrost.com/blog/mobile/fixed-position/
+[^adaptive]: http://mediumwell.com/responsive-adaptive-mobile/

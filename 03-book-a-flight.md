@@ -497,7 +497,7 @@ When the toggle button is clicked, focus is set to the previous month button —
 
 The `role="group"` attribute is used to group a set of interface elements. In this case, the “previous month” button, the “next month” button and the days in the month.
 
-The `aria-label="date picker"` in combination with the `role` will inform users that they are now entering the date picker component. For example, screen readers will announce “date picker, TEST, previous month, button” (or similar).
+The `aria-label="date picker"` will inform users that they are now entering the date picker component. For example, when the previous month button is focused, “date picker, previous month, button” (or similar) will be announced.
 
 At this point pressing <kbd>Tab</kbd> moves to the next focusable element (the next month button). And tabbing again moves focus to the currently selected date within the grid, which defaults to today's date.
 

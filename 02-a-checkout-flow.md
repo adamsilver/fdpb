@@ -585,11 +585,11 @@ Progress bars are often used within checkout because — at least in theory — 
 
 Progress bars pose some practical design challenges too. First, they take up a lot of space at the top of the page which is particularly important on mobile where they push the main content down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. 
 
-If that wasn't enough, they are very tricky to design if the journey consists of conditional steps. For example, imagine a checkout journey that offers “collect in store” instead of having it delivered. In this case, the user is taken down a different path — one that doesn't need to collect payment — they'll pay in-store.
-
-![Flow](.)
+If that wasn't enough, they are very tricky to design if the journey consists of conditional steps. For example, imagine a checkout that offers collection in-store, instead of having it delivered. In this case, the user is taken down a different path where they won't need to give their payment details as they'll pay in-store.
 
 The problem is that a progress bar should tell the user what steps exist in advance of going through them. But the steps are based on users' answers. So either you show every possible step which is misleading, or you update the progress bar (by removing or adding steps) as you go, which somewhat defeats the purpose of having one.
+
+![Progress bar woes](./images/02/progress-bar-woes.png)
 
 Not including a progress bar prioritises the main content, by elevating it up the page which speaks to principle 6, *Prioritse content*. In any case, having meticulously designed the journey to be as simple as possible, users should make their way through the journey with little fuss.
 

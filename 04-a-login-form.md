@@ -66,11 +66,17 @@ Conversely, when users try to add a product to their basket on the Tesco site, t
 
 ## One Form Per Page
 
-Some sites put the registration and login forms on the same page beside each other (or below one another on small screens). Registration and login forms are remarkably similiar. Putting them together makes them hard to differentiate. It can also be confusing for users to see two forms when they clicked a link labelled “Sign in”.
+Some sites put the registration and login forms on the same page beside each other (or below one another on small screens). But, these forms are remarkably similiar; putting them together makes it hard to differentiate between them. It can also be confusing for users to see two forms when they clicked a “Sign in” link, for example.
 
 Instead, put each form on a separate page and let users switch between them by giving them a link.
 
 ![Link](./images/04/link.png)
+
+### A Note About The ARIA Tab Roles
+
+Sometimes a two-tab interface is used so that users can easily switch between the login and register forms. Often, each tab loads a new page, which means the ARIA tab interface semantics and behaviours[^heydontabs] aren't appropriate. As the tab behaves like a regular link, it should have standard link semantics and behaviour.
+
+![Tabs](./images/04/tabs.png)
 
 ## Social Login
 
@@ -112,15 +118,17 @@ Human beings are forgetful. Some people, myself included, use password managers[
 
 That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as everyone else. In any case, not everyone uses one, nor should they have to.
 
-Most sites give users a way to reset their password if they forget it. The feature itself isn't especially problematic. It's the placement of the link within a login form that can cause tremendous frustration for users.
+Most sites give users a way to reset their password if they forget it. The feature itself isn't especially problematic. It's the placement of the link within a login form that can cause frustration for users.
 
-If the link is just above the password field, when users tab from the email field, it's the link that will have focus, not the password field. Some users will tab and start typing not realising what's happened.
+If the link is just above the password field, when users tab from the email field, it's the link that will receive focus, not the password field. Some users will tab and start typing not realising what's happened.
 
-Worse is when the link is placed before the submit button. When keyboard and screen reader users tab from within the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. Instead they'll be taken to reset their password. If and when they realise what's happened, they'll need to go back, re-enter their credentials and be careful to either tab twice or switch to using the mouse.
+What's worse is when the link is placed before the submit button. When keyboard and screen reader users tab from the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. But instead, they'll be taken to reset their password. If and when they realise what's happened, they'll need to go back, re-enter their credentials and be careful to either tab twice or switch to using the mouse.
 
 ![Forgot password](./images/04/forgot-password.png)
 
-While placing the link in close proximity to the password field makes some sense visually, the primary user need is to still to sign in. Any link shouldn't disturb users from doing so. The submit button should be the last interactive element in the form, because that's what users expect. In which case, you should place the link before or after the form.
+While placing the link in close proximity to the password field makes some sense visually, the primary user need is to still to sign in. Any link shouldn't disturb users from doing so. The submit button should be the last interactive element in the form, because that's what users expect. In which case, you should place the link before the form.
+
+*Note: you could place it after the form. But this means users would have to look beyond the form to discover this feature. In the case of screen reader and keyboard users, they'd have to move past the form to discover it.)*
 
 ## Auto-tabbing
 
@@ -136,9 +144,11 @@ Leonie Watson, accessibility expert, and screen reader user backs this point up:
 
 > I strongly dislike having auto-tab functionality imposed on me. It is unexpected, and based on a flawed assumption that it is helpful. It takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
 
-This point of view is unsurprising given that the solution is founded on assumptions; assumptions that take control away from the user while simultaneously breaking convention. Two qualities we want to move toward, not away from.
+This point of view isn't particularly surprising given that the solution seems to be founded on assumptions that take control away from the user, while simultaneously breaking convention. It's okay to break convention, but only if there is a really good reason to do so.
 
-The other problem with these interfaces is that they separate what should be one text box into three. There is absolutely no reason to do this. Give users one text box and allow them to type freely.
+Finally, splitting up a text box into three is unnecessary. Instead we should give users a clearly-labelled, text box and allow them to type the 3 characters of their password freely.
+
+![Single field](./images/04/single-field.png)
 
 ## Auto-captalisation and Autocorrect
 
@@ -181,4 +191,5 @@ In this chapter we started by quashing traditional advice that omiting hint text
 
 [^1]: https://vimeo.com/138359368
 [^2]: https://www.lastpass.com/
-[^3]:http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
+[^3]: http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
+[^heydontabs]: https://inclusive-components.design/tabbed-interfaces/

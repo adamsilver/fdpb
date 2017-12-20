@@ -269,7 +269,7 @@ This enhancement uses several Javascript APIs that not all browsers recognise. B
 }());
 ```
 
-The calling application simply detects `Dropzone` before creating an instant. When it's undefined, that indicates the browser either lacks support or there was a network failure. Either way, users get the degraded, but not broken, experience.
+The calling application detects `Dropzone` before creating an instance. When it's undefined, that indicates the browser either lacks support or there was a network failure. Either way, users get the degraded, but not broken, experience.
 
 ```JS
 if(typeof Dropzone !== 'undefined') {
@@ -289,7 +289,7 @@ This isn't just an academic endeavour. The `onchange` event is historically prob
 
 The solution is to replace the entire file input after the `onchange` event fires. This would mean having to set focus to the cloned file input, which causes screen readers to announce it for a second time. Mildly annoying.
 
-The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^3]. Fortunately, the feature detection rules out those browsers which is fortunate.
+The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^3]. Fortunately, the feature detection rules out those browsers.
 
 Lastly, some older browsers won't trigger the file input by clicking the label[^4]. Once again, the feature detection rules out these browsers too.
 
@@ -323,7 +323,7 @@ You can also add the `capture` attribute, which indicates to supporting browsers
 
 Adding the capture attribute without a value let's the browser decide which camera to use (if there's one available), while the "user" and "environment" values tell the browser to prefer the front and rear cameras, respectively.
 
-The capture attribute works on Android and iOS, but is ignored on desktop. Be aware, however, that on Android this means that the user will no longer have the option of choosing an existing picture. The system camera app will be started directly, instead which is probably undesirable.
+The capture attribute works on Android and iOS, but is ignored on desktop. Be aware, however, that on Android this means that the user will no longer have the option of choosing an existing picture. The system camera app will be started directly instead, which is probably undesirable.
 
 ## Summary
 
@@ -331,7 +331,7 @@ In this chapter, we looked at the intricacies of uploading files - not just one 
 
 We looked at ways to mitigate the file input's ugliness, but soon realised that making it look better is at the cost of usability.
 
-Finally, we lookat ways to enhance the native file input's drag and drop behaviour by creating a large custom drop zone. To do that we used various modern Javascript APIs that meant breaking convention due to security constraints.
+Finally, we looked at ways to enhance the native file input's drag and drop behaviour by creating a large custom drop zone. To do that we used various modern Javascript APIs that meant breaking convention due to security constraints.
 
 ### Things To Avoid
 

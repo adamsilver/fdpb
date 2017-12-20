@@ -595,7 +595,15 @@ Not including a progress bar prioritises the main content, by elevating it up th
 
 For these reasons, consider starting without a progress bar. Then test your journey with users to see if they struggle. Remember, it's far easier (and cheaper) to add features, than it is to remove them later on.
 
-If you do decide to give users a progress bar, one simple way to do it would be to hide the visual progress bar from screen readers using `aria-hidden="true"`, and to add some visually hidden text inside the `h1` to explain what step the user is at:
+*(Note: some forms are especially long — a lot longer than a checkout flow. In this case, you might need some indication of progress, which is something we'll look at in chapter 10, “A Really Long Form.”)*
+
+If you do decide to give users an indication of progress, try some simple text inside the `h1`:
+
+```HTML
+<h1>Payment (Step 3 of 4)</h1>
+```
+
+If you need to use a more prominent visual indicator, then you can hide it from screen readers by setting `aria-hidden="true"`. As you now have a visual indicator, you can visually hide the text inside a hidden span:
 
 ```HTML
 <!-- progress bar -->
@@ -607,7 +615,7 @@ Visual progress bar here
 <h1>Payment <span class="vh">Step 3 of 4</span></h1>
 ```
 
-*(Note: some forms are especially long — a lot longer than a checkout flow. In this case, you might need some indication of progress, which is something we'll look at in chapter 10, “A Really Long Form.”)*
+![Progress bar mark-up](./images/02/progress-bar-markup.png)
 
 ### Order Summary
 

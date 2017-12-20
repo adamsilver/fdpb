@@ -86,15 +86,15 @@ We'll cover off the other rules as we go.
 First, we need to hide the select box like this:
 
 ```HTML
-<select aria-hidden="true" tabindex="-1" class="visuallyhidden">
+<select aria-hidden="true" tabindex="-1" class="vh">
 ```
 
 If the select box was completely unnecessary, we could have just removed it from the Document using Javascript. But if we did it this way (or by using `display: none`) it wouldn't be sent to the server.
 
-Instead, the `visuallyhidden` class contains a special set of properties, carefully devised to hide the element visually, while still being perceivable to the server once submitted. This way, it's also still perceivable to screen reader and keyboard users.
+Instead, the `vh` (short for visally hidden) class contains a special set of properties, carefully devised to hide the element visually, while still being perceivable to the server once submitted. This way, it's also still perceivable to screen reader and keyboard users.
 
 ```CSS
-.visuallyhidden {
+.vh {
   border: 0!important;
   clip: rect(0 0 0 0)!important;
   height: 1px!important;

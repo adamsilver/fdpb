@@ -135,7 +135,7 @@ Alternatively, a standard `<label>` has better support and adheres to ARIA's fir
 ```HTML
 <li>
   <input type="checkbox" name="email" id="email1">
-  <label for="email1">From John Oates, subject ‘Your Amazon.co.uk order #123 is out for delivery’ (10 August 2017)</label>
+  <label for="email1" class="vh">From John Oates, subject ‘Your Amazon.co.uk order #123 is out for delivery’ (10 August 2017)</label>
   <a href="/emails/1/">
     <div class="inbox-recipient">John Oates</div>
     <div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
@@ -144,7 +144,7 @@ Alternatively, a standard `<label>` has better support and adheres to ARIA's fir
 </li>
 ```
 
-*(Note: The CSS for the visually-hidden class is set out in “Book A Flight”.)*
+*(Note: The CSS for the vh (visually hidden) class is set out in “Book A Flight”.)*
 
 While duplication isn't a big performance issue, if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer — screen reader software can be unresponsive, for example.
 

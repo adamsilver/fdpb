@@ -91,7 +91,7 @@ First, we need to hide the select box like this:
 
 If the select box was completely unnecessary, we could have just removed it from the Document using Javascript. But if we did it this way (or by using `display: none`) it wouldn't be sent to the server.
 
-Instead, the `vh` (short for visally hidden) class contains a special set of properties, carefully devised to hide the element visually, while still being perceivable to the server once submitted. This way, it's also still perceivable to screen reader and keyboard users.
+Instead, the `vh` (short for visually hidden) class contains a special set of properties that hide the element visually, while still being perceivable to the server once submitted. This way, it's also still accessible to screen reader and keyboard users.
 
 ```CSS
 .vh {

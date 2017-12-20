@@ -36,7 +36,7 @@ While this pattern often bares wonderful and delicious fruit (or orders and conv
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
 - Conversely, a long form increases the chance of a page time out or the computer freezing. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
-- It lets you design interfaces that captalise on maximal  screen space - interfaces that wouldn't work so well if part of a large form. We'll see an example of this in the next chapter, when we design a seat chooser. 
+- It lets you design interfaces that captalise on maximal  screen space — interfaces that wouldn't work so well if part of a large form. We'll see an example of this in the next chapter, when we design a seat chooser. 
 
 ## Flow And Order
 
@@ -83,7 +83,7 @@ Here, it's because we can send users a receipt of purchase, which is particularl
 
 ## 2. Mobile Phone
 
-Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint. Remember, the hint is not just for formatting rules - it's for anything that will help users fill out the field. This transparency builds trust, reduces effort, and promotes the feature all at the same time.
+Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint. Remember, the hint is not just for formatting rules — it's for anything that will help users fill out the field. This transparency builds trust, reduces effort, and promotes the feature all at the same time.
 
 ![Mobile screen](./images/02/mobile-field.png)
 
@@ -202,7 +202,7 @@ This is the first field that consists of multiple controls, in this case, radio 
 
 To group multiple controls, we must wrap them in a `fieldset`. The `legend` describes the group like a `label` describes the individual control.
 
-Some screen readers, such as NVDA - will read the `legend` out along with the first individual radio button's `label` when entering the field (in either direction). In this case, “Delivery options, Standard (Free 2-3 days)” is announced. In other screen readers - such as Voiceover with Safari - the legend is announced for every field.
+Some screen readers, such as NVDA — will read the `legend` out along with the first individual radio button's `label` when entering the field (in either direction). In this case, “Delivery options, Standard (Free 2-3 days)” is announced. In other screen readers — such as Voiceover with Safari — the legend is announced for every field.
 
 If we omitted the `fieldset` and `legend` elements, screen reader users would only hear “Standard (Free, 2-3 days)” which is less clear.
 
@@ -212,7 +212,7 @@ You may be tempted to group all fields this way. For example, the address form f
 
 As most users will want free delivery, that option comes first. It's also selected by default thanks to the `checked` attribute. This stops users from ever seeing an error and gives users less to do.
 
-> “Design for common circumstances first” - Caroline Jarett
+> “Design for common circumstances first” — Caroline Jarett
 
 ### Styling
 
@@ -281,7 +281,7 @@ As the user types, the `keydown` event listener will be invoked. This method wil
 
 ```javascript
 CharacterCountdown.prototype.onFieldChange = function(e) {
-    var remaining = this.options.maxLength - this.field.val().length;
+    var remaining = this.options.maxLength — this.field.val().length;
   this.status.html(this.options.message.replace(/%count%/, remaining));
 };
 
@@ -331,7 +331,7 @@ He goes on to talk about the billing address. That is the address to which the c
 
 Øyvind is not a designer per se, but his input into the design process was crucial. Many of us assume that back-end developers don't care about the user experience, but tapping into their knowledge is clearly valuable.
 
-> “Design is a team sport” - Anon?
+> “Design is a team sport” — Anon?
 
 Design is a team sport, and so we should treat it as one. By designing (and researching) with a diverse set of people, we'll frequently end up producing a far better experience.
 
@@ -339,13 +339,13 @@ This also shows that we should constantly be questioning the existence of form f
 
 ### Autofill
 
-Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored - if it does, the user can select it without having to type.
+Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored — if it does, the user can select it without having to type.
 
-> Chrome autofill: used 9 billion times/month, saves an average of 12 seconds, 1.25 million days saved/month - Luke W, 24 October 2017[^luke autofill]
+> Chrome autofill: used 9 billion times/month, saves an average of 12 seconds, 1.25 million days saved/month — Luke W, 24 October 2017[^luke autofill]
 
-Since iOS 8, the Safari browser lets users scan their card using the iPhone's camera - it uses the same mechanism to automatically fill out those fields.
+Since iOS 8, the Safari browser lets users scan their card using the iPhone's camera — it uses the same mechanism to automatically fill out those fields.
 
-Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos - two very helpful improvements to a form that has the highest drop-off rates in e-commerce.
+Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos — two very helpful improvements to a form that has the highest drop-off rates in e-commerce.
 
 As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Most modern browsers support it, but for those that don't some older browsers offer similar functionality by using the `name` attribute instead. For the widest support, you should specify the correct values for both attributes as shown below.
 
@@ -418,7 +418,7 @@ Conversely, numerals might be used for dates and codes such as:
 - birth date (announced “nineteenth of June, nineteen eighty-three”)
 - pin code (announced “eight, double five, three, two, six”)
 
-There is a difference between the way these values are announced. Understanding this helps to see that while the way browsers implement the number input may seem buggy at first - they aren't.
+There is a difference between the way these values are announced. Understanding this helps to see that while the way browsers implement the number input may seem buggy at first — they aren't.
 
 For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each example seems undesirable, but none of them stop users from entering true numbers.
 
@@ -579,21 +579,33 @@ By omitting navigation and search, users can focus on checking out which speaks 
 
 ### Progress Bar
 
-Progress bars are often used within checkout because - at least in theory - they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence showing that progress bars are all that useful.
+Progress bars are often used within checkout because — at least in theory — they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful.
 
 ![Progress bar](./images/02/progress-bar.png)
 
-Progress bars pose some practical design challenges too. First, they take up a lot of space on the page which is particularly important on mobile where they push the main content down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. 
+Progress bars pose some practical design challenges too. First, they take up a lot of space at the top of the page which is particularly important on mobile where they push the main content down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. 
 
-If that wasn't enough, they are very tricky to design if the journey consists of conditional steps. For example, imagine a checkout journey that offers “collect in store” instead of having it delivered. In this case, the user is taken down a different path - one that doesn't need to collect payment - they'll pay in-store.
+If that wasn't enough, they are very tricky to design if the journey consists of conditional steps. For example, imagine a checkout journey that offers “collect in store” instead of having it delivered. In this case, the user is taken down a different path — one that doesn't need to collect payment — they'll pay in-store.
 
 ![Flow](.)
 
-The problem is that, a progress bar should tell the user what steps exist in advance of going through them. But the steps are based on users' answers. So either you show every possible step which is misleading, or you update the progress bar (by removing or adding steps) as you go, which somewhat defeats the purpose of having one.
+The problem is that a progress bar should tell the user what steps exist in advance of going through them. But the steps are based on users' answers. So either you show every possible step which is misleading, or you update the progress bar (by removing or adding steps) as you go, which somewhat defeats the purpose of having one.
 
 Not including a progress bar prioritises the main content, by elevating it up the page which speaks to principle 6, *Prioritse content*. In any case, having meticulously designed the journey to be as simple as possible, users should make their way through the journey with little fuss.
 
 For these reasons, consider starting without a progress bar. Then test your journey with users to see if they struggle. Remember, it's far easier (and cheaper) to add features, than it is to remove them later on.
+
+If you do decide to give users a progress bar, one simple way to do it would be to hide the visual progress bar from screen readers using `aria-hidden="true"`, and to add some visually hidden text inside the `h1` to explain what step the user is at:
+
+```HTML
+<!-- progress bar -->
+<div aria-hidden="true">
+Visual progress bar here
+</div>
+
+<!-- visually hidden text inside the main heading -->
+<h1>Payment <span class="vh">Step 3 of 4</span></h1>
+```
 
 *(Note: some forms are especially long — a lot longer than a checkout flow. In this case, you might need some indication of progress, which is something we'll look at in chapter 10, “A Really Long Form.”)*
 
@@ -601,7 +613,7 @@ For these reasons, consider starting without a progress bar. Then test your jour
 
 When you're shopping in a physical shop, you pick up your items and place them in your shopping basket. Eventually you checkout at the till. All the while, you can see what you're buying. Sometimes at the last minute, we change our mind and take an item off the conveyor belt. Or we realise we forgot something and dash off to get it.
 
-> “The system should always keep users informed about what is going on, through appropriate feedback” - 10 Usability Heuristics
+> “The system should always keep users informed about what is going on, through appropriate feedback” — 10 Usability Heuristics
 
 Giving users a comparable experience digitally is important too. An order summary placed on every page keeps users informed without having to remember what they're buying.
 

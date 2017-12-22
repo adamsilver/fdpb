@@ -692,7 +692,7 @@ Notes:
 - Each button has a `type="button"` attribute which means it won't submit the form when clicked[^?].
 - Clicking increment or decrement updates the status box at the bottom so that screen reader users will hear the change without having to move away from the button (see note below).
 
-*(Note: when the increment (or decrement) button is clicked, the input's value is updated. Unfortunately, screen readers won't announce the change. At first, I put the live region attributes on the input. But not only did this not work in some screen readers, it also changed the input's semantics into a status box which is confusing.)*
+*(Note: when the increment (or decrement) button is clicked, the input's value is updated. Unfortunately, screen readers won't announce the change. At first, I put the live region attributes on the input. This didn't work in some screen readers, but worse, was that it changed the input's semantics into a status box.)*
 
 #### A Note On Iconography
 

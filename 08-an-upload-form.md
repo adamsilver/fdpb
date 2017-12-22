@@ -339,6 +339,10 @@ Finally, we looked at ways to enhance the native file input's drag and drop beha
 - Using multiple file inputs without considering the degraded experience and end-to-end flow.
 - Creating a drag and drop solution without first ensuring there's a need for it.
 
+## Demos
+
+TBD
+
 ## Footnotes
 
 [^1]: https://css-tricks.com/drag-and-drop-file-uploading/#article-header-id-4

@@ -577,45 +577,71 @@ Usually, checkout pages are given a special and more streamlined layout that hel
 
 By omitting navigation and search, users can focus on checking out which speaks to principle 6, *Prioritise content*.
 
-### Progress Bar
+### Indicating Progress
 
-Progress bars are often used within checkout because — at least in theory — they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful.
+Progress bars or indicators are often used within checkout because — at least in theory — they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful.
 
 ![Progress bar](./images/02/progress-bar.png)
 
 Progress bars pose some practical design challenges too. First, they take up a lot of space at the top of the page which is particularly important on mobile where they push the main content down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. 
 
-If that wasn't enough, they are very tricky to design if the journey consists of conditional steps. For example, imagine a checkout that offers collection in-store, instead of having it delivered. In this case, the user is taken down a different path where they won't need to give their payment details as they'll pay in-store.
+If that weren't enough, they're even trickier to design when the journey consists of conditional steps. For example, imagine a checkout that offers collection or delivery. If the user choose to collect, they're taken down a different path where they won't need to give their payment details (as they'll pay in-store).
 
-The problem is that a progress bar should tell the user what steps exist in advance of going through them. But the steps are based on users' answers. So either you show every possible step which is misleading, or you update the progress bar (by removing or adding steps) as you go, which somewhat defeats the purpose of having one.
+The problem is that a progress bar should tell the user what steps exist in advance. But the steps are based on users' answers. Either you show every possible step which is misleading, or you update the progress bar (by removing or adding steps) as you go, which somewhat defeats the purpose of having one.
 
 ![Progress bar woes](./images/02/progress-bar-woes.png)
 
-Not including a progress bar prioritises the main content, by elevating it up the page which speaks to principle 6, *Prioritse content*. In any case, having meticulously designed the journey to be as simple as possible, users should make their way through the journey with little fuss.
+Not including a progress bar prioritises the main content, by move it further up the page which speaks to principle 6, *Prioritse content*. In any case, having meticulously designed the journey to be as simple as possible, users should make their way to the end quickly which reduces the need for the progress indicator.
 
-For these reasons, consider starting without a progress bar. Then test your journey with users to see if they struggle. Remember, it's far easier (and cheaper) to add features, than it is to remove them later on.
+For these reasons, consider starting without a progress indicator. Then test your journey to see if users struggle. Remember, it's far easier (and cheaper) to add features, than it is to remove them later on.
 
 *(Note: some forms are especially long — a lot longer than a checkout flow. In this case, you might need some indication of progress, which is something we'll look at in chapter 10, “A Really Long Form.”)*
 
-If you do decide to give users an indication of progress, try some simple text inside the `h1`:
+#### Progress step text
+
+If you do decide to give users an indication of progress, first try adding the step number inside the heading:
 
 ```HTML
 <h1>Payment (Step 3 of 4)</h1>
 ```
 
-If you need to use a more prominent visual indicator, then you can hide it from screen readers by setting `aria-hidden="true"`. As you now have a visual indicator, you can visually hide the text inside a hidden span:
+#### Visual progress bar
+
+If research shows that a more prominent progress bar is useful then you can include one but there's a few things to consider.
+
+First, you should keep the text inside the `h1` so that screen readers get a comparable experience (prinicple 1). Second, you'll need to hide it from sighted users like this:
 
 ```HTML
-<!-- progress bar -->
-<div aria-hidden="true">
-Visual progress bar here
-</div>
-
-<!-- visually hidden text inside the main heading -->
 <h1>Payment <span class="vh">Step 3 of 4</span></h1>
 ```
 
+The `vh` (short for visually hidden) class contains a special set of properties that hide the element visually, while still ensuring that it's perceivable to screen reader users when the `h1` is announced.
+
+```CSS
+.vh {
+  border: 0!important;
+  clip: rect(0 0 0 0)!important;
+  height: 1px!important;
+  margin: -1px!important;
+  overflow: hidden!important;
+  padding: 0!important;
+  position: absolute!important;
+  width: 1px!important;
+}
+```
+
+As the visual progress bar is redundant for screen reader users, we can use the `aria-hidden="true"` attribute which stops it being announced:
+
+```HTML
+<!-- progress bar container -->
+<div aria-hidden="true">
+Visual progress bar here
+</div>
+```
+
 ![Progress bar mark-up](./images/02/progress-bar-markup.png)
+
+We'll be using these techniques throughout the book.
 
 ### Order Summary
 

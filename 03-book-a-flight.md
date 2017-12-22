@@ -91,22 +91,7 @@ First, we need to hide the select box like this:
 
 If the select box was completely unnecessary, we could have just removed it from the Document using Javascript. But if we did it this way (or by using `display: none`) it wouldn't be sent to the server.
 
-Instead, the `vh` (short for visually hidden) class contains a special set of properties that hide the element visually, while still being perceivable to the server once submitted. This way, it's also still accessible to screen reader and keyboard users.
-
-```CSS
-.vh {
-  border: 0!important;
-  clip: rect(0 0 0 0)!important;
-  height: 1px!important;
-  margin: -1px!important;
-  overflow: hidden!important;
-  padding: 0!important;
-  position: absolute!important;
-  width: 1px!important;
-}
-```
-
-With that said, we don't actually want the select box to be perceivable to screen readers, nor focusable by keyboard users. By setting `aria-hidden="true"` screen reader users won't announce it. And setting `tabindex="-1"` ensures it's not focusable by keyboard.
+Instead, we've used the `vh` class and `aria-hidden="true"` attribute as first set out in chapter 2, “A Checkout Flow”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We still need to stop keyboard users being able to focus it by way of the <kbd>Tab</kbd> key which is acheived by the `tabindex="-1"` attribute.
 
 #### Enhancing The Interface
 

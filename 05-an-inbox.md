@@ -148,7 +148,7 @@ Alternatively, a standard `<label>` has better support and adheres to ARIA's fir
 </li>
 ```
 
-*(Note: The CSS for the vh (visually hidden) class is set out in “Book A Flight”.)*
+*(Note: The CSS for the vh (visually hidden) class is set out in “A Checkout Flow”.)*
 
 While duplication isn't a big performance issue, if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer — screen reader software can be unresponsive, for example.
 

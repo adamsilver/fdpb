@@ -73,7 +73,7 @@ With that said, you could argue that a visible label is unnecessary because the 
 </div>
 ```
 
-*(Note: The CSS for the vh (visually hidden) class is set out in “Book A Flight”.)*
+*(Note: The CSS for the vh (visually hidden) class is set out in “A Checkout Flow”.)*
 
 If search only retrieves products, for example, then the button's label would be better as “Search products” (or similar). 
 

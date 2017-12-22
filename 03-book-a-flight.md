@@ -672,17 +672,27 @@ input::-webkit-inner-spin-button {
 Each field is enhanced with this HTML:
 
 ```HTML
-<div class="stepper">
-  <button type="button" aria-label="Decrement people aged 16 and over">&minus;</button>
-  <input type="number" id="adults" name="adults">
-  <button type="button" aria-label="Increment people aged 16 and over">&plus;</button>
-  <div class="vh" role="status" aria-live=""></div>
+<div class="field">
+  <label for="adults" id="adults-label">How many people aged 16 and over are flying?</label>
+  <div class="stepper">
+    <button type="button" aria-label="Decrement" aria-describedby="adults-label">&minus;</button>
+    <input type="number" id="adults" name="adults" value="1">
+    <button type="button" aria-label="Increment" aria-describedby="adults-label">&plus;</button>
+    <div class="vh" role="status" aria-live="polite">1</div>
+  </div>
 </div>
 ```
 
-Each button has `type="button"` attribute so that they don't submit the form. Each button has an `aria-label` attribute giving screen reader users extra clarity. This is particularly useful given that there are 3 fields on the page. We don't want users thinking “Decrement - decrement what exactly?”.
+Notes:
 
-When the buttons are pressed the input's value updates but this isn't announced by screen readers. To solve this, we can inject the input's value into the live region every time it changes.
+- The label is given an `id` attribute which the buttons will use as a description thanks to the `aria-describedby` attribute.
+- The buttons and number input is wrapped in a `div` so that they can be styled as a group underneath the label.
+- The button's `aria-label` attribute will ensure that screen readers read out “Decrement” instead of “minus symbol” (or similar).
+- The button's `aria-describedby` attribute references the aformentioned label's `id` which means it combines with the label text to give screen reader users extra context. As there are three fields on the page, this stops users thinking “Decrement - decrement what exactly?”.
+- Each button has a `type="button"` attribute which means it won't submit the form when clicked[^?].
+- Clicking increment or decrement updates the status box at the bottom so that screen reader users will hear the change without having to move away from the button (see note below).
+
+*(Note: when the increment (or decrement) button is clicked, the input's value is updated. Unfortunately, screen readers won't announce the change. At first, I put the live region attributes on the input. But not only did this not work in some screen readers, it also changed the input's semantics into a status box which is confusing.)*
 
 #### A Note On Iconography
 

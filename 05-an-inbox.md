@@ -12,7 +12,7 @@ The meaning — or semantics — behind elements should influence their appearan
 
 ### Description Lists
 
-A description list (`<dl>`), formerly called a definition list, is for grouping a related group of key-value pairs for *one* record. For example, product details such as size, price and material. An inbox, however, consists of multiple records (in this case, emails), ruling this one out.
+A description list (`<dl>`), formerly called a definition list, is for grouping a list of terms and corresponding definitions. For example, product details such as size, price and material. As a list of emails isn't a collection of terms and definitions, this type of list isn't appropriate.
 
 ```HTML
 <dl>
@@ -57,7 +57,11 @@ See the mark-up above as an example. The `<tr>` is wrapped in an `<a>` to let us
 
 The generic list is useful because it itemizes and groups content into related chunks accessibly. But they can be used for more than just bullet points. They come in two flavours: ordered (`<ol>`) and unordered (`<ul>`) lists. And they are far less opiniated than tables.
 
-The difference between the two types, lies in their name. If order matters, use an ordered list. For example, following a recipe's instructions requires users to do so in order. Not doing may produce inedible food. On the other hand, an inbox doesn't have to be read or actioned in a predefined order. It sounds simple when put like that, but we tend to overthink these things. Let's lay out the inbox using a `<ul>`.
+The difference between the two types, lies in their name. If order matters, use an ordered list. For example, following a recipe's instructions requires users to do so in order. Not doing may produce inedible food. On the other hand, an inbox doesn't have to be read or actioned in a predefined order. It sounds simple when put like that, but we tend to overthink these things. 
+
+*(Note: Unfortunately, most screen readers don't differentiate between unordered and ordered lists in any semantic way. But this shouldn't stop us from using the right element. As support improves the benefits will be ready and waiting.)*
+
+Let's lay out the inbox using a `<ul>`.
 
 ```HTML
 <ul class="inbox">

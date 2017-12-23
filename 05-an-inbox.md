@@ -29,11 +29,11 @@ A description list (`<dl>`), formerly called a definition list, is for grouping 
 
 A table (`<table>`) is an arrangement of data, laid out in rows and columns. Like a spreadsheet, they are well-suited for data that needs to be compared, sorted and totalled.
 
-Tables unfortunately, are difficult to style on small viewports, because there's no room to show more than two or three columns. Even then, it could be a squeeze depending on the data, creating layout issues. For example, content could wrap profusly or it could cause a horizontal scroll bar to appear.
+Tables unfortunately, are difficult to style on small viewports, because there's no room to show more than two or three columns. Even then, it could be a squeeze depending on the data inside the cells, creating layout issues. For example, content could wrap profusly or it could cause users to scroll horizontally to reveal the hidden content.
 
-Making tables responsive isn't the most straightforward thing to do. This is because they are inherently tied to the way they look. Put another way, making a table not look like a table, is not only very difficult, but it would be deceptive and counterproductive.
+Making tables responsive isn't the most straightforward thing to do. This is because they are inherently tied to the way they look. Put another way, making a table not look like a table, is not only very difficult, but it would be deceptive, counterproductive and inaccessible.
 
-Gmail uses tables and puts recipient, subject and date sent into columns. Interestingly though, there are no table headings, which is the first clue that tables have been used for layout purposes rather than their semantic qualities which causes various access issues. Jeremy Keith talks about this in his book “Resilient Web Design”[^]:
+Gmail[^] uses tables and puts recipient, subject and date sent into columns. Interestingly though, there are no table headings, which is the first clue that tables have been used for layout purposes rather than their semantic qualities which causes various access issues. Jeremy Keith talks about this in his book “Resilient Web Design”[^]:
 
 > Using TABLEs for layout is materially dishonest. The TABLE element is intended for marking up the structure of tabular data. The end result [...] is a façade. At first glance everything looks fine, but it won’t stand up to scrutiny. As soon as such a website is stress‐tested by actual usage across a range of browsers, the façade crumbles.
 
@@ -166,9 +166,18 @@ For example, Mailchimp, who have a reputation for their user-centered design phi
 
 We could highlight the entire row using CSS and Javascript, but we should only do that if user research shows this will *Add value* (principle 7).
 
-## An Action Menu
+## Actioning Emails
 
-Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them too. Unlike the forms designed in previous chapters, this form contains multiple submit buttons with a new visual and interactive treatment that needs to be considered.
+Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them too by adding submit buttons:
+
+```HTML
+<input type="submit" name="archive" value="Archive">
+<input type="submit" name="delete" value="Delete">
+<input type="submit" name="spam" value="Mark as spam">
+<ul class="inbox">...</ul>
+```
+
+Unlike the forms in previous chapters, this one needs multiple submit buttons.
 
 ![Multiple buttons](./images/05/multiple-buttons.png)
 
@@ -202,9 +211,11 @@ Similarly, Material Design has the floating action button. As users scroll, the 
 
 ![Floating action button](./images/05/floating-action.png)
 
-However, sticky menus are problematic for two reasons. First, they obscure the content beneath which is especially jarring on smaller viewports as the menu impedes access to the primary content. In the case of the inbox, the primary need is to read and respond to email — not to bulk action it.
+However, sticky menus are problematic for three reasons. First, they obscure the content beneath which is especially jarring on smaller viewports as the menu impedes access to the primary content. In the case of the inbox, the primary need is to read and respond to email — not to bulk action it.
 
 Second, sticky menus are usually employed to solve symptoms that mask the true underlying problems. That is, that the page is often too long in the first place. An inbox typically shows just 20 emails at a time, which means the menu is, at most, a quick flick away on mobile and always in view on desktop.
+
+Finally, the items within the sticky menus aren't easy to focus with the keyboard. You might be half way down the page but the menu (which is in close proximity visually) could be a long way away via the keyboard.
 
 For these reasons, it's better to position the menu statically.
 
@@ -220,7 +231,7 @@ Decluttering an interface is a noble goal, but not at the cost of clarity and in
 
 ### Menu Types
 
-When there is enough space, we should just lay out the submit buttons to make them available to users at all times. On desktop, there's usually more space, but even then, there could be other components that take up space, such as Gmail's array of tool bars:
+When there's enough space, we should just lay out the submit buttons to make them available to users at all times. On desktop, there's usually more space, but even then, there could be other components that take up space, such as Gmail's array of tool bars:
 
 ![Gmail Toolbar](./images/05/gmail-toolbars.png)
 

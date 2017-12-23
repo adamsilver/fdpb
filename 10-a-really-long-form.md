@@ -14,11 +14,11 @@ Of course, if you can simplify the process so that it's short in the first place
 
 ## The Power Of Checklists
 
-In “The Psychology of Checklists”[^1], Lauren Marchese explains the importance of breaking down big tasks into smaller ones and doing so is bioligically proven to motivate people. When we experience even small amounts of success, our brains release a chemical called dopamine which gives us feelings of pleasure, learning and motivation.
+In “The Psychology of Checklists”[^1], Lauren Marchese explains the importance of breaking down big tasks into smaller ones and doing so is proven to motivate people. When we experience even small amounts of success, our brains release a chemical called dopamine which gives us feelings of pleasure, learning and motivation.
 
-Most of us work in teams employing Agile methodologies. One of the main aspects to this is breaking down a large project into epics, stories and tasks. Complete enough tasks, and the story is done. Complete enough stories, and the epic is done. Complete enough epics and the project is done. Of course our work is never done, but you know what I mean.
+Most of us work in teams employing Agile methodologies[^]. One of the main aspects to this is breaking down a large project into epics, stories and tasks. Complete enough tasks, and the story is done. Complete enough stories, and the epic is done. Complete enough epics and the project is done. Of course our work is never done, but you know what I mean.
 
-What's really happening is that tasks seem far easier to achieve when they're broken down. Crucially, if tasks are small enough, then we'll get that hit of dopamine frequently, which creates momentum. Momentum improves morale and morale improves quality.
+What's really happening is that tasks seem far easier to achieve when they're broken down. Crucially, if tasks are small enough, then we'll get that hit of dopamine frequently, which creates momentum. Momentum improves morale and morale improves productivity.
 
 That's not all checklists are good for. In “The Design of Everyday Things”, Don Norman says:
 
@@ -67,7 +67,7 @@ The points discussed above are probably applicable to any super long form you're
 
 ## Summary
 
-In this chapter, we looked at how to break down really long forms into smaller forms, by using the task list pattern. We learnt that doing so is not only biolically proven to help users complete a longer task, but is also gives users the essential information they need to do so.
+In this chapter, we looked at how to break down really long forms into smaller ones. By using the task list pattern, users are guided through a long and potentially complex journey with relative ease.
 
 ### Checklist
 

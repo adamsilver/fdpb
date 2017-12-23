@@ -261,9 +261,9 @@ The other problem with using a select box, is that it's always collapsed, even w
 
 ### Adaptive Design Versus Responsive Design
 
-When the web came along, we settled on 640px widths. Then a few years later, when larger monitors came to market, we changed to 960px widths. We no longer cared about people with small monitors.
+When the web came along, we settled on 640 pixel widths. Then a few years later, when larger monitors came to market, we changed to 960 pixels. We no longer cared about people with small monitors. We expected users to maximise their browser, or else experience horizontal scroll bars.
 
-Then more years passed. The mobile web was born. Or more accurately, we could use websites on our phones, which happen to have small screens. A million browsers came out. A million devices came out. And browsers gave us CSS media queries.
+Then some more years passed. The mobile web was born. Or more accurately, we could use websites on our phones, which happen to have small screens. A million browsers came out. A million devices came out. And browsers gave us CSS media queries.
 
 Accordingly, we started to design for 320px widths. Why? because many of us had iPhones and this happened to be its width in portrait mode.
 
@@ -271,13 +271,19 @@ Now we have tablets, desktops and really big desktop screens. And we can browse 
 
 The difference between responsive and adaptive design is both subtle and crucial. Both techniques are based on viewport width. And both use CSS media queries to change the interface. But they are quite different.
 
-Adaptive design means defining several predefined interfaces for specifically chosen viewport widths that correspond to a particular device. All the code for the different interfaces are sent to the browser. Then the interface that matches the predefined media query is applied accordingly. These media queries are known as device breakpoints. That is, a breakpoint which is defined based on a device's width.
+#### Adaptive Design
+
+Adaptive design means defining several predefined layouts for specifically chosen viewport widths that correspond to a particular device. All the code for the different layouts are sent to the browser. 
+
+The interface that matches the predefined media query is applied accordingly. These media queries are known as device breakpoints because they are defined based on a device's width.
 
 ```CSS
 @media only screen and (min-device-width : 375px) and (max-device-width : 667px) { /* STYLES GO HERE */}
 ```
 
-Using this approach is normally unnecessary and counterproductive. First, there is an endless stream of devices and browsers with different widths. Creating specific designs for every device width is impossible. And the extra code needed to produce such designs would result in slow loading pages. Generally speaking adaptive design should be a last resort.
+Using this approach is normally unnecessary and counterproductive. First, there is an endless stream of devices and browsers with different widths: creating specific designs for every device width is impossible. And the extra code needed to produce such designs would result in slow loading pages.
+
+#### Responsive Design
 
 Responsive design takes a different approach. It's about designing a single, fluid interface that works well at any size regardless of device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when and if the something breaks. These media queries are known as content breakpoints.
 
@@ -319,7 +325,7 @@ Third, not all users use a mouse (or other pointing device) and touch-screen dev
 
 ### A True Menu
 
-Aware of the pitfalls of both adapative design and opening a menu on hover, we can proceed to design a true, responsive menu that opens on click.
+Aware of the pitfalls of both adaptive design and opening a menu on hover, we can proceed to design a true, responsive menu that opens on click.
 
 ![True menu](./images/05/true-menu.png)
 
@@ -333,7 +339,7 @@ Aware of the pitfalls of both adapative design and opening a menu on hover, we c
 
 The menu has a role of `menu` indicating that it contains menu items. When the menu is focused, screen readers will announce it as a three-item menu. You should note that the `menu` role isn't commonly used in web applications. Only ones that mimic desktop applications (like this one, which is essentially a web-based Outlook application) apply.
 
-When there isn't enough room to display the menu items inline, they'll stack beneath each other taking up a lot of space. To avoid this, we can use media queries and Javascript's `matchMedia` API to collapse the buttons inside a traditional menu:
+When there isn't enough room to display the menu items inline, we'll collapse them behind a traditional menu using media queries and Javascript's `matchMedia` API:
 
 ```JS
 Menu.prototype.setupResponsiveChecks = function() {
@@ -353,9 +359,9 @@ Menu.prototype.checkMode = function(mq) {
 
 The `matchMedia` API is the Javascript equivalent of a media query. Where `@media() {}` is for CSS, `matchMedia()` is for Javascript. It's a way of keeping behaviour and style in-sync based on the same media query. In this case, when the viewport's width is less than `40em` the script will construct a toggle menu (small mode). When it's more than `40em` it will construct a horizontal menu (big mode).
 
-Before `matchMedia` we had to use flakey techniques to get the width of the viewport[^]. Even then, you could only get the value in pixels, not `em`s. It's preferrable to use `em`s because if the user increases the the size of text, the layout will adapt in proportion.
+Before `matchMedia` we had to use flakey techniques to get the width of the viewport[^]. Even then, you could only get the value in pixels, not `em`s. Using `em`s is preferred because if the user increases the text size, the layout will adapt in proportion.
 
-When small mode is enabled, the enhanced HTML is updated:
+When small mode is enabled, the HTML is updated:
 
 ```HTML
 <button type="button" aria-haspopup="true" aria-expanded="false">
@@ -377,7 +383,7 @@ Notes:
 
 #### Keyboard And Focus Behaviour
 
-When the menu button is clicked, the script checks to see if the menu is currently open be checking whether `aria-expanded` is set to `false`. If it is, the menu is shown and focus is moved to the first item. If it isn't, we hide the menu and move focus back to the menu button.
+When the menu button is clicked, the script checks to see if the menu is currently open by checking whether `aria-expanded` is set to `false`. If it is, the menu is shown and focus is moved to the first item. If it isn't, the menu is hidden and focus moves back to the menu button.
 
 ```JS
 Menu.prototype.onMenuButtonClick = function() {
@@ -403,11 +409,11 @@ We can use the `[aria-expanded]` CSS attribute selector to toggle the menu's dis
 }
 ```
 
-When focus is on a menu item, pressing <kbd>down</kbd> or <kbd>up</kbd> arrows will move to the next or previous item, on loop. Pressing <kbd>escape</kbd> on a menu item will move focus to the menu button and closes the menu. Sometimes, <kbd>Home</kbd> and <kbd>End</kbd> are used to go to the first and last items directly which is particularly useful if there are lots of menu items.
+When focus is on a menu item, pressing <kbd>Down</kbd> or <kbd>Up</kbd> arrows will move to the next or previous item, on loop. Pressing <kbd>Escape</kbd> on a menu item will move focus to the menu button and closes the menu. Sometimes, <kbd>Home</kbd> and <kbd>End</kbd> are used to go to the first and last items directly which is particularly useful if there are lots of menu items.
 
 ## Select All
 
-Users may want to, for example, archive every email in their inbox. Rather than selecting each email, one by one, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the others creating a visual connection. Clicking it checks every checkbox in one fell swoop.
+Users may want to, for example, archive every email in their inbox. Rather than selecting each email, one by one, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the other checkboxes creating a visual connection. Clicking it would check every checkbox in one fell swoop.
 
 ![Select all mailchimp](./images/05/mailchimp-select-all.png)
 
@@ -437,7 +443,7 @@ button[aria-pressed="true"] {
 
 ## Success Messages
 
-When the user submits the form, the selected emails will disppear from their inbox. When an action has been completed, telling users that it has been completeed a respectful thing to do. Not doing so leaves users to wonder what happened, if at all.
+When the user submits the form, the selected emails will disappear from the inbox. When an action has been completed, telling users that it has been completed is the respectful thing to do. Not doing so leaves users wondering what happened, if anything.
 
 In chapter 1, “A Registration Form”, we designed and constructed an error summary panel that resides at the top of the page. A success message needs a similar treatment with a couple of tweaks.
 
@@ -451,7 +457,7 @@ Instead of having red colouration, it should be green which is universally assoc
 </div>
 ```
 
-Both the error and success message panels are placed within the natural flow of the document and toward the top of the page to indicate their importance. The `role="alert"` attribute as noted in “A Registration Form” ensures that screen readers will announced it when the page loads.
+Both the error and success message panels are placed within the natural flow of the document and toward the top of the page to indicate their importance. The `role="alert"` attribute ensures that screen readers will announced it when the page loads or if it is updated on the client.
 
 ### Toast Messages
 
@@ -461,23 +467,23 @@ Some applications employ what is known as a ‘toast’ message or notification.
 
 This is all very interesting from a design perspective, but it's hardly a useful way to communicate. First, the message obscures the content beneath. Second, users have to read the message before it disappears. This makes comprehension a stressful task and takes control *away* from the user.
 
-Really, a success message should be laid out bare and placed within the natural flow of the page. There is no need to obscure parts of interface. After all the message is temporary and will naturally disappear when the user leaves the page.
+Really, a success message should be laid out bare and placed within the natural flow of the page. There is no need to obscure parts of the interface. After all, the message is temporary and will naturally disappear when the user leaves the page.
 
 However, if research shows that being able to dismiss a message *adds value*, you can offer the functionality in the form of a button. When clicked, it hides the message.
 
 ![Success With Dismiss](./images/05/dismiss.png)
 
-Be careful to inject the `<button>` with Javascript. If we put it in directly in the HTML, then the interface will appear broken when Javascript is unavailable. That is, clicking the button will do nothing.
+Be careful to inject the `<button>` with Javascript. If we put it in directly in the HTML, then the interface will appear broken when Javascript is unavailable. That is, nothing will happen when it's clicked.
 
 ### Confirming Versus Undoing
 
-As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can create a digital speed bump by asking users to confirm their action (shown below. 
+As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can create a digital speed bump by asking users to confirm their action: 
 
 ![Are you sure](./images/05/are-you-sure.png)
 
-This is fine for infrequent tasks but it quikcly becomes tedious when that action needs to be performed more often. Continuing with the driving analogy then: it's a bit like puttings speed bumps on the motorway. They'd probably cause more accidents, not less.
+This is fine for infrequent tasks but it quickly becomes tedious when that action needs to be performed more often. Continuing with the driving analogy then: it's a bit like puttings speed bumps on the motorway. They'd probably cause more accidents, not less.
 
-An alternative approach would be letting users perform the action immediately, without any warning. Then, along with the success message, give users the choice to undo their action. Clicking *undo*, would reverse the action by restoring their emails back into their inbox. If only we could *undo* accidents on the road.
+An alternative approach would be letting users perform the action immediately, without any warning. Then, along with the success message, give users the choice to undo their action. Clicking *undo*, would reverse the action by restoring their emails back to the inbox. If only we could *undo* accidents on the road.
 
 ![Undo](./images/05/undo.png)
 

@@ -6,7 +6,7 @@ In Mailchimp, for example, I'll usually start drafting an email campaign weeks b
 
 Other tasks are performed by more than one person using the same application. For example, processing a return may involve someone receiving the goods at the warehouse. Then a decision maker may take a look at the goods to make sure it satisfies the returns policy.
 
-Some Government services take weeks to apply for and users need to provide lots of information about their identity, home, family and financial situation. And sometimes people need to gather evidence and send it by post.
+Some Government services take weeks to apply for and users need to provide information about their identity, home, family and financial situation. And sometimes people need to gather evidence and send it by post.
 
 Whatever the case, if you're designing a really long form, there's some patterns that we can use to improve the experience. 
 
@@ -24,7 +24,9 @@ That's not all checklists are good for. In “The Design of Everyday Things”, 
 
 > “Checklists are powerful tools, proven to increase the accuracy of behaviour and to reduce error [...]. They are especially important in situations with multiple, complex requirements, and even more so where there are interruptions.”
 
-As we are able to perform digital tasks on the go using different devices, the chances of interruption are always high. Designing for interruption and being able to fly back into a long and complex task is crucial.
+As we're able to perform digital tasks on the go using different devices, the chances of interruption are always high. Designing for interruption and being able to fly back into a long and complex task is crucial.
+
+In fact, many developers isolate themselves away from their teammates in a busy office buy putting on headphones. This helps them concentrate on large complex tasks without being interrupted which is unhealthy. Smaller tasks reduces the need for this, and promotes more communication.
 
 ## The Task List Pattern
 

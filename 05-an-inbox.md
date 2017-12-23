@@ -223,11 +223,15 @@ For these reasons, it's better to position the menu statically.
 
 ### Disabling And Hiding Buttons
 
-Some multi-select interfaces will hide or disable the menu buttons until at least one item's been selected. You could argue that showing (or enabling) the buttons in response to selecting an item helps users take the next step. In the case of hiding the buttons, the interface becomes more streamlined as they're only shown as they become relevant.
+Some multi-select interfaces will hide or disable the menu buttons until at least one item's been selected. You could argue that showing (or enabling) the buttons in response to selecting an item helps users take the next step. In the case of hiding the buttons, the interface becomes more streamlined as they're only shown as they become relevant. But this is problematic.
 
-On the flipside, this only — potentially — helps sighted users. Even then, they'd have to be within the viewport to notice them. This is not a particularly inclusive approach to design. We also discussed the full range of problems associated with disabling buttons in “A Registration Form”. As a quick reminder, they don't let users know why they're disabled and they are not focusable to screen readers.
+First, hiding the buttons means the available actions aren't discoverable. This is why designers opt for disabled buttons. But we discussed the problems with disabled buttons in chapter 1, “A Registration Form”. As a quick reminder, they don't tell users why they're disabled and screen reader users can't focus them.
 
-Decluttering an interface is a noble goal, but not at the cost of clarity and inclusivity. Instead of hiding buttons, make room for them early in the design process. Hiding functionality away from users and requiring them to reveal that functonality should be a last resort.
+Second, there needs to be space to reveal the buttons in the first place. Where there isn't, the page can judder as the page reveals the buttons and moves other parts of the interface around to make space. 
+
+Third, having the buttons appear when clicking a checkbox is distracting as users are focused on selecting the right emails. And assuming the change of state is valuable, the buttons would have to be in the viewport for users to see the change anyway.
+
+Instead, simply show the buttons at all times.
 
 ### Menu Types
 

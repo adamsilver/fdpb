@@ -168,7 +168,7 @@ We could highlight the entire row using CSS and Javascript, but we should only d
 
 ## Actioning Emails
 
-Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them too by adding submit buttons:
+Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them to. This form has three actions and therefore three submit buttons: archive, delete and mark as spam.
 
 ```HTML
 <input type="submit" name="archive" value="Archive">
@@ -177,29 +177,25 @@ Letting users select multiple emails is all well and good, but we're going to wa
 <ul class="inbox">...</ul>
 ```
 
-Unlike the forms in previous chapters, this one needs multiple submit buttons.
+The nature of this form and the presence of multiple submit buttons creates several new problems that previous chapters haven't had to consider. Let's discuss each of those now.
 
-![Multiple buttons](./images/05/multiple-buttons.png)
+### The Multiple Submit Button Problem
 
-### Implicit Submission And Multiple Submit Buttons
+Implicit submission lets users submit the form by pressing <kbd>Enter</kbd> when focus is within a field. This is convenient convention that speeds up submission without having to move focus to the submit button. This is especially useful for a single field form such as a search form.
 
-Implicit submission lets users submit the form by pressing <kbd>Enter</kbd> when focus is within a field. This is convenient convention that speeds up submission without having to move focus to the submit button. This is particularly useful for a search form because it normally only consists of a single field.
+Having multiple submit buttons (actions) is problematic because if the user presses <kbd>Enter</kbd>, which action will be taken? The answer is that browsrs will choose the first button in the document source.
 
-![Implicit submission](./images/05/implicit-submission.png)
+The best solution to this problem, is avoidance. That is, to have just one action per form. Depending on the design, this may not be easy, which is unfortunately the case with the inbox.
 
-The problem is when there's multiple buttons because each button performs a different action. If the user presses <kbd>Enter</kbd>, which action should be taken? The answer is that browsers will choose the first button in the document source.
+One alternative approach could be to expect users to choose which action they want to perform, before selecting the emails to apply that action to. But this seems somewhat unconventional and long-winded.
 
-To mitigate this, try and split the actions into separate pages so that there's just one action per form. Depending on the design, this may not be easy — as is the case wit the inbox.
-
-One way could be to ask users which action they want to perform before selecting the emails, but this seems a little long-winded.
-
-Fortunately, multi-select interfaces usually place related controls at the top of form in close alignment to the checkboxes. This gives users a way to discover the available actions before making their selection.
+Fortunately, multi-select interfaces usually place the submit buttons at the top of form in close alignment to the checkboxes. This gives users a way to discover the available actions before making their selection.
 
 ![Gmail menu proximity](./images/05/gmail-menu.png)
 
-It's worth noting that implicit submission is probably less useful on a form consisting solely of checkboxes. But, if you need multiple submit buttons, put the least critical action first — in this case, *archive*. That way, if the user accidentally submits the form implicitly they'll be in less of a predicament.
+It's worth noting that implicit submission is probably less useful on a form consisting solely of checkboxes. In any case, as we have multiple submit buttons, we should put the least critical action first — in this case, *archive*. That way, if a user happens to submit the form implicitly, they'll be in less of a predicament.
 
-Another way to design for this, is to offer users a way to *undo* their last action. We'll discuss this shortly.
+Finally, we can offer users a way to *undo* their last action, which we'll discuss later in the chapter.
 
 ### Sticky Menus
 
@@ -233,7 +229,7 @@ Third, having the buttons appear when clicking a checkbox is distracting as user
 
 Instead, simply show the buttons at all times.
 
-### Menu Types
+## A Responsive Menu
 
 When there's enough space, we should just lay out the submit buttons to make them available to users at all times. On desktop, there's usually more space, but even then, there could be other components that take up space, such as Gmail's array of tool bars:
 

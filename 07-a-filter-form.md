@@ -18,9 +18,9 @@ Links let users filter a list of a results via the querystring. Links are not fo
 
 ![Link filter](./images/07/link-filter.png)
 
-Each time a user chooses a filter, such as Honda, that option will disappear from the list. The advantage of using links in this manner, is that every click is guaranteed to return results. This is becaue the link will only exist, if there are results that lie behind it.
+Each time a user chooses a filter, such as Honda, that option will disappear from the list. The advantage of using links in this manner, is that every click is guaranteed to return results. This is because the link will only exist, if there are results that lie behind it.
 
-The disadvantage of using links is that each click requires a page refresh. In isolation, a page refresh isn't a problem at all. Lightweight, well-optimised, single-focus pages don't cause problems for users. However, if the user wants to filter by more than one facet at a time, waiting for several refreshes isn't always ideal.
+The disadvantage of using links is that each click requires a page refresh. In isolation, a page refresh isn't a problem at all. Lightweight, well-optimised, single-focus pages don't cause problems for users. However, if the user wants to filter by more than one facet at a time, waiting for several refreshes isn't always ideal, particularly if the many filters are needed to find the right result. It also means keyboard users have to tab back to the filter section each time.
 
 If the user wants to select Honda and Audi, for example, a form that uses checkboxes may provide a better experience. By offering users a familiar set of form controls, we give them power and control to select as many options as they want in one go — both across and within different filters, such as brand and colour.
 
@@ -36,17 +36,15 @@ Remember, that a broad and shallow taxonomy creates a better experience without 
 
 ## Material Honesty (Again)
 
-We already discussed material honesty earlier in the book. That's because it's both important and prevelant in the world of interface design. In short, one material shouldn't be used as a substitute for another because in this case the end result is deceptive.
+We already discussed material honesty earlier in the book. That's because dishonest interfaces are prevalent on the web. In short, one material shouldn't be used as a substitute for another because in that case the end result is deceptive.
 
 In the case of filters, links are often styled to look like radio buttons or checkboxes (using CSS background images for example). The problem is that a radio button is not a link. When a link is clicked, it takes the user to that page.
 
-As the design of form controls varies so widely across browsers and operating systems, the CSS styling always differs from native inputs. This creates a slightly jarring, inconsistent and unprofessional aesthetic. 
+The styling of native checkboxes and radio buttons differs greatly across various operating systems and devices. Therefore, a pseudo, CSS-styled version is always going to look different to the familiar version users are acustomed to on *their* browser. This creates a less familiar interface. But there's more to this than just vaneer.
 
-But there's more to this than just vaneer. If a user sees a checkbox, conventionally speaking, they'll know that they can move through the choices before submitting it as a separate action. That's just how forms work.
+By convention, a set of radio buttons can be moved through before submitting the choice. That's just how forms work. It would be confusing if clicking - what looks like - a radio button, suddenly appeared to submit the form automatically (because it's actually a link). That's materially dishonest and therefore deceptive.
 
 ![Ebay links with checkboxes](./images/links-as-checkboxes.png)
-
-It would be confusing if clicking - what looks like - a radio button, suddenly submitted the form automatically. That's materially dishonest and therefore deceptive.
 
 > ‘Use checkboxes and radio buttons only to change settings, not as action buttons’ - Jakob Nielsen
 

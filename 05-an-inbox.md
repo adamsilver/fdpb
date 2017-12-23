@@ -255,15 +255,15 @@ Select boxes are for input. That's why forms that contain select boxes — like 
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-The reason I bring this to your attention is because using a select box as a menu, usually means omitting the submit button and causing the form to submit `onchange` using Javascript without the user's say-so. This fails principle 4, *Give control*, by taking control *away* from the user.
+The reason I bring this up is because using a select box as a menu, often causes designers to omit the submit button from the interface. And then, JavaScript is needed to submit the form, when the selected option is changed (`onchange`). But this submits the form, without the user's say-so which fails principle 4, *Give control*, by taking control away from the user.
 
-This also causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the form is submitted as soon as the user presses <kbd>Down</kbd> to select the next option. Moving beyond that option is impossible.
+This also causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the `onchange` event is fired as soon as the user presses <kbd>Down</kbd> to select the next option. But with this approach in place, the form is immediately submitted, making it impossible to move through all the items in the menu.
 
 ![Select submit onchange](./images/05/select-onchange.png)
 
-This isn't a browser bug. It's just that some browsers are more forgiving than others. The forgiving ones only submit the form by pressing <kbd>Space</kbd> or <kbd>Enter</kbd>. Unfortunately, not all browsers are alike or implement the specification consistently. Ignoring people who use a less forgiving browser doesn't make the problem any less real for them.
+Other browsers won't fire the `onchange` event (and thus submit the form) until the user presses <kbd>Space</kbd> or <kbd>Enter</kbd>. But as not all browsers are alike or implement the specification consistently. Ignoring people who use one of the “bad” browsers, doesn't make the problem any less real for them.
 
-The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adapative design[^adaptive].
+The other problem with using a select box, is that it's always collapsed, even when there is enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adaptive design[^adaptive].
 
 ### Adaptive Design Versus Responsive Design
 

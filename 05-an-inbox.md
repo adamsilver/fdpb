@@ -231,21 +231,19 @@ Instead, simply show the buttons at all times.
 
 ## A Responsive Menu
 
-When there's enough space, we should just lay out the submit buttons to make them available to users at all times. On desktop, there's usually more space, but even then, there could be other components that take up space, such as Gmail's array of tool bars:
+When there's enough space, the buttons should just be laid out to make them available at all times. But if you have more than three buttons in the menu, or you need to display additional components along the same row, it's going to be hard to fit everything, especially on mobile.
 
-![Gmail Toolbar](./images/05/gmail-toolbars.png)
+![Stacked buttons](./images/05/stacked-buttons.png)
 
-Similarly, on small viewports, if there are more than two or three buttons, they're likely to stack beneath each other. This pushes the main content down the page - having the menu dominate the interface like this is problematic. *Dominance* is a quality we should use sparingly. After all, if everything dominates, nothing does. The inbox itself should take center stage with the menu taking a back-seat role.
+The problem is that the buttons will start to stack beneath each other, which pushes the main content downwards and changes the spatial relationship between the menu and the list of emails. And, having the menu dominate the interface is problematic, because dominance is a quality we should use sparingly. After all, if everything dominates, nothing does. Really, the inbox itself should take center stage, with the menu taking a back-seat role.
 
-As noted earlier if there's enough room to lay out the submit buttons then do so. But if there isn't, we can keep the interface clean and easy-to-scan by hiding the options in a menu.
-
-There are two ways to create a menu. First by using a standard `select` box and second by creating a custom menu component. Let's discuss the pros and cons of each next.
+We can handle this problem by hiding the submit buttons behind a menu. There are two ways to create a menu: first, by using a `select` box and second, by creating a custom menu component. Let's discuss the pros and cons of each next.
 
 #### A Select Box Menu
 
-Select boxes are a menu of sorts. In fact, select boxes, are also referred to as drop-down *menus*.
+Select boxes are a menu of sorts. In fact, sometimes, they're referred to as drop-down *menus* amongst other names.
 
-Like a menu, they group similar items together that users can select. And they hide the items behind a click, keeping the interface compact. They're an attractive option because, as we know, browsers supply them for free. However, even though select boxes look like menus and behave like them; and even though they are sometimes referred to as menus — they aren't true menus.
+Like a menu, they group similar items together that users can select. And they hide the items behind a click, keeping the interface compact. They're an attractive option because, as we know, browsers supply them for free. But, even though select boxes look like menus and behave like them; and even though they are sometimes referred to as menus — they aren't true menus.
 
 Select boxes are for input. That's why forms that contain select boxes — like any other input — must be accompanied by a submit button to submit the choice. Not only is this convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
 

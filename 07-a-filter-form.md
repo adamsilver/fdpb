@@ -10,29 +10,53 @@ On the web, a search can yield thousands, or even millions of results depending 
 
 > Think of a cookbook: authors have to organize the recipes in one way only - by course or by main ingredient - and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method, for example].
 
-## Types Of Filters
+While filters often look similar on many sites, their behaviours vary widely. What interface components should be used, when to apply the filtering, how should it work responsively, how to inform users of the updated results: all of this needs to be taken into account.
 
-Links, radio buttons and checkboxes: all of them can be, and are used to construct filters on the web, with their varied semantics and behaviour, this is what we'll look at first.
+## When To Apply Filters
 
-Links let users filter a list of a results via the querystring. Links are not form elements as such, but depending on the situation, they can be used in place of them. Here's an example of links being used to filter a car:
+Talk about batch vs immediate filters and how that relates to links, forms and ajax.
+
+## Links Versus Forms
 
 ![Link filter](./images/07/link-filter.png)
 
-Each time a user chooses a filter, such as Honda, that option will disappear from the list. The advantage of using links in this manner, is that every click is guaranteed to return results. This is because the link will only exist, if there are results that lie behind it.
+Links let users filter a list of a results via the querystring. The querystring is the part of the URL that starts with a question mark:
 
-The disadvantage of using links is that each click requires a page refresh. In isolation, a page refresh isn't a problem at all. Lightweight, well-optimised, single-focus pages don't cause problems for users. However, if the user wants to filter by more than one facet at a time, waiting for several refreshes isn't always ideal, particularly if the many filters are needed to find the right result. It also means keyboard users have to tab back to the filter section each time.
+```HTML
+<a href="/filter/?make=honda">Honda (12,221)</a>
+```
 
-If the user wants to select Honda and Audi, for example, a form that uses checkboxes may provide a better experience. By offering users a familiar set of form controls, we give them power and control to select as many options as they want in one go — both across and within different filters, such as brand and colour.
+When the link is clicked, it makes a GET request. When the querystring is present, the server can use the values “make” and “honda” to determine which cars (in this case) should be shown to the user.
+
+While links are not forms, they can be used in place of them in situations where the data on the server isn't being modified and the values being sent to the server aren't being typed. In this case, the server just needs to know what data to present. Here's a form that makes the same request as the link above:
+
+```HTML
+<form method="get" action="/filter/">
+	<input type="radio" name="make" value="honda" checked>
+</form>
+```
+
+The radio button's `name` and `value` attributes combine to create a request that matches the link's `href` attribute. That is, they make the exact same GET request and the server sees this as the same thing.
+
+Each time a user chooses a filter, such as Honda, it will be added to the currently applied filters. But that's not all, the remaining filters will only be included if they match “Honda”. For example, if there are only green and white hondas available, then you won't see red or blue filters under “Colour”.
+
+![Filter flow](./images/07/link-filter-flow.png)
+
+The advantage is that every click is guaranteed to return results because the filters are only shown if there are results that lie behind them (unlike forms which we'll see shortly).
+
+The disadvantage of using links is that each click requires a seperate request and page refresh. In isolation, a page refresh isn't a problem at all. Lightweight, well-optimised, single-focus pages don't cause problems for users at all.
+
+However, if users often need to apply several filters, waiting for several refreshes isn't ideal. And keyboard users will have to tab back to the filter section each time too. We'll discuss AJAX and ARIA landmarks as potential solutions to these problems later.
+
+### Checkboxes And Radio Buttons
+
+Suppose I just want a Honda or Audi, as long as it's a black hatchback. Links don't work as well, because I can only select one model at a time. Using a form with checkboxes, however, lets users choose multiple values within and across categories.
 
 ![Checkbox filter](./images/07/checkbox-filter.png)
 
-Unlike links, letting users choose multiple filters at once may result in zero results. If, for example, they select Red + Honda, there may be none of those available. Of course, there will be away to remove a filter one at a time at the users discretion, but this doesn't negate the potential added effort required to see results.
+The problem with this approach is that, unlike links, letting users choose multiple filters at a time could result on zero results. If, for example, I'm only interested in Red Honda's, there may be none of those available. Of course, there will be a way to remove a filter one at a time at the users discretion, but this doesn't negate the added effort required to see results.
 
-Beware not to go crazy with filters. Overloading users with hundreds of filters makes their job harder, not easier. This is partially because of the paradox of choice which we discussed in “A Login Form”.
-
-If you're not sure which filters to show, perform user research and check your analytics. Extract the most popularly used filters and include just those — in order too. Then you can either remove the others or reveal them as they become relevant as the user drills down.
-
-Remember, that a broad and shallow taxonomy creates a better experience without sending users too far down a funnel.
+TODO: talk about the fact that some categories may make better sense if you can only select one. In this case you'd use a radio button of course. The advantage over links is that checkboxes and radio buttons have perceived affordance. If some links were used for AND and some for OR that would be confusing and leads to materially dishonest interface, something we'll discuss next.
 
 ## Material Honesty (Again)
 
@@ -102,7 +126,13 @@ That's two opposing problems which are solved with completely different approach
 
 I asked Dave if he would use the same approach in future.
 
-> Not necessarily. I wouldn't start with this approach. If a site doesn't have a lot of ads [like Gumtree does], we'd have better luck drawing attention to the submit button.
+> Not necessarily. I wouldn't start with this approach. If a site doesn't have a lot of ads [like Gumtree does], we'd probably have better luck drawing attention to the submit button.
+
+### Filter Overload
+
+Beware not to go crazy with filters. Overloading users with hundreds of filters makes their job harder, not easier. This is partially because of the paradox of choice which we discussed in “A Login Form”.
+
+If you're not sure which filters to show, perform user research and check your analytics. Extract the most popularly used filters and include just those — in order too. Then you can either remove the others or reveal them as they become relevant as the user drills down.
 
 ## Summary
 
@@ -124,3 +154,8 @@ TBD
 [^1]: https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two
 [^2]: https://articles.uie.com/faceted_search/
 [^3]: https://jakearchibald.com/2016/fun-hacks-faster-content/
+
+- stick with food/restaurant analogies throughout and dont use screen shots?
+- https://www.nngroup.com/articles/applying-filters/
+
+

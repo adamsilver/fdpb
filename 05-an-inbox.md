@@ -207,11 +207,11 @@ Similarly, Material Design has the floating action button. As users scroll, the 
 
 ![Floating action button](./images/05/floating-action.png)
 
-However, sticky menus are problematic for three reasons. First, they obscure the content beneath which is especially jarring on smaller viewports as the menu impedes access to the primary content. In the case of the inbox, the primary need is to read and respond to email — not to bulk action it.
+However, sticky menus are problematic for three reasons. First, they obscure the content beneath which is especially distracting on mobile as the menu impedes access to the primary content. In the case of the inbox, the primary need is to read and respond to email — not to bulk action it.
 
 Second, sticky menus are usually employed to solve symptoms that mask the true underlying problems. That is, that the page is often too long in the first place. An inbox typically shows just 20 emails at a time, which means the menu is, at most, a quick flick away on mobile and always in view on desktop.
 
-Finally, the items within the sticky menus aren't easy to focus with the keyboard. You might be half way down the page but the menu (which is in close proximity visually) could be a long way away via the keyboard.
+Finally, the items within the sticky menus are difficult to focus with the keyboard. You might be half way down the page but the menu (which is in close proximity visually) could be a long way away via the keyboard.
 
 For these reasons, it's better to position the menu statically.
 

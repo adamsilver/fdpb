@@ -6,7 +6,6 @@
 	- Batch Filters
 - Feedback
 - Links Versus Forms
-- Feedback
 - Material Dishonesty
 - AJAX
 - ARIA Landmarks
@@ -24,17 +23,17 @@ On the web, a search can yield thousands, or even millions of results depending 
 
 > Think of a cookbook: authors have to organize the recipes in one way only - by course or by main ingredient - and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method, for example].
 
-While filters often look similar on many sites, their behaviours vary widely. What interface components should be used, when to apply the filtering, how to inform users of the updated results: it all needs consideration.
+While filters often look similar on many sites, their behaviours vary widely. When to apply the filtering, what interface components should be used, how to inform users of the updated results: it all needs consideration.
 
 ## When To Apply Filters
 
 There are two ways to let users filter: selecting multiple filters at once (batch filters), or just one at a time (interactive filters).
 
-Think about how you might order your lunch at a restaurant. Say you want to order 2 dishes, but as soon as you say the first one, the waiter walks away to tell the chef to start cooking the dish (interactive). Fortunately, waiters don't do this: they give you time to give the entire order before walking away, even though it might slightly delay the delivery of the first dish.
+Think about how you might order at a restaurant. Say you want to order 2 dishes, but as soon as you say the first one, the waiter walks away to tell the chef to start cooking the dish (interactive). Fortunately, waiters don't do this: they give you time to give the entire order before walking away (batch filtering), even though it might slightly delay the delivery of the first dish.
 
 On the other hand, a waiter might first take your drinks order, to give you more time to decide on the mains. A good waiter knows to adapt to the needs of the customer.
 
-Both batch filters and interactive filters have pros and cons. And the type of filter you decide to use should be based on the type of data you're dealing with, the user needs, speed of the site and as we'll find out, the size of the screen. It also impacts the way the interface is designed.
+Both batch filters and interactive filters have pros and cons. And which you choose should be based on the data being presented, the user needs, speed of the site and as we'll find out, the size of the screen.
 
 ### Interactive Filters
 
@@ -44,15 +43,7 @@ For example, once they choose “starters”, new filters such as Cold and Hot w
 
 The disadvantage is that each time a filter is clicked, a request has to be made and the page has to be refreshed. Also, keyboard users will have to tab back to the filter section. If the user is likely to need many filters, this merry-go-round isn't ideal.
 
-However, with that said, generally speaking, the page refresh isn't a problem if you employ light-weight, well-optimised, single-focused pages. And we can help keyboard users get back to the filter by using a landmark.
-
-#### Using Links
-
-Do I discuss links here?
-
-#### ARIA Landmarks
-
-Stuff here about ARIA landmarks (check previous chapters)
+However, with that said, generally speaking, the page refresh isn't a problem if you employ light-weight, well-optimised, single-focused pages. And we can help keyboard users get back to the filter by using a landmark and AJAX, both of which we'll discuss later.
 
 ### Batch Filters
 

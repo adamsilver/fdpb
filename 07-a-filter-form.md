@@ -4,7 +4,6 @@
 - When To Apply Filters
 	- Interactive Filters
 	- Batch Filters
-- Feedback
 - Links Versus Forms
 - Material Dishonesty
 - AJAX
@@ -49,39 +48,19 @@ However, with that said, generally speaking, the page refresh isn't a problem if
 
 Users who already know what they're looking for will benefit from batch filtering. For example, say they want a black, slimline wallet. Once they get to the wallets category they'll filter based on colour and size.
 
-The downside is that there's a risk that the combination of filters could lead to zero-results — something that interactive filters don't suffer from. 
+The downside is that there's a risk that the combination of filters could lead to zero-results — something that interactive filters don't suffer from. The other problem is that users don't necessarily expect to have to submit their choices (they expect things to update automatically), which is something we'll discuss later.
 
 The advantage of this approach is that it's faster, as users make just one request before seeing the results.
 
-## Links Versus Forms
+## Material Dishonesty
 
-![Link filter](./images/07/link-filter.png)
+When using interactive filters, you should use links because they model this design. That is, when you click a link, it makes a request for that link's `href`.
 
-Links let users filter a list of a results via the querystring. The querystring is the part of the URL that starts with a question mark:
+![Interactive filters using links]()
 
-```HTML
-<a href="/filter/?make=honda">Honda (12,221)</a>
-```
+When using batch filtering, you'll need to use radio buttons and checkboxes because this way, users can select several options before submitting them together.
 
-When the link is clicked, it makes a GET request. When the querystring is present, the server can use the values “make” and “honda” to determine which cars (in this case) should be shown to the user.
-
-While links are not forms, they can be used in place of them in situations where the data on the server isn't being modified and the values being sent to the server aren't being typed. In this case, the server just needs to know what data to present. Here's a form that makes the same request as the link above:
-
-```HTML
-<form method="get" action="/filter/">
-	<input type="radio" name="make" value="honda" checked>
-</form>
-```
-
-The radio button's `name` and `value` attributes combine to create a request that matches the link's `href` attribute. That is, they make the exact same GET request and the server sees this as the same thing.
-
-Each time a user chooses a filter, such as Honda, it will be added to the currently applied filters. But that's not all, the remaining filters will only be included if they match “Honda”. For example, if there are only green and white hondas available, then you won't see red or blue filters under “Colour”.
-
-![Filter flow](./images/07/link-filter-flow.png)
-
-![Checkbox filter](./images/07/checkbox-filter.png)
-
-## Material (Dis)honesty (Again)
+![Batch filters using form controls]()
 
 We already discussed material honesty earlier in the book. That's because dishonest interfaces are prevalent on the web. In short, one material shouldn't be used as a substitute for another because in that case the end result is deceptive.
 
@@ -100,6 +79,8 @@ Similarly, checkboxes and radio buttons are made to behave more like links. With
 Breaking widely understood conventions that relate to links and form controls can seriously harm the resulting experience. By keeping to conventions, users who encounter these components both visually and audibly, don't have to think.
 
 ## Using AJAX
+
+TODO: making a form submit as soon as a filter is selected, defeats batch filtering.
 
 Earlier we discussed the pros and cons of using links and form controls. Using links, may cause users to endure many page refreshes. And using form controls, may increase the chance of users seeing no results.
 
@@ -123,17 +104,17 @@ All that said, we can only be sure of what's best if we research with a diverse 
 
 ## An Adaptive Approach
 
-In chapter 5, “An Inbox”, we discussed the differences between responsive design and adaptive design. In short, a responsive approach is normally preferred because not only is it less work, but it's more robust and performant for users.
+In chapter 5, “An Inbox”, we discussed the differences between responsive design and adaptive design. In short, a responsive approach is preferred because not only is it less work, but it's more robust and performant for users.
 
-Mobile first, to me at least, just means small screen first. Which really means essential first, which to me just really really means essential only. The essential components here are the results panel and the filter widget.
+Mobile first, to me at least, just means small screen first. Which really means essential first, which to me just really really means essential only. The essential components here are the results and the filter.
 
 Normally speaking, if you cut out the superfluous content and lay out what remains in a small viewport, the experience works well. Of course, this scales up nicely to large viewports too: an increase in font-size and whitespace is usually enough.
 
-But because the filter widget is important, it needs to be almost as prominent as the results. On large viewports this is easy: you just lay them out side by side. But on small viewports, you'd have to place the results underneath the filter which pushes the main content down.
+But because the filter component is important, it needs to be almost as prominent as the results. On large viewports this is easy: you just lay them out side by side. But on small viewports, you'd have to place the results underneath the filter which pushes the main content down.
 
 If the filter is placed after the results, then users would have to scroll past the results just to discover it. Many users would miss it.
 
-We could collapse the filter widget above the results. This way the filters are discoverable without pushing the main content too far down. While this is a responsive approach, it's not the whole story.
+We could collapse the filters and put it above the results. This way the filters are discoverable without pushing the main content too far down. While this is a responsive approach, it's not the end of the story.
 
 I interviewed David House, a former designer at Gumtree where filters are a major part of the experience. As such, he and his team conducted extensive user research around their search results page. Here's what David had to say:
 
@@ -151,15 +132,9 @@ I asked Dave if he would use the same approach in future.
 
 > Not necessarily. I wouldn't start with this approach. If a site doesn't have a lot of ads [like Gumtree does], we'd probably have better luck drawing attention to the submit button.
 
-===
+TODO: That is the main reason for which, on mobile devices, we recommend batch filtering — page loads are often slow on the go, and having to wait for four page loads for a complex query involving four filter values increases interaction cost too much for the user.
 
-That is the main reason for which, on mobile devices, we recommend batch filtering — page loads are often slow on the go, and having to wait for four page loads for a complex query involving four filter values increases interaction cost too much for the user.
-
-===
-
-## TODO: Feedback
-
-Don't automatically move the user to the new results. However, if you have a long list of facets on desktop, and not many results, the user may not realise they need to scroll up to see the results.
+TODO: Don't automatically move the user to the new results. However, if you have a long list of facets on desktop, and not many results, the user may not realise they need to scroll up to see the results.
 
 ## TODO: Filter Overload
 
@@ -169,7 +144,7 @@ If you're not sure which filters to show, perform user research and check your a
 
 ## Summary
 
-This chapter looked at various interaction design details pertaining to responsive search results page. We looked at how design can shape users — so much so — that occasionally we may have to abandon convention and best practice. To that end, we looked at how adapative design may be better for users.
+This chapter looked at various interaction design details pertaining to responsive search results page. We looked at how design can shape users — so much so — that occasionally we may have to abandon convention and best practice. To that end, we looked at how adaptive design may be better for users.
 
 ### Things To Avoid
 
@@ -196,3 +171,33 @@ TBD
 TODO: Speed: how fast you can produce the results. If you expect the queries to be instantaneous then interactive filtering will be less offensive even to users in search mode. If your site can be slow, then batch filtering saves wait time.
 
 TODO: talk about the fact that some categories may make better sense if you can only select one. In this case you'd use a radio button of course. The advantage over links is that checkboxes and radio buttons have perceived affordance. If some links were used for AND and some for OR that would be confusing and leads to materially dishonest interface, something we'll discuss next.
+
+====
+
+Links and forms
+
+![Link filter](./images/07/link-filter.png)
+
+Links let users filter a list of a results via the querystring. The querystring is the part of the URL that starts with a question mark:
+
+```HTML
+<a href="/filter/?make=honda">Honda (12,221)</a>
+```
+
+When the link is clicked, it makes a GET request. When the querystring is present, the server can use the values “make” and “honda” to determine which cars (in this case) should be shown to the user.
+
+While links are not forms, they can be used in place of them in situations where the data on the server isn't being modified and the values being sent to the server aren't being typed. In this case, the server just needs to know what data to present. Here's a form that makes the same request as the link above:
+
+```HTML
+<form method="get" action="/filter/">
+	<input type="radio" name="make" value="honda" checked>
+</form>
+```
+
+The radio button's `name` and `value` attributes combine to create a request that matches the link's `href` attribute. That is, they make the exact same GET request and the server sees this as the same thing.
+
+![Filter flow](./images/07/link-filter-flow.png)
+
+![Checkbox filter](./images/07/checkbox-filter.png)
+
+====

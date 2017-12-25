@@ -1,20 +1,66 @@
 # A Filter Form
 
+- Introduction
+- When To Apply Filters
+	- Interactive Filters
+	- Batch Filters
+- Feedback
+- Links Versus Forms
+- Feedback
+- Material Dishonesty
+- AJAX
+- ARIA Landmarks
+- Adaptive Design
+- Filter Overload
+- Summary
+
 In the introduction to “A Search Form”, you'll recall the type of conversation I used to have with Mum. Sometimes I would ask “Where's my black top?”. But this was so vague that Mum would respond with questions like “Is it a football or tennis top?”. This question is a filter on a large set of results.
 
-On the web, a filter widget, sometimes referred to as facet navigation or guided navigation, lets users refine a large set of search results. Were filters straightforward, I could have folded this pattern into the last one, but there are a number of challenges and concerns to address: the type of element to use; keeping to conventions; potential AJAX enhancements; how to make it work just as well on small screens as it does on large ones. All of these things need to be taken into account.
+On the web, filters, sometimes referred to as facet navigation or guided navigation, let users refine a large set of search results. Were filters straightforward, I could have folded this pattern into the last one, but there are a number of challenges and concerns to address: the type of element to use; keeping to conventions; potential AJAX enhancements; how to make it work just as well on small screens as it does on large ones. All of these things need to be taken into account.
 
-First of all, though, it needs to be said that if you don't need a filter, don't include one. They're only useful if a search returns a large amount of relevant items to wade through. In the case of Google, for example, most people aren't really willing to click through beyond the first or second page.
+First of all, though, it needs to be said that if you don't need a filter, don't include one. They're only useful if searching returns a large amount of relevant items to wade through. In the case of Google, for example, most people aren't willing to click through beyond the first or second page.
 
 On the web, a search can yield thousands, or even millions of results depending on the content available. But, as humans, we can't juggle more than approximately seven things at one time[^1], so being able to narrow them down is crucial. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches each user's own mental model. In “Designing for Faceted Search”[^2], Stephanie Lemieux says:
 
 > Think of a cookbook: authors have to organize the recipes in one way only - by course or by main ingredient - and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method, for example].
 
-While filters often look similar on many sites, their behaviours vary widely. What interface components should be used, when to apply the filtering, how should it work responsively, how to inform users of the updated results: all of this needs to be taken into account.
+While filters often look similar on many sites, their behaviours vary widely. What interface components should be used, when to apply the filtering, how to inform users of the updated results: it all needs consideration.
 
 ## When To Apply Filters
 
-Talk about batch vs immediate filters and how that relates to links, forms and ajax.
+There are two ways to let users filter: selecting multiple filters at once (batch filters), or just one at a time (interactive filters).
+
+Think about how you might order your lunch at a restaurant. Say you want to order 2 dishes, but as soon as you say the first one, the waiter walks away to tell the chef to start cooking the dish (interactive). Fortunately, waiters don't do this: they give you time to give the entire order before walking away, even though it might slightly delay the delivery of the first dish.
+
+On the other hand, a waiter might first take your drinks order, to give you more time to decide on the mains. A good waiter knows to adapt to the needs of the customer.
+
+Both batch filters and interactive filters have pros and cons. And the type of filter you decide to use should be based on the type of data you're dealing with, the user needs, speed of the site and as we'll find out, the size of the screen. It also impacts the way the interface is designed.
+
+### Interactive Filters
+
+If users don't know exactly what they want, then they'll want to know about the options available to them. These users normally benefit from interactive filters: as soon as they choose a filter, the results are displayed with the new applicable filters. 
+
+For example, once they choose “starters”, new filters such as Cold and Hot will be shown. This helps the user avoid seeing zero-search results. 
+
+The disadvantage is that each time a filter is clicked, a request has to be made and the page has to be refreshed. Also, keyboard users will have to tab back to the filter section. If the user is likely to need many filters, this merry-go-round isn't ideal.
+
+However, with that said, generally speaking, the page refresh isn't a problem if you employ light-weight, well-optimised, single-focused pages. And we can help keyboard users get back to the filter by using a landmark.
+
+#### Using Links
+
+Do I discuss links here?
+
+#### ARIA Landmarks
+
+Stuff here about ARIA landmarks (check previous chapters)
+
+### Batch Filters
+
+Users who already know what they're looking for will benefit from batch filtering. For example, say they want a black, slimline wallet. Once they get to the wallets category they'll filter based on colour and size.
+
+The downside is that there's a risk that the combination of filters could lead to zero-results — something that interactive filters don't suffer from. 
+
+The advantage of this approach is that it's faster, as users make just one request before seeing the results.
 
 ## Links Versus Forms
 
@@ -42,23 +88,9 @@ Each time a user chooses a filter, such as Honda, it will be added to the curren
 
 ![Filter flow](./images/07/link-filter-flow.png)
 
-The advantage is that every click is guaranteed to return results because the filters are only shown if there are results that lie behind them (unlike forms which we'll see shortly).
-
-The disadvantage of using links is that each click requires a seperate request and page refresh. In isolation, a page refresh isn't a problem at all. Lightweight, well-optimised, single-focus pages don't cause problems for users at all.
-
-However, if users often need to apply several filters, waiting for several refreshes isn't ideal. And keyboard users will have to tab back to the filter section each time too. We'll discuss AJAX and ARIA landmarks as potential solutions to these problems later.
-
-### Checkboxes And Radio Buttons
-
-Suppose I just want a Honda or Audi, as long as it's a black hatchback. Links don't work as well, because I can only select one model at a time. Using a form with checkboxes, however, lets users choose multiple values within and across categories.
-
 ![Checkbox filter](./images/07/checkbox-filter.png)
 
-The problem with this approach is that, unlike links, letting users choose multiple filters at a time could result on zero results. If, for example, I'm only interested in Red Honda's, there may be none of those available. Of course, there will be a way to remove a filter one at a time at the users discretion, but this doesn't negate the added effort required to see results.
-
-TODO: talk about the fact that some categories may make better sense if you can only select one. In this case you'd use a radio button of course. The advantage over links is that checkboxes and radio buttons have perceived affordance. If some links were used for AND and some for OR that would be confusing and leads to materially dishonest interface, something we'll discuss next.
-
-## Material Honesty (Again)
+## Material (Dis)honesty (Again)
 
 We already discussed material honesty earlier in the book. That's because dishonest interfaces are prevalent on the web. In short, one material shouldn't be used as a substitute for another because in that case the end result is deceptive.
 
@@ -128,7 +160,17 @@ I asked Dave if he would use the same approach in future.
 
 > Not necessarily. I wouldn't start with this approach. If a site doesn't have a lot of ads [like Gumtree does], we'd probably have better luck drawing attention to the submit button.
 
-### Filter Overload
+===
+
+That is the main reason for which, on mobile devices, we recommend batch filtering — page loads are often slow on the go, and having to wait for four page loads for a complex query involving four filter values increases interaction cost too much for the user.
+
+===
+
+## TODO: Feedback
+
+Don't automatically move the user to the new results. However, if you have a long list of facets on desktop, and not many results, the user may not realise they need to scroll up to see the results.
+
+## TODO: Filter Overload
 
 Beware not to go crazy with filters. Overloading users with hundreds of filters makes their job harder, not easier. This is partially because of the paradox of choice which we discussed in “A Login Form”.
 
@@ -155,7 +197,11 @@ TBD
 [^2]: https://articles.uie.com/faceted_search/
 [^3]: https://jakearchibald.com/2016/fun-hacks-faster-content/
 
+====
+
 - stick with food/restaurant analogies throughout and dont use screen shots?
 - https://www.nngroup.com/articles/applying-filters/
 
+TODO: Speed: how fast you can produce the results. If you expect the queries to be instantaneous then interactive filtering will be less offensive even to users in search mode. If your site can be slow, then batch filtering saves wait time.
 
+TODO: talk about the fact that some categories may make better sense if you can only select one. In this case you'd use a radio button of course. The advantage over links is that checkboxes and radio buttons have perceived affordance. If some links were used for AND and some for OR that would be confusing and leads to materially dishonest interface, something we'll discuss next.

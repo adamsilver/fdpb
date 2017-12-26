@@ -1,17 +1,5 @@
 # A Filter Form
 
-- Introduction
-- When To Apply Filters
-	- Interactive Filters
-	- Batch Filters
-- Links Versus Forms
-- Material Dishonesty
-- AJAX
-- ARIA Landmarks
-- Adaptive Design
-- Filter Overload
-- Summary
-
 In the introduction to “A Search Form”, you'll recall the type of conversation I used to have with Mum. Sometimes I would ask “Where's my black top?”. But this was so vague that Mum would respond with questions like “Is it a football or tennis top?”. This question is a filter on a large set of results.
 
 On the web, filters, sometimes referred to as facet navigation or guided navigation, let users refine a large set of search results. Were filters straightforward, I could have folded this pattern into the last one, but there are a number of challenges and concerns to address: the type of element to use; keeping to conventions; potential AJAX enhancements; how to make it work just as well on small screens as it does on large ones. All of these things need to be taken into account.
@@ -20,7 +8,7 @@ First of all, though, it needs to be said that if you don't need a filter, don't
 
 On the web, a search can yield thousands, or even millions of results depending on the content available. But, as humans, we can't juggle more than approximately seven things at one time[^1], so being able to narrow them down is crucial. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches each user's own mental model. In “Designing for Faceted Search”[^2], Stephanie Lemieux says:
 
-> Think of a cookbook: authors have to organize the recipes in one way only - by course or by main ingredient - and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method, for example].
+> Think of a cookbook: authors have to organize the recipes in one way only — by course or by main ingredient — and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method, for example].
 
 While filters often look similar on many sites, their behaviours vary widely. When to apply the filtering, what interface components should be used, how to inform users of the updated results: it all needs consideration.
 
@@ -38,69 +26,81 @@ Both batch filters and interactive filters have pros and cons. And which you cho
 
 If users don't know exactly what they want, then they'll want to know about the options available to them. These users normally benefit from interactive filters: as soon as they choose a filter, the results are displayed with the new applicable filters. 
 
-For example, once they choose “starters”, new filters such as Cold and Hot will be shown. This helps the user avoid seeing zero-search results. 
+For example, once they choose Starters, new filters for temperature such as Cold and Hot will be shown. This helps the user avoid seeing zero-search results.
 
-The disadvantage is that each time a filter is clicked, a request has to be made and the page has to be refreshed. Also, keyboard users will have to tab back to the filter section. If the user is likely to need many filters, this merry-go-round isn't ideal.
+The disadvantage is that each time a filter is clicked, a request has to be made and the page has to be refreshed. Screen reader users will have to tab back to the filter section each time this happens. If the site (or connection speed) is slow, and if the user is likely to need many filters, this merry-go-round isn't ideal.
 
-However, with that said, generally speaking, the page refresh isn't a problem if you employ light-weight, well-optimised, single-focused pages. And we can help keyboard users get back to the filter by using a landmark and AJAX, both of which we'll discuss later.
+As mentioned in chapter 6, “A Search Form”, we could use an ARIA landmark to help screen readers easily jump back to the filter.
+
+An ARIA landmark offers a good solution for screen reader users. As mentioned in the previous chapter, a landmark acts as a special shortcut in most screen readers. If the page was refreshed, users could jump straight back to the filter.
+
+```HTML
+<nav aria-labelledby="filter-heading">
+	<h2 id="filter-heading">Filter</h2>
+	...
+</nav>
+```
+
+Most sites will have *site* navigation that uses the `<nav>` element. We've given the filter navigation a label, which allows users to differentiate between the two. Otherwise they'd just hear “Navigation, Navigation”.
 
 ### Batch Filters
 
-Users who already know what they're looking for will benefit from batch filtering. For example, say they want a black, slimline wallet. Once they get to the wallets category they'll filter based on colour and size.
-
-The downside is that there's a risk that the combination of filters could lead to zero-results — something that interactive filters don't suffer from. The other problem is that users don't necessarily expect to have to submit their choices (they expect things to update automatically), which is something we'll discuss later.
+Users who already know what they're looking for will benefit from batch filtering. For example, say a user wants a black, slimline wallet. Once they arrive at wallets they'll filter based on colour and size.
 
 The advantage of this approach is that it's faster, as users make just one request before seeing the results.
 
+There are two main disadvantages to this approach: first, applying a combination of filters could lead to zero-results. Second, users aren't always aware they need to submit their choices (they expect them to be submitted automatically), which is something we'll discuss shortly.
+
 ## Material Dishonesty
 
-When using interactive filters, you should use links because they model this design. That is, when you click a link, it makes a request for that link's `href`.
-
-![Interactive filters using links]()
-
-When using batch filtering, you'll need to use radio buttons and checkboxes because this way, users can select several options before submitting them together.
-
-![Batch filters using form controls]()
+Interactive filters are implemented with links. This is because if you want the query to be made as soon as the user selects a filter. Using a form with checkboxes would be for batch processing, where users would expect to select many filters before submitting them together.
 
 We already discussed material honesty earlier in the book. That's because dishonest interfaces are prevalent on the web. In short, one material shouldn't be used as a substitute for another because in that case the end result is deceptive.
 
-In the case of filters, links are often styled to look like radio buttons or checkboxes (using CSS background images for example). The problem is that a radio button is not a link. When a link is clicked, it takes the user to that page.
+In the case of filters, links are often styled to look like checkboxes — using CSS background images, for example. The problem is that a checkbox is not a link. When a link is clicked, it takes the user to that page. When a checkbox is clicked, users would expect it to become checked but not to be submitted until submission.
 
-The styling of native checkboxes and radio buttons differs greatly across various operating systems and devices. Therefore, a pseudo, CSS-styled version is always going to look different to the familiar version users are acustomed to on *their* browser. This creates a less familiar interface. But there's more to this than just vaneer.
+The styling of native checkboxes and radio buttons differs greatly across various operating systems and devices[^]. Therefore, a pseudo, CSS-styled version is always going to look different to the expected native version users are accustomed to on their browser.
 
-By convention, a set of radio buttons can be moved through before submitting the choice. That's just how forms work. It would be confusing if clicking - what looks like - a radio button, suddenly appeared to submit the form automatically (because it's actually a link). That's materially dishonest and therefore deceptive.
+> ‘Use checkboxes and radio buttons only to change settings, not as action buttons’ — Jakob Nielsen
+
+By convention, users can select multiple checkboxes before submitting their choices. That's just how they work. It would be confusing if clicking — what looks like — a checkbox, suddenly appeared to submit automatically (because it's actually a link). That's materially dishonest and therefore deceptive. 
 
 ![Ebay links with checkboxes](./images/links-as-checkboxes.png)
 
-> ‘Use checkboxes and radio buttons only to change settings, not as action buttons’ - Jakob Nielsen
+Similarly, with Javascript, selecting a radio button can be made to submit the form automatically (mimicking the behaviour of a link). This is particularly problematic for keyboard users, because they'll struggle to move through the options: pressing the down arrow to focus the second radio button, for example, also selects it.
 
-Similarly, checkboxes and radio buttons are made to behave more like links. With a little Javascript, clicking a radio button can be made to submit the form automatically. This is particularly problematic for keyboard and screen reader users, because they'll struggle to move through the options. This would also remove the ability to select multiple options at the same time.
-
-Breaking widely understood conventions that relate to links and form controls can seriously harm the resulting experience. By keeping to conventions, users who encounter these components both visually and audibly, don't have to think.
+If it wasn't already obvious, breaking widely understood conventions can seriously harm the user experience.
 
 ## Using AJAX
 
-TODO: making a form submit as soon as a filter is selected, defeats batch filtering.
+Filters are often designed to use AJAX which has several pros and cons depending on the circumstance. Let's step through all the considerations now.
 
-Earlier we discussed the pros and cons of using links and form controls. Using links, may cause users to endure many page refreshes. And using form controls, may increase the chance of users seeing no results.
+### To Keep Focus Still
 
-For keyboard and screen reader users, having a page refresh means having to wade through all the page information again, such as header and navigation before getting back to the filter or the results, although they can skip that easily if landmarks are employed.
+- As mentioned earlier, if users are filtering a lot, having the page refresh and move focus to the top of page is frustrating. A landmark goes someway to mitigate this problem as screen reader users can jump straight back to the filter. 
+- But AJAX could also be used to solve this problem. Clicking an interactive (link) filter, could make an AJAX request. When it finishes, the results are updated and focus remains on the link.
 
-In any case, AJAX can be used to avoid this problem. For example, clicking a radio button could instantly submit the form with AJAX. When the request finishes, the page is updated and the focus remains unaffected. This also reduces the chance of seeing no results because as soon as the user selects a filter, the interface updates.
+### Users Don't Realise They Need To Submit
 
-As many applications have materially dishonest filters, some users have acclimatised to this change in convention (that clicking a checkbox, for example, submits the form). Users may not realise they have to submit their choices. AJAX may help because it removes the need for the submit button.
+- As many applications have materially dishonest filters, some users have acclimatised to this change in convention (that clicking a checkbox, for example, submits the form). Users may not realise they have to submit their choices. AJAX may help because it removes the need for the submit button.
+- You could use AJAX in a batch filter that's formed of checkboxes. Clicking a checkbox, could fire off a request, but this would be problematic for several reasons.
+- You've converted a batch filter into an interactive filter which defeats its advantages.
+- You've taken control away from user: You'd be forgiven then, for thinking this is a must-have, totally-beneficial enhancement. Unfortunately, submitting automatically goes against principle 4, to *give users control*. By removing the explicit act of submission, it's possible that triggering multiple AJAX requests will cause an unexpected and confusing experience.
+- Keyboard users who are operating the filter must use their arrow keys to move through each radio button. Not only does this set focus to the radio button, but it selects it too. Selecting the fourth radio button will inadvertently create four AJAX requests unknowingly. This adds increased load on the server, but more importantly, it will eat users' data allowance and cause battery drain on their device.
 
-You'd be forgiven then, for thinking this is a must-have, totally-beneficial enhancement. Unfortunately, submitting automatically goes against principle 4, to *give users control*. By removing the explicit act of submission, it's possible that triggering multiple AJAX requests will cause an unexpected and confusing experience.
+### AJAX Isn't Necessarily Faster Or Better
 
-Additionally, keyboard users who are operating the filter must use their arrow keys to move through each radio button. Not only does this set focus to the radio button, but it selects it too. Selecting the fourth radio button will inadvertently create four AJAX requests unknowingly. This adds increased load on the server, but more importantly, it will eat users' data allowance and cause battery drain on their device.
+- Screen reader feedback: using AJAX requires a certain number of provisions such as a live region (extensively covered in chapters 1, 2, 3 and 5) to indicate loading states. When the user selects an option, the live region would have to be populated with ‘Loading results, please wait’, for example. Then when the request finishes, it would have to be populated with ‘212 results returned’. Having to hear this four times would be like listening to an overzealous disc jockey — headache inducing.
+- Not faster: Despite what you may have heard, AJAX isn't necessarily better or faster than a standard page refresh[^3]. First, it requires more Javascript code to be sent initially. Second, and more importantly, it engineers away progressive rendering (also called chunking)
+- removes loading states, both of which the browser provides for free.
+- Back button:  https://baymard.com/blog/macys-filtering-experience
+- AJAX is more suited and beneficial when making updates to small parts of the page. Filters involve updating the majority of the page, making AJAX somewhat counterproductive.
+- All that said, we can only be sure of what's best if we perform research with a diverse group of people, devices and connection speeds.
+- With that said, the page refresh isn't a problem if you employ light-weight, well-optimised, single-focused pages.
 
-That's not all. Using AJAX requires a certain number of provisions such as a live region (extensively covered in chapters 1, 2, 3 and 5) to indicate loading states. When the user selects an option, the live region would have to be populated with ‘Loading results, please wait’, for example. Then when the request finishes, it would have to be populated with ‘212 results returned’. Having to hear this four times would be like listening to an overzealous disc jockey - headache inducing.
+## Applied Filters
 
-Despite what you may have heard, AJAX isn't necessarily better or faster than a standard page refresh[^3]. First, it requires more Javascript code to be sent initially. Second, and more importantly, it engineers away progressive rendering (also called chunking) and removes loading states, both of which the browser provides for free.
-
-AJAX is more suited and beneficial when making updates to small parts of the page. Filters involve updating the majority of the page, making AJAX somewhat counterproductive.
-
-All that said, we can only be sure of what's best if we research with a diverse set of users using a diverse set of devices.
+https://baymard.com/blog/how-to-design-applied-filters
 
 ## An Adaptive Approach
 
@@ -142,6 +142,12 @@ Beware not to go crazy with filters. Overloading users with hundreds of filters 
 
 If you're not sure which filters to show, perform user research and check your analytics. Extract the most popularly used filters and include just those — in order too. Then you can either remove the others or reveal them as they become relevant as the user drills down.
 
+Order of filters: most used.
+
+If long list of filters within category, collapse the least common after 7/10
+
+TODO: illustrations for this
+
 ## Summary
 
 This chapter looked at various interaction design details pertaining to responsive search results page. We looked at how design can shape users — so much so — that occasionally we may have to abandon convention and best practice. To that end, we looked at how adaptive design may be better for users.
@@ -165,39 +171,6 @@ TBD
 
 ====
 
-- stick with food/restaurant analogies throughout and dont use screen shots?
-- https://www.nngroup.com/articles/applying-filters/
-
 TODO: Speed: how fast you can produce the results. If you expect the queries to be instantaneous then interactive filtering will be less offensive even to users in search mode. If your site can be slow, then batch filtering saves wait time.
 
-TODO: talk about the fact that some categories may make better sense if you can only select one. In this case you'd use a radio button of course. The advantage over links is that checkboxes and radio buttons have perceived affordance. If some links were used for AND and some for OR that would be confusing and leads to materially dishonest interface, something we'll discuss next.
-
-====
-
-Links and forms
-
-![Link filter](./images/07/link-filter.png)
-
-Links let users filter a list of a results via the querystring. The querystring is the part of the URL that starts with a question mark:
-
-```HTML
-<a href="/filter/?make=honda">Honda (12,221)</a>
-```
-
-When the link is clicked, it makes a GET request. When the querystring is present, the server can use the values “make” and “honda” to determine which cars (in this case) should be shown to the user.
-
-While links are not forms, they can be used in place of them in situations where the data on the server isn't being modified and the values being sent to the server aren't being typed. In this case, the server just needs to know what data to present. Here's a form that makes the same request as the link above:
-
-```HTML
-<form method="get" action="/filter/">
-	<input type="radio" name="make" value="honda" checked>
-</form>
-```
-
-The radio button's `name` and `value` attributes combine to create a request that matches the link's `href` attribute. That is, they make the exact same GET request and the server sees this as the same thing.
-
-![Filter flow](./images/07/link-filter-flow.png)
-
-![Checkbox filter](./images/07/checkbox-filter.png)
-
-====
+TODO: Inferring speed from width

@@ -91,6 +91,7 @@ Filters are often designed to use AJAX which has several pros and cons depending
 ### AJAX Isn't Necessarily Faster Or Better
 
 - Screen reader feedback: using AJAX requires a certain number of provisions such as a live region (extensively covered in chapters 1, 2, 3 and 5) to indicate loading states. When the user selects an option, the live region would have to be populated with ‘Loading results, please wait’, for example. Then when the request finishes, it would have to be populated with ‘212 results returned’. Having to hear this four times would be like listening to an overzealous disc jockey — headache inducing.
+- Feedback: sighted users (long list on desktop, few results top of screen)
 - Not faster: Despite what you may have heard, AJAX isn't necessarily better or faster than a standard page refresh[^3]. First, it requires more Javascript code to be sent initially. Second, and more importantly, it engineers away progressive rendering (also called chunking)
 - removes loading states, both of which the browser provides for free.
 - Back button:  https://baymard.com/blog/macys-filtering-experience

@@ -138,7 +138,7 @@ In the end, we can only be sure of what's best by conducting user research with 
 
 Having selected one or more filters, they need to be demarcated on the interface. Baymard's usability study shows that there are two approaches that should be used in combination[^combo]:
 
-### Shown In Original Position
+### Original Position
 
 The first approach is to show the selected filters in their original position alongisde the other, unselected filters. This is because some users will remember where the filter was originally when they selected it.
 
@@ -146,13 +146,39 @@ The first approach is to show the selected filters in their original position al
 
 Having it disappear (or moved somewhere) is frustrating. It also gives users context as to what's selected within the category that the user is currently perusing. That is, it might impact their next action.
 
-### Shown In A Separate List At The Top
+### Separate List
 
 The second approach is to group all the selected filters in a list at the top.
 
 ![Illustrate](.)
 
 This is useful because it gives users confirmation of their selection providing context to the results that are currently being viewed. But it also easy access to remove any applied filters, without having to scroll down the page to find the selected filter amongsts a long list.
+
+## The Small Screen Experience
+
+In chapter 5, “An Inbox”, we discussed the differences between responsive design and adaptive design. In short, a responsive approach is preferred because not only is it less work, but it's more robust and performant for users.
+
+Mobile first, to me at least, just means small screen first. Which really means essential first, which really really means essential only.
+
+Normally speaking, if you cut out the superfluous content and lay out what remains in a small viewport, the experience works well. Of course, this scales up nicely to large viewports too: an increase in font-size and whitespace is usually enough.
+
+In this case, the essential components are both the results and the filter itself. But because both aspects of the interface are important, the filter needs to be almost as prominent as the results.
+
+On large viewports this is easy: you just lay them out side by side. But on small viewports, you'd have to place the results underneath the filter which pushes the main content down. Alternatively, you could place the filter after the results, but then users would have to scroll (or tab) past the results to discover it — many would miss it.
+
+What we're left with is having to collapse the filters behind a toggle button. As long as the button is relatively prominent (and well labelled), it should still be discoverable without pushing the results too far down the page.
+
+This is a good start, but it's not necessarily the end of the story. As noted earlier, Gumtree's user research showed that users expect the form to be submitted as soon as they select a filter. 
+
+However, their research also showed that on mobile, AJAX wasn't desirable because users couldn't see the results refresh. Here's what David House had to say:
+
+> On mobile, AJAX wasn't desirable because users couldn't see any visible refresh. We didn't want to move focus to the results because users wanted to pick more than one filter. We reluctantly had to use an adaptive approach. On mobile, clicking the filter menu button would reveal a batch filtering system that worked without AJAX. On Desktop, users got an AJAX experience where filters were immediately applied.
+
+Because the mobile and desktop users required different experiences, Gumtree reluctantly used an adaptive approach, but there might be a better, more responsive technique.
+
+### Tray Design
+
+TODO: https://www.nngroup.com/articles/mobile-faceted-search/
 
 ## Filter Overload
 
@@ -174,7 +200,9 @@ This also helps keyboard users, because they don't have to tab through all the f
 
 ### Collapsing Categories
 
-As we've done throughout the book, it helps to consider what our component would be in the absence of Javascript enhancement. In this case, standard form fields.
+As we've done throughout the book, it helps to consider what our component would be in the absence of Javascript enhancement. If we're giving users a batch filter, then it will be made out of standard form fields; otherwise it will be an interactive filter made out of links.
+
+:::Decide to continue with links due to users expecting this
 
 ```HTML
 <div class="field">
@@ -238,28 +266,6 @@ The `aria-hidden="true"` attribute hides the icon screen readers — the button'
 
 TODO: This
 
-## Designing For Small Screens
-
-In chapter 5, “An Inbox”, we discussed the differences between responsive design and adaptive design. In short, a responsive approach is preferred because not only is it less work, but it's more robust and performant for users.
-
-Mobile first, to me at least, just means small screen first. Which really means essential first, which to me just really really means essential only. The essential components here are the results and the filter.
-
-Normally speaking, if you cut out the superfluous content and lay out what remains in a small viewport, the experience works well. Of course, this scales up nicely to large viewports too: an increase in font-size and whitespace is usually enough.
-
-But because the filter component is important, it needs to be almost as prominent as the results. On large viewports this is easy: you just lay them out side by side. But on small viewports, you'd have to place the results underneath the filter which pushes the main content down.
-
-If the filter is placed after the results, then users would have to scroll past the results just to discover it. Many users would miss it.
-
-We could collapse the filters and put it above the results. This way the filters are discoverable without pushing the main content too far down. While this is a responsive approach, it's not the end of the story. 
-
-As noted earlier, some users might expect the form to be submitted as soon as a filter is selected. But Gumtree's research also showed that AJAX wasn't desirable on mobile, because as the screen is small, users couldn't see any visible refresh. Here's what David House had to say on this matter:
-
-> On mobile, AJAX wasn't desirable because users couldn't see any visible refresh. We didn't want to move focus to the results, because users wanted to pick more than one filter. We reluctantly had to use an adaptive approach. On mobile, clicking the filter menu, would send users down a guided flow without AJAX. On Desktop (when there's enough space to show the filters next to the results), users got an AJAX experience where filters were immediately applied.
-
-Because the mobile and desktop users required different experiences, they reluctantly used an adaptive approach, but there might be a better, more responsive technique.
-
-TODO: Talk about this https://www.nngroup.com/articles/mobile-faceted-search/
-
 ## Summary
 
 This chapter looked at various interaction design details pertaining to responsive search results page. We looked at how design can shape users — so much so — that occasionally we may have to abandon convention and best practice. To that end, we looked at how adaptive design may be better for users.
@@ -286,4 +292,7 @@ TBD
 ## Todo?
 
 - Talk about double scroll bar woes?
+- small screen doesn't mean low bandwidth
 - That is the main reason for which, on mobile devices, we recommend batch filtering — page loads are often slow on the go, and having to wait for four page loads for a complex query involving four filter values increases interaction cost too much for the user.
+- Using radio buttons when only one should be selected
+- “Refine” vs “Filter”

@@ -96,7 +96,7 @@ While an ARIA landmark goes someway to mitigate this problem for screen reader u
 
 The other reason to use AJAX is that materially dishonest interfaces (see above) seem to have shifted users' understanding of how checkboxes work. Some users have actually come to expect that clicking a checkbox, will immediately update the results.
 
-I interviewed David House, a former designer at Gumtree where filters are used extensively. As such, he and his team conducted many usability studies on their search results page. Here's what David had to say:
+I interviewed David House, a former designer at Gumtree where filters are used extensively. As such, he and his team conducted many usability studies on their search results page. While they didn't want to break away from convention, they ended up having to. Here's what David had to say:
 
 > “On desktop, Gumtree users expected AJAX. Filters were selected but not submitted. They didn't realise they had to submit their choices. We got a lot of feedback saying “Your filters are broken.” We tried moving the apply button to the top (and the bottom) along with making it sticky; loads of things that didn't really make a difference.”
 
@@ -238,14 +238,7 @@ The `aria-hidden="true"` attribute hides the icon screen readers — the button'
 
 TODO: This
 
-
-
-
------
-
-## You Might Need An Adaptive Approach (or THERES NO ROOM ON MOBILE)
-
-READ: NN BOOKMARK ABOUT MOBILE
+## Designing For Small Screens
 
 In chapter 5, “An Inbox”, we discussed the differences between responsive design and adaptive design. In short, a responsive approach is preferred because not only is it less work, but it's more robust and performant for users.
 
@@ -257,25 +250,15 @@ But because the filter component is important, it needs to be almost as prominen
 
 If the filter is placed after the results, then users would have to scroll past the results just to discover it. Many users would miss it.
 
-We could collapse the filters and put it above the results. This way the filters are discoverable without pushing the main content too far down. While this is a responsive approach, it's not the end of the story.
+We could collapse the filters and put it above the results. This way the filters are discoverable without pushing the main content too far down. While this is a responsive approach, it's not the end of the story. 
 
-I interviewed David House, a former designer at Gumtree where filters are a major part of the experience. As such, he and his team conducted extensive user research around their search results page. Here's what David had to say:
+As noted earlier, some users might expect the form to be submitted as soon as a filter is selected. But Gumtree's research also showed that AJAX wasn't desirable on mobile, because as the screen is small, users couldn't see any visible refresh. Here's what David House had to say on this matter:
 
-> On desktop, Gumtree users expected AJAX. Filters were selected but not submitted. They didn't realise they had to submit their choices. We got a lot of feedback saying “Your filters are broken.” We tried moving the apply button to the top (and the bottom) along with making it sticky; loads of things that didn't really make a difference.
+> On mobile, AJAX wasn't desirable because users couldn't see any visible refresh. We didn't want to move focus to the results, because users wanted to pick more than one filter. We reluctantly had to use an adaptive approach. On mobile, clicking the filter menu, would send users down a guided flow without AJAX. On Desktop (when there's enough space to show the filters next to the results), users got an AJAX experience where filters were immediately applied.
 
-But what about mobile?
+Because the mobile and desktop users required different experiences, they reluctantly used an adaptive approach, but there might be a better, more responsive technique.
 
-> On mobile, AJAX wasn't desirable because users couldn't see any visible refresh. We didn't want to move focus to the results, because users wanted to pick more than one filter. Not to mention that using AJAX is a waste of bandwidth.
-
-That's two opposing problems which are solved with completely different approaches.
-
-> We reluctantly had to use an adaptive approach. On mobile, clicking the filter menu, would send users down a guided flow without AJAX. On Desktop (when there's enough space to show the filters next to the results), users got an AJAX experience where filters were immediately applied.
-
-I asked Dave if he would use the same approach in future.
-
-> Not necessarily. I wouldn't start with this approach. If a site doesn't have a lot of ads [like Gumtree does], we'd probably have better luck drawing attention to the submit button.
-
-TODO: That is the main reason for which, on mobile devices, we recommend batch filtering — page loads are often slow on the go, and having to wait for four page loads for a complex query involving four filter values increases interaction cost too much for the user.
+TODO: Talk about this https://www.nngroup.com/articles/mobile-faceted-search/
 
 ## Summary
 
@@ -303,3 +286,4 @@ TBD
 ## Todo?
 
 - Talk about double scroll bar woes?
+- That is the main reason for which, on mobile devices, we recommend batch filtering — page loads are often slow on the go, and having to wait for four page loads for a complex query involving four filter values increases interaction cost too much for the user.

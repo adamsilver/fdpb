@@ -74,7 +74,7 @@ By convention, users can select multiple checkboxes before submitting the form. 
 
 > ‘Use checkboxes and radio buttons only to change settings, not as action buttons’ — Jakob Nielsen
 
-The styling of native checkboxes (and radio buttons) differs greatly across various operating systems and devices[^gdspost]. Therefore, a pseudo, CSS-styled version is always going to look different to the expected native version users are accustomed to on their browser.
+The styling of native chec	kboxes (and radio buttons) differs greatly across various operating systems and devices[^gdspost]. Therefore, a pseudo, CSS-styled version is always going to look different to the expected native version users are accustomed to on their browser.
 
 ![Native styling differs](.)
 
@@ -86,7 +86,7 @@ Breaking widely understood conventions without a very good reason can seriously 
 
 Filters are often enhanced with AJAX, typically for performance reasons. Most people assume that AJAX is always faster and better, but this isn't always true as we'll see shortly.
 
-Let's discuss the pros and cons ofusing AJAX in the context of filters now.
+Let's discuss the pros and cons of using AJAX in the context of filters now.
 
 ### Pros
 
@@ -98,7 +98,7 @@ The other reason to use AJAX is that materially dishonest interfaces (see above)
 
 I interviewed David House, a former designer at Gumtree where filters are used extensively. As such, he and his team conducted many usability studies on their search results page. While they didn't want to break away from convention, they ended up having to. Here's what David had to say:
 
-> “On desktop, Gumtree users expected AJAX. Filters were selected but not submitted. They didn't realise they had to submit their choices. We got a lot of feedback saying “Your filters are broken.” We tried moving the apply button to the top (and the bottom) along with making it sticky; loads of things that didn't really make a difference.”
+> “On desktop, Gumtree users expected AJAX. Filters were selected but not submitted. Users didn't realise they had to submit their choices. We got a lot of feedback saying “Your filters are broken.” We tried moving the apply button to the top (and the bottom) along with making it sticky; loads of things that didn't really make a difference.”
 
 Whether this is solely down to designing dishonest interfaces in the first place is hard to tell. David thinks that if there weren't so many adverts on Gumtree, they'd probably have better luck drawing attention to the submit button.
 
@@ -107,6 +107,8 @@ But you should be aware of this potential issue and conduct your own research. I
 ### Cons
 
 First, making an AJAX request when the checkbox is clicked, inadvertently converts the batch filter into an interactive filter. That is, selecting 4 filters, for example, will make 4 AJAX requests which will eat into users' data allowances and cause battery drain on device.
+
+[Think about saying “you may as well have used an interactive filter out of links in the first place”]
 
 Second, if the user is selecting a filter down the page, but there is only a few results, once they load, the user won't see them appear.
 
@@ -296,3 +298,4 @@ TBD
 - That is the main reason for which, on mobile devices, we recommend batch filtering — page loads are often slow on the go, and having to wait for four page loads for a complex query involving four filter values increases interaction cost too much for the user.
 - Using radio buttons when only one should be selected
 - “Refine” vs “Filter”
+- if using links, then hard to tell when users can select multiple (colours) or single (average rating).

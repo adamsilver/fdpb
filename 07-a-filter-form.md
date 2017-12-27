@@ -76,7 +76,7 @@ By convention, users can select multiple checkboxes before submitting the form. 
 
 The styling of native checkboxes (and radio buttons) differs greatly across various operating systems and devices[^gdspost]. Therefore, a pseudo, CSS-styled version is always going to look different to the expected native version users are accustomed to on their browser.
 
-![Native styling differs]()
+![Native styling differs](.)
 
 This also occurs the other way around. By using Javascript, radio buttons can be designed to submit the form automatically on click. This mimicks the behaviour of link, which is particularly problematic for keyboard users, because the act of focusing a radio button by pressing <kbd>Down</kbd>, also selects it.
 
@@ -156,15 +156,65 @@ This is useful because it gives users confirmation of their selection providing 
 
 ## Filter Overload
 
-Depending on the type of data you're dealing with, you could have many different filter categories and many options within those categories. Overloading users with choices can make their job harder if we're not careful. This is otherwise known as the paradox of choice, something we discussed in chapter 4, “A Login Form”.
+If your site needs to have many categories and many options within those categories, we need to take action to ensure users aren't overloaded with too much choice. This is otherwise known as the paradox of choice, which we discussed in chapter 4, “A Login Form”.
 
-There are two techniques we can employ to reduce filter overload:
+To mitigate this problem we can help users in three ways:
 
-First, we should order the filters based on the most useful and most used category. You can use analytics to check which ones are most used. And of course, if some filters aren't being used, remove them from the interface.
+1. Don't include options that aren't used. 
+2. Place the most commonly used categories first.
+3. Collapse categories
 
-Second, we can collapse the least used categories. And we can also collapse options within a category.
+(1) and (2) can be achieved by common sense and user research. It's (3) that we'll focus on from here.
 
-![Illustrate collapsing](.)
+By collapsing categories, users don't have to scroll nearly as much, but they still get a taster of the categories at their disposal.
+
+![Illustration](.)
+
+This also helps keyboard users, because they don't have to tab through all the filters to get to the ones that most interest them. This is because hidden content isn't focusable.
+
+### Collapsing Categories
+
+As we've done throughout the book, it helps to consider what our component would be in the absence of Javascript enhancement. In this case, standard form fields.
+
+```HTML
+<div class="field">
+	<fieldset>
+		<legend>Size</legend>
+		<div class="field-checkbox">
+			<label for="size">
+        <input type="checkbox" name="size" value="small" id="size">
+        Small
+      </label>
+		</div>
+		<!-- More checkboxes -->
+	</fieldset>
+</div>
+```
+
+#### The Enhanced Mark-up
+
+We can't just attach a click handler to the `<legend>` which is the group's label, because legends are not focusable elements nor do users expect that they can be interacted with. Instead we need to inject a button:
+
+```HTML
+ Put button in fieldset
+ Wrap a div around checkboxes
+```
+
+*(Note: the checkboxes are wrapped in a `<div>`, in preparation for showing and hiding it using the script to follow.)*
+
+> The button is a child of the legend. This means that, when a screen reader user focuses the <button>, the button itself is identified but also the presence of its parent: "My section, button, heading level 2" (or similar, depending on the screen reader).	
+
+> Had we instead converted the heading into a button using ARIA's role="button" we would be overriding the heading semantics. Screen reader users would lose the heading as a structural and navigational cue.
+
+> In addition, we would have to custom code all of the browser behaviors <button> gives us for free, such as focus (see tabindex in the example below) and key bindings to actually activate our custom control.
+
+#### Styling The Button
+
+Pick stuff from heydon's article that's most relevant here.
+
+#### Writing The Script
+
+Put stuff here
 
 ## You Might Need An Adaptive Approach (or THERES NO ROOM ON MOBILE)
 
@@ -222,3 +272,7 @@ TBD
 [^3]: https://jakearchibald.com/2016/fun-hacks-faster-content/
 [^backbutton]: https://baymard.com/blog/macys-filtering-experience
 [^combo]: https://baymard.com/blog/how-to-design-applied-filters
+
+## Todo?
+
+- Talk about double scroll bar woes?

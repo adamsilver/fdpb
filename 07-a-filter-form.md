@@ -180,41 +180,68 @@ As we've done throughout the book, it helps to consider what our component would
 <div class="field">
 	<fieldset>
 		<legend>Size</legend>
-		<div class="field-checkbox">
-			<label for="size">
-        <input type="checkbox" name="size" value="small" id="size">
-        Small
-      </label>
+		<div class="field-options">
+			<!-- Checkboxes -->
 		</div>
-		<!-- More checkboxes -->
 	</fieldset>
 </div>
 ```
 
 #### The Enhanced Mark-up
 
-We can't just attach a click handler to the `<legend>` which is the group's label, because legends are not focusable elements nor do users expect that they can be interacted with. Instead we need to inject a button:
+We can't just attach a click handler to the `<legend>`, because legend elements aren't focusable nor do users expect that they can be interacted with. Instead we should inject a button.
 
 ```HTML
- Put button in fieldset
- Wrap a div around checkboxes
+<div class="field">
+	<fieldset>
+		<legend><button type="button" aria-expanded="false">Size</button></legend>
+		<div class="field-options hidden">
+			<!-- Checkboxes -->
+		</div>
+	</fieldset>
+</div>
 ```
 
-*(Note: the checkboxes are wrapped in a `<div>`, in preparation for showing and hiding it using the script to follow.)*
+The button has a `type="button"` attribute which stops it from submitting the form.
 
-> The button is a child of the legend. This means that, when a screen reader user focuses the <button>, the button itself is identified but also the presence of its parent: "My section, button, heading level 2" (or similar, depending on the screen reader).	
+#### State
 
-> Had we instead converted the heading into a button using ARIA's role="button" we would be overriding the heading semantics. Screen reader users would lose the heading as a structural and navigational cue.
+The component has two possible states: collapsed or expanded, which needs to be communicated both visually and non-visually. To do this, we've used the `aria-expanded` attribute (initially set to `false`). 
 
-> In addition, we would have to custom code all of the browser behaviors <button> gives us for free, such as focus (see tabindex in the example below) and key bindings to actually activate our custom control.
+In screen readers, it will be announced as “size, collapsed, button” (or similar, depending on the screen reader). And, the checkboxes are hidden thanks to the `hidden` class, which was first explained in chapter 1, “A Registration Form”.
 
-#### Styling The Button
+We can also use this attribute to communicate the state visually. We don't want to just replace the `<legend>` with a button element because it's not an adequate replacement. That is, the legend needs to still look like a legend as that's what it is. 
 
-Pick stuff from heydon's article that's most relevant here.
+By the same token, we need to design the interface so that users know that the legend can be clicked in order to expand (and later collapse) the now hidden options. The best way to signify this with the conventional plus (can be expanded) and minus (can be collapsed) symbols, though you might prefer up and down triangles.
 
-#### Writing The Script
+Either way, we can use an SVG icon inside the button:
 
-Put stuff here
+```HTML
+<button aria-expanded="false">  
+  Size
+  <svg viewBox="0 0 10 10" aria-hidden="true" focusable="false">
+    <rect class="vert" height="8" width="2" y="1" x="4" />
+    <rect height="2" width="8" y="4" x="1" />
+  </svg>
+</button>  
+```
+
+The `aria-hidden="true"` attribute hides the icon screen readers — the button's text is enough. The `focusable="false"` attribute fixes the issue that in Internet Explorer SVG elements are focusable. And, the `class="vert"` attribute on the vertical line allows us to show and hide it based on the state using CSS:
+
+```CSS
+[aria-expanded="true"] .vert {
+  display: none;
+}
+```
+
+#### Script
+
+TODO: This
+
+
+
+
+-----
 
 ## You Might Need An Adaptive Approach (or THERES NO ROOM ON MOBILE)
 

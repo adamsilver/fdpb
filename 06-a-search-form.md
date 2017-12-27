@@ -42,9 +42,15 @@ The search form is simple enough and contains just three elements: the label, se
 </div>
 ```
 
-The search form's container has a `role="search"` attribute. This role is a landmark role, so it's navigable by shortcuts and aggregated landmark lists in most screen readers. The extra `div` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^adrian].
+### The Search Landmark Role
 
-Normally, search is placed within the header, which like navigation, makes it easily discoverable and quick to access. In fact, putting such an integral feature somewhere else on the interface would be counterintuitive.
+Discrete parts of a web page are often referred to as blocks, modules and components. ARIA offers a number of landmark roles which define semantics and behaviours in assitive technologies.
+
+For the purposes of inclusion, our search component has a search landmark role: `role="search"`. This means, this component will be listed as a shortcut with other landmarks in most screen readers.
+
+The extra `div` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^adrian].
+
+Normally, search is placed within the header which, like navigation, makes it easily discoverable and quick to access. In fact, putting such an integral feature somewhere else on the interface would be counterintuitive.
 
 ## There's No Room
 

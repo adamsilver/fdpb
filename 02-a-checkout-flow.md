@@ -447,7 +447,7 @@ The telephone input (`<input type="tel">`) is sometimes used as a makeshift numb
 
 Apart from the semantic incorrectness I've not come across practical reasons not to use it. However, ignoring the standards specification is not recommended because we don't know how browsers and devices, now and in the future, will handle it.
 
-For example, perhaps a browsers autocomplete routine will try and fill in the user's telephone number, instead of the credit card number. Or in the future, a device may choose to spawn the user's contact address book from which the user can choose an appropriate number. 
+For example, perhaps a browsers autocomplete routine will try and fill in the user's telephone number, instead of the credit card number. Or in the future, a device may choose to spawn the user's contact address book from which the user can choose an appropriate number.
 
 Both of these features would be suited to a legitimate telephone field, but not for anything else that happens to consist of numbers. Updating your implementation in response to a new browser being realised or reported, is not an ideal strategy.
 

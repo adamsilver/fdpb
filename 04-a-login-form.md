@@ -72,12 +72,6 @@ Instead, put each form on a separate page and let users switch between them by g
 
 ![Link](./images/04/link.png)
 
-### A Note About The ARIA Tab Roles
-
-Sometimes a two-tab interface is used so that users can easily switch between the login and register forms. Often, each tab loads a new page, which means the ARIA tab interface semantics and behaviours[^heydontabs] aren't appropriate. As the tab behaves like a regular link, it should have standard link semantics and behaviour.
-
-![Tabs](./images/04/tabs.png)
-
 ## Social Login
 
 Up until recently, most sites only offered people the standard username and password approach to login. However, more sites are offering the ability to sign in with social networks such as Facebook, Twitter and Google. This saves users having to type their credentials which they may not remember.

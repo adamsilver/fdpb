@@ -74,7 +74,7 @@ By convention, users can select multiple checkboxes before submitting the form. 
 
 > ‘Use checkboxes and radio buttons only to change settings, not as action buttons’ — Jakob Nielsen
 
-The styling of native chec	kboxes (and radio buttons) differs greatly across various operating systems and devices[^gdspost]. Therefore, a pseudo, CSS-styled version is always going to look different to the expected native version users are accustomed to on their browser.
+The styling of native checkboxes (and radio buttons) differs greatly across various operating systems and devices[^gdspost]. Therefore, a pseudo, CSS-styled version is always going to look different to the expected native version users are accustomed to on their browser.
 
 ![Native styling differs](.)
 
@@ -124,7 +124,9 @@ Fourth, you need to gives users a way to know that the results are being loaded 
 
 *(Note: we'll look at how to implement an accurate and inclusive AJAX loading indicator in the next chapter.)*
 
-Finally, despite what you may have heard, AJAX isn't necessarily faster. If the site (or connection) is slow AJAX is still subjected to much of the same latency. More crucially it can be even slower than a standard page refresh, mostly because it engineers away progressive rendering (also known as chunking) — something the browser provides for free. 
+Finally, despite what you may have heard, AJAX isn't necessarily faster. If the site (or connection) is slow AJAX is still subjected to much of the same latency. And screen size shouldn't be used to infer fast and slow connections. Most of the time on my phone involves me being connected to WIFI. An inclusive approach is to make the experience fast for all.
+
+More crucially it can be even slower than a standard page refresh, mostly because it engineers away progressive rendering (also known as chunking) — something the browser provides for free. 
 
 In “Fun Hacks For Faster Content”[^], Jake Archibald explains the concept of progressive rendering:
 
@@ -294,7 +296,6 @@ TBD
 ## Todo?
 
 - Talk about double scroll bar woes?
-- small screen doesn't mean low bandwidth
 - That is the main reason for which, on mobile devices, we recommend batch filtering — page loads are often slow on the go, and having to wait for four page loads for a complex query involving four filter values increases interaction cost too much for the user.
 - Using radio buttons when only one should be selected
 - “Refine” vs “Filter”

@@ -44,9 +44,9 @@ The search form is simple enough and contains just three elements: the label, se
 
 ### The Search Landmark Role
 
-Discrete parts of a web page are often referred to as blocks, modules and components. ARIA offers a number of landmark roles which define semantics and behaviours in assitive technologies.
+Discrete parts of a web page are often referred to as sections, modules and components. ARIA offers a number of landmark roles which define semantics and behaviours to make common sections accessible in assitive technologies.
 
-For the purposes of inclusion, our search component has a search landmark role: `role="search"`. This means, this component will be listed as a shortcut with other landmarks in most screen readers.
+For the purposes of inclusion, our search component has a search landmark role: `role="search"`. This means, it will be listed as a shortcut with other landmarks in most screen readers.
 
 The extra `div` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^adrian].
 

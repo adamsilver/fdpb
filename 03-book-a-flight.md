@@ -8,7 +8,7 @@ Booking a flight consists of many discrete steps. The first few steps simply col
 
 First, users have to choose an origin and destination. That is, places to fly from and to. Without this information, the service can't offer any flights. What's the best way of asking users for this information?
 
-As designers, we should try and use the features that are native to the browser. That is because, generally speaking, they are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement.
+As designers, we should try and use the features that are native to the browser. That's because, generally speaking, they are familiar (due to convention) and fully accessible out of the box. They also require far less work to implement.
 
 You'd be forgiven for thinking you were spoiled for choice when it comes to form controls: select boxes, radio buttons, text boxes and more recently, datalists. The choice is yours, except it isn't. Not all of these options are suitable. Let's look at some of the pros and cons for each.
 

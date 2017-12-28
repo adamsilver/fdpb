@@ -1,14 +1,18 @@
 # An Upload Form
 
-Some forms involve users having to upload files: documents, spreadsheets, or even cat photos. On the one hand, uploading a file is only marginally more complex than inputting text or selecting options from a list of checkboxes. On the other, there are some nuances and opportunites that need to be explored.
+Some forms involve users having to upload files. For example, you might want to send your CV to a recruiter over email, or upload some photos to Ebay.
 
-The problem increases by orders of magnitude as soon as users need to upload *multiple* files in one go.
+On one hand, uploading a file is only marginally more complex than say, inputting text or choosing options from a list of checkboxes. On the other hand there are number of unique design challenges that crop up, especially when users need to upload more than one file at time.
+
+As usual, we'll begin by looking at what browsers give us for free. Then, we'll look at ways to offer an enhanced experience, as well as the various difficulties and dangers in doing so.
 
 ## The File Picker
 
-A file picker (`input type="file"`) is similar to most types of input. But instead of typing into it, the control spawns a dialog in which users can select a file from their computer or device.
+A file picker (`input type="file"`) is similar to most types of input, except instead of typing into it, the user can click it to spawn a dialog. 
 
-![Single file picker](./images/09/single-file-picker.png)
+The dialog lets users browser their file system on their computer (or device), with the ultimate goal of selecting a file. Once the file is selected, the file picker updates to show that file has been selected.
+
+![Single file picker TODO: add selected state](./images/09/single-file-picker.png)
 
 ```HTML
 <div class="field">

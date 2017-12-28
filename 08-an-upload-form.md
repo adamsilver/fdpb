@@ -23,7 +23,7 @@ There's not much to see here. The component uses the same structure as many othe
 
 If users need to upload a single file, then you can add this field to your form and you're done.
 
-### Aesthetics
+### Breaking Convention For Aesthetic Purposes Is Dangerous
 
 Some designers like to restyle the file picker because it looks quite ugly. We know that *pretty and useless* is much worse than *ugly and useful*, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
 
@@ -31,17 +31,19 @@ Styling file inputs is tricky because most browsers ignore any attempt at doing 
 
 ![Label as proxy](./images/08/file-picker-hidden-input.png)
 
-Having hidden the input, and styled the label, Javascript should be used to handle focus states. When the input is focused, you should add a class to the input, so CSS can be used to give the appearance of being focused. When the user selects a file for upload, the `onchange` event updates the label text as shown.
+Having hidden the input, and styled the label, Javascript should be used to handle focus states. When the input is focused, you should add a class its label, so CSS can be used to give the appearance of being focused. 
+
+When the user selects a file for upload, the `onchange` event updates the label text as shown:
 
 ![Label text updated](./images/08/file-picker-onchange.png)
 
-On the face of it, this implementation is visually pleasing and it's still accessible. Keyboard and mouse users can operate it as normal and screen readers will announce the state of the input and associated label.
+On the face of it, this implementation is visually pleasing and it's still accessible. Keyboard, mouse and touch users can operate it normallly and screen readers will announce the value of the input. But operating the interface is not the only consideration. Users have to understand it throughout the journey too.
 
-But operating the interface is not the only thing that needs consideration. This enhancement crumbles under further scrutiny.
+As we're about to find out, this enhanced interface crumbles under further scrutiny.
 
-First, updating the label to reflect the state is confusing because the label should describe the field and remain unchanged regardless of state. In this case, screen reader users will hear ‘some-file.pdf selected’ (or similar) as opposed to “Attach document”.
+First, updating the label to reflect the input's value is confusing because the label should describe the input and remain unchanged. In this case, screen reader users will hear ‘some-file.pdf’ as opposed to “Attach document”, for example.
 
-Second, the interface makes no allowances for a visual hint or error message which should be positioned inside the label, as set out in chapter 1, “A Registration Form”.
+Second, the interface doesn't fit with the book's established convention for providing hint or error text ( as set out in chapter 1, “A Registration Form”).
 
 Third, file inputs let mouse users drag and drop files. The input itself acts as a “drop zone”, which some users may prefer. Hiding the input means jettisoning this functionality.
 
@@ -53,7 +55,7 @@ Some tasks involve users uploading multiple files at once. One way to do this is
 
 ![Multiple file input](./images/08/multiple-dialog.png)
 
-This inocuous attribute grants a lot of power and seems to solve the multiple file problem in one fell swoop, but unfortunately it's not that simple.
+The multiple attribute seems a straightforward way to support multiple file selection, but there are hidden problems.
 
 First, users can only select files within a single folder. If they need to upload files within different folders they can't. Of course, users could move all the files into a single folder beforehand but this puts the onus on the user.
 
@@ -80,7 +82,7 @@ Creating a custom interface lets us solve both issues simultaneously.
 
 ![Dropzone](./images/08/drop-zone.png)
 
-The design - slightly biased toward mouse users - presents a large drop zone making it easier to use, especially for motor-impaired users. Inside the drop zone is instructional text that clarifies the behaviour.
+The large drop zone makes it more ergonimic, especially for motor-impaired users. Inside the drop zone is instructional text that clarifies the behaviour.
 
 Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier. This only works because the label is a proxy for the input. Clicking the label behaves as if the file input was clicked - even if the input is visually hidden.
 

@@ -1,6 +1,6 @@
 # An Upload Form
 
-Some forms involve users having to upload files: documents, images or anything else really. On the one hand, uploading a file is only marginally more complex than inputting text or selecting options. On the other, there are some nuances and opportunites that need to be taken into account.
+Some forms involve users having to upload files: documents, spreadsheets, or even cat photos. On the one hand, uploading a file is only marginally more complex than inputting text or selecting options from a list of checkboxes. On the other, there are some nuances and opportunites that need to be explored.
 
 The problem increases by orders of magnitude as soon as users need to upload *multiple* files in one go.
 
@@ -19,13 +19,19 @@ A file picker (`input type="file"`) is similar to most types of input. But inste
 </div>
 ```
 
-There's not much to see here. The component uses the same structure as many other form components. The only difference is the input's `type` attribute.
+The component uses the same structure as many other form components. The only difference is the input's `type` attribute.
 
 If users need to upload a single file, then you can add this field to your form and you're done.
 
-### Breaking Convention For Aesthetic Purposes Is Dangerous
+### Breaking Convention Can Be Dangerous
 
-Some designers like to restyle the file picker because it looks quite ugly. We know that *pretty and useless* is much worse than *ugly and useful*, but that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together.
+Some designers like to restyle the file picker for a number of different reasons. First, they look quite ugly as they expose an user agent styled button for spawning the dialog which is usually inconsistent with the rest of the custom-styled buttons on a site. 
+
+Second, the control's text is not configurable. And third, some designers still obsess about having things look consistent across browsers and operating systems.
+
+While, *pretty and useless* is a lot worse than *ugly and useful*, that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together. It's just important that any technique employed to do so, doesn't cause any adverse usability failures. 
+
+That would be like taking a pill to fix one symptom, but the pill causes other side effects, that requires another pill to fix. In the end, you end up with a cupboard full of medication and a plethora of additional health issues to deal with.
 
 Styling file inputs is tricky because most browsers ignore any attempt at doing so with CSS. One approach is to visually hide the input, representing it solely via its label. Unlike file inputs, labels are easy to style.
 
@@ -43,9 +49,9 @@ As we're about to find out, this enhanced interface crumbles under further scrut
 
 First, updating the label to reflect the input's value is confusing because the label should describe the input and remain unchanged. In this case, screen reader users will hear ‘some-file.pdf’ as opposed to “Attach document”, for example.
 
-Second, the interface doesn't fit with the book's established convention for providing hint or error text ( as set out in chapter 1, “A Registration Form”).
+Second, the interface doesn't fit with the book's established convention for providing hint or error text ( as set out in chapter 1, “A Registration Form”). We'd have to look at other ways of providing this information. Not only is this more work for us, but providing this information in a different way just for this interface is going to be unfamiliar in comparison to the rest of the site.
 
-Third, file inputs let mouse users drag and drop files. The input itself acts as a “drop zone”, which some users may prefer. Hiding the input means jettisoning this functionality.
+Third, file inputs lets users drag and drop files. This is because the input is a “drop zone”, which some users may prefer. Hiding the input means jettisoning this functionality.
 
 Any improvement to aesthetics just isn't worth the degradation in usability and utility.
 
@@ -71,12 +77,11 @@ One way to solve this, is to ask users if they'd like to add another receipt as 
 
 ## A Drag And Drop Enhancement
 
-While file pickers let users drag and drop files onto the control there are two problems:
+While file pickers let users drag and drop files onto the control there are two problems with it: First, it's not immediately obvious to users that this is even possible — there's no signifiers in the interface to make this behaviour perceivable.
 
-1. It's notimmediately obvious to uses they can do this
-2. The drop zone is quite small making it harder to drop files, especially for motor-impaired users.
+Second, the drop zone has a small hit area, which makes it harder for users to drop files, especially if they have motor-impairments.
 
-Creating a custom interface lets us solve both issues simultaneously.
+Creating a custom drag and drop interface from scratch, lets us solve both issues at the same time.
 
 ### How It Might Look
 
@@ -94,7 +99,7 @@ The act of selecting a file (as opposed to dropping one) also uploads them immed
 
 The user can keep uploading documents either by dragging and dropping, or selecting, or using both interchangeably. When they're finished, they can review the files and if needed, delete them too. 
 
-Clicking continue takes the user to the next step, whatever that is. Gmail users, for example, upload files using a similar interface and clicking send. Essentially this is the same pattern with a different veneer.
+Clicking continue takes the user to the next step, whatever that is. Gmail users, for example, upload files using a similar interface. This is the same pattern, but put to a different purpose.
 
 ![Gmail compose?](./images/08/gmail-compose.png)
 
@@ -129,6 +134,8 @@ The `ondragover` handler adds a class of `dropzone--dragover` and the `ondraglea
 
 ![on drag over](./images/08/drag-over.png)
 
+*(Note: you can't just use `:hover`, because it's only relevant if the user is hovering with a file in hand. That is, the `:hover` class would activate even if the user didn't drag a file onto the dropzone.)*
+
 The `ondrop` handler is where the magic happens. The event handler receives an event object (`e.dataTransfer.files`) that holds data about the files. For each file dropped an AJAX request is made.
 
 ```JS
@@ -152,7 +159,7 @@ Dropzone.prototype.upload = function(files) {
   };
 ```
 
-For each file dropped, we create the data using the `FormData` object. And then passing that data to `makeRequest`. Finally, the fileList component is revealed so that we can inject feedback.
+For each file dropped we create the data using the `FormData` object, then pass that data to `makeRequest`. Finally, the fileList component is revealed so that we can inject feedback.
 
 ### Feedback
 
@@ -175,11 +182,9 @@ Dropzone.prototype.makeRequest = function(formData) {
           percentComplete = parseInt(percentComplete * 100);
 
           li.find('progress').text(percentComplete + '%');
-          li.find('progress')[0].value = percentComplete;
+          li.find('progress').val(percentComplete);
         }
-
       }, false);
-
       return xhr;
     }
   });
@@ -252,7 +257,7 @@ These messages are only needed for screen reader users, and so they should be pl
 
 ### Feature Detection
 
-This enhancement uses several Javascript APIs that not all browsers recognise. Before referencing them, they need to be detected to ensure users don't get a broken experience.
+The drag and drop script uses several Javascript APIs that not all browsers recognise. Before referencing them, they need to be detected to ensure users don't get a broken experience.
 
 ```JS
 (function() {
@@ -281,17 +286,15 @@ if(typeof Dropzone !== 'undefined') {
 
 ### The Small Print
 
-As noted earlier, we're breaking convention by uploading files immediately `ondrop` and `onchange`. And while there's rationale behind the approach, doing so actually goes against WCAG guidelines, as first discussed in chapter 5, “An Inbox”. Here it is again:
-
-> Changing the setting of any user interface component does not automatically cause a change of context.
-
-In plain terms, updating a from control, shouldn't do anything else. You need a separate action (submit) for that.
+As noted earlier, we're breaking convention by uploading files immediately `ondrop` and `onchange`. And while there's rationale behind the approach, doing so might be unexpected and confusing for users: they'd normally expect to submit the form separately.
 
 This isn't just an academic endeavour. The `onchange` event is historically problematic, particularly when it's applied to a file input. For example, in some browsers, if you upload the same file (or a file with the same name) for a second time, the `onchange` event won't fire at all[^2]. This would create a broken experience.
 
 The solution is to replace the entire file input after the `onchange` event fires. This would mean having to set focus to the cloned file input, which causes screen readers to announce it for a second time. Mildly annoying.
 
-The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^3]. Fortunately, the feature detection rules out those browsers.
+The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^3], which is something that new browsers solve by way of the `oninput` event. Unlike the `onchange` event, this will fire as soon as the input's value is changed without having to blur the field.
+
+In any case, the feature detection happens to rule out the offending browsers, because they don't support the drag and drop APIs, for example.
 
 Lastly, some older browsers won't trigger the file input by clicking the label[^4]. Once again, the feature detection rules out these browsers too.
 

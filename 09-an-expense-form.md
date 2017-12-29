@@ -6,7 +6,7 @@ Unlike file inputs, other form controls don't let you add multiple values. So it
 
 Of course, if you know how many things that need to be added in advance, then simply display that amount of fields (and make them required). If you don't, keep reading.
 
-## The Ever Present Form Pattern
+## The Ever Present Form Pattern (Persistent Form Pattern)
 
 The drag and drop interface from “An Upload Form” in some respects uses this pattern and so does the infamous “Todo list pattern”[^]. Even Github uses this pattern to let users add collaborators. What I'm trying to say is that you've most probably seen this pattern before even if you didn't have a name for it.
 

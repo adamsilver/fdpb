@@ -27,7 +27,7 @@ There are two ways to let users filter: one at a time (interactive filtering) or
 
 Interactive filters update as soon as the user clicks a filter. The advantage is that users will see the results update as they go.
 
-![Clicking a filter refreshes the page immediately. If I want to select other filters, I have to click and refresh again.](https://d2mxuefqeaa7sj.cloudfront.net/s_82DB9B3C5532B175A4335F0BC737C2425A337F6A318E43BFE3E5981EE6778CFA_1514537967948_image.png)
+![Clicking a filter refreshes the page immediately. If I want to select other filters, I have to click and refresh again.](./images/07/interactive-filter.png)
 
 One disadvantage is that each click causes a page refresh, which is particularly frustrating if users are likely to choose several filters.
 
@@ -35,7 +35,7 @@ One disadvantage is that each click causes a page refresh, which is particularly
 
 Batch filters work by letting users choose a number of different filters, and then submitting them in one fell swoop. One advantage of this approach is that it’s faster, as users just make one request for several filters.
 
-![Clicking a filter selects the checkbox. I can choose as many as I want and submit them together by pressing “Apply filters”.](https://d2mxuefqeaa7sj.cloudfront.net/s_82DB9B3C5532B175A4335F0BC737C2425A337F6A318E43BFE3E5981EE6778CFA_1514538151952_image.png)
+![Clicking a filter selects the checkbox. I can choose as many as I want and submit them together by pressing “Apply filters”.](./images/07/batch-filter.png)
 
 One disadvantage of this approach is that a combination of filters could lead to zero-results. 
 
@@ -45,7 +45,7 @@ We’ve already discussed the concept of material honesty several times in the b
 
 As shown above, interactive filters tend to use links because they provide the expected behaviour—that clicking a filter immediately requests the new results. However, some sites style these links to look like checkboxes, by using CSS background images[^], for example. 
 
-![When a user sees checkboxes, they think they'll behave accordingly. When their expectation isn't matched, it causes confusion and frustration.](https://d2mxuefqeaa7sj.cloudfront.net/s_82DB9B3C5532B175A4335F0BC737C2425A337F6A318E43BFE3E5981EE6778CFA_1514468295988_image.png)
+![When a user sees checkboxes, they think they'll behave accordingly. When their expectation isn't matched, it causes confusion and frustration.](./images/07/materials.png)
 
 The problem is that a link should look (and behave) like a link—not a checkbox. Batch filters, made from real checkboxes, let users select several filters. Making links look like checkboxes would mean users wouldn’t expect clicking a filter would immediately request the new results. That’s materially dishonest and therefore deceptive.
 
@@ -65,7 +65,7 @@ Only conducting your own research for your problem can tell you the answer to th
 
 ## Layout
 
-![The Wallets category page](https://d2mxuefqeaa7sj.cloudfront.net/s_82DB9B3C5532B175A4335F0BC737C2425A337F6A318E43BFE3E5981EE6778CFA_1514618295072_image.png)
+![The Wallets category page](./images/07/layout.png)
 
 Before tackling the complexity of the filter form itself, it’s important to look at it in the context in which users are likely to use it. In modular design, we can fall prey to focusing so deeply on the individual components, that we forget to check how everything works when they combine to form the page (or journey).
 
@@ -241,14 +241,14 @@ When a web page is loading, the web browser shows a loading indicator. This load
 
 When AJAX is used we have to provide our own mechanism to inform users that the request is loading. This is normally the purview of a loading spinner.
 
-![Loading spinner](https://d2mxuefqeaa7sj.cloudfront.net/s_82DB9B3C5532B175A4335F0BC737C2425A337F6A318E43BFE3E5981EE6778CFA_1514790635542_image.png)
+![Loading spinner](./images/07/loading-spinner.png)
 
 But, you should note that, unlike the browser, it doesn’t tell users how long is left, or if the connection is slow. In the next chapter, we’ll look at ways to provide an accurate progress bar with AJAX.
 
 Also, the loading spinner, in it’s current form, is only determinable by sighted users. To provide a comparable experience (principle 1) for screen reader users, we’ll employ a live region (as explained in chapters 2, 3 and 5)..
 
 ```HTML
-	<div aria-live="assertive" role="alert" class="vh">Loading products.</div>
+<div aria-live="assertive" role="alert" class="vh">Loading products.</div>
 ```
 
 When the products are loaded:
@@ -304,7 +304,7 @@ FilterRequester.prototype.onPopState = function(e) {
 
 Another problem with making updates with AJAX is ensuring that notice the results update. Take a situation whereby the filter component is very long and scrolls beyond the fold. Imagine, that while selecting a filter toward the bottom, it returns too few results that the user sees a blank screen.
 
-![The filters are so long that the results are off screen at the top.](https://d2mxuefqeaa7sj.cloudfront.net/s_82DB9B3C5532B175A4335F0BC737C2425A337F6A318E43BFE3E5981EE6778CFA_1514790799968_image.png)
+![The filters are so long that the results are off screen at the top.](./images/07/too-long.png)
 
 We can’t move focus as that defeats the entire point of introducing AJAX in the first place. There are a two ways we might solve this problem.
 
@@ -340,39 +340,38 @@ If your filter has many categories and many options within those categories, we 
 
 Additionally, we can collapse the categories. This is advantageous for a number of reasons:
 
-
 1. The submit button is more like to draw users’ attention as it will be in view.
 2. AJAX-injected results will likely be in view.
 3. Users shouldn’t have to scroll nearly as much, while still being able to scan the filter categories.
 4. Keyboard users won’t have to tab through all the filters to get to the one they want. This is because hidden content isn’t focusable.
 
-[Illustration]
-
 ### Enhancing The Mark-up
 
 The basic mark-up consists of standard form fields. As an example, this is what the color field mark-up looks like:
 
-
-    <fieldset class="field">
-      <legend>
-        <span class="field-legend">Color</span>
-      </legend>
-      <div class="field-options">
-        <!-- checkboxes here -->
-      </div>
-    </fieldset>
+```HTML
+<fieldset class="field">
+  <legend>
+    <span class="field-legend">Color</span>
+  </legend>
+  <div class="field-options">
+    <!-- checkboxes here -->
+  </div>
+</fieldset>
+```
 
 The JavaScript-enhanced mark-up will look like this:
 
-
-    <fieldset class="field">
-      <legend>
-        <button type="button" aria-expanded="false">Color</button>
-      </legend>
-      <div class="field-options hidden">
-        <!-- checkboxes here -->
-      </div>
-    </fieldset>
+```HTML
+<fieldset class="field">
+  <legend>
+    <button type="button" aria-expanded="false">Color</button>
+  </legend>
+  <div class="field-options hidden">
+    <!-- checkboxes here -->
+  </div>
+</fieldset>
+```
 
 The legend now contains a button element with a `type="button"`  attribute which stops it from submitting the form. We don’t want it do that, we just want it to expand and collapse the filters.
 
@@ -385,6 +384,8 @@ The checkboxes are hidden by the `hidden` class as first explained in chapter 1,
 The button has an `aria-expanded` attribute, initially set to false which denotes that the section is collapsed. When the button is clicked this will be switched to true, which means it’s expanded. For screen readers, this means the button will be announced as “color, collapsed, button” (or similar, depending on the screen reader).
 
 We also need to communicate the state of the component visually. Replacing the entire legend with a button element is not good ideal because we still want the legend to look like what it is, a legend. By the same token, we the interface needs to make it clear that clicking the legend will toggle the filter.
+
+[Collapsible](./images/07/collapsible.png)
 
 We can signify this functionality with the conventional plus (can be expanded) and minus (can be collapsed) symbols, though up and down triangles may work just as well. Let’s make use of a lightweight SVG icon placed inside the button:
 
@@ -463,8 +464,7 @@ By applying this principle, we ensure that user get the same, familiar conventio
 To do this, we need to make sure that users can see the results update as they filter. We can achieve this by having the filters appear on top of the results without completely covering them. It works because users can see the results on the left, while filters are selected on the right.
 
 
-![Both Amazon (left) and Ebay (right) have the filter appear without completely covering the results. This way users can see the updates as they filter.](https://d2mxuefqeaa7sj.cloudfront.net/s_82DB9B3C5532B175A4335F0BC737C2425A337F6A318E43BFE3E5981EE6778CFA_1514802969106_image.png)
-
+![Both Amazon (left) and Ebay (right) have the filter appear without completely covering the results. This way users can see the updates as they filter.](./images/07/mobile-tray.png)
 
 Unfortunately, I can’t take credit for this. I found this technique described in “Mobile Faceted Search with a Tray: New and Improved Design Pattern”[^] by Kathyrn Whitenton which is worth reading in full.
 
@@ -487,10 +487,10 @@ We can achieve this by adding a little component to the top of the filter like t
 
 **Notes:**
 
-
 - The section is appropriately labelled with a level 3 (h3) heading as it sits under the level 2 “Filter” heading.
 - The surrounding `div` is labelled by heading. This means the heading will be announced by screen reader users who have tabbed to (focusable) links.
-# Summary
+
+## Summary
 
 In this chapter we’ve nimbly covered several design details that often crop up with filters. While we’ve persistently tried to keep to convention, non-conventional approaches have been explored that may be needed to satisfy user’s new expectations. Expectations, that have, unfortunately, been born out of the many materially dishonest interfaces present on the web today.
 
@@ -519,9 +519,4 @@ TBD
 ## Todo?
 
 - “Refine” vs “Filter”
-
-
-## Range Input
-
-The range input is a new, HTML5 input that allows users to select a value within a range by sliding the handle along an axis. It shouldn’t be used because X.
-
+- The range input is a new, HTML5 input that allows users to select a value within a range by sliding the handle along an axis. It shouldn’t be used because X.

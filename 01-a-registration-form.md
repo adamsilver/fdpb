@@ -2,7 +2,7 @@
 
 We're going to start with a registration form. Most companies want long-term relationships with their users. To do that they need users to sign up. And to do *that*, they need to give users value in return. Nobody wants to actually sign up to your service. They just want to access whatever it is you offer, or just the promise of a faster experience next time they visit.
 
-Despite the registration form's basic appearance, there are many things to consider: the primitive elements that make up a form (labels, buttons and inputs), reduce effort (even on small forms like this) all the way through to form validation.
+Despite the registration form's basic appearance, there are many things to consider: the primitive elements that make up a form (labels, buttons and inputs), ways to reduce effort (even on small forms like this), all the way through to form validation.
 
 In choosing such a simple form, we can zoom in on the foundational qualities found in well-designed forms.
 
@@ -88,7 +88,7 @@ That's a lot of problems for what is essentially just text. All content, especia
 
 The hint is placed within the label and inside a `<span>` so that it can be styled differently. By placing it inside the label it will be read out by screen readers, and further enlarges the hit area.
 
-As with most things in design, and life for that matter, this isn't the only way to achieve this functionality. We could use Accessible Rich Internet Application (ARIA) attributes to associate the hint with the input:
+As with most things in design, and life for that matter, this isn't the only way to achieve this functionality. We could use ARIA attributes to associate the hint with the input:
 
 ```HTML
 <div class="field">
@@ -98,7 +98,7 @@ As with most things in design, and life for that matter, this isn't the only way
 </div>
 ```
 
-The `aria-describedby` attribute is used to connect the hint by its `id` - just like the `for` attribute for labels, but in reverse. It's appended to the control's label and read out after a short pause. In this example, “Password [pause] Must contain eight plus characters with at least one number and one uppercase letter.”
+The `aria-describedby` attribute is used to connect the hint by its `id` - just like the `for` attribute for labels, but in reverse. It's appended to the control's label and read out after a short pause. In this example, “password [pause] must contain eight plus characters with at least one number and one uppercase letter.”
 
 There are other differences too. First, clicking the hint (a `<p>` in this case) won't focus the control, which reduces the hit area. Second, despite ARIA's ever-growing support, it's never going to be as well supported as native elements. In this case, for example, Internet Explorer 11 doesn't support `aria-describedby`[^IE11].  This is why the first rule of ARIA is not to use ARIA:
 
@@ -178,7 +178,7 @@ It means that a text box should look like one. Empty boxes naturally signify “
 
 This also means that the empty space should be boxed in (bordered). Removing the border, or only having a bottom border for example, removes these perceived affordances. A bottom border, for example, first appears more as a separator. Even if you know that you have to fill something in, does it go above the line or below it?
 
-Space-wise, the label should be closest to it's form control. Not to the previous field's control. Things that appear close together naturally signifier that they *belong* together. Having equal spacing might improve aesthetics, but it would be at the cost of usability.
+Space-wise, the label should be closest to it's form control. Not to the previous field's control. Things that appear close together naturally signify that they *belong* together. Having equal spacing might improve aesthetics, but it would be at the cost of usability.
 
 Finally, the label and the text box itself should be large enough to read and tap. This probably means a font-size of at least 16 pixels and ideally an overall tap target of at least 44px[^tap].
 
@@ -208,7 +208,7 @@ input:focus {
 </div>
 ```
 
-Despite it's simple appearance there are some important details that have gone into the field's construction which affect the experience. As noted earlier, some fields have a hint in addition to the label which is why the label is inside a child span. The class (`field-label`) lets us style it through CSS.
+Despite it's simple appearance there are some important details that have gone into the field's construction which affect the experience. As noted earlier, some fields have a hint in addition to the label which is why the label is inside a child span. The `field-label` class lets us style it through CSS.
 
 The label itself is “Email address” and uses sentence case. In “Making A Case For Letter Case”[^7], John Saito explains that sentence case (as opposed to title case) is generally easier to read, friendlier and makes it easier to spot nouns. Whether you take heed of this advice is up to you, but whatever style you choose, be sure to use it consistently.
 
@@ -316,7 +316,7 @@ PasswordReveal.prototype.onButtonClick = function(e) {
 
 As there are many flavours of Javascript, and different ways in which to architect components, we're going to walk through the choices used to construct the password reveal component and all the upcoming components in the book.
 
-First, we're using a constructor. A constructor, is a function that is conventionally written in upper camel case — `PasswordReveal` not `passwordReveal`. It's initialised using the `new` keyword which lets us use the same code to create several instances of the component:
+First, we're using a constructor. A constructor is a function that is conventionally written in upper camel case — `PasswordReveal` not `passwordReveal`. It's initialised using the `new` keyword which lets us use the same code to create several instances of the component:
 
 ```JS
 var passwordReveal1 = new PasswordReveal(document.getElementById('input1'));
@@ -324,7 +324,7 @@ var passwordReveal1 = new PasswordReveal(document.getElementById('input1'));
 var passwordReveal2 = new PasswordReveal(document.getElementById('input2'));
 ```
 
-Second, the component's methods, are defined on the prototype — for example `PasswordReveal.prototype.onButtonClick`. The `prototype` is the most performant way to share methods across multiple different instances of the same component.
+Second, the component's methods, are defined on the prototype — for example `PasswordReveal.prototype.onButtonClick`. The `prototype` is the most performant way to share methods across multiple instances of the same component.
 
 Third, jQuery is being used to create and retrieve elements, and listen to events. While jQuery may not be necessary or preferred, using it means that the book can focus on forms — and not on the complexities of cross-browser components.
 
@@ -334,7 +334,7 @@ You may have also noticed the use of jQuery's `$.proxy` function. This function 
 
 #### Alternative Interface Options
 
-The password reveal interface we constructed before toggles the button's label between “Show password” and “Hide password”. I've heard that screen readers can be mildy confused when the labels of a button is changed. This is because once they encounter a button, they expect that button to persist. Even though the button is persistent, changing the label makes it appear to disappear.
+The password reveal interface we constructed before toggles the button's label between “Show password” and “Hide password”. I've heard that screen readers can be mildy confused when the button's label is changed. This is because once a user encounters a button, they expect that button to persist. Even though the button is persistent, changing the label could make it appear to disappear.
 
 If your research shows this to be a problem, you could try two alternative approaches:
 
@@ -342,15 +342,15 @@ If your research shows this to be a problem, you could try two alternative appro
 
 The problem with this approach is that checkboxes are for inputing data, not for controlling the interface. Some users might think their password will be revealed to the system.
 
-2. Change the button's state instead of the label. To can convey the state to screen reader users you can switch the `aria-pressed` attribute between `true` (pressed) and `false` (unpressed). 
+2. Change the button's state instead of the label. To convey the state to screen reader users you can switch the `aria-pressed` attribute between `true` (pressed) and `false` (unpressed). 
 
 ```HTML
 <button type="button" aria-pressed="true">  
   Show password
-</button>  
+</button>
 ```
 
-When focusing the button using NVDA, the screen reader announces, “Show password, toggle button, pressed”. For sighted users, you can style the button to look pressed or unpressed accordingly using the attribute selector:
+When focusing the button, NVDA for example announces, “Show password, toggle button, pressed”. For sighted users, you can style the button to look pressed or unpressed accordingly using the attribute selector:
 
 ```CSS
 [aria-pressed="true"] {
@@ -358,7 +358,7 @@ When focusing the button using NVDA, the screen reader announces, “Show passwo
 }
 ```
 
-However, it's not easy to tell between a pressed and unpressed button. Relying on styling alone to convey meaning isn't ideal. And this solution depends on ARIA. This is why this approach is included last for completeness.
+However, it's not easy to tell between a pressed and unpressed button. Relying on styling alone to convey meaning isn't ideal. And this solution depends on ARIA.
 
 ### Microcopy
 
@@ -372,7 +372,7 @@ What's a button? Often we refer to many different types of components on a web p
 
 Buttons that submit forms are “submit buttons” and they are coded typically as either `<input type="submit">` or `<button type="submit">`. The latter is more maleable in that you can nest other elements inside it. But there's rarely a need for that. Most submit buttons contain just text. 
 
-*(Note: if you have multiple , in old versions of Internet Explorer, if you have multiple `<button type="submit">`s you'll experience trouble[^buttontrouble]. This is because the form will send the value of all the buttons to the server regardless. What you want is to know which button was clicked so that you can determine the right course of action to take.)*
+*(Note: in old versions of Internet Explorer, if you have multiple `<button type="submit">`s you'll experience trouble[^buttontrouble]. This is because the form will send the value of all the buttons to the server regardless of which was clicked. What you want is to know which button was clicked so that you can determine the right course of action to take.)*
 
 Other buttons are injected into the interface to enhance the experience with Javascript - much like we did with the password reveal component discussed earlier. That was also a `<button>` but it's type was set to `button` (not `submit`).
 

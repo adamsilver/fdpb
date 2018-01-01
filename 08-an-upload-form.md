@@ -1,6 +1,6 @@
 # An Upload Form
 
-Some forms involve users having to upload files. For example, you might want to send your CV to a recruiter over email, or upload some photos to Ebay.
+Whether you're sending your CV to a recruiter on email, or adding photos of your TV to sell on Ebay, we need to upload files somehow.
 
 On one hand, uploading a file is only marginally more complex than say, inputting text or choosing options from a list of checkboxes. On the other hand there are number of unique design challenges that crop up, especially when users need to upload more than one file at time.
 

@@ -385,7 +385,7 @@ The button has an `aria-expanded` attribute, initially set to false which denote
 
 We also need to communicate the state of the component visually. Replacing the entire legend with a button element is not good ideal because we still want the legend to look like what it is, a legend. By the same token, we the interface needs to make it clear that clicking the legend will toggle the filter.
 
-[Collapsible](./images/07/collapsible.png)
+![Collapsible](./images/07/collapsible.png)
 
 We can signify this functionality with the conventional plus (can be expanded) and minus (can be collapsed) symbols, though up and down triangles may work just as well. Let’s make use of a lightweight SVG icon placed inside the button:
 

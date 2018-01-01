@@ -375,7 +375,7 @@ The JavaScript-enhanced mark-up will look like this:
 
 The legend now contains a button element with a `type="button"`  attribute which stops it from submitting the form. We don’t want it do that, we just want it to expand and collapse the filters.
 
-Had we instead converted the legend into a button using ARIA's role="button" we would be overriding the legends semantics. Screen reader users would lose the legend as a label for group. We would’ve also had to recreate all the free browser provided behaviour associated  with the <button> element such as being focusable and activated by pressing space and enter keys.
+Had we instead converted the legend into a button using ARIA's role="button" we would be overriding the legends semantics. Screen reader users would lose the legend as a label for group. We would’ve also had to recreate all the free browser provided behaviour associated  with the `<button>` element such as being focusable and activated by pressing space and enter keys.
 
 ### State
 

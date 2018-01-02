@@ -1,33 +1,37 @@
 # An Upload Form
 
-Whether you're sending your CV to a recruiter on email, or adding photos of your TV to sell on Ebay, we need to upload files somehow.
+The web is more than just text. Whether it's sending a CV to a recruiter by email, or adding photos to an Ebay advert, we need to let users upload files. Forms have this capability baked in.
 
-On one hand, uploading a file is only marginally more complex than say, inputting text or choosing options from a list of checkboxes. On the other hand there are number of unique design challenges that crop up, especially when users need to upload more than one file at time.
+On one hand, uploading a file is only marginally more complex than say, inputting text or clicking a checkbox. On the other hand, there are number of unique design challenges and opportunities that arise, especially when there's a need to upload multiple files at the same time.
 
-As usual, we'll begin by looking at what browsers give us for free. Then, we'll look at ways to offer an enhanced experience, as well as the various difficulties and dangers in doing so.
+As usual, we'll start by looking at what browsers give us for free. After that, we'll look at designing various enhancements and issues that can arise along the way.
 
-## The File Picker
+## A File Picker
 
-A file picker (`input type="file"`) is similar to most types of input, except instead of typing into it, the user can click it to spawn a dialog. 
+A file picker (`<input type="file">`) is another type of form control. When clicked, it will spawn a dialog that let's users browse their files on their computer or device. Once a file is selected, the dialog closes and the picker updates to confirm that file has been selected.
 
-The dialog lets users browser their file system on their computer (or device), with the ultimate goal of selecting a file. Once the file is selected, the file picker updates to show that file has been selected.
+![File picker](./images/08/single-file-picker.png)
 
-![Single file picker TODO: add selected state](./images/09/single-file-picker.png)
+If all users need to do is upload a single file, then you can add a file picker field to your form and you're pretty much done:
 
 ```HTML
-<div class="field">
-  <label for="documents">
-  	<span class="label">Attach document</span>
-  </label>
-  <input class="field-file" type="file" id="documents" name="documents">
-</div>
+<form enctype="multipart/form-data">
+  <div class="field">
+    <label for="documents">
+      <span class="label">Attach document</span>
+    </label>
+    <input class="field-file" type="file" id="documents" name="documents">
+  </div>
+  <input type="submit" value="Upload" name="upload">
+</form>
 ```
 
-The component uses the same structure as many other form components. The only difference is the input's `type` attribute.
+Notes:
 
-If users need to upload a single file, then you can add this field to your form and you're done.
+- The form has a `enctype="multipart/form-data"` attribute, which ensures the file is transmitted to the server for uploading
+- The file picker uses the same field constructs as first described in chapter 1, “A Registration Form”. Please refer to that chapter if you need to give users a hint or error message.
 
-### Breaking Convention Can Be Dangerous
+### Restyling The File Picker Breaks Convention
 
 Some designers like to restyle the file picker for a number of different reasons. First, they look quite ugly as they expose an user agent styled button for spawning the dialog which is usually inconsistent with the rest of the custom-styled buttons on a site. 
 

@@ -131,23 +131,54 @@ One way to solve this problem, is to give users a way to add additional files as
 
 ![Degraded solution](./images/08/multiple-degrade-solution.png)
 
-Not only does this design let users upload multiple files in unsupported browsers, but it lets the user review their submission too. With that said, this design may not always be desirable.
+Not only does this design let users upload multiple files in unsupported browsers, but it lets the user review their submission too. Another way to help users upload files is by using a persistent upload form, which we'll discuss next.
+
+## A Persistent Upload Form
+
+Most forms are ephemeral—that is, they only stay on-screen until they've been submitted—at which point, the user is taken to another form or end of the task. For example, when you register, you enter your details, the form disappears and you see a confirmation. Or the user enters their delivery and payment detail, and they get confirmation of their order.
+
+However, the task of uploading multiple files means it's useful to give users a form that persists until the user explicitly decides to move on. We might call this a persistent form.
+
+### How It Might Look
+
+![Illustrate degraded version](./images/08/degraded.png)
+
+The user can choose and upload a file repeatedly until they've uploaded all the desired files. At which point, they can click the continue button.
+
+### The Mark-up
+
+```HTML
+<form enctype="multipart/form-data">
+  <div class="field">
+    <label for="documents">
+      <span class="label">Attach file</span>
+    </label>
+    <input class="field-file" type="file" id="documents" name="documents" multiple>
+  </div>
+  <input type="submit" value="Upload" name="upload">
+</form>
+```
+
+Note the file input has the `multiple` attribute. In this case this is a robust enhancement: if the browser has support, the user can choose multiple files (meaning fewer page refreshes). If the user is using an unsupported browser, they can still upload a single file as many times as they need to. This also solves the aformentioned problem about not being able to select files across different folders.
 
 ## A Drag And Drop Enhancement
 
-While file pickers let users drag and drop files onto the control there are two problems with it: First, it's not immediately obvious to users that this is even possible — there's no signifiers in the interface to make this behaviour perceivable.
+As noted earlier, the native file input acts as a drop zone to let users drag and drop files. However, there are two problems:
 
-Second, the drop zone has a small hit area, which makes it harder for users to drop files, especially if they have motor-impairments.
+1. it's not immediately obvious that dragging and dropping is possible—there are no signifiers that makes this behaviour perceivable.
+2. the drop zone has a small hit area, which makes it hard to drop files onto, especially if the user has motor-impairments.
 
-Creating a custom drag and drop interface from scratch, lets us solve both issues at the same time.
+To solve these issues, we're going to take our persistent upload form, and progressively enhance it with better drag and drop functionality.
 
 ### How It Might Look
 
 ![Dropzone](./images/08/drop-zone.png)
 
-The large drop zone makes it more ergonimic, especially for motor-impaired users. Inside the drop zone is instructional text that clarifies the behaviour.
+The large drop zone is more ergonomic, especially for people with motor-impairments. Inside the drop zone, sits a button, that when clicked triggers the dialog to choose a file instead.
 
-Below the text sits a button. Really, it's a label *styled* as a button which is the technique I lambasted earlier. This only works because the label is a proxy for the input. Clicking the label behaves as if the file input was clicked - even if the input is visually hidden.
+The button is actually a label *styled* as a button using the technique a lambasted earlier. However, there's good reason to use it here, which I'll explain shortly.
+
+Conventionally, the the large drop zone is marked with a dashed border. This should be enough to signify to users that it's a drop zone. But if user research shows otherwise, you may need to make this behaviour clearer by adding some instructional text.
 
 ## Interaction
 

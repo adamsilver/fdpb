@@ -8,11 +8,11 @@ As usual, we'll start by looking at what browsers give us for free. After that, 
 
 ## A File Picker
 
-A file picker (`<input type="file">`) is another type of form control. When clicked, it will spawn a dialog that let's users browse their files on their computer or device. Once a file is selected, the dialog closes and the picker updates to confirm that file has been selected.
+A file picker (`<input type="file">`) is another type of form control. When clicked, it will spawn a dialog that let's users browse their files on their computer or device. Once a file is selected, the dialog closes and the picker updates to reflect the file has been chosen.
 
 ![File picker](./images/08/single-file-picker.png)
 
-If all users need to do is upload a single file, then you can add a file picker field to your form and you're pretty much done:
+If all users need to do is upload a single file, then you can add a file picker to your form and you're pretty much done:
 
 ```HTML
 <form enctype="multipart/form-data">
@@ -31,37 +31,78 @@ Notes:
 - The form has a `enctype="multipart/form-data"` attribute, which ensures the file is transmitted to the server for uploading
 - The file picker uses the same field constructs as first described in chapter 1, “A Registration Form”. Please refer to that chapter if you need to give users a hint or error message.
 
-### Restyling The File Picker Breaks Convention
+### Restyling The File Picker Is Dangerous Territory
 
-Some designers like to restyle the file picker for a number of different reasons. First, they look quite ugly as they expose an user agent styled button for spawning the dialog which is usually inconsistent with the rest of the custom-styled buttons on a site. 
+Some designers like to restyle the file picker to:
 
-Second, the control's text is not configurable. And third, some designers still obsess about having things look consistent across browsers and operating systems.
+- achieve consistency between different browsers and operating systems
+- match the company's look and feel
+- be able to configure the control's text
 
-While, *pretty and useless* is a lot worse than *ugly and useful*, that doesn't mean beauty and aesthetics aren't important. Where possible we should marry the two together. It's just important that any technique employed to do so, doesn't cause any adverse usability failures. 
+Whether you agree with all of these reasons or not, it must be said that *pretty and useless* is considerably worse than *ugly and useful*. But this doesn't mean aesthetics aren't important: where possible we should marry form and function together.
 
-That would be like taking a pill to fix one symptom, but the pill causes other side effects, that requires another pill to fix. In the end, you end up with a cupboard full of medication and a plethora of additional health issues to deal with.
+However, it's just as important to make sure that any technique's we employ to achieve these goals doesn't cause any adverse usability issues. That would be a bit like modern medicine. For example, taking a pill often fixes the symptom of a problem only to cause several adverse side effects that require additional pills to fix.
 
-Styling file inputs is tricky because most browsers ignore any attempt at doing so with CSS. One approach is to visually hide the input, representing it solely via its label. Unlike file inputs, labels are easy to style.
+When it comes to file pickers, styling them has always been tricky because browsers ignore any attempt at doing so with CSS. This means we have to resort to a bit of hack, which is never normally a good idea. But, let's walk through how it works, what can be achieved and the pitfalls in doing so.
+
+#### Hide the input
+
+The most robust way of styling the the file picker is to actually just hide it with a visually hidden:
+
+```HTML
+<div class="field">
+  <label for="documents">
+    <span class="label">Attach document</span>
+  </label>
+  <input class="visually-hidden" type="file" id="documents" name="documents">
+</div>
+```
+
+*(Note: The CSS for the vh (visually hidden) class is set out in “A Checkout Flow”.)*
+
+Now that it's hidden, we can style the control's label, which fortunately, is easy to style. As described in “A Registration Form”, this works because a control's label acts as a proxy to the control itself. In this case, this means clicking the label is like clicking the input.
+
+#### Style The Label
+
+Now the input is hidden, we need to style the label so that it looks interactive. To make it look interactive, we need to style it and change the text like this:
 
 ![Label as proxy](./images/08/file-picker-hidden-input.png)
 
-Having hidden the input, and styled the label, Javascript should be used to handle focus states. When the input is focused, you should add a class its label, so CSS can be used to give the appearance of being focused. 
+#### Focus States
 
-When the user selects a file for upload, the `onchange` event updates the label text as shown:
+Now that the label looks clickable and is clickable we need to think about keyboard interaction. 
+
+As the input is visually hidden, when the user Tabs to it, they won't get any feedback that it's actually in focus. To do this, JavaScript should be used so that when the input is focused a class of `focused` is added to the label so that we can style it to look focused:
+
+```CSS
+.focused {
+  /* focus styles */
+}
+```
+
+#### Reflecting The Chosen File
+
+When the user selects a file from the dialog, it's the input that will change state (as shown earlier). We'll need to reflect the chosen file within the text of the label.
 
 ![Label text updated](./images/08/file-picker-onchange.png)
 
-On the face of it, this implementation is visually pleasing and it's still accessible. Keyboard, mouse and touch users can operate it normallly and screen readers will announce the value of the input. But operating the interface is not the only consideration. Users have to understand it throughout the journey too.
+To do this, well need to use JavaScript again. This time, listening to the input's `change` event:
 
-As we're about to find out, this enhanced interface crumbles under further scrutiny.
+```JS
+$('[type=file]').on('change', function(e) {
+  // change label
+});
+```
 
-First, updating the label to reflect the input's value is confusing because the label should describe the input and remain unchanged. In this case, screen reader users will hear ‘some-file.pdf’ as opposed to “Attach document”, for example.
+#### Pitfalls
 
-Second, the interface doesn't fit with the book's established convention for providing hint or error text ( as set out in chapter 1, “A Registration Form”). We'd have to look at other ways of providing this information. Not only is this more work for us, but providing this information in a different way just for this interface is going to be unfamiliar in comparison to the rest of the site.
+On the face of it, this implementation is visually pleasing and still accessible. Keyboard, mouse and touch users can operate it normally and screen readers will announce the value of the input. But these do not cover the exhaustive list of considerations needed to provide a fully inclusive experience.
 
-Third, file inputs lets users drag and drop files. This is because the input is a “drop zone”, which some users may prefer. Hiding the input means jettisoning this functionality.
+1. Updating the label to reflect the input's value is confusing because the label should describe the input and remain unchanged. In this case, screen reader users will hear “cv.doc” as opposed to “Attach document”.
+2. The interface doesn't fit with the established convention for providing hint and error text, as set out in “A Registration Form”. As such, not only would we need to think of a way to solve this problem, this would make the experience of using this form control, different to all of the others, creating an unfamiliar and jarring experience.
+3. File inputs are actually drop zones which means they let users drag and drop files (instead of going through the dialog). Hiding the input means forgoing this behaviour and multimodality of the control to suit the preference of the user.
 
-Any improvement to aesthetics just isn't worth the degradation in usability and utility.
+Considering the pitfalls, the improvement to aesthetics doesn't justify the downgrade in usability, utility and flexibility.
 
 ## Multiple Files
 

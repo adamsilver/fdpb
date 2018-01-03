@@ -127,8 +127,6 @@ Second, not all browsers support this behaviour. And in these browsers, it will 
 
 For example, take the following form. It asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit them. But without support, users can only upload a single receipt which leaves users with a problem.
 
-![Degraded](./images/08/multiple-degrade.png)
-
 One way to solve this problem, is to give users a way to add additional files as part of a flow:
 
 ![Degraded solution](./images/08/multiple-degrade-solution.png)

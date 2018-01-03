@@ -43,7 +43,7 @@ Whether you agree with all of these reasons or not, it must be said that *pretty
 
 However, it's just as important to make sure that any technique's we employ to achieve these goals doesn't cause any adverse usability issues. That would be a bit like modern medicine. For example, taking a pill often fixes the symptom of a problem only to cause several adverse side effects that require additional pills to fix.
 
-When it comes to file pickers, styling them has always been tricky because browsers ignore any attempt at doing so with CSS. This means we have to resort to a bit of hack, which is never normally a good idea. But, let's walk through how it works, what can be achieved and the pitfalls in doing so.
+When it comes to file pickers, styling them has always been tricky because browsers ignore any attempt at doing so with CSS. This means we have to resort to a bit of hack, which is never normally a good idea. But, let's walk through how it could work, what can be achieved and the pitfalls in doing so.
 
 #### Hide the input
 
@@ -101,28 +101,39 @@ On the face of it, this implementation is visually pleasing and still accessible
 1. Updating the label to reflect the input's value is confusing because the label should describe the input and remain unchanged. In this case, screen reader users will hear “cv.doc” as opposed to “Attach document”.
 2. The interface doesn't fit with the established convention for providing hint and error text, as set out in “A Registration Form”. As such, not only would we need to think of a way to solve this problem, this would make the experience of using this form control, different to all of the others, creating an unfamiliar and jarring experience.
 3. File inputs are actually drop zones which means they let users drag and drop files (instead of going through the dialog). Hiding the input means forgoing this behaviour and multimodality of the control to suit the preference of the user.
+4. There's not much room inside the button for a large file name.
 
 Considering the pitfalls, the improvement to aesthetics doesn't seem to justify the downgrade in usability and utility.
 
-## Multiple Files
+## A Multiple File Picker
 
-Some tasks involve users uploading multiple files at once. One way to do this is to add the `multiple` attribute onto the input. Now, when the user activates the file picker dialog, the user can select multiple files.
+Very few tasks on the web, require a user to upload just a single file at a time. Take the two examples from the introduction to this chapter. Both attaching files to an email and uploading photos to an Ebay advert involve uploading multiple files in one go.
 
-![Multiple file input](./images/08/multiple-dialog.png)
+The easiest but most problematic way to solve this would be to add the `multiple` boolean attribute to the file input:
 
-The multiple attribute seems a straightforward way to support multiple file selection, but there are hidden problems.
+```HTML
+<input type="file" multiple>
+```
+
+This gives users the same method of selecting files as described with the single file input. Except for one difference: the user can select multiple files from the dialog:
+
+![Selecting multiple files](./images/08/multiple-dialog.png)
+
+And that's it, except there are a number of problems:
 
 First, users can only select files within a single folder. If they need to upload files within different folders they can't. Of course, users could move all the files into a single folder beforehand but this puts the onus on the user.
 
-Second, some browsers don't recognise the `multiple` attribute. In this case it will degrade into a standard, single file picker, which could result in a broken experience. This may or may not be okay depending on your design.
+Second, not all browsers support this behaviour. And in these browsers, it will degrade into a single file picker which could result in a broken experience.
 
-For example, take the following form. It asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit. But when it's not supported, users can only upload a single receipt which may not be enough.
+For example, take the following form. It asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit them. But without support, users can only upload a single receipt which leaves users with a problem.
 
 ![Degraded](./images/08/multiple-degrade.png)
 
-One way to solve this, is to ask users if they'd like to add another receipt as part of a flow. It also gives users the chance to review their submission. Crucially, this journey works whether the browser supports multiple or single file uploads. One potential downside is that it's long-winded - something that could be problematic if the form is used repeatedly.
+One way to solve this problem, is to give users a way to add additional files as part of a flow:
 
 ![Degraded solution](./images/08/multiple-degrade-solution.png)
+
+Not only does this design let users upload multiple files in unsupported browsers, but it lets the user review their submission too. With that said, this design may not always be desirable.
 
 ## A Drag And Drop Enhancement
 

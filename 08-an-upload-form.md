@@ -66,7 +66,7 @@ Now that it's hidden, we can style the control's label, which fortunately, is ea
 
 Now the input is hidden, we need to style the label so that it looks interactive. To make it look interactive, we need to style it and change the text like this:
 
-![Label as proxy](./images/08/file-picker-hidden-input.png)
+![Label as proxy](./images/08/label-as-button.png)
 
 #### Focus States
 
@@ -84,9 +84,9 @@ As the input is visually hidden, when the user Tabs to it, they won't get any fe
 
 When the user selects a file from the dialog, it's the input that will change state (as shown earlier). We'll need to reflect the chosen file within the text of the label.
 
-![Label text updated](./images/08/file-picker-onchange.png)
+![Label text updated](./images/08/chosen-file.png)
 
-To do this, well need to use JavaScript again. This time, listening to the input's `change` event:
+To do this, well need to listen to the input's `change` event like this:
 
 ```JS
 $('[type=file]').on('change', function(e) {
@@ -102,7 +102,7 @@ On the face of it, this implementation is visually pleasing and still accessible
 2. The interface doesn't fit with the established convention for providing hint and error text, as set out in “A Registration Form”. As such, not only would we need to think of a way to solve this problem, this would make the experience of using this form control, different to all of the others, creating an unfamiliar and jarring experience.
 3. File inputs are actually drop zones which means they let users drag and drop files (instead of going through the dialog). Hiding the input means forgoing this behaviour and multimodality of the control to suit the preference of the user.
 
-Considering the pitfalls, the improvement to aesthetics doesn't justify the downgrade in usability, utility and flexibility.
+Considering the pitfalls, the improvement to aesthetics doesn't seem to justify the downgrade in usability and utility.
 
 ## Multiple Files
 

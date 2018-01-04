@@ -159,7 +159,9 @@ The user can choose and upload a file repeatedly until they've uploaded all the 
 </form>
 ```
 
-Note the file input has the `multiple` attribute. In this case this is a robust enhancement: if the browser has support, the user can choose multiple files (meaning fewer page refreshes). If the user is using an unsupported browser, they can still upload a single file as many times as they need to. This also solves the aformentioned problem about not being able to select files across different folders.
+Note the file input has the `multiple` attribute. In this case this is a robust enhancement: if the browser has support, the user can choose multiple files (meaning fewer page refreshes). If the user is using an unsupported browser, they can still upload a single file as many times as they need to. 
+
+This also solves the aformentioned problem about not being able to select files across different folders.
 
 ## A Drag And Drop Enhancement
 
@@ -184,64 +186,43 @@ When the user drops files onto the drop zone, they'll be uploaded immediately wi
 
 Let me reiterate: files are going to be uploaded automatically `ondrop` without having to submit them as a separate action. For consistency reasons, we're going to make the file input upload files automatically `onchange` too. This way users don't need to submit the form separately, no matter which route they take.
 
+TODO: Better
+
 As files are going to be uploaded with AJAX, we're going to have to handle success and error states in an inclusive way anyway. More on this shortly.
 
-### Breaking Convention (The Small Print) 
+### Other Considerations 
 
-By uploading the files immediately is necessary, this could be unexpected and confusing for users: they'd normally expect to submit the form separately.
+Uploading files `onchange` might be unexpected and confusing for users because conventionally speaking, they'd expect to submit the form as a separate action.
 
-This is not just a conventional problem—it's a technical one too. For example, in some older browers, choose the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^2]. This results in a broken interface.
+However, this isn't just a conventional problem—it's not cross-browser. Some older browsers suffer with this unconventional enhancement. Here's three examples:
 
-The solution involves replacing the entire file input after the `onchange` event fires with a clone of itself. This itself isn't a deal breaker, but it would have to be refocused, which would cause screen reader users to announce the it for a second time—mildly annoying.
+1. Choosing the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^2]. This results in a broken interface. The solution involves replacing the entire file input after the `onchange` event fires with a clone of itself. As it would need to be refocused, screen readers will announce it for a second time which is mildly annoying.
+2. The `onchange` event won't fire until the field is blurred[^3]. Newer browsers offer the `oninput` event which solves this problem. This is because it fires the event as soon as the value changes (without blurring the field).
+3. Clicking the label doesn't trigger the input[^4].
 
----
+With that said, not only may you not have any users using these browsers, but the feature detection script rules these browsers out anyway because they don't support drag and drop. More on feature detection shortly.
 
-The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^3], which is something that new browsers solve by way of the `oninput` event. Unlike the `onchange` event, this will fire as soon as the input's value is changed without having to blur the field.
+It's worth noting that these problems have only arisen because of the assumed user needs of being able to drag and drop files. If users don't need it, then there's no need to veer away from convention anyway.
 
-In any case, the feature detection happens to rule out the offending browsers, because they don't support the drag and drop APIs, for example.
-
-Lastly, some older browsers won't trigger the file input by clicking the label[^4]. Once again, the feature detection rules out these browsers too.
-
-Anything like this needs a a lot of diverse testing to ensure what is better for some, doesn't exclude others. As you can see, going against WCAG guidelines can, if we're not careful, lead to usability failures.
-
-It's also worth baring in mind that users may not want, or benefit, from drag and drop at all. Before embarking on your own drag and drop solution, make sure there is a user need.
-
-### Interaction
-
-There's no submit button because the files are uploaded as soon as they're dropped. This is because browsers don't let you programmatically update a file input's value due to security reasons[^1]. 
-
-The act of selecting a file (as opposed to dropping one) also uploads them immediately (`onchange`). This is so both interactions behave consistently within the same component.
-
-The user can keep uploading files either by dropping them, or selecting them, or by using both methods interchangeably. When they're finished, they can review the files and if they need, delete them too.
-
-Clicking continue takes the user to the next step, whatever that is. Gmail users, for example, upload files using a similar interface. This is the same pattern, but put to a different purpose.
-
-![Gmail compose?](./images/08/gmail-compose.png)
-
-*(Note: the technical constraints regarding security have driven us to abandon convention which is not without issues. I'll address this later.)*
-
-### The Drop Zone
+### The Enhanced Mark-up
 
 Here's the Javascript-enhanced mark-up:
 
 ```HTML
-<form action="/upload" method="post" enctype="multipart/form-data">
-	<div class="dropzone dropzone--enhanced">
-		<div>
-			<label for="files">
-				Attach a file or drag and drop.
-			</label>
-			<input type="file" name="files" id="files" multiple>
-		</div>
+<form class="dropzone dropzone--enhanced">
+	<div class="field">
+		<label for="files">
+			Attach a file or drag and drop.
+		</label>
+		<input type="file" name="files" id="files" multiple>
 	</div>
 </form>
 ```
 
-The `enctype` attribute is necessary so that the files are transmitted to the server for processing. This is only relevant to the degraded experience. That is, when Javascript isn't available, users will see a file picker and upload button.
+Notes:
 
-![Degraded view](./images/08/degraded.png)
 
-Keyboard users can tab to the visually hidden input which will pseudo focus the label with Javascript as described earlier. This is also the same technique used for the seat chooser interface as set out in chapter 3, “Book a flight”.
+### Another heading?
 
 To create the drag and drop behaviour there are three javascript events: `ondragover`, `ondragleave` and `ondrop`.
 

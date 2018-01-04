@@ -174,19 +174,45 @@ To solve these issues, we're going to take our persistent upload form, and progr
 
 ![Dropzone](./images/08/drop-zone.png)
 
-The large drop zone is more ergonomic, especially for people with motor-impairments. Inside the drop zone, sits a button, that when clicked triggers the dialog to choose a file instead.
+The large drop zone is more ergonomic, especially for people with motor-impairments. It's conventionally styled with a dashed border. However, if users still aren't aware of this functionality, you may need to add some instructional text.
 
-The button is actually a label *styled* as a button using the technique a lambasted earlier. However, there's good reason to use it here, which I'll explain shortly.
+Inside the drop zone, sits a button. When clicked, it triggers the choose file dialog. The button is actually a label *styled* as a button using the ill-advised technique from earlier. But I haven't gone mad, there's good reason to do this.
 
-Conventionally, the the large drop zone is marked with a dashed border. This should be enough to signify to users that it's a drop zone. But if user research shows otherwise, you may need to make this behaviour clearer by adding some instructional text.
+### Why We're Styling The Label As A Button
 
-## Interaction
+When the user drops files onto the drop zone, they'll be uploaded immediately with AJAX. That's because browsers don't let you programmatically update a file input's value due to security reasons[^1]. But what does this have to do with the button?
+
+Let me reiterate: files are going to be uploaded automatically `ondrop` without having to submit them as a separate action. For consistency reasons, we're going to make the file input upload files automatically `onchange` too. This way users don't need to submit the form separately, no matter which route they take.
+
+As files are going to be uploaded with AJAX, we're going to have to handle success and error states in an inclusive way anyway. More on this shortly.
+
+### Breaking Convention (The Small Print) 
+
+By uploading the files immediately is necessary, this could be unexpected and confusing for users: they'd normally expect to submit the form separately.
+
+This is not just a conventional problem—it's a technical one too. For example, in some older browers, choose the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^2]. This results in a broken interface.
+
+The solution involves replacing the entire file input after the `onchange` event fires with a clone of itself. This itself isn't a deal breaker, but it would have to be refocused, which would cause screen reader users to announce the it for a second time—mildly annoying.
+
+---
+
+The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^3], which is something that new browsers solve by way of the `oninput` event. Unlike the `onchange` event, this will fire as soon as the input's value is changed without having to blur the field.
+
+In any case, the feature detection happens to rule out the offending browsers, because they don't support the drag and drop APIs, for example.
+
+Lastly, some older browsers won't trigger the file input by clicking the label[^4]. Once again, the feature detection rules out these browsers too.
+
+Anything like this needs a a lot of diverse testing to ensure what is better for some, doesn't exclude others. As you can see, going against WCAG guidelines can, if we're not careful, lead to usability failures.
+
+It's also worth baring in mind that users may not want, or benefit, from drag and drop at all. Before embarking on your own drag and drop solution, make sure there is a user need.
+
+### Interaction
 
 There's no submit button because the files are uploaded as soon as they're dropped. This is because browsers don't let you programmatically update a file input's value due to security reasons[^1]. 
 
 The act of selecting a file (as opposed to dropping one) also uploads them immediately (`onchange`). This is so both interactions behave consistently within the same component.
 
-The user can keep uploading documents either by dragging and dropping, or selecting, or using both interchangeably. When they're finished, they can review the files and if needed, delete them too. 
+The user can keep uploading files either by dropping them, or selecting them, or by using both methods interchangeably. When they're finished, they can review the files and if they need, delete them too.
 
 Clicking continue takes the user to the next step, whatever that is. Gmail users, for example, upload files using a similar interface. This is the same pattern, but put to a different purpose.
 
@@ -372,24 +398,6 @@ if(typeof Dropzone !== 'undefined') {
   new Dropzone();
 }
 ```
-
-### The Small Print
-
-As noted earlier, we're breaking convention by uploading files immediately `ondrop` and `onchange`. And while there's rationale behind the approach, doing so might be unexpected and confusing for users: they'd normally expect to submit the form separately.
-
-This isn't just an academic endeavour. The `onchange` event is historically problematic, particularly when it's applied to a file input. For example, in some browsers, if you upload the same file (or a file with the same name) for a second time, the `onchange` event won't fire at all[^2]. This would create a broken experience.
-
-The solution is to replace the entire file input after the `onchange` event fires. This would mean having to set focus to the cloned file input, which causes screen readers to announce it for a second time. Mildly annoying.
-
-The other problem is that some older browsers, won't fire the `onchange` event until blurring the field[^3], which is something that new browsers solve by way of the `oninput` event. Unlike the `onchange` event, this will fire as soon as the input's value is changed without having to blur the field.
-
-In any case, the feature detection happens to rule out the offending browsers, because they don't support the drag and drop APIs, for example.
-
-Lastly, some older browsers won't trigger the file input by clicking the label[^4]. Once again, the feature detection rules out these browsers too.
-
-Anything like this needs a a lot of diverse testing to ensure what is better for some, doesn't exclude others. As you can see, going against WCAG guidelines can, if we're not careful, lead to usability failures.
-
-It's also worth baring in mind that users may not want, or benefit, from drag and drop at all. Before embarking on your own drag and drop solution, make sure there is a user need.
 
 ## A Note About The `accept` and `capture` Attributes
 

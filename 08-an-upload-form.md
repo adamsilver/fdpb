@@ -176,44 +176,26 @@ To solve these issues, we're going to take our persistent upload form, and progr
 
 ![Dropzone](./images/08/drop-zone.png)
 
-The large drop zone is more ergonomic, especially for people with motor-impairments. It's conventionally styled with a dashed border. However, if users still aren't aware of this functionality, you may need to add some instructional text.
+The large drop zone is more ergonomic, especially for people with motor-impairments. It's conventionally styled with a dashed border. However, if your users aren't aware this convention, you can add some instructional text.
 
-Inside the drop zone, sits a button. When clicked, it triggers the choose file dialog. The button is actually a label *styled* as a button using the ill-advised technique from earlier. But I haven't gone mad, there's good reason to do this.
+Inside the drop zone, sits a button. When clicked, it triggers the choose file dialog. The button is actually a label *styled* as a button using the ill-advised technique from earlier. But I haven't gone mad, there's good reason for this.
 
 ### Why We're Styling The Label As A Button
 
-When the user drops files onto the drop zone, they'll be uploaded immediately with AJAX. That's because browsers don't let you programmatically update a file input's value due to security reasons[^1]. But what does this have to do with the button?
+The dropzone has two methods of interaction: dropping files onto the drop zone and clicking the button.
 
-Let me reiterate: files are going to be uploaded automatically `ondrop` without having to submit them as a separate action. For consistency reasons, we're going to make the file input upload files automatically `onchange` too. This way users don't need to submit the form separately, no matter which route they take.
+Browsers don't let you programmatically update a file input's value due to security reasons[^1]. Because of this, we can't for example update the file input's value, when the user drops files onto the drop zone. Because of this, files will be uploaded immediately with AJAX (which we'll cover shortly).
 
-TODO: Better
-
-As files are going to be uploaded with AJAX, we're going to have to handle success and error states in an inclusive way anyway. More on this shortly.
-
-### Other Considerations 
-
-Uploading files `onchange` might be unexpected and confusing for users because conventionally speaking, they'd expect to submit the form as a separate action.
-
-However, this isn't just a conventional problem—it's not cross-browser. Some older browsers suffer with this unconventional enhancement. Here's three examples:
-
-1. Choosing the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^2]. This results in a broken interface. The solution involves replacing the entire file input after the `onchange` event fires with a clone of itself. As it would need to be refocused, screen readers will announce it for a second time which is mildly annoying.
-2. The `onchange` event won't fire until the field is blurred[^3]. Newer browsers offer the `oninput` event which solves this problem. This is because it fires the event as soon as the value changes (without blurring the field).
-3. Clicking the label doesn't trigger the input[^4].
-
-With that said, not only may you not have any users using these browsers, but the feature detection script rules these browsers out anyway because they don't support drag and drop. More on feature detection shortly.
-
-It's worth noting that these problems have only arisen because of the assumed user needs of being able to drag and drop files. If users don't need it, then there's no need to veer away from convention anyway.
+Remember, the dropzone actually has two methods of interaciton: dropping files onto the drop zone and clicking the button. For consistency reasons we want both approaches to upload files immediately (`onchange`). This way, users don't ever have to think about when (or when not) to submit the form—that interaction is taken out of the equation.
 
 ### The Enhanced Mark-up
 
 Here's the Javascript-enhanced mark-up:
 
 ```HTML
-<form class="dropzone dropzone--enhanced">
+<form class="dropzone">
 	<div class="field">
-		<label for="files">
-			Attach a file or drag and drop.
-		</label>
+		<label for="files">Upload file</label>
 		<input type="file" name="files" id="files" multiple>
 	</div>
 </form>
@@ -221,16 +203,35 @@ Here's the Javascript-enhanced mark-up:
 
 Notes:
 
+- The button's been removed because the files will be uploaded with AJAX `onchange`.
+- The “dropzone” is exists as a way to target this particular form for CSS and JavaScript enhancement. 
 
-### Another heading?
+### Dragover And Dragleave Events
 
-To create the drag and drop behaviour there are three javascript events: `ondragover`, `ondragleave` and `ondrop`.
+Dragging and dropping files onto the dropzone involves three events: `ondragover`, `ondragleave` and `ondrop`.
 
-The `ondragover` handler adds a class of `dropzone--dragover` and the `ondragleave` handler removes it. The class is used to give feedback so users know they are within the drop zone.
+The `ondragover` event is used to add a class of `dragover`. We can use this class to change the styles of the dropzone so that users know they are within the dropzone. Similarly, the class should be removed when the user leaves the dropzone by using the `ondragleave` event.
 
 ![on drag over](./images/08/drag-over.png)
 
-*(Note: you can't just use `:hover`, because it's only relevant if the user is hovering with a file in hand. That is, the `:hover` class would activate even if the user didn't drag a file onto the dropzone.)*
+```JS
+Dropzone.prototype.onDragOver = function(e) {
+  e.preventDefault();
+  this.dropzone.addClass('dropzone--dragOver');
+};
+
+Dropzone.prototype.onDragLeave = function() {
+  this.dropzone.removeClass('dropzone--dragOver');
+};
+```
+
+Notes:
+
+- We can't just use the `:hover` psuedo class, because we only want to give users feedback when they are dragging a file onto the drop zone. The `:hover` class would apply even if the user wasn't dragging files onto the drop zone. 
+- Prevent default?
+- bem
+
+### Dropping Files
 
 The `ondrop` handler is where the magic happens. The event handler receives an event object (`e.dataTransfer.files`) that holds data about the files. For each file dropped an AJAX request is made.
 
@@ -379,6 +380,20 @@ if(typeof Dropzone !== 'undefined') {
   new Dropzone();
 }
 ```
+
+### Other Considerations 
+
+Uploading files `onchange` might be unexpected and confusing for users because conventionally speaking, they'd expect to submit the form as a separate action.
+
+However, this isn't just a conventional problem—it's not cross-browser either. Some older browsers suffer with this unconventional enhancement. Here's three examples:
+
+1. Choosing the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^2], which creates a broken interface. The solution involves replacing the entire file input after the `onchange` event fires with a clone of itself. As it would need to be refocused, screen readers will announce it for a second time which is mildly annoying.
+2. The `onchange` event won't fire until the field is blurred[^3]. Newer browsers offer the `oninput` event which solves this problem. This is because it fires the event as soon as the value changes (without blurring the field).
+3. Clicking the label doesn't trigger the input[^4].
+
+With that said, you may not have any users using these older browsers. And, this enhancement rules the offending browsers out due to the feature detection. That is, that the browsers that suffer from these problems don't support drag and drop.
+
+It's worth noting that these problems have only arisen because of the assumed need to let users drag and drop. If users don't need it, then there's no need to veer away from convention anyway.
 
 ## A Note About The `accept` and `capture` Attributes
 

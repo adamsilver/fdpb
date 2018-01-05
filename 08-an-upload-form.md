@@ -287,13 +287,11 @@ Dropzone.prototype.uploadFile = function(file) {
 
 ### Feedback
 
-While the files have been uploaded to the server, the user has received no feedback. There are three types of feedback we want to signal to users: progress, success and error.
+While the files have been uploaded to the server, the user has received no feedback. There are three types of feedback users need: progress, success and error.
 
+#### Progress
 
-
-- This is particularly useful if users are uploading large files or using a slow network (or both).
-
-Each file is represented as a list item. Progress is indicated by the `<progress>` element.
+Unlike text, files may take a long time to upload, depending on the file size and connection speed. As such, it's important to give users feedback during upload—not just on completion. Here's how it might look:
 
 ![Progress](./images/08/progress.png)
 
@@ -303,13 +301,23 @@ Each file is represented as a list item. Progress is indicated by the `<progress
     <span class="file">file.pdf</span>
     <progress max="100" value="80">80% complete</progress>
   </li>
-  ...
+  <!-- more list items -->
 </ul>
 ```
 
-The text inside the element is for browsers that lack support for the progress element. They'll just see the text.
+Each file is represented as a list item (`<li>`). Inside the list item is the file name (`<span>`) and progress bar (`<progress>`). In browsers that don't support the progress element, the inner text will act as a fallback.
 
-The progress bar is updated in response to the AJAX request that has an `onprogress` event.
+The progress barh has a number of properties. As we're dealing in percentages, we'll set the `max` attribute to 100. The `value` attribute is then updated in response to the XMLHttpRequest's `onprogress` event like this:
+
+```JS
+onprogress
+```
+
+Notes:
+
+-
+
+#### Success
 
 When the file is finished uploading, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added, letting users delete the file if they uploaded it by mistake, for example.
 
@@ -340,6 +348,8 @@ If there's an error, a message is shown in place of the progress bar, letting us
 	...
 </ul>
 ```
+
+#### Screen Readers
 
 The only thing missing is a hidden live region in order to *provide a comparable experience* for screen readers. There are three scenarios that need to be announced:
 

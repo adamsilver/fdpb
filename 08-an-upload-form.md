@@ -99,9 +99,9 @@ $('[type=file]').on('change', function(e) {
 On the face of it, this implementation is visually pleasing and still accessible. Keyboard, mouse and touch users can operate it normally and screen readers will announce the value of the input. But these do not cover the exhaustive list of considerations needed to provide a fully inclusive experience.
 
 1. Updating the label to reflect the input's value is confusing because the label should describe the input and remain unchanged. In this case, screen reader users will hear “cv.doc” as opposed to “Attach document”.
-2. The interface doesn't fit with the established convention for providing hint and error text, as set out in “A Registration Form”. As such, not only would we need to think of a way to solve this problem, this would make the experience of using this form control, different to all of the others, creating an unfamiliar and jarring experience.
-3. File inputs are actually drop zones which means they let users drag and drop files (instead of going through the dialog). Hiding the input means forgoing this behaviour and multimodality of the control to suit the preference of the user.
-4. There's not much room inside the button for a large file name.
+2. The interface doesn't fit with the established convention for providing hint and error text, as set out in “A Registration Form”. Not only would we need to think of another way to provide this information, but it would make for an inconsistent and unfamiliar user experience.
+3. File inputs are actually drop zones which means they let users drag and drop files (instead of going through the dialog). Hiding the input means forgoing this behaviour which some users may prefer.
+4. There's not much room inside the button for a large file name. Remember, inclusive design ensures the interface works under varying lengths of content.
 
 Considering the pitfalls, the improvement to aesthetics doesn't seem to justify the downgrade in usability and utility.
 
@@ -381,7 +381,7 @@ if(typeof Dropzone !== 'undefined') {
 }
 ```
 
-### Other Considerations 
+### Considering Older Browsers
 
 Uploading files `onchange` might be unexpected and confusing for users because conventionally speaking, they'd expect to submit the form as a separate action.
 
@@ -411,7 +411,7 @@ In Chrome and Safari on iOS and Android, for example, it will give the user a ch
 
 *(Note: On desktop it will prompt the user to upload an image file from the file system disabling files that aren't images, for example. The problem with this is that users won't know why the files are disabled as there's no feedback.)*
 
-You can also add the `capture` attribute, which indicates to supporting browsers that you prefer getting an image from the camera:
+The `capture` attribute, when supported, indicates the preference of getting an image from the camera:
 
 ```HTML
 <input type="file" accept="image/*" capture>
@@ -419,9 +419,9 @@ You can also add the `capture` attribute, which indicates to supporting browsers
 <input type="file" accept="image/*" capture="environment">
 ```
 
-Adding the capture attribute without a value let's the browser decide which camera to use (if there's one available), while the "user" and "environment" values tell the browser to prefer the front and rear cameras, respectively.
+Adding the capture attribute without a value let's the browser decide which camera to use (if there's one available), while the "user" and "environment" values tell the browser to prefer the front and rear cameras respectively.
 
-The capture attribute works on Android and iOS, but is ignored on desktop. Be aware, however, that on Android this means that the user will no longer have the option of choosing an existing picture. The system camera app will be started directly instead, which is probably undesirable.
+The capture attribute works on Android and iOS, but is ignored on desktop. Beware that on Android this means the user will no longer have the option of choosing an existing picture. The system camera app will be started directly instead, which is probably undesirable.
 
 ## Summary
 

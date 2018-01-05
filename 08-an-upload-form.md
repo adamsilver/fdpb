@@ -208,87 +208,90 @@ Notes:
 
 ### Dragover And Dragleave Events
 
-Dragging and dropping files onto the dropzone involves three events: `ondragover`, `ondragleave` and `ondrop`.
+When the user is dragging files over the dropzone, they should be given feedback so that they know that the files can be dropped. 
 
-The `ondragover` event is used to add a class of `dragover`. We can use this class to change the styles of the dropzone so that users know they are within the dropzone. Similarly, the class should be removed when the user leaves the dropzone by using the `ondragleave` event.
+![on drag over](./images/08/dragover.png)
 
-![on drag over](./images/08/drag-over.png)
+We can achieve this by adding a class onto the drop zone when the `ondragover` event is fired. Similarly, we need to remove the class when the user leave the dropzone (when `ondragleave` is fired):
 
 ```JS
 Dropzone.prototype.onDragOver = function(e) {
   e.preventDefault();
-  this.dropzone.addClass('dropzone--dragOver');
+  this.dropzone.addClass('dropzone-dragover');
 };
 
 Dropzone.prototype.onDragLeave = function() {
-  this.dropzone.removeClass('dropzone--dragOver');
+  this.dropzone.removeClass('dropzone-dragOver');
+};
+```
+
+*(Note, `e.preventDefault()` is called to allow the file to be dropped onto the drop zone. Without doing this, the browser will try and load the dropped file instead.)*
+
+Now we can change the styles of the drop zone with CSS:
+
+```CSS
+.dropzone-dragover {
+  /* styles here */
+}
+```
+
+*(Note: we can't just use `:hover` because the feedback should only given when a user is dragging a file over the drop zone—not just that the cursor happens to be over the drop zone.)*
+
+### Dropping Files
+
+Next we need to handle the dropping of the files, which we can do by listening to the `ondrop` event. Here is the handler:
+
+```JS
+Dropzone.prototype.onDrop = function(e) {
+  e.preventDefault();
+  this.dropzone.removeClass('dropzone-dragover');
+  $('.fileList').removeClass('hidden');
+  this.uploadFiles(e.originalEvent.dataTransfer.files);
 };
 ```
 
 Notes:
 
-- We can't just use the `:hover` psuedo class, because we only want to give users feedback when they are dragging a file onto the drop zone. The `:hover` class would apply even if the user wasn't dragging files onto the drop zone. 
-- Prevent default?
-- bem
-
-### Dropping Files
-
-The `ondrop` handler is where the magic happens. The event handler receives an event object (`e.dataTransfer.files`) that holds data about the files. For each file dropped an AJAX request is made.
+- `e.preventDefault()` is called to allow the file to be dropped onto the drop zone. Without this, the browser will attempt to load the file instead.
+- The dragover highlight is removed as the file has now been dropped.
+- The file list component is revealed ready to give users feedback as the files are uploaded. More on this shortly.
+- The event object (`e`) contains information about the files, which is handed over to the `uploadFiles` method (shown below) 
 
 ```JS
-Dropzone.prototype.onDrop = function(e) {
-	e.preventDefault();
-	this.removeHighlight();
-	this.upload(e.originalEvent.dataTransfer.files);
+Dropzone.prototype.uploadFiles = function(files) {
+  for(var i = 0; i < files.length; i++) {
+    this.uploadFile(files[i]);
+  }
 };
 ```
 
-By default, dragging and dropping a file into the viewport will load the file in the browser which we prevent from happening on the firt line. Next, the highlight is removed. And finally, the `upload()` method is called passing in the dropped files. 
+### Uploading The File
+
+Uploading the file involves two discrete steps. First, we must create the form data using the `FormData` API. Here's MDN's explanation[^MDN]:
+
+> The FormData interface provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data".
+
+The data then needs to passed to jQuery's `$.ajax` method. The URL is whatever you want it to be.
 
 ```JS
-Dropzone.prototype.upload = function(files) {
-    for(var i = 0; i < files.length; i++) {
-      var formData = new FormData();
-      formData.append('documents', files[i]);
-      this.makeRequest(formData);
-    }
-    $('.fileList').removeClass('hidden');
+Dropzone.prototype.uploadFile = function(file) {
+    var formData = new FormData();
+    formData.append('documents', file);
+    $.ajax({
+      url: '/ajax-upload',
+      type: 'post',
+      data: formData
+    });
   };
 ```
 
-For each file dropped we create the data using the `FormData` object, then pass that data to `makeRequest`. Finally, the fileList component is revealed so that we can inject feedback.
-
 ### Feedback
 
-Whether files are dropped or selected with the file picker, we need to give users feedback.
+While the files have been uploaded to the server, the user has received no feedback. There are three types of feedback we want to signal to users: progress, success and error.
 
-```JS
-Dropzone.prototype.makeRequest = function(formData) {
-  var li = $('<li>'+ formData.get('documents').name +'<br><progress value="0" max="100">0%</progress></li>');
-  $('.fileList ul').append(li);
-	$.ajax({
-    url: '/ajax-upload',
-    type: 'post',
-    data: formData,
-    xhr: function() {
-      var xhr = new XMLHttpRequest();
-      xhr.upload.addEventListener('progress', function(evt) {
-        if (evt.lengthComputable) {
-          // calculate the percentage of upload completed
-          var percentComplete = evt.loaded / evt.total;
-          percentComplete = parseInt(percentComplete * 100);
 
-          li.find('progress').text(percentComplete + '%');
-          li.find('progress').val(percentComplete);
-        }
-      }, false);
-      return xhr;
-    }
-  });
-};
-```
 
-This function injects a list item into the file list panel and fires the request. It listens to the `progress` event on the `XMLHttpRequest` object, so that feedback can be given in real time. This is particularly useful if users are uploading large files or using a slow network (or both).
+- This is particularly useful if users are uploading large files or using a slow network (or both).
 
 Each file is represented as a list item. Progress is indicated by the `<progress>` element.
 
@@ -352,7 +355,7 @@ These messages are only needed for screen reader users, and so they should be pl
 </div>
 ```
 
-### Feature Detection
+### Feature Detection And Initialisation
 
 The drag and drop script uses several Javascript APIs that not all browsers recognise. Before referencing them, they need to be detected to ensure users don't get a broken experience.
 

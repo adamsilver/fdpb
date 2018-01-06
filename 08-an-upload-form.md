@@ -267,31 +267,45 @@ Dropzone.prototype.uploadFiles = function(files) {
 
 ### Uploading The File
 
-Uploading the file involves two discrete steps. First, we must create the form data using the `FormData` API. Here's MDN's explanation[^MDN]:
-
-> The FormData interface provides a way to easily construct a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method. It uses the same format a form would use if the encoding type were set to "multipart/form-data".
-
-The data then needs to passed to jQuery's `$.ajax` method. The URL is whatever you want it to be.
+Uploading the file involves two steps: creating the data to be sent and and sending the data:
 
 ```JS
 Dropzone.prototype.uploadFile = function(file) {
     var formData = new FormData();
     formData.append('documents', file);
     $.ajax({
+      data: formData
       url: '/ajax-upload',
       type: 'post',
-      data: formData
+      processData: false,
+      contentType: false,
     });
   };
 ```
 
+The `FormData` API is designed to construct key/value pairs that represent form fields (and their values), which can then be sent with AJAX, including forms that contain files (like ours does). First, we create a new instance, then we append the entry the file data to it.
+
+For convenience, we're using jQuerys `$.ajax` method. Here's a run down of the properties that have been set:
+
+| Property | Description |
+|:---|:---|
+| data | Set to the data constructed using `FormData`. |
+| type | Set to "post" as we're sending data, not retrieving it as "get" is designed for. |
+| url | The url for whichthe server will process the request. |
+| processData | Set to `false` which tells jQuery not to convert the data into a querystring. This is important as we're sending files, not text. |
+| contentType | Set to `false` which tells jQuery not to override the automatically created headers appropriate for sending files[^boundary]. |
+
 ### Feedback
 
-While the files have been uploaded to the server, the user has received no feedback. There are three types of feedback users need: progress, success and error.
+It's all well and good having uploaded the files to the server, but the user is none the wiser as the interface hasn't given them any feedback. There are three types of feedback users need: progress, success and error. Let's look at each in turn now.
 
 #### Progress
 
-Unlike text, files may take a long time to upload, depending on the file size and connection speed. As such, it's important to give users feedback during upload—not just on completion. Here's how it might look:
+Unlike text, files may take a long time to upload. As such, it's important to give users feedback during upload—not just on completion. We can provide feedback using a progress bar.
+
+Each file should be represented separately as there's a separate request for each. This way, some small files will upload quickly, while others load more slowly in parallel.
+
+Here's how it might look:
 
 ![Progress](./images/08/progress.png)
 
@@ -305,49 +319,65 @@ Unlike text, files may take a long time to upload, depending on the file size an
 </ul>
 ```
 
-Each file is represented as a list item (`<li>`). Inside the list item is the file name (`<span>`) and progress bar (`<progress>`). In browsers that don't support the progress element, the inner text will act as a fallback.
+The files are contained in a `<ul>`. Each file, represented as an `<li>`, contains the file name (`<span>`) and the progress bar (`<progress>`).
 
-The progress barh has a number of properties. As we're dealing in percentages, we'll set the `max` attribute to 100. The `value` attribute is then updated in response to the XMLHttpRequest's `onprogress` event like this:
+The progress element typically displays as a progress bar to show progress. It has two attributes: max and value. The max attribute describes how much work there is to be done. In our case, it's set to 100 as we're working in percentages. The value attribute specifies how much has been completed, which is is updated with JavaScript (shown below).
+
+*(Note: we're also setting the inner text of the progress element. This is so that users will be able to see the progress as text in browsers that don't support the progress element.)*
 
 ```JS
-onprogress
+$.ajax({
+  xhr: function() {
+    var xhr = new XMLHttpRequest();
+    xhr.upload.addEventListener('progress', function(e) {
+      if (e.lengthComputable) {
+        var percentComplete = e.loaded / e.total;
+        percentComplete = parseInt(percentComplete * 100);
+        li.find('progress')
+          .prop('value', percentComplete)
+          .text(percentComplete + '%');
+      }
+    }, false);
+    return xhr;
+  }
+});
 ```
 
-Notes:
+As jQuery (at the time of writing) doesn't support the `onprogress` event we have to create our own instance of `XMLHttpRequest` in order to listen to that event. This is done within `$.ajax`s `xhr` property.
 
--
+The handler first checks to see if the server has correctly sent a `Content-Length` header by seeing if `e.lengthComputable` is true. It is has, then we can determine how much of the file has been uploaded, which is done by dividing `e.loaded` by `e.total`. That value is then converted to a percentage before updating the progress bar.
 
 #### Success
 
-When the file is finished uploading, the `<span>` is converted into a link so that it can be downloaded. Additionallity, a submit button is added, letting users delete the file if they uploaded it by mistake, for example.
+Once the file's been successfully uploaded, users should see a change in the interface. We do this in two ways: first, we update the `<span>` into a link which users can click to download and verify the file if they wish. Second, we add a remove button, which lets users remove it if it was uploaded by mistake.
 
 ![Success](./images/08/success.png)
 
 ```HTML
-<ul>
-	<li>
-		<a href="/path/to/file.pdf">file.pdf</a>
-		<progress max="100" value="100">100% complete</progress>
-		<input type="submit" name="remove1" value="Remove">
-	</li>
-	...
-</ul>
+<li>
+	<a href="/path/to/file.pdf">file.pdf</a>
+	<progress max="100" value="100">100% complete</progress>
+	<input type="submit" name="remove1" value="Remove">
+</li>
 ```
 
-If there's an error, a message is shown in place of the progress bar, letting users dismiss that file to try again by clicking the button.
+#### Error
+
+There might be situations in which a file fails to upload. Perhaps the file's too big, for example. In this case, we want to help users fix the mistake. To do this, we can remove the progress bar, and inject an error message next to the file so that users know which file has gone wrong.
+
+Additionally, we should give users a button that lets them dismiss the file if they want to before attempting to upload another one.
 
 ![An error](./images/08/error.png)
 
 ```HTML
-<ul>
-	<li>
-		<a href="/path/to/file.pdf">file.pdf</a>
-		<span class="error">File.pdf is too big.</span>
-		<button type="button">Dismiss message</button>
-	</li>
-	...
-</ul>
+<li>
+	<a href="/path/to/file.pdf">file.pdf</a>
+	<span class="error">File.pdf is too big.</span>
+	<button type="button">Dismiss message</button>
+</li>
 ```
+
+Notice, we're using the same error inline error styling and iconography as set out in chapter 1, “A Registration Form”.
 
 #### Screen Readers
 
@@ -460,3 +490,4 @@ TBD
 [^2]: https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
 [^3]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
 [^4]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
+[^boundary]: yada

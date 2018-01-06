@@ -283,9 +283,9 @@ Dropzone.prototype.uploadFile = function(file) {
   };
 ```
 
-The `FormData` API is designed to construct key/value pairs that represent form fields (and their values), which can then be sent with AJAX, including forms that contain files (like ours does). First, we create a new instance, then we append the entry the file data to it.
+The `FormData` API is designed to construct key/value pairs that represent form fields (and their values), which can then be sent with AJAX, including forms that contain files (like ours does). First, we create a new instance, then we append the file data to it.
 
-For convenience, we're using jQuerys `$.ajax` method. Here's a run down of the properties that have been set:
+For convenience, we're using jQuerys `$.ajax` method. Here's a run down of the properties used:
 
 | Property | Description |
 |:---|:---|
@@ -321,9 +321,9 @@ Here's how it might look:
 
 The files are contained in a `<ul>`. Each file, represented as an `<li>`, contains the file name (`<span>`) and the progress bar (`<progress>`).
 
-The progress element typically displays as a progress bar to show progress. It has two attributes: max and value. The max attribute describes how much work there is to be done. In our case, it's set to 100 as we're working in percentages. The value attribute specifies how much has been completed, which is is updated with JavaScript (shown below).
+The progress element typically displays as a progress bar to show progress. It has two attributes: max and value. The max attribute describes how much work there is to be done. In our case, it's set to 100 as we're working in percentages. The value attribute specifies how much has been completed, which is updated with JavaScript (shown below).
 
-*(Note: we're also setting the inner text of the progress element. This is so that users will be able to see the progress as text in browsers that don't support the progress element.)*
+*(Note: we're also setting the inner text of the progress element. This is what users will see in browsers that don't support the progress element.)*
 
 ```JS
 $.ajax({
@@ -343,47 +343,46 @@ $.ajax({
 });
 ```
 
-As jQuery (at the time of writing) doesn't support the `onprogress` event we have to create our own instance of `XMLHttpRequest` in order to listen to that event. This is done within `$.ajax`s `xhr` property.
+As jQuery (at the time of writing) doesn't support the `onprogress` event we have to create our own instance of `XMLHttpRequest` in order to listen to that event. This is done within the `xhr` property.
 
 The handler first checks to see if the server has correctly sent a `Content-Length` header by seeing if `e.lengthComputable` is true. It is has, then we can determine how much of the file has been uploaded, which is done by dividing `e.loaded` by `e.total`. That value is then converted to a percentage before updating the progress bar.
 
 #### Success
 
-Once the file's been successfully uploaded, users should see the file that was in progress update to mark itself as complete. First, we should convert the `<span>` into an link so that users can download and verify the file if they wish.
-
-Second, we should add a Remove button which is useful if the user uploaded a file by mistake.
+Next, we want to show users when a file has been successfully uploaded. First the file name is converted into a link so that users can download and verify the file if they wish. Second, we inject a success message of “File uploaded” and a Remove button which is useful if the file was uploaded by mistake.
 
 ![Success](./images/08/success.png)
 
 ```HTML
 <li>
 	<a href="/path/to/file.pdf">file.pdf</a>
-	<progress max="100" value="100">100% complete</progress>
+	<span class="fileList-success">
+    <svg width="1.5em" height="1.5em">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#tick"></use>
+    </svg>
+    File uploaded
+  </span>
 	<input type="submit" name="remove1" value="Remove">
 </li>
 ```
 
 ```JS
 $.ajax({
-  success: function(response){
+  success: $.proxy(function(response){
     if(response.file) {
-      li.find('.fileList-name').remove();
-      li.prepend('<a class="fileList-name" href="/'+response.file.path+'">'+response.file.originalname+'</a>');
-      li.append('<button type="button" class="secondaryButton">Remove</button>');
+      li.html(this.getSuccessHtml(response.file));
     }
-  }
+  }, this)
 });
 ```
 
-We're using the success callback which receives the response from the server as an object. The response contains a file property which contains the path and name of the file. This is used to create the HTML that is injected into the list item.
+We're using the success callback which receives the response from the server as an object. The response contains a `file` property which contains the path and name of the file. This is used to create the HTML that is injected into the list item.
 
-*(Note: the demo uses Multer with Express to process the image uploads on the server and create the response object as designed above.)*
+*(Note: the demo uses Multer and Express to process the request and generate the appropriate response as designed above.)*
 
 #### Error
 
-There might be situations in which a file fails to upload. Perhaps the file's too big, for example. In this case, we want to help users fix the mistake. To do this, we can remove the progress bar, and inject an error message next to the file so that users know which file has gone wrong.
-
-Additionally, we should give users a button that lets them dismiss the file if they want to before attempting to upload another one.
+If the uploaded file is too big, or in wrong format, we'll need to show users an error message which is going to be similar to the success message. Except instead of showing a green success message with a tick, we'll show a red message with the warning symbol. A Dismiss button is also injected which lets users dismiss the file if they want before attempting to upload another.
 
 ![An error](./images/08/error.png)
 
@@ -394,27 +393,46 @@ Additionally, we should give users a button that lets them dismiss the file if t
     <svg width="1.5em" height="1.5em"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#warning-icon"></use></svg>
     File.pdf is too big.
   </span>
-	<button type="button">Dismiss message</button>
+	<button type="button">Dismiss</button>
 </li>
 ```
 
-Notice, we're using the same error inline error styling and iconography as set out in chapter 1, “A Registration Form”.
+```JS
+$.ajax({
+  success: $.proxy(function(response){
+    if(response.error) {
+      li.html(this.getErrorHtml(response.error));
+    } else if(response.file) {
+      li.html(this.getSuccessHtml(response.file));
+    }
+  }, this)
+});
+```
 
-#### Screen Readers
+When there's an error, the response object will contain an `error` property which contains information about the error so that the HTML can be constructed accordingly.
 
-The only thing missing is a hidden live region in order to *provide a comparable experience* for screen readers. There are three scenarios that need to be announced:
+#### Screen Reader Feedback
 
-1. The user starts uploading: “3 files are being uploaded”
-2. The upload finishes successfully: “file.pdf has been uploaded”
-3. The file couldn't be uploaded: “file.pdf couldn't be uploaded because it was too big”
-
-These messages are only needed for screen reader users, and so they should be placed inside a hidden live region:
+While the feedback is useful for sighted users, screen reader users won't hear any feedback. To provide a comparable experience (principle 1) we'll need to add a hidden live region.
 
 ```HTML
 <div class="vh" role="status" aria-live="polite">
-	3 files are being uploaded
+  Uploading files. Please wait.
 </div>
 ```
+
+Notes:
+
+- vh
+- attrs
+
+The live region will be updated at various points during the upload process:
+
+| When | Description |
+|:---|:---|
+| Upload starts | Uploading files. Please wait. |
+| Upload completes | File.pdf has been uploaded. |
+| Upload fails | File.pdf is too big. The size must be less than 2MB. |
 
 ### Feature Detection And Initialisation
 

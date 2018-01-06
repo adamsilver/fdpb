@@ -349,7 +349,9 @@ The handler first checks to see if the server has correctly sent a `Content-Leng
 
 #### Success
 
-Once the file's been successfully uploaded, users should see a change in the interface. We do this in two ways: first, we update the `<span>` into a link which users can click to download and verify the file if they wish. Second, we add a remove button, which lets users remove it if it was uploaded by mistake.
+Once the file's been successfully uploaded, users should see the file that was in progress update to mark itself as complete. First, we should convert the `<span>` into an link so that users can download and verify the file if they wish.
+
+Second, we should add a Remove button which is useful if the user uploaded a file by mistake.
 
 ![Success](./images/08/success.png)
 
@@ -360,6 +362,22 @@ Once the file's been successfully uploaded, users should see a change in the int
 	<input type="submit" name="remove1" value="Remove">
 </li>
 ```
+
+```JS
+$.ajax({
+  success: function(response){
+    if(response.file) {
+      li.find('.fileList-name').remove();
+      li.prepend('<a class="fileList-name" href="/'+response.file.path+'">'+response.file.originalname+'</a>');
+      li.append('<button type="button" class="secondaryButton">Remove</button>');
+    }
+  }
+});
+```
+
+We're using the success callback which receives the response from the server as an object. The response contains a file property which contains the path and name of the file. This is used to create the HTML that is injected into the list item.
+
+*(Note: the demo uses Multer with Express to process the image uploads on the server and create the response object as designed above.)*
 
 #### Error
 
@@ -372,7 +390,10 @@ Additionally, we should give users a button that lets them dismiss the file if t
 ```HTML
 <li>
 	<a href="/path/to/file.pdf">file.pdf</a>
-	<span class="error">File.pdf is too big.</span>
+	<span class="error">
+    <svg width="1.5em" height="1.5em"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#warning-icon"></use></svg>
+    File.pdf is too big.
+  </span>
 	<button type="button">Dismiss message</button>
 </li>
 ```

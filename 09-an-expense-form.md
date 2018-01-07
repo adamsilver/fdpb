@@ -1,44 +1,53 @@
 # An Expense Form
 
-As a freelancer I have to submit expenses for my tax return. It’s a pain but if I do it correctly I get tax breaks. The problem is that I have so many expenses to enter and a limited amount of time I'm willing to give up to enter them.
+As a freelancer I have to submit expenses for my tax return. It’s a pain but if I do it correctly I get tax breaks. The problem is that I have so many expenses to enter and a limited amount of time to enter them.
 
-Depending on the system you use, the anatomy of an expense might include a description, company, reference number, currency, amount, proof (receipt, for example) and date. How can we design a pattern that makes entering expenses easy, fast, performant and inclusive?
+The anatomy of an expense depends on the system you use and perhaps the country you live. It might include a description, company, date, amount and proof of purchase. How can we design a form that makes inputting multiple entries easy, fast, performant and inclusive?
 
-- Previous chapter looked at ways of adding lots of images.
-- This is applicable to more than just expenses
-- Of course, if you know how many things that need to be added in advance, then simply display that amount of fields (and make them required). If you don't, keep reading.
+Of course, if you know how many entries are needed in advance, then give users a form with all the necessary fields, make them required and that's it. But if the entries are dynamic (which expenses will be), keep reading.
 
-## The Ever Present Form Pattern (Persistent Form Pattern)
+## The Persistent Form Pattern (Again)
 
-The drag and drop interface from “An Upload Form” in some respects uses this pattern and so does the infamous “Todo list pattern”[^]. Even Github uses this pattern to let users add collaborators. What I'm trying to say is that you've most probably seen this pattern before even if you didn't have a name for it.
+In the previous chapter, I introduced what I call the persistent form pattern. In the chapter, we gave users an upload form, which users could keep using until they've finished. At which point they can exit the page.
 
-![Github](./images/09/github.png)
+There are a number of other forms on the web that use this pattern. For example, Github's *add collaborator* form or the infamous Todo List[^] personifies the use of a persistent form.
 
-The way it works is to have an ever-present form on the page (hence the name). Submitting it adds an item to a list above (or perhaps beside) the form. When the user is finished they can proceed. If this is part of a flow, you'd click a continue button (like the one in “An Upload Form”. On Github, you just leave the page.
+In the context of an expense form, we could present an expense form and each time it's submitted the expense will be added to a list above it, where users can review, edit or delete the entry.
 
-This is suitable for simple forms that can be submitted in one step. The potential downside is that as the list grows, the form is pushed down, which could cause trouble, especially on mobile.
+This is a useful pattern for short, simple forms that can be submitted in one go. There are, however, a number of downsides to this pattern:
 
-Also, there are multiple buttons: one to submit and one to proceed which could be confusing, especially for those with cognitive impairements. One primary action and button is always preferrable anyway as it requires less thinking.
+1. If you need to branch the pattern doesn't work. We'll look at branching patterns shortly.
+2. As the list of expenses grow, the form moves further down the page. This could be troublesome, especially on mobile, as users would have to scroll down to find the form.
+3. Having multiple calls to action (to submit and to proceed or exit) might be confusing, especially for cognitively-impaired users. Where possible, one call to action is preferrable as it requires less thinking.
+4. Each submission requires a separate request to the server. This could become frustrating if the user needs to add a lot of entries.
 
-Also, each submission is a server request. While not a huge deal, it could get frustrating if used frequently.
+## Branching With One Thing Per Page
 
-## One Thing Per Page (Again)
-
-Imagine you need to add a bunch of expenses, but the type of expense determines the information you need to enter. For example, if you're expensing a car, then you have to enter mileage, but if you're expensing a train ticket then you have to enter the ticket price.
+One of the major problems with the persistent form pattern is that it can't handle branching. I'll explain. Imagine the information you need to enter differs depending on the type of expense. For example, if you're expensing a car, you need to enter mileage; if you're expensing a train ticket, then you need to enter the ticket price.
 
 ![Flow](./images/09/expense-branching-flow.png)
 
-In this case, the Ever Present Form pattern is less suitable. Using One Thing Per Page as first discussed in “A Checkout Flow” is more appropriate. This is because it guides the user to provide the right information at the right time, which is especially useful for cognitively impaired users.
+In this case, the One Thing Per Page pattern (as first discussed in “A Checkout Flow”) is more suitable. This is because it presents one question at time meaning we can send users down a different flow depending on the answer to their question solving the branching problem.
 
-If users need to add multiple expenses at a time, then we'd need to ask them if they'd like to add another one at the end of the flow. Selecting *Yes* would take the user down the same flow again. Selecting *No* would complete the task. Not selecting either option will cause a validation error message to show.
+As noted in past chapters, using One Thing Per Page is a useful pattern in its own right, especially for cognitively impaired users as it presents a minimal amount of information at any one time.
+
+If users need to submit all of their expenses in one go, then you can consider prompting the user at the end of the flow by asking them if they'd like to add another:
 
 ![Add another question](./images/09/add-another-radios.png)
 
-This pattern is particularly appropriate for:
+Selecting *Yes* would take the user down the same flow again. Selecting *No* would complete the task.
 
-- handling branching
-- infrequent tasks
-- low-confidence users
+The downside to this pattern in this context is that it's long winded in comparison to the persistent form pattern.
+
+## Add Another
+
+- why
+- How It Might look
+- The Basic Experience
+- Adding an item
+- Removing an item
+- Feedback
+- Multiple submit buttons (add to top)
 
 ## The Add Another Pattern
 
@@ -60,7 +69,7 @@ When the add button is clicked, focus should be set to the first newly-created f
 
 When the user clicks the remove button, the fields in the row, including the button itself are removed. What happens to the focus when you delete the currently focused element? In “A Todo List”[^2], Heydon Pickering explains exactly what happens:
 
-> [...] browsers don’t know where to place focus when it has been destroyed in this way. Some maintain a sort of “ghost” focus where the item used to exist, while others jump to focus the next focusable element. Some flip out completely and default to focusing the outer document — meaning keyboard users have to crawl through the DOM back to where the removed element was.
+> [...] browsers don’t know where to place focus when it has been destroyed in this way. Some maintain a sort of “ghost” focus where the item used to exist, while others jump to focus the next focusable element. Some flip out completely and default to focusing the outer document — meaning keyboard users have to crawl [...] back to where the removed element was.
 
 So we don't want to leave focus down to the browser but where do we move it to? 
 
@@ -130,6 +139,12 @@ While this pattern is more complex, it may speed up the task for users who are m
 In this chapter, we've looked at the different ways to let users add multiple expenses or any other type of information that needs to be included. The patterns are based on frequency of use, digital ability and whether there is a need to branch.
 
 There's no right and wrong way here, it's about picking the most appropriate pattern for your particular problem.
+
+## Checklist
+
+-
+-
+-
 
 ## Demos
 

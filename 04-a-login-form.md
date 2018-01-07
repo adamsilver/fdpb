@@ -190,4 +190,3 @@ TBD
 [^1]: https://vimeo.com/138359368
 [^2]: https://www.lastpass.com/
 [^3]: http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
-[^heydontabs]: https://inclusive-components.design/tabbed-interfaces/

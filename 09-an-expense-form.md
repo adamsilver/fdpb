@@ -1,10 +1,12 @@
 # An Expense Form
 
-At first I wanted to fold this chapter into the last one because there's some overlap. Adding multiple files needn't be different from adding multiple of anything else really. It's just that uploading files has some unique considerations (such as drag and drop) that made sense to tackle in isolation.
+As a freelancer I have to submit expenses for my tax return. It’s a pain but if I do it correctly I get tax breaks. The problem is that I have so many expenses to enter and a limited amount of time I'm willing to give up to enter them.
 
-Unlike file inputs, other form controls don't let you add multiple values. So it's up to us to design a solution from scratch. There are three main approaches that are applicable to all sorts of data - files included. Whether it's adding collaborators to your Github repo or adding monthly expenses into an accounting service, you'll find the patterns in this chapter useful.
+Depending on the system you use, the anatomy of an expense might include a description, company, reference number, currency, amount, proof (receipt, for example) and date. How can we design a pattern that makes entering expenses easy, fast, performant and inclusive?
 
-Of course, if you know how many things that need to be added in advance, then simply display that amount of fields (and make them required). If you don't, keep reading.
+- Previous chapter looked at ways of adding lots of images.
+- This is applicable to more than just expenses
+- Of course, if you know how many things that need to be added in advance, then simply display that amount of fields (and make them required). If you don't, keep reading.
 
 ## The Ever Present Form Pattern (Persistent Form Pattern)
 

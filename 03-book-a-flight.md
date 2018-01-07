@@ -86,12 +86,12 @@ We'll cover off the other rules as we go.
 First, we need to hide the select box like this:
 
 ```HTML
-<select aria-hidden="true" tabindex="-1" class="vh">
+<select aria-hidden="true" tabindex="-1" class="visually-hidden">
 ```
 
 If the select box was completely unnecessary, we could have just removed it from the Document using Javascript. But if we did it this way (or by using `display: none`) it wouldn't be sent to the server.
 
-Instead, we've used the `vh` class and `aria-hidden="true"` attribute as first set out in chapter 2, “A Checkout Flow”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We still need to stop keyboard users being able to focus it by way of the <kbd>Tab</kbd> key which is acheived by the `tabindex="-1"` attribute.
+Instead, we've used the `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “A Checkout Flow”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We still need to stop keyboard users being able to focus it by way of the <kbd>Tab</kbd> key which is acheived by the `tabindex="-1"` attribute.
 
 #### Enhancing The Interface
 
@@ -140,13 +140,11 @@ Notes:
 - The `tabindex="-1"` attribute allows us to set focus to the options programatically. More on this shortly.
 - The `data-option-value` attribute is to store the corresponding `select` option value. When the user selects an option, we populate the hidden `select` box accordingly so that the real value will be persisted on submission.
 
-Suggestions appear in the menu giving sighted users feedback. To give screen reader users an equivalent experience we need to inject a live region. We can do this by injecting “13 results are available” into the `div`. By doing this we satisfy principle 1, “provide a comparable experience”.
+Suggestions appear in the menu giving sighted users feedback. To give screen reader users an equivalent experience we need to use a live region (as first set out in chapter 2, “A Checkout Flow”. By injecting “13 results are available” into the `div`, we satisfy principle 1, *Provide a comparable experience*.
 
 ```HTML
-<div aria-live="polite" role="status"></div>
+<div role="status" aria-live="polite">13 results are available</div>
 ```
-
-The `role="status"` and `aria-live="polite"` attributes tell screen readers to announce the content when it changes, but only after the user stops typing — otherwise it would interupt them. Both attributes are functionally equivalent but are included as some screen readers don't recognise `role`.
 
 #### Text Box Interactions
 
@@ -663,7 +661,7 @@ Each field is enhanced with this HTML:
     <button type="button" aria-label="Decrement" aria-describedby="adults-label">&minus;</button>
     <input type="number" id="adults" name="adults" value="1">
     <button type="button" aria-label="Increment" aria-describedby="adults-label">&plus;</button>
-    <div class="vh" role="status" aria-live="polite">1</div>
+    <div class="visually-hidden" role="status" aria-live="polite">1</div>
   </div>
 </div>
 ```

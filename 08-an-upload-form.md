@@ -58,7 +58,7 @@ The most robust way of styling the file picker is to visually hide it like this:
 </div>
 ```
 
-*(Note: The CSS for the vh (visually hidden) class is set out in “A Checkout Flow”.)*
+*(Note: The CSS for the visually hidden class is set out in “A Checkout Flow”.)*
 
 Now that it's hidden, we can style the control's label, which *is* easy to style. As described in “A Registration Form”, this works because a control's label acts as a proxy to the control itself. In this case, this means clicking the label is like clicking the input.
 
@@ -420,18 +420,18 @@ The updated success function now checks to see if the response contains an `erro
 
 #### Screen Reader Feedback
 
-While the feedback is useful for sighted users, screen reader users won't hear any feedback. To provide a comparable experience (principle 1), we'll need to add a live region. 
+While the feedback is useful for sighted users, screen reader users won't hear any feedback. To provide a comparable experience (principle 1), we'll need to use a live region. 
 
 ```HTML
-<div class="vh" role="status" aria-live="polite">
+<div class="visually-hidden" role="status" aria-live="polite">
   Uploading files. Please wait.
 </div>
 ```
 
 Notes:
 
-- The live region is visually hidden, because sighted users have already been catered for. Including this for sighted users is redundant. The CSS for the vh (visually hidden) class is set out in “A Checkout Flow”. 
-- Live regions with `role="status` and `aria-live="polite"` attributes have been explained in chapter 2, “A Checkout”.
+- The live region is visually hidden, because sighted users have already been catered for with the live progress bar and its various states. The CSS for the visually hidden class is set out in “A Checkout Flow”. 
+- Live regions and their various attributes were first explained in chapter 2, “A Checkout”.
 
 The live region will changed at various points:
 

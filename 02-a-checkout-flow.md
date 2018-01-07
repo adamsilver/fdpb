@@ -264,40 +264,45 @@ Instead, we should let users type freely and tell users how many characters they
 
 ![Character count](./images/02/character-countdown.png)
 
-To create this component, we need to use Javascript to inject a status box below the field. Then we need to listen to the textarea's `keydown` event.
+To create this component, we need to use JavaScript to inject a status box below the field. 
+
+```HTML
+<div>You have 100 characters remaining.</div>
+```
+
+Then we need to listen to the textarea's `keydown` event which is the event that fires as the user types:
 
 ```JS
-function CharacterCountdown(input) {
+function CharacterCountdown(input, options) {
   this.input = $(input);
-  this.status = $('<div role="status" aria-live="polite" />');
-  this.setOptions(options);
-  this.updateStatus(this.options.maxLength);
-  this.input.parent().append(this.status);
   this.input.on("keydown", $.proxy(this, 'onKeydown'));
+  // ...
 };
 ```
 
-As the user types, the `keydown` event listener will be invoked. This method will check the `length` of the field against the (configurable) max length and update the status box:
+The event listener will then check the `length` of the typed value against the configurable max length to calculate how many characters are remaining. This is then injected into the status box:
 
-```javascript
+```JS
 CharacterCountdown.prototype.onFieldChange = function(e) {
     var remaining = this.options.maxLength — this.field.val().length;
   this.status.html(this.options.message.replace(/%count%/, remaining));
 };
-
 ```
 
-The container has a `role="status` attribute and an `aria-live="polite"`. This instructs screen readers to announce the contents as it's changed — but only after the user finishes typing. This way, users aren't rudely interrupted.
+#### Live Regions
+
+The trouble is, this status is only determinable by sighted users. To give screen reader users a comparable experience (principle 1), we should make sure this information is communicated to them too.
+
+Screen readers will normally only announce content when it is focused, but live regions announce their content when it changes. This means we can communicate to screen reader users without asking them to leave their current location. In this case, it means users can continue to type into the textarea.
 
 ```HTML
-<div role="status" aria-live="polite">
-  You have 100 characters remaining.
-</div>
+<div role="status" aria-live="polite">You have 100 characters remaining.</div>
 ```
 
-*(Note: both `role="status"` and `aria-live="polite"` are functionally equivalent, but older versions of JAWS don't support `role`.)*
+Notes:
 
-When the maximum number of characters has been exceeded, the number will change to a negative value.
+- The aria-live="polite"[^polite] property and the status[^status] role are equivalent. Both are provided to maximize compatibility across platforms and screen readers (in some setups, only one or the other is recognized).
+- The equivalent `alert` and `assertive` values mean the current readout of the screen reader will be interrupted to announce the live region’s new content. In this case, as interupting the user as they're typing is aggressive. So we can keep `status` and `polite` values which means the contents are announced after the user stops typing for a moment.
 
 #### Announcing Only When It's Critical
 
@@ -612,10 +617,10 @@ If research shows that a more prominent progress bar is useful then you can incl
 First, you should keep the text inside the `h1` so that screen readers get a comparable experience (prinicple 1). Second, you'll need to hide it from sighted users like this:
 
 ```HTML
-<h1>Payment <span class="vh">Step 3 of 4</span></h1>
+<h1>Payment <span class="visually-hidden">Step 3 of 4</span></h1>
 ```
 
-The `vh` (short for visually hidden) class contains a special set of properties that hide the element visually, while still ensuring that it's perceivable to screen reader users when the `h1` is announced.
+The `visually-hidden` class contains a special set of properties that hide the element visually, while still ensuring that it's perceivable to screen reader users when the `h1` is announced.
 
 ```CSS
 .vh {

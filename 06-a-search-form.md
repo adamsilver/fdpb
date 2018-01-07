@@ -72,14 +72,14 @@ With that said, you could argue that a visible label is unnecessary because the 
 
 ```HTML
 <div class="field">
-  <label for="search" class="vh">
+  <label for="search" class="visually-hidden">
     <span class="field-label">Search</span>
   </label>
   <input type="search" id="search" name="search">
 </div>
 ```
 
-*(Note: The CSS for the vh (visually hidden) class is set out in “A Checkout Flow”.)*
+*(Note: The CSS for the visually hidden class is set out in “A Checkout Flow”.)*
 
 If search only retrieves products, for example, then the button's label would be better as “Search products” (or similar). 
 

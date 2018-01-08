@@ -2,40 +2,42 @@
 
 As a freelancer I have to submit expenses for my tax return. It’s a pain but if I do it correctly I get tax breaks. The problem is that I have so many expenses to enter and a limited amount of time to enter them.
 
-The anatomy of an expense depends on the system you use and perhaps the country you live. It might include a description, company, date, amount and proof of purchase. How can we design a form that makes inputting multiple entries easy, fast, performant and inclusive?
+The anatomy of an expense depends on the system you use and perhaps the country you live in. It might include a description, company, date, amount and proof of purchase. How can we design a form that makes inputting multiple entries easy, fast, performant and inclusive?
 
-Of course, if you know how many entries are needed in advance, then give users a form with all the necessary fields, make them required and that's it. But if the entries are dynamic (which expenses will be), keep reading.
+Of course, if you know how many entries are needed in advance, then give users a form with that many fields, make them required and that's about it. But if we don't how many entries are needed in advance (like expenses), keep reading.
 
 ## The Persistent Form Pattern (Again)
 
-In the previous chapter, I introduced what I call the persistent form pattern. In the chapter, we gave users an upload form, which users could keep using until they've finished. At which point they can exit the page.
+In the previous chapter, I introduced the persistent form pattern. In the chapter, we gave users an upload form, which users can keep using until they've finished uploading as many files as they need. At which point they can they can proceed or exit the page—depending on what you need.
 
-There are a number of other forms on the web that use this pattern. For example, Github's *add collaborator* form or the infamous Todo List[^] personifies the use of a persistent form.
+![Upload form](./images/09/persistent-upload-form.png)
 
-In the context of an expense form, we could present an expense form and each time it's submitted the expense will be added to a list above it, where users can review, edit or delete the entry.
+There are a number of other forms on the web that use the persistent form pattern. For example, Github's *add collaborators* form. In fact, the infamous Todo List[^] form that makes up many JavaScript tutorials is another example.
 
-This is a useful pattern for short, simple forms that can be submitted in one go. There are, however, a number of downsides to this pattern:
+![Github collaborators](./images/09/github.png)
 
-1. If you need to branch the pattern doesn't work. We'll look at branching patterns shortly.
-2. As the list of expenses grow, the form moves further down the page. This could be troublesome, especially on mobile, as users would have to scroll down to find the form.
+This pattern works for adding expenses too. Each time the user submits an expense, it will be added to the list above.
+
+![Persistent expense form](./images/09/persistent-expense-form.png)
+
+This pattern is well-suited to short, simple forms that can be submitted in one go. The pattern does, however, have a number of downsides:
+
+1. Users might need to use a form that has dynamic questions (branching) that are conditionally shown based on previous answers. In this case, the pattern doesn't work so well. We'll look at branching in more detail shortly.
+2. As the list of added expenses grow, the form moves further down the page. This could be a problem, especially on mobile, as users would have to scroll down to see and use the form.
 3. Having multiple calls to action (to submit and to proceed or exit) might be confusing, especially for cognitively-impaired users. Where possible, one call to action is preferrable as it requires less thinking.
-4. Each submission requires a separate request to the server. This could become frustrating if the user needs to add a lot of entries.
+4. Each submission requires a separate request to the server. This is slow and could become frustrating if the user needs to add a lot of entries.
 
 ## Branching With One Thing Per Page
 
-One of the major problems with the persistent form pattern is that it can't handle branching. I'll explain. Imagine the information you need to enter differs depending on the type of expense. For example, if you're expensing a car, you need to enter mileage; if you're expensing a train ticket, then you need to enter the ticket price.
+One of the major problems with the persistent form pattern is that it can't handle branching. Imagine the information the user needs to enter changes based on the type of expense. For example, if they're expensing a car, they must enter mileage; if they're expensing a train ticket, then they must enter the price.
 
 ![Flow](./images/09/expense-branching-flow.png)
 
-In this case, the One Thing Per Page pattern (as first discussed in “A Checkout Flow”) is more suitable. This is because it presents one question at time meaning we can send users down a different flow depending on the answer to their question solving the branching problem.
+In this case, the One Thing Per Page pattern (as first discussed in “A Checkout Flow”) is more suitable. This is because it presents one question at time meaning we can send users to different pages depending on the answer to the previous question. This solves the branching problem elegantly and simply.
 
-As noted in past chapters, using One Thing Per Page is a useful pattern in its own right, especially for cognitively impaired users as it presents a minimal amount of information at any one time.
-
-If users need to submit all of their expenses in one go, then you can consider prompting the user at the end of the flow by asking them if they'd like to add another:
+But, what if users also need to enter many expenses and submit them in one go? To guide users, we can ask them if they'd like to add another expense at the end of the flow. Selecting *Yes* would take the user down the same flow again. Selecting *No* would complete the task.
 
 ![Add another question](./images/09/add-another-radios.png)
-
-Selecting *Yes* would take the user down the same flow again. Selecting *No* would complete the task.
 
 The downside to this pattern in this context is that it's long winded in comparison to the persistent form pattern.
 

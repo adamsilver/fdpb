@@ -43,27 +43,67 @@ The downside to this pattern in this context is that it's long winded in compari
 
 ## Add Another
 
-- why
-- How It Might look
-- The Basic Experience
-- Adding an item
-- Removing an item
-- Feedback
-- Multiple submit buttons (add to top)
+Having looked at how the Persistent Form and One Thing Per Page patterns can work in the context of expenses, we can see that one problem is that they require at least one round-trip to the server for each expense the user needs to add. What if there was a pattern that gave users the flexibility of adding as many expenses as they like, without that problem?
 
-## The Add Another Pattern
+This is the purpose of the “add another” pattern. It works by giving users a single form, on a single page, that can be submitted in a single step. However, the user can add as many fields as they need in order to submit as many expesnes as they have.
 
-If your interface needs to be used more frequently and doesn't need to branch, you can consider the Add Another pattern. This consists of a single form, on a single page, submitted in a single step.
-
-It works by using Javascript to create extra form fields instantaneously which expedites the process.
+For purposes of demonstration, lets simplify the anatomy of this particular expense down to just a description and its cost.
 
 ### How It Might Look
 
 ![Add another](./images/09/add-another-pattern.png)
 
-Clicking the add another button creates a new set of expense fields. Pressing the remove button deletes the field. Users keep adding expenses and when they're finished, they can submit all of the expenses in one go.
+The form starts with enough fields to enter just one expense. However, there's an Add Another button, that when pressed will instantly clone the fields so that users can enter the details of a subsequent expense.
 
-The degraded experience is the same, except clicking a button refreshes the page.
+Users can keep on doing this until they're done, at which point the user is able to submit all their expenses at once, with just a single trip to the server, which should speed up the entire process.
+
+*(Note: the basic experience (before adding the JavaScript enhancement), works the same way except that pressing the Add Another button will generate the new fields on the server.)*
+
+### The Mark-Up
+
+```
+<form>
+  <div class="addAnother">
+    <div class="addAnother-item">
+      <div class="field">
+        <label for="items[0][description]">
+          <span class="field-label">Description</span>
+        </label>
+        <input 
+          type="text" 
+          id="items[0][description]" 
+          name="items[0][description]" data-name="items[%index%][description]" data-id="items[%index%][description]">
+      </div>
+      <div class="field">
+        <label for="items[0][amount]">
+          <span class="field-label">Amount</span>
+        </label>
+        <input 
+          type="text" 
+          id="items[0][amount]" 
+          name="items[0][amount]" 
+          data-name="items[%index%][amount]" data-id="items[%index%][amount]">
+      </div>
+    </div>
+    <input type="submit" name="addAnother" value="Add another expense">
+  </div>
+  <input type="submit" name="submitexpenses" value="Submit expenses">
+</form>
+```
+
+Notes:
+
+- The form consists of two fields to represent the expense being added: description and cost.
+- The two fields are wrapped in a `<div class="addAnother-item">` which itself has a parent wrapper of `<div class="addAnother">`. These extra elements are necessary to easily enable the cloning which we'll cover shortly.
+- There's an additional submit button with secondary button styles appended to `<div class="addAnother">`.
+- The `name` and `id` attributes have a special, array-like format that's necessary so that the server can recognise the fields as separate expenses. We'll look at how the names and ids of the field change when we discuss how cloning works.
+
+---
+
+- Adding an item
+- Removing an item
+- Feedback
+- Multiple submit buttons (add to top)
 
 ### Managing Focus
 

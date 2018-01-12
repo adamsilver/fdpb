@@ -49,13 +49,13 @@ Both the Persistent Form pattern and the One Thing Per Page pattern suffer from 
 
 The Add Another pattern works by giving users a single form, on a single page, submitted in a single step. However, the user can keep adding fields for how ever many expenses they need to add. For demonstration purposes, lets simplify the anatomy of an expense down to just a description and cost.
 
-### How It Might Look
+### How It Works
 
 ![Add another](./images/09/add-another-pattern.png)
 
 The form starts with enough fields to enter one expense. However, there's an Add Another button, that when pressed, will instantly clone the fields so that users can enter the details of an additional expense.
 
-Users can keep on doing this until they're done, at which point the user is able to submit all their expenses at once, with just a single trip to the server—speeding up the process quite drastically.
+Users can keep on doing this until they're done, at which point the user is able to submit all their expenses at once, with just a single trip to the server—speeding up the process drastically.
 
 *(Note: the basic experience (before adding the JavaScript enhancement), works the same way except that pressing the Add Another button will generate the new fields on the server.)*
 
@@ -92,28 +92,25 @@ Users can keep on doing this until they're done, at which point the user is able
 
 There are two important notes about this form:
 
-1. The expense fields are wrapped in a `<div class="addAnother-item">`. This lets us target the expense for styling and behavioural (explained shortly) purposes.
-2. The input's have a special-array like naming convention used for the `name` and `id` attributes, which we'll discuss now.
+1. The expense fields are wrapped in a `<div class="addAnother-item">`. This lets us target the expense with CSS and JavaScript (explained shortly).
+2. The inputs `name` and `id` attributes have a special-array like naming convention, which we'll discuss now.
 
 ### Processing Multiple (Dynamic) Expenses
 
-The form will be sending multiple expenses to the server for processing, but the server doesn't know how many expenses will be sent ahead of time—that is, they're dynamic. To help the server recognise and process the submitted expenses, a contract needs to be formed between the client and the server. 
+When the form is submitted, the payload will consist of multiple expenses. The server will need to process this data, but it won't know how many expenses will be sent in advance. That is, the expenses are dynamic.
 
-The contract is formed by the input's `name` attribute. Many server-side frameworks, such as Express[^], look for names with array indexes in the request payload. The framework then converts this into groups and values that can be processed easily. Let's look at the format of the `name` attribute:
+To help the server recognise and process the submitted expenses, a contract must be made between the client and the server. When it comes to forms, the contract is forged by the `name` attribute.
 
 ```HTML
 <input type="text" name="items[0][description]">
 <input type="text" name="items[0][amount]">
 ```
 
-| Part | Description |
-|:---|:---|
-| “items” | The name of the group. We could have used “expenses” but just kept it generic. |
-| [0] | This uses the array-like syntax to denote that this is the first item. The number will increment by one for each new expense added to the form. |
-| [description] | The description for the expense. |
-| [amount] | The amount for the expense. |
+Note the special `name` attribute value. By formatting it this way, the request payload can be parsed and converted into an array of expenses that the server can process easily. Several server-side frameworks, such as Express[^], are designed to recognise this convention. Let's run through the each part and describe what it means.
 
-If we needed to submit other information about an expense, then the only thing that would change is the last square bracket identifier.
+- *items* is the name of the group. You can use whatever name you like.
+- *[0]* represents the number of the item. This number will increment by one for each individual expense.
+- *[description]* and *[amount]* represents the specific attributes about the expense. In this case, the description and the amount. For each unique attribute you want to store, you'll need a unique name to identify it.
 
 ### Cloning Fields
 

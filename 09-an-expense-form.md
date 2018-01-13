@@ -114,7 +114,9 @@ Note the special `name` attribute value. By formatting it this way, the request 
 
 ### Cloning Fields
 
-Pressing the Add Another button needs to create a new set of expense fields to the form. Let's scaffold out this code now.
+Pressing the Add Another button needs to create a new set of expense fields to the form. There are several ways we might go about doing this. For example, we might use templating—which could be written in JavaScript[^] or in HTML[^]. Both approaches, however, lack browser support.
+
+Instead, we'll use a simple, alternative solutions which involves cloning the already-existing expense fields.
 
 ```JS
 function AddAnotherForm(container) {
@@ -122,95 +124,110 @@ function AddAnotherForm(container) {
 }
 
 AddAnotherForm.prototype.onAddButtonClick = function(e) {
-  // code here
+  var item = this.getNewItem();
+  this.getItems().last().after(item);
+};
+
+AddAnotherForm.prototype.getNewItem = function() {
+  return this.getItems().first().clone();
+};
+
+AddAnotherForm.prototype.getItems = function() {
+  return this.container.find('.addAnother-item');
 };
 ```
 
-There are several ways we might go about doing this. For example, we might use templating—which could be written in JavaScript[^] or in HTML[^]. Both approaches, however, lack browser support.
+There are three small functions that have been split out for readability and maintainability. When the button is clicked, we get a clone of the first `<div class="addAnother-item>` in the form. Then we add the clone to the end of the form.
 
-An simple alternative approach is cloning which involves making a copy of the already-existing expense fields, appending them to the form and changing the attributes to match the naming convention explained earlier. Let's start with cloning.
+#### Adding Remove Buttons
 
-```JS
-AddAnotherForm.prototype.onAddButtonClick = function(e) {
-  this.cloneItem();
-};
-
-AddAnotherForm.prototype.cloneItem = function() {
-  var items = this.container.find('.addAnother-item');
-  var newItem = items.first().clone();
-  items.last().after(newItem);
-};
-```
-
-The function clones the first item and injects to the end of the form.
-
-#### Adding The Remove Buttons
-
-The form initially starts with a single expense. There's no need for a remove button, because the user has to submit at least one expense (in this example anyway). But having cloned the fields the user will be able to remove an expense.
+The form initially starts out with just a single expense— there's no Remove button because the user has to submit at least one expense. However, when the user adds another expense, we need to add a Remove button to the first expense. To do this, when the Add Another button is pressed, we'll need to check whether a Remove button should be added.
 
 ```JS
 AddAnotherForm.prototype.onAddButtonClick = function(e) {
-  this.cloneItem();
-  this.addRemoveButtons();
-};
+  // previous code
 
-AddAnotherForm.prototype.addRemoveButtons = function() {
-  var items = this.container.find('.addAnother-item');
-  this.appendRemoveButton(items.last());
-  if(items.length === 2) {
-    this.appendRemoveButton(items.first());
+  var firstItem = this.getItems().first();
+  if(!this.hasRemoveButton(firstItem)) {
+    this.createRemoveButton(firstItem); 
   }
 };
+
+AddAnotherForm.prototype.hasRemoveButton = function(item) {
+  return item.find('.addAnother-removeButton').length;
+};
+
+AddAnotherForm.prototype.createRemoveButton = function(item) {
+  item.append('<button type="button" class=" addAnother-removeButton">Remove</button>');
+};
 ```
 
-The function appends the remove button to the newly cloned (last) item. Additionally, it checks to see if there are now two expenses in the form. If true, the function will also append an additional remove button to the first item.
+Now, when the button is clicked, the function checkes to see if the first expense has a Remove button. If it doesn't, one is created. The reason we have to check for its existence is because the first expense may or may not have a Remove button, depending on how many expenses the user has added.
+
+Having given the first expense a Remove button, we'll need to apply the same provision for the newly-cloned expense like this:
+
+```JS
+AddAnotherForm.prototype.getNewItem = function() {
+  var item = this.getItems().first().clone();
+  if(!this.hasRemoveButton(item)) {
+    this.createRemoveButton(item);
+  }
+  return item;
+};
+```
+
+This function uses the same helper methods in the exact same way. Now, whenever an item is cloned it will always be cloned with a Remove button.
 
 #### Updating The Attributes
 
-Having cloned the fields and injected the remove buttons, we need to update the name and id attributes so that the 
+Having cloned the fields and ensured each field has a Remove button, we need to update the name and id attributes. This ensures that the newly-cloned fields adhere to the naming convetion so that the server can process the submission (as explained earlier).
 
+But how can our script know what `name` and `id` values to use? To make this easy, we'll store the naming convention inside data attributes.
 
----
+```HTML
+<input data-name="items[%index%][description]" data-id="items[%index%][description]">
+<input type="text" name="items[0][amount]">
+```
 
-If we don't update the label's `for` attribute and the matching input's `id` attribute, when the user clicks the label, focus will be moved to the first field.
+The reason for both the name *and* the id data attributes is because some fields consist of multiple inputs with the same name. For example, as laid out in chapter 2, “A Checkout Flow”, the `name` of each radio button is the same because it identifies the set to which they belong. The `id` identifies the individual radio button.
+
+Now all we need to do is replace `%index%` with the new index of the cloned item like this:
+
+```JS
+AddAnotherForm.prototype.updateAttributes = function(index, item) {
+  item.find('[data-name]').each(function(i, el) {
+    el.name = $(el).attr('data-name').replace(/%index%/, index);
+    el.id = $(el).attr('data-id').replace(/%index%/, index);
+    ($(el).prev('label')[0] || $(el).parents('label')[0]).htmlFor = el.id;
+  });
+};
+```
+
+The function works by searching for all form controls that have the `data-name` data attribute. For each control that it finds, it will update the control's `name` and `id` attributes by replacing `%index%` with the new index which has to increase by 1 each time.
+
+Finally, the label's `for` attribute is set to the control's `id` attribute. If we didn't do this, then when the user clicks the cloned label, focus will be moved to the first field instead. 
 
 ![Focus issue](./images/09/add-another-pattern-focus.png)
 
-Crucially, if you don't update the `name` attribute, the server won't be able to recognise and process the submitted data. Remember: the contract between the browser and the server is forged by the `name` of the form controls.
-
-The `id`, `for` and `name` attributes have a particular format. This is because we're sending the server multiple expense items for processing. Many server-side frameworks, such as Express, look for names with array indexes in the request payload. They use this convention to convert the form fields and values into groups.
-
-The important bit is that the index needs to increase by 1 each time. To make this easy to parse in Javascript, the pattern is stored in data attributes. This way, all the script has to do is replace `%index%` with the index number.
-
-```JS
-el.name = $(el).attr('data-name').replace(/%index%/, index);
-```
-
-The reason there are attributes for `id` and `name` is that in the case of radio buttons and checkboxes, the `name` differs from the `id`. As laid out in, chapter 2, “A Checkout Flow”, the name of each radio button is the same, but the id need to be unique of course.
-
-While this pattern is more complex, it may speed up the task for users who are more confident and familiar with a particular system which is used frequently.
-
----
+*(Note: the code for retrieving the label uses a logic OR operator. This is because the label appears in different places depending on the type of field. In the case of a text field, for example, it will be the previous sibling. However, for radio buttons, should an expense need radio buttons, it will be the parent.)*
 
 ### Managing Focus
 
-When the add button is clicked, focus should be set to the first newly-created form field. This is useful for screen reader users too, as the announcement of that field naturally prompts the user to continue.
+When the Add Another button is clicked, focus should be set to the first newly-created form field. This is useful for screen reader users too, as the announcement of that field naturally prompts the user to continue.
 
-When the user clicks the remove button, the fields in the row, including the button itself are removed. What happens to the focus when you delete the currently focused element? In “A Todo List”[^2], Heydon Pickering explains exactly what happens:
+When the user clicks the Remove button, the fields in the row, including the button itself are removed. What happens to the focus when you delete the currently focused element? Heydon Pickering answers this exact question in “A Todo List”[^2]:
 
 > [...] browsers don’t know where to place focus when it has been destroyed in this way. Some maintain a sort of “ghost” focus where the item used to exist, while others jump to focus the next focusable element. Some flip out completely and default to focusing the outer document — meaning keyboard users have to crawl [...] back to where the removed element was.
 
-So we don't want to leave focus down to the browser but where do we move it to? 
+We could set focus to the previous or next expense item but this is arbitrary and confusing. Alternatively, we could set focus to the Add Another button, but that's a little presumptuous and odd.
 
-We could set focus to the previous or next expense item but this is confusing. Alternatively, we could set focus to the add another button, but that's both presumptuous and a little odd.
-
-Instead, we should set focus to the heading at the beginning of the form. WHY????
+Instead, we can set focus to the heading, which effectively says “now that you've deleted that expense, here's the expense form again”. Pressing <kbd>Tab</kbd> will focus the first form field, which makes orientation intuitive.
 
 ### Feedback
 
-For most users, feedback is given implicitly by the new fields appearing in the form. There's no need to show an additional notification at the top of the form, for example. Having two parts of the interface update at the same time would be overbearing. And, as more expenses are added, the notification would be outside the viewport, meaning uses wouldn't see it anyway.
+For most users, feedback is given implicitly just by the new fields appearing on the page. For this reason, there's no need to show an additional notification at the top of the form, for example. In fact, having two parts of the interface update at the same to provide the same message would be overbearing. And, as more expenses are added, the notification would appear off-screen so users wouldn't see it anyway.
 
-For screen reader users, the act of focusing the new field will announce its label.
+Screen reader users are already covered, because the act of focusing the new field will announce its label which provides ample feedback.
 
 The only remaining consideration would be animation. Perhaps by fading-in the new fields, the chance of the fields being missed is reduced. However, motion is often unnecessary, clunky and harmful to users, especially those suffering from cognitive impairements such as ADHD and Autism.
 

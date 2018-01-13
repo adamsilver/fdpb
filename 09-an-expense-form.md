@@ -97,28 +97,77 @@ There are two important notes about this form:
 
 ### Processing Multiple (Dynamic) Expenses
 
-When the form is submitted, the payload will consist of multiple expenses. The server will need to process this data, but it won't know how many expenses will be sent in advance. That is, the expenses are dynamic.
+When the form is submitted, the payload will consist of multiple expenses. The server will need to process this payload, but it won't know how many expenses will be sent in ahead of time. That is, the amount of expenses are dynamic.
 
-To help the server recognise and process the submitted expenses, a contract must be made between the client and the server. When it comes to forms, the contract is forged by the `name` attribute.
+To help the server recognise and process the expenses, a contract must be made between the client and the server. When it comes to forms, the contract is forged by the `name` attribute.
 
 ```HTML
 <input type="text" name="items[0][description]">
 <input type="text" name="items[0][amount]">
 ```
 
-Note the special `name` attribute value. By formatting it this way, the request payload can be parsed and converted into an array of expenses that the server can process easily. Several server-side frameworks, such as Express[^], are designed to recognise this convention. Let's run through the each part and describe what it means.
+Note the special `name` attribute value. By formatting it this way, the request payload can be parsed and converted into an array of expenses that the server can process easily. Some server-side frameworks, such as Express[^], are designed to recognise this convention. Let's run through each part and its meaning.
 
-- *items* is the name of the group. You can use whatever name you like.
-- *[0]* represents the number of the item. This number will increment by one for each individual expense.
-- *[description]* and *[amount]* represents the specific attributes about the expense. In this case, the description and the amount. For each unique attribute you want to store, you'll need a unique name to identify it.
+- *items* is the name of the group. You can use whatever name you like. On the server, this will be used to identify the list of expenses.
+- *[0]* represents the particular expense in the list and starts from zero, like a JavaScript array. That is, the second expense will be represented by *[1]* and so on.
+- *[description]* and *[amount]* represents the specific attributes about the expense. In this case, the description and the amount. For each unique attribute you want to process, you'll need a name to identify it with.
 
 ### Cloning Fields
 
-Pressing the Add Another button needs to create a new set of expense fields to the form. There are several ways we might go about doing this. For example, we might using templating, stored either in JavaScript[^] or in HTML[^]. The downside to these approaches mostly comes down to support.
+Pressing the Add Another button needs to create a new set of expense fields to the form. Let's scaffold out this code now.
 
-There's a simple alternative that solves this problem: cloning. This involves making a copy of the already-existing expense fields and changing the name and id attributes.
+```JS
+function AddAnotherForm(container) {
+  container.on('click', '.addAnother-addButton', $.proxy(this, 'onAddButtonClick'));
+}
 
+AddAnotherForm.prototype.onAddButtonClick = function(e) {
+  // code here
+};
+```
 
+There are several ways we might go about doing this. For example, we might use templating—which could be written in JavaScript[^] or in HTML[^]. Both approaches, however, lack browser support.
+
+An simple alternative approach is cloning which involves making a copy of the already-existing expense fields, appending them to the form and changing the attributes to match the naming convention explained earlier. Let's start with cloning.
+
+```JS
+AddAnotherForm.prototype.onAddButtonClick = function(e) {
+  this.cloneItem();
+};
+
+AddAnotherForm.prototype.cloneItem = function() {
+  var items = this.container.find('.addAnother-item');
+  var newItem = items.first().clone();
+  items.last().after(newItem);
+};
+```
+
+The function clones the first item and injects to the end of the form.
+
+#### Adding The Remove Buttons
+
+The form initially starts with a single expense. There's no need for a remove button, because the user has to submit at least one expense (in this example anyway). But having cloned the fields the user will be able to remove an expense.
+
+```JS
+AddAnotherForm.prototype.onAddButtonClick = function(e) {
+  this.cloneItem();
+  this.addRemoveButtons();
+};
+
+AddAnotherForm.prototype.addRemoveButtons = function() {
+  var items = this.container.find('.addAnother-item');
+  this.appendRemoveButton(items.last());
+  if(items.length === 2) {
+    this.appendRemoveButton(items.first());
+  }
+};
+```
+
+The function appends the remove button to the newly cloned (last) item. Additionally, it checks to see if there are now two expenses in the form. If true, the function will also append an additional remove button to the first item.
+
+#### Updating The Attributes
+
+Having cloned the fields and injected the remove buttons, we need to update the name and id attributes so that the 
 
 
 ---

@@ -100,7 +100,7 @@ As with most things in design, and life for that matter, this isn't the only way
 
 The `aria-describedby` attribute is used to connect the hint by its `id` - just like the `for` attribute for labels, but in reverse. It's appended to the control's label and read out after a short pause. In this example, “password [pause] must contain eight plus characters with at least one number and one uppercase letter.”
 
-There are other differences too. First, clicking the hint (a `<p>` in this case) won't focus the control, which reduces the hit area. Second, despite ARIA's ever-growing support, it's never going to be as well supported as native elements. In this case, for example, Internet Explorer 11 doesn't support `aria-describedby`[^IE11].  This is why the first rule of ARIA is not to use ARIA:
+There are other differences too. First, clicking the hint (a `<p>` in this case) won't focus the control, which reduces the hit area. Second, despite ARIA's ever-growing support, it's never going to be as well supported as native elements. In this case, for example, Internet Explorer 11 doesn't support `aria-describedby`[^].  This is why the first rule of ARIA is not to use ARIA:
 
 > If you can use a native HTML element or attribute with the semantics and behaviour you require already built in, instead of re-purposing an element and adding an ARIA role, state or property to make it accessible, then do so.
 
@@ -124,7 +124,7 @@ We'll be discussing several, less artificial techniques to reduce the size of fo
 
 ## The Question Protocol
 
-One powerful and *natural* way to reduce the size of a form is to use the Question Protocol[^] by the Government Digital Service. It helps ensure you know why you are asking every question (or form field).
+One powerful and *natural* way to reduce the size of a form is to use the Question Protocol[^?] by the Government Digital Service. It helps ensure you know why you are asking every question (or form field).
 
 Does the registration form need to collect first name, last name, email address and password? Are there better or alternative ways to ask for this information that simplifies the experience?
 
@@ -148,7 +148,7 @@ Passwords are generally short, hard to remember and easy to crack. Users often h
 
 > Sorry but your password must contain an uppercase letter, a number, a haiku, a gang sign, a hieroglyph, and the blood of a virgin. -- Adrian Zumbrunnen
 
-Instead of a password, we could ask users for a passphrase[^5]. A passphrase is a series of words such as ‘monkeysinmygarden’ (sorry, that's the first thing that comes to mind). They are generally easier to remember than passwords and they are more secure due to their length - passphrases must be at least 16 characters long.
+Instead of a password, we could ask users for a passphrase[^]. A passphrase is a series of words such as ‘monkeysinmygarden’ (sorry, that's the first thing that comes to mind). They are generally easier to remember than passwords and they are more secure due to their length - passphrases must be at least 16 characters long.
 
 The downside is that they are unfamiliar, which may cause anxiety for users, that are already worried about online security.
 
@@ -160,11 +160,11 @@ The way you style your form components will, at least in part, be determined by 
 
 ### Label Position
 
-Matteo Penzo's eye-tracking tests showed that positioning the label above (as opposed to beside) the form control works best. He notes that:
+Matteo Penzo's eye-tracking tests[^] showed that positioning the label above (as opposed to beside) the form control works best.
 
-“Placing a label right over its input field permitted users to capture both elements with a single eye movement.” 
+“Placing a label right over its input field permitted users to capture both elements with a single eye movement.”
 
-But, there are other reasons for putting the label above the field. On small viewports there's no room beside the control. And on large viewports, zooming increases the chance of the text disappearing off screen[^x1].
+But, there are other reasons to put the label above the field. On small viewports there's no room beside the control. And on large viewports, zooming in increases the chance of the text disappearing off screen[^].
 
 Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control.
 
@@ -372,13 +372,13 @@ What's a button? Often we refer to many different types of components on a web p
 
 Buttons that submit forms are “submit buttons” and they are coded typically as either `<input type="submit">` or `<button type="submit">`. The latter is more maleable in that you can nest other elements inside it. But there's rarely a need for that. Most submit buttons contain just text. 
 
-*(Note: in old versions of Internet Explorer, if you have multiple `<button type="submit">`s you'll experience trouble[^buttontrouble]. This is because the form will send the value of all the buttons to the server regardless of which was clicked. What you want is to know which button was clicked so that you can determine the right course of action to take.)*
+*(Note: in older versions of Internet Explorer, if you have multiple `<button type="submit">`s, the form will submit the value of all the buttons to the server regardless of which was clicked[^]. What you want is to know which button was clicked so that you can determine the right course of action to take.)*
 
 Other buttons are injected into the interface to enhance the experience with Javascript - much like we did with the password reveal component discussed earlier. That was also a `<button>` but it's type was set to `button` (not `submit`).
 
-In both cases, the first thing to know about buttons is that they aren't links. Links are typically underlined (by user agent styles) or specially positioned (in a navigation bar) so that they are visually identifiable amongst regular text. When hovering a link, the cursor will change to a hand. This is because, unlike buttons, links have weak perceived affordance[^8].
+In both cases, the first thing to know about buttons is that they aren't links. Links are typically underlined (by user agent styles) or specially positioned (in a navigation bar) so that they are visually identifiable amongst regular text. When hovering a link, the cursor will change to a hand. This is because, unlike buttons, links have weak perceived affordance[^].
 
-In “Resilient Web Design”[^9], Jeremy Keith discusses the idea of material honesty. He says that “one material should not be used as a substitute for another. Otherwise the end result is deceptive.” Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not.
+In “Resilient Web Design”[^], Jeremy Keith discusses the idea of material honesty. He says that “one material should not be used as a substitute for another. Otherwise the end result is deceptive.” Making a link look like a button is materially dishonest. It tells users that links and buttons are the same when they’re not.
 
 Links can do things buttons can't do. For example, links can be opened in a new tab or bookmarked for later. Therefore buttons shouldn't look like links, nor should they have a hand cursor. Instead we should make buttons look like buttons which have naturally strong perceived affordance. Whether they have rounded corners, drop shadows, borders is up to you, but they should look like buttons regardless.
 
@@ -518,7 +518,7 @@ When there aren't any errors, the summary panel should be hidden. This ensures t
 
 #### 3. Inline Errors
 
-First, we need to put the relevant error message just above the field. This saves users scrolling up and down the page in order to check the error message, which keeps them moving down the form. If the message was placed below the field we'd increase the chance of it being obscured by the browser autocomplete panel or by the on-screen keyboard.
+First, we need to put the relevant error message just above the field. This saves users scrolling up and down the page in order to check the error message, which keeps them moving down the form. If the message was placed below the field we'd increase the chance of it being obscured by the browser autocomplete panel[^] or by the on-screen keyboard.
 
 ![In-context Errors](./images/01/inline-error.png)
 
@@ -596,7 +596,7 @@ In “The Design of Everyday Things”, Don Norman talks about designing for err
 
 > “If a person says something that we believe to be false, we question and debate. We don't issue a warning signal. We don't beep. We don't give error messages. In normal conversations, misstatements are taken as normal, as approximations to what was really meant.”
 
-Unlike humans, machines are not intelligent enough to determine the meaning of most actions but they are often far less forgiving of mistakes than they need to be. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^16], at 42 minutes in:
+Unlike humans, machines are not intelligent enough to determine the meaning of most actions but they are often far less forgiving of mistakes than they need to be. Jared Spool makes a joke about this in “Design is Metrically Opposed”[^], at 42 minutes in:
 
 > “it takes 1 line of code to trim brackets and dashes from a telephone number, but it takes 10 to tell the user they typed something wrong.”
 
@@ -636,7 +636,7 @@ As we're providing users with clear feedback when the user expects it, there is 
 
 Arguably there is nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the result of using a service. 
 
-Even the most thought-out, inclusive and beautifully designed experience counts for nothing if we ignore the words used to construct error messages. One study shows that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^15].
+Even the most thought-out, inclusive and beautifully designed experience counts for nothing if we ignore the words used to construct error messages. One study shows that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^].
 
 > “Content is the user experience”
 
@@ -690,29 +690,32 @@ In this chapter we solved several fundamental form design challenges that are ap
 
 ## Footnotes
 
-[^1]: https://adamsilver.io/articles/placeholders-are-problematic/
-[^2]: https://twitter.com/lukew/status/872861520811614208?s=09
-[^3]: https://adamsilver.io/articles/floating-labels-are-problematic/
-[^4]: https://blog.medium.com/signing-in-to-medium-by-email-aacc21134fcd
-[^5]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
-[^6]: http://www.uxmatters.com/mt/archives/2006/07/label-placement-in-forms.php
-[^7]: https://medium.com/@jsaito/making-a-case-for-letter-case-19d09f653c98
-[^8]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn742466%28v=vs.85%29.aspx
-[^9]: https://resilientwebdesign.com/
-[^10]: http://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
-[^11]: https://medium.com/simple-human/inline-validation-is-problematic-399dd01d436f
-[^12]: https://www.smashingmagazine.com/2012/06/form-field-validation-errors-only-approach/
-[^13]: https://kryogenix.org/code/browser/everyonehasjs.html
-[^14]: http://adrianroselli.com/2017/01/avoid-messages-under-fields.html
-[^15]: http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
-[^16]: https://vimeo.com/138359368
-[^x1]: https://www.w3.org/TR/WCAG20-TECHS/G162.html
-[^x2]: http://www.outlinenone.com/
-[^IE11]: http://www.html5accessibility.com/tests/aria-labelledby-input.html
-[^IE BUTTON TROUBLE]: http://www.dev-archive.net/articles/forms/multiple-submit-buttons.html 
-[^IE BUTTON TROUBLE 2]: https://allinthehead.com/retro/330/coping-with-internet-explorers-mishandling-of-buttons
-[^IE BUTTON ISSUE EXPLAINED WELL IN COMMENTS]: https://www.peterbe.com/plog/button-tag-in-IE
-[^tap]: https://www.lukew.com/ff/entry.asp?1085
+[^accessibility for everyone]: https://abookapart.com/products/accessibility-for-everyone
+[^mistaking placeholder text]: https://www.uxmatters.com/mt/archives/2010/03/dont-put-hints-inside-text-boxes-in-web-forms.php
+[^grey on white text]: https://medium.com/backchannel/how-the-web-became-unreadable-a781ddc711b6 
+[^IE11 aria-describedby not supported]: http://www.html5accessibility.com/tests/aria-labelledby-input.html
+[^float label pattern]: http://mds.is/float-label-pattern/
+[^question protocol]: https://www.uxmatters.com/mt/archives/2010/06/the-question-protocol-how-to-make-sure-every-form-field-is-necessary.php
+[^passphrases]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
+[^label placement eye tracking]: https://www.uxmatters.com/mt/archives/2006/07/label-placement-in-forms.php
+[^screen magnifier off screen]: https://www.w3.org/TR/WCAG20-TECHS/G162.html
+[^tap target 44]: https://www.lukew.com/ff/entry.asp?1085
+[^sentence case]: https://medium.com/@jsaito/making-a-case-for-letter-case-19d09f653c98
+[^feature queries]: https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/
+[^basic experience is best]: https://blog.prototypr.io/designing-for-performance-90ce5378c2fb
+[^ie button submit trouble]: http://www.dev-archive.net/articles/forms/multiple-submit-buttons.html 
+[^links weak affordance]: https://msdn.microsoft.com/en-us/library/windows/desktop/dn742466%28v=vs.85%29.aspx
+[^resilient web design book]: https://resilientwebdesign.com/
+[^html5 validation not uniform]: http://caniuse.com/#feat=form-validation
+[^implicit form submission]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#implicit-submission
+[^javascript prone to failure]: https://kryogenix.org/code/browser/everyonehasjs.html
+[^design is metrically oposed]: https://vimeo.com/138359368
+[^inline validation]: https://alistapart.com/article/inline-validation-in-web-forms
+[^error message return on investment]: http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
+[^where to look for buttons]: https://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
+[^inline error message position]: http://adrianroselli.com/2017/01/avoid-messages-under-fields.html
 
-- https://www.tjvantoll.com/speaking/slides/constraint-validation/chicago/#/18
--[^featurequeries]: https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/
+## Possible footnotes/additions
+
+[^reduce height of forms quote]: https://twitter.com/lukew/status/872861520811614208?s=09
+[^medium no password sign in]: https://blog.medium.com/signing-in-to-medium-by-email-aacc21134fcd

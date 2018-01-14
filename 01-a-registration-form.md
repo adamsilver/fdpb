@@ -682,7 +682,11 @@ In this chapter we solved several fundamental form design challenges that are ap
 
 ## Demos
 
-TBD
+- Email field
+- Password field
+- Password reveal
+- Submit button
+- Form Validation
 
 ## Footnotes
 
@@ -705,7 +709,7 @@ TBD
 [^x1]: https://www.w3.org/TR/WCAG20-TECHS/G162.html
 [^x2]: http://www.outlinenone.com/
 [^IE11]: http://www.html5accessibility.com/tests/aria-labelledby-input.html
-[^IE BUTTON TROUBLTE]: http://www.dev-archive.net/articles/forms/multiple-submit-buttons.html 
+[^IE BUTTON TROUBLE]: http://www.dev-archive.net/articles/forms/multiple-submit-buttons.html 
 [^IE BUTTON TROUBLE 2]: https://allinthehead.com/retro/330/coping-with-internet-explorers-mishandling-of-buttons
 [^IE BUTTON ISSUE EXPLAINED WELL IN COMMENTS]: https://www.peterbe.com/plog/button-tag-in-IE
 [^tap]: https://www.lukew.com/ff/entry.asp?1085

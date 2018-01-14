@@ -694,7 +694,10 @@ After that, we looked at other issues: giving users the ability to review their 
 
 ## Demos
 
-TBD
+- Optional telephone field
+- Delivery radio buttons
+- Delivery notes with countdown
+- Payment form
 
 ## Footnotes
 

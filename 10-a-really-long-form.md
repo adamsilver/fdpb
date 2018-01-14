@@ -77,10 +77,6 @@ In this chapter, we looked at how to break down really long forms into smaller o
 - If you really need one, break the tasks up into smaller pieces.
 - Save users state, so that they can come back in their own time.
 
-## Demos
-
-TBD
-
 ## Footnotes
 
 [^1]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/

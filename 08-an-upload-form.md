@@ -531,7 +531,9 @@ In this chapter, we began by looking at the file picker as the browser gives us 
 
 ## Demos
 
-TBD
+- File picker
+- Multi file picker
+- File upload form
 
 ## Footnotes
 

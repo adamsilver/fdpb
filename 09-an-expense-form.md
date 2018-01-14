@@ -213,15 +213,36 @@ Finally, the label's `for` attribute is set to the control's `id` attribute. If 
 
 ### Managing Focus
 
-When the Add Another button is clicked, focus should be set to the first newly-created form field. This is useful for screen reader users too, as the announcement of that field naturally prompts the user to continue.
+When the Add Another button is clicked, it should focus the first newly-created form field. In screen readers, this will announce the field, prompting the user to fill out the expense.
 
-When the user clicks the Remove button, the fields in the row, including the button itself are removed. What happens to the focus when you delete the currently focused element? Heydon Pickering answers this exact question in “A Todo List”[^2]:
+```JS
+AddAnotherForm.prototype.onAddButtonClick = function(e) {
+  // ...
+  item.find('.field:first').find('input, textarea, select').focus();
+};
+```
+
+When the user clicks the Remove button, everything inside that `<div class="addAnother-item">` will be removed. But, what happens to the focus when you delete the currently focused element? Heydon Pickering answers this question in “A Todo List”[^2]:
 
 > [...] browsers don’t know where to place focus when it has been destroyed in this way. Some maintain a sort of “ghost” focus where the item used to exist, while others jump to focus the next focusable element. Some flip out completely and default to focusing the outer document — meaning keyboard users have to crawl [...] back to where the removed element was.
 
-We could set focus to the previous or next expense item but this is arbitrary and confusing. Alternatively, we could set focus to the Add Another button, but that's a little presumptuous and odd.
+We could set focus to the previous or next expense item but this seems arbitrary and confusing. Alternatively, we could set focus to the Add Another button, but that's presumptuous and odd—why delete an item if you're just going to add another one—users might more easily just type over the fields that are already there.
 
-Instead, we can set focus to the heading, which effectively says “now that you've deleted that expense, here's the expense form again”. Pressing <kbd>Tab</kbd> will focus the first form field, which makes orientation intuitive.
+Instead, we can set focus to the heading, which puts users back to the beginning of the expense form while announcing itself—“Expenses, heading, level 1” or similar—to screen reader users.
+
+By default, headings aren't focusable, but we can fix that by giving it a `tabindex="-1"` attribute. The -1 value allows us to focus the element programmatically using JavaScript, without making it user-focusable—using the Tab key, for example.
+
+```HTML
+<h1 tabindex="-1">Expenses</h1>
+```
+
+When the heading is focused, browsers will give the heading an outline. This should be removed because as the heading is not an interactive element it shouldn't appear as such.
+
+```CSS
+.addAnother-heading { outline: none }
+```
+
+Once the heading is focused, pressing <kbd>Tab</kbd> will focus the first form field, which makes orientation simple.
 
 ### Feedback
 
@@ -234,11 +255,6 @@ The only remaining consideration would be animation. Perhaps by fading-in the ne
 > ADHD: If there's a “subtle” animation always running, I cannot focus. — @tigt_
 
 > I'm also autistic and can get frustrated with, or repelled by, glitzy mouseover effects/animations - @elementnumber46
-
-### Multiple Submit Buttons
-
-- Pressing enter
-- add button to top
 
 ## Summary
 

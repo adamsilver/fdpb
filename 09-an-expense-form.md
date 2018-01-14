@@ -215,7 +215,8 @@ When the Add Another button is clicked, it should focus the first newly-created 
 
 ```JS
 AddAnotherForm.prototype.onAddButtonClick = function(e) {
-  // ...
+  // code
+
   item.find('.field:first').find('input, textarea, select').focus();
 };
 ```
@@ -226,7 +227,8 @@ When the user clicks an item's Remove button, there's a number of tasks we need 
 
 ```JS
 function AddAnotherForm(container) {
-  //...
+  // code
+
   this.container.on('click', '.addAnother-removeButton', $.proxy(this, 'onRemoveButtonClick'));
 }
 
@@ -313,31 +315,36 @@ Once the heading is focused, pressing <kbd>Tab</kbd> will focus the first form f
 
 ### Feedback
 
-Both adding and removing an expense provides users with sufficient feedback. Adding an item not only updates the page
+As it stands the act of adding and removing expenses provides sufficient feedback for sighted users. This is because items in the form can be seen to appear or disappear from the list. Giving users an additional notification bar would draw users' attention in two directions. And as more expenses are added, the notification bar will be out of the viewport so users wouldn't see it anyway.
 
-The act of adding another expense
+Screen reader users are catered for also because the act adding and removing items moves the users focus and announces the focused element accordingly. This may not tell the user explicitly that “the item has been added” but it should be enough. If research shows otherwise, you can add a hidden live region (as set out in ...) to give screen reader users explicit feedback.
 
-For most users, feedback is given implicitly just by the new fields appearing on the page. For this reason, there's no need to show an additional notification at the top of the form, for example. In fact, having two parts of the interface update at the same to provide the same message would be overbearing. And, as more expenses are added, the notification would appear off-screen so users wouldn't see it anyway.
+#### Animation Isn't Necessarily Valuable
 
-Screen reader users are already covered, because the act of focusing the new field will announce its label which provides ample feedback.
+It's possible that judicious animation effects can help users understand an interface.
 
-The only remaining consideration would be animation. Perhaps by fading-in the new fields, the chance of the fields being missed is reduced. However, motion is often unnecessary, clunky and harmful to users, especially those suffering from cognitive impairements such as ADHD and Autism.
+But all too often, designers want to add animation for the sake of it. Users, however, just want to get things done. And, needless animation is jarring and actually *detracts* from the user experience. Like anything else, animation should only be added if it adds value.
 
-> ADHD: If there's a “subtle” animation always running, I cannot focus. — @tigt_
+Even when animation is valuable to some users, it can be harmful to users with cognitive impairments such as Attention Deficit Hyperactivity Disorder (ADHD) and Autism[^3].
 
-> I'm also autistic and can get frustrated with, or repelled by, glitzy mouseover effects/animations - @elementnumber46
+In the case of the expense form, had we not moved focus from the button to the field, an animation might mean the item's arrival is more likely to be noticed. Alas, we *are* moving focus to the form field and so animation is unnecessary here.
 
 ## Summary
 
-In this chapter, we've looked at the different ways to let users add multiple expenses or any other type of information that needs to be included. The patterns are based on frequency of use, digital literacy and whether there is a need to branch.
+In this chapter, we looked at three different patterns that let users submit multiple expenses into a system. Really though, expenses were used just for demonstration purposes—these patterns are applicable to all kinds of data—not just expenses.
 
-There's no right and wrong way here, it's about picking the most appropriate pattern for your particular problem.
+The Persistent Form and One Thing Per Page patterns are more suitable for infrequent use and users with a lower digital literacy. The Add Another pattern is more suitable for frequent usage that doesn't require branching.
 
-## Checklist
+The downside to the Add Another pattern is that despite the usability provisions we've put in place, the interface is a little more complicated to operate.
 
--
--
--
+There's no right or wrong here. It's about choosing the most appropriate pattern for your users.
+
+### Things To Avoid
+
+- Letting browsers manage the focus when the focus element is removed from the Document.
+- Giving non interactive (but programmatically focusable elements) an outline when focused.
+- Giving users multiple sources of feedback for a single action.
+- Animating parts of the interface for no actual reason.
 
 ## Demos
 
@@ -347,3 +354,4 @@ TBD
 
 [^1]: http://todomvc.com/
 [^2]: https://inclusive-components.design/a-todo-list/
+[^3]: https://axesslab.com/accessibility-according-to-pwd/#motion-animations-and-cluttered-pages

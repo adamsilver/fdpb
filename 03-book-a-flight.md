@@ -20,7 +20,7 @@ Select boxes, also known as drop-down menus, hide options behind a menu. Clickin
 
 Often an interface is crammed with features, usually to please stakeholders, not users. It's understandable then that learning ways to hide discrete pieces of an interface has become part of a designer's skillset. But design is about so much more than saving space. After all, if an interface really is crammed, then our first job as designers is to declutter it.
 
-In her talk “Burn Your Select Tags”[^burn], Alice Bartlett shares the user research she undertook at the UK Government Digital Service. In short, select boxes are hard to use. Besides hiding options behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focused options with selected ones. And, if that weren't enough, users can't pinch-zoom the options on certain devices.
+In her talk “Burn Your Select Tags”[^], Alice Bartlett shares the user research she undertook at the UK Government Digital Service. In short, select boxes are hard to use. Besides hiding options behind an unnecessary extra click, users generally don't understand how they work. Some users try to type into them, some confuse focused options with selected ones. And, if that weren't enough, users can't pinch-zoom the options on certain devices.
 
 Usability expert, Luke Wobrelksi even wrote an article titled “Dropdowns Should be the UI of Last Resort”[^1]. In it, he suggests some better alternatives, some of which we'll discuss later in this chapter.
 
@@ -40,7 +40,7 @@ A search box (`<input type="search">`) is a similar to a regular text box (`<inp
 
 ![Search input](./images/03/search-input.png)
 
-Using a search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^2] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a ‘no results’ page due to typos or a data mismatch.
+Using a search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a ‘no results’ page due to typos or a data mismatch.
 
 ### Autocomplete
 
@@ -48,7 +48,7 @@ Users need a control that lets them filter a long list of destinations—one tha
 
 Autocomplete works by suggesting options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field — hence the name. This saves users having to scroll (unless, of course, they want to) while being able to forgive small typos at the same time. 
 
-HTML5's `datalist` element combines with a text box to create this exact behaviour. Unfortunately, it's particularly buggy[^3]. If your project is locked down to a browser that doesn't contain bugs, then you could use it. But we want to design an inclusive experience - one that works for as many people as possible, no matter their browser or device choices.
+HTML5's `datalist` element combines with a text box to create this exact behaviour. Unfortunately, it's particularly buggy[^]. If your project is locked down to a browser that doesn't contain bugs, then you could use it. But we want to design an inclusive experience - one that works for as many people as possible, no matter their browser or device choices.
 
 ![Datalist](./images/03/datalist.png)
 
@@ -56,7 +56,7 @@ Instead, we'll build a custom autocomplete component from scratch. A word of war
 
 #### Building An Accessible Autocomplete
 
-Accessibility expert Steve Faulkner has what he calls a *punch list*[^4] which is a list of rules anyone should follow to make sure that any custom Javascript component is designed and built to a good standard. The rules state that a component should:
+Accessibility expert Steve Faulkner has what he calls a *punch list*[^] which is a list of rules anyone should follow to make sure that any custom Javascript component is designed and built to a good standard. The rules state that a component should:
 
 1. work without Javascript
 2. be focusable with the keyboard
@@ -300,7 +300,7 @@ The other actions can be summed up briefly. When the user presses:
 
 ## 2. Choosing When To Fly
 
-Dates are notoriously hard[^5]: different time zones, formats, delimiters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
+Dates are notoriously hard[^]: different time zones, formats, delimiters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
 
 Often three select boxes are used: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said that one of their redeeming qualities is that they stop users entering wrong information. But in the case of dates, even *this* quality doesn't hold up. For example, you can select an invalid date such as *31 February 2017*.
 
@@ -385,7 +385,7 @@ Don't be too concerned about the difference in appearance. Most users aren't awa
 
 > Nobody cares about your website as much as you do
 
-If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^8]. Nicholas Zakas shows the audience a photo. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. Remember the audience was full of designers and developers — people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
+If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^]. Nicholas Zakas shows the audience a photo. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. Remember the audience was full of designers and developers — people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
 
 And if that's not enough proof, visit “Do Websites Need To Look Exactly The Same In Every Browser”[^].
 
@@ -565,7 +565,7 @@ While screen reader users *can* operate the calendar, it's probably not that use
 
 #### Future Support
 
-I love how Jeremy Keith thinks about the web as a *continuum*[^10]. By that he means it's constantly changing. Technology evolves at a rapid pace and browsers and devices are released all the time. Each of which have varying features and capabilities.
+I love how Jeremy Keith thinks about the web as a *continuum*[^]. By that he means it's constantly changing. Technology evolves at a rapid pace and browsers and devices are released all the time. Each of which have varying features and capabilities.
 
 At any particular moment in time we need to decide what level of support makes sense for a given feature.
 
@@ -672,20 +672,20 @@ Notes:
 - The buttons and number input is wrapped in a `div` so that they can be styled as a group underneath the label.
 - The button's `aria-label` attribute will ensure that screen readers read out “Decrement” instead of “minus symbol” (or similar).
 - The button's `aria-describedby` attribute references the aformentioned label's `id` which means it combines with the label text to give screen reader users extra context. As there are three fields on the page, this stops users thinking “Decrement - decrement what exactly?”.
-- Each button has a `type="button"` attribute which means it won't submit the form when clicked[^?].
+- Each button has a `type="button"` attribute which means it won't submit the form when clicked.
 - Clicking increment or decrement updates the status box at the bottom so that screen reader users will hear the change without having to move away from the button (see note below).
 
 *(Note: when the increment (or decrement) button is clicked, the input's value is updated. Unfortunately, screen readers won't announce the change. At first, I put the live region attributes on the input. This didn't work in some screen readers, but worse, was that it changed the input's semantics into a status box.)*
 
 #### A Note On Iconography
 
-There are pros and cons with using iconography over text. The problem with icons is that they aren't always understood. As Thomas Byttebier says in “The Best Icon is a Text Label”[^12]:
+There are pros and cons with using iconography over text. The problem with icons is that they aren't always understood. As Thomas Byttebier says in “The Best Icon is a Text Label”[^]:
 
 > What good has a beautiful interface if it’s unclear? Hence it’s simple: only use an icon if its message is a 100% clear to everyone. Never give in.
 
-However, Thomas also points out that good icons can be internationally recognised breaking language barriers -  which is why airports use them, for example. They also save space which is particularly useful on mobile where there's less space.
+However, Thomas also points out that good icons can be internationally recognised breaking language barriers -  which is why airports use them, for example. They also save space which is especially useful on mobile.
 
-In the case of the stepper component, plus and minus icons also help to keep the interface equally weighted. That is, the buttons are the same size and have equal importance.
+In the case of the stepper component, plus and minus icons keep the options balanced. That is, the buttons are the same size and have equal importance.
 
 ## 4. Choosing A flight
 
@@ -771,7 +771,7 @@ Instead, we could ask users to specify their preference beforehand. At the same 
 
 ### Checkboxes Are Never Round
 
-In Checkboxes Are Never Round[^13], Daniel De Laney says:
+In Checkboxes Are Never Round[^], Daniel De Laney says:
 
 > interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show - it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.
 
@@ -872,17 +872,23 @@ As much as we tried to use native form controls, in their standard format, it be
 
 ## Footnotes
 
-[^1]: http://www.lukew.com/ff/entry.asp?1950
-[^2]: https://www.amazon.co.uk
-[^3]: http://caniuse.com/#feat=datalist
-[^4]: https://www.paciellogroup.com/blog/2014/09/web-components-punch-list/
-[^5]: http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
-[^6]: https://www.gov.uk/service-manual/design/dates
-[^7]: http://html5doctor.com/html5-forms-input-types/#input-number
-[^8]: https://youtu.be/hdTxeR90_1E?t=29m27s
-[^9]: http://dowebsitesneedtolookexactlythesameineverybrowser.com/
-[^10]: https://adactio.com/journal/6692
-[^11]: https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately
-[^12]: https://thomasbyttebier.be/blog/the-best-icon-is-a-text-label
-[^13]: http://danieldelaney.net/checkboxes/?utm_source=designernews
-[^burn]: https://www.youtube.com/watch?v=CUkMCQR4TpY
+[^burn select tags]: https://www.youtube.com/watch?v=CUkMCQR4TpY
+[^ dropdown last resort]: http://www.lukew.com/ff/entry.asp?1950
+[^users scroll]: ?
+[^amazon]: https://www.amazon.co.uk
+[^data list]: http://caniuse.com/#feat=datalist
+[^ punch list]: https://www.paciellogroup.com/blog/2014/09/web-components-punch-list/
+[^ event delegation]: ?
+[^ dates are hard]: http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
+[^progressive enhancement 2.0]: https://youtu.be/hdTxeR90_1E?t=29m27s
+[^look the same]: http://dowebsitesneedtolookexactlythesameineverybrowser.com/
+[^continuum]: https://adactio.com/journal/6692
+[^best icon is text]: https://thomasbyttebier.be/blog/the-best-icon-is-a-text-label
+[^using fieldset and legend]: https://accessibility.blog.gov.uk/2016/07/22/using-the-fieldset-and-legend-elements/
+[^checkboxes are never round]: http://danieldelaney.net/checkboxes/?utm_source=designernews
+
+## Possible citations/additions
+
+[^]: https://www.gov.uk/service-manual/design/dates
+[^]: http://html5doctor.com/html5-forms-input-types/#input-number
+[^]: https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately

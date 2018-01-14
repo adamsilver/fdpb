@@ -34,13 +34,13 @@ While this pattern often bares wonderful and delicious fruit (or orders and conv
 - When users fill in a small form, errors are caught and shown early and often. If there’s one thing to fix, it’s easy to fix, which reduces the chance of users giving up on the task.
 - If pages have little on them, they'll load quickly. Faster pages reduce the risk of users leaving and they build trust.
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
-- Conversely, a long form increases the chance of a page time out or the computer freezing. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
+- Conversely, a long form increases the chance of a page time out or the computer freezing. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^2]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
 - It lets you design interfaces that captalise on maximal  screen space — interfaces that wouldn't work so well if part of a large form. We'll see an example of this in the next chapter, when we design a seat chooser. 
 
 ## Flow And Order
 
-In “Forms That Work”[^], Caroline Jarett and Gerry Gaffney explain the importance of asking questions in a sensible order:
+In “Forms That Work”[^3], Caroline Jarett and Gerry Gaffney explain the importance of asking questions in a sensible order:
 
 > Asking for information at the wrong time can alienate a user. The same question put at the right moment can be entirely acceptable.
 
@@ -61,7 +61,7 @@ Just like the car salesperson, we'll ask for the right information at the right 
 
 ## A Note On Guest Checkout
 
-This flow is designed primarily for anonymous users. Not letting users check out as a guest is one of the worst things we can do as Jared spool attests to beautifully in “The 300 Million Dollar Button”[^]. 
+This flow is designed primarily for anonymous users. Not letting users check out as a guest is one of the worst things we can do as Jared spool attests to beautifully in “The 300 Million Dollar Button”[^4]. 
 
 The article tells a story of one company losing 300 million dollars because they thought forcing users to register first would help speed up subsequent purchases. While this is true, it also assumes users want to sign up in the first place.
 
@@ -109,7 +109,7 @@ Traditionally, required fields are marked with an asterisk. A legend is usually 
 
 > “including the phrase ‘optional’ after a label is much clearer than any visual symbol you could use to mean the same thing. Someone may always wonder ‘what does this asterisk mean?’ and have to go hunting for a legend that explains it.”
 
-You might also be wondering why we're marking optional fields, instead of required ones. In “Required Versus Optional Fields”[^], Jessica Enders says:
+You might also be wondering why we're marking optional fields, instead of required ones. In “Required Versus Optional Fields”[^5], Jessica Enders says:
 
 > “think about what we are doing when we mark something in an interface. We are trying to indicate that it's different.” 
 
@@ -152,11 +152,11 @@ The delivery address contains five fields that together make up an address. Visu
 
 ### Field Width
 
-In “Write Less Damn Code”[^4], Heydon Pickering jokingly points out, that the reason some people used to add XHTML 1.1 Complaint banners to their website was to ensure the height of the menu matches the height of the content. Similarly, you might be tempted to give every address field the same width.
+In “Write Less Damn Code”[^6], Heydon Pickering jokingly points out, that the reason some people used to add XHTML 1.1 Complaint banners to their website was to ensure the height of the menu matches the height of the content. Similarly, you might be tempted to give every address field the same width.
 
 But giving the postcode field the same width as every other field increases the cognitive effort needed to fill it out. This is because the width gives users a clue as to the length of the content it requires.
 
-Baymard Institute's study[^5] found that:
+Baymard Institute's study[^7] found that:
 
 > “if a field is too long or too short, users start to wonder if they correctly understood the label. This was especially true for fields with uncommon data or a technical label like card verification code.”
 
@@ -164,7 +164,7 @@ As postcodes consist of 6-8 characters, the field's width should be smaller than
 
 ### Capture+ Enhancement
 
-Capture Plus[^6] is a third party plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, users type into just one. 
+Capture Plus[^8] is a third party plugin that lets users search for their address quickly and accurately. Instead of manually typing each part of the address in 5 separate boxes, users type into just one. 
 
 As the user types the first line of their address, suggestions will appear from which they can select. This reduces the number of keystrokes and therefore the chance of typos.
 
@@ -218,21 +218,21 @@ As most users will want free delivery, that option comes first. It's also select
 
 By default, radio buttons (and checkboxes) are rendered small. This makes them hard to click or tap, especially for people with motor impairments.
 
-We can increase the size using CSS. But this isn't as simple as it sounds. In “Making radio buttons and checkboxes easier to use”[^], Robin Whittleton explains that the way browsers respond to CSS differs.
+We can increase the size using CSS. But this isn't as simple as it sounds. In “Making radio buttons and checkboxes easier to use”[^9], Robin Whittleton explains that the way browsers respond to CSS differs.
 
 Some browsers, such as Internet Explorer 8, won't apply size changes. But undesirably, space will be created around the radio button. Other browsers, such as FireFox on OS X (10.10), will increase the size but they will appear blurry. Finally, there are browsers that will apply the changes without making them blurry.
 
-Fortunately, a radio button's label acts as a proxy for the radio button itself. That is, when clicked, the radio button will become checked (or unchecked depending on state). But, unfortunately, most users don't realise they can do this[^gds?]. This is hardly surprising because labels have very little to signify that clicking it would do anything different to regular copy.
+Fortunately, a radio button's label acts as a proxy for the radio button itself. That is, when clicked, the radio button will become checked (or unchecked depending on state). But, unfortunately, many users don't realise they can do this[^10 expand and cite]. This is hardly surprising because labels have very little to signify that clicking it would do anything different to regular copy.
 
-To give users a better chance, we can colour them grey and make them respond to the mouse on hover. However, even with these enhancements, some users may still be unaware. GDS's research showed this to be the case which is why they embarked upon custom radio button controls[^].
+To give users a better chance, we can colour them grey and make them respond to the mouse on hover. However, even with these enhancements, some users may still be unaware. GDS's research showed this to be the case which is why they embarked upon custom radio button controls.
 
-The problem with creating custom controls is that you have to reimplement all of the behaviour that is provided natively for free. This is very involved and despite GDS's in-depth attempts, they aren't without their problems[^radiobuttonissues].
+The problem with creating custom controls is that you have to reimplement all of the behaviour that is provided natively for free. This is very involved and despite GDS's in-depth attempts, they aren't without their problems[^11].
 
 ## 5. Delivery Notes
 
 Imagine you're at work. You get a notification to say your item is being delivered. When you arrive home, instead of seeing the package, you see a delivery note saying it couldn't be delivered because it was too big to fit through the letter box. Frustrating.
 
-A delivery note, which you can provide at your discretion, stops this from happening. The delivery note tells the delivery person what to do if you're not home. Perhaps you'd prefer it to be left with a neighbour, or inside your recycle bin which Amazon[^] refers to as a “safe place.” This, by the way, works surprisingly well.
+A delivery note, which you can provide at your discretion, stops this from happening. The delivery note tells the delivery person what to do if you're not home. Perhaps you'd prefer it to be left with a neighbour, or inside your recycle bin which Amazon refers to as a “safe place.” This, by the way, works surprisingly well.
 
 ![Delivery notes](./images/02/delivery-notes.png)
 
@@ -254,7 +254,7 @@ While this question *adds value*, we need to understand how it will be used by t
 
 Limiting the amount of text a user can type can and should be handled by validation as set out in “A Registration Form.” But there are some additional considerations.
 
-The `maxlength` attribute (which takes a number value) limits the amount of a text a user can type. As soon as the limit is reached, the browser will ignore the input. The support for this attribute on a `textarea` is both lacking and buggy[^8].
+The `maxlength` attribute (which takes a number value) limits the amount of a text a user can type. As soon as the limit is reached, the browser will ignore the input. The support for this attribute on a `textarea` is both lacking and buggy[^12].
 
 But, even if it was well supported, it's not recommended because some users don't look at the screen as they type — they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated. Not good.
 
@@ -301,7 +301,7 @@ Screen readers will normally only announce content when it is focused, but live 
 
 Notes:
 
-- The aria-live="polite"[^polite] property and the status[^status] role are equivalent. Both are provided to maximize compatibility across platforms and screen readers (in some setups, only one or the other is recognized).
+- The aria-live="polite"[^13 polite] property and the status[^14 status] role are equivalent. Both are provided to maximize compatibility across platforms and screen readers (in some setups, only one or the other is recognized).
 - The equivalent `alert` and `assertive` values mean the current readout of the screen reader will be interrupted to announce the live region’s new content. In this case, as interupting the user as they're typing is aggressive. So we can keep `status` and `polite` values which means the contents are announced after the user stops typing for a moment.
 
 #### Announcing Only When It's Critical
@@ -322,7 +322,7 @@ Fortunately, there are some usability provisions we can apply here. By leveragin
 
 There are a number of details on a credit or debit card: name on card, card number, valid from date, expiry date, issue number, security number; all of these are commonly found on payment forms. However, not all of these details are necessary to process a payment.
 
-When I worked on Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe as the payment provider. This way, we didn't have to worry about PCI compliance and the cost of developing a solution from scratch. Here's the payment form we ended up with:
+When I worked on Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe[^15] as the payment provider. This way, we didn't have to worry about PCI compliance and the cost of developing a solution from scratch. Here's the payment form we ended up with:
 
 ![Payment](./images/02/payment.png)
 
@@ -346,7 +346,7 @@ This also shows that we should constantly be questioning the existence of form f
 
 Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored — if it does, the user can select it without having to type.
 
-> Chrome autofill: used 9 billion times/month, saves an average of 12 seconds, 1.25 million days saved/month — Luke W, 24 October 2017[^luke autofill]
+> Chrome autofill: used 9 billion times/month, saves an average of 12 seconds, 1.25 million days saved/month — Luke W, 24 October 2017[^16]
 
 Since iOS 8, the Safari browser lets users scan their card using the iPhone's camera — it uses the same mechanism to automatically fill out those fields.
 
@@ -394,7 +394,7 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
 </div>
 ```
 
-*(Note: you can refer to the full list of available values in the HTML specification[^autofill])*
+*(Note: you can refer to the full list of available values in the HTML specification[^17])*
 
 ### Number Input
 
@@ -666,7 +666,7 @@ Layout wise, the summary panel should be less prominent than the form. So it sho
 
 As the user is moving through a linear flow, we need to consider the need to step back. The browser's back button provides this functionality for free, but some people mistrust it because of bad past experience where their data was lost.
 
-AJAX-driven and modal-heavy sites haven't helped matters because clicking the browser's back button often goes against user's expectations[^backlink]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect it to take them to the previous page in the state they left it in.
+AJAX-driven and modal-heavy sites haven't helped matters because clicking the browser's back button often goes against user's expectations[^18]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect it to take them to the previous page in the state they left it in.
 
 However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust it. In this case, position the link at the top left of the page. By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
 
@@ -702,20 +702,25 @@ After that, we looked at other issues: giving users the ability to review their 
 ## Footnotes
 
 [^1]: https://designnotes.blog.gov.uk/2015/07/03/one-thing-per-page/
-[^2]: https://www.smashingmagazine.com/2017/05/better-form-design-one-thing-per-page/
+[^2]: https://en.wikipedia.org/wiki/I,_Daniel_Blake
 [^3]: http://www.formsthatwork.com/
-[^4]: https://www.youtube.com/watch?v=tzfHlEFd2Fk
-[^5]: http://baymard.com/blog/form-field-usability-matching-user-expectations
-[^6]: http://www.pcapredict.com/en-gb/address-capture-software/
-[^7]: https://www.smashingmagazine.com/inclusive-design-patterns/
-[^8]: http://caniuse.com/#feat=maxlength
-[^9]: https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/
-[^10]: https://stripe.com/gb
+[^4]: https://articles.uie.com/three_hund_million_button/
+[^5]: https://www.formulate.com.au/blog/required-versus-optional-fields-new-standard
+[^6 write less damn code]: https://www.youtube.com/watch?v=tzfHlEFd2Fk
+[^7 field width]: http://baymard.com/blog/form-field-usability-matching-user-expectations
+[^8 capture+]: http://www.pcapredict.com/en-gb/address-capture-software/
+[^9 radio buttons easier]: https://gdstechnology.blog.gov.uk/2015/08/27/making-radio-buttons-and-checkboxes-easier-to-use/
+[^10 radio button labels]: https://designnotes.blog.gov.uk/2016/11/30/weve-updated-the-radios-and-checkboxes-on-gov-uk/
+[^11 custom radio issues]: https://github.com/alphagov/govuk_elements/issues
+[^12 max length]: http://caniuse.com/#feat=maxlength
+[^13 polite]: ?
+[^14 status]: ?
+[^15 stripe]: https://stripe.com/gb
+[^16 luke autofill tweet]: https://twitter.com/lukew/status/922630320293265408
+[^17 autofill attributes]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
+[^18 back link]: https://baymard.com/blog/back-button-expectations
+
+## Potential Citations/Additions
+
 [^11]: https://nordnet.design/design-is-a-team-sport-231a602fc072
-[^12]: https://www.gov.uk/service-manual/design/confirmation-pageswestern-web-part-1/
-[^13]: https://articles.uie.com/three_hund_million_button/
-[^autofillattrs]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
-[^backlink]: https://baymard.com/blog/back-button-expectations
-[^luke autofill]: https://twitter.com/lukew/status/922630320293265408
-[^gds patchy]: https://gdstechnology.blog.gov.uk/2015/08/27/making-radio-buttons-and-checkboxes-easier-to-use/
-[^radiobuttonissue]: https://github.com/alphagov/govuk_elements/issues
+[^12]: https://www.gov.uk/service-manual/design/confirmation-pages

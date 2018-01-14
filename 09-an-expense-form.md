@@ -112,11 +112,9 @@ Note the special `name` attribute value. By formatting it this way, the request 
 - *[0]* represents the particular expense in the list and starts from zero, like a JavaScript array. That is, the second expense will be represented by *[1]* and so on.
 - *[description]* and *[amount]* represents the specific attributes about the expense. In this case, the description and the amount. For each unique attribute you want to process, you'll need a name to identify it with.
 
-### Cloning Fields
+### Adding Another Expense
 
-Pressing the Add Another button needs to create a new set of expense fields to the form. There are several ways we might go about doing this. For example, we might use templating—which could be written in JavaScript[^] or in HTML[^]. Both approaches, however, lack browser support.
-
-Instead, we'll use a simple, alternative solutions which involves cloning the already-existing expense fields.
+Pressing the Add Another button needs to create a new set of expense fields. There are several ways we might go about doing this. For example, we might use templating—which could be written in JavaScript[^] or in HTML[^]. Both approaches, however, lack browser support. A simple, alternative approach involves cloning the already-existing expense fields.
 
 ```JS
 function AddAnotherForm(container) {
@@ -139,9 +137,9 @@ AddAnotherForm.prototype.getItems = function() {
 
 There are three small functions that have been split out for readability and maintainability. When the button is clicked, we get a clone of the first `<div class="addAnother-item>` in the form. Then we add the clone to the end of the form.
 
-#### Adding Remove Buttons
+#### Injecting Remove Buttons
 
-The form initially starts out with just a single expense— there's no Remove button because the user has to submit at least one expense. However, when the user adds another expense, we need to add a Remove button to the first expense. To do this, when the Add Another button is pressed, we'll need to check whether a Remove button should be added.
+The form initially starts out with just a single expense. There's no Remove button because the user has to submit at least one expense. However, when the user adds another expense, we need to add a Remove button to the first expense. To do this, when the Add Another button is pressed, we'll need to check whether a Remove button should be added.
 
 ```JS
 AddAnotherForm.prototype.onAddButtonClick = function(e) {
@@ -211,7 +209,7 @@ Finally, the label's `for` attribute is set to the control's `id` attribute. If 
 
 *(Note: the code for retrieving the label uses a logic OR operator. This is because the label appears in different places depending on the type of field. In the case of a text field, for example, it will be the previous sibling. However, for radio buttons, should an expense need radio buttons, it will be the parent.)*
 
-### Managing Focus
+#### Managing Focus
 
 When the Add Another button is clicked, it should focus the first newly-created form field. In screen readers, this will announce the field, prompting the user to fill out the expense.
 
@@ -222,7 +220,68 @@ AddAnotherForm.prototype.onAddButtonClick = function(e) {
 };
 ```
 
-When the user clicks the Remove button, everything inside that `<div class="addAnother-item">` will be removed. But, what happens to the focus when you delete the currently focused element? Heydon Pickering answers this question in “A Todo List”[^2]:
+### Removing An Expense
+
+When the user clicks an item's Remove button, there's a number of tasks we need to implement. First, of course, is that it should be removed from the form.
+
+```JS
+function AddAnotherForm(container) {
+  //...
+  this.container.on('click', '.addAnother-removeButton', $.proxy(this, 'onRemoveButtonClick'));
+}
+
+AddAnotherForm.prototype.onRemoveButtonClick = function(e) {
+  $(e.currentTarget).parents('.addAnother-item').remove();
+};
+```
+
+We're using jQuery's event delegation. This is useful because we're adding and removing Remove buttons dynamically. Without using delegation we'd have to keep adding and removing event listeners which is a pain.
+
+When the event listener is called, the Remove button si referenced by `e.currentTarget`. Then it's just a matter of searching for the parent container for the expense and removing it.
+
+#### Removing The Remove Buttons
+
+When the penultimate expense is removed, we need to remove the first items Remove button. That is, the user shouldn't be able to remove every expense, because they must enter at least one.
+
+```JS
+AddAnotherForm.prototype.onRemoveButtonClick = function(e) {
+  $(e.currentTarget).parents('.addAnother-item').remove();
+  var items = this.getItems();
+  if(items.length === 1) {
+    items.find('.addAnother-removeButton').remove();
+  }
+};
+```
+
+The function checks to see if there's just one expense item left in the form. And if there is, the Remove button is removed.
+
+#### Updating The Attributes
+
+When the user has added a number of expenses, they are free to remove any which they might have provided by mistake. The interface gives users control to remove whichever item they want.
+
+Remember the names of the fields use array-like indexes so that the form can be processed on the server. If there are three expenses, for example, but the user deletes the second expense, then the data will be out of sync.
+
+We can fix this, by running through all the expenses in the form, and updating the the fields indexes:
+
+```JS
+AddAnotherForm.prototype.onRemoveButtonClick = function(e) {
+  // code
+  
+  var items = this.getItems();
+  
+  // code
+  
+  items.each($.proxy(function(index, el) {
+    this.updateAttributes(index, $(el));
+  }, this));
+};
+```
+
+This loops through all the items in the form and invokes the `updateAttributes()` method from earlier.
+
+#### Managing Focus
+
+When the user clicks the Remove button, everything inside the `<div class="addAnother-item">` will be removed. But, what happens to the focus when you delete the currently focused element? Heydon Pickering answers this question in “A Todo List”[^2]:
 
 > [...] browsers don’t know where to place focus when it has been destroyed in this way. Some maintain a sort of “ghost” focus where the item used to exist, while others jump to focus the next focusable element. Some flip out completely and default to focusing the outer document — meaning keyboard users have to crawl [...] back to where the removed element was.
 
@@ -230,13 +289,21 @@ We could set focus to the previous or next expense item but this seems arbitrary
 
 Instead, we can set focus to the heading, which puts users back to the beginning of the expense form while announcing itself—“Expenses, heading, level 1” or similar—to screen reader users.
 
-By default, headings aren't focusable, but we can fix that by giving it a `tabindex="-1"` attribute. The -1 value allows us to focus the element programmatically using JavaScript, without making it user-focusable—using the Tab key, for example.
+```JS
+AddAnotherForm.prototype.onRemoveButtonClick = function(e) {
+  // code
+  
+  this.container.find('.addAnother-heading').focus();
+};
+```
+
+The problem is that, by default, headings aren't focusable. But we can fix that by giving the heading a `tabindex="-1"` attribute. The -1 value allows us to focus the element programmatically using JavaScript, without making it user-focusable—using the Tab key, for example.
 
 ```HTML
 <h1 tabindex="-1">Expenses</h1>
 ```
 
-When the heading is focused, browsers will give the heading an outline. This should be removed because as the heading is not an interactive element it shouldn't appear as such.
+When the heading is focused, browsers will give the heading an outline. This should be removed because as the heading is not an interactive element it shouldn't appear interactive.
 
 ```CSS
 .addAnother-heading { outline: none }
@@ -245,6 +312,10 @@ When the heading is focused, browsers will give the heading an outline. This sho
 Once the heading is focused, pressing <kbd>Tab</kbd> will focus the first form field, which makes orientation simple.
 
 ### Feedback
+
+Both adding and removing an expense provides users with sufficient feedback. Adding an item not only updates the page
+
+The act of adding another expense
 
 For most users, feedback is given implicitly just by the new fields appearing on the page. For this reason, there's no need to show an additional notification at the top of the form, for example. In fact, having two parts of the interface update at the same to provide the same message would be overbearing. And, as more expenses are added, the notification would appear off-screen so users wouldn't see it anyway.
 

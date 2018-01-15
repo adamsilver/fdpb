@@ -4,7 +4,7 @@
 
 Nobody *wants* to log into your site. They're forced to as a security measure. Without this, everyone has access to everyone else's stuff. Bad.
 
-Given how prevalent login forms have been around for and how basic they are in appearance, you'd be surprised at how often they contain usability issues that stop users doing something they don't even want to do in the first place. Add social login into the mix and things get harder still.
+Given how long login forms have been around for and how basic they are in appearance, you'd be surprised at how often they contain the same usability mistakes that stop users doing something they don't even want to do in the first place. Add social login into the mix and things get even harder.
 
 In this chapter, we'll dissect each issue and provide ways to remedy them. By process of elimination, users should be left with a straightforward and relatively pleasant login experience.
 

@@ -54,7 +54,7 @@ HTML5's `datalist` element combines with a text box to create this exact behavio
 
 Instead, we'll build a custom autocomplete component from scratch. A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is challenging work.
 
-#### Building An Accessible Autocomplete
+### Building An Accessible Autocomplete
 
 Accessibility expert Steve Faulkner has what he calls a *punch list*[^] which is a list of rules anyone should follow to make sure that any custom Javascript component is designed and built to a good standard. The rules state that a component should:
 
@@ -91,7 +91,7 @@ First, we need to hide the select box like this:
 
 If the select box was completely unnecessary, we could have just removed it from the Document using Javascript. But if we did it this way (or by using `display: none`) it wouldn't be sent to the server.
 
-Instead, we've used the `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “A Checkout Flow”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We still need to stop keyboard users being able to focus it by way of the <kbd>Tab</kbd> key which is acheived by the `tabindex="-1"` attribute.
+Instead, we've used the `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “A Checkout Flow”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We still need to stop keyboard users being able <kbd>Tab</kbd> to it which is acheived by the `tabindex="-1"` attribute.
 
 #### Enhancing The Interface
 
@@ -140,7 +140,7 @@ Notes:
 - The `tabindex="-1"` attribute allows us to set focus to the options programatically. More on this shortly.
 - The `data-option-value` attribute is to store the corresponding `select` option value. When the user selects an option, we populate the hidden `select` box accordingly so that the real value will be persisted on submission.
 
-Suggestions appear in the menu giving sighted users feedback. To give screen reader users an equivalent experience we need to use a live region (as first set out in chapter 2, “A Checkout Flow”. By injecting “13 results are available” into the `div`, we satisfy principle 1, *Provide a comparable experience*.
+Suggestions appear in the menu giving sighted users feedback. To give screen reader users an equivalent experience we need to use a live region as first set out in chapter 2, “A Checkout Flow”. By injecting “13 results are available”, we satisfy principle 1, *Provide a comparable experience*.
 
 ```HTML
 <div role="status" aria-live="polite">13 results are available</div>
@@ -171,7 +171,7 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 };
 ```
 
-Note that we're filtering out <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd> and <kbd>Enter</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check for the keys we're interested in. But, this would mean specifying a huge range of keys which would increase the chance of one being missed - this would then break the experience.
+Note that we're filtering out <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd> and <kbd>Enter</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check for the keys we're interested in. But, this would mean specifying a huge range of keys which would increase the chance of one being missed—this would then break the experience.
 
 We only want to do handle the cases when the user presses <kbd>Down</kbd> or a character to match on (which are the last two cases in the above function). When the user presses a character, matching options are shown in the menu and the live region is updated.
 
@@ -333,31 +333,29 @@ In this case, you should use three text boxes: one for day, month and year. Why 
 ![memorable date](./images/03/memorable-date.png)
 
 ```HTML
-<div class="field">
-  <fieldset>
-    <legend>
-      <span class="field-legend">Date of birth</span>
-      <span class="field-hint">DD MM YYYY</span>
-    </legend>
-    <div class="field-dayWrapper">
-      <label for="day">Day</label>
-      <input class="field-dayBox" type="text" pattern="[0-9]*" name="day" id="day">
-    </div>
-    <div class="field-monthWrapper">
-      <label for="month">Month</label>
-      <input class="field-monthBox" type="text" pattern="[0-9]*" name="month" id="month">
-    </div>
-    <div class="field-yearWrapper">
-      <label for="year">Year</label>
-      <input class="field-yearBox" type="text" pattern="[0-9]*" name="year" id="year">
-    </div>
-  </fieldset>
-</div>
+<fieldset class="field">
+  <legend>
+    <span class="field-legend">Date of birth</span>
+    <span class="field-hint">DD MM YYYY</span>
+  </legend>
+  <div class="field-dayWrapper">
+    <label for="day">Day</label>
+    <input class="field-dayBox" type="text" pattern="[0-9]*" name="day" id="day">
+  </div>
+  <div class="field-monthWrapper">
+    <label for="month">Month</label>
+    <input class="field-monthBox" type="text" pattern="[0-9]*" name="month" id="month">
+  </div>
+  <div class="field-yearWrapper">
+    <label for="year">Year</label>
+    <input class="field-yearBox" type="text" pattern="[0-9]*" name="year" id="year">
+  </div>
+</fieldset>
 ```
 
 The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”) gives each text box context and would be read out as “Date of birth, day” (or similar) as the user steps through each field.
 
-*(Note: the pattern attribute is used to trigger the numeric keyboard - a little enhancement for iOS users. If you're wondering why the number input isn't used here, we discussed the issues in “A Checkout Flow”.)*
+*(Note: the pattern attribute is used to trigger the numeric keyboard - a little enhancement for iOS users. If you're wondering why the number input isn't used here, we discussed the issues in detail in “A Checkout Flow”.)*
 
 #### Calendar Widgets
 
@@ -385,7 +383,9 @@ Don't be too concerned about the difference in appearance. Most users aren't awa
 
 > Nobody cares about your website as much as you do
 
-If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^]. Nicholas Zakas shows the audience a photo. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. Remember the audience was full of designers and developers — people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
+If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^]. Nicholas Zakas shows the audience a photo. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. 
+
+Remember the audience was full of designers and developers — people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
 
 And if that's not enough proof, visit “Do Websites Need To Look Exactly The Same In Every Browser”[^].
 
@@ -423,11 +423,11 @@ The enhanced interface takes the text box and injects a button beside it. Clicki
 
 Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't have these issues.
 
-There is an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets which are easy to tap (or click) with a finger (or mouse).
+There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets which are easy to tap (or click) with a finger (or mouse).
 
 #### Revealing The Calendar
 
-As noted earlier, clicking the toggle button, reveals the calendar.
+Clicking the toggle button reveals the calendar.
 
 ```HTML
 <div class="field ">
@@ -459,16 +459,16 @@ Here's the calendar's container:
   ...
   <button aria-label="Previous month" type="button" 
     >
-      <svg 
-        focusable="false" 
-        version="1.1" 
-        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-        viewBox="0 0 17 17" 
-        width="1em" 
-        height="1em">
-          ...
-      </svg>
-    </button>
+    <svg 
+      focusable="false" 
+      version="1.1" 
+      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+      viewBox="0 0 17 17" 
+      width="1em" 
+      height="1em">
+        ...
+    </svg>
+  </button>
   ...
 </div>
 ```
@@ -482,7 +482,7 @@ The `role="group"` attribute is used to group a set of interface elements. In th
 
 The `aria-label="date picker"` will inform users that they are now entering the date picker component. For example, when the previous month button is focused, “date picker, previous month, button” (or similar) will be announced.
 
-At this point pressing <kbd>Tab</kbd> moves to the next focusable element (the next month button). And tabbing again moves focus to the currently selected date within the grid, which defaults to today's date.
+At this point pressing <kbd>Tab</kbd> moves to the next focusable element (the Next Month button). And tabbing again moves focus to the currently selected date within the grid, which defaults to today's date.
 
 ```HTML
 <table role="grid">
@@ -527,7 +527,7 @@ Notes:
 
 #### Screen Readers
 
-When the toggle button is pressed, sighted users will get feedback visually as the calendar appears. Because clicking the toggle button moves focus to the calendar, we can give screen reader users feedback by using a live region which contains the title: month name and year (“October 2017”, for example). This same information will be continually announced as users move between months and the title changes out as users move between months.
+When the toggle button is pressed, sighted users will get feedback visually as the calendar appears. Because clicking the toggle button moves focus to the calendar, we can give screen reader users feedback by using a live region which contains the title: month name and year (“October 2017”, for example). This same information will be continually announced as users move between months.
 
 ```HTML
 <div role="status" aria-live="polite">October 2017</div>
@@ -538,13 +538,13 @@ The `thead` contains the column headings which represent each day of the week. T
 ```HTML
 <thead>
   <tr>
-    <th aria-label="Sunday">Sun</th>
-    <th aria-label="Monday">Mon</th>
-    <th aria-label="Tuesday">Tue</th>
-    <th aria-label="Wednesday">Wed</th>
-    <th aria-label="Thursday">Thu</th>
-    <th aria-label="Friday">Fri</th>
-    <th aria-label="Saturday">Sat</th>
+    <th aria-label="Sunday">Su</th>
+    <th aria-label="Monday">Mo</th>
+    <th aria-label="Tuesday">Tu</th>
+    <th aria-label="Wednesday">We</th>
+    <th aria-label="Thursday">Th</th>
+    <th aria-label="Friday">Fr</th>
+    <th aria-label="Saturday">Sa</th>
   </tr>
 </thead>
 ```
@@ -565,7 +565,7 @@ While screen reader users *can* operate the calendar, it's probably not that use
 
 #### Future Support
 
-I love how Jeremy Keith thinks about the web as a *continuum*[^]. By that he means it's constantly changing. Technology evolves at a rapid pace and browsers and devices are released all the time. Each of which have varying features and capabilities.
+Jeremy Keith thinks about the web as a *continuum*[^]. By that he means it's constantly changing. Technology evolves at a rapid pace and browsers and devices are released all the time. Each of which have varying features and capabilities.
 
 At any particular moment in time we need to decide what level of support makes sense for a given feature.
 
@@ -582,11 +582,11 @@ We have covered users who:
 
 But, we haven't covered users who:
 
-- use an unsupported browser and experience a network or Javascript failure (as described in “A Registration Form”).
+- use an unsupported browser and experience a network or Javascript failure (like the ones described in “A Registration Form”).
 
 > People ignore design that ignores people. - Frank Chimero
 
-In this case users will see a text box asking for a date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't use the hint pattern (first discussed in “A Registration Form”) because browsers that support the date input may use a different format which would cause confusion.
+In this case, users will see a text box asking for a date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't use the hint pattern (first discussed in “A Registration Form”) because browsers that support the date input may use a different format which would cause confusion.
 
 ![Date picker no hint](./images/03/date-picker-no-hint.png)
 
@@ -594,7 +594,7 @@ We can be as forgiving as possible, by letting users type slashes, periods or sp
 
 We could add a hint via the placeholder attribute and then remove it with JavaScript when our own date picker will be injected. Despite the problems with placeholders (discussed in “A Registration Form”) this might be the lesser of two evils.
 
-Design is often a question of priorities. What is a good experience for most may create a less-than-ideal for some, which is especially the case on the web. Inclusive design is about making decisions that are unlikely to exclude people.
+Design is often a question of priorities. What is a good experience for most may create a less-than-ideal experience for some, which is especially the case on the web. Inclusive design is about making decisions that are unlikely to exclude people.
 
 In this edge case, users are still able to enter a date which makes this pattern an accessible one. In the end, it's about doing our best and we've done that here.
 
@@ -761,9 +761,9 @@ To denote window seats and isle seats for screen reader users we can put hidden 
 
 ### Nested Fieldsets
 
-The radio buttons are housed inside an extra fieldset (and legend) to incidate which class the seat belongs to: first class or economy. Visually this is fine, but screen readers don't always behave as expected. Sometimes, they announce both `legends` when the first radio button is focused. Sometimes they don't announce the outer `legend` at all. You can read Leonie Watson's article, “Using the fieldset and legend elements”[^] for more information.
+The radio buttons are housed inside an extra fieldset (and legend) to incidate which class the seat belongs to: first class or economy. Visually this is fine, but screen readers don't always behave as expected. Sometimes, they announce both legends when the first radio button is focused. Sometimes they don't announce the outer legend at all. You can read Leonie Watson's article, “Using the fieldset and legend elements”[^] for more information.
 
-Where possible, you should avoid nested fieldsets, not only for screen reader users, but because their use often signifies extra complexity that can be designed out of a system. For example, we're showing both first class and economy class seats because users' never specified which class they wanted.
+Where possible, you should avoid nested fieldsets, not only for screen reader users, but because their use often signifies extra complexity that can be designed out of a system. In our case, we're showing both first class and economy class seats because users' never specified which class they wanted earlier in the journey.
 
 Instead, we could ask users to specify their preference beforehand. At the same time, we can mark *economy* as checked by default. Marking the most common choice expedites the process.
 
@@ -785,11 +785,11 @@ But there are always exceptions to rules. I prefer guidance to rules. Unlike rul
 
 A Boeing 747 commerical plane has over 400 seats so we've shattered the 7 choice rule. Call me a rebel, but I'm struggling to see a better way of presenting seats. Choosing a seat is quite a unique interaction and benefits from this layout.
 
-And using the One Thing Per Page pattern gives us maximal screen space to design something better. The screen, while long, is far less overwhelming as it'd dedicated to just one thing: choosing a seat.
+And using the One Thing Per Page pattern (explained in chapter 2) gives us maximal screen space to design something better. The screen, while long, is far less overwhelming as it'd dedicated to just one thing: choosing a seat.
 
 ### Unavailable Seats
 
-Unavailable seats are denoted by marking the checkbox (or radio button) as disabled. They are grayed out so that sighted users know they aren't selectable. Similarly screen readers won't announced them, and keyboard users can't focus to them. This is where disabling elements works nicely.
+Unavailable seats are marked by disabling the checkbox (or radio button). Browsers will grey them out so that sighted users know they aren't selectable. Similarly screen readers won't announced them, and keyboard users can't focus to them. This is one of the few occasions where disabling elements works well.
 
 ```HTML
 <input type="checkbox" name="seat" value="1A" disabled>
@@ -799,7 +799,7 @@ Unavailable seats are denoted by marking the checkbox (or radio button) as disab
 
 Laying out seats in rows can cause seats to wrap in small viewports. Alternatively, seats can be styled not to wrap, but this causes a horizontal scroll bar. Neither of these problems are deal breakers, but if we can reduce the chance of this happening we should.
 
-One approach would be to hide the checkboxes and make the remaining label look clickable. Hiding checkboxes with CSS alone is dangerous because pressing <kbd>Tab</kbd> moves focus to the checkbox, not the label. On its own this breaks the interface for keyboard users because as the user focuses each checkbox there is no visual feedback.
+One approach would be to hide the checkboxes and make the remaining label look clickable (which it is). Hiding checkboxes with CSS alone is dangerous because pressing <kbd>Tab</kbd> moves focus to the checkbox, not the label. On its own this breaks the interface for keyboard users because as the user focuses each checkbox there is no visual feedback.
 
 To fix this problem, we can give the (still) visible `<span class="plane-seatNumber">` the appearance of focus using the adjacent sibling selector:
 
@@ -809,7 +809,7 @@ To fix this problem, we can give the (still) visible `<span class="plane-seatNum
 }
 ```
 
-Note that `.enhanced` is at the start of the selector. This is because these styles should only be applied when Javascript is available. This is done by adding a class of `enhanced` to the document element in the `<head>` of the document like this:
+Note that `.enhanced` is at the start of the selector because these styles should only be applied when Javascript is available. This is done by adding a class of `enhanced` to the document element in the `<head>` of the document like this:
 
 ```JS
 document.documentElement.className = 'enhanced';

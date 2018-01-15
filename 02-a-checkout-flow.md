@@ -179,21 +179,19 @@ Capture+ has a third-party script which you can include on your page. But most t
 ![Delivery options](./images/02/deliver-options.png)
 
 ```html
-<div class="field">
-	<fieldset>
-		<legend>
-			<span class="field-legend">Delivery options</span>
-		</legend>
-		<div class="field-radioButton">
-		  <input type="radio" name="option" id="option" value="Standard" checked>
-		  <label for="option">Standard (Free, 2-3 days)</label>
-		</div>
-		<div class="field-radioButton">
-		  <input type="radio" name="option" id="option2" value="Premium">
-		  <label for="option2">Premium (£6, Next day)</label>
-		</div>
-	</fieldset>
-</div>
+<fieldset class="field">
+	<legend>
+		<span class="field-legend">Delivery options</span>
+	</legend>
+	<div class="field-radioButton">
+	  <input type="radio" name="option" id="option" value="Standard" checked>
+	  <label for="option">Standard (Free, 2-3 days)</label>
+	</div>
+	<div class="field-radioButton">
+	  <input type="radio" name="option" id="option2" value="Premium">
+	  <label for="option2">Premium (£6, Next day)</label>
+	</div>
+</fieldset>
 ```
 
 This is the first field that consists of multiple controls, in this case, radio buttons.
@@ -379,19 +377,17 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
   </label>
   <input type="number" id="cvc" name="cvc" autocomplete="cc-csc">
 </div>
-<div class="field">
-  <fieldset>
-    <legend>
-      <span class="field-legend">Is your billing address the same as delivery?</span>
-    </legend>
-    <div class="field-checkbox">
-      <label for="things">
-        <input type="checkbox" name="things" value="" id="things" checked>
-        Yes, it's the same
-      </label>
-    </div>
-  </fieldset>
-</div>
+<fieldset class="field">
+  <legend>
+    <span class="field-legend">Is your billing address the same as delivery?</span>
+  </legend>
+  <div class="field-checkbox">
+    <label for="things">
+      <input type="checkbox" name="things" value="" id="things" checked>
+      Yes, it's the same
+    </label>
+  </div>
+</fieldset>
 ```
 
 *(Note: you can refer to the full list of available values in the HTML specification[^17])*

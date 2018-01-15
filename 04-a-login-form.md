@@ -6,11 +6,57 @@ Nobody *wants* to log into your site. They're forced to as a security measure. W
 
 Given how long login forms have been around for and how basic they are in appearance, you'd be surprised at how often they contain the same usability mistakes that stop users doing something they don't even want to do in the first place. Add social login into the mix and things get even harder.
 
-In this chapter, we'll dissect each issue and provide ways to remedy them. By process of elimination, users should be left with a straightforward and relatively pleasant login experience.
+In this chapter, we'll design a login form and as we bump into each of the problems, we'll look at ways to remedy them. By process of elimination, users should be left with a straightforward and relatively pleasant login experience.
+
+## The Basic Login Form
+
+![Login example bad](./images/04/login.png)
+
+```HTML
+<form>Here</form>
+```
+
+## The Username Field
+
+Some sites have users create a username to access their service. Other sites, such as airlines or banks ask for a booking reference number or ping number. Whatever it is you expect users to type, make sure the label is explicit in detailing this.
+
+The registration form we designed in chapter 1 asked users to register with their email address. Like many sites on the web, the login form has an ambiguous and unhelpful label of “Username”. Instead, we should use an explicit label of “Email address” because that's what we expect of users. In fact, for us we can use the exact same code as laid out in chapter 1.
+
+```HTML
+With good label
+```
+
+Some sites due to legacy reasons let users enter their email address or password. If you accept both, then say so in the label “Username or email address.” Don't make users guess. Similarly, if you're asking for a booking reference number, tell users where they might find it by providing suitable hint text.
+
+```HTML
+With hint text as necessary
+```
+
+## The Password Field
+
+People often use the same password for different sites and applications. But password rules differ from site to site. Some sites ask for a capital letter, others ask for numbers and symbols.
+
+Many users will tweak their password to match the rules of the site. For example, if their password is “password”, and the site requires a capital letter, they'll just capitalise the first letter to “Password”. 
+
+*(Note: As I don't want to encourage bad practice:  passphrases - discussed in “A Registration Form” - might be an alternative solution to complex password rules.)*
+
+For the registration form, we provided users with a hint that explained the rules. But like many sites, our login form has failed to provide the same hint. Why should users have to guess or worse reset their password?
+
+![What are the rules](./images/04/login-hintless.png)
+
+Perhaps it's done as a security measure, but first, hackers don't hack this way, and second, all a hacker would need to do to check the rules is go to the registration page. 
+
+In short, we should leverage all the design solutions for the registration form, for the login form. And that starts by providing users with hint text, which gives users a better chance of success without waiting to see a useful error message.
+
+```HTML
+```
+
+By the same token, we should apply the password reveal pattern to the login form. This way, users can reveal their password to check their submission. For full rationale and implementation details, please refer back to chapter 1, “A Registration Form.”
 
 ## Microcopy
 
-The login form is almost identical to the registration form from chapter 1. It contains the same fields, in the same order with the same microcopy. In fact, the only difference is the button's label. Instead of “Register” it's “Sign in”.
+The login form is almost identical to the registration form from chapter 1. It contains
+ the same fields, in the same order with the same microcopy. In fact, the only difference is the button's label. Instead of “Register” it's “Sign in”.
 
 ![Login](./images/04/login.png)
 
@@ -19,20 +65,6 @@ The login form is almost identical to the registration form from chapter 1. It c
 Of course it depends on the type of service you're designing. Banks and investment services tend to use “Log in”. Interestingly though, the notion of “logging in” came along with computers in the 80s. And the operations that users do are logged for security reasons.
 
 Whichever you go for, consistency is important. Make sure URLs, link text, headings and button text all match. And if users click “Log in” to log in, then they should click “Log out” to log out.
-
-## Provide Hint Text
-
-People often use the same password for different sites and applications. But password rules differ from site to site. Some sites ask for a capital letter, others ask for numbers and symbols.
-
-Many users will tweak their password to match the rules of the site. For example, if their password is “password”, and the site requires a capital letter, they'll just capitalise the first letter to “Password”.
-
-*(Note: not to encourage bad practice, passphrases - discussed in “A Registration Form” - are a better alternative to complex password rules like this.)*
-
-That's okay for registration where users are often told what the rules are, but many sites don't provide a hint on the login form. In this case, users have to guess and hope for a useful error message. Or worse, they have to reset their password.
-
-![What are the rules](./images/04/login-hintless.png)
-
-With hint text, users have a better chance of success without waiting for a useful error message.
 
 ## The ‘username and password don't match’ Problem
 
@@ -48,11 +80,7 @@ The problem is that users are left to reset their password which is long-winded 
 
 ## Use Explicit Labels
 
-Some sites ask for a username but expect an email address. Other sites, such as airlines or banks may ask for a booking reference number or pin number. If your service deviates from the standard login fields, you should label the fields explicitly.
 
-If you expect an “Email address” don't use “Username”. If you accept one or the other then say so: “Username or email address”. Similarly, if you're asking for a booking reference number, say so, and tell users where they can find it.
-
-Leaving users to guess is an unnecessary source of frustration.
 
 ## Contextual Login Forms
 
@@ -190,3 +218,21 @@ In this chapter we started by quashing traditional advice that omiting hint text
 [^1]: https://vimeo.com/138359368
 [^2]: https://www.lastpass.com/
 [^3]: http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
+
+## Outline
+
+- The Password Field
+  - Hintless
+  - Revealing the password
+  - Auto-tabbing
+- Autocorrect and Autocapitalisation?
+- The Submit Button
+  - Button label
+- The username doesn’t match problem
+- The Form In Context
+  - Forgotten Password link
+  - Layout
+  - One Form Per Page
+- Social Login
+  - Seamless Interchange
+  - Hicks Law

@@ -10,53 +10,94 @@ In this chapter, we'll design a login form and as we bump into each of the probl
 
 ## The Basic Login Form
 
-![Login example bad](./images/04/login.png)
+![Login bad example](.)
 
 ```HTML
 <form>Here</form>
 ```
 
-## The Username Field
+## Username Labelling And Hint Text
 
-Some sites have users create a username to access their service. Other sites, such as airlines or banks ask for a booking reference number or ping number. Whatever it is you expect users to type, make sure the label is explicit in detailing this.
+Some sites ask users to create a username to access their service. Other sites, such as airlines or banks ask for a booking reference number or pin number respectively. Whatever you expect your users to enter, make sure the label is explicit in describing it.
 
-The registration form we designed in chapter 1 asked users to register with their email address. Like many sites on the web, the login form has an ambiguous and unhelpful label of “Username”. Instead, we should use an explicit label of “Email address” because that's what we expect of users. In fact, for us we can use the exact same code as laid out in chapter 1.
+Like many sites on the web, our login form has an ambiguous and unhelpful label of “Username”. But, the registration form from chapter 1 asked users to register with their email address.
+
+Ultimately, the login form should mirror the registration form. And so we should use an explicit label of “Email address” because that's what users need to type.
+
+![Comparison with username vs email](.)
+
+Some sites, due to legacy reasons, let users enter their email address or username. If your site does the same the label should be “Username or email address” or similar—don't make users guess.
+
+Similarly, if you're asking for a booking reference number, for example, tell users where they might find it by providing suitable hint text.
+
+![Where to find it](.)
+
+### Auto-captalisation and Autocorrect
+
+Some Android and iOS browsers try to help users fill out forms by auto-capitalising and auto-correcting words. For example, if I type “adam” in a text box, these browsers will automatically change it to“Adam” which is helpful.
+
+However, this functionality (which is turned on by default) is not always desirable. Prior to iOS 5, this functionality applied to the email input: if I type “adam@example.com” I would expect this to be left alone. Similarly, if you're asking for a username that's case sensitive, users are going to find this frustrating as they have to exert energy fixing mistakes that they didn't even make themselves.
+
+Fortunately, you can turn off this behaviour like this:
 
 ```HTML
-With good label
+<input type="text" autocapitalize="none">
 ```
 
-Some sites due to legacy reasons let users enter their email address or password. If you accept both, then say so in the label “Username or email address.” Don't make users guess. Similarly, if you're asking for a booking reference number, tell users where they might find it by providing suitable hint text.
+Similarly, iOS will autocorrect words in a text input that it thinks are a mistake. Continuing with the same example: a username may contain a random string of characters that may look like a mistake but isn't. But, you can turn it off like this:
 
 ```HTML
-With hint text as necessary
+<input type="text" autocorrect="off">
 ```
 
-## The Password Field
+By the same token, some browsers will mark misspelled words with an underline. Of course, if they're not really mispelt, you should turn it off like this:
 
-People often use the same password for different sites and applications. But password rules differ from site to site. Some sites ask for a capital letter, others ask for numbers and symbols.
+```HTML
+<input type="text" spellcheck="false">
+```
 
-Many users will tweak their password to match the rules of the site. For example, if their password is “password”, and the site requires a capital letter, they'll just capitalise the first letter to “Password”. 
+## Password Field Design
 
-*(Note: As I don't want to encourage bad practice:  passphrases - discussed in “A Registration Form” - might be an alternative solution to complex password rules.)*
+People often use the same password for different sites and applications. But password rules differ from site to site. For example, some sites ask for a capital letter, others ask for numbers and symbols; other sites ask for a combination of all three.
 
-For the registration form, we provided users with a hint that explained the rules. But like many sites, our login form has failed to provide the same hint. Why should users have to guess or worse reset their password?
+Many users will tweak their password to match the rules of the site in question. For example, if their password is “password”, and the site requires a capital letter, they'll just capitalise the first letter to “Password.” Obviously, this is not recommended, but shows that users take the path of least resistance.
+
+Referring back to the registration form in chapter 1 again, we gave users a hint that explained the password rules. But like many sites, our login form fails to provide the same clarity. Why should users have to guess, or worse, reset their password?
 
 ![What are the rules](./images/04/login-hintless.png)
 
-Perhaps it's done as a security measure, but first, hackers don't hack this way, and second, all a hacker would need to do to check the rules is go to the registration page. 
+This sort of ambiguity is often in the name of security because it would make a hacker's job easier. But first, hackers don't hack this way and even if they did, what's to stop the user checking the rules on the registration page?
 
-In short, we should leverage all the design solutions for the registration form, for the login form. And that starts by providing users with hint text, which gives users a better chance of success without waiting to see a useful error message.
+In short, we should leverage the patterns in “A Registration Form” and apply them accordingly here too. First, by providing users with hint text. This way, users have a greater chance of success without having to wait for a useful error message.
 
 ```HTML
 ```
 
-By the same token, we should apply the password reveal pattern to the login form. This way, users can reveal their password to check their submission. For full rationale and implementation details, please refer back to chapter 1, “A Registration Form.”
+By the same token, the password reveal pattern (as explained in chapter 1) can be applied to the login form too.
 
-## Microcopy
+## A Note About Auto-tabbing
 
-The login form is almost identical to the registration form from chapter 1. It contains
- the same fields, in the same order with the same microcopy. In fact, the only difference is the button's label. Instead of “Register” it's “Sign in”.
+Some login forms, such as those found on bank sites, ask users for certain characters of their password. Or they may ask for certain digits of their security pin. In either case, users are normally given three text (or select) boxes.
+
+![Hargreaves does it auto tab?](./images/04/hargreaves.png)
+
+The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next text box automatically as the user enters a pre-determined number of characters. But as the BBC's UX guidance[^3] says:
+
+> it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.
+
+Leonie Watson, accessibility expert, and screen reader user, finds them problematic too:
+
+> I strongly dislike having auto-tab functionality imposed on me. It is unexpected, and based on a flawed assumption that it is helpful. It takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
+
+This point of view isn't particularly surprising given that the solution seems to be founded on assumptions that not only break convention but take control away from the user. It's okay to break convention, on the proviso that there's good reason to do so.
+
+In any case, splitting up a text box into three separate text boxes is unnecessary. Just give users a clearly-labelled, text box and allow them to type the three characters of their password freely.
+
+![Single field vs three inputs](./images/04/single-field.png)
+
+## Labelling The Submit Button
+
+Having ironed out problems with the username and password fields, our login form is almost identical to the registration form. It contains the same fields in the same order with the same microcopy. The only difference is the button's label. Instead of “Register” it's “Sign in”.
 
 ![Login](./images/04/login.png)
 
@@ -77,10 +118,6 @@ As Jared says, Hackers don't actually hack this way. But even if they did, all t
 The problem is that users are left to reset their password which is long-winded and can cause users to give up. As with any other form, errors should tell users exactly what went wrong so that they can fix it easily.
 
 ![What are the rules](./images/04/login-error.png)
-
-## Use Explicit Labels
-
-
 
 ## Contextual Login Forms
 
@@ -152,50 +189,6 @@ While placing the link in close proximity to the password field makes some sense
 
 *Note: you could place it after the form. But this means users would have to look beyond the form to discover this feature. In the case of screen reader and keyboard users, they'd have to move past the form to discover it.)*
 
-## Auto-tabbing
-
-Some login forms, such as those found on bank sites, ask users for certain characters of their password. Or they may ask for certain digits of their security pin. In either case, they normally give users three text boxes, or worse, three select boxes.
-
-![Hargreaves](./images/04/hargreaves.png)
-
-The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next field automatically as the user enters a pre-determined number of characters. But as the BBC's UX guidance[^3] says:
-
-> it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.
-
-Leonie Watson, accessibility expert, and screen reader user backs this point up:
-
-> I strongly dislike having auto-tab functionality imposed on me. It is unexpected, and based on a flawed assumption that it is helpful. It takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
-
-This point of view isn't particularly surprising given that the solution seems to be founded on assumptions that take control away from the user, while simultaneously breaking convention. It's okay to break convention, but only if there is a really good reason to do so.
-
-Finally, splitting up a text box into three is unnecessary. Instead we should give users a clearly-labelled, text box and allow them to type the 3 characters of their password freely.
-
-![Single field](./images/04/single-field.png)
-
-## Auto-captalisation and Autocorrect
-
-Some browsers, for example on Android and iOS, try to help users fill out forms by autocapitalising and autocorrecting words. For example, if I type “adam” in a text box, these browsers will automatically change it “Adam” which is helpful.
-
-However, you may not always want this functionality, which is turned on by default. And prior to iOS 5, the email input also did this which is undesirable. If I type “adam@example.com” I expect this to be left alone. Similarly, if you're asking for a username that's case sensitive, users are going to find this causes more effort as they fix mistakes they didn't even make.
-
-Fortunately, you can turn off this behaviour like this:
-
-```HTML
-<input type="text" autocapitalize="none">
-```
-
-Similarly, iOS will autocorrect words in a text input that it thinks are a mistake. Continuing with the same example: a username may contain a random string of characters that may look like a mistake but isn't. But, you can turn it off like this:
-
-```HTML
-<input type="text" autocorrect="off">
-```
-
-By the same token, some browsers will mark misspelled words with an underline. Of course, if they're not really mispelt, you should turn it off like this:
-
-```HTML
-<input type="text" spellcheck="false">
-```
-
 ## Summary
 
 In this chapter we started by quashing traditional advice that omiting hint text and explicit error messages improve security on login forms. We then looked at some of the subtle usability issues that can be introduced with social login. Finally, we looked at ways of improving the experience for keyboard and mobile users which meant avoiding auto-tabbing, auto-correcting and auto-capitalising input.
@@ -221,13 +214,6 @@ In this chapter we started by quashing traditional advice that omiting hint text
 
 ## Outline
 
-- The Password Field
-  - Hintless
-  - Revealing the password
-  - Auto-tabbing
-- Autocorrect and Autocapitalisation?
-- The Submit Button
-  - Button label
 - The username doesn’t match problem
 - The Form In Context
   - Forgotten Password link

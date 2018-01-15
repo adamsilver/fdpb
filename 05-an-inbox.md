@@ -16,12 +16,12 @@ A description list (`<dl>`), formerly called a definition list, is for grouping 
 
 ```HTML
 <dl>
-	<dt>Size:</dt>
-	<dd>250cm x 135cm x 90cm</dd>
-	<dt>Price:</dt>
-	<dd>£429.95</dd>
-	<dt>Material:</dt>
-	<dd>Reclaimed teak</dd>
+  <dt>Size:</dt>
+  <dd>250cm x 135cm x 90cm</dd>
+  <dt>Price:</dt>
+  <dd>£429.95</dd>
+  <dt>Material:</dt>
+  <dd>Reclaimed teak</dd>
 </dl>
 ```
 
@@ -67,9 +67,9 @@ Let's lay out the inbox using a `<ul>`.
 <ul class="inbox">
   <li>
     <a href="/emails/1/">
-		  <div class="inbox-recipient">John Oates</div>
-		  <div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
-		  <div class="inbox-date">10 August</div>
+      <div class="inbox-recipient">John Oates</div>
+      <div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
+      <div class="inbox-date">10 August</div>
     </a>
   </li>
 </ul>
@@ -87,15 +87,15 @@ To let users mark emails for action, we need to give each row a checkbox.
 
 ```
 <ul class="inbox">
-	<li>
-		<input type="checkbox" name="email">
-		<a href="/emails/1/">
-			<div class="inbox-recipient">John Oates</div>
-			<div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
-			<div class="inbox-date">10 Aug</div>
-		</a>
-	</li>
-	...
+  <li>
+    <input type="checkbox" name="email">
+    <a href="/emails/1/">
+      <div class="inbox-recipient">John Oates</div>
+      <div class="inbox-subject">Your Amazon.co.uk order #123 is out for delivery</div>
+      <div class="inbox-date">10 Aug</div>
+    </a>
+  </li>
+  ...
 </ul>
 ```
 
@@ -435,11 +435,11 @@ The `aria-pressed` attribute will be announced by screen readers as ‘button, s
 
 ```CSS
 button {
-	/* styles */
+  /* styles */
 }
 
 button[aria-pressed="true"] {
-	/* styles*/
+  /* styles*/
 }
 ```
 

@@ -281,7 +281,7 @@ FilterRequester.prototype.onInputChange = function() {
 
 - The first parameter is the state (or data) which we want to be stored with the history entry. In this case, it’s the user-chosen filters.
 - The second parameter is the title. As it’s not well supported and it’s not necessary in our case, we’re ignoring it by passing null.
-- The third parameter is the history’s URL, which is the URL plus the data.
+- The third parameter is the history’s URL, which is the URL including the querystring.
 
 With this in place, we need to listen to when the history changes:
 
@@ -300,9 +300,10 @@ FilterRequester.prototype.onPopState = function(e) {
 
 - The state property contains the data that we associated with the history entry on creation. It’s then passed onto the already written `requestResults` method so that it can be used to render the state using AJAX again.
 - As we’re using jQuery to listen to the `onpopstate` event, the state (normally, `e.state`) property is found in `e.originalEvent.state`.
-## Users might not notice feedback
 
-Another problem with making updates with AJAX is ensuring that notice the results update. Take a situation whereby the filter component is very long and scrolls beyond the fold. Imagine, that while selecting a filter toward the bottom, it returns too few results that the user sees a blank screen.
+## Users might not notice the results update
+
+Another problem with making updates with AJAX is ensuring that users notice the results update. Take a situation whereby the filter component is very long and scrolls beyond the fold. Imagine, that while selecting a filter toward the bottom, it returns too few results that the user sees a blank screen.
 
 ![The filters are so long that the results are off screen at the top.](./images/07/too-long.png)
 
@@ -316,7 +317,7 @@ Second, we can use progressive disclosure to collapse the filter categories. We�
 
 As we’re now making heavy use of AJAX to re-render the page every time the user selects a filter, this will cause users’ data and battery to be eaten up at a more rapid rate.
 
-### AJAX is not necessary faster
+### AJAX is not necessarily faster
 
 Despite popular belief, AJAX is not necessarily faster than a page refresh either. 
 
@@ -328,7 +329,7 @@ This is mostly because it engineers away progressive rendering (also called chun
 
 As AJAX has to wait for the “entire 100k” before showing anything, users have to wait a lot longer to see something.
 
-This is not to say AJAX is bad as such. It’s just that we should use it with precaution and when we know that users will benefit from it. We introduced AJAX on the assumption that users needed but where possible, we should, generally speaking, reserve the use of AJAX for making smaller page updates for which it is better suited.
+This is not to say AJAX is bad as such. It’s just that we should use it judiciously and when we know that users will benefit from it. We introduced AJAX on the assumption that users needed but where possible, we should, generally speaking, reserve the use of AJAX for making smaller page updates for which it is better suited.
 
 In the end, we can only be sure of what's best by conducting user research with a diverse group of people, using a broad range of browsers and devices, on varying connection speeds in the context of our own problem.
 

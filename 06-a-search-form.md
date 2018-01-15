@@ -95,7 +95,7 @@ First, without a button you can't use it as a quasi label, and would need to rei
 
 Being able to submit the form by pressing <kbd>Enter</kbd> is called implicit submission and it's something we first discussed in chapter 5, “An Inbox”. But implicit submission can break if you remove the submit button. But this is only the case if the form has more than one field. As the search form has a single field, implicit submission would fortunately still work.
 
-*(Note: if you do decide to hide the button using the `visually-hidden` class, remember the button would still be focusable. This means, sighted screen reader users, for example, will find this problematic. You can fix this by adding the `tabindex="-1"` attribute.)*
+*(Note: if you do decide to hide the button using the `visually-hidden` class, remember the button would still be focusable. This means, sighted screen reader users[^adrian], for example, will find this problematic. You can fix this by adding the `tabindex="-1"` attribute.)*
 
 Some sites use AJAX to search as the user types but this can be jarring and it eats up people's data allowance. It also doesn't make the button any less useful. That is, if the predicted results aren't helpful, users should still be able to proceed with a full search by submitting the form and they should know exactly how to do that.
 
@@ -135,8 +135,6 @@ When the user clicks the button, the form will be revealed by removing the `hidd
 ![Focus moved](./images/06/collapsible-search-form.png)
 
 We also need to update the state of the button by toggle the `aria-expanded` attribute to `true` so that it's reflected to screen reader users. Clicking the button for a second time, will hide the form and set `aria-expanded` back to `false`.
-
-The full code is available on the accompanying Github repository[^].
 
 ## Displaying Search Results
 

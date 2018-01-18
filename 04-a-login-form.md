@@ -8,27 +8,23 @@ Given how long login forms have been around for and how basic they are in appear
 
 In this chapter, we'll design a login form and as we bump into each of the problems, we'll look at ways to remedy them. By process of elimination, users should be left with a straightforward and relatively pleasant login experience.
 
-## The Basic Login Form
+## A Standard Login Form
 
-![Login bad example](.)
-
-```HTML
-<form>Here</form>
-```
+![Login bad example](./images/04/login-bad.png)
 
 ## Username Label And Hint Text
 
 Our login form, like many sites on the web, has an ambiguous label of “Username” even though it expects users to enter their email address. Ultimately, the login form should mirror the site's registration form. In our case, this means the label should be “Email address.”
 
-![Comparison with username vs email](.)
+![Username vs email](./images/04/username-vs-email.png)
 
 Legacy systems sometimes let users enter an email address or a username. In this case, the same rules apply—the label should be “Username or email address”—don't make users guess.
 
-![Comparison with username vs username or email](.)
+![Username vs username and email](./images/04/username-vs-username-and-email.png)
 
 Some niche sites, such as airlines ask users to enter their booking reference number. In this case, use the hint pattern to tell users where they can find it.
 
-![no hint vs hint](.)
+![Hint vs no hint](./images/04/username-hint.png)
 
 ## Auto-captalisation, Auto-correct And Spell checking
 
@@ -75,9 +71,12 @@ Referring back to the registration form in chapter 1 again, we gave users a hint
 
 This sort of ambiguity is often in the name of security because providing a hint would make a hacker's job easier. But first, hackers don't hack this way and even if they did, what's to stop the the hacker checking the rules on the registration page? Nothing.
 
-In short, we should leverage the patterns in “A Registration Form” by providing users with hint text. This way, users have a greater chance of success without having to wait for a useful error message. Second, by giving users a way to reveal their password.
+In short, we should leverage the patterns in “A Registration Form”:
 
-![Password field with hint and reveal](./images/04/.png)
+1. Give users a hint text. This way, users have a greater chance of success without having to wait for a useful error message. 
+2. Let users reveal their password using the password reveal pattern.
+
+![Password field with hint and reveal](./images/04/password-field.png)
 
 ## Auto-tabbing
 
@@ -95,7 +94,7 @@ Leonie Watson, accessibility expert, and screen reader user, finds them problema
 
 This point of view shouldn't be surprising given that the technique is founded on assumptions that not only break convention, but also take control away from the user.
 
-In this case, there's just no good reason for it. And splitting up a text box into threee sepearate ones is also unnecessary. A single, clearly-labelled text box lets users type three characters freely.
+In this case, there's just no good reason for it. And splitting up a text box into three is unnecessary. A single, clearly-labelled text box lets users type three characters freely.
 
 ![Single field vs three inputs](./images/04/single-field.png)
 
@@ -103,11 +102,11 @@ In this case, there's just no good reason for it. And splitting up a text box in
 
 Having ironed out problems with the username and password fields, our login form is almost identical to the registration form. It contains the same fields in the same order with the same microcopy. The only difference is the button's label. Instead of “Register” it's “Sign in.”
 
-![Login](./images/04/login.png)
+![Login](./images/04/button-text.png)
 
 “Sign in” is arguably softer and more human than “Log in.” When you visit a spa, hotel or office building, you sign in which grants you entry. And you sign out as you leave. Where possible, we should use the same, familiar language in the digital world.
 
-With that said, it can depend on the type of service you're designing. Banks, for example, tend to use “Log in.” Interestingly, the notion of logging in came along with computers in the 80s. The operations that users do are logged for security reasons.
+With that said, it can depend on the type of service you're designing. Banks, for example, tend to use “Log in.” Interestingly, the notion of logging came along with computers in the 80s. The operations that users do are logged for security reasons.
 
 Whichever you go for, adhere to princple 3, *Be consistent*. Make sure URLs, link text, headings and button text all match. And if users click “Log in” to log in, then they should click “Log out” to log out.
 

@@ -16,70 +16,74 @@ In this chapter, we'll design a login form and as we bump into each of the probl
 <form>Here</form>
 ```
 
-## Username Labelling And Hint Text
+## Username Label And Hint Text
 
-Some sites ask users to create a username to access their service. Other sites, such as airlines or banks ask for a booking reference number or pin number respectively. Whatever you expect your users to enter, make sure the label is explicit in describing it.
-
-Like many sites on the web, our login form has an ambiguous and unhelpful label of “Username”. But, the registration form from chapter 1 asked users to register with their email address.
-
-Ultimately, the login form should mirror the registration form. And so we should use an explicit label of “Email address” because that's what users need to type.
+Our login form, like many sites on the web, has an ambiguous label of “Username” even though it expects users to enter their email address. Ultimately, the login form should mirror the site's registration form. In our case, this means the label should be “Email address.”
 
 ![Comparison with username vs email](.)
 
-Some sites, due to legacy reasons, let users enter their email address or username. If your site does the same the label should be “Username or email address” or similar—don't make users guess.
+Legacy systems sometimes let users enter an email address or a username. In this case, the same rules apply—the label should be “Username or email address”—don't make users guess.
 
-Similarly, if you're asking for a booking reference number, for example, tell users where they might find it by providing suitable hint text.
+![Comparison with username vs username or email](.)
 
-![Where to find it](.)
+Some niche sites, such as airlines ask users to enter their booking reference number. In this case, use the hint pattern to tell users where they can find it.
 
-### Auto-captalisation and Autocorrect
+![no hint vs hint](.)
 
-Some Android and iOS browsers try to help users fill out forms by auto-capitalising and auto-correcting words. For example, if I type “adam” in a text box, these browsers will automatically change it to“Adam” which is helpful.
+## Auto-captalisation, Auto-correct And Spell checking
 
-However, this functionality (which is turned on by default) is not always desirable. Prior to iOS 5, this functionality applied to the email input: if I type “adam@example.com” I would expect this to be left alone. Similarly, if you're asking for a username that's case sensitive, users are going to find this frustrating as they have to exert energy fixing mistakes that they didn't even make themselves.
+Some Android and iOS browsers try to help users by auto-capitalising words in text boxes (`<input type="text">`). For example, if I type “adam”, it will be changed to “Adam” which can be helpful depending on the circumstance. 
 
-Fortunately, you can turn off this behaviour like this:
+Prior to iOS 5, this behaviour also applied to the email input. In the case of the username or email address, we certainly don't want users to exert energy fixing mistakes they didn't even make themselves. So we can disable this behaviour like this:
 
 ```HTML
-<input type="text" autocapitalize="none">
+<input autocapitalize="none">
 ```
 
-Similarly, iOS will autocorrect words in a text input that it thinks are a mistake. Continuing with the same example: a username may contain a random string of characters that may look like a mistake but isn't. But, you can turn it off like this:
+Similarly, iOS will autocorrect words in a text input that it thinks are a mistake. Continuing with the example above: a username may contain a random string of characters that may look like a mistake but isn't. You can disable this behaviour like this:
 
 ```HTML
-<input type="text" autocorrect="off">
+<input autocorrect="off">
 ```
 
-By the same token, some browsers will mark misspelled words with an underline. Of course, if they're not really mispelt, you should turn it off like this:
+By the same token, some browsers will mark misspelled words with an underline. Again, you can disable this like this:
 
 ```HTML
-<input type="text" spellcheck="false">
+<input spellcheck="false">
+```
+
+Here's the final HTML for our email address field:
+
+```HTML
+<div class="field ">
+  <label for="email">
+    <span class="field-label">Email address</span>
+  </label>
+  <input type="email" id="email" name="email" value="" autocapitalize="none" autocorrect="off" spellcheck="false">
+</div>
 ```
 
 ## Password Field Design
 
 People often use the same password for different sites and applications. But password rules differ from site to site. For example, some sites ask for a capital letter, others ask for numbers and symbols; other sites ask for a combination of all three.
 
-Many users will tweak their password to match the rules of the site in question. For example, if their password is “password”, and the site requires a capital letter, they'll just capitalise the first letter to “Password.” Obviously, this is not recommended, but shows that users take the path of least resistance.
+Many users will tweak their password to match the rules of the site in question. For example, if their password is “password”, and the site requires a capital letter, they'll just capitalise the first letter to “Password.” Obviously, this is not recommended, but shows that users usually take the path of least resistance.
 
 Referring back to the registration form in chapter 1 again, we gave users a hint that explained the password rules. But like many sites, our login form fails to provide the same clarity. Why should users have to guess, or worse, reset their password?
 
 ![What are the rules](./images/04/login-hintless.png)
 
-This sort of ambiguity is often in the name of security because it would make a hacker's job easier. But first, hackers don't hack this way and even if they did, what's to stop the user checking the rules on the registration page?
+This sort of ambiguity is often in the name of security because providing a hint would make a hacker's job easier. But first, hackers don't hack this way and even if they did, what's to stop the the hacker checking the rules on the registration page? Nothing.
 
-In short, we should leverage the patterns in “A Registration Form” and apply them accordingly here too. First, by providing users with hint text. This way, users have a greater chance of success without having to wait for a useful error message.
+In short, we should leverage the patterns in “A Registration Form” by providing users with hint text. This way, users have a greater chance of success without having to wait for a useful error message. Second, by giving users a way to reveal their password.
 
-```HTML
-```
+![Password field with hint and reveal](./images/04/.png)
 
-By the same token, the password reveal pattern (as explained in chapter 1) can be applied to the login form too.
+## Auto-tabbing
 
-## A Note About Auto-tabbing
+Some login forms, such as those found on bank sites, ask users for certain characters of their password. Or they may ask for certain digits of their security pin. In either case, users are normally given three separate text boxes or select boxes.
 
-Some login forms, such as those found on bank sites, ask users for certain characters of their password. Or they may ask for certain digits of their security pin. In either case, users are normally given three text (or select) boxes.
-
-![Hargreaves does it auto tab?](./images/04/hargreaves.png)
+![Santander](./images/04/santander.png)
 
 The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next text box automatically as the user enters a pre-determined number of characters. But as the BBC's UX guidance[^3] says:
 
@@ -89,73 +93,109 @@ Leonie Watson, accessibility expert, and screen reader user, finds them problema
 
 > I strongly dislike having auto-tab functionality imposed on me. It is unexpected, and based on a flawed assumption that it is helpful. It takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
 
-This point of view isn't particularly surprising given that the solution seems to be founded on assumptions that not only break convention but take control away from the user. It's okay to break convention, on the proviso that there's good reason to do so.
+This point of view shouldn't be surprising given that the technique is founded on assumptions that not only break convention, but also take control away from the user.
 
-In any case, splitting up a text box into three separate text boxes is unnecessary. Just give users a clearly-labelled, text box and allow them to type the three characters of their password freely.
+In this case, there's just no good reason for it. And splitting up a text box into threee sepearate ones is also unnecessary. A single, clearly-labelled text box lets users type three characters freely.
 
 ![Single field vs three inputs](./images/04/single-field.png)
 
-## Labelling The Submit Button
+## Submit Button Text
 
-Having ironed out problems with the username and password fields, our login form is almost identical to the registration form. It contains the same fields in the same order with the same microcopy. The only difference is the button's label. Instead of “Register” it's “Sign in”.
+Having ironed out problems with the username and password fields, our login form is almost identical to the registration form. It contains the same fields in the same order with the same microcopy. The only difference is the button's label. Instead of “Register” it's “Sign in.”
 
 ![Login](./images/04/login.png)
 
-“Sign in” is arguably softer and more human than “Log in”. When you enter a spa, hotel or office building, you sign in which grants you entry. And you sign out as you leave. We should use the same and familiar language digitally that people are used to in the physical world.
+“Sign in” is arguably softer and more human than “Log in.” When you visit a spa, hotel or office building, you sign in which grants you entry. And you sign out as you leave. Where possible, we should use the same, familiar language in the digital world.
 
-Of course it depends on the type of service you're designing. Banks and investment services tend to use “Log in”. Interestingly though, the notion of “logging in” came along with computers in the 80s. And the operations that users do are logged for security reasons.
+With that said, it can depend on the type of service you're designing. Banks, for example, tend to use “Log in.” Interestingly, the notion of logging in came along with computers in the 80s. The operations that users do are logged for security reasons.
 
-Whichever you go for, consistency is important. Make sure URLs, link text, headings and button text all match. And if users click “Log in” to log in, then they should click “Log out” to log out.
+Whichever you go for, adhere to princple 3, *Be consistent*. Make sure URLs, link text, headings and button text all match. And if users click “Log in” to log in, then they should click “Log out” to log out.
 
 ## The ‘username and password don't match’ Problem
 
-While omitting hint text increases the chance of an error, what's worse is when that error says “The username and password doesn't match” or something equally vague. Jared Spool comically explains why this is an issue in his talk “Design Is Metrically Opposed”[^1]:
+By providing users with clear labels and hint text, we've already reduced the chance of users seeing an error. However, when users do make a mistake, many sites will give users an error that says “The username and password doesn't match.” 
 
-> We know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.*
+I'll delegate to Jared Spool's comical explanation[^1] of why this is in an issue:
 
-As Jared says, Hackers don't actually hack this way. But even if they did, all they have to do to find out if the username exists (or what the password rules were), is try and sign up for an account with that username.
+> We know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.
 
-The problem is that users are left to reset their password which is long-winded and can cause users to give up. As with any other form, errors should tell users exactly what went wrong so that they can fix it easily.
+But as Jared says, Hackers don't actually hack this way. But let's say they did—all they'd need to do to check the rules, would be to sign up for an account themselves.
+
+The problem for users, is that they're left to reset their password which is long-winded and can cause users to give up. As with any other form, errors should tell users exactly what went wrong so that they can fix it easily.
 
 ![What are the rules](./images/04/login-error.png)
 
-## Contextual Login Forms
+## The Form In Context
 
-Often login forms are designed as an interstial page with a login-specific layout. Users perform an action which requires being logged in. The site navigates to the login page. The user is then taken back to where they were, or where they were trying to get to in the first place.
+We've ironed out many of the issues surrounding standard login forms, but we've done so while zoomed in on the form itself. We also need to consider the form in context of the page and the overal experience. This includes looking at various journeys through the login form. Let's start with layout.
 
-For example, in chapter 2, “A Checkout Flow”, we pared down the layout to only include information pertinent to the checkout. Specificall, giving users a header without navigation or search. When users checkout, and opt to log in first, the login form should employ the checkout-specific layout.
+### Layout
 
-Conversely, when users try to add a product to their basket on the Tesco site, they are taken to a login page. However, the login form is housed in a completely different layout which is disorientating, especially for people using screen readers — they have to familiarise themselves with a completely different page structure.
+Users are often faced with a login page, when they try to perform an action that requires being logged in. Many sites design the login page as a special, interstitial page with a unique layout.
+
+For example, when users try to add a product to their basket on the Tesco site, they are taken to a login page that looks completely different from the rest of the site. This is disorientating, especially for screen reader users and cognitively impaired users as they have to refamiliarise themselves with a new structure.
 
 ![Contextless](./images/04/contextless.png)
 
-## One Form Per Page
+Instead, the login form should inherit the layout of the other pages. For example, if users go to checkout, and decide to log in first, they should still be given the checkout-specific layout with a pared down minimalist header and footer.
 
-Some sites put the registration and login forms on the same page beside each other (or below one another on small screens). But, these forms are remarkably similiar; putting them together makes it hard to differentiate between them. It can also be confusing for users to see two forms when they clicked a “Sign in” link, for example.
+![In context](./images/04/contextless.png)
 
-Instead, put each form on a separate page and let users switch between them by giving them a link.
+### One Form Per Page
 
-![Link](./images/04/link.png)
+Some sites place the registration and login forms on the same page. Either next to each other on desktop, or below one another on mobile.
+
+As the forms are similar, putting them next to each other makes it hard to differentiate between them. It's also confusing for users that arrive on a page containing two forms, when what they clicked was a link that's labelled “Sign in”, for example.
+
+Instead, give users just one form per page, and let them switch between each one by using a link before the form. For the login form, this will mean giving users a link to “Register.”
+
+![Link to register](./images/04/link.png)
+
+### Forgotten Password Link Placement
+
+Human beings are forgetful. Password managers[^2] mitigate this problem by storing all your passwords in one place—you just have to remember a single, master password.
+
+That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as everyone else. Moreover, not everyone uses one, nor should they have to.
+
+Most sites give users a way to reset their password if they forget it. The feature itself isn't especially problematic. It's the placement of the link within the login form that can cause usability issues.
+
+If the link is just above the password field, when users tab from the email field, it's the link that will receive focus, not the password field. Some users will tab and start typing not realising what's happened.
+
+Worst still, is when the link is placed before the submit button. When keyboard and screen reader users tab from the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. But instead, they'll be taken to reset their password. When they realise what's happened, they'll need to go back, re-enter their credentials and be careful not to make the same mistake again.
+
+![Forgot password](./images/04/forgot-password.png)
+
+When the feature is considered in isolation, having the reset password link in close proximity to the password field makes sense. But the primary need is to sign in and the link shouldn't disturb the experience of logging in.
+
+The submit button should be the last interactive element in the form because that's what users expect. Solving this problem is simple: place the forgotten password link before the form, which makes it easy to discover, especially for screen reader and keyboard users.
 
 ## Social Login
 
-Up until recently, most sites only offered people the standard username and password approach to login. However, more sites are offering the ability to sign in with social networks such as Facebook, Twitter and Google. This saves users having to type their credentials which they may not remember.
+Recently, sites have started to offer users the ability to sign in with social networks such as Facebook, Twitter and Google. This saves users having to type their credentials they may not remember.
 
-Some sites will integrate with your social media account. For example, Medium.com, a social networking site for reading and writing articles, will post to Facebook automatically. Those who spend a lot of time on Facebook may appreciate this functionality.
+Medium.com, for example, lets users login in with Facebook. This is a boon for Medium users because they'll then have the option to post articles directly to Facebook automatically.
 
-But, social login is not without its problems. First there are issues of privacy. So telling users exactly what you will and won't do with their details is essential. Medium does a good job by stating that “They won't post without asking”.
+Social login is not without its problems though. 
+
+### Privacy
+
+Users are worried about their privacy. They don't know what you'll do automatically, and they want to feel as though they're information is safe and any actions they perform are intended.
+
+Medium.com does this well because on the login page it says “We won't post without asking” which puts users minds at ease.
 
 ![Medium login](./images/04/medium-login-usage.png)
 
 ### Seamless Interchange
 
-Some users won't remember how they originally created an account. At Kidly, we handled this by showing users an error message. For example, if users had signed up with standard login, then tried to sign up with social login, we'd show an error message saying so. But this puts the burden on the user.
+Some users won't remember how they originally created an account, therefore they won't know which login method to choose.
 
-Medium lets users log in interchangeably without users ever knowing what happened. For example, if I log in to Medium with my email but have already registered previously with Facebook, Medium logs me in automatically and merges my accounts without me knowing. As a user the only way I would know is if I bother to visit the settings page.
+At Kidly, we handled this by showing users an error message. For example, if users had signed up with standard login, then tried to sign up with social login, we'd show an error message saying so. But this puts the burden on the user.
+
+Again, Medium lets users log in interchangeably without users ever knowing what happened. For example, if I log in to Medium with my email but have already registered previously with Facebook, Medium logs me in automatically and merges my accounts. 
+
+Users can visit the settings page to see what accounts are hooked up, which keeps users informed and in control.
 
 ![Medium settings](./images/04/medium-settings.png)
-
-The ‘Connections’ section shows Facebook and Twitter options. Users can connect or disconnect their social media account easily, keeping users informed and in control.
 
 ### Choice Versus Choice Paralysis
 
@@ -163,31 +203,11 @@ Standard thinking is that choice is good. That it offers freedom, autonomy and p
 
 Barry Schwartz, author of “The Paradox of Choice” has a case study where researchers set up two displays of jams at a gourmet food store. Customers could try samples, who were then given a coupon for a dollar off if they bought a jar. One display had 24 jams, the other had just 6. 30% of people exposed to the smaller selection bought a jam, but only 3% of those exposed to the larger selection did.
 
-There's also some interesting data on companies that offer employees pension plans. One of Barry's colleagues got access to the records of Vanguard, a huge mutual-fund company, and found that for every 10 mutual funds the employer offered, the rate of participation went down 2%. Consider that employees knew that by not participating, they were passing up as much as 5000 dollars a year.
+There's also some interesting data on companies that offer employees pension plans. One of Barry's colleagues got access to the records of Vanguard, a mutual-fund company, and found that for every 10 mutual funds the employer offered, the rate of participation went down 2%. Consider that employees knew that by not participating, they were passing up as much as 5000 dollars a year.
 
-This phenomenon is actually called Hick's Law (named after psychologist William Edmund Hick), which states that the time taken to make a decision increases as the number of choices expand. It predicts that the greater the number of alternative choices, the longer it will take a user to make a decision.
+This phenomenon is actually called Hick's Law (named after psychologist William Edmund Hick), which states that the time taken to make a decision increases as the number of choices expand. Funny that William made a law in his own name that's just basic common sense.
 
-Giving users multiple ways to sign in might seem useful but it can create a burden on users. Make sure the extra choice is valuable to users. Once you're sure, layout the options clearly.
-
-![Medium login](./images/04/medium-login.png)
-
-## Forgotten Password Link Placement
-
-Human beings are forgetful. Some people, myself included, use password managers[^2]. They store all your passwords in one place and all you have to do is remember a single master password.
-
-That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as everyone else. In any case, not everyone uses one, nor should they have to.
-
-Most sites give users a way to reset their password if they forget it. The feature itself isn't especially problematic. It's the placement of the link within a login form that can cause frustration for users.
-
-If the link is just above the password field, when users tab from the email field, it's the link that will receive focus, not the password field. Some users will tab and start typing not realising what's happened.
-
-What's worse is when the link is placed before the submit button. When keyboard and screen reader users tab from the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. But instead, they'll be taken to reset their password. If and when they realise what's happened, they'll need to go back, re-enter their credentials and be careful to either tab twice or switch to using the mouse.
-
-![Forgot password](./images/04/forgot-password.png)
-
-While placing the link in close proximity to the password field makes some sense visually, the primary user need is to still to sign in. Any link shouldn't disturb users from doing so. The submit button should be the last interactive element in the form, because that's what users expect. In which case, you should place the link before the form.
-
-*Note: you could place it after the form. But this means users would have to look beyond the form to discover this feature. In the case of screen reader and keyboard users, they'd have to move past the form to discover it.)*
+The point of course is that we need to be wary that giving users multiple ways to sign in might seem useful, but it may also create a buren on them. We have to balance the value in doing so.
 
 ## Summary
 
@@ -212,13 +232,4 @@ In this chapter we started by quashing traditional advice that omiting hint text
 [^2]: https://www.lastpass.com/
 [^3]: http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
 
-## Outline
-
-- The username doesn’t match problem
-- The Form In Context
-  - Forgotten Password link
-  - Layout
-  - One Form Per Page
-- Social Login
-  - Seamless Interchange
-  - Hicks Law
+TODO: https://twitter.com/dburka/status/947864214303100929

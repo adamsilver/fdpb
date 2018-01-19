@@ -470,26 +470,26 @@ The first problem is that sites don't always refer to this field as CVC number. 
 
 To fix this, we should employ the hint text pattern to tell users exactly what it is and where to find it. For example, “This is the last three digits on the back of the card.”
 
-### Billing Address
+### Billing Address Toggle
 
 The billing address is the address to which the card is registered and is needed to process a payment. For most users, their billing address is the same as the delivery address. As the user has already provided this information, we can use it to improve the experience.
 
 First, we need to add an extra field, this time a checkbox which asks the user if their billing address is the same as their delivery address. This way users only have to fill out the billing address on the rare occasion that it's different. As it's the most common scenario, it's checked by default. 
 
-With Javascript, we can enhance the experience even more by hiding the billing address until the user unchecks the checkbox. This is a form of progressive disclosure which reduces noise in the interface. That is, we only show the fields when they are relevant to the user.
+We can enhance the experience by hiding the billing address until the user unchecks the checkbox. This is a form of progressive disclosure which means only showing information when it becomes relevant.
 
-To do this, we need to listen to the checkbox's click event.
+To do this, we need to listen to the checkbox's click event using JavaScript.
 
 ```JS
 function CheckboxCollapser(checkbox, container) {
   this.checkbox = checkbox;
-  this.container = $(container);
+  this.container = container;
   $(this.checkbox).on('click', $.proxy(this, 'onCheckboxClick'));
   this.check();
 };
 ```
 
-When the checkbox is clicked, we check the state. If it's checked, then we need to hide the billing address. Otherwise, we need to show it.
+When the checkbox is clicked, we check the checked state. If it's checked, then billing address is hidden. Otherwise, it's shown.
 
 ```JS
 CheckboxCollapser.prototype.onCheckboxClick = function(e) {
@@ -497,43 +497,43 @@ CheckboxCollapser.prototype.onCheckboxClick = function(e) {
 };
 
 CheckboxCollapser.prototype.check = function() {
-  this.container[this.checkbox.checked ? 'hide' : 'show']();
+  this.container[this.checkbox.prop('checked') ? 'hide' : 'show']();
 };
 ```
 
-The container is hidden with CSS by toggling the display property between `block` and `none`.
+The container is hidden with CSS by toggling the display property between `block` and `none` using jQuery's show and hide methods respectively.
 
 ## 7. Review Page
 
-At this point in the flow, we have collected all the information needed to complete the order. But instead of processing the order after payment, you should let users review their order. As counterintuitive as this may sound, adding an extra step in the flow actually reduces effort.
+At this point in the flow, we have collected all the information needed to complete the order. But instead of processing the order after payment, we should let users review their order. As counterintuitive as this may sound, adding an extra step in the flow actually reduces effort.
 
-Take Jack (I made him up), a father of two infants. It's the middle of the night, and his baby is crying inconsolably. Naturally, he's tired and stressed. To make things worse, there's no more nappies.
+Take Jack (I made him up), a father of two infants. It's the middle of the night, and his new born baby is crying inconsolably. Naturally, he's tired and stressed. To make things worse, there's no more nappies.
 
-He grabs the phone, adds them to the basket, fills out all the checkout details and submits the order. Great, except it isn't. He ordered the wrong size nappies and paid with the wrong card. That is, what Jack entered was “valid” but still a mistake.
+He grabs the phone, adds them to the basket, fills out all the details and submits the order. Great, except it isn't. He ordered the wrong size nappies and paid with the wrong card. What Jack entered was “valid” but still a mistake.
 
 We can save Jack a lot of frustration by giving him the chance to review the order on a separate page. That way he can focus on the order details. Remember, filling out forms and checking information are two different mental contexts.
 
-This also saves your (client's) business time and money. If Jack wants to cancel the order, then handling calls and processing would be costly — especially if the business offers free returns.
+This also saves your (client's) business time and money. If Jack wants to cancel the order, then handling calls and processing would be costly—especially if the business offers free returns.
 
-This shows that solely relying on completion time as a metric for success is dangerous. You should also look at how accurate people's orders are by checking how often items are returned. Ideally, you should use both metrics together.
+This shows that solely relying on completion time as a metric for success is dangerous. You should also look at how accurate people's orders are by checking how often items are returned.
 
-*(Note: as this is the final step in the flow, the button's text should be set to “Place order” or similar. Leaving it as “Continue” would mislead the user into thinking there is another step to complete. This is likely to result in canceled orders.)*
+As this is the final step in the flow, the button's text should be set to “Place order” or similar. Leaving it as “Continue” would mislead the user into thinking there is another step to complete which is likely to result in more cancelled orders and strain on the customer service department.
 
-### Visual Design
+### Making Changes
 
-Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information — that would defeat the purpose of the page. Users should only need to go back if they spot a mistake.
+Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information—that would defeat the purpose of the page. Users should only need to go back if they spot a mistake.
 
 ![Review](./images/02/review.png)
 
-Users can click *edit* to make amendments which is another advantage of using the One Thing Per Page pattern. As pages are small they will load fast; as each page has just one thing, making a change is simple.
+Users can click Edit to make amendments which is another advantage of using the One Thing Per Page pattern. As pages are small they will load fast; as each page has just one thing on it making a change is simple.
 
 ![Flow diagram](./images/02/review-edit-flow.png)
 
-When the user makes a change, they are taken back to this page again for a final review which puts users firmly in control and which reduces stress and anxiety.
+When the user makes a change, they are taken back to the review page again for a another review which puts users firmly in control and reduces stress and anxiety.
 
 ## 8. Confirmation Page
 
-Confirmation pages are so much more than just confirming the order. Neglecting the user experience here is a great way to lose out on return business.
+Confirmation pages are so much more than just confirming the order. Neglecting the user experience here is a great way to lose out on future business.
 
 We've all probably experienced neglect after purchasing goods. For example, if you want to take out insurance, you call the free sales number and are quickly put through to a helpful agent. Parting with money is usually made easy. But then, when you need to make a claim, it's more painful: the number isn't free and calls take a long time be answered. All very stressful.
 
@@ -619,7 +619,7 @@ First, you should keep the text inside the `h1` so that screen readers get a com
 The `visually-hidden` class contains a special set of properties that hide the element visually, while still ensuring that it's perceivable to screen reader users when the `h1` is announced.
 
 ```CSS
-.vh {
+.visually-hidden {
   border: 0!important;
   clip: rect(0 0 0 0)!important;
   height: 1px!important;

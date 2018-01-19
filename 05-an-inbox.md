@@ -1,14 +1,14 @@
 # An Inbox
 
-My sister loves to-do lists. In fact, she loves them so much, that one of her favourite things is making new lists out of old ones. The world is full of lists. There is even a list of great people[^1]. On the web, there are several types of lists, and there are some design patterns that have emerged over the years that help to manage them.
+My sister loves to-do lists. In fact, she loves them so much, that one of her favourite things is making new lists out of old ones. The world is full of lists. There's even a list of great people[^1]. On the web, there are several types of lists, and there are some design patterns that have emerged over the years that help to manage them.
 
-In this chapter, we'll look at an inbox. That is, a list of emails sent from other people. In many respects, an inbox is a list of tasks organized around emails. Besides reading and replying to them, the aim is to achieve a zen-like state of Inbox Zero[^2]. To let users get there quickly, we will design the interface so that they can delete, archive and mark emails as spam. But not just one at a time — in bulk. My sister loves pen and paper, but if we get this right, I hope she'll be converted to digital.
+In this chapter, we'll look at an inbox. That is, a list of emails sent from other people. In many respects, an inbox is a list of tasks organized around emails. Besides reading and replying to them, the aim is to achieve a zen-like state of Inbox Zero[^2]. To let users get there quickly, we will design the interface so that they can delete, archive and mark emails as spam. But not just one at a time—in bulk. My sister loves pen and paper, but if we get this right, I hope she'll be converted to digital.
 
 ## List Types
 
 First, we're going to look at how best to mark-up a list of emails. Discussing lists may seem out of place in a book about forms, but forms rarely form part of an interface on their own. Ignoring their surroundings can result in disagreeable experiences.
 
-The meaning — or semantics — behind elements should influence their appearance. In other words, form should follow function. There are 4 elements we can use to construct lists each with different semantics: description lists, tables, ordered lists and unordered lists. Let's discuss the pros and cons of each now.
+The meaning—or semantics—behind elements should influence their appearance. In other words, form should follow function. There are 4 elements we can use to construct lists each with different semantics: description lists, tables, ordered lists and unordered lists. Let's discuss the pros and cons of each now.
 
 ### Description Lists
 
@@ -27,11 +27,11 @@ A description list (`<dl>`), formerly called a definition list, is for grouping 
 
 ### Tables
 
-A table (`<table>`) is an arrangement of data, laid out in rows and columns. Like a spreadsheet, they are well-suited for data that needs to be compared, sorted and totalled.
+A table (`<table>`) is an arrangement of data, laid out in rows and columns. Like a spreadsheet, tables are well-suited for data that needs to be compared, sorted and totalled.
 
-Tables unfortunately, are difficult to style on small viewports, because there's no room to show more than two or three columns. Even then, it could be a squeeze depending on the data inside the cells, creating layout issues. For example, content could wrap profusly or it could cause users to scroll horizontally to reveal the hidden content.
+Tables unfortunately, are difficult to style on small viewports, because there's no room to show more than two or three columns at a time. Even then, it could be a squeeze depending on the data inside the cells, creating layout issues. For example, content could wrap profusly or it could cause users to scroll horizontally to reveal the hidden content.
 
-Making tables responsive isn't the most straightforward thing to do. This is because they are inherently tied to the way they look. Put another way, making a table not look like a table, is not only very difficult, but it would be deceptive, counterproductive and inaccessible.
+Making tables responsive isn't the most straightforward thing to do because they are inherently tied to the way they look. Put another way, making a table not look like a table, is not only very difficult, but it would be deceptive, counterproductive and inaccessible.
 
 Gmail[^] uses tables and puts recipient, subject and date sent into columns. Interestingly though, there are no table headings, which is the first clue that tables have been used for layout purposes rather than their semantic qualities which causes various access issues. Jeremy Keith talks about this in his book “Resilient Web Design”[^]:
 
@@ -49,17 +49,17 @@ Gmail[^] uses tables and puts recipient, subject and date sent into columns. Int
 </table>
 ```
 
-See the mark-up above as an example. The `<tr>` is wrapped in an `<a>` to let users click an email to read it. The problem is that browsers ignore this code. It's simply not allowed and screen reader users will struggle to interpret it. 
+See the mark-up above as an example. The `<tr>` is wrapped in an `<a>` to let users click an email to read it. The problem is that browsers ignore the link. It's simply not allowed and screen reader users will struggle to interpret it. 
 
-*(Note: Gmail lets users click on table cells by using Javascript to listen to click events. But not only is this unclear for screen reader users, not everyone has Javascript and quite frankly, it's unnecessary.)*
+Gmail makes the row clickable by using Javascript to listen to click events. But not only is this unclear for screen reader users, not everyone has Javascript and quite frankly, it's unnecessary.
 
 ### Ordered And Unordered Lists
 
-The generic list is useful because it itemizes and groups content into related chunks accessibly. But they can be used for more than just bullet points. They come in two flavours: ordered (`<ol>`) and unordered (`<ul>`) lists. And they are far less opiniated than tables.
+The generic list is useful because it itemizes and groups content into related chunks accessibly. But they can be used for more than just bullet points. They come in two flavours: ordered (`<ol>`) and unordered (`<ul>`) lists. And they're far less opiniated than tables.
 
 The difference between the two types, lies in their name. If order matters, use an ordered list. For example, following a recipe's instructions requires users to do so in order. Not doing may produce inedible food. On the other hand, an inbox doesn't have to be read or actioned in a predefined order. It sounds simple when put like that, but we tend to overthink these things. 
 
-*(Note: Unfortunately, most screen readers don't differentiate between unordered and ordered lists in any semantic way. But this shouldn't stop us from using the right element. As support improves the benefits will be ready and waiting.)*
+*(Note: unfortunately, most screen readers don't differentiate between unordered and ordered lists in any semantic way. But this shouldn't stop us from using the right element. As support improves the benefits will be ready and waiting.)*
 
 Let's lay out the inbox using a `<ul>`.
 
@@ -99,15 +99,15 @@ To let users mark emails for action, we need to give each row a checkbox.
 </ul>
 ```
 
-You'll notice each checkbox is missing a label. The problem is that the contents of the link should also be the contents of the label. In other words, two opposing interactions need to occupy the same space. Remember, clicking the label should mark the checkbox but clicking the link should navigate the user to the email.
+You'll notice each checkbox is missing a label. The problem is that the contents of the link should also be the contents of the label. In other words, two opposing interactions need to occupy the same space. Remember, clicking the label should mark the checkbox, where as clicking the link should navigate the user to the email.
 
 ![Label and link](./images/05/link-label.png)
 
-In this case, you could argue that a visible label is redundant. After all, the label would duplicate the link's content. This would make for a confusing experience for sighted users.
+In this case, you could argue that a visible label is redundant. After all, the label would duplicate the link's content which would make the experience confusing for sighted users.
 
 ### Using Modes
 
-Trying to meet two user needs in a single interface is partially responsible for the problem in the first place. One way to avoid the issue would be to split these needs apart using the concept of modes. This just means letting users switch between managing email and reading it.
+Trying to meet two user needs (viewing and managing) in a single interface is partially responsible for the problem in the first place. One way to avoid the issue would be to split these needs apart using the concept of modes. This just means letting users switch between managing email and reading it.
 
 ![Modes](./images/05/modes.png)
 
@@ -115,13 +115,13 @@ Clicking *Organise* puts users into *manage-mode*. When in manage-mode, the link
 
 When in read-mode there are no checkboxes or any other form paraphernalia. The row is a link which takes users to read the email. When in manage-mode, the row turns into a `<label>`. When clicked, it marks (or unmarks) the checkbox just like normal.
 
-Modes are best suited when one mode is used more frequently than the other. But, when both are used frequently, like an inbox, having to switch back and forth all the time is undesirable.
+Modes are best suited when one mode is used more frequently than the other. But, when both are used frequently, like an inbox, having to switch back and forth all the time may be undesirable.
 
-*(Note: we should try and avoid modes, but if they are necessary, the interface must make it obvious which mode is invoked.)*
+*(Note: we should try and avoid modes, but if they're necessary, the interface must make it obvious which mode is invoked.)*
 
 ### Visually Hide The Label
 
-Instead of using modes, we can add a visually hidden label. There are two ways to do this. The first is to use the `aria-labelledby` attribute (shown below) which uses existing content to label the checkbox. The downside is that it means adding `id` attributes. In any case, ARIA shouldn't be used unless there is no better alternative&mdash;something first noted in chapter 1, “A Registration Form”.
+Instead of using modes, we can add a visually hidden label. There are two ways to do this. The first is to use the `aria-labelledby` attribute (shown below) which uses existing content to label the checkbox. The downside is that it means adding `id` attributes. In any case, ARIA shouldn't be used unless there is no better alternative—something first noted in chapter 1, “A Registration Form”.
 
 ```HTML
 <li>
@@ -134,7 +134,7 @@ Instead of using modes, we can add a visually hidden label. There are two ways t
 </li>
 ```
 
-Alternatively, a standard `<label>` has better support and adheres to ARIA's first rule (not to use it if a native option is available). But the downside with this approach, is that the content has to be duplicated which would create redundancy for sighted users with missing CSS. 
+Alternatively, a standard `<label>` has better support and adheres to ARIA's first rule (not to use it if a native option is available). But the downside with this approach, is that the content has to be duplicated which would create redundancy for sighted users with missing CSS.
 
 ```HTML
 <li>
@@ -150,7 +150,7 @@ Alternatively, a standard `<label>` has better support and adheres to ARIA's fir
 
 *(Note: The CSS for the visually hidden class is set out in “A Checkout Flow”.)*
 
-While duplication isn't a big performance issue, if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer — screen reader software can be unresponsive, for example.
+While duplication isn't a big performance issue, if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer—screen reader software can be unresponsive, for example.
 
 On the other hand, duplication in this case, can be advantageous. As the label content is just for screen reader users, we can create a specific message just for them. For example, the label has the word “subject” prefixed which is useful in this context. This follows principle 1, *Provide a comparable experience*, which is not about giving users the same experience, but one of comparable value and utility.
 
@@ -168,7 +168,7 @@ We could highlight the entire row using CSS and Javascript, but we should only d
 
 ## Actioning Emails
 
-Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them to. This form has three actions and therefore three submit buttons: archive, delete and mark as spam.
+Letting users select multiple emails is all well and good, but we're going to want to facilitate actioning them to. This form has three actions and therefore three submit buttons: Archive, Delete and Mark As Spam.
 
 ```HTML
 <input type="submit" name="archive" value="Archive">
@@ -181,9 +181,9 @@ The nature of this form and the presence of multiple submit buttons creates seve
 
 ### The Multiple Submit Button Problem
 
-Implicit submission lets users submit the form by pressing <kbd>Enter</kbd> when focus is within a field. This is convenient convention that speeds up submission without having to move focus to the submit button. This is especially useful for a single field form such as a search form.
+Implicit submission lets users submit the form by pressing <kbd>Enter</kbd> when focus is within a field. This is convention that speeds up submission without having to move focus to the submit button. This is especially useful for a single field form such as a search form.
 
-Having multiple submit buttons (actions) is problematic because if the user presses <kbd>Enter</kbd>, which action will be taken? The answer is that browsrs will choose the first button in the document source.
+Having multiple submit buttons (with differing actions) is problematic because if the user presses <kbd>Enter</kbd>, which action will be taken? The answer is that browsers will choose the first button in the document source.
 
 The best solution to this problem, is avoidance. That is, to have just one action per form. Depending on the design, this may not be easy, which is unfortunately the case with the inbox.
 
@@ -193,9 +193,9 @@ Fortunately, multi-select interfaces usually place the submit buttons at the top
 
 ![Gmail menu proximity](./images/05/gmail-menu.png)
 
-It's worth noting that implicit submission is probably less useful on a form consisting solely of checkboxes. In any case, as we have multiple submit buttons, we should put the least critical action first — in this case, *archive*. That way, if a user happens to submit the form implicitly, they'll be in less of a predicament.
+It's worth noting that implicit submission is probably less useful on a form consisting solely of checkboxes. In any case, as we have multiple submit buttons, we should put the least critical action first—in this case, Archive. That way, if a user happens to submit the form implicitly, they'll be in less of a predicament.
 
-Finally, we can offer users a way to *undo* their last action, which we'll discuss later in the chapter.
+Also, we can offer users a way to *undo* their last action, which we'll discuss later in the chapter.
 
 ### Sticky Menus
 
@@ -207,19 +207,21 @@ Similarly, Material Design has the floating action button. As users scroll, the 
 
 ![Floating action button](./images/05/floating-action.png)
 
-However, sticky menus are problematic for three reasons. First, they obscure the content beneath which is especially distracting on mobile as the menu impedes access to the primary content. In the case of the inbox, the primary need is to read and respond to email — not to bulk action it.
+However, sticky menus are problematic for three reasons.
+
+First, they obscure the content beneath which is especially distracting on mobile as the menu impedes access to the primary content. In the case of the inbox, the primary need is to read and respond to email—not to bulk action it.
 
 Second, sticky menus are usually employed to solve symptoms that mask the true underlying problems. That is, that the page is often too long in the first place. An inbox typically shows just 20 emails at a time, which means the menu is, at most, a quick flick away on mobile and always in view on desktop.
 
-Finally, the items within the sticky menus are difficult to focus with the keyboard. You might be half way down the page but the menu (which is in close proximity visually) could be a long way away via the keyboard.
+Third, the items within the sticky menus are difficult to focus with the keyboard. You might be half way down the page but the menu (which is in close proximity visually) could be a long way away via the keyboard.
 
 For these reasons, it's better to position the menu statically.
 
-*(Note: where sticky menus are useful, you can use `position: sticky` as a progressive enhancement. In the past, we had to resort to complicated techniques that create a terrible experience across a range of mobile and tablet devices[^6].)*
+*(Note: where sticky menus are useful, you can use `position: sticky` as a progressive enhancement. In the past, we had to resort to complicated techniques that create a jarring and broken experience across a range of mobile and tablet devices[^6].)*
 
 ### Disabling And Hiding Buttons
 
-Some multi-select interfaces will hide or disable the menu buttons until at least one item's been selected. You could argue that showing (or enabling) the buttons in response to selecting an item helps users take the next step. In the case of hiding the buttons, the interface becomes more streamlined as they're only shown as they become relevant. But this is problematic.
+Some multi-select interfaces will hide or disable the menu buttons until at least one item's been selected. You could argue that showing (or enabling) the buttons in response to selecting an item helps users take the next step. In the case of hiding the buttons, the interface becomes more streamlined as the buttons are only shown as they become relevant. But this is problematic for three reasons.
 
 First, hiding the buttons means the available actions aren't discoverable. This is why designers opt for disabled buttons. But we discussed the problems with disabled buttons in chapter 1, “A Registration Form”. As a quick reminder, they don't tell users why they're disabled and screen reader users can't focus them.
 
@@ -227,29 +229,29 @@ Second, there needs to be space to reveal the buttons in the first place. Where 
 
 Third, having the buttons appear when clicking a checkbox is distracting as users are focused on selecting the right emails. And assuming the change of state is valuable, the buttons would have to be in the viewport for users to see the change anyway.
 
-Instead, simply show the buttons at all times.
+Just show the buttons at all times.
 
 ## A Responsive Menu
 
-When there's enough space, the buttons should just be laid out to make them available at all times. But if you have more than three buttons in the menu, or you need to display additional components along the same row, it's going to be hard to fit everything, especially on mobile.
+When there's enough space, the buttons should just be laid out at all times, making them readily available and interactive. But if you have more than three buttons in the menu, or you need to display additional components along the same row, it's going to be hard to fit them on screen, especially on mobile.
 
 ![Stacked buttons](./images/05/stacked-buttons.png)
 
-The problem is that the buttons will start to stack beneath each other, which pushes the main content downwards and changes the spatial relationship between the menu and the list of emails. And, having the menu dominate the interface is problematic, because dominance is a quality we should use sparingly. After all, if everything dominates, nothing does. Really, the inbox itself should take center stage, with the menu taking a back-seat role.
+The problem is that the buttons will start to stack beneath each other, which pushes the main content downwards and changes the spatial relationship between the menu and the list of emails. Moreover, having the menu dominate the interface is problematic because dominance is a quality we should use sparingly. After all, if everything dominates, nothing does. Really, the inbox itself should take center stage, with the menu taking a back-seat role.
 
-We can handle this problem by hiding the submit buttons behind a menu. There are two ways to create a menu: first, by using a `select` box and second, by creating a custom menu component. Let's discuss the pros and cons of each next.
+We can handle this problem by hiding the buttons behind a menu. There are two ways to create a menu: first, by using a `select` box and second, by creating a custom menu component. Let's discuss the pros and cons of each next.
 
-#### A Select Box Menu
+### A Select Box Menu
 
 Select boxes are a menu of sorts. In fact, sometimes, they're referred to as drop-down *menus* amongst other names.
 
-Like a menu, they group similar items together that users can select. And they hide the items behind a click, keeping the interface compact. They're an attractive option because, as we know, browsers supply them for free. But, even though select boxes look like menus and behave like them; and even though they are sometimes referred to as menus — they aren't true menus.
+Like a menu, they group similar items together that users can select. And they hide the items behind a click, keeping the interface compact. They're an attractive option because, as we know, browsers supply them for free. But, even though select boxes look like menus and behave like them; and even though they are sometimes referred to as menus—they aren't true menus.
 
-Select boxes are for input. That's why forms that contain select boxes — like any other input — must be accompanied by a submit button to submit the choice. Not only is this convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
+Select boxes are for input. That's why forms that contain select boxes—like any other input—must be accompanied by a submit button to submit the choice. Not only is this convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
-The reason I bring this up is because using a select box as a menu, often causes designers to omit the submit button from the interface. And then, JavaScript is needed to submit the form when the selected option is changed (`onchange`). But this submits the form, without the user's say-so which fails principle 4, *Give control*, by taking control away from the user.
+The reason I bring this up is because using a select box as a menu, often causes designers to omit the submit button from the interface. And then, JavaScript is needed to submit the form when the selected option is changed (`onchange`). But this submits the form, without the user's say-so which fails principle 4, *Give control*.
 
 This also causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the `onchange` event is fired as soon as the user presses <kbd>Down</kbd> to select the next option. But with this approach in place, the form is immediately submitted, making it impossible to move through all the items in the menu.
 
@@ -260,6 +262,8 @@ Other browsers are more forgiving of such techniques—most won't fire the `onch
 The other problem with using a select box, is that it's always collapsed, even when there's enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adaptive design[^adaptive].
 
 ### Adaptive Design Versus Responsive Design
+
+First a fun history lesson. 
 
 When the web came along, we settled on 640 pixel widths. Then a few years later, when larger monitors came to market, we changed to 960 pixels. We no longer cared about people with small monitors. We expected users to maximise their browser. If they didn't they'd get a horizontal scroll bar and that would be their problem.
 
@@ -281,16 +285,18 @@ The interface that matches the predefined media query is applied accordingly. Th
 @media only screen and (min-device-width : 375px) and (max-device-width : 667px) { /* styles */}
 ```
 
-Using this approach is normally unnecessary and counterproductive. First, there's an endless stream of devices and browsers with different widths: creating specific designs for every device width is impossible. And the extra code needed to produce such designs would result in slow loading pages which are detrimental to the user experience.
+Using this approach is normally unnecessary and counterproductive. 
 
-But this isn't just a technical issue. Users should receive a consistent experience (principle 3) no matter which device they choose to use. And if they rotate their device from portrait to landscape, they shouldn't have to relearn the interface as this is unnecessary cognitive load on users. 
+First, there's an endless stream of devices and browsers with different widths: creating specific designs for every device width is impossible. Second, the extra code needed to produce such designs would result in slow loading pages which are detrimental to the user experience. Third, not all components need a breakpoint. Plenty of components can be designed to work well in exactly the same way on both small and large screens.
+
+Moreover, this isn't just a technical issue. Users should receive a consistent experience (principle 3) no matter which device they choose to use. And if they rotate their device from portrait to landscape, they shouldn't have to relearn the interface as this is unnecessary cognitive load on users. 
 
 #### Responsive Design
 
 Responsive design takes a different approach. It's about designing a single, fluid interface that works well at any size regardless of device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when and if something breaks. These media queries are known as content breakpoints.
 
 ```CSS
-@media only screen and (min-device-width : 61.37em) { /* Fix broken layout for a particular selector here */}
+@media only screen and (min-device-width : 61.37em) { /* Fix broken layout for a particular thing at a particular width here */}
 ```
 
 Where adaptive design tries to bend the web to its will, responsive design embraces it. Responsive design understands that you can't possibly design for every device and browser individually. That's just not how the web works. Instead, responsive design encourages us to design interfaces that work on any size screen.
@@ -313,7 +319,9 @@ In this case, the big screen view entirely discards the select box in favour of 
 }
 ```
 
-If that weren't enough, the server needs to be aware of how both menus transmit data. That is, the select box sends different data to the submit buttons. Not only is all of this more work, but there are now two separate features to maintain indefinitely.
+If that weren't enough, the server needs to be aware of how both menus transmit data. That is, the select box sends different data to the submit buttons. Adaptive design can be even more complicated if you had to listen to JavaScript events to restructure the arrangement of HTML.
+
+Not only is all of this more work, but there are now two vastly different variations of the same feature to maintain indefinitely.
 
 ### Hover Versus Click
 
@@ -327,9 +335,11 @@ Third, not all users use a mouse (or other pointing device) and touch-screen dev
 
 ### A True Menu
 
-Aware of the pitfalls of both adaptive design and opening a menu on hover, we can proceed to design a true, responsive menu that opens on click.
+Having nimbley navigated through the pitfalls of adaptive design and activating a menu on hover, we can now safely proceed to design a true, responsive menu that opens on click.
 
 ![True menu](./images/05/true-menu.png)
+
+#### The Basic Mark-up
 
 ```HTML
 <div role="menu">
@@ -341,7 +351,13 @@ Aware of the pitfalls of both adaptive design and opening a menu on hover, we ca
 
 The menu has a role of `menu` indicating that it contains menu items. When the menu is focused, screen readers will announce it as a three-item menu. You should note that the `menu` role isn't commonly used in web applications. Only ones that mimic desktop applications (like this one, which is essentially a web-based Outlook application) apply.
 
-When there isn't enough room to display the menu items inline, we'll collapse them behind a traditional menu using media queries and Javascript's `matchMedia` API:
+#### The Enhanced Mark-up
+
+```HTML
+Put here
+```
+
+When there isn't enough room to display the menu items inline, we'll collapse them behind a traditional menu using media queries and JavaScript's `matchMedia` API:
 
 ```JS
 Menu.prototype.setupResponsiveChecks = function() {
@@ -419,7 +435,7 @@ Users may want to, for example, archive every email in their inbox. Rather than 
 
 ![Select all mailchimp](./images/05/mailchimp-select-all.png)
 
-Arguably, this standard input has all the ingredients of an accessible control as it’s screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this behaviour without any Javascript.
+Arguably, this standard input has all the ingredients of an accessible control as it is screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this behaviour without any Javascript.
 
 By now the benefits of using standard elements should be well understood. Despite this control being accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. This control should look like what it does.
 
@@ -479,11 +495,11 @@ Be careful to inject the `<button>` with Javascript. If we put it in directly in
 
 ### Confirming Versus Undoing
 
-As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can create a digital speed bump by asking users to confirm their action. 
+As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can create a digital speed bump by asking users to confirm their action by asking them “if they're sure.” 
 
 ![Are you sure](./images/05/are-you-sure.png)
 
-This is fine for infrequent tasks but it quickly becomes tedious when that action needs to be performed more often. Continuing with the driving analogy then: it's a bit like puttings speed bumps on the motorway. They'd probably cause more accidents, not less.
+This is fine for infrequent tasks but it quickly becomes tedious when that action needs to be performed more often. Continuing with the driving analogy then: it's a bit like puttings speed bumps on the motorway. They'd probably cause more accidents than they stop.
 
 An alternative approach would be to let users perform the action immediately, without any warning. Then, along with the success message, give users the chance to undo the action. Clicking *undo*, would reverse the action by restoring the emails back to the inbox. If only we could *undo* accidents on the road.
 

@@ -98,29 +98,31 @@ In this case, there's just no good reason for it. And splitting up a text box in
 
 ![Single field vs three inputs](./images/04/single-field.png)
 
-## Submit Button Text
+## Submit Button Text: Log In Versus Sign In
 
 Having ironed out problems with the username and password fields, our login form is almost identical to the registration form. It contains the same fields in the same order with the same microcopy. The only difference is the button's label. Instead of “Register” it's “Sign in.”
 
+“Sign in” is arguably more human than “Log in.” When you visit a spa or office building, signing in grants you entry. And you sign out as you leave. Where possible, we should use the same language for digital experiences. 
+
+It can, however, depend on the industry. Bank sites, for example, tend to use “Log in.” The notion of logging came along with computers in the 80s—the operations that users do are *logged* for security reasons.
+
 ![Login](./images/04/button-text.png)
 
-“Sign in” is arguably softer and more human than “Log in.” When you visit a spa, hotel or office building, you sign in which grants you entry. And you sign out as you leave. Where possible, we should use the same, familiar language in the digital world.
-
-With that said, it can depend on the type of service you're designing. Banks, for example, tend to use “Log in.” Interestingly, the notion of logging came along with computers in the 80s. The operations that users do are logged for security reasons.
-
-Whichever you go for, adhere to princple 3, *Be consistent*. Make sure URLs, link text, headings and button text all match. And if users click “Log in” to log in, then they should click “Log out” to log out.
+Whichever you choose, be consistent (principle 3). Make URLs, links, headings and buttons match. And if users click “Log in” to log in, then they should click “Log out” to log out.
 
 ## The ‘username and password don't match’ Problem
 
-By providing users with clear labels and hint text, we've already reduced the chance of users seeing an error. However, when users do make a mistake, many sites will give users an error that says “The username and password doesn't match.” 
+Sometimes, we deliberately make things difficult to use. For example, a door by its very nature isn't easy to use—it would be far easier if there was no door at all. Login forms need to be somewhat difficult to use, otherwise they wouldn't be secure.
 
-I'll delegate to Jared Spool's comical explanation[^1] of why this is in an issue:
+Many login forms make the same mistake of showing users an error message that says “The username and password doesn't match.” But as Jared Spool comically explains in In Design Is Metrically Opposed[^]:
 
 > We know which one doesn't match, we're just not going to tell you, because our security people think that if we told you that it was the password, they would know they had a legal username and they would try every possible password in history.
 
-But as Jared says, Hackers don't actually hack this way. But let's say they did—all they'd need to do to check the rules, would be to sign up for an account themselves.
+As noted earlier, Hackers don't actually do this. But even if they did, it's easy to check username availability by trying to register an account with that username.
 
-The problem for users, is that they're left to reset their password which is long-winded and can cause users to give up. As with any other form, errors should tell users exactly what went wrong so that they can fix it easily.
+The problem for users, is that they're left to reset their password which is long-winded and may cause abandonment. Even where a lack of usability or understandability is deliberate, there still needs to be a degree of understandability and usability.
+
+In this case, we don't have to tell users what their password is, but we can tell them that it's the password that doesn't correspond to the username (which they have right).
 
 ![What are the rules](./images/04/login-error.png)
 
@@ -130,39 +132,40 @@ We've ironed out many of the issues surrounding standard login forms, but we've 
 
 ### Layout
 
-Users are often faced with a login page, when they try to perform an action that requires being logged in. Many sites design the login page as a special, interstitial page with a unique layout.
+When trying to perform an action anonymously, that requires being logged in, users will be sent to the login page. 
 
-For example, when users try to add a product to their basket on the Tesco site, they are taken to a login page that looks completely different from the rest of the site. This is disorientating, especially for screen reader users and cognitively impaired users as they have to refamiliarise themselves with a new structure.
+Many sites design the login page with a unique, minimalist layout. For example, when users try to add a product to their basket on Tesco[^], they're taken to a login page with a very different layout.
 
 ![Contextless](./images/04/contextless.png)
 
-Instead, the login form should inherit the layout of the other pages. For example, if users go to checkout, and decide to log in first, they should still be given the checkout-specific layout with a pared down minimalist header and footer.
+Giving users a different layout is disorientating, especially for screen reader users and cognitively impaired users as they have to refamiliarise themselves with a new structure.
 
-![In context](./images/04/contextless.png)
+Where possible, the login form should inherit the layout of the rest of the site.
 
 ### One Form Per Page
 
-Some sites place the registration and login forms on the same page. Either next to each other on desktop, or below one another on mobile.
+Some sites put both registration and login forms on one page. Either next to each other on desktop, or below one another on mobile. This is problematic for a number of reasons.
 
-As the forms are similar, putting them next to each other makes it hard to differentiate between them. It's also confusing for users that arrive on a page containing two forms, when what they clicked was a link that's labelled “Sign in”, for example.
+![Link to register](./images/04/two-forms.png)
 
-Instead, give users just one form per page, and let them switch between each one by using a link before the form. For the login form, this will mean giving users a link to “Register.”
+1. Putting similar forms next to each other makes it hard to decide between them, especially for cognitively impaired users. 
+2. Arriving on a page containing two forms (with a heading of “Sign in or register”) is confusing when you consider that many users would have clicked a link labelled “Sign in”.
+3. On mobile, one of the forms will be off screen and effectively depriortised.
+4. Screen reader and keyboard users are going to have to wade through more of the interface to get to the relevant form.
+
+Instead, put each form on a separate page, and give users a link to each form at the top.
 
 ![Link to register](./images/04/link.png)
 
 ### Forgotten Password Link Placement
 
-Human beings are forgetful. Password managers[^2] mitigate this problem by storing all your passwords in one place—you just have to remember a single, master password.
+Human beings are forgetful. Password managers[^2] mitigate this problem by storing all your passwords in one place—you just have to remember a single, master password. That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as everyone else. Moreover, not everyone uses one, nor should they have to.
 
-That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as everyone else. Moreover, not everyone uses one, nor should they have to.
-
-Most sites give users a way to reset their password if they forget it. The feature itself isn't especially problematic. It's the placement of the link within the login form that can cause usability issues.
-
-If the link is just above the password field, when users tab from the email field, it's the link that will receive focus, not the password field. Some users will tab and start typing not realising what's happened.
+Most sites give users a way to reset their password if they forget it. The feature itself isn't especially problematic. It's the placement of the link within the login form that can cause usability issues. If the link is just above the password field, when users tab from the email field, it's the link that will receive focus, not the password field. Some users will tab and start typing not realising what's happened.
 
 Worst still, is when the link is placed before the submit button. When keyboard and screen reader users tab from the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. But instead, they'll be taken to reset their password. When they realise what's happened, they'll need to go back, re-enter their credentials and be careful not to make the same mistake again.
 
-![Forgot password](./images/04/forgot-password.png)
+![Forgot password](./images/04/tab.png)
 
 When the feature is considered in isolation, having the reset password link in close proximity to the password field makes sense. But the primary need is to sign in and the link shouldn't disturb the experience of logging in.
 
@@ -170,7 +173,7 @@ The submit button should be the last interactive element in the form because tha
 
 ## Social Login
 
-Recently, sites have started to offer users the ability to sign in with social networks such as Facebook, Twitter and Google. This saves users having to type their credentials they may not remember.
+Sites have recently started to offer users the ability to sign in with social networks such as Facebook, Twitter and Google. This saves users having to type their credentials they may not remember.
 
 Medium.com, for example, lets users login in with Facebook. This is a boon for Medium users because they'll then have the option to post articles directly to Facebook automatically.
 

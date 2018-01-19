@@ -42,28 +42,32 @@ A search box (`<input type="search">`) is a similar to a regular text box (`<inp
 
 Using a search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a ‘no results’ page due to typos or a data mismatch.
 
-### Autocomplete
+### Datalist
 
-Users need a control that lets them filter a long list of destinations—one that combines the flexibility of a text input with the assurance of a select box. This type of control has many names: *type ahead*, *predictive search*, *combo box*, but we'll refer to it as *autocomplete*.
+Users need a control that lets them filter a long list of destinations. A control that marrys the flexibility of a text box with the assurance of a select box. This type of control goes by many different names including *type ahead*, *predictive search* and *combo box*, but we'll refer to it as *autocomplete*.
 
-Autocomplete works by suggesting options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field — hence the name. This saves users having to scroll (unless, of course, they want to) while being able to forgive small typos at the same time. 
+Autocomplete controls work by suggesting options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field. This saves users having to scroll (unless, they want to) while also being able to forgive small typos.
 
-HTML5's `datalist` element combines with a text box to create this exact behaviour. Unfortunately, it's particularly buggy[^]. If your project is locked down to a browser that doesn't contain bugs, then you could use it. But we want to design an inclusive experience - one that works for as many people as possible, no matter their browser or device choices.
+HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create an autocomplete control natively. Unfortunately, it's buggy[^], but if your prohect is locked down to a few browsers that don't happen to have these bugs, then it might be a viable option for you.
 
 ![Datalist](./images/03/datalist.png)
 
-Instead, we'll build a custom autocomplete component from scratch. A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is challenging work.
+We want to design an inclusive experience—one that works for as many people as possible, no matter their choice of  browser or mobile device. By creating our a custom component, there's an opportunity to allow for common typos and endonyms.
 
-### Building An Accessible Autocomplete
+A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is hard work, but that's what our job is all about.
 
-Accessibility expert Steve Faulkner has what he calls a *punch list*[^] which is a list of rules anyone should follow to make sure that any custom Javascript component is designed and built to a good standard. The rules state that a component should:
+> Do the hardwork to make it simple—GDS Design Principle 4
+
+### An Autocomplete Control
+
+Our custom autocomplete control is going to use HTML with ARIA attributes, CSS and JavaScript. Accessibility expert Steve Faulkner has what he calls a *punch list*[^] which is a list of rules to make sure that any custom Javascript component is designed and built to a good standard. The rules state that a component should:
 
 1. work without Javascript
 2. be focusable with the keyboard
 3. be operable with the keyboard
 4. work with assistive devices
 
-To satisfy the first rule we need to choose a native form control to fall back to. There are too many options to use radio buttons, and a search box requires a round-trip to the server and may lead to no results. That leaves us with a select box.
+To satisfy the first rule we need to choose a native form control to fall back to. There are too many options to use radio buttons, and a search box requires a round-trip to the server and may lead to zero results. That leaves us with a select box.
 
 ```HTML
 <div class="field">
@@ -83,19 +87,19 @@ We'll cover off the other rules as we go.
 
 #### Hiding The Select Box
 
-First, we need to hide the select box like this:
+As we're giving users a custom control, we need to hide the fallback select box control. We can hide the select box like this:
 
 ```HTML
 <select aria-hidden="true" tabindex="-1" class="visually-hidden">
 ```
 
-If the select box was completely unnecessary, we could have just removed it from the Document using Javascript. But if we did it this way (or by using `display: none`) it wouldn't be sent to the server.
+If the select box was completely unnecessary, we could have just removed it from the Document using Javascript. But if we did it that way (or by using `display: none`) its value wouldn't be sent to the server upon submission.
 
-Instead, we've used the `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “A Checkout Flow”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We still need to stop keyboard users being able <kbd>Tab</kbd> to it which is acheived by the `tabindex="-1"` attribute.
+Instead, we've used the `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “A Checkout Flow”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We also need to stop keyboard users being able to tab to it which can be done by setting the `tabindex` attribute to -1.
 
 #### Enhancing The Interface
 
-Then we need to inject the text box that users will interact with. To make sure the label still works, we transfer the `id` to the text box.
+Next, we need to inject the text box that users will interact with. To make sure the label still works, we transfer the select box's `id` to the text box.
 
 ```HTML
 <input
@@ -111,7 +115,7 @@ Then we need to inject the text box that users will interact with. To make sure 
 
 Notes:
 
-- The `name` attribute is not included, because the `select`s value is sent to the server.
+- The `name` attribute is omitted, because it's the `select`s value that's sent to the server.
 - The `role="combobox"` attribute ensures this from control is announced as a combo box instead of a text box. A combo box, according to MDN, is “an edit control with an associated list box that provides a set of predefined choices.”
 - The `aria-autocomplete="list"` attribute tells users that a list of options will appear.
 - The `aria-expanded` attribute tells users whether the menu is showing or not by toggling it's value between `true` and `false`.

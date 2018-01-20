@@ -266,7 +266,7 @@ Obscuring the value as the user types makes it hard to fix typos. So when one is
 
 Due to the increased risk of typos, some registration forms include an additional ‘confirm password’ field. This is a precautionary measure that requires the user to type the same password twice, doubling the effort and degrading the user experience.
 
-Instead, it's better to let users reveal their password which speaks to principles 4 and 5, *Give control* and *Offer choice* respectively. This way users can choose to reveal their password, when they know nobody is looking - reducing the risk of typos.
+Instead, it's better to let users reveal their password which speaks to principles 4 and 5, *Give control* and *Offer choice* respectively. This way users can choose to reveal their password, when they know nobody is looking—reducing the risk of typos.
 
 Recent versions of Internet Explorer and Edge provide this behaviour natively. As we'll be creating our own solution we should suppress this feature like this:
 
@@ -334,7 +334,7 @@ You may have also noticed the use of jQuery's `$.proxy` function. This function 
 
 #### Alternative Interface Options
 
-The password reveal interface we constructed before toggles the button's label between “Show password” and “Hide password”. I've heard that screen readers can be mildy confused when the button's label is changed. This is because once a user encounters a button, they expect that button to persist. Even though the button is persistent, changing the label could make it appear to disappear.
+The password reveal interface we constructed before toggles the button's label between “Show password” and “Hide password”. Some screen reader users can get mildy confused when the button's label is changed. This is because once a user encounters a button, they expect that button to persist. Even though the button is persistent, changing the label makes it appear to disappear.
 
 If your research shows this to be a problem, you could try two alternative approaches:
 
@@ -342,7 +342,7 @@ If your research shows this to be a problem, you could try two alternative appro
 
 The problem with this approach is that checkboxes are for inputing data, not for controlling the interface. Some users might think their password will be revealed to the system.
 
-2. Change the button's state instead of the label. To convey the state to screen reader users you can switch the `aria-pressed` attribute between `true` (pressed) and `false` (unpressed). 
+2. Change the button's state—not the label. To convey the state to screen reader users you can switch the `aria-pressed` attribute between `true` (pressed) and `false` (unpressed).
 
 ```HTML
 <button type="button" aria-pressed="true">  
@@ -358,7 +358,7 @@ When focusing the button, NVDA for example announces, “Show password, toggle b
 }
 ```
 
-However, it's not easy to tell between a pressed and unpressed button. Relying on styling alone to convey meaning isn't ideal. And this solution depends on ARIA.
+One problem with this approach is that it's not easy for sighted users to tell the difference between the pressed and unpressed button through styling alone.
 
 ### Microcopy
 

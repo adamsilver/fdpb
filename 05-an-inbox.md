@@ -453,7 +453,7 @@ When focus is on a menu item, pressing <kbd>Down</kbd> or <kbd>Up</kbd> arrows w
 
 ## Select All
 
-Users may want to, for example, archive every email in their inbox. Rather than selecting each email, one by one, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the other checkboxes creating a visual connection. Clicking it would check every checkbox in one fell swoop.
+Users may want to, for example, archive every email in their inbox. Rather than selecting each email one by one, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the other checkboxes creating a visual connection. Clicking it would check every checkbox in one fell swoop.
 
 ![Select all mailchimp](./images/05/mailchimp-select-all.png)
 
@@ -463,23 +463,17 @@ By now the benefits of using standard elements should be well understood. Despit
 
 The trouble with using a checkbox is that they don't signal what they do. Like select boxes, they are associated with collecting data for submission. We should match peoples's expectation by using the same interface component for the same job. In doing so, the interface becomes familiar and consistent which speaks to principle 3, *Be consistent*.
 
-Like the menu button described above, we can use the `<button>` element again to create a true toggle button. What's missing is that buttons don't have the concept of *toggling*, but we can enrich their semantics with ARIA.
+Instead, we can employ a simple button, labelled “Select all”, that when clicked will check all the checkboxes. At the same time the button's label will change to “Deselect all”. Clicking the button will then uncheck all the checkboxes putting them back into their original state.
 
 ```HTML
-<button type="button" aria-pressed="false">Select all</button>
+<!-- When unselected -->
+<button type="button">Select all</button>
+
+<!-- when selected -->
+<button type="button">Deselect all</button>
 ```
 
-The `aria-pressed` attribute will be announced by screen readers as ‘button, select all, pressed’ (or similar). Pressing the button toggles the attribute between `true` (pressed) and `false` (unpressed). We can convey the same meaning for sighted users by styling the button with CSS.
-
-```CSS
-button {
-  /* styles */
-}
-
-button[aria-pressed="true"] {
-  /* styles*/
-}
-```
+*(Note: we looked at how to implement an alternative toggle button using the `aria-pressed` attribute in chapter 1 for the Password Reveal pattern.)*
 
 ## Success Messages
 

@@ -101,8 +101,6 @@ To let users mark emails for action, we need to give each row a checkbox.
 
 You'll notice each checkbox is missing a label. The problem is that the contents of the link should also be the contents of the label. In other words, two opposing interactions need to occupy the same space. Remember, clicking the label should mark the checkbox, where as clicking the link should navigate the user to the email.
 
-![Label and link](./images/05/link-label.png)
-
 In this case, you could argue that a visible label is redundant. After all, the label would duplicate the link's content which would make the experience confusing for sighted users.
 
 ### Using Modes
@@ -465,7 +463,7 @@ By now the benefits of using standard elements should be well understood. Despit
 
 The trouble with using a checkbox is that they don't signal what they do. Like select boxes, they are associated with collecting data for submission. We should match peoples's expectation by using the same interface component for the same job. In doing so, the interface becomes familiar and consistent which speaks to principle 3, *Be consistent*.
 
-Like the menu button, we can use the `<button>` element again to create a true toggle button. What's missing is that buttons don't have the concept of *toggling*, but we can enrich their semantics with ARIA.
+Like the menu button described above, we can use the `<button>` element again to create a true toggle button. What's missing is that buttons don't have the concept of *toggling*, but we can enrich their semantics with ARIA.
 
 ```HTML
 <button type="button" aria-pressed="false">Select all</button>

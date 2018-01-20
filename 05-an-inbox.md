@@ -335,39 +335,63 @@ Third, not all users use a mouse (or other pointing device) and touch-screen dev
 
 ### A True Menu
 
-Having nimbley navigated through the pitfalls of adaptive design and activating a menu on hover, we can now safely proceed to design a true, responsive menu that opens on click.
+Having explored the pitfalls of adaptive design and hover menus, we can now safely proceed to design a true, responsive menu that opens on click.
 
 ![True menu](./images/05/true-menu.png)
 
 #### The Basic Mark-up
 
 ```HTML
-<div role="menu">
-  <input role="menuitem" type="submit" name="archive" value="Archive">
-  <input role="menuitem" type="submit" name="delete" value="Delete">
-  <input role="menuitem" type="submit" name="spam" value="Mark as spam">
+<div class="menu">
+  <div role="menu">
+    <input type="submit" name="archive" value="Archive" role="menuitem"> 
+    <input type="submit" name="delete" value="Delete" role="menuitem"> 
+    <input type="submit" name="spam" value="Mark as spam" role="menuitem"> 
+  </div>
 </div>
 ```
 
-The menu has a role of `menu` indicating that it contains menu items. When the menu is focused, screen readers will announce it as a three-item menu. You should note that the `menu` role isn't commonly used in web applications. Only ones that mimic desktop applications (like this one, which is essentially a web-based Outlook application) apply.
+Notes:
 
-#### The Enhanced Mark-up
+- The menu itself has `role="menu"` indicating that it contains menu items. When a menu item is focused, screen readers will announce it as a three-item menu.
+- You should note that the `menu` role isn't commonly used in web applications. Only ones that mimic desktop applications (like ours, which is essentially a web-based Outlook application) apply.
+- The wrapping `<div class="menu">` will be needed for enhancement purposes because the toggle button will be prepended to it. 
 
-```HTML
-Put here
+#### Small Mode Versus Big Mode
+
+When the script initialises it will need to check to see if the viewport is in small or big mode. We're using the words small and big, as opposed to mobile and desktop, because responsive design doesn't think in terms of devices. Moreover, the media query values for small and big don't necessarily correspond to mobile or desktop—they are determined by the place in which the menu would otherwise break.
+
+The constructor function (shown below), takes two arguments: the container element and mq (short for media query) string. The media query string is `(min-width: 45em)` in our case, because that's where the interface starts to break.
+
+```JS
+function Menu(container, mq) {
+  this.container = container;
+  this.menu = this.container.find('[role=menu]');
+  this.mq = mq;
+  this.keys = { esc: 27, up: 38, down: 40, tab: 9 };
+  this.menu.on('keydown', '[role=menuitem]', $.proxy(this, 'onButtonKeydown'));
+
+  // create button and listen to click and down events
+  this.createToggleButton();
+
+  // Setup up media query listener and check which applies on initialisation
+  this.setupResponsiveChecks();
+}
 ```
 
-When there isn't enough room to display the menu items inline, we'll collapse them behind a traditional menu using media queries and JavaScript's `matchMedia` API:
+Besides assigning properties to `this` to make them available to other methods (shown later), the constructor is responsible for listening to the keydown event on the menu items and creating the toggle button. 
+
+The last line calls the `setupResponsiveChecks()` method which is responsible for collapsing the menu items behind a traditional menu using a combination of CSS media queries and JavaScript's `matchMedia` API.
 
 ```JS
 Menu.prototype.setupResponsiveChecks = function() {
-  this.mq = window.matchMedia('(min-width: 40em)');
-  this.mq.addListener($.proxy(this, 'checkMode'));
-  this.checkMode(this.mq);
+  this.mql = window.matchMedia(this.mq);
+  this.mql.addListener($.proxy(this, 'checkMode'));
+  this.checkMode(this.mql);
 };
 
-Menu.prototype.checkMode = function(mq) {
-  if(mq.matches) {
+Menu.prototype.checkMode = function(mql) {
+  if(mql.matches) {
     this.enableBigMode();
   } else {
     this.enableSmallMode();
@@ -375,29 +399,29 @@ Menu.prototype.checkMode = function(mq) {
 };
 ```
 
-The `matchMedia` API is the Javascript equivalent of a media query. Where `@media() {}` is for CSS, `matchMedia()` is for Javascript. It's a way of keeping behaviour and style in-sync based on the same media query. In this case, when the viewport's width is less than `40em` the script will construct a toggle menu (small mode). When it's more than `40em` it will construct a horizontal menu (big mode).
-
-Before `matchMedia` we had to use flakey techniques to get the width of the viewport[^]. Even then, you could only get the value in pixels, not `em`s. Using `em`s is preferred because if the user increases the text size, the layout will adapt in proportion.
-
-When small mode is enabled, the HTML is updated:
+The `matchMedia` API is the JavaScript equivalent of a CSS media query. Where `@media() {}` is for CSS, `matchMedia()` is for JavaScript. It's a way of keeping behaviour and style in-sync based on the same media query. In this case, when the `(min-width: 45em)` media query is matched big mode is enabled. When it doesn't match, this means the viewport width is less than 45em and so the script calls the `enableSmallMode()` method which constructs a toggle menu.
 
 ```HTML
-<button type="button" aria-haspopup="true" aria-expanded="false">
-  Actions
-  <span aria-hidden="true">&#x25be;</span>
-</button>
-<div role="menu">
-  <input role="menuitem" type="submit" name="archive" value="Archive">
-  <input role="menuitem" type="submit" name="delete" value="Delete">
-  <input role="menuitem" type="submit" name="spam" value="Mark as spam">
+<div class="menu">
+  <button type="button" aria-haspopup="true" aria-expanded="false">
+    Actions
+    <span aria-hidden="true">&#x25be;</span>
+  </button>
+  <div role="menu">
+    <input role="menuitem" type="submit" name="archive" value="Archive">
+    <input role="menuitem" type="submit" name="delete" value="Delete">
+    <input role="menuitem" type="submit" name="spam" value="Mark as spam">
+  </div>
 </div>
 ```
 
 Notes:
 
 - The `aria-haspopup` attribute indicates that the button shows a menu. It acts as warning that, when pressed, the user will be moved to the “popup” menu.
-- The `<span>` contains the unicode character for a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually — that pressing the button reveals something. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
-- The `aria-haspopup` attribute is complemented by `aria-expanded` which tells users whether the menu is currently expanded (open) or collapsed (closed) by toggling between `true` and `false` values.
+- The `<span>` contains the unicode character for a down arrow. Conventionally this indicates visually what `aria-haspopup` does non-visually—that pressing the button reveals something. The `aria-hidden="true"` attribute prevents screen readers from announcing “down pointing triangle” or similar. Thanks to `aria-haspopup`, it’s not needed in the non-visual context.
+- The `aria-expanded` attribute tells users whether the menu is currently expanded (open) or collapsed (closed) by toggling between `true` and `false` values.
+
+*(Note: before `matchMedia` we had to use flakey techniques to get the width of the viewport[^] breaking the experience in various browser and device combinations. Even in browsers that returned the correct viewport width, it would only do so in pixels—not `em`s. Using `em`s is preferred because when the user increases the text size, the layout will adapt in proportion.)*
 
 #### Keyboard And Focus Behaviour
 
@@ -415,14 +439,14 @@ Menu.prototype.onMenuButtonClick = function() {
 };
 ```
 
-We can use the `[aria-expanded]` CSS attribute selector to toggle the menu's display:
+We can use the `[aria-expanded]` CSS attribute selector to toggle the menu's display.
 
 ```CSS
-[aria-expanded="true"] + .menu-items {
+[aria-expanded="true"] + [role=menu] {
   display: block;
 }
 
-[aria-expanded="false"] + .menu-items {
+[aria-expanded="false"] + [role=menu] {
   display: none;
 }
 ```

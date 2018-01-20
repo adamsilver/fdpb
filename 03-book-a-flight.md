@@ -783,7 +783,7 @@ In practical terms, a radio button tells you that just one can be selected. Chec
 
 ### Oops, We Broke The Rules
 
-Traditional advice says you should only use radio buttons if there are less than 7 choices, otherwise use a select box. Rules are good: they allow us to think less and avoid the same mistakes others have made in the past. 
+Traditional advice says you should only use radio buttons if there are less than 7 choices[^], otherwise use a select box. Rules are good: they allow us to think less and avoid the same mistakes others have made in the past. 
 
 But there are always exceptions to rules. I prefer guidance to rules. Unlike rules, guidance offers up everything it knows, and gives you the power to break the rules when appropriate.
 
@@ -890,6 +890,7 @@ As much as we tried to use native form controls, in their standard format, it be
 [^best icon is text]: https://thomasbyttebier.be/blog/the-best-icon-is-a-text-label
 [^using fieldset and legend]: https://accessibility.blog.gov.uk/2016/07/22/using-the-fieldset-and-legend-elements/
 [^checkboxes are never round]: http://danieldelaney.net/checkboxes/?utm_source=designernews
+[^millers law]: https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two
 
 ## Possible citations/additions
 

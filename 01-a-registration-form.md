@@ -174,13 +174,13 @@ While you should aim to keep labels terse, it's not always possible. So, using a
 
 First, form fields should look like form fields. But what does that mean exactly? 
 
-It means that a text box should look like one. Empty boxes naturally signify “fill me in”. This happens to be part of the reason that placeholders are unhelpful. They remove the natural perceived affordance that an empty text box would otherwise provide.
+It means that a text box should look like one. Empty boxes naturally signify “fill me in.” This happens to be part of the reason that placeholders are unhelpful. They remove the natural perceived affordance that an empty text box would otherwise provide.
 
-This also means that the empty space should be boxed in (bordered). Removing the border, or only having a bottom border for example, removes these perceived affordances. A bottom border, for example, first appears more as a separator. Even if you know that you have to fill something in, does it go above the line or below it?
+This also means that the empty space should be boxed in (bordered). Removing the border, or only having a bottom border for example, removes the perceived affordances. A bottom border, for example, first appears more as a separator. Even if you know that you have to fill something in, does it go above the line or below it?
 
-Space-wise, the label should be closest to it's form control. Not to the previous field's control. Things that appear close together naturally signify that they *belong* together. Having equal spacing might improve aesthetics, but it would be at the cost of usability.
+Space-wise, the label should be closest to it's form control. Not to the previous field's control. Things that appear close together naturally signify that they *belong* together[^]. Having equal spacing might improve aesthetics, but it would be at the cost of usability.
 
-Finally, the label and the text box itself should be large enough to read and tap. This probably means a font-size of at least 16 pixels and ideally an overall tap target of at least 44px[^tap].
+Finally, the label and the text box itself should be large enough to read and tap. This probably means a font-size of at least 16 pixels and ideally an overall tap target of at least 44px[^].
 
 ### Focus Styles
 
@@ -514,7 +514,7 @@ When there aren't any errors, the summary panel should be hidden. This ensures t
 }
 ```
 
-*(Note: you could use the `hidden` attribute/property to toggle an element's visibility, but there's less support for it. Inclusive design is about making decisions that you know are unlikely to exclude people. Using a class matches this philosophy.)*
+*(Note: you could use the `hidden` attribute/property to toggle an element's visibility, but there's less support for it. Inclusive design is about making decisions that you know are unlikely to exclude people. Using a class aligns with this philosophy.)*
 
 #### 3. Inline Errors
 
@@ -544,7 +544,7 @@ To give both sighted and non-sighted users an equivalent experience, we can use 
 <input aria-invalid="false">
 ```
 
-*Note: the registration form only consists of text inputs. In the chapter 3, “Book A Flight”, we'll look at how to inject errors accessibly for groups of fields such as radio buttons.*
+*(Note: the registration form only consists of text inputs. In chapter 3, “Book A Flight”, we'll look at how to inject errors accessibly for groups of fields such as radio buttons.)*
 
 ### Submitting The Form Again
 
@@ -572,7 +572,7 @@ Having finished defining the `FormValidator` component we're now ready to initia
 var validator = new FormValidator(document.getElementById('registration'));
 ```
 
-To validate the email field, for example, call the `addValidator` method: 
+To validate the email field, for example, call the `addValidator()` method: 
 
 ```JS
 validator.addValidator('email', [{
@@ -699,6 +699,7 @@ In this chapter we solved several fundamental form design challenges that are ap
 [^passphrases]: https://www.smashingmagazine.com/2015/12/passphrases-more-user-friendly-passwords/
 [^label placement eye tracking]: https://www.uxmatters.com/mt/archives/2006/07/label-placement-in-forms.php
 [^screen magnifier off screen]: https://www.w3.org/TR/WCAG20-TECHS/G162.html
+[^law]: https://lawsofux.com/law-of-proximity
 [^tap target 44]: https://www.lukew.com/ff/entry.asp?1085
 [^sentence case]: https://medium.com/@jsaito/making-a-case-for-letter-case-19d09f653c98
 [^feature queries]: https://hacks.mozilla.org/2016/08/using-feature-queries-in-css/

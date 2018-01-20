@@ -12,11 +12,11 @@ In the previous chapter, I introduced the persistent form pattern. In short, we 
 
 ![Upload form](./images/09/persistent-upload-form.png)
 
-There are a number of other forms on the web that use the persistent form pattern. For example, Github's *add collaborators* form. In fact, the infamous Todo List[^] form that makes up many JavaScript tutorials is another example.
+There are a number of other forms on the web that use the persistent form pattern. For example, Github's *add collaborators* form and the infamous Todo List[^] form that many JavaScript frameworks use to demonstrate their approach.
 
 ![Github collaborators](./images/09/github.png)
 
-This pattern works for adding expenses too. Each time the user submits an expense, it will be added to the list above.
+This pattern works for adding expenses too. Each time the user submits an expense, it will be added to the list that sits above the form.
 
 ![Persistent expense form](./images/09/persistent-expense-form.png)
 
@@ -29,23 +29,18 @@ This pattern is well-suited to short, simple forms that can be submitted in one 
 
 ## Branching With One Thing Per Page
 
-One of the major problems with the persistent form pattern is that it can't handle branching. Branching involves users being asked different questions depending on the previous answers.
+One of the major problems with the Persistent Form pattern is that it can't handle branching. Branching involves users being asked different questions depending on previous answers. For example, if users are expensing a car, they'll need to enter mileage; if they're expensing a train ticket, then they'll need to enter its price.
 
-For example, if users are expensing a car, they'll need to enter mileage; if they're expensing a train ticket, then they'll need to enter its price.
 
-![Flow](./images/09/expense-branching-flow.png)
+In this case, the One Thing Per Page pattern (first discussed in “A Checkout Flow”) is more suitable. This is because it presents one question at time meaning we can show users different pages depending on their answers. This solves the branching problem elegantly and simply, but, what if users need to enter multiple expenses and submit them in one go?
 
-In this case, the One Thing Per Page pattern (as first discussed in “A Checkout Flow”) is more suitable. This is because it presents one question at time meaning we can send users to different pages depending on the previous answers. This solves the branching problem elegantly and simply, but, what if users also need to enter many expenses and submit them in one go? 
-
-To guide users to the end of the journey, once they've created one expense, we can ask them if they'd like to add another one. Selecting *Yes* would take the user down the same flow again. Selecting *No* would complete the task.
+We can add an additional screen to the end of the journey asking users if they'd like to add another expense. Selecting Yes takes the user to down the same flow again. Selecting No completes the task.
 
 ![Add another question](./images/09/add-another-radios.png)
 
-The downside to this pattern, in this context, is that it's long winded in comparison to the persistent form pattern. Let's have a look at a third pattern.
-
 ## The Add Another Pattern
 
-Both the Persistent Form pattern and the One Thing Per Page pattern suffer from the same problem—that each expense created required at least one trip to the server, which is slow. How might we solve this problem?
+Both the Persistent Form pattern and the One Thing Per Page pattern suffer from the same problem—that each expense created requires at least one trip to the server, which is slow. How might we solve this problem?
 
 The Add Another pattern works by giving users a single form, on a single page, submitted in a single step. However, the user can keep adding fields for how ever many expenses they need to add. For demonstration purposes, lets simplify the anatomy of an expense down to just a description and cost.
 

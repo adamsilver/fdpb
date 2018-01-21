@@ -36,7 +36,7 @@ While this pattern often bares wonderful and delicious fruit (or orders and conv
 - By submitting information frequently, we can save user's information in a more granular fashion. If a user drops out we can, for example, send them an email prompting them to complete their order.
 - Conversely, a long form increases the chance of a page time out or the computer freezing. This is what happens to Daniel, the lead character in “I, Daniel Blake”[^2]. With declining health and having never used a computer, it freezes and he loses his data. In the end, he gives up.
 - It adds a sense of progression and increases momentum because the user is constantly moving forwards step by step.
-- It lets you design interfaces that captalise on maximal  screen space — interfaces that wouldn't work so well if part of a large form. We'll see an example of this in the next chapter, when we design a seat chooser. 
+- It lets you design interfaces that captalise on maximal  screen space—interfaces that wouldn't work so well if part of a large form. We'll see an example of this in the next chapter, when we design a seat chooser. 
 
 ## Flow And Order
 
@@ -83,7 +83,7 @@ Here, it's because we can send users a receipt of purchase, which is particularl
 
 ## 2. Mobile Phone
 
-Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint. Remember, the hint is not just for formatting rules — it's for anything that will help users fill out the field. This transparency builds trust, reduces effort, and promotes the feature all at the same time.
+Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint. Remember, the hint is not just for formatting rules—it's for anything that will help users fill out the field. This transparency builds trust, reduces effort, and promotes the feature all at the same time.
 
 ![Mobile screen](./images/02/mobile-field.png)
 
@@ -180,17 +180,17 @@ Capture+ has a third-party script which you can include on your page. But most t
 
 ```html
 <fieldset class="field">
-	<legend>
-		<span class="field-legend">Delivery options</span>
-	</legend>
-	<div class="field-radioButton">
-	  <input type="radio" name="option" id="option" value="Standard" checked>
-	  <label for="option">Standard (Free, 2-3 days)</label>
-	</div>
-	<div class="field-radioButton">
-	  <input type="radio" name="option" id="option2" value="Premium">
-	  <label for="option2">Premium (£6, Next day)</label>
-	</div>
+  <legend>
+    <span class="field-legend">Delivery options</span>
+  </legend>
+  <div class="field-radioButton">
+    <input type="radio" name="option" id="option" value="Standard" checked>
+    <label for="option">Standard (Free, 2-3 days)</label>
+  </div>
+  <div class="field-radioButton">
+    <input type="radio" name="option" id="option2" value="Premium">
+    <label for="option2">Premium (£6, Next day)</label>
+  </div>
 </fieldset>
 ```
 
@@ -200,7 +200,7 @@ This is the first field that consists of multiple controls, in this case, radio 
 
 To group multiple controls, we must wrap them in a `fieldset`. The `legend` describes the group like a `label` describes the individual control.
 
-Some screen readers, such as NVDA — will read the `legend` out along with the first individual radio button's `label` when entering the field (in either direction). In this case, “Delivery options, Standard (Free 2-3 days)” is announced. In other screen readers — such as Voiceover with Safari — the legend is announced for every field.
+Some screen readers, such as NVDA—will read the `legend` out along with the first individual radio button's `label` when entering the field (in either direction). In this case, “Delivery options, Standard (Free 2-3 days)” is announced. In other screen readers—such as Voiceover with Safari—the legend is announced for every field.
 
 If we omitted the `fieldset` and `legend` elements, screen reader users would only hear “Standard (Free, 2-3 days)” which is less clear.
 
@@ -210,7 +210,7 @@ You may be tempted to group all fields this way. For example, the address form f
 
 As most users will want free delivery, that option comes first. It's also selected by default thanks to the `checked` attribute. This stops users from ever seeing an error and gives users less to do.
 
-> “Design for common circumstances first” — Caroline Jarett
+> “Design for common circumstances first”—Caroline Jarett
 
 ### Styling
 
@@ -254,7 +254,7 @@ Limiting the amount of text a user can type can and should be handled by validat
 
 The `maxlength` attribute (which takes a number value) limits the amount of a text a user can type. As soon as the limit is reached, the browser will ignore the input. The support for this attribute on a `textarea` is both lacking and buggy[^12].
 
-But, even if it was well supported, it's not recommended because some users don't look at the screen as they type — they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated. Not good.
+But, even if it was well supported, it's not recommended because some users don't look at the screen as they type—they are focused solely on the keyboard. Where a user enters a lot of text, they'll look up to find half their entry has been truncated. Not good.
 
 ### Character Countdown
 
@@ -282,7 +282,7 @@ The event listener will then check the `length` of the typed value against the c
 
 ```JS
 CharacterCountdown.prototype.onFieldChange = function(e) {
-  var remaining = this.options.maxLength — this.field.val().length;
+  var remaining = this.options.maxLength—this.field.val().length;
   this.status.html(this.options.message.replace(/%count%/, remaining));
 };
 ```
@@ -314,7 +314,7 @@ A more considerate approach would be to give feedback when users get close to th
 
 It's hardly surprising that most transactions are abandoned at the payment page. Not only is this screen shown toward the end of the journey (where users have had the most time to reconsider their decision, for example), but they may have to stop and find their credit card.
 
-Fortunately, there are some usability provisions we can apply here. By leveraging autofill, removing unnecessary fields, using the right input types and crafting label (and hint) text — we can drastically reduce friction and keep users on-task.
+Fortunately, there are some usability provisions we can apply here. By leveraging autofill, removing unnecessary fields, using the right input types and crafting label (and hint) text—we can drastically reduce friction and keep users on-task.
 
 ### Removing Fields
 
@@ -334,7 +334,7 @@ He goes on to talk about the billing address. That is the address to which the c
 
 Øyvind is not a designer per se, but his input into the design process was crucial. Many of us assume that back-end developers don't care about the user experience, but tapping into their knowledge is clearly valuable.
 
-> “Design is a team sport” — Anon?
+> “Design is a team sport”—Anon?
 
 Design is a team sport, and so we should treat it as one. By designing (and researching) with a diverse set of people, we'll frequently end up producing a far better experience.
 
@@ -342,13 +342,13 @@ This also shows that we should constantly be questioning the existence of form f
 
 ### Autofill
 
-Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored — if it does, the user can select it without having to type.
+Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored—if it does, the user can select it without having to type.
 
-> Chrome autofill: used 9 billion times/month, saves an average of 12 seconds, 1.25 million days saved/month — Luke W, 24 October 2017[^16]
+> Chrome autofill: used 9 billion times/month, saves an average of 12 seconds, 1.25 million days saved/month—Luke W, 24 October 2017[^16]
 
-Since iOS 8, the Safari browser lets users scan their card using the iPhone's camera — it uses the same mechanism to automatically fill out those fields.
+Since iOS 8, the Safari browser lets users scan their card using the iPhone's camera—it uses the same mechanism to automatically fill out those fields.
 
-Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos — two very helpful improvements to a form that has the highest drop-off rates in e-commerce.
+Not only does this drastically reduce the amount of effort to complete the form, but it also negates the chance of typos—two very helpful improvements to a form that has the highest drop-off rates in e-commerce.
 
 As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Most modern browsers support it, but for those that don't some older browsers offer similar functionality by using the `name` attribute instead. For the widest support, you should specify the correct values for both attributes as shown below.
 
@@ -398,7 +398,7 @@ The number input (`input type="number"`) lets mobile users more quickly type a n
 
 ![Spinners](./images/02/spinners.png)
 
-You might think that the number input is appropriate for the card number, expiry date, and CVC number — after all, they all consist of numbers. But it's a lot more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate or not.
+You might think that the number input is appropriate for the card number, expiry date, and CVC number—after all, they all consist of numbers. But it's a lot more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate or not.
 
 Let's start with some definitions. Wikipedia says that:
 
@@ -419,7 +419,7 @@ Conversely, numerals might be used for dates and codes such as:
 - birth date (announced “nineteenth of June, nineteen eighty-three”)
 - pin code (announced “eight, double five, three, two, six”)
 
-There is a difference between the way these values are announced. Understanding this helps to see that while the way browsers implement the number input may seem buggy at first — they aren't.
+There is a difference between the way these values are announced. Understanding this helps to see that while the way browsers implement the number input may seem buggy at first—they aren't.
 
 For example, IE11 and Chrome will ignore non-numeric input such as a letter or a slash. Some older versions of iOS will automatically convert “1000” to “1,000”. Safari 6 strips out leading zeros. Each example seems undesirable, but none of them stop users from entering true numbers.
 
@@ -509,7 +509,7 @@ Notes:
 
 ## 7. Review Page
 
-At this point in the flow, we have collected all the information needed to complete the order. But instead of processing the order after payment, we should let users review their order. As counterintuitive as this may sound, adding an extra step in the flow actually reduces effort.
+Even though we've collected all the information required to process the order, we should first let users review their order. As counterintuitive as this may sound, adding an extra step in the flow actually reduces effort and likely increases conversion.
 
 Take Jack (I made him up), a father of two infants. It's the middle of the night, and his new born baby is crying inconsolably. Naturally, he's tired and stressed. To make things worse, there's no more nappies.
 
@@ -530,8 +530,6 @@ Every piece of information gathered during checkout should be represented on the
 ![Review](./images/02/review.png)
 
 Users can click Edit to make amendments which is another advantage of using the One Thing Per Page pattern. As pages are small they will load fast; as each page has just one thing on it making a change is simple.
-
-![Flow diagram](./images/02/review-edit-flow.png)
 
 When the user makes a change, they are taken back to the review page again for a another review which puts users firmly in control and reduces stress and anxiety.
 
@@ -584,7 +582,7 @@ By omitting navigation and search, users can focus on checking out which speaks 
 
 ### Indicating Progress
 
-Progress bars or indicators are often used within checkout because — at least in theory — they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful.
+Progress bars or indicators are often used within checkout because—at least in theory—they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful.
 
 ![Progress bar](./images/02/progress-bar.png)
 
@@ -600,7 +598,7 @@ Not including a progress bar prioritises the main content, by move it further up
 
 For these reasons, consider starting without a progress indicator. Then test your journey to see if users struggle. Remember, it's far easier (and cheaper) to add features, than it is to remove them later on.
 
-*(Note: some forms are especially long — a lot longer than a checkout flow. In this case, you might need some indication of progress, which is something we'll look at in chapter 10, “A Really Long Form.”)*
+*(Note: some forms are especially long—a lot longer than a checkout flow. In this case, you might need some indication of progress, which is something we'll look at in chapter 10, “A Really Long Form.”)*
 
 #### Progress step text
 
@@ -614,13 +612,13 @@ If you do decide to give users an indication of progress, first try adding the s
 
 If research shows that a more prominent progress bar is useful then you can include one but there's a few things to consider.
 
-First, you should keep the text inside the `h1` so that screen readers get a comparable experience (prinicple 1). Second, you'll need to hide it from sighted users like this:
+First, you should keep the text inside the `<h1>` so that screen readers get a comparable experience (prinicple 1). Second, you'll need to hide it from sighted users like this:
 
 ```HTML
 <h1>Payment <span class="visually-hidden">Step 3 of 4</span></h1>
 ```
 
-The `visually-hidden` class contains a special set of properties that hide the element visually, while still ensuring that it's perceivable to screen reader users when the `h1` is announced.
+The `visually-hidden` class contains a special set of properties that hide the element visually, while still ensuring that it's perceivable to screen reader users when the `<h1>` is announced.
 
 ```CSS
 .visually-hidden {
@@ -644,23 +642,19 @@ Visual progress bar here
 </div>
 ```
 
-![Progress bar mark-up](./images/02/progress-bar-markup.png)
-
-We'll be using these techniques throughout the book.
-
 ### Order Summary
 
 When you're shopping in a physical shop, you pick up your items and place them in your shopping basket. Eventually you checkout at the till. All the while, you can see what you're buying. Sometimes at the last minute, we change our mind and take an item off the conveyor belt. Or we realise we forgot something and dash off to get it.
 
-> “The system should always keep users informed about what is going on, through appropriate feedback” — 10 Usability Heuristics
+> “The system should always keep users informed about what is going on, through appropriate feedback”—10 Usability Heuristics
 
-Giving users a comparable experience digitally is important too. An order summary placed on every page keeps users informed without having to remember what they're buying.
+Giving users a comparable experience digitally is important. We can place an order summary panel on every page to keep users informed without having to remember what they're buying, freeing up their mental energy to focus on checking out.
 
 ![Order Summary](./images/02/order-summary.png)
 
-As the user completes each step, the order summary will populate with more information. For example, on the first screen (email address), it will contain what they're buying. On the next screen it will also contain their email address, and so forth. If the user spots a mistake, they can jump back to any previous step by clicking the edit link — just like the review page.
+As the user completes each step, the order summary will populate with more information. For example, on the email address screen (step 1), the summmary only shows what they're buying. On the mobile screen (step 2) it will populate with their email address, and so forth. If the user spots a mistake, they can jump back to any previous step by clicking the Edit link—just like the review page.
 
-Layout wise, the summary panel should be less prominent than the form. So it should be placed beside the form on desktop, and below the form on mobile (where there's insufficient room).
+While the summary panel is important, it's less important than the form. So it should be placed beside the the form on desktop, where there's enough space to do so and below the form on mobile where there's not enough room.
 
 ### Back Links
 
@@ -670,7 +664,7 @@ AJAX-driven and modal-heavy sites haven't helped matters because clicking the br
 
 However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust it. In this case, position the link at the top left of the page. By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
 
-Consider making the link text explicit. “Back” is ambiguous; “Back to delivery address” is clearer.
+![Back link](./images/02/back-link.png)
 
 ## Summary
 

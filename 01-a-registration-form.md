@@ -41,7 +41,7 @@ By looking at labels from each of these standpoints, we can see just how importa
 
 ![Hit area](./images/01/regform-label-hit-area.png)
 
-For these reasons, every control that accepts input should have an auxilary `<label>`. Submit buttons, for example, don't accept input so they don't need an auxilary label - the `value` attribute which renders the text inside the button acts as the accessible label.
+For these reasons, every control that accepts input should have an auxilary `<label>`. Submit buttons, for example, don't accept input so they don't need an auxilary label—the `value` attribute which renders the text inside the button acts as the accessible label.
 
 To *connect* an input to a label, the input's `id` and label's `for` attribute should match and be unique to the page. In the case of the email field, the value is “email”:
 
@@ -56,13 +56,13 @@ For example, a larger hit area is crucial for motor-impaired users but is easier
 
 ## Placeholders
 
-The `placeholder` attribute is intended to store a hint. It gives users extra guidance when filling out a field - particularly useful for fields that have complex rules such as a password field. 
+The `placeholder` attribute is intended to store a hint. It gives users extra guidance when filling out a field—particularly useful for fields that have complex rules such as a password field. 
 
 As placeholder text is not a real value, it's ‘grayed out’ so that it can be differentiated from user-entered values.
 
 ![Placeholder example from above](./images/01/placeholder-example.png)
 
-Hints, unlike labels, are optional and shouldn't be used as a matter of course. Just because the placeholder attribute exists doesn't mean we have to use it. For example, you don't need a placeholder of ‘Enter your first name’ when the label is ‘First name’ - that's needless duplication.
+Hints, unlike labels, are optional and shouldn't be used as a matter of course. Just because the placeholder attribute exists doesn't mean we have to use it. For example, you don't need a placeholder of ‘Enter your first name’ when the label is ‘First name’—that's needless duplication.
 
 ![Placeholder and label with same value](./images/01/placeholder-label-same-value.png)
 
@@ -98,7 +98,7 @@ As with most things in design, and life for that matter, this isn't the only way
 </div>
 ```
 
-The `aria-describedby` attribute is used to connect the hint by its `id` - just like the `for` attribute for labels, but in reverse. It's appended to the control's label and read out after a short pause. In this example, “password [pause] must contain eight plus characters with at least one number and one uppercase letter.”
+The `aria-describedby` attribute is used to connect the hint by its `id`—just like the `for` attribute for labels, but in reverse. It's appended to the control's label and read out after a short pause. In this example, “password [pause] must contain eight plus characters with at least one number and one uppercase letter.”
 
 There are other differences too. First, clicking the hint (a `<p>` in this case) won't focus the control, which reduces the hit area. Second, despite ARIA's ever-growing support, it's never going to be as well supported as native elements. In this case, for example, Internet Explorer 11 doesn't support `aria-describedby`[^].  This is why the first rule of ARIA is not to use ARIA:
 
@@ -148,7 +148,7 @@ Passwords are generally short, hard to remember and easy to crack. Users often h
 
 > Sorry but your password must contain an uppercase letter, a number, a haiku, a gang sign, a hieroglyph, and the blood of a virgin. -- Adrian Zumbrunnen
 
-Instead of a password, we could ask users for a passphrase[^]. A passphrase is a series of words such as ‘monkeysinmygarden’ (sorry, that's the first thing that comes to mind). They are generally easier to remember than passwords and they are more secure due to their length - passphrases must be at least 16 characters long.
+Instead of a password, we could ask users for a passphrase[^]. A passphrase is a series of words such as ‘monkeysinmygarden’ (sorry, that's the first thing that comes to mind). They are generally easier to remember than passwords and they are more secure due to their length—passphrases must be at least 16 characters long.
 
 The downside is that they are unfamiliar, which may cause anxiety for users, that are already worried about online security.
 
@@ -168,7 +168,7 @@ But, there are other reasons to put the label above the field. On small viewport
 
 Also, some labels contain a lot of text which causes it to wrap onto multiple lines which would disrupt the visual rhythm if placed next to the control.
 
-While you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content - by positioning labels above the control - is a good strategy.
+While you should aim to keep labels terse, it's not always possible. So, using a pattern that accomodates varying content—by positioning labels above the control—is a good strategy.
 
 ### Look, Size And Space
 
@@ -374,7 +374,7 @@ Buttons that submit forms are “submit buttons” and they are coded typically 
 
 *(Note: in older versions of Internet Explorer, if you have multiple `<button type="submit">`s, the form will submit the value of all the buttons to the server regardless of which was clicked[^]. What you want is to know which button was clicked so that you can determine the right course of action to take.)*
 
-Other buttons are injected into the interface to enhance the experience with Javascript - much like we did with the password reveal component discussed earlier. That was also a `<button>` but it's type was set to `button` (not `submit`).
+Other buttons are injected into the interface to enhance the experience with Javascript—much like we did with the password reveal component discussed earlier. That was also a `<button>` but it's type was set to `button` (not `submit`).
 
 In both cases, the first thing to know about buttons is that they aren't links. Links are typically underlined (by user agent styles) or specially positioned (in a navigation bar) so that they are visually identifiable amongst regular text. When hovering a link, the cursor will change to a hand. This is because, unlike buttons, links have weak perceived affordance[^].
 
@@ -402,7 +402,7 @@ Using simple and plain language is easy to understand for everyone. The exact wo
 
 Despite our efforts to create an inclusive, simple and friction-free registration experience, we can't eliminate human error. People make mistakes and when they do, we should make remedying them as easy as possible. 
 
-When it comes to form validaton, there are a number of important details to consider. Choosing when to give feedback, through to how to display that feedback, down to the formulation of a good error message - all of these things need to be taken into account.
+When it comes to form validaton, there are a number of important details to consider. Choosing when to give feedback, through to how to display that feedback, down to the formulation of a good error message—all of these things need to be taken into account.
 
 ### HTML5 Validation
 
@@ -612,7 +612,7 @@ Alternatively, we could wait until the user enters enough characters before show
 
 We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Moreover, some users switch windows or use a password manager when using a form. Doing so will trigger the blur event, causing an error to show before the user is finished. All very frustrating.
 
-Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields) - we've done this already. The problem with live feedback is that it interupts users either too early or too late which causes a jarring user experience.
+Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields)—we've done this already. The problem with live feedback is that it interupts users either too early or too late which causes a jarring user experience.
 
 If users are seeing errors, there's probably something wrong elsewhere. Focus on shortening your form and providing better guidance (good labeling and hint text). This way users shouldn't see more than the odd error. We'll look at long forms in the next chapter.
 
@@ -640,7 +640,7 @@ Even the most thought-out, inclusive and beautifully designed experience counts 
 
 > “Content is the user experience”
 
-Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content - not the other way around. But in this case, understanding how messages are going to be shown and why, influences the design of the words themselves. This is why Jared Spool says “content and design are inseparable work partners.”
+Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content—not the other way around. But in this case, understanding how messages are going to be shown and why, influences the design of the words themselves. This is why Jared Spool says “content and design are inseparable work partners.”
 
 As we know, we're going to inject messages into a summary panel at the top and next to the fields in context. This means, we need to make sure the content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
 

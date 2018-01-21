@@ -176,7 +176,7 @@ Capture+ has a third-party script which you can include on your page. But most t
 
 ## 4. Delivery Options
 
-![Delivery options](./images/02/deliver-options.png)
+![Delivery options](./images/02/delivery-options.png)
 
 ```html
 <fieldset class="field">
@@ -282,7 +282,7 @@ The event listener will then check the `length` of the typed value against the c
 
 ```JS
 CharacterCountdown.prototype.onFieldChange = function(e) {
-    var remaining = this.options.maxLength — this.field.val().length;
+  var remaining = this.options.maxLength — this.field.val().length;
   this.status.html(this.options.message.replace(/%count%/, remaining));
 };
 ```
@@ -470,38 +470,42 @@ The first problem is that sites don't always refer to this field as CVC number. 
 
 To fix this, we should employ the hint text pattern to tell users exactly what it is and where to find it. For example, “This is the last three digits on the back of the card.”
 
-### Billing Address Toggle
+### Billing Address Toggler
 
 The billing address is the address to which the card is registered and is needed to process a payment. For most users, their billing address is the same as the delivery address. As the user has already provided this information, we can use it to improve the experience.
 
-First, we need to add an extra field, this time a checkbox which asks the user if their billing address is the same as their delivery address. This way users only have to fill out the billing address on the rare occasion that it's different. As it's the most common scenario, it's checked by default. 
+First, we need to add a checkbox field which asks the user if their billing address is the same as their delivery address. This way users only have to fill out the billing address on the rare occasion that it's different. As it's the most common scenario, it's checked by default. 
 
 We can enhance the experience by hiding the billing address until the user unchecks the checkbox. This is a form of progressive disclosure which means only showing information when it becomes relevant.
 
-To do this, we need to listen to the checkbox's click event using JavaScript.
+Here's the complete script with notes to follow.
 
 ```JS
-function CheckboxCollapser(checkbox, container) {
+function CheckboxCollapser(checkbox, toggleElement) {
   this.checkbox = checkbox;
-  this.container = container;
-  $(this.checkbox).on('click', $.proxy(this, 'onCheckboxClick'));
+  this.toggleElement = toggleElement;
   this.check();
+  this.checkbox.on('click', $.proxy(this, 'onCheckboxClick'));
 };
-```
 
-When the checkbox is clicked, we check the checked state. If it's checked, then billing address is hidden. Otherwise, it's shown.
-
-```JS
 CheckboxCollapser.prototype.onCheckboxClick = function(e) {
   this.check();
 };
 
 CheckboxCollapser.prototype.check = function() {
-  this.container[this.checkbox.prop('checked') ? 'hide' : 'show']();
+  if(this.checkbox.prop('checked')) {
+    this.toggleElement.addClass('hidden');
+  } else {
+    this.toggleElement.removeClass('hidden');
+  }
 };
 ```
 
-The container is hidden with CSS by toggling the display property between `block` and `none` using jQuery's show and hide methods respectively.
+Notes:
+
+- The constructor function takes the checkbox element and toggle element (the billing address container) as parameters and assigns them to `this` so they can be reference in the other methods.
+- The state of checkbox is persisted on the server. As it could be checked or unchecked the state is checked on initialisation and hides or shows the billing address fields accordingly.
+- The same routine is performed each time the checkbox is clicked. The `check()` method checks to see if the checkbox is checked or not. If so, the billing address container is hidden, otherwise it's shown, by adding and removing the `hidden` class.
 
 ## 7. Review Page
 
@@ -709,14 +713,9 @@ After that, we looked at other issues: giving users the ability to review their 
 [^10 radio button labels]: https://designnotes.blog.gov.uk/2016/11/30/weve-updated-the-radios-and-checkboxes-on-gov-uk/
 [^11 custom radio issues]: https://github.com/alphagov/govuk_elements/issues
 [^12 max length]: http://caniuse.com/#feat=maxlength
-[^13 polite]: ?
-[^14 status]: ?
+[^13 polite]: http://w3c.github.io/aria/aria/aria.html#aria-live
+[^14 status]: http://w3c.github.io/aria/aria/aria.html#status
 [^15 stripe]: https://stripe.com/gb
 [^16 luke autofill tweet]: https://twitter.com/lukew/status/922630320293265408
 [^17 autofill attributes]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
 [^18 back link]: https://baymard.com/blog/back-button-expectations
-
-## Potential Citations/Additions
-
-[^11]: https://nordnet.design/design-is-a-team-sport-231a602fc072
-[^12]: https://www.gov.uk/service-manual/design/confirmation-pages

@@ -102,15 +102,7 @@ Instead, we've used the `visually-hidden` class and `aria-hidden="true"` attribu
 Next, we need to inject the text box that users will interact with. To make sure the label still works, we transfer the select box's `id` to the text box.
 
 ```HTML
-<input
-  type="text"
-  id="destination"
-  autocomplete="off"
-  role="combobox"
-  aria-autocomplete="list"
-  aria-expanded="true"
-  class="autocomplete-textBox"
->
+<input type="text" id="destination" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="true">
 ```
 
 Notes:
@@ -124,10 +116,7 @@ Notes:
 Next, we inject a `<ul>` after the text box which will store the suggestions.
 
 ```HTML
-<ul
-  role="listbox"
-  class="autocomplete-options autocomplete-options-isHidden"
-  >
+<ul role="listbox">
   <li role="option" tabindex="-1" aria-selected="false" data-option-value="1" id="autocomplete_1">
     France
   </li>
@@ -142,12 +131,12 @@ Notes:
 - The `role="list"` attribute tells users there is a list of choices from which the user can select. Each `<li>` has `role="option"` to denote it as a choice within the list.
 - The `aria-selected="true"` attribute tells users whether the option is selected or not by toggling the value between `true` and `false`.
 - The `tabindex="-1"` attribute allows us to set focus to the options programatically. More on this shortly.
-- The `data-option-value` attribute is to store the corresponding `select` option value. When the user selects an option, we populate the hidden `select` box accordingly so that the real value will be persisted on submission.
+- The `data-option-value` attribute stores the equivalent `select>` box option value so that when the user selects an option in the autocomplete, the hidden `<select>` box is updated with the corresponding value. This ensures the correct value is persisted when the form is submitted.
 
 Suggestions appear in the menu giving sighted users feedback. To give screen reader users an equivalent experience we need to use a live region as first set out in chapter 2, “Checkout”. By injecting “13 results are available”, we satisfy principle 1, *Provide a comparable experience*.
 
 ```HTML
-<div role="status" aria-live="polite">13 results are available</div>
+<div role="status" aria-live="polite" class="visually-hidden">13 results are available</div>
 ```
 
 #### Text Box Interactions
@@ -234,7 +223,7 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 };
 ```
 
-The `highlightOption` method is shown below with comments inline.
+The `highlightOption()` method is shown below with comments inline.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
@@ -259,7 +248,6 @@ Autocomplete.prototype.highlightOption = function(option) {
   // focus the option
   option.focus();
 };
-
 ```
 
 #### Menu Interactions
@@ -268,7 +256,7 @@ Now we need to talk about how users interact with the menu. Mouse (and touch) us
 
 ```JS
 Autocomplete.prototype.addSuggestionEvents = function() {
-  this.optionsUl.on('click', '.autocomplete-option', $.proxy(this, 'onSuggestionClick'));
+  this.optionsUl.on('click', '[role=option]', $.proxy(this, 'onSuggestionClick'));
 };
 ```
 
@@ -281,7 +269,7 @@ Autocomplete.prototype.onSuggestionClick = function(e) {
 };
 ```
 
-The `selectionSuggestion` method (shown below), first takes the suggestion's value and uses it to populate the text box and select box (via the `setValue` method). Additionally, the menu is hidden and the text box is focused.
+The `selectionSuggestion` method (shown below), takes the suggestion's value and uses it to populate the text box and select box (via the `setValue` method). Additionally, the menu is hidden and the text box is focused.
 
 ```JS
 Autocomplete.prototype.selectSuggestion = function(suggestion) {
@@ -292,15 +280,15 @@ Autocomplete.prototype.selectSuggestion = function(suggestion) {
 };
 ```
 
-We perform the exact same routine when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard.
+We perform the exact same routine when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard. The other actions are summed up below.
 
-The other actions can be summed up briefly. When the user presses:
-
-- <kbd>Up</kbd>, the previous option is focused. If it's the first option, focus is set to the text box.
-- <kbd>Down</kbd>, the next option is focused.
-- <kbd>Tab</kbd>, the menu is hidden.
-- <kbd>Escape</kbd>, the menu is hidden and focus is set to the text box.
-- a character, then focus is set to the text box so users can continue typing.
+| Key | Action |
+|:---|:---|
+| <kbd>Up</kbd> | The previous option is focused. If it's the first option, focus is set to the text box. |
+| <kbd>Down</kbd> | The next option is focused. |
+| <kbd>Tab</kbd> | The menu is hidden. |
+| <kbd>Escape</kbd> | The menu is hidden and focus is set to the text box. |
+| A character | Focus is set to the text box so users can continue typing. |
 
 ## 2. Choosing When To Fly
 
@@ -434,17 +422,18 @@ There's an inset left border which visually connects the calendar to the field a
 Clicking the toggle button reveals the calendar.
 
 ```HTML
-<div class="field ">
+<div class="field">
   <label for="when">
     <span class="field-label">Date</span>
   </label>
   <div class="datepicker">
     <input type="text" id="when" name="when">
     <button type="button" aria-expanded="true" aria-haspopup="true">Choose</button>
-    <div class="datepicker-wrapper" hidden>
+    <div class="datepicker-wrapper hidden">
       Calendar widget here
     </div>
   </div>
+</div>
 ```
 
 Notes:
@@ -452,7 +441,6 @@ Notes:
 - The `type="button"` attribute stops the button from submitting the form. If it was left undefined or set to “submit” it would submit the form.
 - The `aria-haspopup="true"` attribute indicates that the button reveals a calendar. It acts as a warning that, when pressed, the focus will be moved to the calendar. Note: its value is always set to `true`.
 - The `aria-expanded` attribute indicates whether the calendar is currently in an open (expanded) or closed (collapsed) state by toggling between `true` and `false` values.
-- The calendar is hidden using the `hidden` attribute/property as explained in chapter 1, “A Registration Form”.
 
 #### Keyboard And Focus Behaviour
 

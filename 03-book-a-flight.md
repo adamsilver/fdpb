@@ -48,7 +48,7 @@ Users need a control that lets them filter a long list of destinations. A contro
 
 Autocomplete controls work by suggesting options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field. This saves users having to scroll (unless, they want to) while also being able to forgive small typos.
 
-HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create an autocomplete control natively. Unfortunately, it's buggy[^], but if your prohect is locked down to a few browsers that don't happen to have these bugs, then it might be a viable option for you.
+HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create an autocomplete control natively. Unfortunately, it's buggy[^], but if your project is locked down to a few browsers that don't happen to have these bugs, then it might be a viable option for you.
 
 ![Datalist](./images/03/datalist.png)
 
@@ -729,7 +729,7 @@ As the fieldset's `legend` describes the group, the error message should be inje
       Choose a flight.
     </span>
   </legend>
-  <!-- Radio buttons go here -->
+  <!-- Radio buttons here -->
 </fieldset>
 ```
 
@@ -748,11 +748,11 @@ Finally, users need to choose a seat. While this step is not especially complica
 
 Up to now, radio buttons have been stacked beneath one an other, which is enough for most situations. For seat selection, this makes the page especially long, and more importantly, harder to scan as there is a lack of structure.
 
-![Stacked](./images/choose-seat-stacked.png)
+![Stacked](./images/03/choose-seat-stacked.png)
 
 We can provide that structure by laying out seats in rows, just like they are on a plane. This will help users map their location. Users might be looking for aisle or window seats, for example.
 
-![Nested](./images/choose-seat-nested.png)
+![Nested](./images/03/choose-seat-nested.png)
 
 To denote window seats and isle seats for screen reader users we can put hidden text inside the seat's label.
 
@@ -771,7 +771,7 @@ Where possible, you should avoid nested fieldsets, not only for screen reader us
 
 Instead, we could ask users to specify their preference beforehand. At the same time, we can mark *economy* as checked by default. Marking the most common choice expedites the process.
 
-![Choose class](./images/03/choose-class)
+![Choose class](./images/03/choose-class.png)
 
 ### Checkboxes Are Never Round
 

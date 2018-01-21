@@ -38,7 +38,7 @@ Here's a chapter run down.
 
 We'll start with a basic registration form which makes room to look at the foundational qualities of a well-designed form and how to think about them. By applying something called the Question Protocol, we'll look at how to reduce friction without even touching the interface. Then we'll look at some crucial patterns including validation that we'll want to use for every form.
 
-### 2. A Checkout Flow
+### 2. Checkout
 
 The One Thing Per Page design pattern is a cornerstone of creating well-designed forms. We'll look at why that is before applying it to a checkout flow. After that, we'll consider flow and order to then break down each step for a deep dive on several input types and how they affect the experience on mobile and desktop browsers.
 

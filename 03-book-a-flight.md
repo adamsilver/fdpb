@@ -44,15 +44,15 @@ Using a search box is useful when searching a large amount of dynamic data, such
 
 ### Datalist
 
-Users need a control that lets them filter a long list of destinations. A control that marrys the flexibility of a text box with the assurance of a select box. This type of control goes by many different names including *type ahead*, *predictive search* and *combo box*, but we'll refer to it as *autocomplete*.
+Users need a control that lets them filter a long list of destinations. A control that marrys the flexibility of a text box with the assurance of a select box. This type of control goes by many different names including *type ahead*, *predictive search* and *combo box*, but we'll refer to it as an *autocomplete* control.
 
 Autocomplete controls work by suggesting options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field. This saves users having to scroll (unless, they want to) while also being able to forgive small typos.
 
-HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create an autocomplete control natively. Unfortunately, it's buggy[^], but if your project is locked down to a few browsers that don't happen to have these bugs, then it might be a viable option for you.
+HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create a native autocomplete control. Unfortunately, it's buggy[^], but if your project is locked down to a few browsers that don't happen to have these bugs, then it might be a viable option for you.
 
 ![Datalist](./images/03/datalist.png)
 
-We want to design an inclusive experience—one that works for as many people as possible, no matter their choice of  browser or mobile device. By creating our a custom component, there's an opportunity to allow for common typos and endonyms.
+We want to design an inclusive experience—one that works for as many people as possible, no matter their choice of  browser or mobile device. By creating a custom component, there's to create an even more powerful control that allows for common typos and endonyms.
 
 A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is hard work, but that's what our job is all about.
 
@@ -87,15 +87,15 @@ We'll cover off the other rules as we go.
 
 #### Hiding The Select Box
 
-As we're giving users a custom control, we need to hide the fallback select box control. We can hide the select box like this:
+As we're giving users a custom control, we need to hide the fallback select box control like this:
 
 ```HTML
 <select aria-hidden="true" tabindex="-1" class="visually-hidden">
 ```
 
-If the select box was completely unnecessary, we could have just removed it from the Document using Javascript. But if we did it that way (or by using `display: none`) its value wouldn't be sent to the server upon submission.
+If the select box was completely unnecessary, we could have just removed it from the Document using JavaScript. But if we did it that way (or by using `display: none`) its value wouldn't be sent to the server upon submission.
 
-Instead, we've used the `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “A Checkout Flow”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We also need to stop keyboard users being able to tab to it which can be done by setting the `tabindex` attribute to -1.
+Instead, we've used the `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “Checkout”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We also need to stop keyboard users being able to tab to it which can be done by setting the `tabindex` attribute to -1.
 
 #### Enhancing The Interface
 
@@ -144,7 +144,7 @@ Notes:
 - The `tabindex="-1"` attribute allows us to set focus to the options programatically. More on this shortly.
 - The `data-option-value` attribute is to store the corresponding `select` option value. When the user selects an option, we populate the hidden `select` box accordingly so that the real value will be persisted on submission.
 
-Suggestions appear in the menu giving sighted users feedback. To give screen reader users an equivalent experience we need to use a live region as first set out in chapter 2, “A Checkout Flow”. By injecting “13 results are available”, we satisfy principle 1, *Provide a comparable experience*.
+Suggestions appear in the menu giving sighted users feedback. To give screen reader users an equivalent experience we need to use a live region as first set out in chapter 2, “Checkout”. By injecting “13 results are available”, we satisfy principle 1, *Provide a comparable experience*.
 
 ```HTML
 <div role="status" aria-live="polite">13 results are available</div>
@@ -326,7 +326,7 @@ Let's step through some of the main types of dates and see how we can handle the
 
 > “If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.*
 
-The expiry date from “A Checkout Flow” falls perfectly under this category. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
+The expiry date from “Checkout” falls perfectly under this category. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
 
 #### Memorable Dates
 
@@ -359,7 +359,7 @@ In this case, you should use three text boxes: one for day, month and year. Why 
 
 The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”) gives each text box context and would be read out as “Date of birth, day” (or similar) as the user steps through each field.
 
-*(Note: the pattern attribute is used to trigger the numeric keyboard - a little enhancement for iOS users. If you're wondering why the number input isn't used here, we discussed the issues in detail in “A Checkout Flow”.)*
+*(Note: the pattern attribute is used to trigger the numeric keyboard - a little enhancement for iOS users. If you're wondering why the number input isn't used here, we discussed the issues in detail in “Checkout”.)*
 
 #### Calendar Widgets
 
@@ -629,7 +629,7 @@ Airlines typically ask how many people are travelling. They also want to know wh
 </div>
 ```
 
-Each category is represented by a separate field. As we're asking users for an *amount* of something - in this case passengers - the number input makes sense. (Note: we discussed when to use the number input in “A Checkout Flow”.)
+Each category is represented by a separate field. As we're asking users for an *amount* of something - in this case passengers - the number input makes sense. (Note: we discussed when to use the number input in “Checkout”.)
 
 Number inputs have little spinner buttons. Spinners, also known as steppers, let users increase or decrease the input's value by a constant amount. They are great for making small adjustments. As Luke Wobrelkski says:
 

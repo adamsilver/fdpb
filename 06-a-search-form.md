@@ -79,7 +79,7 @@ We could forgo a visible label altogether because arguably the submit button act
 </div>
 ```
 
-*(Note: The CSS for the visually hidden class is set out in “A Checkout Flow”.)*
+*(Note: The CSS for the visually hidden class is set out in “Checkout”.)*
 
 If search only retrieves products, for example, then the button would be better labelled “Search products”. 
 

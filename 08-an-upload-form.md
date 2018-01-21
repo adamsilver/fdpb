@@ -58,7 +58,7 @@ The most robust way of styling the file picker is to visually hide it like this:
 </div>
 ```
 
-*(Note: The CSS for the visually hidden class is set out in “A Checkout Flow”.)*
+*(Note: The CSS for the visually hidden class is set out in “Checkout”.)*
 
 Now that it's hidden, we can style the control's label, which *is* easy to style. As described in “A Registration Form”, this works because a control's label acts as a proxy to the control itself. In this case, this means clicking the label is like clicking the input.
 
@@ -430,7 +430,7 @@ While the feedback is useful for sighted users, screen reader users won't hear a
 
 Notes:
 
-- The live region is visually hidden, because sighted users have already been catered for with the live progress bar and its various states. The CSS for the visually hidden class is set out in “A Checkout Flow”. 
+- The live region is visually hidden, because sighted users have already been catered for with the live progress bar and its various states. The CSS for the visually hidden class is set out in “Checkout”. 
 - Live regions and their various attributes were first explained in chapter 2, “A Checkout”.
 
 The live region will changed at various points:

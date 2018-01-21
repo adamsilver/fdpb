@@ -245,7 +245,7 @@ When AJAX is used we have to provide our own mechanism to inform users that the 
 
 But, you should note that, unlike the browser, it doesn’t tell users how long is left, or if the connection is slow. In the next chapter, we’ll look at ways to provide an accurate progress bar with AJAX.
 
-Also, the loading spinner, in it’s current form, is only determinable by sighted users. To provide a comparable experience (principle 1) for screen reader users, we’ll employ a live region (as first set out in 2, “A Checkout Flow”).
+Also, the loading spinner, in it’s current form, is only determinable by sighted users. To provide a comparable experience (principle 1) for screen reader users, we’ll employ a live region (as first set out in 2, “Checkout”).
 
 ```HTML
 <div aria-live="assertive" role="alert" class="visually-hidden">Loading products.</div>
@@ -257,7 +257,7 @@ When the products are loaded:
 <div aria-live="assertive" role="alert" class="visually-hidden">Loading complete. 13 products listed.</div>
 ```
 
-*(Note: as the loading spinner is enough communication for sighted users, the live region is given the special visually hidden class as set out in “A Checkout Flow”.)*
+*(Note: as the loading spinner is enough communication for sighted users, the live region is given the special visually hidden class as set out in “Checkout”.)*
 
 ### Breaking the back button
 
@@ -520,5 +520,4 @@ With that said, we’ve carefully made the effort to include a number of provisi
 
 ## Todo?
 
-- “Refine” vs “Filter”
 - The range input is a new, HTML5 input that allows users to select a value within a range by sliding the handle along an axis. It shouldn’t be used because X.

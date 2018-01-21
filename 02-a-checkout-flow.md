@@ -1,4 +1,4 @@
-# A Checkout Flow
+# Checkout
 
 > Here’s what I bring to the table: a valid credit card, 90 seconds of my time, and my right thumb. The rest is up to you. -- Melanie Jones
 

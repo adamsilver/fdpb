@@ -146,7 +146,7 @@ Alternatively, a standard `<label>` has better support and adheres to ARIA's fir
 </li>
 ```
 
-*(Note: The CSS for the visually hidden class is set out in “A Checkout Flow”.)*
+*(Note: The CSS for the visually hidden class is set out in “Checkout”.)*
 
 While duplication isn't a big performance issue, if we're not careful, bloated HTML can eventually diminish the experience by causing some operations to take longer—screen reader software can be unresponsive, for example.
 

@@ -32,7 +32,7 @@ This pattern is well-suited to short, simple forms that can be submitted in one 
 One of the major problems with the Persistent Form pattern is that it can't handle branching. Branching involves users being asked different questions depending on previous answers. For example, if users are expensing a car, they'll need to enter mileage; if they're expensing a train ticket, then they'll need to enter its price.
 
 
-In this case, the One Thing Per Page pattern (first discussed in “A Checkout Flow”) is more suitable. This is because it presents one question at time meaning we can show users different pages depending on their answers. This solves the branching problem elegantly and simply, but, what if users need to enter multiple expenses and submit them in one go?
+In this case, the One Thing Per Page pattern (first discussed in “Checkout”) is more suitable. This is because it presents one question at time meaning we can show users different pages depending on their answers. This solves the branching problem elegantly and simply, but, what if users need to enter multiple expenses and submit them in one go?
 
 We can add an additional screen to the end of the journey asking users if they'd like to add another expense. Selecting Yes takes the user to down the same flow again. Selecting No completes the task.
 
@@ -182,7 +182,7 @@ But how can our script know what `name` and `id` values to use? To make this eas
 <input type="text" name="items[0][amount]">
 ```
 
-The reason for both the name *and* the id data attributes is because some fields consist of multiple inputs with the same name. For example, as laid out in chapter 2, “A Checkout Flow”, the `name` of each radio button is the same because it identifies the set to which they belong. The `id` identifies the individual radio button.
+The reason for both the name *and* the id data attributes is because some fields consist of multiple inputs with the same name. For example, as laid out in chapter 2, “Checkout”, the `name` of each radio button is the same because it identifies the set to which they belong. The `id` identifies the individual radio button.
 
 Now all we need to do is replace `%index%` with the new index of the cloned item like this:
 

@@ -21,7 +21,7 @@ Here's the HTML:
   <label for="email">Email address</label>
   <input type="email" id="email" name="email">
   <label for="password">Create password</label>
-  <input type="password" id="password" name="password" placeholder="Must contain 8+ characters with at least 1 number and 1 uppercase letter.">
+  <input type="password" id="password" name="password" placeholder="Must be at least 8 characters">
   <input type="submit" value="Register">
 </form>
 ```

@@ -60,16 +60,16 @@ A word of warning though: we're going to break new ground; designing a robust an
 
 ### An Autocomplete Control
 
-Our custom autocomplete control is going to use HTML with ARIA attributes, CSS and JavaScript. Accessibility expert Steve Faulkner has what he calls a *punch list*[^] which is a list of rules to make sure that any custom Javascript component is designed and built to a good standard. The rules state that a component should:
+Our custom autocomplete control is going to use HTML with ARIA attributes, CSS and JavaScript. Accessibility expert Steve Faulkner has what he calls a *punch list*[^] which is a list of rules to make sure that any custom JavaScript component is designed and built to a good standard. The rules state that a component should:
 
-1. work without Javascript
+1. work without JavaScript
 2. be focusable with the keyboard
 3. be operable with the keyboard
 4. work with assistive devices
 
 #### The Basic Mark-up
 
-To satisfy the first rule we need to make sure the interface works in the absence of JavaScript. This means choosing a native form control that browsers provide for free. Having already discussed the native options earlier we know that in this case:
+To satisfy the first rule we need to make sure the interface works in the absence of JavaScript. This means choosing a native form control that browsers provide for free. Having already discussed these above we know:
 
 - there are too many options for radio buttons
 - a search box requires an unnecessary round-trip to the server and can lead to zero results
@@ -93,7 +93,7 @@ This leaves us with a select box.
 
 #### The Enhanced Mark-up
 
-When JavaScript is available, we're going to construct our own custom form control. The modified HTML will look like this:
+When JavaScript is available, we're going to construct our own custom form control. The enhanced HTML will look like this:
 
 ```HTML
 <div class="field">
@@ -126,32 +126,31 @@ When JavaScript is available, we're going to construct our own custom form contr
 
 **Select box and text box notes**
 
-- Even though users will no longer interact with the select box, it's not completely removed from the Document. If we did remove the select box from the Document or hid it with `display: none;` then its value wouldn't be sent to the server for upon submission. This is important because the text users type differs from the select box option value that will be sent.
-- To hide the select box while still allowing for it to be submitted to the server involves using a number of HTML attributes in combination. The `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “Checkout” hides the select box visually and aurally (by screen readers). And to stop users tabbing to the select box with their keyboard we set the `tabindex` attribute to -1.
-- The select box's `id` attribute is transferred to the text box because their should still be an associated label to the interactive text box that users will type into. The select box no longer needs an `id`—it's effectively a hidden input now.
+- Even though users will no longer interact with the select box, it's still a necessary part of the control. If we were to remove the select box from the Document (or hide it with `display: none;`) then its value wouldn't be sent to the server upon submission. This is important because the text users type into the text box differs from the select box's value that will be submitted.
+- To hide the select box in a way that allows its value to be submitted involves a number of techniques, used in combination. The `visually-hidden` class and `aria-hidden="true"` attribute (as first set out in chapter 2, “Checkout”) hides the select box visually and aurally (by screen readers). And the `tabindex="-1"` attribute stops keyboard users from being able to focus it.
+- The select box's `id` attribute is transferred to the text box because there should still be an associated label to the interactive text box that users will type into. The select box no longer needs an `id`—it's effectively become a hidden input.
 - Similarly, the `name` attribute isn't needed on the text box because it's used purely for interaction. Its value isn't sent to the server—the text box is merely a proxy for the select box.
 - The `role="combobox"` attribute ensures this from control is announced as a combo box instead of a text box. A combo box, according to MDN[^], is “an edit control with an associated list box that provides a set of predefined choices.”
 - The `aria-autocomplete="list"` attribute tells users that a list of options will appear.
-- The `aria-expanded` attribute tells users whether the menu is showing or not by toggling it's value between `true` and `false`.
-- The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with those offered by the component.
-- The `autocapitalize="none"` attribute stops some browsers from autocapitalising the first letter the user types in the text box. More on this is in the next chapter.
+- The `aria-expanded` attribute tells users whether the menu is expanded or collapsed by toggling it's value between `true` and `false`.
+- The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with those offered by our component.
+- The `autocapitalize="none"` attribute stops some browsers from autocapitalising the first letter. More on this is in the next chapter.
 
 **Suggestions list notes**
 
-- The `role="list"` denotes that this element contains one or more options each with `role="option"` attribute. The `<ul>` will be populated as the user types in the text box.
+- The `role="list"` denotes that this element contains one or more options each with a `role="option"` attribute. The `<ul>` will be populated as the user types in the text box.
 - The `aria-selected="true"` attribute tells users which  option within the list is selected or not by toggling the value between `true` and `false`.
-- The `tabindex="-1"` attribute allows us to set focus to the options programatically. More on this shortly.
-- The `data-option-value` attribute stores the equivalent `select>` box option value so that when the user selects an option in the autocomplete, the hidden `<select>` box can be updated with the corresponding value that the server will be expecting to process when the form is submitted.
+- The `tabindex="-1"` attribute allows us to set focus to the options programatically in response to certain key presses. More on this shortly.
+- The `data-option-value` attribute stores the equivalent select box option value. When the user selects an option in the autocomplete, the select box value is updated to the value of the `data-option-value` attribute. Ultimately, this is the value that is sent to the server once submitted.
 
-**Live region notes**
+As the user types, suggestions will appear in the menu below which is adequate feedback for sighted users. However, the suggestions aren't determinable to screen reader users without leaving the text box to explore the items in the menu that follows.
 
-As the user types, suggestions will appear in the menu below which is adequate feedback for sighted users. However, the new options aren't determinable to screen reader users without leaving the text box and landing on the suggestions menu. 
-
-To provide a comparable experience (principle 1), we can use a live region (as first set out in chapter 2, “Checkout”). The only difference is that it's hidden with the `visually-hidden` class because it's redundant to sighted users.
+To provide a comparable experience (principle 1), we can use a live region as laid out in chapter 2, “Checkout”. It will be populated with “13 results available” which is enough information to decide whether they want to keep typing (to narrow the results) or move to the suggestions. 
+The `visually-hidden` class is necessary because the live region is only valuable to screen reader users in this case.
 
 #### Text Box Interactions
 
-With the mark-up in place, we can use JavaScript to allow users to interact with the text box. Here's the event listener that runs when the user types in the text box.
+With the mark-up in place, we can use JavaScript to handle text box interactions. Here's the event listener that runs when the user presses a key in the text box.
 
 ```JS
 Autocomplete.prototype.onTextBoxKeyUp = function(e) {
@@ -174,9 +173,12 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 };
 ```
 
-Note that we're filtering out <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd> and <kbd>Enter</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check for the keys we're interested in. But, this would mean specifying a huge range of keys which would increase the chance of one being missed—this would then break the experience.
+Notes:
 
-We only want to do handle the cases when the user presses <kbd>Down</kbd> or a character to match on (which are the last two cases in the above function). When the user presses a character, matching options are shown in the menu and the live region is updated.
+- We're filtering out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd> and <kbd>Enter</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check explicitly for the keys we're interested in. But, this would mean specifying a huge range of keys which would increase the chance of one being missed, breaking the experience in the process.
+- We want to handle two keys in particular: the <kbd>Down</kbd> key and any other character which are the last two cases in the switch statement above. 
+
+When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is invoked—comments are inline.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
@@ -201,58 +203,85 @@ Autocomplete.prototype.onTextBoxType = function(e) {
 };
 ```
 
-When the user presses <kbd>Down</kbd> there are two scenarios to handle:
-
-1. If the text box value is empty or exactly matches an option then all the available options are shown
-2. Otherwise, the matching options are shown (if any)
-
-In either case, the first option is focused and highlighted which we'll walk through next.
+When the user presses <kbd>Down</kbd> the `onTextBoxDownPressed()` function is invoked (shown below)—comments are inline.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
   var option;
   var options;
   var value = this.textBox.val().trim();
-  // Empty value or exactly matches an option 
-  // then show all the options
+  /*
+    When the value is empty or if it exactly
+    matches an option show the entire menu
+  */
   if(value.length === 0 || this.isExactMatch(value)) {
+
+    // get options based on the value
     options = this.getAllOptions();
+
+    // build the menu based on the options
     this.buildMenu(options);
+
+    // show the menu
     this.showMenu();
+
+    // retrieve the first option in the menu
     option = this.getFirstOption();
+
+    // highlight the first option
     this.highlightOption(option);
+
+  /*
+    When there's a value that doesn't have
+    an exact match show the matching options
+  */
   } else {
+
+    // get options based on the value
     options = this.getOptions(value);
+
+    // if there are options
     if(options.length > 0) {
+
+      // build the menu based on the options
       this.buildMenu(options);
+
+      // show the menu
       this.showMenu();
+
+      // retrieve the first option in the menu
       option = this.getFirstOption();
+
+      // highlight the first option
       this.highlightOption(option);
     }
   }
 };
 ```
 
-The `highlightOption()` method is shown below with comments inline.
+If there are options in the menu, the `highlightOption()` method (shown below) will be called—comments are inline.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
-  // remove currently selected option if there is one as 
-  // only one option should be selected and highlighted.
+  // if there's a currently selected option
   if(this.activeOptionId) {
+
+    // get the option
     var activeOption = this.getOptionById(this.activeOptionId);
+
+    // unselect the option
     activeOption.attr('aria-selected', 'false');
   }
 
   // set new option to selected
   option.attr('aria-selected', 'true');
 
-  // Ensure option is visible within the menu
+  // Ensure the option is visible within the menu
   if(!this.isElementVisible(option.parent(), option)) {
     option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
   }
 
-  // store new active option for next time
+  // store new option for next time
   this.activeOptionId = option[0].id;
 
   // focus the option
@@ -260,28 +289,27 @@ Autocomplete.prototype.highlightOption = function(option) {
 };
 ```
 
+Notes:
+
+- The suggestion menu has a max height set which means that some suggestions may appear off screen. By checking if the highlighted suggestion is out of the menus viewport, we can adjust its scroll position using jQuery's `.scrollTop()` method.
+- The option is focused so that screen readers will announce the content of the option which in this case will be the country name.
+
 #### Menu Interactions
 
-Now we need to talk about how users interact with the menu. Mouse (and touch) users can scroll the menu and click an option. First, we listen to the menu's click event using event delegation[^]. This way, instead of adding a listener onto each option, we just add one listener onto the container.
+Having moved from the text box to the menu, we need to disuss how users can interact with it. Without any intervention on our part, mouse and touch screen users can scroll the menu—that much is free. But, we're going to have to listen for the option's being clicked.
+
+Instead of attaching a click event to each of the options, we can use jQuery's event delegation[^] to add just one event listener onto the menu's container which is more performant.
 
 ```JS
 Autocomplete.prototype.addSuggestionEvents = function() {
   this.optionsUl.on('click', '[role=option]', $.proxy(this, 'onSuggestionClick'));
 };
-```
 
-The `onSuggestionClick` handler (shown below), retrieves the clicked suggestion and hands it off to the `selectSuggestion` method:
-
-```JS
 Autocomplete.prototype.onSuggestionClick = function(e) {
   var suggestion = $(e.currentTarget);
   this.selectSuggestion(suggestion);
 };
-```
 
-The `selectionSuggestion` method (shown below), takes the suggestion's value and uses it to populate the text box and select box (via the `setValue` method). Additionally, the menu is hidden and the text box is focused.
-
-```JS
 Autocomplete.prototype.selectSuggestion = function(suggestion) {
   var value = suggestion.attr('data-option-value');
   this.setValue(value);
@@ -290,7 +318,13 @@ Autocomplete.prototype.selectSuggestion = function(suggestion) {
 };
 ```
 
-We perform the exact same routine when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard. The other actions are summed up below.
+Notes:
+
+- Notice `e.currentTarget` in the event listener function. This is the option that the user clicked. Referencing `e.target` would give you the container which isn't helpful.
+- The option is then handed over to the `selectsuggestion()` method which is used to populate the text box and hidden select box value accordingly.
+- Finally, the menu is hidden and the text box is focused.
+
+The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard. The rest of the keyboard interactions are summed up below.
 
 | Key | Action |
 |:---|:---|

@@ -334,7 +334,7 @@ You may have also noticed the use of jQuery's `$.proxy` function. This function 
 
 #### Alternative Interface Options
 
-The password reveal interface we constructed before toggles the button's label between “Show password” and “Hide password”. Some screen reader users can get mildy confused when the button's label is changed. This is because once a user encounters a button, they expect that button to persist. Even though the button is persistent, changing the label makes it appear to disappear.
+The password reveal interface we constructed before toggles the button's label between “Show password” and “Hide password”. Some screen reader users can get mildy confused when the button's label is changed. This is because once a user encounters a button, they expect that button to persist. Even though the button *is* persistent, changing the label makes it appear not to be.
 
 If your research shows this to be a problem, you could try two alternative approaches:
 

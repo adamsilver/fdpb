@@ -67,7 +67,15 @@ Our custom autocomplete control is going to use HTML with ARIA attributes, CSS a
 3. be operable with the keyboard
 4. work with assistive devices
 
-To satisfy the first rule we need to choose a native form control to fall back to. There are too many options to use radio buttons, and a search box requires a round-trip to the server and may lead to zero results. That leaves us with a select box.
+#### The Basic Mark-up
+
+To satisfy the first rule we need to make sure the interface works in the absence of JavaScript. This means choosing a native form control that browsers provide for free. Having already discussed the native options earlier we know that in this case:
+
+- there are too many options for radio buttons
+- a search box requires an unnecessary round-trip to the server and can lead to zero results
+- the datalist is buggy
+
+This leaves us with a select box.
 
 ```HTML
 <div class="field">
@@ -76,72 +84,74 @@ To satisfy the first rule we need to choose a native form control to fall back t
   </label>
   <select name="destination" id="destination">
     <option value="">Select</option>
-    <option value="france">France</option>
-    <option value="germany">Germany</option>
-    <option value="spain">Spain</option>
+    <option value="1">France</option>
+    <option value="2">Germany</option>
+    <option value="3">Spain</option>
   </select>
 </div>
 ```
 
-We'll cover off the other rules as we go.
+#### The Enhanced Mark-up
 
-#### Hiding The Select Box
-
-As we're giving users a custom control, we need to hide the fallback select box control like this:
+When JavaScript is available, we're going to construct our own custom form control. The modified HTML will look like this:
 
 ```HTML
-<select aria-hidden="true" tabindex="-1" class="visually-hidden">
+<div class="field">
+  <label for="destination">
+    <span class="field-label">Destination</span>
+  </label>
+  <select name="destination" aria-hidden="true" tabindex="-1" class="visually-hidden">
+    <!-- options here -->
+  </select>
+  <div class="autocomplete">
+    <input aria-owns="autocomplete-options--destination" autocapitalize="none" type="text" autocomplete="off"  aria-autocomplete="list" role="combobox" id="destination" aria-expanded="false">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <!-- rest of SVG here -->
+    </svg>
+    <ul id="autocomplete-options--destination" role="listbox" class="hidden">
+      <li role="option" tabindex="-1" aria-selected="false" data-option-value="1" id="autocomplete_1">
+        France
+      </li>
+      <li role="option" tabindex="-1" aria-selected="true" data-option-value="2" id="autocomplete_2">
+        Germany
+      </li>
+      <!-- more options here -->
+    </ul>
+    <div aria-live="polite" role="status" class="visually-hidden">
+      13 results available.
+    </div>
+  </div>
+</div>
 ```
 
-If the select box was completely unnecessary, we could have just removed it from the Document using JavaScript. But if we did it that way (or by using `display: none`) its value wouldn't be sent to the server upon submission.
+**Select box and text box notes**
 
-Instead, we've used the `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “Checkout”. This hides the select box both visually and aurally (by screen readers). However, this alone isn't enough. We also need to stop keyboard users being able to tab to it which can be done by setting the `tabindex` attribute to -1.
-
-#### Enhancing The Interface
-
-Next, we need to inject the text box that users will interact with. To make sure the label still works, we transfer the select box's `id` to the text box.
-
-```HTML
-<input type="text" id="destination" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="true">
-```
-
-Notes:
-
-- The `name` attribute is omitted, because it's the `select`s value that's sent to the server.
-- The `role="combobox"` attribute ensures this from control is announced as a combo box instead of a text box. A combo box, according to MDN, is “an edit control with an associated list box that provides a set of predefined choices.”
+- Even though users will no longer interact with the select box, it's not completely removed from the Document. If we did remove the select box from the Document or hid it with `display: none;` then its value wouldn't be sent to the server for upon submission. This is important because the text users type differs from the select box option value that will be sent.
+- To hide the select box while still allowing for it to be submitted to the server involves using a number of HTML attributes in combination. The `visually-hidden` class and `aria-hidden="true"` attribute as first set out in chapter 2, “Checkout” hides the select box visually and aurally (by screen readers). And to stop users tabbing to the select box with their keyboard we set the `tabindex` attribute to -1.
+- The select box's `id` attribute is transferred to the text box because their should still be an associated label to the interactive text box that users will type into. The select box no longer needs an `id`—it's effectively a hidden input now.
+- Similarly, the `name` attribute isn't needed on the text box because it's used purely for interaction. Its value isn't sent to the server—the text box is merely a proxy for the select box.
+- The `role="combobox"` attribute ensures this from control is announced as a combo box instead of a text box. A combo box, according to MDN[^], is “an edit control with an associated list box that provides a set of predefined choices.”
 - The `aria-autocomplete="list"` attribute tells users that a list of options will appear.
 - The `aria-expanded` attribute tells users whether the menu is showing or not by toggling it's value between `true` and `false`.
 - The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with those offered by the component.
+- The `autocapitalize="none"` attribute stops some browsers from autocapitalising the first letter the user types in the text box. More on this is in the next chapter.
 
-Next, we inject a `<ul>` after the text box which will store the suggestions.
+**Suggestions list notes**
 
-```HTML
-<ul role="listbox">
-  <li role="option" tabindex="-1" aria-selected="false" data-option-value="1" id="autocomplete_1">
-    France
-  </li>
-  <li role="option" tabindex="-1" aria-selected="true" data-option-value="2" id="autocomplete_2">
-    Germany
-  </li>
-</ul>
-```
-
-Notes:
-
-- The `role="list"` attribute tells users there is a list of choices from which the user can select. Each `<li>` has `role="option"` to denote it as a choice within the list.
-- The `aria-selected="true"` attribute tells users whether the option is selected or not by toggling the value between `true` and `false`.
+- The `role="list"` denotes that this element contains one or more options each with `role="option"` attribute. The `<ul>` will be populated as the user types in the text box.
+- The `aria-selected="true"` attribute tells users which  option within the list is selected or not by toggling the value between `true` and `false`.
 - The `tabindex="-1"` attribute allows us to set focus to the options programatically. More on this shortly.
-- The `data-option-value` attribute stores the equivalent `select>` box option value so that when the user selects an option in the autocomplete, the hidden `<select>` box is updated with the corresponding value. This ensures the correct value is persisted when the form is submitted.
+- The `data-option-value` attribute stores the equivalent `select>` box option value so that when the user selects an option in the autocomplete, the hidden `<select>` box can be updated with the corresponding value that the server will be expecting to process when the form is submitted.
 
-Suggestions appear in the menu giving sighted users feedback. To give screen reader users an equivalent experience we need to use a live region as first set out in chapter 2, “Checkout”. By injecting “13 results are available”, we satisfy principle 1, *Provide a comparable experience*.
+**Live region notes**
 
-```HTML
-<div role="status" aria-live="polite" class="visually-hidden">13 results are available</div>
-```
+As the user types, suggestions will appear in the menu below which is adequate feedback for sighted users. However, the new options aren't determinable to screen reader users without leaving the text box and landing on the suggestions menu. 
+
+To provide a comparable experience (principle 1), we can use a live region (as first set out in chapter 2, “Checkout”). The only difference is that it's hidden with the `visually-hidden` class because it's redundant to sighted users.
 
 #### Text Box Interactions
 
-Next we need to enrich the text box with some Javascript events. Here's the event handler that runs when the user types:
+With the mark-up in place, we can use JavaScript to allow users to interact with the text box. Here's the event listener that runs when the user types in the text box.
 
 ```JS
 Autocomplete.prototype.onTextBoxKeyUp = function(e) {
@@ -290,6 +300,10 @@ We perform the exact same routine when the user presses <kbd>Space</kbd> or <kbd
 | <kbd>Escape</kbd> | The menu is hidden and focus is set to the text box. |
 | A character | Focus is set to the text box so users can continue typing. |
 
+#### How It Might Look In The End
+
+![Choosing where to fly](.)
+
 ## 2. Choosing When To Fly
 
 Dates are notoriously hard[^]: different time zones, formats, delimiters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
@@ -347,7 +361,7 @@ In this case, you should use three text boxes: one for day, month and year. Why 
 
 The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”) gives each text box context and would be read out as “Date of birth, day” (or similar) as the user steps through each field.
 
-*(Note: the pattern attribute is used to trigger the numeric keyboard - a little enhancement for iOS users. If you're wondering why the number input isn't used here, we discussed the issues in detail in “Checkout”.)*
+*(Note: the pattern attribute is used to trigger the numeric keyboard—a little enhancement for iOS users. If you're wondering why the number input isn't used here, we discussed the issues in detail in “Checkout”.)*
 
 #### Calendar Widgets
 
@@ -355,7 +369,7 @@ When choosing a date to fly, users are neither entering a memorable date, nor on
 
 We tend to think of time in structured chunks: days, weeks and months etc. And we organise our lives using a calendar which aligns with that notion. It's sensible then, to let users find and pick a date through a familiar and intuitive calendar interface.
 
-The primary user need at this stage of the journey is to select a date — nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
+The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
 
 It's also not practical from a design perspective. Responsive design is about designing interfaces that work well in large and small screens. There's simply not enough room to add more information into each cell of a date picker.
 
@@ -377,7 +391,7 @@ Don't be too concerned about the difference in appearance. Most users aren't awa
 
 If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^]. Nicholas Zakas shows the audience a photo. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. 
 
-Remember the audience was full of designers and developers — people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
+Remember the audience was full of designers and developers—people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
 
 And if that's not enough proof, visit “Do Websites Need To Look Exactly The Same In Every Browser”[^].
 
@@ -415,7 +429,7 @@ The enhanced interface takes the text box and injects a button beside it. Clicki
 
 Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't have these issues.
 
-There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets which are easy to tap (or click) with a finger (or mouse).
+There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets[^] which are easy to tap (or click) with a finger (or mouse).
 
 #### Revealing The Calendar
 
@@ -465,7 +479,7 @@ Here's the calendar's container:
 </div>
 ```
 
-When the toggle button is clicked, focus is set to the previous month button — the first focusable element within the container. The container has two attributes:
+When the toggle button is clicked, focus is set to the previous month button—the first focusable element within the container. The container has two attributes:
 
 1. `role="group"`
 2. `aria-label="date picker"`
@@ -543,7 +557,7 @@ The `thead` contains the column headings which represent each day of the week. T
 
 The days need to use the same technique: while sighted users can see the day in context of the month and year, in some screen readers, only the number is announced. For example, they'll hear “17” which is ambiguous because they would have had to of remembered the previously announced month and year as they switch months.
 
-By storing the full date inside the `aria-label` attribute, we can give screen reader users an agreeable experience — one that speaks to principle 1, *Provide a comparable experience*:
+By storing the full date inside the `aria-label` attribute, we can give screen reader users an agreeable experience—one that speaks to principle 1, *Provide a comparable experience*:
 
 ```HTML
 <td role="gridcell" tabindex="-1" aria-label="7 October, 2017">
@@ -723,7 +737,7 @@ As the fieldset's `legend` describes the group, the error message should be inje
 
 Notes:
 
-- The `aria-invalid="true"` is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid — it's the group.
+- The `aria-invalid="true"` is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid—it's the group.
 - The error span itself is exactly the same one used for single input fields. So errors look and behave consistently across all types of form fields.
 
 ![In-context Errors](./images/01/inline-error.png)
@@ -771,13 +785,15 @@ In practical terms, a radio button tells you that just one can be selected. Chec
 
 ### Oops, We Broke The Rules
 
-Traditional advice says you should only use radio buttons if there are less than 7 choices[^], otherwise use a select box. Rules are good: they allow us to think less and avoid the same mistakes others have made in the past. 
+Miller's law[^] would have you believe that we shouldn't present users with more than seven radio buttons at a time—if you have more than seven then use a select box. 
 
-But there are always exceptions to rules. I prefer guidance to rules. Unlike rules, guidance offers up everything it knows, and gives you the power to break the rules when appropriate.
+Laws are useful: they work as constraints that drive us to good, creative solutions; they allow us to think less, free up our time to solve other problems and avoid mistakes others have made in the past. But UX Myth 23[^]states that:
 
-A Boeing 747 commerical plane has over 400 seats so we've shattered the 7 choice rule. Call me a rebel, but I'm struggling to see a better way of presenting seats. Choosing a seat is quite a unique interaction and benefits from this layout.
+> Miller’s original theory argues that people can keep no more than 7 (plus or minus 2) items in their short-term memory. On a webpage, however, the information is visually present, people don’t have to memorize anything and therefore can easily manage broader choices.
 
-And using the One Thing Per Page pattern (explained in chapter 2) gives us maximal screen space to design something better. The screen, while long, is far less overwhelming as it'd dedicated to just one thing: choosing a seat.
+A Boeing 747 commerical plane has over 400 seats. Call me a rebel, but I'm struggling to see a better way of presenting less seats. Choosing a seat is quite a unique interaction and benefits from this layout.
+
+And using the One Thing Per Page pattern (explained in chapter 2) gives us maximal screen space to design something better. The screen, while long, is far less overwhelming as it's dedicated to just one thing: choosing a seat.
 
 ### Unavailable Seats
 
@@ -875,13 +891,7 @@ As much as we tried to use native form controls, in their standard format, it be
 [^progressive enhancement 2.0]: https://youtu.be/hdTxeR90_1E?t=29m27s
 [^look the same]: http://dowebsitesneedtolookexactlythesameineverybrowser.com/
 [^continuum]: https://adactio.com/journal/6692
+[^tap]: https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately
 [^best icon is text]: https://thomasbyttebier.be/blog/the-best-icon-is-a-text-label
 [^using fieldset and legend]: https://accessibility.blog.gov.uk/2016/07/22/using-the-fieldset-and-legend-elements/
 [^checkboxes are never round]: http://danieldelaney.net/checkboxes/?utm_source=designernews
-[^millers law]: https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two
-
-## Possible citations/additions
-
-[^]: https://www.gov.uk/service-manual/design/dates
-[^]: http://html5doctor.com/html5-forms-input-types/#input-number
-[^]: https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately

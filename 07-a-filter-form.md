@@ -6,8 +6,7 @@ On the web, filters, also referred to as facet navigation or guided navigation, 
 
 First of all, though, it must be said that if you don't need a filter, don't include one. They're only useful if searching returns a vast amount of results. In the case of Google where searching can yield thousands, if not, millions of results, most people aren't willing to click beyond the first or second page.
 
-Humans aren’t able to handle more than approximately seven things at once[^]. Being able to filter out irrelevant results is crucial. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches each users’ own mental model. In “Designing for Faceted Search”[^2], Stephanie Lemieux says:
-
+Letting users filter out irrelevant results is important. The ability to filter not only offers an additional dimension of control, but it does so in a way that matches each users’ own mental model. In “Designing for Faceted Search”[^faceted search], Stephanie Lemieux says:
 
 > Think of a cookbook: authors have to organize the recipes in one way only — by course or by main ingredient — and users have to work with whatever choice of organizing principle that has been made, regardless of how that fits their particular style of searching. An online recipe site using faceted search can allow users to decide how they’d like to navigate to a specific recipe [by course type, cuisine or cooking method, for example].
 
@@ -510,14 +509,14 @@ With that said, we’ve carefully made the effort to include a number of provisi
 
 ## Footnotes
 
-[^1]: https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two
-[^2]: https://articles.uie.com/faceted_search/
-[^3]: https://jakearchibald.com/2016/fun-hacks-faster-content/
+[^facted search]: https://articles.uie.com/faceted_search/
+[^filter types]: https://www.nngroup.com/articles/applying-filters/
+[^css bg]: ?
+[^gumtree]: ?
+[^sticky]: ?
+[^success criterion]: ?
 [^backbutton]: https://baymard.com/blog/macys-filtering-experience
-[^combo]: https://baymard.com/blog/how-to-design-applied-filters
+[^history api]: ?
 [^scroll]: https://baymard.com/blog/inline-scroll-areas
-[^tray]: https://www.nngroup.com/articles/mobile-faceted-search/
-
-## Todo?
-
-- The range input is a new, HTML5 input that allows users to select a value within a range by sliding the handle along an axis. It shouldn’t be used because X.
+[^progressive rendering]: https://jakearchibald.com/2016/fun-hacks-faster-content/
+[^tray design]: https://www.nngroup.com/articles/mobile-faceted-search/

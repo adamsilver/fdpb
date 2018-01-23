@@ -93,7 +93,21 @@ This leaves us with a select box.
 
 #### The Enhanced Mark-up
 
-When JavaScript is available, we're going to construct our own custom form control. The enhanced HTML will look like this:
+When JavaScript is available, the `Autocomplete` constructor will be used to construct our own custom form control. 
+
+```JS
+function Autocomplete(select) {
+  //...
+  this.createTextBox();
+  this.createArrowIcon();
+  this.createOptionsUl();
+  this.hideSelectBox();
+  this.createStatusBox();
+  //...
+}
+```
+
+The enhanced HTML will look like this:
 
 ```HTML
 <div class="field">
@@ -150,9 +164,15 @@ The `visually-hidden` class is necessary because the live region is only valuabl
 
 #### Text Box Interactions
 
-With the mark-up in place, we can use JavaScript to handle text box interactions. Here's the event listener that runs when the user presses a key in the text box.
+With the mark-up ready, we can use JavaScript to handle the interactions that take place when the text box is focused. Here's the event listener that runs when the user presses a key.
 
 ```JS
+Autocomplete.prototype.createTextBox = function() {
+  // ...
+  this.textBox.on('keyup', $.proxy(this, onTextBoxKeyUp'));
+  //...
+};
+
 Autocomplete.prototype.onTextBoxKeyUp = function(e) {
   switch (e.keyCode) {
     case this.keys.esc:
@@ -161,6 +181,8 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
     case this.keys.right:
     case this.keys.space:
     case this.keys.enter:
+    case this.keys.tab:
+    case this.keys.shift:
       // ignore these keys otherwise
       // the menu will show briefly
       break;
@@ -175,10 +197,11 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 
 Notes:
 
-- We're filtering out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd> and <kbd>Enter</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check explicitly for the keys we're interested in. But, this would mean specifying a huge range of keys which would increase the chance of one being missed, breaking the experience in the process.
+- The `this.keys` object is just a collection of key codes (numbers) that correspond to particular keys. This is to avoid magic numbers which makes the code clearer.
+- We're filtering out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check explicitly for the keys we're interested in. But, this would mean specifying a huge range of keys increasing the chance of one being missed which would break the interface.
 - We want to handle two keys in particular: the <kbd>Down</kbd> key and any other character which are the last two cases in the switch statement above. 
 
-When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is invoked—comments are inline.
+When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called. Comments are inline. The `getOptions()` method is responsible for filtering the options based on what the user typed. We'll discuss this function later.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
@@ -203,7 +226,7 @@ Autocomplete.prototype.onTextBoxType = function(e) {
 };
 ```
 
-When the user presses <kbd>Down</kbd> the `onTextBoxDownPressed()` function is invoked (shown below)—comments are inline.
+When the user presses <kbd>Down</kbd> the `onTextBoxDownPressed()` function is invoked (shown below). Comments are inline.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
@@ -259,7 +282,7 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 };
 ```
 
-If there are options in the menu, the `highlightOption()` method (shown below) will be called—comments are inline.
+If there are options in the menu, the `highlightOption()` method (shown below) will be called. Comments are inline.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
@@ -276,8 +299,10 @@ Autocomplete.prototype.highlightOption = function(option) {
   // set new option to selected
   option.attr('aria-selected', 'true');
 
-  // Ensure the option is visible within the menu
+  // If the option isn't visible within the menu
   if(!this.isElementVisible(option.parent(), option)) {
+  
+    // make it visible by setting its position inside the menu
     option.parent().scrollTop(option.parent().scrollTop() + option.position().top);
   }
 
@@ -291,27 +316,31 @@ Autocomplete.prototype.highlightOption = function(option) {
 
 Notes:
 
-- The suggestion menu has a max height set which means that some suggestions may appear off screen. By checking if the highlighted suggestion is out of the menus viewport, we can adjust its scroll position using jQuery's `.scrollTop()` method.
+- The function checks to see if the highlighted suggestion is visible or not because the menu has a `max-height: 12em;` set in CSS. If the suggestion isn't visible we adjust the menu's scroll position using jQuery's `.scrollTop()` method.
 - The option is focused so that screen readers will announce the content of the option which in this case will be the country name.
 
 #### Menu Interactions
 
-Having moved from the text box to the menu, we need to disuss how users can interact with it. Without any intervention on our part, mouse and touch screen users can scroll the menu—that much is free. But, we're going to have to listen for the option's being clicked.
+Having moved from the text box to the menu, we need to disuss how users can interact with it. Without any extra code, mouse and touch screen users can scroll the menu. But, we're going to have to handle the case when an option is clicked.
 
-Instead of attaching a click event to each of the options, we can use jQuery's event delegation[^] to add just one event listener onto the menu's container which is more performant.
+The most basic solution would be to add a click event onto each of the options within the menu but this is not the best approach for two reasons. First, there could be hundreds of options in the menu which could impact performance. Second, because the options are constantly changing as the user types, we'd need to keep adding and removing events which is computationally intensive.
+
+Instead, we can use event delegation, which jQuery's `on()` method supports. This allows us to add just a single event listener onto the menu's container.
 
 ```JS
-Autocomplete.prototype.addSuggestionEvents = function() {
-  this.optionsUl.on('click', '[role=option]', $.proxy(this, 'onSuggestionClick'));
+Autocomplete.prototype.createOptionsUl = function() {
+  //...
+  this.optionsUl.on('click', '[role=option]', $.proxy(this, 'onOptionClick'));
+  this.optionsUl.on('keydown', $.proxy(this, 'onOptionMenuKeyDown'));
 };
 
-Autocomplete.prototype.onSuggestionClick = function(e) {
-  var suggestion = $(e.currentTarget);
-  this.selectSuggestion(suggestion);
+Autocomplete.prototype.onOptionClick = function(e) {
+  var option = $(e.currentTarget);
+  this.selectOption(option);
 };
 
-Autocomplete.prototype.selectSuggestion = function(suggestion) {
-  var value = suggestion.attr('data-option-value');
+Autocomplete.prototype.selectOption = function(option) {
+  var value = option.attr('data-option-value');
   this.setValue(value);
   this.hideMenu();
   this.focusTextBox();
@@ -320,9 +349,8 @@ Autocomplete.prototype.selectSuggestion = function(suggestion) {
 
 Notes:
 
-- Notice `e.currentTarget` in the event listener function. This is the option that the user clicked. Referencing `e.target` would give you the container which isn't helpful.
-- The option is then handed over to the `selectsuggestion()` method which is used to populate the text box and hidden select box value accordingly.
-- Finally, the menu is hidden and the text box is focused.
+- Notice how we're retrieving the clicked option using `e.currentTarget`. Referencing `e.target` would have given us the delegate (menu container) which isn't helpful. When you're using event delegation, you'll mostly be referencing the current target.
+- The option is handed over to the `selectOption()` method which calls `setValue()` to populate the text box and hidden select box accordingly. After that, the menu is hidden and the text box is focused.
 
 The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard. The rest of the keyboard interactions are summed up below.
 
@@ -333,6 +361,12 @@ The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Ente
 | <kbd>Tab</kbd> | The menu is hidden. |
 | <kbd>Escape</kbd> | The menu is hidden and focus is set to the text box. |
 | A character | Focus is set to the text box so users can continue typing. |
+
+#### The Filter Function
+
+Having looked at the main interaction flows and routines that run off the back of them, we can move our attention to the way the filter works. This is important because a good filter will forgive small typos while also letting users type alternative names for the same destination.
+
+...
 
 #### How It Might Look In The End
 

@@ -364,9 +364,42 @@ The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Ente
 
 #### The Filter Function
 
-Having looked at the main interaction flows and routines that run off the back of them, we can move our attention to the way the filter works. This is important because a good filter will forgive small typos while also letting users type alternative names for the same destination.
+Having looked at the main interaction flows and routines that run off the back of them, we can move our attention to the filtering mechanism. This is important because a good filter should be designed to forgive small typos. It's worth noting that the data being filtered is actually stored in the select box as `<option>`s.
 
-...
+```HTML
+<select>
+  <option value="1">United Kingdom</option>
+  <option value="2">United States</option>
+</select>
+```
+
+The filter function works by taking what the users types in the text box and seeing if it matches any of the options in the select box. Then uses the matched options to construct a custom menu as explained earlier.
+
+```JS
+Basic filter here
+```
+
+Notes:
+
+-
+- 
+- 
+
+While this is a good start, in the case of destinations, people from different countries reference the same country using alternative names. For example, I live in England, but that can also mean Great Britain or the United Kingdom. 
+
+We can enhance the filter to allow for alternative names by first putting the alternative names inside data attributes on each of the select box options.
+
+```HTML
+<select>
+  <option value="1" data-alt="GB Great Britain England UK Wales Scotland Northern Ireland">United Kingdom</option>
+</select>
+```
+
+With the alternative names in place, we can interrogate the data attribute value as well.
+
+```JS
+JS
+```
 
 #### How It Might Look In The End
 

@@ -401,15 +401,17 @@ Autocomplete.prototype.getOptions = function(value) {
 };
 ```
 
-While this is a good start, in the case of destinations, people may refer to the same country by a different name. For example, England is sometimes referred to as Great Britain or the United Kingdom. We can enhance the component with this functionality in just a couple of steps.
+While this is a good start, in the case of destinations, people may refer to the same country by a different name. For example, England is sometimes referred to as Great Britain or the United Kingdom. We can let users type the name they normally would be tweaking the current solution.
 
-First, we need to put the alternative value inside a data attribute on each of the options. Second, we can add a condition to the filter function that checks to see if what the user types matches the alternative value held in those data attributes.
+First, we need to put the alternative value inside a data attribute on each of the options. 
 
 ```HTML
 <select>
   <option value="1" data-alt="GB Great Britain England UK Wales Scotland Northern Ireland">United Kingdom</option>
 </select>
 ```
+
+Second, we can need to add an extra condition to see if what the user types matches the alternative value stored in the data attribute.
 
 ```JS
 Autocomplete.prototype.getOptions = function(value) {
@@ -435,8 +437,6 @@ Autocomplete.prototype.getOptions = function(value) {
 };
 ```
 
-Now typing any of the values within the `data-alt` attribute will match and be returned to the user making selection easier.
-
 #### How It Might Look In The End
 
 ![Choosing where to fly](.)
@@ -449,7 +449,7 @@ Often three select boxes are used: one for day, month and year. Admittedly, we'v
 
 ![Select box date](./images/03/dob-select.png)
 
-Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine the user's intention based on what they enter. It's just one of those things.
+Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine users' intention based on what they enter. It's just one of those things.
 
 ![What date?](./images/03/what-date.png)
 
@@ -459,19 +459,21 @@ Many of us assume that using a calendar widget is always better than letting use
 
 > “The way you should ask for dates depends on the types of date you’re asking for.”
 
-Let's step through some of the main types of dates and see how we can handle them. Then we can see if any match up to the case of choosing a date to fly on.
+Let's step through some of the main types of dates to see what interface is best for users. Then we can see if any of those are suited to the contex of our problem: choosing a date to fly on.
 
 #### Dates From Documents
 
-> “If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.*
+Here's what GDS says about asking for dates that are found on documents and other physical items users may need to reference:
 
-The expiry date from “Checkout” falls perfectly under this category. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
+> “If you ask for a date exactly as it’s shown on a passport, credit card or similar item, make the fields match the format of the original. This will make it easier for users to copy it across accurately.
+
+The expiry date from chapter 2, “Checkout” falls under this category. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
 
 #### Memorable Dates
 
-A memorable date is one that you remember easily such as your date of birth. Typing 6 digits unassisted into a text box is much quicker than scrolling, swiping and clicking through multiple years and months within a calendar.
+A memorable date is one that you remember easily such as your date of birth. Typing 6 digits unassisted into a text box is much quicker than scrolling, swiping and clicking through multiple years, months and days within a calendar.
 
-In this case, you should use three text boxes: one for day, month and year. Why three? Because it solves the locale and formating issues mentioned earlier.
+Memorable dates are best represented by three text boxes: one for day, month and year. Why three? Because it solves the locale and formating issues mentioned earlier.
 
 ![memorable date](./images/03/memorable-date.png)
 
@@ -496,9 +498,9 @@ In this case, you should use three text boxes: one for day, month and year. Why 
 </fieldset>
 ```
 
-The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”) gives each text box context and would be read out as “Date of birth, day” (or similar) as the user steps through each field.
+The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”) gives each text box context and would be read out as “Date of birth, day” (or similar) in screen readers.
 
-*(Note: the pattern attribute is used to trigger the numeric keyboard—a little enhancement for iOS users. If you're wondering why the number input isn't used here, we discussed the issues in detail in “Checkout”.)*
+*(Note: the pattern attribute is used to trigger the numeric keyboard—a little enhancement for iOS users. If you're wondering about why we haven't used the number input, you can refer back to the number input in chapter 2, “Checkout.”)*
 
 #### Calendar Widgets
 
@@ -522,11 +524,11 @@ Desktop browser support is patchy. Chrome and Edge have support but Firefox, for
 
 #### Things Look Different
 
-Don't be too concerned about the difference in appearance. Most users aren't aware and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during testing.
+Don't be concerned about the difference in appearance. Most users aren't aware and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during testing.
 
-> Nobody cares about your website as much as you do
+> Nobody cares about your website as much as you do[^]
 
-If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^]. Nicholas Zakas shows the audience a photo. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. 
+If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^]. Nicholas Zakas shows the audience a slide with a photo on it. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. 
 
 Remember the audience was full of designers and developers—people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
 
@@ -534,9 +536,9 @@ And if that's not enough proof, visit “Do Websites Need To Look Exactly The Sa
 
 ### A Date Picker
 
-Mobile (and some desktop) users are fine - they get the native date input. But what about people using an unsupported browser? Unless we do something, picking a date is going to be harder than it ought to be. Really, we should give users a better experience by providing our own date picker.
+As noted above, mobile and some desktop browsers have support for the native date input. But what about people who use an unsupported browser? For them, picking a date is going to be harder than it ought to be. Really, we should give users a better experience by providing our own custom date picker.
 
-But we only want to give unsupported browsers the date picker, otherwise users will get two date pickers - the native one and ours. You can check for support like this:
+We only want to give unsupported browsers a custom date picker, otherwise users will get two date pickers—the native one and our own. You can feature detect the date input capability like this:
 
 ```JS
 function supportsDateInput() {
@@ -548,13 +550,13 @@ function supportsDateInput() {
 }
 ```
 
-The function first tries to create a date input. Then it checks to see if the browser reports the `type` as `date`. If there is no support, browsers will show a text box and report the `type` as `text`.
-
-We can use the function like this:
+The function creates a date input and then determines support by checking if browser reports the `type` as `date`. In browsers that don't support the date input, this will return `text`. We can use the function like this:
 
 ```JS
 if(!supportsDateInput()) {
-  // define date picker component
+  function DatePicker() {
+    // ...
+  }
 }
 ```
 

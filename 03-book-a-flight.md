@@ -368,26 +368,42 @@ Having looked at the main interaction flows and routines that run off the back o
 
 ```HTML
 <select>
-  <option value="1">United Kingdom</option>
-  <option value="2">United States</option>
+  <option value="1">Argentina</option>
+  <option value="2">North America</option>
+  <option value="3">United Kingdom</option>
+  ...
 </select>
 ```
 
-The filter function works by taking what the users types in the text box and seeing if it matches any of the options in the select box. Then uses the matched options to construct a custom menu as explained earlier.
+The filter function takes the user-entered `value` as a parameter. Then it loops through each of the `<option>`s to compare the values. If there's a match, then we add that item as an object to the `filtered` array which is returned at the end of the function. Comments are inline.
 
 ```JS
-Basic filter here
+Autocomplete.prototype.getOptions = function(value) {
+  // stored the matching options
+  var filtered = [];
+
+  // Loop through each of the option elements
+  this.select.find('option').each(function(i, el) {
+
+    // if the option has a value and the option's text node matches the user-typed value
+    if($(el).val().trim().length > 0 && $(el).text().toLowerCase().indexOf(value.toLowerCase()) > -1) {
+
+      // push an object representation to the filtered array
+      filtered.push({ 
+        text: $(el).text(), 
+        value: $(el).val() 
+      });
+    }
+  });
+
+  // return the filtered option for use in other methods
+  return filtered;
+};
 ```
 
-Notes:
+While this is a good start, in the case of destinations, people may refer to the same country by a different name. For example, England is sometimes referred to as Great Britain or the United Kingdom. We can enhance the component with this functionality in just a couple of steps.
 
--
-- 
-- 
-
-While this is a good start, in the case of destinations, people from different countries reference the same country using alternative names. For example, I live in England, but that can also mean Great Britain or the United Kingdom. 
-
-We can enhance the filter to allow for alternative names by first putting the alternative names inside data attributes on each of the select box options.
+First, we need to put the alternative value inside a data attribute on each of the options. Second, we can add a condition to the filter function that checks to see if what the user types matches the alternative value held in those data attributes.
 
 ```HTML
 <select>
@@ -395,11 +411,31 @@ We can enhance the filter to allow for alternative names by first putting the al
 </select>
 ```
 
-With the alternative names in place, we can interrogate the data attribute value as well.
-
 ```JS
-JS
+Autocomplete.prototype.getOptions = function(value) {
+  // stored the matching options
+  var filtered = [];
+
+  // Loop through each of the option elements
+  this.select.find('option').each(function(i, el) {
+
+    // if the option has a value and the option's text node matches the user-typed value or the option's data-alt attribute matches the user-typed value
+    if($(el).val().trim().length > 0 && $(el).text().toLowerCase().indexOf(value.toLowerCase()) > -1 || $(el).attr('data-alt') && $(el).attr('data-alt').toLowerCase().indexOf(value.toLowerCase()) > -1) {
+
+      // push an object representation to the filtered array
+      filtered.push({ 
+        text: $(el).text(), 
+        value: $(el).val() 
+      });
+    }
+  });
+
+  // return the filtered option for use in other methods
+  return filtered;
+};
 ```
+
+Now typing any of the values within the `data-alt` attribute will match and be returned to the user making selection easier.
 
 #### How It Might Look In The End
 

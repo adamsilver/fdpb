@@ -59,15 +59,19 @@ Just like the car salesperson, we'll ask for the right information at the right 
 7. Check your answers
 8. Confirmation
 
-## A Note On Guest Checkout
+## Guest Checkout
 
-This flow is designed primarily for anonymous users. Not letting users check out as a guest is one of the worst things we can do as Jared spool attests to beautifully in “The 300 Million Dollar Button”[^4]. 
+Principle 2, *Consider situation* says:
+
+> People use your interface in different situations. Make sure your interface delivers a valuable experience to people regardless of their circumstances.
+
+We'll first design the checkout journey for anonymous users. Not letting users check out as a guest is just about the worst thing we can do as Jared Spool attests to beautifully in “The 300 Million Dollar Button”[^4]. 
 
 The article tells a story of one company losing 300 million dollars because they thought forcing users to register first would help speed up subsequent purchases. While this is true, it also assumes users want to sign up in the first place.
 
-Considering what we learned with regards to flow and order and applying the question protocol, the story is hardly surprising. What value does a first-time user get in return for the added effort of signing up? Nothing. And that's all you really need to know.
+Bearing in mind what we've learned about Flow and Order, and the Question Protocol, that story is hardly a surprise. What value does a first-time user get in return for the added effort of signing up? Nothing. And that's all you really need to know.
 
-There are more appropriate times to ask users to sign up as we'll see later on in the chapter.
+We'll look at a more appropriate time to ask users to sign up as well as looking at how to optimise the journey for  second-time users later on in the chapter.
 
 ## 1. Email Address
 

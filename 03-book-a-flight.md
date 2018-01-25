@@ -169,8 +169,8 @@ With the mark-up ready, we can use JavaScript to handle the interactions that ta
 ```JS
 Autocomplete.prototype.createTextBox = function() {
   // ...
-  this.textBox.on('keyup', $.proxy(this, onTextBoxKeyUp'));
-  //...
+  this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'));
+  // ...
 };
 
 Autocomplete.prototype.onTextBoxKeyUp = function(e) {
@@ -201,7 +201,7 @@ Notes:
 - We're filtering out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check explicitly for the keys we're interested in. But, this would mean specifying a huge range of keys increasing the chance of one being missed which would break the interface.
 - We want to handle two keys in particular: the <kbd>Down</kbd> key and any other character which are the last two cases in the switch statement above. 
 
-When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called. Comments are inline. The `getOptions()` method is responsible for filtering the options based on what the user typed. We'll discuss this function later.
+When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called. The `getOptions()` method filters the options based on what the user typed—we'll discuss this separately later.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
@@ -226,7 +226,7 @@ Autocomplete.prototype.onTextBoxType = function(e) {
 };
 ```
 
-When the user presses <kbd>Down</kbd> the `onTextBoxDownPressed()` function is invoked (shown below). Comments are inline.
+When the user presses <kbd>Down</kbd> the `onTextBoxDownPressed()` function is invoked.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
@@ -321,17 +321,29 @@ Notes:
 
 #### Menu Interactions
 
-Having moved from the text box to the menu, we need to disuss how users can interact with it. Without any extra code, mouse and touch screen users can scroll the menu. But, we're going to have to handle the case when an option is clicked.
+As noted above the menu has a `max-height: 12em` set, which keeps the entire menu in view no matter the screen size. Mouse and touch-screen users are able to scroll the menu by default.
 
-The most basic solution would be to add a click event onto each of the options within the menu but this is not the best approach for two reasons. First, there could be hundreds of options in the menu which could impact performance. Second, because the options are constantly changing as the user types, we'd need to keep adding and removing events which is computationally intensive.
+```CSS
+.autocomplete [role=listbox] {
+  max-height: 12em;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+```
 
-Instead, we can use event delegation, which jQuery's `on()` method supports. This allows us to add just a single event listener onto the menu's container.
+The `max-height` rule means the menu will grow to maximum height of 12em. If the contents of the menu surpasses the height, then users will be able to scroll the contents thanks to the `overflow-y: scroll` rule. The last rule (`-webkit-overflow-scrolling: touch`) is non-standard but will enable momemntum scrolling on iOS matching the way scrolling works for them across the board.
+
+Next, we need to handle the case when an option is clicked. The most basic solution would be to add a click event onto each of the options within the menu but this is not the best approach for two reasons. 
+
+First, there could be hundreds of options in the menu which could impact performance. Second, because the options are constantly changing as the user types, we'd need to keep adding and removing events which is computationally intensive and bothersome.
+
+Instead we can use event delegation[^]. This works by adding just a single event listener onto the menu's container which is possible because of event bubbling. That is, when the user clicks an option withint he menu, it will bubble up to the container. We can use jQuery's `on()` method which supports this feature. 
 
 ```JS
 Autocomplete.prototype.createOptionsUl = function() {
   //...
   this.optionsUl.on('click', '[role=option]', $.proxy(this, 'onOptionClick'));
-  this.optionsUl.on('keydown', $.proxy(this, 'onOptionMenuKeyDown'));
+  //...
 };
 
 Autocomplete.prototype.onOptionClick = function(e) {
@@ -436,6 +448,8 @@ Autocomplete.prototype.getOptions = function(value) {
   return filtered;
 };
 ```
+
+#### Handling iOS 10
 
 #### How It Might Look In The End
 
@@ -879,7 +893,7 @@ Notes:
 - The `aria-invalid="true"` is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid—it's the group.
 - The error span itself is exactly the same one used for single input fields. So errors look and behave consistently across all types of form fields.
 
-![In-context Errors](./images/01/inline-error.png)
+![In-context Errors](./images/03/inline-error.png)
 
 ## 5. Choosing A Seat
 

@@ -46,19 +46,19 @@ Using a search box is useful when searching a large amount of dynamic data, such
 
 Users need a control that lets them filter a long list of destinations. A control that marrys the flexibility of a text box with the assurance of a select box. This type of control goes by many different names including *type ahead*, *predictive search* and *combo box*, but we'll refer to it as an *autocomplete* control.
 
-Autocomplete controls work by suggesting options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field. This saves users having to scroll (unless, they want to) while also being able to forgive small typos.
+Autocomplete controls work by filtering options (destinations in this case) as the user types. As suggestions appear, users can select one quickly, automatically completing the field. This saves users having to scroll (unless, they want to) while also being able to forgive small typos.
 
-HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create a native autocomplete control. Unfortunately, it's buggy[^], but if your project is locked down to a few browsers that don't happen to have these bugs, then it might be a viable option for you.
+HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create a native autocomplete control which is unfortunately too buggy[^] for use on the open web. However, if your project is locked down to a few known browsers that don't have these bugs, then a native solution may work for you.
 
 ![Datalist](./images/03/datalist.png)
 
-We want to design an inclusive experience—one that works for as many people as possible, no matter their choice of  browser or mobile device. By creating a custom component, there's an opportunity to create an even more powerful control that allows for common typos and endonyms.
+### An Autocomplete Control
+
+We want to design an inclusive experience—one that works for as many people as possible, no matter their choice of  browser or mobile device. By creating a custom autocomplete component, there's an opportunity to create an even more powerful feature set that allows for common typos and endonyms.
 
 A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is hard work, but that's what our job is all about.
 
 > Do the hardwork to make it simple—GDS Design Principle 4
-
-### An Autocomplete Control
 
 Our custom autocomplete control is going to use HTML with ARIA attributes, CSS and JavaScript. Accessibility expert Steve Faulkner has what he calls a *punch list*[^] which is a list of rules to make sure that any custom JavaScript component is designed and built to a good standard. The rules state that a component should:
 
@@ -97,9 +97,7 @@ When JavaScript is available, the `Autocomplete` constructor will be used to con
 
 ```JS
 function Autocomplete(select) {
-  /*
-  Update interface with enhanced HTML
-  */
+  // ...
 }
 ```
 
@@ -158,9 +156,9 @@ As the user types, suggestions will appear in the menu below. While this is suff
 To provide a comparable experience (principle 1), we can use a live region as laid out in chapter 2, “Checkout”. It will be populated with “13 results available” which lets users decide to keep typing (to narrow the results further) or to move to the menu to select a suggestion. 
 The `visually-hidden` class is necessary because the live region is only valuable to screen reader users in this case.
 
-#### Typing In The Text Box
+#### Typing Into The Text Box
 
-With the mark-up ready, we can use JavaScript to handle the interactions that take place when the text box is focused. Here's the event listener that runs when the user presses a key.
+Users are able to type into a text box using their keyboard. We can use JavaScript to listen to the `keyup` event and handle various key presses.
 
 ```JS
 Autocomplete.prototype.createTextBox = function() {
@@ -197,7 +195,7 @@ Notes:
 - We're filtering out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check explicitly for the keys we're interested in. But, this would mean specifying a huge range of keys increasing the chance of one being missed which would break the interface.
 - We want to handle two keys in particular: the <kbd>Down</kbd> key and any other character which are the last two cases in the switch statement above. 
 
-When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called. The `getOptions()` method filters the available options based on what the user typed. We'll look at the filtering mechanism in more detail later on.
+When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
@@ -221,6 +219,35 @@ Autocomplete.prototype.onTextBoxType = function(e) {
   this.updateSelectBox();
 };
 ```
+
+The `getOptions()` method filters the available options based on what the user typed. We'll look at the filtering mechanism later.
+
+#### Controls Should Have A Single Tab Stop
+
+The autocomplete control is what's known as a composite. That just means it's made up of several different interactive parts—in this case, the text box and menu. What's important is that our autocomplete control should have a single tab stop. Here's what the WAI-ARIA Authoring Practices 1.1 specification has to say on the subject:
+
+> A primary keyboard navigation convention common across all platforms is that the tab and shift+tab keys move focus from one UI component to another while other keys, primarily the arrow keys, move focus inside of components that include multiple focusable elements. The path that the focus follows when pressing the tab key is known as the tab sequence or tab ring.
+
+The text box is naturally focusable by the Tab key and once focused, the user can press various other keys to traverse (and activate options from) the menu. If the user presses Tab when the autocomplete is focused, the menu should be hidden (if open) and focus should be moved to the next focusable control—whatever that is.
+
+There are two approaches in order to achieve this. The first is to use the `aria-activedescendant` attribute. The way the attribute works is to always keep focus on the component's container, but tell the container which element within is active. This doesn't work for the autocomplete control because the text box is a sibling of the menu.
+
+The second approach is to use roving tabindex. When using roving tabindex to manage focus in a composite UI component, the element that's to be included in the tab sequence has tabindex of "0" and all other focusable elements contained in the composite have tabindex of "-1".
+
+We're going to be using the roving tabindex, but not exactly as described above. The text box is naturally focusable, so rather than mess with it's tabindex, we can simply listen for when the user presses the Tab key and determine what to do. In this case, we want to hide the menu and move focus to whatever the next focusable element is which browsers will do for free.
+
+#### Moving To The Menu
+
+#### Operating The Menu
+
+
+| Key | Action |
+|:---|:---|
+| <kbd>Up</kbd> | The previous option is focused. If it's the first option, focus is set to the text box. |
+| <kbd>Down</kbd> | The next option is focused. |
+| <kbd>Tab</kbd> | The menu is hidden. |
+| <kbd>Escape</kbd> | The menu is hidden and focus is set to the text box. |
+| A character | Focus is set to the text box so users can continue typing. |
 
 #### Moving From The Text Box To The Menu
 
@@ -365,28 +392,6 @@ Notes:
 - The option is handed over to the `selectOption()` method which calls `setValue()` to populate the text box and hidden select box accordingly. After that, the menu is hidden and the text box is focused.
 
 The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard.
-
-#### Controls Should Have A Single Tab Stop
-
-The autocomplete control is what's known as a composite. That just means it's made up of several different interactive parts. In this case, the autocomplete is made up of the text box and menu. What's important is that each UI control (or component) should have a single tab stop. Here's what the WAI-ARIA Authoring Practices 1.1 specification has to say:
-
-> A primary keyboard navigation convention common across all platforms is that the tab and shift+tab keys move focus from one UI component to another while other keys, primarily the arrow keys, move focus inside of components that include multiple focusable elements. The path that the focus follows when pressing the tab key is known as the tab sequence or tab ring.
-
-The text box is naturally focusable by the Tab key and once focused, the user can press various other keys to traverse the menu and select a suggestion with the keyboard. If the user presses the Tab when the autocomplete is focused, then the menu should be hidden (if open) and focus should be moved to the next focusable control—whatever that is.
-
-There are two approaches.
-
-https://www.w3.org/TR/wai-aria-practices/#kbd_focus_vs_selection
-
-The rest of the keyboard interactions are summed up below.
-
-| Key | Action |
-|:---|:---|
-| <kbd>Up</kbd> | The previous option is focused. If it's the first option, focus is set to the text box. |
-| <kbd>Down</kbd> | The next option is focused. |
-| <kbd>Tab</kbd> | The menu is hidden. |
-| <kbd>Escape</kbd> | The menu is hidden and focus is set to the text box. |
-| A character | Focus is set to the text box so users can continue typing. |
 
 #### The iOS 10 Problem
 

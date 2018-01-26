@@ -52,7 +52,7 @@ HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create 
 
 ![Datalist](./images/03/datalist.png)
 
-We want to design an inclusive experience—one that works for as many people as possible, no matter their choice of  browser or mobile device. By creating a custom component, there's to create an even more powerful control that allows for common typos and endonyms.
+We want to design an inclusive experience—one that works for as many people as possible, no matter their choice of  browser or mobile device. By creating a custom component, there's an opportunity to create an even more powerful control that allows for common typos and endonyms.
 
 A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is hard work, but that's what our job is all about.
 
@@ -69,13 +69,13 @@ Our custom autocomplete control is going to use HTML with ARIA attributes, CSS a
 
 #### The Basic Mark-up
 
-To satisfy the first rule we need to make sure the interface works in the absence of JavaScript. This means choosing a native form control that browsers provide for free. Having already discussed these above we know:
+To satisfy the first rule we need to make sure the interface works in the absence of JavaScript. This means starting with a native form control that browsers provide for free. Having already discussed the options above we know that:
 
 - there are too many options for radio buttons
 - a search box requires an unnecessary round-trip to the server and can lead to zero results
 - the datalist is buggy
 
-This leaves us with a select box.
+Which leaves us with a select box.
 
 ```HTML
 <div class="field">
@@ -93,17 +93,17 @@ This leaves us with a select box.
 
 #### The Enhanced Mark-up
 
-When JavaScript is available, the `Autocomplete` constructor will be used to construct our own custom form control. 
+When JavaScript is available, the `Autocomplete` constructor will be used to construct our own custom form control.
 
 ```JS
 function Autocomplete(select) {
-  //...
-  this.createTextBox();
-  this.createArrowIcon();
-  this.createOptionsUl();
-  this.hideSelectBox();
-  this.createStatusBox();
-  //...
+  /*
+  - Hide select box
+  - Create text box
+  - Create SVG arrow icon
+  - Create suggestions menu
+  - Create status box
+  */
 }
 ```
 
@@ -150,16 +150,16 @@ The enhanced HTML will look like this:
 - The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with those offered by our component.
 - The `autocapitalize="none"` attribute stops some browsers from autocapitalising the first letter. More on this is in the next chapter.
 
-**Suggestions list notes**
+**Menu notes**
 
-- The `role="list"` denotes that this element contains one or more options each with a `role="option"` attribute. The `<ul>` will be populated as the user types in the text box.
+- The `role="list"` attribute denotes that this element contains one or more options each with a `role="option"` attribute. The `<ul>` will be populated with suggestions as the user types in the text box.
 - The `aria-selected="true"` attribute tells users which  option within the list is selected or not by toggling the value between `true` and `false`.
-- The `tabindex="-1"` attribute allows us to set focus to the options programatically in response to certain key presses. More on this shortly.
-- The `data-option-value` attribute stores the equivalent select box option value. When the user selects an option in the autocomplete, the select box value is updated to the value of the `data-option-value` attribute. Ultimately, this is the value that is sent to the server once submitted.
+- The `tabindex="-1"` attribute allows us to set focus to the options programatically in response to certain key presses. More on this later.
+- The `data-option-value` attribute stores the equivalent select box option value. When the user selects an option in the autocomplete, the select box value is updated to the value of the `data-option-value` attribute. This is what ties the enhanced interface with the select box, which is ultimately sent to the server once the form is submitted.
 
-As the user types, suggestions will appear in the menu below which is adequate feedback for sighted users. However, the suggestions aren't determinable to screen reader users without leaving the text box to explore the items in the menu that follows.
+As the user types, suggestions will appear in the menu below. While this is sufficient feedback for sighted users, they aren't determinable by screen reader users without leaving the text box to explorer the items in the menu.
 
-To provide a comparable experience (principle 1), we can use a live region as laid out in chapter 2, “Checkout”. It will be populated with “13 results available” which is enough information to decide whether they want to keep typing (to narrow the results) or move to the suggestions. 
+To provide a comparable experience (principle 1), we can use a live region as laid out in chapter 2, “Checkout”. It will be populated with “13 results available” which lets users decide to keep typing (to narrow the results further) or to move to the menu to select a suggestion. 
 The `visually-hidden` class is necessary because the live region is only valuable to screen reader users in this case.
 
 #### Text Box Interactions
@@ -197,11 +197,11 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 
 Notes:
 
-- The `this.keys` object is just a collection of key codes (numbers) that correspond to particular keys. This is to avoid magic numbers which makes the code clearer.
+- The `this.keys` object is just a collection of key codes (numbers) that correspond to particular keys by their name. This is to avoid magic numbers[^] which makes our code easy to understand.
 - We're filtering out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check explicitly for the keys we're interested in. But, this would mean specifying a huge range of keys increasing the chance of one being missed which would break the interface.
 - We want to handle two keys in particular: the <kbd>Down</kbd> key and any other character which are the last two cases in the switch statement above. 
 
-When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called. The `getOptions()` method filters the options based on what the user typed—we'll discuss this separately later.
+When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called. The `getOptions()` method filters the options based on what the user typed. We'll look at the filtering mechanism in more detail later on.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
@@ -226,7 +226,7 @@ Autocomplete.prototype.onTextBoxType = function(e) {
 };
 ```
 
-When the user presses <kbd>Down</kbd> the `onTextBoxDownPressed()` function is invoked.
+When the user presses <kbd>Down</kbd>, the `onTextBoxDownPressed()` function is invoked.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
@@ -282,7 +282,7 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 };
 ```
 
-If there are options in the menu, the `highlightOption()` method (shown below) will be called. Comments are inline.
+If there are suggestions, the `highlightOption()` method (shown below) will be called.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
@@ -316,8 +316,8 @@ Autocomplete.prototype.highlightOption = function(option) {
 
 Notes:
 
-- The function checks to see if the highlighted suggestion is visible or not because the menu has a `max-height: 12em;` set in CSS. If the suggestion isn't visible we adjust the menu's scroll position using jQuery's `.scrollTop()` method.
-- The option is focused so that screen readers will announce the content of the option which in this case will be the country name.
+- The `highlightOption()` function checks to see if the to-be-highlighted option is visible within the menu. This is because menu container has a `max-height: 12em;` set in CSS. If the option isn't visible its scroll position is adjusted using jQuery's `.scrollTop()` method.
+- The option is then focused so that screen readers will announce the content (the name of the country) of the option.
 
 #### Menu Interactions
 
@@ -331,13 +331,13 @@ As noted above the menu has a `max-height: 12em` set, which keeps the entire men
 }
 ```
 
-The `max-height` rule means the menu will grow to maximum height of 12em. If the contents of the menu surpasses the height, then users will be able to scroll the contents thanks to the `overflow-y: scroll` rule. The last rule (`-webkit-overflow-scrolling: touch`) is non-standard but will enable momemntum scrolling on iOS matching the way scrolling works for them across the board.
+The `max-height` rule means the menu will grow to maximum height of 12em. If the contents of the menu surpasses the height, users will be able to scroll the menu's contents thanks to the `overflow-y: scroll` rule. The last rule (`-webkit-overflow-scrolling: touch`) is non-standard but will enable momentum scrolling on iOS which users of that device would expect.
 
 Next, we need to handle the case when an option is clicked. The most basic solution would be to add a click event onto each of the options within the menu but this is not the best approach for two reasons. 
 
-First, there could be hundreds of options in the menu which could impact performance. Second, because the options are constantly changing as the user types, we'd need to keep adding and removing events which is computationally intensive and bothersome.
+First, there might be hundreds of options in the menu which can impact performance. Second, because the options are constantly changing as the user types, we'd need to keep adding and removing events which is computationally intensive and bothersome to manage programatically.
 
-Instead we can use event delegation[^]. This works by adding just a single event listener onto the menu's container which is possible because of event bubbling. That is, when the user clicks an option withint he menu, it will bubble up to the container. We can use jQuery's `on()` method which supports this feature. 
+Instead we can use event delegation[^]. This works by adding just a single event listener onto the menu's container which is possible because of event bubbling. When the user clicks an option within the menu, it will bubble up to the container. We can use jQuery's `on()` method which supports this feature.
 
 ```JS
 Autocomplete.prototype.createOptionsUl = function() {
@@ -376,14 +376,14 @@ The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Ente
 
 #### The Filter Function
 
-Having looked at the main interaction flows and routines that run off the back of them, we can move our attention to the filtering mechanism. This is important because a good filter should be designed to forgive small typos. It's worth noting that the data being filtered is actually stored in the select box as `<option>`s.
+Having looked at the main interaction flows and routines that run off the back of them, we can move our attention to the filtering mechanism. This is important because a good filter should be designed to forgive small typos. It's worth noting that the `<option>`s inside the select box is the data that will be filtered.
 
 ```HTML
 <select>
-  <option value="1">Argentina</option>
-  <option value="2">North America</option>
-  <option value="3">United Kingdom</option>
-  ...
+  <option value="">Select</option>
+  <option value="1">France</option>
+  <option value="2">Germany</option>
+  <option value="3">Spain</option>
 </select>
 ```
 
@@ -413,17 +413,21 @@ Autocomplete.prototype.getOptions = function(value) {
 };
 ```
 
-While this is a good start, in the case of destinations, people may refer to the same country by a different name. For example, England is sometimes referred to as Great Britain or the United Kingdom. We can let users type the name they normally would be tweaking the current solution.
+This is certainly a good start, but some people may refer to the same country by a different name. For example, Germany is sometimes referred to as Deutschland. This is otherwise known as an endonym.
 
-First, we need to put the alternative value inside a data attribute on each of the options. 
+To allow users to type an endonym, we first need a way to check the option's alternative value. One way to do this is to put it inside a data attribute on each of the options.
 
 ```HTML
 <select>
-  <option value="1" data-alt="GB Great Britain England UK Wales Scotland Northern Ireland">United Kingdom</option>
+  <option value="">Select</option>
+  <option value="1">France</option>
+  <option value="2" data-alt="Deutschland">Germany</option>
+  <option value="3">Spain</option>
 </select>
+<select>
 ```
 
-Second, we can need to add an extra condition to see if what the user types matches the alternative value stored in the data attribute.
+With this data now in place, we can update the filter function with an extra condition that checks the data attribute.
 
 ```JS
 Autocomplete.prototype.getOptions = function(value) {

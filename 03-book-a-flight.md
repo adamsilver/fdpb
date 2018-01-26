@@ -340,9 +340,9 @@ First, there might be hundreds of options in the menu which can impact performan
 Instead we can use event delegation[^]. This works by adding just a single event listener onto the menu's container which is possible because of event bubbling. When the user clicks an option within the menu, it will bubble up to the container. We can use jQuery's `on()` method which supports this feature.
 
 ```JS
-Autocomplete.prototype.createOptionsUl = function() {
+Autocomplete.prototype.createMenu = function() {
   //...
-  this.optionsUl.on('click', '[role=option]', $.proxy(this, 'onOptionClick'));
+  this.menu.on('click', '[role=option]', $.proxy(this, 'onOptionClick'));
   //...
 };
 

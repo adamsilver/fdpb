@@ -234,7 +234,31 @@ There are two approaches in order to achieve this. The first is to use the `aria
 
 The second approach is to use roving tabindex. When using roving tabindex to manage focus in a composite UI component, the element that's to be included in the tab sequence has tabindex of "0" and all other focusable elements contained in the composite have tabindex of "-1".
 
-We're going to be using the roving tabindex, but not exactly as described above. The text box is naturally focusable, so rather than mess with it's tabindex, we can simply listen for when the user presses the Tab key and determine what to do. In this case, we want to hide the menu and move focus to whatever the next focusable element is which browsers will do for free.
+We're going to be using the roving tabindex, but not exactly as described above. This is because the text box is focusable by default. Rather than mess with it's tabindex, we can listen for when the user leaves the field using JavaScript. In which case, we just need to hide the  menu and focus the next focusable element—which if using the Tab key, browsers will do by default.
+
+#### The Onblur Problem
+
+How do we determine when the user leaves the text box? One approach would be to listen to the `onblur` event. The virtue of which is that the event is triggered whether the user leaves the field by the Tab key or by clicking or tapping out of the control.
+
+```
+blur code
+```
+
+However, there's a problem with this approach because the act of moving focus (even programatically) to the menu, will trigger the blur event on the text box which hides the menu. This makes the menu impossible to traverse by keyboard.
+
+One way to get around this problem would be to use the `setTimeout()` method. By triggering the event after a delay, we can cancel the timeout when the menu is focused which stops the menu being hidden.
+
+```JS
+Set timeout solution
+```
+
+While this works, it's not the most elegant solution. But worse still is that there's a serious bug in iOS 10 regarding the blur event. In short, the act of hiding the on-screen keyboard will trigger the `blur` event on the text box. This causes a broken experience as users are impeded from accessing the menu.
+
+Instead, we can listen out for the user specifically pressing the Tab key. And once they do, we can hide the menu. The only additional consideration is that we now have to ensure that clicking (or tapping) outside the control also hides the menu.
+
+```JS
+Reimplement blur
+```
 
 #### Moving To The Menu
 

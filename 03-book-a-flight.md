@@ -863,7 +863,7 @@ The flights are represented as radio buttons as the user can select just one. Ea
 ```HTML
 <div class="field-radioButton">
   <label for="flight1">
-    <input type="radio" name="flight" value="" id="flight1" >
+    <input type="radio" name="flight" value="1" id="flight">
     <span>Departing at 18:20pm</span>
     <span>Arriving at 20:30pm</span>
     <span>£99</span>
@@ -871,11 +871,11 @@ The flights are represented as radio buttons as the user can select just one. Ea
 </div>
 ```
 
-### Handling Errors
+### Handling Errors For A Group
 
-In chapter 1, we looked at how to design an inclusive form validation experience. However, the registration form in the chapter only consisted of two simple text fields. If you can recall, I said we'd look at how to handle errors for a field that consists of multiple inputs such as radio buttons.
+In chapter 1, we looked at how to design an inclusive form validation experience. But because the registration form only consists of two simple text fields, we never looked at how to handle errors for a field consisting of multiple form controls.
 
-As the fieldset's `legend` describes the group, the error message should be injected there. This way, screen readers will announce the error along with the group's label:
+A radio button group is one such example. Take a look at the mark-up below. The fieldset contains the group fo controls, and the legend is the group's label. We can effectively user the same error pattern as we used for the registration form, byt injecting the error span inside the legend. Not only, will sighted users see the error, but screen reader users will hear the error too.
 
 ```HTML
 <fieldset aria-invalid="true">
@@ -888,16 +888,30 @@ As the fieldset's `legend` describes the group, the error message should be inje
       Choose a flight.
     </span>
   </legend>
-  <!-- Radio buttons here -->
+  <div class="field-radioButton">
+    <label for="flight1">
+      <input type="radio" name="flight" value="1" id="flight">
+      ...
+    </label>
+  </div>
+  <div class="field-radioButton">
+    <label for="flight2">
+      <input type="radio" name="flight" value="2" id="flight2">
+      ...
+    </label>
+  </div>
+  <div class="field-radioButton">
+    <label for="flight3">
+      <input type="radio" name="flight" value="3" id="flight3">
+      ...
+    </label>
+  </div>
 </fieldset>
 ```
 
-Notes:
+The `aria-invalid="true"` attribute is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid—it's the group. The error `<span>` is exactly the same as the one used for single text fields which ensures that errors look and behave the same across all types of form fields.
 
-- The `aria-invalid="true"` is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid—it's the group.
-- The error span itself is exactly the same one used for single input fields. So errors look and behave consistently across all types of form fields.
-
-![In-context Errors](./images/03/inline-error.png)
+![Radio button error](./images/03/choose-flight-error.png)
 
 ## 5. Choosing A Seat
 

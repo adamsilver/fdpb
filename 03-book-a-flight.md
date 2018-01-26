@@ -98,11 +98,7 @@ When JavaScript is available, the `Autocomplete` constructor will be used to con
 ```JS
 function Autocomplete(select) {
   /*
-  - Hide select box
-  - Create text box
-  - Create SVG arrow icon
-  - Create suggestions menu
-  - Create status box
+  Update interface with enhanced HTML
   */
 }
 ```
@@ -162,7 +158,7 @@ As the user types, suggestions will appear in the menu below. While this is suff
 To provide a comparable experience (principle 1), we can use a live region as laid out in chapter 2, “Checkout”. It will be populated with “13 results available” which lets users decide to keep typing (to narrow the results further) or to move to the menu to select a suggestion. 
 The `visually-hidden` class is necessary because the live region is only valuable to screen reader users in this case.
 
-#### Text Box Interactions
+#### Typing In The Text Box
 
 With the mark-up ready, we can use JavaScript to handle the interactions that take place when the text box is focused. Here's the event listener that runs when the user presses a key.
 
@@ -201,7 +197,7 @@ Notes:
 - We're filtering out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check explicitly for the keys we're interested in. But, this would mean specifying a huge range of keys increasing the chance of one being missed which would break the interface.
 - We want to handle two keys in particular: the <kbd>Down</kbd> key and any other character which are the last two cases in the switch statement above. 
 
-When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called. The `getOptions()` method filters the options based on what the user typed. We'll look at the filtering mechanism in more detail later on.
+When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called. The `getOptions()` method filters the available options based on what the user typed. We'll look at the filtering mechanism in more detail later on.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
@@ -226,7 +222,11 @@ Autocomplete.prototype.onTextBoxType = function(e) {
 };
 ```
 
-When the user presses <kbd>Down</kbd>, the `onTextBoxDownPressed()` function is invoked.
+#### Moving From The Text Box To The Menu
+
+When the user presses <kbd>Down</kbd>, there are a few scenarios to consider
+
+the `onTextBoxDownPressed()` function is invoked.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
@@ -319,7 +319,7 @@ Notes:
 - The `highlightOption()` function checks to see if the to-be-highlighted option is visible within the menu. This is because menu container has a `max-height: 12em;` set in CSS. If the option isn't visible its scroll position is adjusted using jQuery's `.scrollTop()` method.
 - The option is then focused so that screen readers will announce the content (the name of the country) of the option.
 
-#### Menu Interactions
+#### Selecting A Suggestion
 
 As noted above the menu has a `max-height: 12em` set, which keeps the entire menu in view no matter the screen size. Mouse and touch-screen users are able to scroll the menu by default.
 
@@ -364,7 +364,21 @@ Notes:
 - Notice how we're retrieving the clicked option using `e.currentTarget`. Referencing `e.target` would have given us the delegate (menu container) which isn't helpful. When you're using event delegation, you'll mostly be referencing the current target.
 - The option is handed over to the `selectOption()` method which calls `setValue()` to populate the text box and hidden select box accordingly. After that, the menu is hidden and the text box is focused.
 
-The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard. The rest of the keyboard interactions are summed up below.
+The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard.
+
+#### Controls Should Have A Single Tab Stop
+
+The autocomplete control is what's known as a composite. That just means it's made up of several different interactive parts. In this case, the autocomplete is made up of the text box and menu. What's important is that each UI control (or component) should have a single tab stop. Here's what the WAI-ARIA Authoring Practices 1.1 specification has to say:
+
+> A primary keyboard navigation convention common across all platforms is that the tab and shift+tab keys move focus from one UI component to another while other keys, primarily the arrow keys, move focus inside of components that include multiple focusable elements. The path that the focus follows when pressing the tab key is known as the tab sequence or tab ring.
+
+The text box is naturally focusable by the Tab key and once focused, the user can press various other keys to traverse the menu and select a suggestion with the keyboard. If the user presses the Tab when the autocomplete is focused, then the menu should be hidden (if open) and focus should be moved to the next focusable control—whatever that is.
+
+There are two approaches.
+
+https://www.w3.org/TR/wai-aria-practices/#kbd_focus_vs_selection
+
+The rest of the keyboard interactions are summed up below.
 
 | Key | Action |
 |:---|:---|
@@ -373,6 +387,10 @@ The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Ente
 | <kbd>Tab</kbd> | The menu is hidden. |
 | <kbd>Escape</kbd> | The menu is hidden and focus is set to the text box. |
 | A character | Focus is set to the text box so users can continue typing. |
+
+#### The iOS 10 Problem
+
+There's a rather strange and signicant bug in iOS 10. When the user focuses the text box, the on-screen keyboard appears for users to type characters and make suggestions appear. Some users will naturally hide the keyboard before interacting with the suggestions menu. However, in iOS 10, hiding the keyboard incorrectly triggers the blur event.
 
 #### The Filter Function
 
@@ -427,7 +445,7 @@ To allow users to type an endonym, we first need a way to check the option's alt
 <select>
 ```
 
-With this data now in place, we can update the filter function with an extra condition that checks the data attribute.
+Having prepared the select box, we can change the filter function to check the `data-alt` attribute like this:
 
 ```JS
 Autocomplete.prototype.getOptions = function(value) {
@@ -438,7 +456,10 @@ Autocomplete.prototype.getOptions = function(value) {
   this.select.find('option').each(function(i, el) {
 
     // if the option has a value and the option's text node matches the user-typed value or the option's data-alt attribute matches the user-typed value
-    if($(el).val().trim().length > 0 && $(el).text().toLowerCase().indexOf(value.toLowerCase()) > -1 || $(el).attr('data-alt') && $(el).attr('data-alt').toLowerCase().indexOf(value.toLowerCase()) > -1) {
+    if( $(el).val().trim().length > 0 
+      && $(el).text().toLowerCase().indexOf(value.toLowerCase()) > -1 
+      || $(el).attr('data-alt') 
+      && $(el).attr('data-alt').toLowerCase().indexOf(value.toLowerCase()) > -1 ) {
 
       // push an object representation to the filtered array
       filtered.push({ 
@@ -452,8 +473,6 @@ Autocomplete.prototype.getOptions = function(value) {
   return filtered;
 };
 ```
-
-#### Handling iOS 10
 
 #### How It Might Look In The End
 
@@ -520,11 +539,13 @@ The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”)
 
 *(Note: the pattern attribute is used to trigger the numeric keyboard—a little enhancement for iOS users. If you're wondering about why we haven't used the number input, you can refer back to the number input in chapter 2, “Checkout.”)*
 
-#### Calendar Widgets
+#### Searching For Dates
 
-When choosing a date to fly, users are neither entering a memorable date, nor one found in a document. They are searching for a date in the future.
+When choosing a date to fly on, users are neither entering a memorable date, nor one found in a document. They are searching for a date sometime in the future—within the next 12 months usually.
 
-We tend to think of time in structured chunks: days, weeks and months etc. And we organise our lives using a calendar which aligns with that notion. It's sensible then, to let users find and pick a date through a familiar and intuitive calendar interface.
+We tend to think of time in structured chunks: days, weeks and months etc. And we plan our time using calendars which aligns with that notion. It's sensible then, to let users find and pick a date through a familiar and intuitive calendar interface or what's also known as a date picker.
+
+### A Date Picker
 
 The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
 

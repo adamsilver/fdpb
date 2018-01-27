@@ -228,56 +228,69 @@ The autocomplete control is what's known as a composite. That just means it's ma
 
 > A primary keyboard navigation convention common across all platforms is that the tab and shift+tab keys move focus from one UI component to another while other keys, primarily the arrow keys, move focus inside of components that include multiple focusable elements. The path that the focus follows when pressing the tab key is known as the tab sequence or tab ring.
 
-The text box is naturally focusable by the Tab key and once focused, the user can press various other keys to traverse (and activate options from) the menu. If the user presses Tab when the autocomplete is focused, the menu should be hidden (if open) and focus should be moved to the next focusable control—whatever that is.
+A radio button group is an example of a composite control that has just a single tab stop. Once the first radio button is focused, users can use the arrow keys to move between the options. Pressing Tab at anytime from within the composite control, moves focus to the next focusable control in the tab sequence.
 
-There are two approaches in order to achieve this. The first is to use the `aria-activedescendant` attribute. The way the attribute works is to always keep focus on the component's container, but tell the container which element within is active. This doesn't work for the autocomplete control because the text box is a sibling of the menu.
+The text box within our autocomplete control is naturally focusable by the Tab key. Once focused, the user will be able to press the arrow keys to traverse the menu which we'll look at shortly. Pressing Tab when the text box or a menu option is focused, should hide the menu, otherwise it will obscure the content beneath.
 
-The second approach is to use roving tabindex. When using roving tabindex to manage focus in a composite UI component, the element that's to be included in the tab sequence has tabindex of "0" and all other focusable elements contained in the composite have tabindex of "-1".
+Now we'll look at how to hide the menu, when the user presses Tab.
 
-We're going to be using the roving tabindex, but not exactly as described above. This is because the text box is focusable by default. Rather than mess with it's tabindex, we can listen for when the user leaves the field using JavaScript. In which case, we just need to hide the  menu and focus the next focusable element—which if using the Tab key, browsers will do by default.
+#### Hiding The Menu Onblur Is Problematic
 
-#### The Onblur Problem
-
-How do we determine when the user leaves the text box? One approach would be to listen to the `onblur` event. The virtue of which is that the event is triggered whether the user leaves the field by the Tab key or by clicking or tapping out of the control.
-
-```
-blur code
-```
-
-However, there's a problem with this approach because the act of moving focus (even programatically) to the menu, will trigger the blur event on the text box which hides the menu. This makes the menu impossible to traverse by keyboard.
-
-One way to get around this problem would be to use the `setTimeout()` method. By triggering the event after a delay, we can cancel the timeout when the menu is focused which stops the menu being hidden.
+The `onblur` event tells us when the user leaves an element—in this case, the text box. The virtue of which, is that this works whether the user leaves the field by the Tab key or by clicking or tapping outside of the element.
 
 ```JS
-Set timeout solution
+this.textBox.on('blur', function(e) {
+  // hide menu when the user tabs or clicks outside the text box
+});
 ```
 
-While this works, it's not the most elegant solution. But worse still is that there's a serious bug in iOS 10 regarding the blur event. In short, the act of hiding the on-screen keyboard will trigger the `blur` event on the text box. This causes a broken experience as users are impeded from accessing the menu.
+The problem with this approach is that the act of moving focus to the menu (even programatically), will trigger the blur event on the text which subsequently hides the menu. This makes it impossible to traverse by keyboard.
 
-Instead, we can listen out for the user specifically pressing the Tab key. And once they do, we can hide the menu. The only additional consideration is that we now have to ensure that clicking (or tapping) outside the control also hides the menu.
+One work around involves using the `setTimeout()` function which allows us to put a delay on the event. This gives us the opportunity to cancel the event with `clearTimeout()` when the menu is focused, which stops the menu from being hidden. 
 
 ```JS
-Reimplement blur
+this.textBox.on('blur', $.proxy(function(e) {
+  this.timeout = window.setTimeout(function() {
+    // hide menu
+  }, 100);
+}, this));
+
+this.menu.on('focus', $.proxy(function(e) {
+  window.clearTimeout(this.timeout);
+}, this));
 ```
 
-#### Moving To The Menu
+This isn't the most elegant solution. But worse is that there's a serious bug in iOS 10 regarding the blur event. In short, the act of hiding the on-screen keyboard will trigger the `blur` event on the text box. This causes a broken experience as users are impeded from accessing the menu.
 
-#### Operating The Menu
+#### Listening To The Tab Key
 
+To avoid the problems with the blur event, we can listen out specifically for the Tab key.
 
-| Key | Action |
-|:---|:---|
-| <kbd>Up</kbd> | The previous option is focused. If it's the first option, focus is set to the text box. |
-| <kbd>Down</kbd> | The next option is focused. |
-| <kbd>Tab</kbd> | The menu is hidden. |
-| <kbd>Escape</kbd> | The menu is hidden and focus is set to the text box. |
-| A character | Focus is set to the text box so users can continue typing. |
+```JS
+this.textBox.on('keydown', $.proxy(function(e) {
+  switch (e.keyCode) {
+    case this.keys.tab:
+      // hide menu
+      break;
+  }
+}, this));
+```
 
-#### Moving From The Text Box To The Menu
+Unfortunately, unlike the `onblur` event, this doesn't cover the case where users click outside the text box. We have to handle this case ourselves by listen to the Document's `click` event and determining what to do.
 
-When the user presses <kbd>Down</kbd>, there are a few scenarios to consider
+```JS
+$(document).on('click', $.proxy(function(e) {
+  if(!$.contains(this.container[0], e.target)) {
+    // hide the menu
+  }
+}, this));
+```
 
-the `onTextBoxDownPressed()` function is invoked.
+Inside the event handler, we're using jQuery's `contains()` method which checks to see if what the user clicked (`e.target`) was outside the the container (`this.container[0]`). If it is outside, the menu is hidden. The reason for [0] when referencing the container is because the `contains()` method takes element nodes as opposed to jQuery objects.
+
+#### Moving To The Menu (Pressing Down)
+
+When the text box is focused, pressing the Down key triggers the `onTextBoxDownPressed()` (shown below). There are a number of steps which are marked with inline comments.
 
 ```JS
 Autocomplete.prototype.onTextBoxDownPressed = function(e) {
@@ -333,7 +346,48 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 };
 ```
 
-If there are suggestions, the `highlightOption()` method (shown below) will be called.
+If the user types nothing or if the user types an exact match, pressing Down will populate the menu with every option and move focus to the first option. Otherwise, the menu is populated with the matching options, and again, the first option is focused.
+
+We'll look at the `highlightOption()` method in more detail shortly.
+
+#### Operating The Menu
+
+The menu has a `max-height` set in CSS means the menu will grow to maximum of height (of 12em in this case). If the content 
+
+which keeps the entire menu inside the viewport. This rule 
+
+ Mouse and touch-screen users are able to scroll the menu by default.
+
+```CSS
+.autocomplete [role=listbox] {
+  max-height: 12em;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+```
+
+The `max-height` rule means the menu will grow to maximum height of 12em. If the contents of the menu surpasses the height, users will be able to scroll the menu's contents thanks to the `overflow-y: scroll` rule. The last rule (`-webkit-overflow-scrolling: touch`) is non-standard but will enable momentum scrolling on iOS which users of that device would expect.
+
+The menu has a max-height set in CSS which ensures that the menu is in view no matter
+
+The menu has
+
+- mouse users
+- keyboard users
+
+When focus is within the menu, we need to allow
+
+Having focused the first option in the menu, we need to allow keyboard users to traverse the menu. There are a number of keys to listen out for which are summarised below:
+
+| Key | Action |
+|:---|:---|
+| <kbd>Up</kbd> | The previous option is focused. If it's the first option, focus is set to the text box. |
+| <kbd>Down</kbd> | The next option is focused. |
+| <kbd>Tab</kbd> | The menu is hidden. |
+| <kbd>Escape</kbd> | The menu is hidden and focus is set to the text box. |
+| A character | Focus is set to the text box so users can continue typing. |
+
+If there are menu options, the `highlightOption()` method (shown below) will be called.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
@@ -365,24 +419,15 @@ Autocomplete.prototype.highlightOption = function(option) {
 };
 ```
 
-Notes:
+The menu's container has a `max-height` set in CSS which ensures that the menu is always in view, no matter the screen size.
+
+The `highlightOption()` function first checks to see if the option-to-be-highlighted is visible within the menu because the menu's container has a `max-height` set in CSS to ensure it 
 
 - The `highlightOption()` function checks to see if the to-be-highlighted option is visible within the menu. This is because menu container has a `max-height: 12em;` set in CSS. If the option isn't visible its scroll position is adjusted using jQuery's `.scrollTop()` method.
 - The option is then focused so that screen readers will announce the content (the name of the country) of the option.
+- Css :focus is used to provide visual feedback.
 
-#### Selecting A Suggestion
-
-As noted above the menu has a `max-height: 12em` set, which keeps the entire menu in view no matter the screen size. Mouse and touch-screen users are able to scroll the menu by default.
-
-```CSS
-.autocomplete [role=listbox] {
-  max-height: 12em;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-```
-
-The `max-height` rule means the menu will grow to maximum height of 12em. If the contents of the menu surpasses the height, users will be able to scroll the menu's contents thanks to the `overflow-y: scroll` rule. The last rule (`-webkit-overflow-scrolling: touch`) is non-standard but will enable momentum scrolling on iOS which users of that device would expect.
+#### Selecting An Option
 
 Next, we need to handle the case when an option is clicked. The most basic solution would be to add a click event onto each of the options within the menu but this is not the best approach for two reasons. 
 
@@ -415,13 +460,9 @@ Notes:
 - Notice how we're retrieving the clicked option using `e.currentTarget`. Referencing `e.target` would have given us the delegate (menu container) which isn't helpful. When you're using event delegation, you'll mostly be referencing the current target.
 - The option is handed over to the `selectOption()` method which calls `setValue()` to populate the text box and hidden select box accordingly. After that, the menu is hidden and the text box is focused.
 
-The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> on the keyboard.
+The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> keys.
 
-#### The iOS 10 Problem
-
-There's a rather strange and signicant bug in iOS 10. When the user focuses the text box, the on-screen keyboard appears for users to type characters and make suggestions appear. Some users will naturally hide the keyboard before interacting with the suggestions menu. However, in iOS 10, hiding the keyboard incorrectly triggers the blur event.
-
-#### The Filter Function
+#### The Basic Filter Function
 
 Having looked at the main interaction flows and routines that run off the back of them, we can move our attention to the filtering mechanism. This is important because a good filter should be designed to forgive small typos. It's worth noting that the `<option>`s inside the select box is the data that will be filtered.
 
@@ -434,7 +475,7 @@ Having looked at the main interaction flows and routines that run off the back o
 </select>
 ```
 
-The filter function takes the user-entered `value` as a parameter. Then it loops through each of the `<option>`s to compare the values. If there's a match, then we add that item as an object to the `filtered` array which is returned at the end of the function. Comments are inline.
+The filter function takes the user-entered `value` as a parameter. Then it loops through each of the `<option>`s to compare the values. If there's a match, then we add that item as an object to the `filtered` array which is returned at the end of the function.
 
 ```JS
 Autocomplete.prototype.getOptions = function(value) {
@@ -460,7 +501,9 @@ Autocomplete.prototype.getOptions = function(value) {
 };
 ```
 
-This is certainly a good start, but some people may refer to the same country by a different name. For example, Germany is sometimes referred to as Deutschland. This is otherwise known as an endonym.
+#### Supporting Endonyms And Common Typos
+
+Some people may refer to the same country by a different name. For example, Germany is sometimes referred to as Deutschland. An alternative name for a place is called an endonym.
 
 To allow users to type an endonym, we first need a way to check the option's alternative value. One way to do this is to put it inside a data attribute on each of the options.
 
@@ -503,7 +546,7 @@ Autocomplete.prototype.getOptions = function(value) {
 };
 ```
 
-#### How It Might Look In The End
+#### How It Might Look
 
 ![Choosing where to fly](.)
 

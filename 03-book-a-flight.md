@@ -348,15 +348,11 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 
 If the user types nothing or if the user types an exact match, pressing Down will populate the menu with every option and move focus to the first option. Otherwise, the menu is populated with the matching options, and again, the first option is focused.
 
-We'll look at the `highlightOption()` method in more detail shortly.
+We'll look at the `highlightOption()` method shortly.
 
-#### Operating The Menu
+#### Scrolling The Menu
 
-The menu has a `max-height` set in CSS means the menu will grow to maximum of height (of 12em in this case). If the content 
-
-which keeps the entire menu inside the viewport. This rule 
-
- Mouse and touch-screen users are able to scroll the menu by default.
+We want to make sure the menu is visible within the viewport and doesn't get cut off even if the menu contains hundreds of options, much like a standard select box would do.
 
 ```CSS
 .autocomplete [role=listbox] {
@@ -366,28 +362,91 @@ which keeps the entire menu inside the viewport. This rule
 }
 ```
 
-The `max-height` rule means the menu will grow to maximum height of 12em. If the contents of the menu surpasses the height, users will be able to scroll the menu's contents thanks to the `overflow-y: scroll` rule. The last rule (`-webkit-overflow-scrolling: touch`) is non-standard but will enable momentum scrolling on iOS which users of that device would expect.
+The max-height property means the menu will grow up to a maximum height of 12em. Once the content inside the menu surpasses that height, users will be able to scroll the menu thanks to the `overflow-y: scroll` property. The last (non-standard) property enables momentum scrolling on iOS devices which ensures the scrolling algorithm is consistent on the user's device.
 
-The menu has a max-height set in CSS which ensures that the menu is in view no matter
+#### Clicking An Option
 
-The menu has
+Mouse or touch screen users will click or tap an option in the menu to select it. The most basic solution involves adding a click event onto each of the options individually, but this isn't ideal for two reasons.
 
-- mouse users
-- keyboard users
+First, there might be hundreds of options in the menu which can impact performance. Second, because the options are constantly changing as the user types, we'd need to keep adding and removing events which is computationally intensive and bothersome to manage codewise.
 
-When focus is within the menu, we need to allow
+Instead we can use event delegation[^]. Event delegation works by adding a single event listener onto the menu's container. This is made possible due to the concept of event bubbling—that is, events that happen lower down the Document tree, will bubble up to the container element. We can leverage jQuery's `on()` method which has event delegation baked in.
 
-Having focused the first option in the menu, we need to allow keyboard users to traverse the menu. There are a number of keys to listen out for which are summarised below:
+```JS
+Autocomplete.prototype.createMenu = function() {
+  //...
+  this.menu.on('click', '[role=option]', $.proxy(this, 'onOptionClick'));
+  //...
+};
+
+Autocomplete.prototype.onOptionClick = function(e) {
+  var option = $(e.currentTarget);
+  this.selectOption(option);
+};
+
+Autocomplete.prototype.selectOption = function(option) {
+  var value = option.attr('data-option-value');
+  this.setValue(value);
+  this.hideMenu();
+  this.focusTextBox();
+};
+```
+
+The click event is bound to the container (`this.menu`), but will only fire when the click event originated on an option which is set with the second parameter (`[role=option]`).
+
+The event handler (`onOptionClick()`) retrieves the option via `e.currentTarget`. Referencing `e.target` would return the delegate (the menu container) which is usually unhelpful. The optionis then handed off to the `selectOption()` method.
+
+First, the option's value is retrieved and passed to the `setValue()` method which populates the text box and hidden select box. After that, the menu is hidden and the text box is focused.
+
+This same routine is performed when the user selects an option with the <kbd>Space</kbd> or <kbd>Enter</kbd> keys. We'll look at the menu keyboard interaction next.
+
+#### Menu Keyboard Interaction
+
+Once focus is within the menu (by pressing Down when the text box is in focus), we need to let users move through the menu with their keyboard. To do this, we'll listen to the `keydown` event.
+
+```JS
+Autocomplete.prototype.createMenu = function() {
+  this.menu.on('keydown', $.proxy(this, 'onMenuKeyDown'));
+};
+
+Autocomplete.prototype.onMenuKeyDown = function(e) {
+  switch (e.keyCode) {
+    case this.keys.up:
+      // Do stuff
+      break;
+    case this.keys.down:
+      // Do stuff
+      break;
+    case this.keys.enter:
+      // Do stuff
+      break;
+    case this.keys.space:
+      // Do stuff
+      break;
+    case this.keys.esc:
+      // Do stuff
+      break;
+    case this.keys.tab:
+      // Do stuff
+      break;
+    default:
+      this.textBox.focus();
+  }
+};
+```
 
 | Key | Action |
 |:---|:---|
-| <kbd>Up</kbd> | The previous option is focused. If it's the first option, focus is set to the text box. |
-| <kbd>Down</kbd> | The next option is focused. |
-| <kbd>Tab</kbd> | The menu is hidden. |
-| <kbd>Escape</kbd> | The menu is hidden and focus is set to the text box. |
-| A character | Focus is set to the text box so users can continue typing. |
+| <kbd>Up</kbd> | If the first option is focused, sets focus to the text box, otherwise sets focus to the previous menu option. |
+| <kbd>Down</kbd> | Focuses the next menu option. If it's the last menu option, nothing happens. |
+| <kbd>Tab</kbd> | Hides the menu. |
+| <kbd>Enter</kbd> or <kbd>Space</kbd> | Selects the currently selected option and focuses the text box. |
+| <kbd>Escape</kbd> | Hides the menu and sets focus to the text box. |
+| Any other character | Focus is set to the text box so users can continue typing at any time. |
 
-If there are menu options, the `highlightOption()` method (shown below) will be called.
+#### The Highlight Function
+
+As noted above, the user can focus an option by pressing the Up and Down keys. When this happens, the `highlightOption()` method is called.
 
 ```JS
 Autocomplete.prototype.highlightOption = function(option) {
@@ -419,48 +478,22 @@ Autocomplete.prototype.highlightOption = function(option) {
 };
 ```
 
-The menu's container has a `max-height` set in CSS which ensures that the menu is always in view, no matter the screen size.
+The method performs a number of discrete steps. First, it checks to see if there's a previously active option. If there is, the `aria-selected` attribute is set to `false`. This ensures the state is communicated to screen reader users correctly. Second, the new option's `aria-selected` attribute is set to `true`.
 
-The `highlightOption()` function first checks to see if the option-to-be-highlighted is visible within the menu because the menu's container has a `max-height` set in CSS to ensure it 
+As the menu has a fixed height, there's a chance that the user is moving focus to an option that's out of the menu's visible area. So we check whether this is the case using the `isElementVisible()` method. If it's not visible, we adjust the menu's scroll position to ensure the option is visible by using jQuery's `scrollTop()` method.
 
-- The `highlightOption()` function checks to see if the to-be-highlighted option is visible within the menu. This is because menu container has a `max-height: 12em;` set in CSS. If the option isn't visible its scroll position is adjusted using jQuery's `.scrollTop()` method.
-- The option is then focused so that screen readers will announce the content (the name of the country) of the option.
-- Css :focus is used to provide visual feedback.
+Next, the new option is stored, so that it can be referenced later, when another option is to be highlighted. Finally, the option is focused programatically which ensures its value is announced in screen readers.
 
-#### Selecting An Option
+To communicate the selected option to sighted users we can reuse the `[aria-selected=true]` CSS attribute selector which keeps behaviour and styling in sync. Hover styles are also the same so we can double up the selector with the same styles.
 
-Next, we need to handle the case when an option is clicked. The most basic solution would be to add a click event onto each of the options within the menu but this is not the best approach for two reasons. 
-
-First, there might be hundreds of options in the menu which can impact performance. Second, because the options are constantly changing as the user types, we'd need to keep adding and removing events which is computationally intensive and bothersome to manage programatically.
-
-Instead we can use event delegation[^]. This works by adding just a single event listener onto the menu's container which is possible because of event bubbling. When the user clicks an option within the menu, it will bubble up to the container. We can use jQuery's `on()` method which supports this feature.
-
-```JS
-Autocomplete.prototype.createMenu = function() {
-  //...
-  this.menu.on('click', '[role=option]', $.proxy(this, 'onOptionClick'));
-  //...
-};
-
-Autocomplete.prototype.onOptionClick = function(e) {
-  var option = $(e.currentTarget);
-  this.selectOption(option);
-};
-
-Autocomplete.prototype.selectOption = function(option) {
-  var value = option.attr('data-option-value');
-  this.setValue(value);
-  this.hideMenu();
-  this.focusTextBox();
-};
+```CSS
+.autocomplete [role=option]:hover,
+.autocomplete [role=option][aria-selected="true"] {
+    background-color: #005EA5;
+    border-color: #005EA5;
+    color: #ffffff;
+}
 ```
-
-Notes:
-
-- Notice how we're retrieving the clicked option using `e.currentTarget`. Referencing `e.target` would have given us the delegate (menu container) which isn't helpful. When you're using event delegation, you'll mostly be referencing the current target.
-- The option is handed over to the `selectOption()` method which calls `setValue()` to populate the text box and hidden select box accordingly. After that, the menu is hidden and the text box is focused.
-
-The same routine is executed when the user presses <kbd>Space</kbd> or <kbd>Enter</kbd> keys.
 
 #### The Basic Filter Function
 

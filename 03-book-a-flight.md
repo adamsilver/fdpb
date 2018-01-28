@@ -143,13 +143,13 @@ When JavaScript is available, the `Autocomplete` constructor function will chang
 
 Sighted users will see the suggestions appear in the menu as they type, but the act of populating the menu isn't determinable for screen reader users, without leaving the text box to explore the menu.
 
-To provide a comparable experience (principle 1), we can use a live region as first laid out in chapter 2, “Checkout.” As the menu is populated, we'll populate the live region with how many results are available—for example, “13 results available.”
+To provide a comparable experience (principle 1), we can use a live region as first laid out in chapter 2, “Checkout.” As the menu is populated, we'll populate the live region with how many results are available—for example, “13 results available.” With this information at hand, users can continue typing to narrow the results further, or they can select a suggestion from the menu.
 
-Users can then choose to keep typing to narrow the results further or to move to the menu to select a suggestion. The `visually-hidden` class is necessary because it's only useful to users relying on audible feedback.
+As the feedback is only useful to screen reader users, it's hidden by using the `visually-hidden` class.
 
 #### Typing Into The Text Box
 
-Users are able to type into a text box using their keyboard. We can use JavaScript to listen to the `keyup` event and handle various key presses.
+When the user types into the text box, we need to listen out for certain keypresses using JavaScript. To do this, we can listen to the `keyup` event.
 
 ```JS
 Autocomplete.prototype.createTextBox = function() {
@@ -182,9 +182,9 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 
 Notes:
 
-- The `this.keys` object is just a collection of key codes (numbers) that correspond to particular keys by their name. This is to avoid magic numbers[^] which makes our code easy to understand.
-- We're filtering out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out these keys, we could check explicitly for the keys we're interested in. But, this would mean specifying a huge range of keys increasing the chance of one being missed which would break the interface.
-- We want to handle two keys in particular: the <kbd>Down</kbd> key and any other character which are the last two cases in the switch statement above. 
+- The `this.keys` object is a collection of key codes (numbers) that correspond to particular keys by their name. This is to avoid magic numbers[^] which makes the code easy to understand at a glance.
+- The switch statement filters out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out the keys we aren't interested in responding to, we could have specified the keys that we *are* interested in. But this would mean specifying a huge range of keys, which would increase the chance of one being missed, creating a broken experience.
+- We're interested in just two keys: the <kbd>Down</kbd> key and “everything else” which are the last two cases. 
 
 When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called.
 

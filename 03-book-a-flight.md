@@ -508,8 +508,7 @@ As noted above, the `getOptions()` method is called when we need to populate the
 
 ```JS
 Autocomplete.prototype.getOptions = function(value) {
-  // stored the matching options
-  var filtered = [];
+  var matches = [];
 
   // Loop through each of the option elements
   this.select.find('option').each(function(i, el) {
@@ -517,26 +516,25 @@ Autocomplete.prototype.getOptions = function(value) {
     // if the option has a value and the option's text node matches the user-typed value
     if($(el).val().trim().length > 0 && $(el).text().toLowerCase().indexOf(value.toLowerCase()) > -1) {
 
-      // push an object representation to the filtered array
-      filtered.push({ 
+      // push an object representation to the matches array
+      matches.push({ 
         text: $(el).text(), 
         value: $(el).val() 
       });
     }
   });
 
-  // return the filtered option for use in other methods
-  return filtered;
+  return matches;
 };
 ```
 
-The method takes the user-entered value as a parameter. It then loops through each of the `<otion>`s to compare that value to the option's text content (the bit inside the element). If there's a match, it's added to the filtered array which is later returned.
+The method takes the user-entered value as a parameter. It then loops through each of the `<option>`s and compares the value to the option's text content (the bit inside the element). It does so by using `indexOf()` which checks to see if the string contains an occurence of the specified value. This means users can type incomplete parts of countries and still have relevant suggestions presented to them.
+
+Each matched option is added to the `matches` array which will be used by the calling function to populate the menu accordingly.
 
 #### Supporting Endonyms And Common Typos
 
-Some people may refer to the same country by a different name. For example, Germany is sometimes referred to as Deutschland. An alternative name for a place is called an endonym.
-
-To allow users to type an endonym, we first need a way to check the option's alternative value. One way to do this is to put it inside a data attribute on each of the options.
+Some people refer to countries by different names. For example, Germany is sometimes referred to as Deutschland. An alternative name for a place is called an endonym. To allow users to type an endonym, we first need store it somewhere. One way to do this is to put it inside a data attribute on the `<option>` like this.
 
 ```HTML
 <select>
@@ -548,12 +546,11 @@ To allow users to type an endonym, we first need a way to check the option's alt
 <select>
 ```
 
-Having prepared the select box, we can change the filter function to check the `data-alt` attribute like this:
+With the select box ready, we can change the filter function to check the alternative name like this:
 
 ```JS
 Autocomplete.prototype.getOptions = function(value) {
-  // stored the matching options
-  var filtered = [];
+  var matches = [];
 
   // Loop through each of the option elements
   this.select.find('option').each(function(i, el) {
@@ -564,16 +561,15 @@ Autocomplete.prototype.getOptions = function(value) {
       || $(el).attr('data-alt') 
       && $(el).attr('data-alt').toLowerCase().indexOf(value.toLowerCase()) > -1 ) {
 
-      // push an object representation to the filtered array
-      filtered.push({ 
+      // push an object representation to the matches array
+      matches.push({ 
         text: $(el).text(), 
         value: $(el).val() 
       });
     }
   });
 
-  // return the filtered option for use in other methods
-  return filtered;
+  return matches;
 };
 ```
 

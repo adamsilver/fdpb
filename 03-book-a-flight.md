@@ -89,7 +89,7 @@ Having already discussed the options above we know that there are too many optio
 
 #### The Enhanced Mark-up
 
-When JavaScript is available, the `Autocomplete` constructor function will change the basic HTML to look like this:
+When JavaScript is available, the `Autocomplete()` constructor function will enhance the basic HTML to look like this:
 
 ```HTML
 <div class="field">
@@ -149,7 +149,7 @@ As the feedback is only useful to screen reader users, it's hidden by using the 
 
 #### Typing Into The Text Box
 
-When the user types into the text box, we need to listen out for certain keypresses using JavaScript. To do this, we can listen to the `keyup` event.
+When the user types into the text box, we need to listen out for certain keys using JavaScript.
 
 ```JS
 Autocomplete.prototype.createTextBox = function() {
@@ -184,9 +184,7 @@ Notes:
 
 - The `this.keys` object is a collection of key codes (numbers) that correspond to particular keys by their name. This is to avoid magic numbers[^] which makes the code easy to understand at a glance.
 - The switch statement filters out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out the keys we aren't interested in responding to, we could have specified the keys that we *are* interested in. But this would mean specifying a huge range of keys, which would increase the chance of one being missed, creating a broken experience.
-- We're interested in just two keys: the <kbd>Down</kbd> key and “everything else” which are the last two cases. 
-
-When the user presses a character (the last statement in the above function), the `onTextBoxType()` function (shown below) is called.
+- We're mainly interested in the last two statements. That is when the user presses <kbd>Down</kbd> or any other character—this is the default case in the above function. In this case the `onTextBoxType()` function will be called.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
@@ -211,51 +209,51 @@ Autocomplete.prototype.onTextBoxType = function(e) {
 };
 ```
 
-The `getOptions()` method filters the available options based on what the user typed. We'll look at the filtering mechanism later.
+The `getOptions()` method filters the options based on what the user typed. We'll look at the filtering mechanism later.
 
 #### Controls Should Have A Single Tab Stop
 
-The autocomplete control is what's known as a composite. That just means it's made up of several different interactive parts—in this case, the text box and menu. What's important is that our autocomplete control should have a single tab stop. Here's what the WAI-ARIA Authoring Practices 1.1 specification has to say on the subject:
+The autocomplete control is what's known as a composite. That just means it's made up of several different interactive and focusable parts—in this case, the text box and menu. What's important is that composite components should have one tab stop. Here's what the WAI-ARIA Authoring Practices 1.1 specification[^] has to say on the subject:
 
 > A primary keyboard navigation convention common across all platforms is that the tab and shift+tab keys move focus from one UI component to another while other keys, primarily the arrow keys, move focus inside of components that include multiple focusable elements. The path that the focus follows when pressing the tab key is known as the tab sequence or tab ring.
 
-A radio button group is an example of a composite control that has just a single tab stop. Once the first radio button is focused, users can use the arrow keys to move between the options. Pressing Tab at anytime from within the composite control, moves focus to the next focusable control in the tab sequence.
+A radio button group is an example of a composite control that has one tab stop. Once the first radio button is focused, users can use the arrow keys to move between the options. Pressing <kbd>Tab</kbd> at anytime from within the group, moves focus to the next focusable control in the tab sequence.
 
-The text box within our autocomplete control is naturally focusable by the Tab key. Once focused, the user will be able to press the arrow keys to traverse the menu which we'll look at shortly. Pressing Tab when the text box or a menu option is focused, should hide the menu, otherwise it will obscure the content beneath.
-
-Now we'll look at how to hide the menu, when the user presses Tab.
+The text box within our autocomplete control is naturally focusable by the Tab key. Once focused, the user will be able to press the arrow keys to traverse the menu which we'll look at shortly. Pressing Tab when the text box or menu option is focused, should hide the menu to stop it from obscuring the content beneath when not in use. We'll look at how to do this next.
 
 #### Hiding The Menu Onblur Is Problematic
 
-The `onblur` event tells us when the user leaves an element—in this case, the text box. The virtue of which, is that this works whether the user leaves the field by the Tab key or by clicking or tapping outside of the element.
+The `onblur` event is triggered when the user leaves an in-focus element. In the case of the autocomplete, we could listen to this event on the text box. The virtue of using the `onblur` event is that it will be triggered when the user leaves the field by pressing <kbd>Tab</kbd> or by clicking or tapping outside of the element.
 
 ```JS
 this.textBox.on('blur', function(e) {
-  // hide menu when the user tabs or clicks outside the text box
+  // hide menu
 });
 ```
 
-The problem with this approach is that the act of moving focus to the menu (even programatically), will trigger the blur event on the text which subsequently hides the menu. This makes it impossible to traverse by keyboard.
+The problem with this approach is that the act of moving focus to the menu (even programatically like we'll be doing), triggers the blur event which subsequently hides the menu. This would make the menu inaccessible with the keyboard.
 
-One work around involves using the `setTimeout()` function which allows us to put a delay on the event. This gives us the opportunity to cancel the event with `clearTimeout()` when the menu is focused, which stops the menu from being hidden. 
+One work around involves using the `setTimeout()` function which allows us to put a delay on the event. In turn, the delay gives us time to cancel the the timeout (with `clearTimeout()`, should the user move focus to the menu within that time. This would stop the menu being hidden making it accessible again.
 
 ```JS
 this.textBox.on('blur', $.proxy(function(e) {
+  // set a delay before hiding the menu
   this.timeout = window.setTimeout(function() {
     // hide menu
   }, 100);
 }, this));
 
 this.menu.on('focus', $.proxy(function(e) {
+  // cancel the hiding of the menu
   window.clearTimeout(this.timeout);
 }, this));
 ```
 
-This isn't the most elegant solution. But worse is that there's a serious bug in iOS 10 regarding the blur event. In short, the act of hiding the on-screen keyboard will trigger the `blur` event on the text box. This causes a broken experience as users are impeded from accessing the menu.
+This isn't the most elegant solution. But worse still, iOS 10 has a problem with the blur event. The act of hiding the on-screen keyboard triggers the `blur` event on the text box. This isn't right, but it does create a broken experience that stops users from accessing the menu. Instead, we can listen out for the Tab key press instead.
 
 #### Listening To The Tab Key
 
-To avoid the problems with the blur event, we can listen out specifically for the Tab key.
+To avoid the problems with the blur event, we can listen out specifically for the <kbd>Tab</kbd> key.
 
 ```JS
 this.textBox.on('keydown', $.proxy(function(e) {

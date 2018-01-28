@@ -573,6 +573,8 @@ Autocomplete.prototype.getOptions = function(value) {
 };
 ```
 
+The exact same approach can be used to support common typos. Just store the value inside the attribute.
+
 #### How It Might Look
 
 ![Choosing where to fly](.)

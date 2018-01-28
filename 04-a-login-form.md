@@ -26,7 +26,7 @@ Some niche sites, such as airlines ask users to enter their booking reference nu
 
 ![Hint vs no hint](./images/04/username-hint.png)
 
-## Auto-captalisation, Auto-correct And Spell checking
+## Auto-capitalisation, Auto-correct And Spell checking
 
 Some Android and iOS browsers try to help users by auto-capitalising words in text boxes (`<input type="text">`). For example, if I type “adam”, it will be changed to “Adam” which can be helpful depending on the circumstance. 
 

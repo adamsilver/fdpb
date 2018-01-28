@@ -84,12 +84,23 @@
 	- Select Box
 	- Radio Buttons
 	- Search Input
+	- Datalist
 	- Autocomplete
-		- Building An Accessible Autocomplete
-		- Hiding the select box
-		- Enhancing the interface
-		- Text Box Interactions
-		- Menu Interactions
+		- Intro
+		- The Basic Mark-up
+		- The Enhanced Mark-up
+		- Typing Into The Text Box
+		- One Tab Stop
+		- Hiding The Menu Onblur Is Problematics
+		- Listening To The Tab key
+		- Moving To The Menu
+		- Scrolling The Menu
+		- Clicking An Option
+		- Keyboard Menu Interaction
+		- The Highlight Function
+		- The Basic Filter Function
+		- Supporting Endonyms And Common Typos
+		- How It Might Look
 - (2) Choosing When To Fly
 	- Types Of Date
 		- Dates From Documents
@@ -119,19 +130,21 @@
 
 ## 4. A Login Form
 
-- Password hint
-- Use explicit labels
-- The username and password doesn't match
-- Non-standard username and password fields
-- Provide context
-- Social login
-	- Privacy
-	- Choice
-	- Choice paralysis
-	- Seamless interchange
-- Forgotten password
+- A Standard Loging Form
+- Username Label And Hint Text
+- Autocapitalisation, Auto-correct And Spell Check
+- Password Field Design
 - Auto-tabbing
-- One form per page
+- Submit Button Text: Log In Versus Sign In
+- The ‘username and password don't match’ Problem
+- The Form In Context
+	- Layout
+	- One Form Per Page
+	- Forgotten Password Link Placement
+- Social Login
+	- Privacy
+	- Seamless Interchange
+	- Choice Vs Choice Paralysis
 
 ## 5. An Inbox
 

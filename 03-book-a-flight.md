@@ -52,15 +52,15 @@ HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create 
 
 ![Datalist](./images/03/datalist.png)
 
+But, having already defined our design principles in the introduction, we know we want to design an inclusive experience—one that works for as many people as possible, no matter their choice of browser or mobile device.
+
 ### An Autocomplete Control
 
-We want to design an inclusive experience—one that works for as many people as possible, no matter their choice of  browser or mobile device. By creating a custom autocomplete component, there's an opportunity to create an even more powerful feature set that allows for common typos and endonyms.
-
-A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is hard work, but that's what our job is all about.
+By creating a custom autocomplete component from scratch, there's an opportunity to create a powerful experience that also allows for common typos and endonyms. A word of warning though: we're going to break new ground; designing a robust and fully inclusive autocomplete control is hard work, but that's what our job is all about.
 
 > Do the hardwork to make it simple—GDS Design Principle 4
 
-Our custom autocomplete control is going to use HTML with ARIA attributes, CSS and JavaScript. Accessibility expert Steve Faulkner has what he calls a *punch list*[^] which is a list of rules to make sure that any custom JavaScript component is designed and built to a good standard. The rules state that a component should:
+Accessibility expert Steve Faulkner has what he calls a *punch list*[^] which is a list of rules to make sure that any custom JavaScript component is designed and built to a good standard. The rules state that a component should:
 
 1. work without JavaScript
 2. be focusable with the keyboard
@@ -69,13 +69,9 @@ Our custom autocomplete control is going to use HTML with ARIA attributes, CSS a
 
 #### The Basic Mark-up
 
-To satisfy the first rule we need to make sure the interface works in the absence of JavaScript. This means starting with a native form control that browsers provide for free. Having already discussed the options above we know that:
+To satisfy the first rule we need to make sure the interface works in the absence of JavaScript. This means starting with a native form control that browsers provide for free. 
 
-- there are too many options for radio buttons
-- a search box requires an unnecessary round-trip to the server and can lead to zero results
-- the datalist is buggy
-
-Which leaves us with a select box.
+Having already discussed the options above we know that there are too many options for radio buttons; a search box requires an unnecessary round-trip to the server and can lead to zero results; and the datalist is too buggy. By process of elimination, we're left with a select box.
 
 ```HTML
 <div class="field">
@@ -93,15 +89,7 @@ Which leaves us with a select box.
 
 #### The Enhanced Mark-up
 
-When JavaScript is available, the `Autocomplete` constructor will be used to construct our own custom form control.
-
-```JS
-function Autocomplete(select) {
-  // ...
-}
-```
-
-The enhanced HTML will look like this:
+When JavaScript is available, the `Autocomplete` constructor function will change the basic HTML to look like this:
 
 ```HTML
 <div class="field">
@@ -134,27 +122,30 @@ The enhanced HTML will look like this:
 
 **Select box and text box notes**
 
-- Even though users will no longer interact with the select box, it's still a necessary part of the control. If we were to remove the select box from the Document (or hide it with `display: none;`) then its value wouldn't be sent to the server upon submission. This is important because the text users type into the text box differs from the select box's value that will be submitted.
-- To hide the select box in a way that allows its value to be submitted involves a number of techniques, used in combination. The `visually-hidden` class and `aria-hidden="true"` attribute (as first set out in chapter 2, “Checkout”) hides the select box visually and aurally (by screen readers). And the `tabindex="-1"` attribute stops keyboard users from being able to focus it.
-- The select box's `id` attribute is transferred to the text box because there should still be an associated label to the interactive text box that users will type into. The select box no longer needs an `id`—it's effectively become a hidden input.
-- Similarly, the `name` attribute isn't needed on the text box because it's used purely for interaction. Its value isn't sent to the server—the text box is merely a proxy for the select box.
-- The `role="combobox"` attribute ensures this from control is announced as a combo box instead of a text box. A combo box, according to MDN[^], is “an edit control with an associated list box that provides a set of predefined choices.”
+- Even though users will no longer interact with the select box, it's still a necessary part of the control. If we were to remove the select box from the Document (or hide it with `display: none;`) then its value wouldn't be sent to the server upon submission. This is important because the text box `value` differs from the select box `value` that will be submitted.
+- To hide the select box without stopping its value from being submitted involves a number of combined techniques. The `visually-hidden` class and `aria-hidden="true"` attribute (as first set out in chapter 2, “Checkout”) hides the select box visually and aurally (by screen readers). And the `tabindex="-1"` attribute stops keyboard users from being able to focus it.
+- The select box `id` attribute is transferred to the text box because we want the label to be assocated with the text box. The select box, however, no longer needs an `id`—it's effectively become a hidden input.
+- Inversly, the `name` attribute isn't needed on the text box because it's used purely for interaction purposes and it's value is a proxy to the select box.
+- The `role="combobox"` attribute will mean the text box is announced as a combo box instead. A combo box, according to MDN[^], is “an edit control with an associated list box that provides a set of predefined choices.”
 - The `aria-autocomplete="list"` attribute tells users that a list of options will appear.
 - The `aria-expanded` attribute tells users whether the menu is expanded or collapsed by toggling it's value between `true` and `false`.
-- The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with those offered by our component.
+- The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with those offered by the component itself.
 - The `autocapitalize="none"` attribute stops some browsers from autocapitalising the first letter. More on this is in the next chapter.
 
 **Menu notes**
 
 - The `role="list"` attribute denotes that this element contains one or more options each with a `role="option"` attribute. The `<ul>` will be populated with suggestions as the user types in the text box.
 - The `aria-selected="true"` attribute tells users which  option within the list is selected or not by toggling the value between `true` and `false`.
-- The `tabindex="-1"` attribute allows us to set focus to the options programatically in response to certain key presses. More on this later.
-- The `data-option-value` attribute stores the equivalent select box option value. When the user selects an option in the autocomplete, the select box value is updated to the value of the `data-option-value` attribute. This is what ties the enhanced interface with the select box, which is ultimately sent to the server once the form is submitted.
+- The `tabindex="-1"` attribute means focus can be set to the option programatically when users press certain keys on their keyboard. More on this later.
+- The `data-option-value` attribute stores the select box option value. When the user selects an autocomplete option, the select box value is updated accordingly to keep them in-sync. This is what ties the enhanced interface with the select box that's used to communicate to the server, when the form is submitted.
 
-As the user types, suggestions will appear in the menu below. While this is sufficient feedback for sighted users, they aren't determinable by screen reader users without leaving the text box to explorer the items in the menu.
+**Live Region** 
 
-To provide a comparable experience (principle 1), we can use a live region as laid out in chapter 2, “Checkout”. It will be populated with “13 results available” which lets users decide to keep typing (to narrow the results further) or to move to the menu to select a suggestion. 
-The `visually-hidden` class is necessary because the live region is only valuable to screen reader users in this case.
+Sighted users will see the suggestions appear in the menu as they type, but the act of populating the menu isn't determinable for screen reader users, without leaving the text box to explore the menu.
+
+To provide a comparable experience (principle 1), we can use a live region as first laid out in chapter 2, “Checkout.” As the menu is populated, we'll populate the live region with how many results are available—for example, “13 results available.”
+
+Users can then choose to keep typing to narrow the results further or to move to the menu to select a suggestion. The `visually-hidden` class is necessary because it's only useful to users relying on audible feedback.
 
 #### Typing Into The Text Box
 

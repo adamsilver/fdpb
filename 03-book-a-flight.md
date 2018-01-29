@@ -122,30 +122,33 @@ When JavaScript is available, the `Autocomplete()` constructor function will enh
 
 **Select box and text box notes**
 
-- Even though users will no longer interact with the select box, it's still a necessary part of the control. If we were to remove the select box from the Document (or hide it with `display: none;`) then its value wouldn't be sent to the server upon submission. This is important because the text box `value` differs from the select box `value` that will be submitted.
-- To hide the select box without stopping its value from being submitted involves a number of combined techniques. The `visually-hidden` class and `aria-hidden="true"` attribute (as first set out in chapter 2, “Checkout”) hides the select box visually and aurally (by screen readers). And the `tabindex="-1"` attribute stops keyboard users from being able to focus it.
-- The select box `id` attribute is transferred to the text box because we want the label to be assocated with the text box. The select box, however, no longer needs an `id`—it's effectively become a hidden input.
-- Inversly, the `name` attribute isn't needed on the text box because it's used purely for interaction purposes and it's value is a proxy to the select box.
-- The `role="combobox"` attribute will mean the text box is announced as a combo box instead. A combo box, according to MDN[^], is “an edit control with an associated list box that provides a set of predefined choices.”
-- The `aria-autocomplete="list"` attribute tells users that a list of options will appear.
-- The `aria-expanded` attribute tells users whether the menu is expanded or collapsed by toggling it's value between `true` and `false`.
-- The `autocomplete="off"` attribute stops browsers making their own suggestions which would interfere with those offered by the component itself.
-- The `autocapitalize="none"` attribute stops some browsers from autocapitalising the first letter. More on this is in the next chapter.
+Even though users will no longer interact with the select box, we can't remove it completely. If we were to remove the select box from the Document (or hide it with `display: none;`) then its value wouldn't be sent to the server upon submission. This is important because the text box `value` differs from the select box `value` that will be submitted.
+
+Hiding the select box while still having its value submitted involves a number of techniques in combination. The `visually-hidden` class and `aria-hidden="true"` attribute (as first set out in chapter 2, “Checkout”) hides the select box from sighted and screen reader users respectively. The `tabindex="-1"` attribute stops keyboard users from being able to focus it.
+
+Note, the select box `id` attribute is transferred over to the text box because the label must be assocated to it so that its read out in screen readers and increases the hit area of the control as explained in chapter 1. The select box, however, no longer needs an `id`—it's effectively become a hidden input. Inversly, the `name` attribute isn't needed on the text box because its value isn't sent to the server—it's purely for interaction purposes and is used as a proxy to set the select box value.
+
+The `role="combobox"` attribute means the control is announced as a combo box instead. A combo box, according to MDN[^], is “an edit control with an associated list box that provides a set of predefined choices.” The `aria-autocomplete="list"` attribute tells users that a list of options will appear. The `aria-expanded` attribute tells users whether the menu is expanded or collapsed by toggling it's value between `true` and `false`.
+
+The `autocomplete="off"` attribute stops browsers from showing their own suggestions which would interfere with those offered by the component itself. Finally, the `autocapitalize="none"` attribute stops browsers from autocapitalising the first letter. Something we'll look at in detail in the next chapter.
 
 **Menu notes**
 
-- The `role="list"` attribute denotes that this element contains one or more options each with a `role="option"` attribute. The `<ul>` will be populated with suggestions as the user types in the text box.
-- The `aria-selected="true"` attribute tells users which  option within the list is selected or not by toggling the value between `true` and `false`.
-- The `tabindex="-1"` attribute means focus can be set to the option programatically when users press certain keys on their keyboard. More on this later.
-- The `data-option-value` attribute stores the select box option value. When the user selects an autocomplete option, the select box value is updated accordingly to keep them in-sync. This is what ties the enhanced interface with the select box that's used to communicate to the server, when the form is submitted.
+The `role="list"` attribute is used to communicate the menu as a list, because it will be populated with a list of options. Each option has a `role="option"` attribute.
+
+The `aria-selected="true"` attribute tells users which  option within the list is selected or not by toggling the value between `true` and `false`.
+
+The `tabindex="-1"` attribute means focus can be set to the option programatically when users press certain keys with the keyboard. We'll look at keyboard interaction later.
+
+Finally, the `data-option-value` attribute stores the select box option value. When the user clicks an autocomplete option, the select box value is updated accordingly to keep them in-sync. This is what ties the enhanced interface (what the user sees) with the select box (what the user can't see) that's used to communicate to the server, when the form is submitted.
 
 **Live Region** 
 
-Sighted users will see the suggestions appear in the menu as they type, but the act of populating the menu isn't determinable for screen reader users, without leaving the text box to explore the menu.
+Sighted users will see the suggestions appear in the menu as they type, but the act of populating the menu isn't determinable to screen reader users, without leaving the text box to explore the menu.
 
-To provide a comparable experience (principle 1), we can use a live region as first laid out in chapter 2, “Checkout.” As the menu is populated, we'll populate the live region with how many results are available—for example, “13 results available.” With this information at hand, users can continue typing to narrow the results further, or they can select a suggestion from the menu.
+To provide a comparable experience (principle 1), we can use a live region as first laid out in chapter 2, “Checkout.” As the menu is populated, we'll also populate the live region with how many results are available—for example, “13 results available.” With this information at hand, users can continue typing to narrow the results further, or they can select a suggestion from the menu.
 
-As the feedback is only useful to screen reader users, it's hidden by using the `visually-hidden` class.
+As the feedback is only useful to screen reader users, it's hidden with the `visually-hidden` class again.
 
 #### Typing Into The Text Box
 
@@ -180,11 +183,11 @@ Autocomplete.prototype.onTextBoxKeyUp = function(e) {
 };
 ```
 
-Notes:
+The `this.keys` object is a collection of key codes (numbers) that correspond to particular keys by their name. This is to avoid magic numbers[^] which makes the code easy to understand at a glance.
 
-- The `this.keys` object is a collection of key codes (numbers) that correspond to particular keys by their name. This is to avoid magic numbers[^] which makes the code easy to understand at a glance.
-- The switch statement filters out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out the keys we aren't interested in responding to, we could have specified the keys that we *are* interested in. But this would mean specifying a huge range of keys, which would increase the chance of one being missed, creating a broken experience.
-- We're mainly interested in the last two statements. That is when the user presses <kbd>Down</kbd> or any other character—this is the default case in the above function. In this case the `onTextBoxType()` function will be called.
+The switch statement filters out the <kbd>Escape</kbd>, <kbd>Up</kbd>, <kbd>Left</kbd>, <kbd>Right</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Tab</kbd> and <kbd>Shift</kbd> keys. This is because if we didn't, the default case would run and would incorrectly show the menu. Instead of filtering out the keys we aren't interested in responding to, we could have specified the keys that we *are* interested in. But this would mean specifying a huge range of keys, which would increase the chance of one being missed, creating a broken experience.
+
+We're mainly interested in the last two statements. That is, when the user presses <kbd>Down</kbd> or the default case above, which means “everything else” (a character, number, symbol etc). In this case the `onTextBoxType()` function will be called.
 
 ```JS
 Autocomplete.prototype.onTextBoxType = function(e) {
@@ -209,7 +212,7 @@ Autocomplete.prototype.onTextBoxType = function(e) {
 };
 ```
 
-The `getOptions()` method filters the options based on what the user typed. We'll look at the filtering mechanism later.
+The `getOptions()` method filters the options based on what the user typed. We'll look at the the filter function later.
 
 #### Controls Should Have A Single Tab Stop
 
@@ -217,7 +220,7 @@ The autocomplete control is what's known as a composite. That just means it's ma
 
 > A primary keyboard navigation convention common across all platforms is that the tab and shift+tab keys move focus from one UI component to another while other keys, primarily the arrow keys, move focus inside of components that include multiple focusable elements. The path that the focus follows when pressing the tab key is known as the tab sequence or tab ring.
 
-A radio button group is an example of a composite control that has one tab stop. Once the first radio button is focused, users can use the arrow keys to move between the options. Pressing <kbd>Tab</kbd> at anytime from within the group, moves focus to the next focusable control in the tab sequence.
+A radio button group, for example, is a composite control that has one tab stop. Once the first radio button is focused, users can use the arrow keys to move between the options. Pressing <kbd>Tab</kbd> at anytime from within the group, moves focus to the next focusable control in the tab sequence.
 
 The text box within our autocomplete control is naturally focusable by the Tab key. Once focused, the user will be able to press the arrow keys to traverse the menu which we'll look at shortly. Pressing Tab when the text box or menu option is focused, should hide the menu to stop it from obscuring the content beneath when not in use. We'll look at how to do this next.
 
@@ -233,7 +236,7 @@ this.textBox.on('blur', function(e) {
 
 The problem with this approach is that the act of moving focus to the menu (even programatically like we'll be doing), triggers the blur event which subsequently hides the menu. This would make the menu inaccessible with the keyboard.
 
-One work around involves using the `setTimeout()` function which allows us to put a delay on the event. In turn, the delay gives us time to cancel the the timeout (with `clearTimeout()`, should the user move focus to the menu within that time. This would stop the menu being hidden making it accessible again.
+One work around involves using the `setTimeout()` function which allows us to put a delay on the event. In turn, the delay gives us time to cancel the event (using `clearTimeout()`, should the user move focus to the menu within that time. This would stop the menu being hidden making it accessible again.
 
 ```JS
 this.textBox.on('blur', $.proxy(function(e) {
@@ -249,11 +252,11 @@ this.menu.on('focus', $.proxy(function(e) {
 }, this));
 ```
 
-This isn't the most elegant solution. Even worse, iOS 10 incorrectly triggers the blur event on the text box when the user hides the on-screen keyboard. This stops users from accessing the menu altogether. Fortunately, there's another solution.
+Unfortunately, there's a problem with the blur event in iOS 10. In short, it incorrectly triggers the blur event on the text box when the user hides the on-screen keyboard. This stops users from accessing the menu altogether. There's another solution which we'll look at next.
 
 #### Listening To The Tab Key
 
-Instead of hiding the menu `onblur`, we can do so by listening for the when the user presses <kbd>Tab</kbd>.
+Instead of hiding the menu `onblur`, we can use the `keydown` event. Specifically, we can listen out for when the user presses the Tab key.
 
 ```JS
 this.textBox.on('keydown', $.proxy(function(e) {
@@ -265,7 +268,7 @@ this.textBox.on('keydown', $.proxy(function(e) {
 }, this));
 ```
 
-The downside is that, unlike the `blur` event, this approach doesn't cover the case where users blur the field by clicking outside of it. We have to handle this case manually by listening to the Document's `click` event, and determining whether the user clicked something outside of the autocomplete's container element.
+Unlike the `blur` event, this approach doesn't cover the case where users blur the control by clicking outside of it. We have to handle this case manually by listening to the Document's `click` event but being careful to work out what's clicked—we don't want to hide the menu if the user clicks within the control.
 
 ```JS
 $(document).on('click', $.proxy(function(e) {
@@ -335,11 +338,13 @@ Autocomplete.prototype.onTextBoxDownPressed = function(e) {
 };
 ```
 
-If the user presses Down without having typed anything, the menu will populate with every available option, and focus to the first menu option. The same thing will happen if the user types an exact match. Otherwise, the menu will populate with options that match (if any), and again will focus the first menu option. Both paths end by calling the `highlightOption()` method, which we'll look at in detail later.
+If the user presses Down without having typed anything, the menu will populate with every available option, and focus to the first menu option. The same thing will happen if the user types an exact match—this should be rare because most most users who notice the suggestion will select it—it's quicker that way. 
+
+The `else` condition will will populate the menu with options that match (if any), and again will focus the first menu option. At the end of both scenarios the `highlightOption()` method is called, which we'll look at later.
 
 #### Scrolling The Menu
 
-As mentioned earlier, the menu may contain hundreds of options. To ensure the menu stays visible within the viewport, we need to apply three CSS properties like this:
+As mentioned earlier, the menu may contain hundreds of options. To ensure the menu stays visible within the viewport, we need to use CSS.
 
 ```CSS
 .autocomplete [role=listbox] {
@@ -349,19 +354,19 @@ As mentioned earlier, the menu may contain hundreds of options. To ensure the me
 }
 ```
 
-The `max-height` property works by letting the menu grow up to a maximum height of 12em. Once the content inside the menu surpasses that height, users can scroll the menu thanks to the `overflow-y: scroll` property. The last property is non-standard and is used to enable momentum scrolling on iOS. This ensures scrolling works the same way within our custom control as it does everywhere else.
+The `max-height` property works by letting the menu grow up to a maximum height of 12em. Once the content inside the menu surpasses that height, users can scroll the menu thanks to the `overflow-y: scroll` property. The last property is non-standard and is used to enable momentum scrolling on iOS. This ensures the autocomplete control scrolls the same way as it would everywhere else.
 
 #### Clicking An Option
 
-Clicking or tapping a menu option should perform a number of discrete tasks, but before we get to them, let's discuss how we might listen for the click event.
+Clicking or tapping a menu option should perform a number of discrete tasks, but before we get to them, let's discuss how we might listen to the click event.
 
 The most basic approach involves adding a click event onto each of the options individually. But this is problematic for two reasons.
 
-First, each added event must be stored in memory. As there are hundeds of menu items, that means a lot of memory which may impact performance. Second, the menu options are constantly being updated as the user types. This means events needed to be constantly added and removed which is computationally intensive and bothersome to manage codewise.
+First, each added event must be stored in memory. As there are hundreds of option, they'll use a lot of memory which may impact performance. Second, the menu options are constantly being updated as the user types. This means events needed to be constantly added and removed which is computationally intensive and bothersome to manage codewise.
 
-Instead we can use event delegation[^] which is made possible by the concept of event bubbling. In short, events that originate from lower down the Document, propagate (and bubble up) to the parent container, all the way up to the Document root.
+Instead we can use event delegation[^] which is made possible by the concept of event bubbling. In short, events that originate from lower down the Document tree, propagate (bubble up) to the parent container, all the way up to the Document root.
 
-In our particular case, we can add a single event listener onto the menu's container but only do something when the originating element was a menu option. To do this, we can use jQuery's `on()` method which has event delegation built in.
+In our particular case, we can add a single event listener onto the menu's container and filter out all events that don't match the option elements that we're interested in. To do this, we can use jQuery's `on()` method which has event delegation built in.
 
 ```JS
 Autocomplete.prototype.createMenu = function() {
@@ -371,7 +376,7 @@ Autocomplete.prototype.createMenu = function() {
 };
 ```
 
-The click event is bound to the container (`this.menu`), but will only trigger the event handler (`onOptionClick()`) when the event originated on an element with `role="option"` which each of the menu options has.
+The click event is bound to the container (`this.menu`), but will only trigger the event handler (`onOptionClick()`) when the event originated on an element with `role="option"`.
 
 ```JS
 Autocomplete.prototype.onOptionClick = function(e) {
@@ -380,7 +385,7 @@ Autocomplete.prototype.onOptionClick = function(e) {
 };
 ```
 
-The event handler retrieves the option (`e.currentTarget`) and hands it off to the `selectOption()` method. Normally, we'd reference `e.target`, but as we're using event delegation, `e.target` would return the delegate (`this.menu`) which isn't helpful. 
+The event handler retrieves the option (`e.currentTarget`) and hands it off to the `selectOption()` method. Normally, we'd reference `e.target`, but as we're using event delegation, `e.target` would return the delegate (`this.menu`) which isn't helpful. Whenever you're using event delegation, you'll almost definitely be interested in the originating element (`e.currentTarget`).
 
 ```JS
 Autocomplete.prototype.selectOption = function(option) {
@@ -391,7 +396,7 @@ Autocomplete.prototype.selectOption = function(option) {
 };
 ```
 
-This function takes the option, extracts the `data-option-value` attribute and passes it to the `setValue()` method. That method populates the text box and hidden select box. Finally, the menu is hidden and the text is focused.
+The `selectOption()` function takes the option to be selected, extracts the `data-option-value` attribute. That value is passed to the `setValue()` method which populates the text box and hidden select box. Finally, the menu is hidden and the text is focused.
 
 This same routine is performed when the user selects an option with the <kbd>Space</kbd> or <kbd>Enter</kbd> keys. We'll look at the menu interactions next.
 
@@ -475,9 +480,9 @@ Autocomplete.prototype.highlightOption = function(option) {
 
 The method performs a number of discrete steps. First, it checks to see if there's a previously active option. If so, the `aria-selected` attribute is set to `false` which ensures the state is communicated to screen reader users. Second, the new option's `aria-selected` attribute is set to `true`.
 
-As the menu has a fixed height, there's a chance that the newly focused option is out of the menu's visible area. So we check whether this is the case using the `isElementVisible()` method. If it's not visible, the menu's scroll position is adjusted using jQuery's `scrollTop()` method to keep it in view.
+As the menu has a fixed height, there's a chance that the newly focused option is out of the menu's visible area. So we check whether this is the case using the `isElementVisible()` method. If it's not visible, the menu's scroll position is adjusted using jQuery's `scrollTop()` method which makes sure it's in view.
 
-Next, the new option is stored, so that it can be referenced later next time around. And finally, the option is focused programatically to ensure its value is announced by screen readers.
+Next, the new option is stored, so that it can be referenced later when the method is called again for a different option. And finally, the option is focused programatically to ensure its value is announced in screen readers.
 
 To provide feedback to sighted users we can use the same `[aria-selected=true]` CSS attribute selector like this:
 
@@ -489,11 +494,11 @@ To provide feedback to sighted users we can use the same `[aria-selected=true]` 
 }
 ```
 
-Tying state and its visual representation together is a very good thing. It ensures that state changes are communicated interoperably. Form should follow function, and doing so directly keeps them in-sync.
+Tying state and its visual representation together is a good thing because tt ensures that state changes are communicated interoperably. Form should follow function, and doing so directly keeps them in-sync.
 
 #### The Basic Filter Function
 
-Having looked at the main interaction flows and routines that run off the back of them, we can look more closely at the filtering mechanism. This is important because a good filter is designed to forgive small typos. It's worth reminding ourselves again that the data that drives the suggestions reside in the select box `<option>` elements.
+Having looked at the main interaction flows and routines that run off the back of them, we can look more closely at the filtering mechanism. This is important because a good filter is designed to forgive small typos and letter casing. It's worth reminding ourselves again that the data that drives the suggestions reside in the select box `<option>` elements.
 
 ```HTML
 <select>
@@ -528,13 +533,15 @@ Autocomplete.prototype.getOptions = function(value) {
 };
 ```
 
-The method takes the user-entered value as a parameter. It then loops through each of the `<option>`s and compares the value to the option's text content (the bit inside the element). It does so by using `indexOf()` which checks to see if the string contains an occurence of the specified value. This means users can type incomplete parts of countries and still have relevant suggestions presented to them.
+The method takes the user-entered value as a parameter. It then loops through each of the `<option>`s and compares the value to the option's text content (the bit inside the element). It does so by using `indexOf()` which checks to see if the string contains an occurence of the specified value. This means users can type incomplete parts of countries and still have relevant suggestions presented to them. 
+
+The value is trimmed and converted to lower case, which means options will still be shown if the user has, for example, turned on capslock on their keyboard. Users shouldn't have to fix problems that we can fix for them automatically.
 
 Each matched option is added to the `matches` array which will be used by the calling function to populate the menu accordingly.
 
 #### Supporting Endonyms And Common Typos
 
-Some people refer to countries by different names. For example, Germany is sometimes referred to as Deutschland. An alternative name for a place is called an endonym. To allow users to type an endonym, we first need store it somewhere. One way to do this is to put it inside a data attribute on the `<option>` like this.
+Some people refer to countries by different names. For example, Germany is sometimes referred to as Deutschland. An alternative name for a place is called an endonym. To allow users to type an endonym, we first need store it somewhere. We can put the endonym inside a data attribute on the `<option>` element.
 
 ```HTML
 <select>
@@ -573,7 +580,7 @@ Autocomplete.prototype.getOptions = function(value) {
 };
 ```
 
-The exact same approach can be used to support common typos. Just store the value inside the attribute.
+The attribute isn't reserved for endonyms—it can be used to store common typos too.
 
 #### How It Might Look
 

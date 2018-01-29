@@ -600,11 +600,11 @@ Select boxes are also used to avoid locale and formatting differences. Some date
 
 ### Types Of Date
 
-Many of us assume that using a calendar widget is always better than letting users type freely into a text box unassisted. But this is not always the case. As the UK Goverment Digital Service (GDS) Service Manual states:
+Many of us assume that using a calendar widget is always better than letting users type freely into a text box unassisted. But this is not always the case. The UK Goverment Digital Service (GDS) Service Manual states:
 
 > “The way you should ask for dates depends on the types of date you’re asking for.”
 
-Let's step through some of the main types of dates to see what interface is best for users. Then we can see if any of those are suited to the contex of our problem: choosing a date to fly on.
+Let's walk through some of the main types of dates to see what interface is best for users. Then we can see if any of those are suited to the contex of our problem: choosing a date to fly on.
 
 #### Dates From Documents
 
@@ -649,27 +649,21 @@ The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”)
 
 #### Searching For Dates
 
-When choosing a date to fly on, users are neither entering a memorable date, nor one found in a document. They are searching for a date sometime in the future—within the next 12 months usually.
+When choosing a date to fly on, users are neither entering a memorable date, nor one found in a document. They are searching for a date sometime in the future and usually within the next 12 months.
 
-We tend to think of time in structured chunks: days, weeks and months etc. And we plan our time using calendars which aligns with that notion. It's sensible then, to let users find and pick a date through a familiar and intuitive calendar interface or what's also known as a date picker.
+We tend to think of time in structured chunks: days, weeks and months etc. And we plan our time using calendars which aligns with that notion. It's sensible then, to let users find and pick a date through a familiar and intuitive calendar interface or what's commonly known as a date picker.
 
 ### A Date Picker
 
-The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
+A date picker lets users find and pick a date through a control that is structured like a Gregorian calendar. You choose the year, month and day. As usual, our first port of call is to check what browsers give us for free.
 
-It's also not practical from a design perspective. Responsive design is about designing interfaces that work well in large and small screens. There's simply not enough room to add more information into each cell of a date picker.
+#### The Date Input
 
-Instead, we'll let users focus on choosing a date unencumbered and later we'll give users more information when it's both useful and practical to do so.
+The HTML5 date input (`<input type="date">`) offers a native calendar interface while also enforcing a standard format value that's sent to the server when submitted.
 
-### The Date Input
-
-As usual, our first port of call is to look at what browsers give us for free: HTML5 introduced the date input (`<input type="date">`) which offers a special interface for picking dates while enforcing a standard format value that's sent to the server. Mobile browser support is really good too.
+Mobile browser support is really good: most mobile browsers support it. Desktop support is patchy: Chrome and Edge support it, but Firefox doesn't (at time of writing).
 
 ![Mobile Date Input](./images/03/date-input-mobile.png)
-
-Desktop browser support is patchy. Chrome and Edge have support but Firefox, for example, doesn't have any support (at time of writing).
-
-#### Things Look Different
 
 Don't be concerned about the difference in appearance. Most users aren't aware and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during testing.
 
@@ -680,6 +674,16 @@ If you're not able to conduct your own user research, watch “Progressive Enhan
 Remember the audience was full of designers and developers—people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
 
 And if that's not enough proof, visit “Do Websites Need To Look Exactly The Same In Every Browser”[^].
+
+---
+
+traverse the months and days of the year
+
+The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
+
+It's also not practical from a design perspective. Responsive design is about designing interfaces that work well in large and small screens. There's simply not enough room to add more information into each cell of a date picker.
+
+Instead, we'll let users focus on choosing a date unencumbered and later we'll give users more information when it's both useful and practical to do so.
 
 ### A Date Picker
 

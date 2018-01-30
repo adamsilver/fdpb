@@ -655,44 +655,52 @@ We tend to think of time in structured chunks: days, weeks and months etc. And w
 
 ### A Date Picker
 
-A date picker lets users find and pick a date through a control that is structured like a Gregorian calendar. You choose the year, month and day. As usual, our first port of call is to check what browsers give us for free.
+As usual, our first port of call is to see if there's a date picker control that browsers provide natively for free. Good news, there is. The date input (`<input type="date">`) offers a special and convenient interface for picking dates while also enforcing a standard format for the value that's sent to the server upon submission.
 
-#### The Date Input
+Mobile browser support is really good and includes Samsung's browser, FireFox, Edge, Chrome, Opera and Safari. Desktop support is patchier: Chrome and Edge support it, but FireFox and Safari (at time of writing) don't. Don't worry, we'll look at how to support such browsers later.
 
-The HTML5 date input (`<input type="date">`) offers a native calendar interface while also enforcing a standard format value that's sent to the server when submitted.
+![](.)
+Caption: A selection of date pickers on different browsers
 
-Mobile browser support is really good: most mobile browsers support it. Desktop support is patchy: Chrome and Edge support it, but Firefox doesn't (at time of writing).
+As the date picker is provided by the browser, you'll notice how it looks a lot like the system date picker that's used for setting dates and times on your phone. That's by design so that mobile browsers can outsource the problem to native components. This is good because users will be familiar with it which speaks to principle 3, *Be consistent*.
 
-![Mobile Date Input](./images/03/date-input-mobile.png)
+#### They Look Different
 
-Don't be concerned about the difference in appearance. Most users aren't aware and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during testing.
+Don't be concerned about the difference in appearance. Most users don't notice the difference and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during cross-browser testing.
 
 > Nobody cares about your website as much as you do[^]
 
-If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^]. Nicholas Zakas shows the audience a slide with a photo on it. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed. 
+If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^]. Nicholas Zakas shows the audience a slide with a photo on it. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed.
 
-Remember the audience was full of designers and developers—people who are trained to notice these things. They didn't notice, because like any user, they were focused on the content.
+Remember the audience was full of designers and developers—people who are trained to notice these things. But they didn't notice, because like any user, they were focused on the content, not the finer points of the visual aesthetic. In short, websites don't need to look the same in every browser[^].
 
-And if that's not enough proof, visit “Do Websites Need To Look Exactly The Same In Every Browser”[^].
+#### The Basic Mark-up
 
----
+```HTML
+<div class="field">
+  <label for="when">
+    <span class="field-label">Date</span>
+  </label>
+  <input type="date" id="when" name="when">
+</div>
+```
 
-traverse the months and days of the year
+The mark-up should be familiar by now. Everything is the same as a standard text box field, with the exception of the input's `type` attribute which is set to `date`.
 
-The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
+#### What About Browsers That Lack Support?
 
-It's also not practical from a design perspective. Responsive design is about designing interfaces that work well in large and small screens. There's simply not enough room to add more information into each cell of a date picker.
+In browsers that support the date input, users will get a date picker. In browsers that lack support, the input will degrade into a basic text box. Such is the beauty of progressive enhancement (first discussed in chapter 1).
 
-Instead, we'll let users focus on choosing a date unencumbered and later we'll give users more information when it's both useful and practical to do so.
+In this scenario, users won't get the convenience of a calendar, but they'll be able to enter a date nonetheless. And depending on the situation this may be an acceptable experience. In this particular case, we ought to give our users a more inclusive experience, after all picking a date to fly is integral to the booking experience.
 
-### A Date Picker
+We can do this by providing our own custom date picker using JavaScript.
 
-As noted above, mobile and some desktop browsers have support for the native date input. But what about people who use an unsupported browser? For them, picking a date is going to be harder than it ought to be. Really, we should give users a better experience by providing our own custom date picker.
+#### Feature Detection
 
-We only want to give unsupported browsers a custom date picker, otherwise users will get two date pickers—the native one and our own. You can feature detect the date input capability like this:
+We only want to give unsupported browsers our custom date picker—otherwise users will get two date pickers: the native one and our own. We can check for support using feature detection like this:
 
 ```JS
-function supportsDateInput() {
+function dateInputSupported() {
   var el = document.createElement('input');
   try {
     el.type = "date";
@@ -701,14 +709,33 @@ function supportsDateInput() {
 }
 ```
 
-The function creates a date input and then determines support by checking if browser reports the `type` as `date`. In browsers that don't support the date input, this will return `text`. We can use the function like this:
+The function works by trying to create a date input. Then at the tend of the function, it checks to see if the type correctly reports `date`. In browsers that lack support, it will be reported as `text` instead. We can use the function like this:
 
 ```JS
-if(!supportsDateInput()) {
+if(!dateInputSupported()) {
   function DatePicker() {
-    // ...
+    // code here
   }
 }
+```
+
+#### The Enhanced Mark-up
+
+When the `DatePicker()` constructor runs, the first thing it will do is create the enhanced mark-up in preparation for interaction. Here's it will look like:
+
+```HTML
+<div class="field">
+  <label for="when">
+    <span class="field-label">Date</span>
+  </label>
+  <div class="datepicker">
+    <input type="text" id="when" name="when">
+    <button type="button" aria-expanded="true" aria-haspopup="true">Choose</button>
+    <div class="datepicker-wrapper hidden">
+      Calendar widget here
+    </div>
+  </div>
+</div>
 ```
 
 #### The Enhanced Interface
@@ -720,6 +747,14 @@ The enhanced interface takes the text box and injects a button beside it. Clicki
 Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't have these issues.
 
 There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets[^] which are easy to tap (or click) with a finger (or mouse).
+
+#### Layout
+
+The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
+
+It's also not practical from a design perspective. Responsive design is about designing interfaces that work well in large and small screens. There's simply not enough room to add more information into each cell of a date picker.
+
+Instead, we'll let users focus on choosing a date unencumbered and later we'll give users more information when it's both useful and practical to do so.
 
 #### Revealing The Calendar
 

@@ -685,19 +685,23 @@ Remember the audience was full of designers and developers—people who are trai
 </div>
 ```
 
-The mark-up should be familiar by now. Everything is the same as a standard text box field, with the exception of the input's `type` attribute which is set to `date`.
+The mark-up should be familiar by now. It's made up of the same HTML that is used to form a basic text field. The only difference is that the input's `type` attribute is set to `date`.
 
 #### What About Browsers That Lack Support?
 
-In browsers that support the date input, users will get a date picker. In browsers that lack support, the input will degrade into a basic text box. Such is the beauty of progressive enhancement (first discussed in chapter 1).
+In browsers that support the date input, users will get a date picker. In browsers that lack support, the input will degrade into a basic text box. In this case, user's won't get the convenience of a date picker, but they'll still be able to enter a date.
 
-In this scenario, users won't get the convenience of a calendar, but they'll be able to enter a date nonetheless. And depending on the situation this may be an acceptable experience. In this particular case, we ought to give our users a more inclusive experience, after all picking a date to fly is integral to the booking experience.
+Depending on the context of your specific problem, this level of support may be acceptable. But in our case, finding a date is integral to the booking experience—we ought to provide a better experience to users in browsers that lack native support for the date input.
 
-We can do this by providing our own custom date picker using JavaScript.
+To do this, we'll create a custom date picker component.
+
+#### How It Might Look
+
+![Date picker](./images/03/date-picker.png)
 
 #### Feature Detection
 
-We only want to give unsupported browsers our custom date picker—otherwise users will get two date pickers: the native one and our own. We can check for support using feature detection like this:
+Importantly, we only want to give unsupported browsers our custom date picker. To do this, we can check for support using feature detection. If we didn't check for support, before enhancing the interface, then users may get two date pickers: the native one and our own.
 
 ```JS
 function dateInputSupported() {
@@ -709,7 +713,7 @@ function dateInputSupported() {
 }
 ```
 
-The function works by trying to create a date input. Then at the tend of the function, it checks to see if the type correctly reports `date`. In browsers that lack support, it will be reported as `text` instead. We can use the function like this:
+The function works by trying to create a date input and then checking to see if its type attribute is correctly reported it as a date input. In browsers that lack support, it will be reported as a text input instead. We can use this function to check whether our `DatePicker()` component is going to be defined or not.
 
 ```JS
 if(!dateInputSupported()) {
@@ -719,9 +723,17 @@ if(!dateInputSupported()) {
 }
 ```
 
+Then when it comes to initialising the component we can check to see if the `DatePicker()` is defined. If it is, we know we can initialise it, otherwise we bail out, in the knowledge that browsers will be providing their own native solution.
+
+```JS
+if(typeof DatePicker !== "undefined") {
+ new DatePicker();
+}
+```
+
 #### The Enhanced Mark-up
 
-When the `DatePicker()` constructor runs, the first thing it will do is create the enhanced mark-up in preparation for interaction. Here's it will look like:
+The first thing the DatePicker will do is enhance the mark-up, ready for user interaction.
 
 ```HTML
 <div class="field">
@@ -738,48 +750,29 @@ When the `DatePicker()` constructor runs, the first thing it will do is create t
 </div>
 ```
 
-#### The Enhanced Interface
+The enhanced mark-up consists of a button that's injected next to the text box and the calendar widget itself. The calendar HTML is quite large, and we'll look at that in more detail shortly.
+
+Notes:
+
+- The `type="button"` attribute stops the button from submitting the form. If it the type was omitted or set to `submit` it would incorrectly submit the form when clicked.
+- The `aria-haspopup="true"` attribute indicates that the button reveals a calendar. It acts as a warning that, when pressed, the focus will be moved to the calendar. Note: its value is always set to `true`.
+- The `aria-expanded` attribute indicates whether the calendar is currently in an open (expanded) or closed (collapsed) state by toggling between `true` and `false` values.
+
+#### Revealing The Calendar
+
+#### Layout
 
 The enhanced interface takes the text box and injects a button beside it. Clicking the button reveals the calendar.
 
-![Date picker](./images/03/date-picker.png)
-
 Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't have these issues.
 
-There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets[^] which are easy to tap (or click) with a finger (or mouse).
-
-#### Layout
+There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets[^] which are  easier to tap or click.
 
 The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
 
 It's also not practical from a design perspective. Responsive design is about designing interfaces that work well in large and small screens. There's simply not enough room to add more information into each cell of a date picker.
 
 Instead, we'll let users focus on choosing a date unencumbered and later we'll give users more information when it's both useful and practical to do so.
-
-#### Revealing The Calendar
-
-Clicking the toggle button reveals the calendar.
-
-```HTML
-<div class="field">
-  <label for="when">
-    <span class="field-label">Date</span>
-  </label>
-  <div class="datepicker">
-    <input type="text" id="when" name="when">
-    <button type="button" aria-expanded="true" aria-haspopup="true">Choose</button>
-    <div class="datepicker-wrapper hidden">
-      Calendar widget here
-    </div>
-  </div>
-</div>
-```
-
-Notes:
-
-- The `type="button"` attribute stops the button from submitting the form. If it was left undefined or set to “submit” it would submit the form.
-- The `aria-haspopup="true"` attribute indicates that the button reveals a calendar. It acts as a warning that, when pressed, the focus will be moved to the calendar. Note: its value is always set to `true`.
-- The `aria-expanded` attribute indicates whether the calendar is currently in an open (expanded) or closed (collapsed) state by toggling between `true` and `false` values.
 
 #### Keyboard And Focus Behaviour
 

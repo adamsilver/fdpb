@@ -685,11 +685,11 @@ Remember the audience was full of designers and developers—people who are trai
 </div>
 ```
 
-The mark-up should be familiar by now. It's made up of the same HTML that is used to form a basic text field. The only difference is that the input's `type` attribute is set to `date`.
+This mark-up should be familiar by now. It's made up of the same HTML that is used to form a basic text field. The only difference is that the input's `type` attribute is set to `date`.
 
 #### What About Browsers That Lack Support?
 
-In browsers that support the date input, users will get a date picker. In browsers that lack support, the input will degrade into a basic text box. In this case, user's won't get the convenience of a date picker, but they'll still be able to enter a date.
+In browsers that support the date input, users will get a date picker. In browsers that lack support, the input will degrade into a basic text box. In this case, user's won't get the convenience of a date picker, but they'll still be able to enter a date—that's progressive enhancement, that's inclusive design.
 
 Depending on the context of your specific problem, this level of support may be acceptable. But in our case, finding a date is integral to the booking experience—we ought to provide a better experience to users in browsers that lack native support for the date input.
 
@@ -699,9 +699,13 @@ To do this, we'll create a custom date picker component.
 
 ![Date picker](./images/03/date-picker.png)
 
+It works by injecting a toggle button beside the text input. When pressed, it will reveal a calendar from which the user can navigate and select a date. When a date is selected, it will populate the text box accordingly.
+
 #### Feature Detection
 
-Importantly, we only want to give unsupported browsers our custom date picker. To do this, we can check for support using feature detection. If we didn't check for support, before enhancing the interface, then users may get two date pickers: the native one and our own.
+We only want to give unsupported browsers our custom date picker. If we initialised our custom date picker for supporting browsers too, those browsers will get two date pickers: the native one and our own.
+
+We can check for support before enhancing the interface using a little feature detection script.
 
 ```JS
 function dateInputSupported() {
@@ -713,7 +717,7 @@ function dateInputSupported() {
 }
 ```
 
-The function works by trying to create a date input and then checking to see if its type attribute is correctly reported it as a date input. In browsers that lack support, it will be reported as a text input instead. We can use this function to check whether our `DatePicker()` component is going to be defined or not.
+The function works by trying to create a date input and then checking to see if its `type` attribute is correctly reported it as a date input. In browsers that lack support, it will be reported as a text input instead. We can use this function to determine whether the `DatePicker()` component is going to be defined or not.
 
 ```JS
 if(!dateInputSupported()) {
@@ -723,7 +727,7 @@ if(!dateInputSupported()) {
 }
 ```
 
-Then when it comes to initialising the component we can check to see if the `DatePicker()` is defined. If it is, we know we can initialise it, otherwise we bail out, in the knowledge that browsers will be providing their own native solution.
+With this in place, we can check to see if the `DatePicker()` is defined. If it is, then we can initialise it which will enhance the interface in browsers that don't support the date input. Lovely.
 
 ```JS
 if(typeof DatePicker !== "undefined") {
@@ -733,7 +737,7 @@ if(typeof DatePicker !== "undefined") {
 
 #### The Enhanced Mark-up
 
-The first thing the DatePicker will do is enhance the mark-up, ready for user interaction.
+The first thing the `DatePicker()` constructor will do is change the mark-up so that it includes the date picker controls. Namely the toggle button and calendar widget which is hidden to begin with.
 
 ```HTML
 <div class="field">
@@ -750,7 +754,7 @@ The first thing the DatePicker will do is enhance the mark-up, ready for user in
 </div>
 ```
 
-The enhanced mark-up consists of a button that's injected next to the text box and the calendar widget itself. The calendar HTML is quite large, and we'll look at that in more detail shortly.
+As the calendar HTML is large, we'll look at that in detail shortly.
 
 Notes:
 
@@ -760,13 +764,13 @@ Notes:
 
 #### Revealing The Calendar
 
-#### Layout
-
-The enhanced interface takes the text box and injects a button beside it. Clicking the button reveals the calendar.
-
 Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't have these issues.
 
 There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets[^] which are  easier to tap or click.
+
+MORE
+
+#### Squeezing In Content
 
 The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
 
@@ -949,19 +953,19 @@ Airlines typically ask how many people are travelling. They also want to know wh
 </div>
 ```
 
-Each category is represented by a separate field. As we're asking users for an *amount* of something - in this case passengers - the number input makes sense. (Note: we discussed when to use the number input in “Checkout”.)
+Each category is represented by a separate field. As we're asking users for an *amount* of something—in this case passengers—the number input makes sense. (Note: we discussed when to use the number input in “Checkout”.)
 
 Number inputs have little spinner buttons. Spinners, also known as steppers, let users increase or decrease the input's value by a constant amount. They are great for making small adjustments. As Luke Wobrelkski says:
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-The downside is the the default spinners are really small, which make them especially difficult to use on a touch screen display or for people have motor impairements. On many mobile devices, they don't show up at all.
+The downside is that the default spinners are really small, which make them especially difficult to use on touch screen displays or for motor-impaired users. Moreover, on many mobile devices, they don't show up at all.
 
 ### Custom Stepper Buttons
 
-We can create bigger buttons with Javascript. Not only are they easier to use on desktop, but they will save mobile users having to trigger the on-screen keyboard.
+We can create bigger buttons with Javascript. Not only are they easier to use on desktop, but they will save mobile users having to trigger the on-screen keyboard reducing the time and effort to complete this task.
 
-The first thing we need to do is turn off the ones provided by the browser. In webkit browsers you can do this:
+First, we need to turn off the native stepper buttons provided by the browser. In webkit browsers you can do this:
 
 ```CSS
 input::-webkit-outer-spin-button,
@@ -995,7 +999,7 @@ Notes:
 - The label is given an `id` attribute which the buttons will use as a description thanks to the `aria-describedby` attribute.
 - The buttons and number input is wrapped in a `div` so that they can be styled as a group underneath the label.
 - The button's `aria-label` attribute will ensure that screen readers read out “Decrement” instead of “minus symbol” (or similar).
-- The button's `aria-describedby` attribute references the aformentioned label's `id` which means it combines with the label text to give screen reader users extra context. As there are three fields on the page, this stops users thinking “Decrement - decrement what exactly?”.
+- The button's `aria-describedby` attribute references the aformentioned label's `id` which means it combines with the label text to give screen reader users extra context. As there are three fields on the page, this stops users thinking “Decrement—decrement what exactly?”.
 - Each button has a `type="button"` attribute which means it won't submit the form when clicked.
 - Clicking increment or decrement updates the status box at the bottom so that screen reader users will hear the change without having to move away from the button (see note below).
 

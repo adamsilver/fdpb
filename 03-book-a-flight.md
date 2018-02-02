@@ -810,13 +810,13 @@ DatePicker.prototype.show = function() {
 
 Notes:
 
-- The container has two important attributes. The `role="group"` attribute is used to group a number of related interface controls: the Previous Month button, the Next Month button and the grid. When the calendar is revealed, screen reader users will hear the button's label in combination with the group's label: “date picker, previous month, button”.
-- Again, the `focusable="false"` attribute on the SVG icon fixes the issue that in Internet Explorer SVG elements are focusable.
-- The month's title and year is placed within a live region (as first discussed in chapter 2), which means it will be announced by screen readers when the calendar is revealed. This same information will be continually announced as users move between months.
+- The container has two important attributes. The `role="group"` attribute is used to group a number of related interface controls which include the Previous Month button, the Next Month button and the grid. When the calendar is revealed, screen reader users will hear the button's label in combination with the group's label: “date picker, previous month, button”.
+- As mentioned earlier, the `focusable="false"` attribute on the SVG icon fixes the issue that in Internet Explorer SVG elements are focusable.
+- The month's title and year is placed within a live region (as first discussed in chapter 2). This means its content will be announced by screen readers when the calendar is revealed. This same information will be continually announced as users move between different months.
 
 #### Previous And Next Month Buttons
 
-Having revealed the calendar and moved focus to the previous and next month buttons, we need to allow users to operate those buttons and move between them. Both of these things are easy. As we're employing `<button>` elements, they are naturally focusable as part of the tab sequence. And they can be activated by clicking, or pressing Space or Enter on the keyboard.
+Having revealed the calendar and moved focus to the previous and next month buttons, we need to allow users to operate them and move between them. Both of these things are easy. As we're employing `<button>` elements, they are naturally focusable as part of the tab sequence. And they can be activated by clicking, or pressing Space or Enter on the keyboard.
 
 ```JS
 DatePicker.prototype.addEventListeners = function() {

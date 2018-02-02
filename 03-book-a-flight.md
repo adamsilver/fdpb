@@ -806,6 +806,7 @@ DatePicker.prototype.show = function() {
   </div>
   <!-- grid here -->
 </div>
+```
 
 Notes:
 
@@ -813,11 +814,26 @@ Notes:
 - Again, the `focusable="false"` attribute on the SVG icon fixes the issue that in Internet Explorer SVG elements are focusable.
 - The month's title and year is placed within a live region (as first discussed in chapter 2), which means it will be announced by screen readers when the calendar is revealed. This same information will be continually announced as users move between months.
 
-#### Clicking Previous Month And Next Month Buttons
+#### Previous And Next Month Buttons
 
-Clicking the Previous Month and Next Month buttons will update the month on display. Keyboard users are able to Tab between the buttons to switch between the months in the calendar. In doing so, the month's title is updated and announced in screen readers thanks to the live region.
+Having revealed the calendar and moved focus to the previous and next month buttons, we need to allow users to operate those buttons and move between them. Both of these things are easy. As we're employing `<button>` elements, they are naturally focusable as part of the tab sequence. And they can be activated by clicking, or pressing Space or Enter on the keyboard.
 
-Keyboard users can Tab to the Next Month button as it is the next focusable element in the tab sequence. As we've employed native Button elements, keyboard users are able to active the button by pressing Enter or Space keys as standard.
+```JS
+DatePicker.prototype.addEventListeners = function() {
+  this.calendar.on('click', 'button:first-child', $.proxy(this, 'onBackClick'));
+  this.calendar.on('click', 'button:last-child', $.proxy(this, 'onNextClick'));
+};
+
+DatePicker.prototype.onBackClick = function(e) {
+  this.showPreviousMonth();
+};
+
+DatePicker.prototype.onNextClick = function(e) {
+  this.showNextMonth();
+};
+```
+
+The `showPreviousMonth()` and `showNextMonth()` methods work out which month to show and then update the title and grid accordingly.
 
 #### Roving Tabs
 
@@ -825,9 +841,9 @@ Keyboard users can Tab to the Next Month button as it is the next focusable elem
 
 
 
-At this point pressing <kbd>Tab</kbd> moves to the next focusable element (the Next Month button). And tabbing again moves focus to the currently selected date within the grid, which defaults to today's date.
+currently selected date within the grid, which defaults to today's date.
 
-#### Traversing the Grid
+#### The Grid
 
 ```HTML
 <table role="grid">

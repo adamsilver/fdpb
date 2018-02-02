@@ -101,7 +101,7 @@ When JavaScript is available, the `Autocomplete()` constructor function will enh
   </select>
   <div class="autocomplete">
     <input aria-owns="autocomplete-options--destination" autocapitalize="none" type="text" autocomplete="off"  aria-autocomplete="list" role="combobox" id="destination" aria-expanded="false">
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg">
       <!-- rest of SVG here -->
     </svg>
     <ul id="autocomplete-options--destination" role="listbox" class="hidden">
@@ -131,6 +131,8 @@ Note, the select box `id` attribute is transferred over to the text box because 
 The `role="combobox"` attribute means the control is announced as a combo box instead. A combo box, according to MDN[^], is “an edit control with an associated list box that provides a set of predefined choices.” The `aria-autocomplete="list"` attribute tells users that a list of options will appear. The `aria-expanded` attribute tells users whether the menu is expanded or collapsed by toggling it's value between `true` and `false`.
 
 The `autocomplete="off"` attribute stops browsers from showing their own suggestions which would interfere with those offered by the component itself. Finally, the `autocapitalize="none"` attribute stops browsers from autocapitalising the first letter. Something we'll look at in detail in the next chapter.
+
+The SVG icon is layered on top of the text box using CSS. Note the `focusable="false"` attribute which fixes the issue that in Internet Explorer SVG elements are focusable by default.
 
 **Menu notes**
 
@@ -586,7 +588,7 @@ The attribute isn't reserved for endonyms—it can be used to store common typos
 
 ![Choosing where to fly](.)
 
-## 2. Choosing When To Fly
+## 2. When To Fly
 
 Dates are notoriously hard[^]: different time zones, formats, delimiters, days in the month, length of a year, daylight savings and on and on. It's hard work designing all of this complexity out of an interface.
 
@@ -598,15 +600,13 @@ Select boxes are also used to avoid locale and formatting differences. Some date
 
 ![What date?](./images/03/what-date.png)
 
-### Types Of Date
-
 Many of us assume that using a calendar widget is always better than letting users type freely into a text box unassisted. But this is not always the case. The UK Goverment Digital Service (GDS) Service Manual states:
 
 > “The way you should ask for dates depends on the types of date you’re asking for.”
 
 Let's walk through some of the main types of dates to see what interface is best for users. Then we can see if any of those are suited to the contex of our problem: choosing a date to fly on.
 
-#### Dates From Documents
+### Dates From Documents
 
 Here's what GDS says about asking for dates that are found on documents and other physical items users may need to reference:
 
@@ -614,7 +614,7 @@ Here's what GDS says about asking for dates that are found on documents and othe
 
 The expiry date from chapter 2, “Checkout” falls under this category. As the expiry date is just 4 characters with an optional slash, we gave users a single text box that matches the expected format. Essentially, users just copy with they see. Easy.
 
-#### Memorable Dates
+### Memorable Dates
 
 A memorable date is one that you remember easily such as your date of birth. Typing 6 digits unassisted into a text box is much quicker than scrolling, swiping and clicking through multiple years, months and days within a calendar.
 
@@ -647,32 +647,28 @@ The three fields are wrapped in a `fieldset`. The `legend` (“Date of birth”)
 
 *(Note: the pattern attribute is used to trigger the numeric keyboard—a little enhancement for iOS users. If you're wondering about why we haven't used the number input, you can refer back to the number input in chapter 2, “Checkout.”)*
 
-#### Searching For Dates
+### A Date Picker
 
-When choosing a date to fly on, users are neither entering a memorable date, nor one found in a document. They are searching for a date sometime in the future and usually within the next 12 months.
+When choosing a date to fly on, users are neither entering a memorable date, nor one found in a document. They are searching for a date sometime in the future and usually within the next few months.
 
 We tend to think of time in structured chunks: days, weeks and months etc. And we plan our time using calendars which aligns with that notion. It's sensible then, to let users find and pick a date through a familiar and intuitive calendar interface or what's commonly known as a date picker.
 
-### A Date Picker
-
-As usual, our first port of call is to see if there's a date picker control that browsers provide natively for free. Good news, there is. The date input (`<input type="date">`) offers a special and convenient interface for picking dates while also enforcing a standard format for the value that's sent to the server upon submission.
+As usual, our first port of call is to see if there's a date picker control that browsers provide natively for free. Good news: there is. The date input (`<input type="date">`) offers a special and convenient interface for picking dates while also enforcing a standard format for the value that's sent to the server upon submission.
 
 Mobile browser support is really good and includes Samsung's browser, FireFox, Edge, Chrome, Opera and Safari. Desktop support is patchier: Chrome and Edge support it, but FireFox and Safari (at time of writing) don't. Don't worry, we'll look at how to support such browsers later.
 
-![](.)
+![Image](.)
 Caption: A selection of date pickers on different browsers
 
 As the date picker is provided by the browser, you'll notice how it looks a lot like the system date picker that's used for setting dates and times on your phone. That's by design so that mobile browsers can outsource the problem to native components. This is good because users will be familiar with it which speaks to principle 3, *Be consistent*.
 
-#### They Look Different
-
-Don't be concerned about the difference in appearance. Most users don't notice the difference and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during cross-browser testing.
+You might be concerned that they look different across the different browser vendors. Don't be. Most users don't notice the difference and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during cross-browser testing.
 
 > Nobody cares about your website as much as you do[^]
 
 If you're not able to conduct your own user research, watch “Progressive Enhancement 2.0”, at 29 minutes in[^]. Nicholas Zakas shows the audience a slide with a photo on it. He moves to the next slide which contains the same photo. He then asks the audience if they noticed any differences. Even though the second photo had a border and drop shadow, not one person noticed.
 
-Remember the audience was full of designers and developers—people who are trained to notice these things. But they didn't notice, because like any user, they were focused on the content, not the finer points of the visual aesthetic. In short, websites don't need to look the same in every browser[^].
+Ironically, the audience was made up of designers and developers—people who are trained to notice these things. But they didn't notice them, because like any user, they were focused on the content, not the finer points of the visual aesthetic.
 
 #### The Basic Mark-up
 
@@ -685,25 +681,37 @@ Remember the audience was full of designers and developers—people who are trai
 </div>
 ```
 
-This mark-up should be familiar by now. It's made up of the same HTML that is used to form a basic text field. The only difference is that the input's `type` attribute is set to `date`.
+This mark-up should be familiar by now as the majority of it has been used several times already in the book. The only difference is that the input's `type` attribute is set to `date`.
 
-#### What About Browsers That Lack Support?
+#### Browsers That Lack Support
 
-In browsers that support the date input, users will get a date picker. In browsers that lack support, the input will degrade into a basic text box. In this case, user's won't get the convenience of a date picker, but they'll still be able to enter a date—that's progressive enhancement, that's inclusive design.
+People using a browser that supports the date input get the best experience. They get to use a standard date picker that's familiar, accessible and performant by default. So that's good.
 
-Depending on the context of your specific problem, this level of support may be acceptable. But in our case, finding a date is integral to the booking experience—we ought to provide a better experience to users in browsers that lack native support for the date input.
+What happens in browsers that lacks support? In this case, the date input will gracefully degrade into a basic text input. While users won't get the convenience of a date picker, they will still be able to enter a date. This is a credit to how resilience is baked into to HTML. When things fails, they don't break.
 
-To do this, we'll create a custom date picker component.
+Depending on your situation, you might find this level of support completely acceptable. Perhaps entering a date is of low priority or happens to infrequently. Or perhaps none of your users will ever use an unsupported browser. But in our case, finding a date is integral to the flight booking experience. We ought to provide the best experience possible, even for people using an unsupported browser.
 
 #### How It Might Look
 
 ![Date picker](./images/03/date-picker.png)
 
-It works by injecting a toggle button beside the text input. When pressed, it will reveal a calendar from which the user can navigate and select a date. When a date is selected, it will populate the text box accordingly.
+The date picker consists of a toggle button that reveals the calendar. From there users will be able to traverse the calendar and ultimately select a date to populate the text box.
+
+#### Visual Design And Styling
+
+Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen when positioned absolutely on top of the interface. Instead the calendar is positioned underneath the input and inline which doesn't have these issues.
+
+There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets[^] which are  easier to tap and click.
+
+You might be tempted to try and squeezy additional information—such as price and availability—into each of the cells. This may be possible in very large viewports, but it's not practical from a responsive design perpsective: there's simply not enough room to denote this information in small viewports. This is why it's important to design mobile-first.
+
+In any case, the primary user need at this stage of the journey is to select a date. Trying to squeeze in additional information is going to result in a slower, busier and overwhelming experience that slows users down.
+
+Instead, we'll let users focus on choosing a date unencumbered and later we'll give users more information when it's both useful and practical to do so.
 
 #### Feature Detection
 
-We only want to give unsupported browsers our custom date picker. If we initialised our custom date picker for supporting browsers too, those browsers will get two date pickers: the native one and our own.
+As we only want to give unsupported browsers the custom date picker component, the first thing we need to do is detect when and when not to initialise the component. Without a provision in place, users might get see two opposing date pickers: the native one and our own, which would be confusing and unnecessary.
 
 We can check for support before enhancing the interface using a little feature detection script.
 
@@ -717,7 +725,7 @@ function dateInputSupported() {
 }
 ```
 
-The function works by trying to create a date input and then checking to see if its `type` attribute is correctly reported it as a date input. In browsers that lack support, it will be reported as a text input instead. We can use this function to determine whether the `DatePicker()` component is going to be defined or not.
+The function works by trying to create a date input and then checking to see if its `type` attribute is correctly reported as a date input. In browsers that lack support, it will be reported as a text input instead. We can use this function to determine whether the `DatePicker()` component should be defined or not.
 
 ```JS
 if(!dateInputSupported()) {
@@ -727,7 +735,7 @@ if(!dateInputSupported()) {
 }
 ```
 
-With this in place, we can check to see if the `DatePicker()` is defined. If it is, then we can initialise it which will enhance the interface in browsers that don't support the date input. Lovely.
+As the `DatePicker()` is only defined when there's no support for the native date input, we can check to see if its defined before initialising it. This is known as a dynamic JavaScript API, because it changes based on support and is a crucial aspect of designing progressively enhanced interfaces.
 
 ```JS
 if(typeof DatePicker !== "undefined") {
@@ -737,7 +745,7 @@ if(typeof DatePicker !== "undefined") {
 
 #### The Enhanced Mark-up
 
-The first thing the `DatePicker()` constructor will do is change the mark-up so that it includes the date picker controls. Namely the toggle button and calendar widget which is hidden to begin with.
+After the date picker has been initialised, the mark-up will have been changed to include the date picker controls: toggle button, next and previous month buttons and the calendar grid.
 
 ```HTML
 <div class="field">
@@ -748,69 +756,78 @@ The first thing the `DatePicker()` constructor will do is change the mark-up so 
     <input type="text" id="when" name="when">
     <button type="button" aria-expanded="true" aria-haspopup="true">Choose</button>
     <div class="datepicker-wrapper hidden">
-      Calendar widget here
+      <!-- Calendar widget goes here -->
     </div>
   </div>
 </div>
 ```
 
-As the calendar HTML is large, we'll look at that in detail shortly.
-
 Notes:
 
-- The `type="button"` attribute stops the button from submitting the form. If it the type was omitted or set to `submit` it would incorrectly submit the form when clicked.
+- The `type="button"` attribute stops the button from submitting the form. If the type was set to `submit` (or omitted altogether) when pressed, it would incorrectly submit the form.
 - The `aria-haspopup="true"` attribute indicates that the button reveals a calendar. It acts as a warning that, when pressed, the focus will be moved to the calendar. Note: its value is always set to `true`.
 - The `aria-expanded` attribute indicates whether the calendar is currently in an open (expanded) or closed (collapsed) state by toggling between `true` and `false` values.
 
 #### Revealing The Calendar
 
-Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen. Instead the calendar is positioned underneath and inline which doesn't have these issues.
+When the toggle button is clicked, the calendar is revealed by removing the `hidden` class on the wrapper (shown above). Immediately after that, the focus is set to the Previous Month button, which is the first focusable element inside the calendar.
 
-There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets[^] which are  easier to tap or click.
+```JS
+DatePicker.prototype.onToggleButtonClick = function() {
+  if(this.toggleButton.attr('aria-expanded') == 'true') {
+    this.hide();
+  } else {
+    this.show();
+    this.calendar.find('button:first-child').focus();
+  }
+};
 
-MORE
+DatePicker.prototype.hide = function() {
+  this.calendar.addClass('hidden');
+  this.toggleButton.attr('aria-expanded', 'false');
+};
 
-#### Squeezing In Content
-
-The primary user need at this stage of the journey is to select a date—nothing more. So trying to squeeze extra information into it, such as price or availability, is going to result in a busy and overwhelming experience that slows users down.
-
-It's also not practical from a design perspective. Responsive design is about designing interfaces that work well in large and small screens. There's simply not enough room to add more information into each cell of a date picker.
-
-Instead, we'll let users focus on choosing a date unencumbered and later we'll give users more information when it's both useful and practical to do so.
-
-#### Keyboard And Focus Behaviour
-
-Here's the calendar's container:
-
-```HTML
-<div aria-label="date picker" role="group">
-  ...
-  <button aria-label="Previous month" type="button" 
-    >
-    <svg 
-      focusable="false" 
-      version="1.1" 
-      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-      viewBox="0 0 17 17" 
-      width="1em" 
-      height="1em">
-        ...
-    </svg>
-  </button>
-  ...
-</div>
+DatePicker.prototype.show = function() {
+  this.calendar.removeClass('hidden');
+  this.toggleButton.attr('aria-expanded', 'true');
+};
 ```
 
-When the toggle button is clicked, focus is set to the previous month button—the first focusable element within the container. The container has two attributes:
+```HTML
+<div class="datepicker-calendar" aria-label="date picker" role="group">
+  <div class="datepicker-actions">
+    <button type="button" aria-label="previous month">
+      <svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17" width="1em" height="1em">...</svg>
+    </button>
+    <div role="status" aria-live="polite">February 2018</div>
+    <button type="button" aria-label="next month">
+      <svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 17 17" width="1em" height="1em">...</svg>
+    </button>
+  </div>
+  <!-- grid here -->
+</div>
 
-1. `role="group"`
-2. `aria-label="date picker"`
+Notes:
 
-The `role="group"` attribute is used to group a set of interface elements. In this case, the “previous month” button, the “next month” button and the days in the month.
+- The container has two important attributes. The `role="group"` attribute is used to group a number of related interface controls: the Previous Month button, the Next Month button and the grid. When the calendar is revealed, screen reader users will hear the button's label in combination with the group's label: “date picker, previous month, button”.
+- Again, the `focusable="false"` attribute on the SVG icon fixes the issue that in Internet Explorer SVG elements are focusable.
+- The month's title and year is placed within a live region (as first discussed in chapter 2), which means it will be announced by screen readers when the calendar is revealed. This same information will be continually announced as users move between months.
 
-The `aria-label="date picker"` will inform users that they are now entering the date picker component. For example, when the previous month button is focused, “date picker, previous month, button” (or similar) will be announced.
+#### Clicking Previous Month And Next Month Buttons
+
+Clicking the Previous Month and Next Month buttons will update the month on display. Keyboard users are able to Tab between the buttons to switch between the months in the calendar. In doing so, the month's title is updated and announced in screen readers thanks to the live region.
+
+Keyboard users can Tab to the Next Month button as it is the next focusable element in the tab sequence. As we've employed native Button elements, keyboard users are able to active the button by pressing Enter or Space keys as standard.
+
+#### Roving Tabs
+
+
+
+
 
 At this point pressing <kbd>Tab</kbd> moves to the next focusable element (the Next Month button). And tabbing again moves focus to the currently selected date within the grid, which defaults to today's date.
+
+#### Traversing the Grid
 
 ```HTML
 <table role="grid">
@@ -854,12 +871,6 @@ Notes:
 - Pressing <kbd>Escape</kbd> hides the calendar and moves focus to the button.
 
 #### Screen Readers
-
-When the toggle button is pressed, sighted users will get feedback visually as the calendar appears. Because clicking the toggle button moves focus to the calendar, we can give screen reader users feedback by using a live region which contains the title: month name and year (“October 2017”, for example). This same information will be continually announced as users move between months.
-
-```HTML
-<div role="status" aria-live="polite">October 2017</div>
-```
 
 The `thead` contains the column headings which represent each day of the week. The days are abbreviated visually to save space. This is because tables aren't stylistically malleable, something that we'll discuss more in chapter 5, “An Inbox”. While abbreviations work in this context, we can give screen reader users greater clarity by putting the unabbreviated heading inside the `aria-label` attribute:
 

@@ -316,7 +316,7 @@ A more considerate approach would be to give feedback when users get close to th
 
 ## 6. Payment
 
-It's hardly surprising that most transactions are abandoned at the payment page. Not only is this screen shown toward the end of the journey (where users have had the most time to reconsider their decision, for example), but they may have to stop and find their credit card.
+It's hardly surprising that most transactions are abandoned at the payment page. Not only is this screen shown toward the end of the journey (where users have had the most time to reconsider their decision and used up a lot of energy), but they may have to stop and find their credit card.
 
 Fortunately, there are some usability provisions we can apply here. By leveraging autofill, removing unnecessary fields, using the right input types and crafting label (and hint) text—we can drastically reduce friction and keep users on-task.
 
@@ -324,25 +324,29 @@ Fortunately, there are some usability provisions we can apply here. By leveragin
 
 There are a number of details on a credit or debit card: name on card, card number, valid from date, expiry date, issue number, security number; all of these are commonly found on payment forms. However, not all of these details are necessary to process a payment.
 
-When I worked on Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe[^15] as the payment provider. This way, we didn't have to worry about PCI compliance and the cost of developing a solution from scratch. Here's the payment form we ended up with:
+When we designed Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe[^15] as the payment provider. This way, we didn't have to worry about PCI compliance[^] and the cost of developing a solution from scratch. Here's the payment form we ended up with:
 
 ![Payment](./images/02/payment.png)
 
-You'll notice *valid from* date is missing so I spoke with Øyvind to find out why that was:
+You'll notice Valid From date, which is often provided on a payment form is missing, so I spoke with Øyvind to find out why. Here's what he said:
 
 > We don't need to ask for Valid From. Only a handful of debit cards show those, and it provides more hassle for the customer to enter than benefit to us in verifying card details. That is, if the card is stolen, having to enter a valid from date isn't going to stop the thief.
 
-He goes on to talk about the billing address. That is the address to which the card is registered:
+He goes on to talk about the billing address which is the address to which the card is registered:
 
 > Only the numerics contained in card details are used for verification. That is, the house number is used, but not street name. We ask for it for our records. Being able to eyeball this stuff is handy in any situation where you have to query what's happened. Besides, some people expect that they'll have to provide an address (at least one which is used for both billing and shipping).
 
-Øyvind is not a designer per se, but his input into the design process was crucial. Many of us assume that back-end developers don't care about the user experience, but tapping into their knowledge is clearly valuable.
+Øyvind is not a designer per se, but his input into the design process was crucial. Many of us assume that back-end developers don't care about the user experience, but tapping into their knowledge is immensely valuable.
 
 > “Design is a team sport”—Anon?
 
 Design is a team sport, and so we should treat it as one. By designing (and researching) with a diverse set of people, we'll frequently end up producing a far better experience.
 
-This also shows that we should constantly be questioning the existence of form fields. If you look at other people's designs and assume something has to be a certain way, we'll never improve micro patterns such as these. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
+We should also question the existence of form fields. If you look at other people's designs and assume something has to be a certain way, we'll never improve micro patterns such as these. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
+
+When researching this section for the book, I decided to speak to Stripe to see if we could reduce the size of the form further. Here's what they said:
+
+> The bare minimum information needed to attempt a valid payment is card number, CVV, and expiration date. Additional information will allow the card-issuing bank to make a more informed decision about accepting or declining the payment, so while more information isn't required, it will improve your chances of the payment succeeding. It will also provide you more information for verifying the payment is valid and authorized, and therefore can help reduce the likelihood of a dispute and help you with contesting the dispute if it does occur.
 
 ### Autofill
 
@@ -586,9 +590,9 @@ By omitting navigation and search, users can focus on checking out which speaks 
 
 ### Indicating Progress
 
-Progress bars or indicators are often used within checkout because—at least in theory—they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful.
-
 ![Progress bar](./images/02/progress-bar.png)
+
+Progress bars or indicators are often used within checkout because—at least in theory—they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful or even noticed. For example, you can read about how the Carer’s Allowance team removed a 12-step progress indicator with no effect on completion rates or times[^]. 
 
 Progress bars pose some practical design challenges too. First, they take up a lot of space at the top of the page which is particularly important on mobile where they push the main content down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. 
 
@@ -716,4 +720,5 @@ After that, we looked at other issues: giving users the ability to review their 
 [^15 stripe]: https://stripe.com/gb
 [^16 luke autofill tweet]: https://twitter.com/lukew/status/922630320293265408
 [^17 autofill attributes]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
+[^ progress]: https://designnotes.blog.gov.uk/2014/07/07/do-less-problems-as-shared-spaces/
 [^18 back link]: https://baymard.com/blog/back-button-expectations

@@ -861,24 +861,26 @@ The days of the month are presented in a grid format of which the `<table>` elem
   </thead>
   <tbody>
     <tr>
-      <td role="gridcell" tabindex="-1" aria-label="1 October, 2017">
-        <span aria-hidden="true">1</span>
-      </td>
-      <td role="gridcell" tabindex="-1" aria-label="2 October, 2017">
-        <span aria-hidden="true">2</span>
-      </td>
-      <td role="gridcell" tabindex="-1" aria-label="3 October, 2017">
-        <span aria-hidden="true">3</span>
-      </td>
-      <td role="gridcell" tabindex="-1" aria-label="4 October, 2017">
+      <td tabindex="-1" aria-selected="false" aria-label="4 February, 2018" role="gridcell" data-date="Sun Feb 04 2018 00:00:00 GMT+0000 (GMT)" class="">
         <span aria-hidden="true">4</span>
       </td>
-      <td role="gridcell" tabindex="-1" aria-label="5 October, 2017">
+      <td tabindex="-1" aria-selected="false" aria-label="5 February, 2018" role="gridcell" data-date="Mon Feb 05 2018 00:00:00 GMT+0000 (GMT)" class="">
         <span aria-hidden="true">5</span>
       </td>
-      <td role="gridcell" tabindex="0" aria-label="6 October, 2017">6</td>
-      <td role="gridcell" tabindex="-1" aria-label="7 October, 2017">
+      <td tabindex="-1" aria-selected="false" aria-label="6 February, 2018" role="gridcell" data-date="Tue Feb 06 2018 00:00:00 GMT+0000 (GMT)" class="">
+        <span aria-hidden="true">6</span>
+      </td>
+      <td tabindex="-1" aria-selected="false" aria-label="7 February, 2018" role="gridcell" data-date="Wed Feb 07 2018 00:00:00 GMT+0000 (GMT)" class="">
         <span aria-hidden="true">7</span>
+      </td>
+      <td tabindex="-1" aria-selected="false" aria-label="8 February, 2018" role="gridcell" data-date="Thu Feb 08 2018 00:00:00 GMT+0000 (GMT)" class="">
+        <span aria-hidden="true">8</span>
+      </td>
+      <td tabindex="-1" aria-selected="false" aria-label="9 February, 2018" role="gridcell" data-date="Fri Feb 09 2018 00:00:00 GMT+0000 (GMT)" class="">
+        <span aria-hidden="true">9</span>
+      </td>
+      <td tabindex="-1" aria-selected="false" aria-label="10 February, 2018" role="gridcell" data-date="Sat Feb 10 2018 00:00:00 GMT+0000 (GMT)" class="">
+        <span aria-hidden="true">10</span>
       </td>
     </tr>
     <tr>...</tr>
@@ -896,8 +898,31 @@ Each cell contains a number (the date) which is perfectly adequate for sighted u
 
 The `<span>` has an `aria-hidden="true"` attribute which stops the number being read out twice by some screen readers without hiding it from sighted users.
 
-#### Interaction
+The `tabindex`, `aria-selected` and `data-date` attributes will be discussed shortly.
 
+#### Clicking A Day
+
+When the user clicks a day, a number of actions must be performed. The event handler looks like this:
+
+```JS
+DatePicker.prototype.onCellClick = function(e) {
+  var d = new Date($(e.currentTarget).attr('data-date'));
+  this.updateTextBoxDate(d);
+  this.hide();
+  this.input.focus();
+  this.selectDate(d);
+  this.selectedDate = d;
+};
+```
+
+
+First, the date string (stored inside the cell's `data-date` attribute) is converted into a JavaScript Date object which is then used to populate the text box. Then the date picker is hidden and the text box is focused.
+
+The `selectDate()` method will mark the selected cell by setting the `aria-selected` attribute to true and by setting the previously selected cell to false.
+
+Finally, the selected date is stored so that we can show the calendar in the correct state if the user decides to pick another date.
+
+#### Keyboard Interaction
 
 
 - Each `<td>` has `tabindex="-1"` except for the selected day, which has `tabindex="0"`. This means that the user can tab straight onto the selected day and navigate from there using the arrow keys.

@@ -655,14 +655,14 @@ We tend to think of time in structured chunks: days, weeks and months etc. And w
 
 As usual, our first port of call is to see if there's a date picker control that browsers provide natively for free. Good news: there is. The date input (`<input type="date">`) offers a special and convenient interface for picking dates while also enforcing a standard format for the value that's sent to the server upon submission.
 
-Mobile browser support is really good and includes Samsung's browser, FireFox, Edge, Chrome, Opera and Safari. Desktop support is patchier: Chrome and Edge support it, but FireFox and Safari (at time of writing) don't. Don't worry, we'll look at how to support such browsers later.
+Mobile browser support is really good and includes Samsung's browser, FireFox, Edge, Chrome, Opera and Safari. Desktop support is patchier: Chrome and Edge support it, but Internet Explorer and Safari (at time of writing) don't. We'll look at how to support them later.
 
 ![Image](.)
 Caption: A selection of date pickers on different browsers
 
 As the date picker is provided by the browser, you'll notice how it looks a lot like the system date picker that's used for setting dates and times on your phone. That's by design so that mobile browsers can outsource the problem to native components. This is good because users will be familiar with it which speaks to principle 3, *Be consistent*.
 
-You might be concerned that they look different across the different browser vendors. Don't be. Most users don't notice the difference and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during cross-browser testing.
+You might be concerned that they look different in different browser vendors. Don't be. Most users don't notice the difference and the rest don't care. Remember, most people use the same browser every day. That is, they only see their platform's implementation. Unlike us, they're not agonising over subtle differences during cross-browser testing.
 
 > Nobody cares about your website as much as you do[^]
 
@@ -674,22 +674,20 @@ Ironically, the audience was made up of designers and developers—people who ar
 
 ```HTML
 <div class="field">
-  <label for="when">
-    <span class="field-label">Date</span>
+  <label for="departure">
+    <span class="field-label">Departure date</span>
   </label>
-  <input type="date" id="when" name="when">
+  <input type="date" id="departure" name="departure">
 </div>
 ```
 
-This mark-up should be familiar by now as the majority of it has been used several times already in the book. The only difference is that the input's `type` attribute is set to `date`.
+This mark-up has been used many times already in the book. The only difference is that the input's `type` attribute is set to `date`.
 
-#### Browsers That Lack Support
+Browsers that support the date input give users a standard date picker that's familiar, accessible and performant by default. So that's good. But what happens in other browsers?
 
-People using a browser that supports the date input get the best experience. They get to use a standard date picker that's familiar, accessible and performant by default. So that's good.
+In this case, the date input will change into a basic text input—this is known as graceful degradation. While users won't get the convenience of a date picker, they'll still be able to enter a date. This is an example of HTML's inherent resilient nature. When things fails, they don't break.
 
-What happens in browsers that lacks support? In this case, the date input will gracefully degrade into a basic text input. While users won't get the convenience of a date picker, they will still be able to enter a date. This is a credit to how resilience is baked into to HTML. When things fails, they don't break.
-
-Depending on your situation, you might find this level of support completely acceptable. Perhaps entering a date is of low priority or happens to infrequently. Or perhaps none of your users will ever use an unsupported browser. But in our case, finding a date is integral to the flight booking experience. We ought to provide the best experience possible, even for people using an unsupported browser.
+Depending on your situation, this level of support may be fine. Perhaps entering a date is of low priority or happens too infrequently to worry about. Or perhaps none of your users will ever use an unsupported browser. But in our case, finding a date is integral to the flight booking experience. We ought to provide a better experience, for people using an unsupported browser.
 
 #### How It Might Look
 
@@ -697,9 +695,11 @@ Depending on your situation, you might find this level of support completely acc
 
 The date picker consists of a toggle button that reveals the calendar. From there users will be able to traverse the calendar and ultimately select a date to populate the text box.
 
-#### Visual Design And Styling
+#### Notes About The Design
 
-Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen when positioned absolutely on top of the interface. Instead the calendar is positioned underneath the input and inline which doesn't have these issues.
+- previous/next days greyed out a little
+
+Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen when positioned absolutely on top of the interface. Instead our calendar will be positioned underneath the input and inline avoiding such issues.
 
 There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets[^] which are  easier to tap and click.
 
@@ -735,7 +735,7 @@ if(!dateInputSupported()) {
 }
 ```
 
-As the `DatePicker()` is only defined when there's no support for the native date input, we can check to see if its defined before initialising it. This is known as a dynamic JavaScript API, because it changes based on support and is a crucial aspect of designing progressively enhanced interfaces.
+As the `DatePicker()` is only defined when there's no support for the native date input, we can check to see if its defined before initialising it. This is known as a dynamic JavaScript API[^], because it changes based on support and is a crucial aspect of designing progressively enhanced interfaces.
 
 ```JS
 if(typeof DatePicker !== "undefined") {
@@ -770,12 +770,15 @@ Notes:
 
 #### Revealing The Calendar
 
-When the toggle button is clicked, the calendar is revealed by removing the `hidden` class on the wrapper (shown above). Immediately after that, the focus is set to the Previous Month button, which is the first focusable element inside the calendar.
+The calendar starts hidden. When the toggle button is clicked, the calendar is revealed by removing the `hidden` class on the wrapper. Immediately after, the focus is set to the Previous Month button, which is the first focusable element inside the calendar.
 
 ```JS
 DatePicker.prototype.onToggleButtonClick = function() {
+  // showing
   if(this.toggleButton.attr('aria-expanded') == 'true') {
     this.hide();
+
+  // hiding
   } else {
     this.show();
     this.calendar.find('button:first-child').focus();
@@ -793,6 +796,8 @@ DatePicker.prototype.show = function() {
 };
 ```
 
+#### The Calendar HTML
+
 ```HTML
 <div class="datepicker-calendar" aria-label="date picker" role="group">
   <div class="datepicker-actions">
@@ -808,23 +813,25 @@ DatePicker.prototype.show = function() {
 </div>
 ```
 
-Notes:
+The container has two important attributes: the `role="group"` attribute groups the related calendar controls together. When the calendar is revealed, screen reader users will hear the button's label in combination with the group's label: “date picker, previous month, button”.
 
-- The container has two important attributes. The `role="group"` attribute is used to group a number of related interface controls which include the Previous Month button, the Next Month button and the grid. When the calendar is revealed, screen reader users will hear the button's label in combination with the group's label: “date picker, previous month, button”.
-- As mentioned earlier, the `focusable="false"` attribute on the SVG icon fixes the issue that in Internet Explorer SVG elements are focusable.
-- The month's title and year is placed within a live region (as first discussed in chapter 2). This means its content will be announced by screen readers when the calendar is revealed. This same information will be continually announced as users move between different months.
+The month's title and year is placed within a live region (as first discussed in chapter 2). This means its content will be announced by screen readers when the calendar is revealed. This same information will be continually announced as users move between different months.
+
+*(Note: As mentioned earlier, the `focusable="false"` attribute on the SVG icon fixes the issue that in Internet Explorer SVG elements are focusable.)*
 
 #### Previous And Next Month Buttons
 
-Having revealed the calendar and moved focus to the previous and next month buttons, we need to allow users to operate them and move between them. Both of these things are easy. As we're employing `<button>` elements, they are naturally focusable as part of the tab sequence. And they can be activated by clicking, or pressing Space or Enter on the keyboard.
+With the calendar now revealed, the user can move between the Previous Month and Next Month buttons by using the <kbd>Tab</kbd> key. This is becaue we've used `<button>` elements which are naturally focusable and part of the tab sequence.
+
+Buttons are interoperable meaning they can be activated by clicking, tapping or pressing Space or Enter with the keyboard. All we need to do is listen for the click event.
 
 ```JS
 DatePicker.prototype.addEventListeners = function() {
-  this.calendar.on('click', 'button:first-child', $.proxy(this, 'onBackClick'));
+  this.calendar.on('click', 'button:first-child', $.proxy(this, 'onPreviousClick'));
   this.calendar.on('click', 'button:last-child', $.proxy(this, 'onNextClick'));
 };
 
-DatePicker.prototype.onBackClick = function(e) {
+DatePicker.prototype.onPreviousClick = function(e) {
   this.showPreviousMonth();
 };
 
@@ -833,21 +840,25 @@ DatePicker.prototype.onNextClick = function(e) {
 };
 ```
 
-The `showPreviousMonth()` and `showNextMonth()` methods work out which month to show and then update the title and grid accordingly.
-
-#### Roving Tabs
-
-
-
-
-
-currently selected date within the grid, which defaults to today's date.
+The `showPreviousMonth()` and `showNextMonth()` methods (not shown) work out which month to show and then update the title and grid HTML accordingly.
 
 #### The Grid
 
+The days of the month are presented in a grid format of which the `<table>` element is perfectly suited so that's easy. But it's the careful arrangmenet of attributes that are crucial in not only enabling interaction but understanding too.
+
 ```HTML
 <table role="grid">
-  <thead>...</thead>
+  <thead>
+    <tr>
+      <th aria-label="Sunday">Su</th>
+      <th aria-label="Monday">Mo</th>
+      <th aria-label="Tuesday">Tu</th>
+      <th aria-label="Wednesday">We</th>
+      <th aria-label="Thursday">Th</th>
+      <th aria-label="Friday">Fr</th>
+      <th aria-label="Saturday">Sa</th>
+    </tr>
+  </thead>
   <tbody>
     <tr>
       <td role="gridcell" tabindex="-1" aria-label="1 October, 2017">
@@ -877,44 +888,27 @@ currently selected date within the grid, which defaults to today's date.
 </table>
 ```
 
-Notes:
+The `role="grid"` attribute (and each cell's `role="gridcell"` attribute) tells screen readers to treat the table as a grid. Without this, JAWS for example, won't let users operate the calendar with the arrow keys using JavaScript. This is because, the arrow keys are reserved for operating a standard table in a special way.
 
-- The `role="grid"` attribute tells screen readers, such as JAWS, that this is not a regular table and that the arrow keys can be used to navigate it with Javascript.
+The `<thead>` contains the names of the days. Note that they're abbreviated which should be avoided in most cases. But in this case, the calendar needs to fit on small viewports too. The unabbreviated heading is placed inside the `aria-label` attribute which means it will be announcd in screen readers.
+
+Each cell contains a number (the date) which is perfectly adequate for sighted users as they can see the entire calendar. But, screen reader users would only hear “17” which is ambiguous unless they carefully remember the previously announced month and year. To provide a comparable experience (principle 1), we put the full date inside the `aria-label` attribute.
+
+The `<span>` has an `aria-hidden="true"` attribute which stops the number being read out twice by some screen readers without hiding it from sighted users.
+
+#### Interaction
+
+
+
 - Each `<td>` has `tabindex="-1"` except for the selected day, which has `tabindex="0"`. This means that the user can tab straight onto the selected day and navigate from there using the arrow keys.
 - When the user presses the arrow keys to select a new day, the previously selected day's `tabindex` will be set to `-1`; the newly selected day's `tabindex` will be set `0`. This is known as roving tabs, which makes sure the grid becomes just a single tab stop. Otherwise users would have to tab ~30 times to move beyond the calendar with their keyboard which is tiresome.
 - Pressing <kbd>Left</kbd> moves to the previous day. Pressing <kbd>Right</kbd> moves to the next day. Pressing <kbd>Up</kbd> moves to the same day in the previous week. Pressing <kbd>Down</kbd> moves to the same day in the next week. This way, users can move freely and efficiently between days and months.
 - Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
+
+OTHER
 - Pressing <kbd>Escape</kbd> hides the calendar and moves focus to the button.
 
-#### Screen Readers
-
-The `thead` contains the column headings which represent each day of the week. The days are abbreviated visually to save space. This is because tables aren't stylistically malleable, something that we'll discuss more in chapter 5, “An Inbox”. While abbreviations work in this context, we can give screen reader users greater clarity by putting the unabbreviated heading inside the `aria-label` attribute:
-
-```HTML
-<thead>
-  <tr>
-    <th aria-label="Sunday">Su</th>
-    <th aria-label="Monday">Mo</th>
-    <th aria-label="Tuesday">Tu</th>
-    <th aria-label="Wednesday">We</th>
-    <th aria-label="Thursday">Th</th>
-    <th aria-label="Friday">Fr</th>
-    <th aria-label="Saturday">Sa</th>
-  </tr>
-</thead>
-```
-
-The days need to use the same technique: while sighted users can see the day in context of the month and year, in some screen readers, only the number is announced. For example, they'll hear “17” which is ambiguous because they would have had to of remembered the previously announced month and year as they switch months.
-
-By storing the full date inside the `aria-label` attribute, we can give screen reader users an agreeable experience—one that speaks to principle 1, *Provide a comparable experience*:
-
-```HTML
-<td role="gridcell" tabindex="-1" aria-label="7 October, 2017">
-  <span aria-hidden="true">7</span>
-</td>
-```
-
-*(Note: the `span` has an `aria-hidden="true"` attribute which stops the number being read out twice by some screen readers without hiding it from sighted users.)*
+*(Note about aria-activedescendant)*
 
 While screen reader users *can* operate the calendar, it's probably not that useful. Entering a date by typing directly into the text box is probably easier and quicker. But we don't make those assumptions. Instead, we adhere to principle 5, *Offer choice* by letting them do as they wish.
 

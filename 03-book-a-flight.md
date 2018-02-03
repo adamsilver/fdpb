@@ -861,25 +861,25 @@ The days of the month are presented in a grid format of which the `<table>` elem
   </thead>
   <tbody>
     <tr>
-      <td tabindex="-1" aria-selected="false" aria-label="4 February, 2018" role="gridcell" data-date="Sun Feb 04 2018 00:00:00 GMT+0000 (GMT)" class="">
+      <td tabindex="-1" aria-selected="false" aria-label="4 February, 2018" role="gridcell" data-date="Sun Feb 04 2018 00:00:00 GMT+0000 (GMT)">
         <span aria-hidden="true">4</span>
       </td>
-      <td tabindex="-1" aria-selected="false" aria-label="5 February, 2018" role="gridcell" data-date="Mon Feb 05 2018 00:00:00 GMT+0000 (GMT)" class="">
+      <td tabindex="-1" aria-selected="false" aria-label="5 February, 2018" role="gridcell" data-date="Mon Feb 05 2018 00:00:00 GMT+0000 (GMT)">
         <span aria-hidden="true">5</span>
       </td>
-      <td tabindex="-1" aria-selected="false" aria-label="6 February, 2018" role="gridcell" data-date="Tue Feb 06 2018 00:00:00 GMT+0000 (GMT)" class="">
+      <td tabindex="-1" aria-selected="false" aria-label="6 February, 2018" role="gridcell" data-date="Tue Feb 06 2018 00:00:00 GMT+0000 (GMT)">
         <span aria-hidden="true">6</span>
       </td>
-      <td tabindex="-1" aria-selected="false" aria-label="7 February, 2018" role="gridcell" data-date="Wed Feb 07 2018 00:00:00 GMT+0000 (GMT)" class="">
+      <td tabindex="-1" aria-selected="false" aria-label="7 February, 2018" role="gridcell" data-date="Wed Feb 07 2018 00:00:00 GMT+0000 (GMT)">
         <span aria-hidden="true">7</span>
       </td>
-      <td tabindex="-1" aria-selected="false" aria-label="8 February, 2018" role="gridcell" data-date="Thu Feb 08 2018 00:00:00 GMT+0000 (GMT)" class="">
+      <td tabindex="-1" aria-selected="false" aria-label="8 February, 2018" role="gridcell" data-date="Thu Feb 08 2018 00:00:00 GMT+0000 (GMT)">
         <span aria-hidden="true">8</span>
       </td>
-      <td tabindex="-1" aria-selected="false" aria-label="9 February, 2018" role="gridcell" data-date="Fri Feb 09 2018 00:00:00 GMT+0000 (GMT)" class="">
+      <td tabindex="-1" aria-selected="false" aria-label="9 February, 2018" role="gridcell" data-date="Fri Feb 09 2018 00:00:00 GMT+0000 (GMT)">
         <span aria-hidden="true">9</span>
       </td>
-      <td tabindex="-1" aria-selected="false" aria-label="10 February, 2018" role="gridcell" data-date="Sat Feb 10 2018 00:00:00 GMT+0000 (GMT)" class="">
+      <td tabindex="-1" aria-selected="false" aria-label="10 February, 2018" role="gridcell" data-date="Sat Feb 10 2018 00:00:00 GMT+0000 (GMT)">
         <span aria-hidden="true">10</span>
       </td>
     </tr>
@@ -915,7 +915,6 @@ DatePicker.prototype.onCellClick = function(e) {
 };
 ```
 
-
 First, the date string (stored inside the cell's `data-date` attribute) is converted into a JavaScript Date object which is then used to populate the text box. Then the date picker is hidden and the text box is focused.
 
 The `selectDate()` method will mark the selected cell by setting the `aria-selected` attribute to true and by setting the previously selected cell to false.
@@ -924,53 +923,77 @@ Finally, the selected date is stored so that we can show the calendar in the cor
 
 #### Keyboard Interaction
 
+Like the autocomplete component we designed earlier, the grid is composite control made up of many interactive elements—as many as 31 depending on the month. As discussed earlier, composite controls should have just one tab stop—having to tab through 31 days is tiresome and inefficient.
 
-- Each `<td>` has `tabindex="-1"` except for the selected day, which has `tabindex="0"`. This means that the user can tab straight onto the selected day and navigate from there using the arrow keys.
-- When the user presses the arrow keys to select a new day, the previously selected day's `tabindex` will be set to `-1`; the newly selected day's `tabindex` will be set `0`. This is known as roving tabs, which makes sure the grid becomes just a single tab stop. Otherwise users would have to tab ~30 times to move beyond the calendar with their keyboard which is tiresome.
-- Pressing <kbd>Left</kbd> moves to the previous day. Pressing <kbd>Right</kbd> moves to the next day. Pressing <kbd>Up</kbd> moves to the same day in the previous week. Pressing <kbd>Down</kbd> moves to the same day in the next week. This way, users can move freely and efficiently between days and months.
-- Pressing <kbd>Enter</kbd> or <kbd>Space</kbd> will confirm selection, populate the text box with the date, move focus back to the text box and finally, close the calendar.
+To solve this problem, we're going to be using the concept of Roving Tabs[^]. The way it works is that only one cell in the grid is focusable at anyone time—the selected cell. The selected cell will have a `tabindex="0"` attribute which means users can tab to it from the Next Month button. The rest of the cells have a `tabindex="-1"` attribute which means we can set focus to it programmatically with JavaScript, but users won't be able to get to it with the Tab key.
 
-OTHER
-- Pressing <kbd>Escape</kbd> hides the calendar and moves focus to the button.
+Once the selected cell is focused users can traverse the calendar with the arrow keys. As the user moves between the cells the `tabindex` values will be updated to ensure that only the selected cell has a tabindex value of 0.
 
-*(Note about aria-activedescendant)*
+```JS
+DatePicker.prototype.addEventListeners = function() {
+  // ...
+  this.calendar.on('keydown', '[role=gridcell]', $.proxy(this, 'onCellKeyDown'));
+  // ...
+};
 
-While screen reader users *can* operate the calendar, it's probably not that useful. Entering a date by typing directly into the text box is probably easier and quicker. But we don't make those assumptions. Instead, we adhere to principle 5, *Offer choice* by letting them do as they wish.
+DatePicker.prototype.onCellKeyDown = function(e) {
+  switch(e.keyCode) {
+    case this.keys.down:
+      this.onDayDownPressed(e);
+      break;
+    case this.keys.up:
+      this.onDayUpPressed(e);
+      break;
+    case this.keys.left:
+      this.onDayLeftPressed(e);
+      break;
+    case this.keys.right:
+      this.onDayRightPressed(e);
+      break;
+    case this.keys.space:
+    case this.keys.enter:
+      this.onDaySpacePressed(e);
+      break;
+  }
+};
+```
 
-#### Future Support
+| Key | Action |
+|:---|:---|
+| <kbd>Down</kbd> | Focus the same day in the subsequent week. If it's the last week, switch to the next month first. |
+| <kbd>Up</kbd> | Focus the same day in the previous week. If it's the first week, switch to the previous month first. |
+| <kbd>Left</kbd> | Focus the previous day. If it's the first day of the month, switch to the previous month first. |
+| <kbd>Right</kbd> | Focus the next day. If it's the last day of the month, switch to the next month. |
+| <kbd>Enter</kbd> or <kbd>Space</kbd> | Performs the same actions as clicking the day: populate and focus the text box, and hide the menu. |
+| <kbd>Escape</kbd> | Hide the calendar and focus the toggle button. |
 
-Jeremy Keith thinks about the web as a *continuum*[^]. By that he means it's constantly changing. Technology evolves at a rapid pace and browsers and devices are released all the time. Each of which have varying features and capabilities.
-
-At any particular moment in time we need to decide what level of support makes sense for a given feature.
-
-Earlier, we made the decision to create an enhanced experience for (desktop) browsers that don't support the native date input by creating our own date picker. As time goes by browser support will get better and better. At the same time, the number of people who would have experienced the degraded version will diminish.
-
-At which time, we can quietly remove the Javascript code, giving us less to maintain and users a faster experience (as they won't have to load that code). Lovely.
+*(Note: while screen reader users can operate the calendar like this, it's probably easier and quicker for them to type a date directly into the text box. But inclusive design is about not making such assumptions. Instead we let the individual user decide (principle 5).*
 
 #### Doing Our Best
 
-We have covered users who:
+Despite our efforts to support as many users as possible, there's a rare situation whereby users still won't get a date picker. 
 
-- use a browser that supports the date input
-- use a browser that doesn't support the date input
-
-But, we haven't covered users who:
-
-- use an unsupported browser and experience a network or Javascript failure (like the ones described in “A Registration Form”).
-
-> People ignore design that ignores people. - Frank Chimero
-
-In this case, users will see a text box asking for a date. It's not what they see that matters here, it's what they don't see. And they don't see a hint explaining the expected format. We can't use the hint pattern (first discussed in “A Registration Form”) because browsers that support the date input may use a different format which would cause confusion.
+In chapter 1 we discussed the importance of progressive enhancement because we can't be sure that JavaScript is always available. Users experiencing a network or JavaScript failure while also using a browser that doesn't support the native date will just see a text box without any hint text regarding the format of the date.
 
 ![Date picker no hint](./images/03/date-picker-no-hint.png)
 
-We can be as forgiving as possible, by letting users type slashes, periods or spaces: whichever they prefer. But typing a two-digit year first, for example, will cause an error. In this case, a well-written error message message might have to suffice.
+We can't use the hint pattern (from chapter 1) because browsers that support the date input use a different format. Of course, we should be as forgiving as possible, by letting users type slashes, periods or spaces, but typing a two-digit year first, for example, will still cause an error. A well written error message may have to suffice.
 
-We could add a hint via the placeholder attribute and then remove it with JavaScript when our own date picker will be injected. Despite the problems with placeholders (discussed in “A Registration Form”) this might be the lesser of two evils.
+Another option would be to provide a hint via the placeholder attribute (and remove it when the date picker is initalised). Despite the many problems with placeholders (as discussed in “A Registration Form”) this might be the lesser of two evils.
 
-Design is often a question of priorities. What is a good experience for most may create a less-than-ideal experience for some, which is especially the case on the web. Inclusive design is about making decisions that are unlikely to exclude people.
+Design is often a question of priorities. What is a good experience for most may create a less-than-ideal experience for some, which is especially the case on the web. Inclusive design is about making decisions that are unlikely to exclude people. 
 
-In this edge case, users are still able to enter a date which makes this pattern an accessible one. In the end, it's about doing our best and we've done that here.
+> People ignore design that ignores people. - Frank Chimero
+
+In this rare situation, users are still able to enter a date which makes this pattern an accessible one. In the end, it's about doing our best and we've done that here.
+
+#### Future Support
+
+The web is constantly changing. Browsers and devices are released at a rapid rate each with varying features and capabilities. This is why Jeremy Keith refers to the web as a continuum—not a platform[^].
+
+As designers we need to think about what level of support makes sense for our users depending on the feature at hand. Earlier, we decided to enhance the experience for browsers that don't support the native date input which makes sense today.
+
+As browser support improves, the number of people who would experience the degraded version will diminish. At which time we can remove our custom date picker code. Not only does this give us less to maintain, but users will get a faster experience as they don't need to download the code. Lovely.
 
 ## 3. Choosing passengers
 

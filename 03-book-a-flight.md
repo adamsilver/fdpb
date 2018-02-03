@@ -586,7 +586,7 @@ The attribute isn't reserved for endonyms—it can be used to store common typos
 
 #### How It Might Look
 
-![Choosing where to fly](.)
+![Choosing where to fly](./images/03/autocomplete.png)
 
 ## 2. When To Fly
 
@@ -997,7 +997,7 @@ As browser support improves, the number of people who would experience the degra
 
 ## 3. Choosing passengers
 
-Airlines typically ask how many people are travelling. They also want to know what age the travellers are because this affects the price of the ticket. Here's how it might look:
+Next we need to know how many people are travelling. The age of the passengers affects the price of the ticket so we'll arrange the interface according to these age groups.
 
 ![Passengers](./images/03/passengers.png)
 
@@ -1022,17 +1022,17 @@ Airlines typically ask how many people are travelling. They also want to know wh
 </div>
 ```
 
-Each category is represented by a separate field. As we're asking users for an *amount* of something—in this case passengers—the number input makes sense. (Note: we discussed when to use the number input in “Checkout”.)
+Each age group is a separate field. As we're asking users for an *amount* of something—in this case passengers—the number input makes sense. (Note: we discussed when to use the number input in “Checkout”.)
 
-Number inputs have little spinner buttons. Spinners, also known as steppers, let users increase or decrease the input's value by a constant amount. They are great for making small adjustments. As Luke Wobrelkski says:
+Number inputs have little spinner buttons also known as steppers. They let users increase or decrease the input's value by a constant amount. They are great for making small adjustments which Luke Wobrelski notes when testing mobile flight booking forms.
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-The downside is that the default spinners are really small, which make them especially difficult to use on touch screen displays or for motor-impaired users. Moreover, on many mobile devices, they don't show up at all.
+The downside is that the default spinners are really small, which make them especially difficult to use on touch screen displays or for motor-impaired users. And on some browsers they don't show up at all.
 
 ### Custom Stepper Buttons
 
-We can create bigger buttons with Javascript. Not only are they easier to use on desktop, but they will save mobile users having to trigger the on-screen keyboard reducing the time and effort to complete this task.
+We can create bigger buttons with Javascript. Not only are they easier to use on desktop, but they'll save mobile users having to trigger the on-screen keyboard reducing the time and effort to complete this task.
 
 First, we need to turn off the native stepper buttons provided by the browser. In webkit browsers you can do this:
 
@@ -1065,24 +1065,25 @@ Each field is enhanced with this HTML:
 
 Notes:
 
-- The label is given an `id` attribute which the buttons will use as a description thanks to the `aria-describedby` attribute.
 - The buttons and number input is wrapped in a `div` so that they can be styled as a group underneath the label.
-- The button's `aria-label` attribute will ensure that screen readers read out “Decrement” instead of “minus symbol” (or similar).
-- The button's `aria-describedby` attribute references the aformentioned label's `id` which means it combines with the label text to give screen reader users extra context. As there are three fields on the page, this stops users thinking “Decrement—decrement what exactly?”.
-- Each button has a `type="button"` attribute which means it won't submit the form when clicked.
-- Clicking increment or decrement updates the status box at the bottom so that screen reader users will hear the change without having to move away from the button (see note below).
+- The button's `aria-label` attribute ensures that screen readers announce “Decrement” instead of “minus symbol”.
+- The button's `aria-describedby` attribute references the label's `id` which means it combines with the label text to give screen reader users extra context. As there are three fields on the page, this stops users thinking “Decrement—decrement what exactly?”.
+- Each button has a `type="button"` attribute which stops the form submitting when clicked.
+- Clicking increment or decrement updates the live region so that screen reader users will hear the change without having to move away from the button (see note below).
 
-*(Note: when the increment (or decrement) button is clicked, the input's value is updated. Unfortunately, screen readers won't announce the change. At first, I put the live region attributes on the input. This didn't work in some screen readers, but worse, was that it changed the input's semantics into a status box.)*
+*(Note: when the increment (or decrement) button is clicked, the input's value is updated but screen readers don't announce this change. At first, I put the live region attributes on the input. This didn't work in some screen readers, but worse, was that it changed the input's semantics into a status box.)*
 
-#### A Note On Iconography
+#### A Note On Using Iconography
 
-There are pros and cons with using iconography over text. The problem with icons is that they aren't always understood. As Thomas Byttebier says in “The Best Icon is a Text Label”[^]:
+You'll notice that we're using icons for the buttons. Icons are often the center of heated debates amongst designers, mostly because they have their pros and cons.
+
+The pros are that they save space and internationally recognised icons break language barriers which is why they're often used in airports.
+
+The cons are that icons are rarely understood and are a poor replacement for just using text. In “The Best Icon Is a Text Label”[^], Thomas Byttebier goes as far to say:
 
 > What good has a beautiful interface if it’s unclear? Hence it’s simple: only use an icon if its message is a 100% clear to everyone. Never give in.
 
-However, Thomas also points out that good icons can be internationally recognised breaking language barriers -  which is why airports use them, for example. They also save space which is especially useful on mobile.
-
-In the case of the stepper component, plus and minus icons keep the options balanced. That is, the buttons are the same size and have equal importance.
+In the case of the stepper buttons, plus and minus icons keep the options equally weighted and are widely understood. Moreover, users can type a number if they want ignoring the buttons altogether.
 
 ## 4. Choosing A flight
 

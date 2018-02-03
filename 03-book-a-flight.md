@@ -1181,7 +1181,7 @@ The radio buttons are placed inside an extra fieldset (and legend) to indicate w
 
 Where possible, you should avoid nested fieldsets, not only for screen reader users, but because their existence often signifies extra complexity that can be designed better with a little more thought. In our case, we're showing both first class and economy class seats because users were never asked to specify which class they wanted earlier in the journey.
 
-Instead, we could ask users to specify their preference beforehand. At the same time, we can mark *economy* as checked by default. Marking the most common choice expedites the process.
+Instead, we can ask users to specify their preference beforehand. At the same time, we can check Economy as checked by default. Marking the most common choice expedites the process.
 
 ![Choose class](./images/03/choose-class.png)
 
@@ -1191,23 +1191,23 @@ In Checkboxes Are Never Round[^], Daniel De Laney says:
 
 > interactive things have perceived affordances; the way they look tells us what they do and how to use them. That’s why checkboxes are square and radio buttons are round. Their appearance isn’t just for show - it signals what to expect from them. Making a checkbox round is like labeling the Push side of a door Pull.
 
-In practical terms, a radio button tells you that just one can be selected. Checkboxes tell you that more than one can be. So if one person is travelling use radio buttons, otherwise use checkboxes.
+A radio button tells you that just one can be selected; checkboxes tell you that more than one can be. So if one person is travelling use radio buttons, otherwise use checkboxes.
 
 ### Oops, We Broke The Rules
 
-Miller's law[^] would have you believe that we shouldn't present users with more than seven radio buttons at a time—if you have more than seven then use a select box. 
+Miller's law[^] would have you believe that we shouldn't present users with more than seven radio buttons at a time—if you have more than seven then traditional advice would be to use a select box.
 
 Laws are useful: they work as constraints that drive us to good, creative solutions; they allow us to think less, free up our time to solve other problems and avoid mistakes others have made in the past. But UX Myth 23[^]states that:
 
 > Miller’s original theory argues that people can keep no more than 7 (plus or minus 2) items in their short-term memory. On a webpage, however, the information is visually present, people don’t have to memorize anything and therefore can easily manage broader choices.
 
-A Boeing 747 commerical plane has over 400 seats. Call me a rebel, but I'm struggling to see a better way of presenting less seats. Choosing a seat is quite a unique interaction and benefits from this layout.
+In our case, a Boeing 747 has over 400 seats. Call me a rebel, but I'm struggling to see a better way of presenting less seats. Choosing a seat is quite a unique interaction and benefits from presenting this many choices in plain site.
 
-And using the One Thing Per Page pattern (explained in chapter 2) gives us maximal screen space to design something better. The screen, while long, is far less overwhelming as it's dedicated to just one thing: choosing a seat.
+Also, using the One Thing Per Page pattern (introduced in chapter 2) gives us maximal screen space to design something better. The screen, while long, works well as it's dedicated to just one thing: choosing a seat.
 
 ### Unavailable Seats
 
-Unavailable seats are marked by disabling the checkbox (or radio button). Browsers will grey them out so that sighted users know they aren't selectable. Similarly screen readers won't announced them, and keyboard users can't focus to them. This is one of the few occasions where disabling elements works well.
+Unavailable seats are marked by disabling the checkbox (or radio button). Browsers will grey them out so that sighted users know they aren't selectable. Similarly screen readers won't announced them, and keyboard users can't focus them. This is one of the few use cases where disabling elements is appropriate.
 
 ```HTML
 <input type="checkbox" name="seat" value="1A" disabled>
@@ -1215,11 +1215,11 @@ Unavailable seats are marked by disabling the checkbox (or radio button). Browse
 
 ### Layout Enhancements
 
-Laying out seats in rows can cause seats to wrap in small viewports. Alternatively, seats can be styled not to wrap, but this causes a horizontal scroll bar. Neither of these problems are deal breakers, but if we can reduce the chance of this happening we should.
+Laying out seats in rows can cause seats to wrap in small viewports which destroys the idea of laying them out as modelled in real life. We could style the seats so they don't wrap, but this would cause horizontal scrolling. Neither of these problems are deal breakers, but if we can reduce the chance of this happening, we should.
 
-One approach would be to hide the checkboxes and make the remaining label look clickable (which it is). Hiding checkboxes with CSS alone is dangerous because pressing <kbd>Tab</kbd> moves focus to the checkbox, not the label. On its own this breaks the interface for keyboard users because as the user focuses each checkbox there is no visual feedback.
+One approach involves hiding the checkboxes and styling the label to look clickable (which it is). Hiding checkboxes with CSS alone is dangerous because pressing <kbd>Tab</kbd> moves focus to the checkbox, not the label. On its own this breaks the interface for sighted keyboard users because as the user focuses each checkbox there's no feedback.
 
-To fix this problem, we can give the (still) visible `<span class="plane-seatNumber">` the appearance of focus using the adjacent sibling selector:
+To fix this problem, we can give the (still) visible `<span class="plane-seatNumber">` the appearance of focus using the adjacent sibling selector like this:
 
 ```JS
 .enhanced [type="checkbox"]:focus + .plane-seatNumber {
@@ -1227,19 +1227,23 @@ To fix this problem, we can give the (still) visible `<span class="plane-seatNum
 }
 ```
 
-Note that `.enhanced` is at the start of the selector because these styles should only be applied when Javascript is available. This is done by adding a class of `enhanced` to the document element in the `<head>` of the document like this:
+Note `.enhanced` as part of the selector. This is because these styles should only be applied when JavaScript is available. This is done by adding a class of `enhanced` to the document element in the `<head>` of the document like this:
 
-```JS
+```HTML
+<script>
 document.documentElement.className = 'enhanced';
+</script>
 ```
 
 ### Limiting Selection
 
-If the user specified 2 travellers, then users shouldn't be able to select more than 2 seats. Checkboxes don't limit users in any way. that is, if they select more than their quota, they'll get an error message. Without user research, it's hard to know whether this is a problem. If it is, we can enhance the experience with Javascript. 
+If the user specified 2 travellers, we need a way to inforce users only being able to select 2 seats. There's no way natively to limit the amount of checkboxes the user can check. If a user selects more than their quota, they'll get an error message. Without user research, it's hard to know whether this is a problem. But, if it is, we can enhance the experience with JavaScript. 
 
-One way to do this is to disable the remaining seats as soon as the limit is reached. But this assumes users will pick the right seat the first time. If they try to click another seat, as the other seats are disabled, the interface won't respond.
+One way to do this is to disable the remaining seats as soon as the limit is reached. But this assumes users will pick the right seat the first time. When the user tries to click another seat, the interface won't respond because that seat will be disabled.
 
-Savvy users may realise they have to deselect the currently-selected seat first, but they shouldn't have to. And what about less savvy users? We should do the hard work ourselves, to make it simple for them. To do that, if they surpass their quota, the currently-selected seat should be unchecked automatically.
+Savvy users may realise they have to deselect the currently-selected seat first, but why should they have to? And what about less savvy users? As designers, we should do the hard, to make it simple for users. 
+
+If a user surpasses their quota, the currently-selected seat should be unchecked automatically for them. Here's a little script to do it.
 
 ```JS
 function SeatLimiter(max) {
@@ -1249,24 +1253,23 @@ function SeatLimiter(max) {
 }
 
 SeatLimiter.prototype.onCheckboxClick = function(e) {
-  var checkbox = e.target;
   var selected = this.checkboxes.filter(':checked');
-  if(checkbox.checked && selected.length > this.max) {
-    selected.not(checkbox)[0].checked = false;
+  if(e.target.checked && selected.length > this.max) {
+    selected.not(e.target)[0].checked = false;
   }
 };
 ```
 
-When a checkbox is clicked, the `onCheckboxClick` method is called. The first thing it does is check to see if the the checkbox has been checked or not. If it has, then it checks to see if the quota has been surpassed. If both conditions are met, then the previously selected checkbox is unchecked.
+When a checkbox is clicked, the `onCheckboxClick` method is called. The method first checks to see if the checkbox has been checked or not. If it has, then it checks to see if the quota has been surpassed. If both conditions are true, then the previously selected checkbox is unchecked.
 
 ## Summary
 
-In this chapter, we continued to use One Thing Per Page which allowed us to make use of the total screen estate. We looked at ways of reducing friction, not only through interface design, but also by looking at the journey as a whole.
+In this chapter, we continued to use the One Thing Per Page pattern which allowed us to make use of the total screen estate. We looked at ways of reducing friction, not only through interface design, but also by looking at the journey as a whole.
 
 As much as we tried to use native form controls, in their standard format, it became apparant that custom components were necessary to give users the best user experience. In the end we designed four custom components:
 
-- An autocomplete control which lets users search through a long list of destinations quickly and accurately.
-- A date picker components which lets users find a date in the future without having to worry about formatting issues.
+- An autocomplete control which lets users search through a long list of destinations quickly and accurately in a way that matches what they know.
+- A date picker component which lets users find a date in the future without having to worry about formatting issues.
 - A stepper component which lets users make small adjustments to an amount of passengers effortlessly.
 - A seat chooser which makes seat selection simple, even on small viewports.
 
@@ -1274,7 +1277,7 @@ As much as we tried to use native form controls, in their standard format, it be
 
 - Using radio buttons that look like checkboxes (or vice versa).
 - Using select boxes when better alternatives exist.
-- Letting users do the hard work when the interface can be designed to it for them.
+- Letting users do the hard work when the interface can be designed to do the hard work for them.
 - Nested fieldsets.
 
 ## Demos

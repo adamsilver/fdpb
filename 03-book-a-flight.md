@@ -657,7 +657,7 @@ As usual, our first port of call is to see if there's a date picker control that
 
 Mobile browser support is really good and includes Samsung's browser, FireFox, Edge, Chrome, Opera and Safari. Desktop support is patchier: Chrome and Edge support it, but Internet Explorer and Safari (at time of writing) don't. We'll look at how to support them later.
 
-![Image](.)
+![Image](./images/03/date-input-mobile.png)
 Caption: A selection of date pickers on different browsers
 
 As the date picker is provided by the browser, you'll notice how it looks a lot like the system date picker that's used for setting dates and times on your phone. That's by design so that mobile browsers can outsource the problem to native components. This is good because users will be familiar with it which speaks to principle 3, *Be consistent*.
@@ -696,8 +696,6 @@ Depending on your situation, this level of support may be fine. Perhaps entering
 The date picker consists of a toggle button that reveals the calendar. From there users will be able to traverse the calendar and ultimately select a date to populate the text box.
 
 #### Notes About The Design
-
-- previous/next days greyed out a little
 
 Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen when positioned absolutely on top of the interface. Instead our calendar will be positioned underneath the input and inline avoiding such issues.
 
@@ -769,6 +767,8 @@ Notes:
 - The `aria-expanded` attribute indicates whether the calendar is currently in an open (expanded) or closed (collapsed) state by toggling between `true` and `false` values.
 
 #### Revealing The Calendar
+
+![Date picker](./images/03/date-picker-focused.png)
 
 The calendar starts hidden. When the toggle button is clicked, the calendar is revealed by removing the `hidden` class on the wrapper. Immediately after, the focus is set to the Previous Month button, which is the first focusable element inside the calendar.
 

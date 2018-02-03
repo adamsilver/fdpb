@@ -344,7 +344,7 @@ Design is a team sport, and so we should treat it as one. By designing (and rese
 
 We should also question the existence of form fields. If you look at other people's designs and assume something has to be a certain way, we'll never improve micro patterns such as these. Proving assumptions are correct or otherwise, is an essential weapon in a designer's arsenal.
 
-When researching this section for the book, I decided to speak to Stripe to see if we could reduce the size of the form further. Here's what they said:
+When researching this section for the book, I decided to speak to Stripe to see if we could reduce the amount of fields even more. Here's what they said:
 
 > The bare minimum information needed to attempt a valid payment is card number, CVV, and expiration date. Additional information will allow the card-issuing bank to make a more informed decision about accepting or declining the payment, so while more information isn't required, it will improve your chances of the payment succeeding. It will also provide you more information for verifying the payment is valid and authorized, and therefore can help reduce the likelihood of a dispute and help you with contesting the dispute if it does occur.
 

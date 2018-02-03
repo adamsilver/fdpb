@@ -1024,17 +1024,23 @@ Next we need to know how many people are travelling. The age of the passengers a
 
 Each age group is a separate field. As we're asking users for an *amount* of something—in this case passengers—the number input makes sense. (Note: we discussed when to use the number input in “Checkout”.)
 
-Number inputs have little spinner buttons also known as steppers. They let users increase or decrease the input's value by a constant amount. They are great for making small adjustments which Luke Wobrelski notes when testing mobile flight booking forms.
+Number inputs have little spinner buttons (also called steppers) which let users increase or decrease the input's value by a constant amount. Luke Wobrelski's usability testing shows that users prefer them to drop down menus:
 
 > When testing mobile flight booking forms, we found people preferred steppers for selecting the number of passengers. No dropdown menu required, especially since there's a maximum of 8 travelers allowed and the vast majority select 1-2 travelers.
 
-The downside is that the default spinners are really small, which make them especially difficult to use on touch screen displays or for motor-impaired users. And on some browsers they don't show up at all.
+The only downside is that the browser-provided spinners are tiny, which make them difficult to use. And some browsers don't show them at all. We can solve this problem by creating our own custom stepper component.
 
-### Custom Stepper Buttons
+### A Stepper Component
 
-We can create bigger buttons with Javascript. Not only are they easier to use on desktop, but they'll save mobile users having to trigger the on-screen keyboard reducing the time and effort to complete this task.
+To supply all browsers with bigger, more ergonomic buttons, we can create a custom stepper component using JavaScript. On mobile, they'll save mobile users from triggering the on-screen keyboard which reduces the time and effort to complete the task.
 
-First, we need to turn off the native stepper buttons provided by the browser. In webkit browsers you can do this:
+#### How It Might Look
+
+![Passengers enhanced](./images/03/passengers-enhanced.png)
+
+#### Hiding The Native Spinners
+
+But first, we need to turn off the native, browser-provided spinners. In Webkit browsers we can hide them like this:
 
 ```CSS
 input::-webkit-outer-spin-button,
@@ -1045,11 +1051,9 @@ input::-webkit-inner-spin-button {
 }
 ```
 
-#### The Enhanced Interface
+#### The Enhanced Mark-up
 
-![Passengers enhanced](./images/03/passengers-enhanced.png)
-
-Each field is enhanced with this HTML:
+When the `Stepper()` component initialises, the mark-up will be changed to this:
 
 ```HTML
 <div class="field">
@@ -1065,7 +1069,7 @@ Each field is enhanced with this HTML:
 
 Notes:
 
-- The buttons and number input is wrapped in a `div` so that they can be styled as a group underneath the label.
+- The buttons and number input is wrapped in a `<div>` so that they can be styled as a group underneath the label.
 - The button's `aria-label` attribute ensures that screen readers announce “Decrement” instead of “minus symbol”.
 - The button's `aria-describedby` attribute references the label's `id` which means it combines with the label text to give screen reader users extra context. As there are three fields on the page, this stops users thinking “Decrement—decrement what exactly?”.
 - Each button has a `type="button"` attribute which stops the form submitting when clicked.

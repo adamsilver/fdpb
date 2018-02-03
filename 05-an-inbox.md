@@ -457,7 +457,7 @@ Users may want to, for example, archive every email in their inbox. Rather than 
 
 ![Select all mailchimp](./images/05/mailchimp-select-all.png)
 
-Arguably, this standard input has all the ingredients of an accessible control as it is screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this behaviour without any Javascript.
+Arguably, this standard checkbox has all the ingredients of an accessible control. It's screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this behaviour without any JavaScript.
 
 By now the benefits of using standard elements should be well understood. Despite this control being accessible by mouse, touch, keyboard and screen readers, it just doesn't quite feel right. Accessibility is only a part of inclusive design. This control should look like what it does.
 

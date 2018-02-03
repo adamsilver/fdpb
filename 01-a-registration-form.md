@@ -338,7 +338,7 @@ The password reveal interface we constructed before toggles the button's label b
 
 If your research shows this to be a problem, you could try two alternative approaches:
 
-1. Use a checkbox with a persistent label of “Show password”. The state will be signalled by the `checked` attribute. Screen reader users will hear “Show password, checkbox, checked” (or similar). Sighted users will see the checkbox tick mark. 
+1. Use a checkbox with a persistent label of “Show password”. The state will be signalled by the `checked` attribute. Screen reader users will hear “Show password, checkbox, checked” (or similar). Sighted users will see the checkbox tick mark.
 
 The problem with this approach is that checkboxes are for inputing data, not for controlling the interface. Some users might think their password will be revealed to the system.
 
@@ -350,7 +350,7 @@ The problem with this approach is that checkboxes are for inputing data, not for
 </button>
 ```
 
-When focusing the button, NVDA for example announces, “Show password, toggle button, pressed”. For sighted users, you can style the button to look pressed or unpressed accordingly using the attribute selector:
+When focusing the button, NVDA for example will announce, “Show password, toggle button, pressed”. For sighted users, you can style the button to look pressed or unpressed accordingly using the attribute selector like this:
 
 ```CSS
 [aria-pressed="true"] {

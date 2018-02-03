@@ -299,7 +299,7 @@ Responsive design takes a different approach. It's about designing a single, flu
 
 Where adaptive design tries to bend the web to its will, responsive design embraces it. Responsive design understands that you can't possibly design for every device and browser individually. That's just not how the web works. Instead, responsive design encourages us to design interfaces that work on any size screen.
 
-The select box design I suggested before requires an adaptive approach: on small viewports users get a select box. Then, when there's enough space, it's swapped out for set of submit buttons, laid out in a row.
+The select box design I mentioned earlier requires an adaptive approach: on small viewports users get a select box. Then, when there's enough space, it's swapped out for set of submit buttons, laid out in a row.
 
 ![Adaptive select box](./images/05/adaptive-design.png)
 

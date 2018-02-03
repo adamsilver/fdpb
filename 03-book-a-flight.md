@@ -1097,7 +1097,7 @@ Now all the relevant information has been collected, we can give users a list of
 
 The system shows flights that match the date the user specified earlier. Additionally, the interface lets users move back and forth between days. The group's label is set as normal via the `<legend>` and is set to “Available flights on 18 August 2018.”
 
-The flights are represented as radio buttons as the user can select just one. Each label contains the departure time, arrival time and ticket price: all useful information. One advantage of using this pattern is that you can add whatever details you need inside the label and style it in a hierarchical fashion.
+The flights are represented as radio buttons as the user can select only one. Each label contains the departure time, arrival time and ticket price: all useful information. One advantage of using radio buttons is that you can add any information inside the label and style it as you like. Something you couldn't do if you were using a select box.
 
 ```HTML
 <div class="field-radioButton">
@@ -1110,11 +1110,11 @@ The flights are represented as radio buttons as the user can select just one. Ea
 </div>
 ```
 
-### Handling Errors For A Group
+### Group Validation Errors
 
-In chapter 1, we looked at how to design an inclusive form validation experience. But because the registration form only consists of two simple text fields, we never looked at how to handle errors for a field consisting of multiple form controls.
+In chapter 1, we looked at how to design an inclusive form validation experience. But because the registration form only consisted of two simple text fields, we never looked at how to handle errors for a field consisting of multiple form controls.
 
-A radio button group is one such example. Take a look at the mark-up below. The fieldset contains the group fo controls, and the legend is the group's label. We can effectively user the same error pattern as we used for the registration form, byt injecting the error span inside the legend. Not only, will sighted users see the error, but screen reader users will hear the error too.
+A radio button group is made up of many controls. Take a look at the mark-up below. The fieldset contains the group fo controls, and the legend is the group's label. We can effectively user the same error pattern used for the registration form, by injecting the error `<span>` inside the legend. Not only, will sighted users see the error, but screen reader users will hear the error too.
 
 ```HTML
 <fieldset aria-invalid="true">
@@ -1148,25 +1148,25 @@ A radio button group is one such example. Take a look at the mark-up below. The 
 </fieldset>
 ```
 
-The `aria-invalid="true"` attribute is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid—it's the group. The error `<span>` is exactly the same as the one used for single text fields which ensures that errors look and behave the same across all types of form fields.
+The `aria-invalid="true"` attribute is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid—it's the group. The error `<span>` is exactly the same as the one used for standard text fields which ensures that errors look and behave the same across all types of form fields which speaks to principle 3, *Be consistent*.
 
 ![Radio button error](./images/03/choose-flight-error.png)
 
 ## 5. Choosing A Seat
 
-Finally, users need to choose a seat. While this step is not especially complicated, the combination of affordance, layout and interaction can make or break this part of the journey.
+Choosing a seat isn't the most complicated part of the journey, yet the combination of perceived affordance, layout and interaction design can make or break this part of the journey if we're not careful.
 
 ### Layout
 
-Up to now, radio buttons have been stacked beneath one an other, which is enough for most situations. For seat selection, this makes the page especially long, and more importantly, harder to scan as there is a lack of structure.
+Up to now, radio buttons have been stacked beneath one an other, which is good for most situations. For seat selection, however, this makes the page especially long, and more importantly, harder to scan, as there's a lack of structure.
 
 ![Stacked](./images/03/choose-seat-stacked.png)
 
-We can provide that structure by laying out seats in rows, just like they are on a plane. This will help users map their location. Users might be looking for aisle or window seats, for example.
+We can provide that structure by laying out the seats in rows, just like they are on a plane. This will help users map their location which is useful because users might be looking for aisle or window seats for example.
 
 ![Nested](./images/03/choose-seat-nested.png)
 
-To denote window seats and isle seats for screen reader users we can put hidden text inside the seat's label.
+To demarcate window seats and isle seats for screen reader users we can put hidden text inside the seat's label.
 
 ```HTML
 <label for="S1A">
@@ -1177,9 +1177,9 @@ To denote window seats and isle seats for screen reader users we can put hidden 
 
 ### Nested Fieldsets
 
-The radio buttons are housed inside an extra fieldset (and legend) to incidate which class the seat belongs to: first class or economy. Visually this is fine, but screen readers don't always behave as expected. Sometimes, they announce both legends when the first radio button is focused. Sometimes they don't announce the outer legend at all. You can read Leonie Watson's article, “Using the fieldset and legend elements”[^] for more information.
+The radio buttons are placed inside an extra fieldset (and legend) to indicate which class the seat belongs to: first class or economy. Visually this is fine, but screen readers don't always behave as expected. Sometimes, they announce both legends when the first radio button is focused. Sometimes they don't announce the outer legend at all. You can read Leonie Watson's article, “Using the fieldset and legend elements”[^] for more information about this.
 
-Where possible, you should avoid nested fieldsets, not only for screen reader users, but because their use often signifies extra complexity that can be designed out of a system. In our case, we're showing both first class and economy class seats because users' never specified which class they wanted earlier in the journey.
+Where possible, you should avoid nested fieldsets, not only for screen reader users, but because their existence often signifies extra complexity that can be designed better with a little more thought. In our case, we're showing both first class and economy class seats because users were never asked to specify which class they wanted earlier in the journey.
 
 Instead, we could ask users to specify their preference beforehand. At the same time, we can mark *economy* as checked by default. Marking the most common choice expedites the process.
 

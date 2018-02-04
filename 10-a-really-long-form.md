@@ -2,7 +2,7 @@
 
 Different types of tasks take different amounts of time to complete. One Thing Per Page helps users complete tasks in one sitting, but what about those that take hours, or even days, to complete?
 
-In Mailchimp, for example, I'll usually start drafting an email campaign weeks before I send it. And there are a number of steps to complete, in a particular order too. First, I check the content reads well. Then I need to make sure it looks good in various email clients. Then days or even weeks later, I'll run through some final checks, decide the subject line and schedule it for release.
+In Mailchimp[^], for example, I'll usually start drafting an email campaign weeks before I send it. And there are a number of steps to complete, in a particular order too. First, I check the content reads well. Then I need to make sure it looks good in various email clients. Then days or even weeks later, I'll run through some final checks, decide the subject line and schedule it for release.
 
 Other tasks are performed by more than one person using the same application. For example, processing a return may involve someone receiving the goods at the warehouse. Then a decision maker may take a look at the goods to make sure it satisfies the returns policy.
 
@@ -79,5 +79,6 @@ In this chapter, we looked at how to break down really long forms into smaller o
 
 ## Footnotes
 
-[^1]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/
-[^2]: Mailchimp
+[^]: Mailchimp
+[^]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/
+[^]: Agile

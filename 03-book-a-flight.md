@@ -1114,7 +1114,7 @@ The flights are represented as radio buttons as the user can select only one. Ea
 
 In chapter 1, we looked at how to design an inclusive form validation experience. But because the registration form only consisted of two simple text fields, we never looked at how to handle errors for a field consisting of multiple form controls.
 
-A radio button group is made up of many controls. Take a look at the mark-up below. The fieldset contains the group fo controls, and the legend is the group's label. We can effectively user the same error pattern used for the registration form, by injecting the error `<span>` inside the legend. Not only, will sighted users see the error, but screen reader users will hear the error too.
+A radio button group is made up of multiple controls. Take a look at the mark-up below. The fieldset contains the group of controls, and the legend is the group's label. We can effectively use the same error pattern by injecting the error `<span>` inside the legend. Not only, will sighted users see the error, but screen reader users will hear the error too.
 
 ```HTML
 <fieldset aria-invalid="true">
@@ -1151,6 +1151,17 @@ A radio button group is made up of many controls. Take a look at the mark-up bel
 The `aria-invalid="true"` attribute is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid—it's the group. The error `<span>` is exactly the same as the one used for standard text fields which ensures that errors look and behave the same across all types of form fields which speaks to principle 3, *Be consistent*.
 
 ![Radio button error](./images/03/choose-flight-error.png)
+
+The error summary needs to contain a link to the first radio button within the group. That is, the link's `href` attribute needs to match the first radio button's `id` attribute. This is why the first radio button in the group has matching `id` and `name` attributes: “flight”.
+
+```HTML
+<div class="errorSummary" role="group" tabindex="-1" aria-labelledby="errorSummary-heading">
+  <h2 id="errorSummary-heading">There's a problem</h2>
+  <ul>
+    <li><a href="#flight">Choose a flight</a></li>
+  </ul>
+</div>
+```
 
 ## 5. Choosing A Seat
 

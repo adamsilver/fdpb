@@ -222,7 +222,7 @@ People using a non-supporting browser will see a standard text input (`input typ
 
 Progressive enhancement is about users. It just happens to make our lives (as designers and developers) easier too. This is because instead of keeping up with a set of browsers and devices (which is impossible!) we can just focus on features.
 
-First and foremost, progressive enhancement is about always giving users an experience, no matter their browser or device or quality of connection. When things go wrong — and they will — users won't suffer in that they can still get things done.
+First and foremost, progressive enhancement is about always giving users an experience, no matter their browser or device or quality of connection. When things go wrong—and they will—users won't suffer in that they can still get things done.
 
 There are a lot of ways an experience can go wrong. Perhaps the stylesheet or script fails to load. Maybe everything loads, but the user's browser doesn't recognise some HTML, CSS or Javascript. Whatever happens, using progressive enhancement as an approach to designing experiences, stops users having an especially bad time.
 
@@ -316,7 +316,7 @@ PasswordReveal.prototype.onButtonClick = function(e) {
 
 As there are many flavours of Javascript, and different ways in which to architect components, we're going to walk through the choices used to construct the password reveal component and all the upcoming components in the book.
 
-First, we're using a constructor. A constructor is a function that is conventionally written in upper camel case — `PasswordReveal` not `passwordReveal`. It's initialised using the `new` keyword which lets us use the same code to create several instances of the component:
+First, we're using a constructor. A constructor is a function that is conventionally written in upper camel case—`PasswordReveal` not `passwordReveal`. It's initialised using the `new` keyword which lets us use the same code to create several instances of the component:
 
 ```JS
 var passwordReveal1 = new PasswordReveal(document.getElementById('input1'));
@@ -324,9 +324,9 @@ var passwordReveal1 = new PasswordReveal(document.getElementById('input1'));
 var passwordReveal2 = new PasswordReveal(document.getElementById('input2'));
 ```
 
-Second, the component's methods, are defined on the prototype — for example `PasswordReveal.prototype.onButtonClick`. The `prototype` is the most performant way to share methods across multiple instances of the same component.
+Second, the component's methods, are defined on the prototype—for example `PasswordReveal.prototype.onButtonClick`. The `prototype` is the most performant way to share methods across multiple instances of the same component.
 
-Third, jQuery is being used to create and retrieve elements, and listen to events. While jQuery may not be necessary or preferred, using it means that the book can focus on forms — and not on the complexities of cross-browser components.
+Third, jQuery is being used to create and retrieve elements, and listen to events. While jQuery may not be necessary or preferred, using it means that the book can focus on forms—and not on the complexities of cross-browser components.
 
 If you're a designer who codes a little bit, then jQuery's ubiquity and low-barrier to entry should be helpful. By the same token, if you prefer not to use jQuery, you'll have no trouble refactoring the components to suit your preference.
 
@@ -463,11 +463,11 @@ As noted above this is primarly for screen reader users, but as is often the cas
 
 In comparison to the title element, the error summary is more prominent, which tells sighted users that something has gone wrong. But it's also responsible for letting users understand what's gone wrong and how to fix it. 
 
-It's positioned at the top of the page so that users don't have to scroll down to see it after a page refresh. Conventionally speaking, errors should be coloured red. However, relying on colour alone would exclude colour-blind users. To draw attention to the summary, consider using position, size, text and iconography in addition to colour.
+It's positioned at the top of the page so that users don't have to scroll down to see it after a page refresh (should an error get caught on the server). Conventionally speaking, errors should be coloured red. However, relying on colour alone would exclude colour-blind users. To draw attention to the summary, consider also using position, size, text and iconography.
 
 ![Error summary](./images/01/error-summary.png)
 
-The panel consists of a heading, “There's a problem”, to indicate the problem. Notice, it doesn't say the word “Error” which isn't very human. Imagine you were filling out your details to purchase a car in real life and made a mistake. The salesperson wouldn't say “Error” — if they did it would be jarring and confusing.
+The panel consists of a heading, “There's a problem”, to indicate the problem. Notice, it doesn't say the word “Error” which isn't very human. Imagine you were filling out your details to purchase a car in real life and made a mistake. The salesperson wouldn't say “Error”—if they did it would be jarring and confusing.
 
 ```HTML
 <div class="errorSummary" role="group" tabindex="-1" aria-labelledby="errorSummary-heading">
@@ -479,33 +479,34 @@ The panel consists of a heading, “There's a problem”, to indicate the proble
 </div>
 ```
 
-The container has a role of `group` which is used to group a set of interface elements: in this case, the heading and the error links. The `tabindex` attribute is set to `-1`, so that it can be focused programmatically with Javascript (when the form is submitted with mistakes). This ensures the error summary panel is scrolled into view. Otherwise, the interface would appear unresponsive and broken when the form is submitted.
+The container has a role of `group` which is used to group a set of interface elements: in this case, the heading and the error links. The `tabindex` attribute is set to `-1`, so that it can be focused programmatically with Javascript (when the form is submitted with mistakes). This ensures the error summary panel is scrolled into view. Otherwise, the interface would appear unresponsive and broken when submitted.
 
 *(Note: Using `tabindex="0"` means it will be permanently focusable by way of the tab key which is a 2.4.3 Focus Order WCAG fail. That's because if users can tab to something, they expect that it will actually do something.)*
 
 ```JS
-FormValidator.prototype.focusSummary = function() {
+FormValidator.prototype.showSummary = function () {
+  // ...
   this.summary.focus();
 };
 ```
 
-Beneath that, there is a list of errors, which are links. Clicking a link will set focus to the erroneous field which lets users jump into the form quickly.
+Underneath, there's a list of error links. Clicking a link will set focus to the erroneous field which lets users jump into the form quickly. The link's `href` attribute is set to the control's `id` which in some browsers is enough to set focus to it. 
 
-With some newer browsers, setting the links `href` to match the form control's `id` is enough. In other browsers this won't work. More specifically, the internal anchor will scroll the input into view, but it won't be focused. To fix this we can use Javascript to explicitly set focus to the input.
+However, in other browsers clicking the link will just scroll the input into view, without focusing it. To fix this we can focus the input explicitly.
 
 ```JS
 FormValidator.prototype.onErrorClicked = function(e) {
-    e.preventDefault();
-    var href = e.target.href;
-    href = href.substring(href.indexOf("#")+1, href.length);
-    document.getElementById(href).focus();
+  e.preventDefault();
+  var href = e.target.href;
+  var id = href.substring(href.indexOf("#"), href.length);
+  $(id).focus();
 };
 ```
 
 When there aren't any errors, the summary panel should be hidden. This ensures that there is only ever one summary panel on the page. And, that it appears consistently in the same location whether errors are rendered by the client or the server. To hide the panel we need to add a class of `hidden`.
 
 ```HTML
-<div class="errorSummary hidden"></div>
+<div class="errorSummary hidden" ...></div>
 ```
 
 ```CSS
@@ -577,13 +578,13 @@ To validate the email field, for example, call the `addValidator()` method:
 ```JS
 validator.addValidator('email', [{
   method: function(field) {
-      return field.value.trim().length > 0;
+    return field.value.trim().length > 0;
   },
   message: 'Enter your email address.'
 },{
   method: function(field) {
-      return (field.value.indexOf('@') > -1);
-    },
+    return (field.value.indexOf('@') > -1);
+  },
   message: 'Enter the ‘at’ symbol in the email address.'
 }]);
 ```

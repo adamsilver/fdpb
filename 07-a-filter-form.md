@@ -511,12 +511,12 @@ With that said, we’ve carefully made the effort to include a number of provisi
 
 [^facted search]: https://articles.uie.com/faceted_search/
 [^filter types]: https://www.nngroup.com/articles/applying-filters/
-[^css bg]: ?
-[^gumtree]: ?
-[^sticky]: ?
-[^success criterion]: ?
+[^css bg]: https://developer.mozilla.org/en-US/docs/Web/CSS/background
+[^gumtree]: https://www.gumtree.com/
+[^sticky]: https://css-tricks.com/position-sticky-2/
+[^success criterion]: https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html
 [^backbutton]: https://baymard.com/blog/macys-filtering-experience
-[^history api]: ?
+[^history api]: https://developer.mozilla.org/en-US/docs/Web/API/History_API
 [^scroll]: https://baymard.com/blog/inline-scroll-areas
 [^progressive rendering]: https://jakearchibald.com/2016/fun-hacks-faster-content/
 [^tray design]: https://www.nngroup.com/articles/mobile-faceted-search/

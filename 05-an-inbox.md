@@ -1,8 +1,8 @@
 # An Inbox
 
-My sister loves to-do lists. In fact, she loves them so much, that one of her favourite things is making new lists out of old ones. The world is full of lists. There's even a list of great people[^1]. On the web, there are several types of lists, and there are some design patterns that have emerged over the years that help to manage them.
+My sister loves to-do lists. In fact, she loves them so much, that one of her favourite things is making new lists out of old ones. The world is full of lists. There's even a list of great people[^]. On the web, there are several types of lists, and there are some design patterns that have emerged over the years that help to manage them.
 
-In this chapter, we'll look at an inbox. That is, a list of emails sent from other people. In many respects, an inbox is a list of tasks organized around emails. Besides reading and replying to them, the aim is to achieve a zen-like state of Inbox Zero[^2]. To let users get there quickly, we will design the interface so that they can delete, archive and mark emails as spam. But not just one at a time—in bulk. My sister loves pen and paper, but if we get this right, I hope she'll be converted to digital.
+In this chapter, we'll look at an inbox. That is, a list of emails sent from other people. In many respects, an inbox is a list of tasks organized around emails. Besides reading and replying to them, the aim is to achieve a zen-like state of Inbox Zero[^]. To let users get there quickly, we will design the interface so that they can delete, archive and mark emails as spam. But not just one at a time—in bulk. My sister loves pen and paper, but if we get this right, I hope she'll be converted to digital.
 
 ## List Types
 
@@ -215,7 +215,7 @@ Third, the items within the sticky menus are difficult to focus with the keyboar
 
 For these reasons, it's better to position the menu statically.
 
-*(Note: where sticky menus are useful, you can use `position: sticky` as a progressive enhancement. In the past, we had to resort to complicated techniques that create a jarring and broken experience across a range of mobile and tablet devices[^6].)*
+*(Note: where sticky menus are useful, you can use `position: sticky` as a progressive enhancement. In the past, we had to resort to complicated techniques that create a jarring and broken experience across a range of mobile and tablet devices[^].)*
 
 ### Disabling And Hiding Buttons
 
@@ -245,7 +245,7 @@ Select boxes are a menu of sorts. In fact, sometimes, they're referred to as dro
 
 Like a menu, they group similar items together that users can select. And they hide the items behind a click, keeping the interface compact. They're an attractive option because, as we know, browsers supply them for free. But, even though select boxes look like menus and behave like them; and even though they are sometimes referred to as menus—they aren't true menus.
 
-Select boxes are for input. That's why forms that contain select boxes—like any other input—must be accompanied by a submit button to submit the choice. Not only is this convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^4]:
+Select boxes are for input. That's why forms that contain select boxes—like any other input—must be accompanied by a submit button to submit the choice. Not only is this convention, but it's also in the Web Content Accessibility Guidelines (WCAG)[^]:
 
 > Changing the setting of any user interface component does not automatically cause a change of context.
 
@@ -257,7 +257,7 @@ This also causes problems for screen reader and keyboard users. For example, on 
 
 Other browsers are more forgiving of such techniques—most won't fire the `onchange` event (and thus submit the form) until the user presses <kbd>Space</kbd> or <kbd>Enter</kbd>. But as not all browsers are alike or implement the specification consistently. Ignoring people who use one of the “bad” browsers, doesn't make the problem any less real for them.
 
-The other problem with using a select box, is that it's always collapsed, even when there's enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adaptive design[^adaptive].
+The other problem with using a select box, is that it's always collapsed, even when there's enough space to lay out the options. One solution is to create a completely different component for big screens using Javascript. This is known as adaptive design[^].
 
 ### Adaptive Design Versus Responsive Design
 
@@ -543,10 +543,11 @@ In this chapter we began by choosing the right way to present a collection of em
 
 ## Footnotes
 
-[^1]: https://en.wikipedia.org/wiki/List_of_people_known_as_%22the_Great%22
-[^2]: http://whatis.techtarget.com/definition/inbox-zero
-[^3]: https://resilientwebdesign.com/chapter2/#Using%20TABLEs%20for%20layout%20is%20materially%20dishonest.
-[^4]: https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html
-[^5]: https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/
-[^6]: http://bradfrost.com/blog/mobile/fixed-position/
+[^great people]: https://en.wikipedia.org/wiki/List_of_people_known_as_%22the_Great%22
+[^inbox zero]: http://whatis.techtarget.com/definition/inbox-zero
+[^gmail]: ?
+[^resilient web design]: https://resilientwebdesign.com/chapter2/#Using%20TABLEs%20for%20layout%20is%20materially%20dishonest.
+[^fixed positioning]: http://bradfrost.com/blog/mobile/fixed-position/
+[^wcag change]: https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html
 [^adaptive]: http://mediumwell.com/responsive-adaptive-mobile/
+[^flakey]: hhttps://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/#javascript

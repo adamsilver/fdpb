@@ -48,7 +48,7 @@ Discrete parts of a web page are often referred to as sections, modules and comp
 
 For the purposes of inclusion, our search component has a search landmark role: `role="search"`. This means, it will be listed as a shortcut with other landmarks in most screen readers.
 
-The extra `div` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^adrian].
+The extra `div` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^].
 
 Normally, search is placed within the header which, like navigation, makes it easily discoverable and quick to access. In fact, putting such an integral feature somewhere else on the interface would be counterintuitive.
 
@@ -193,6 +193,8 @@ Marrying the usability of the interface with the quality of the search engine gi
 
 ## Footnotes
 
-[^1]: https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
-[^2]: http://jamesarcher.me/hamburger-menu
-[^]: http://adrianroselli.com/2015/08/where-to-put-your-search-role.html
+[^content and design]: https://medium.com/uie-brain-sparks/content-and-design-are-inseparable-work-partners-5e1450ac5bba
+[^search role]: http://adrianroselli.com/2015/08/where-to-put-your-search-role.html
+[^hamburger]: http://jamesarcher.me/hamburger-menu
+[^sighted screen reader users]: http://adrianroselli.com/2017/02/not-all-screen-reader-users-are-blind.html
+[^infinite scrolling]: https://adamsilver.io/articles/infinite-scrolling-is-probably-a-bad-idea/

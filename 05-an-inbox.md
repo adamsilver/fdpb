@@ -263,73 +263,87 @@ The other problem with using a select box, is that it's always collapsed, even w
 
 First a fun history lesson. 
 
-When the web came along, we settled on 640 pixel widths. Then a few years later, when larger monitors came to market, we changed to 960 pixels. We no longer cared about people with small monitors. We expected users to maximise their browser. If they didn't they'd get a horizontal scroll bar and that would be their problem.
+When the web came along, we settled on 640 pixel widths. Then a few years later, when larger monitors came to market, we increased it to 960 pixels. We no longer cared about people with small monitors. We expected users to maximise their browser; if they didn't they'd get a horizontal scroll bar and that would be their problem.
 
-Then some more years passed. The mobile web was born. Or more accurately, we could use websites on our phones, which happen to have small screens. A million browsers came out. A million devices came out. And browsers gave us CSS media queries.
+Then a few more years passed. The mobile web was born. Or more accurately, we could use websites on our phones, which happen to have small screens. A million browsers came out. A million devices came out. And browsers gave us CSS media queries.
 
-Accordingly, we started to design for 320px widths. Why? Because many of us had iPhones and this happened to be its width in portrait mode. The hardcore amongst us starting designing for portrait and landscape sizes according to the most popular devices at that time.
+Accordingly, we started to design for 320px widths. Why? Because many of us had iPhones and this happened to be its width in portrait mode. The hardcore amongst us started designing for portrait and landscape sizes according to the most popular devices at that time.
 
-Now we have tablets, desktops and really big desktop screens. And we can browse on large screen televisions. Then all the way back down to watches with tiny viewports. If your head is spinning, don't worry, so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
+Now we have tablets, desktops and really big desktop screens. And we can browse on large screen televisions and tiny watches. If your head is spinning, don't worry, so is mine. This is the problem that responsive design solves and adaptive design exacerbates.
 
-The difference between responsive and adaptive design is both subtle and crucial. Both techniques are based on viewport width. And both use CSS media queries to change the interface. But they are rather different.
+The difference between responsive and adaptive design is both subtle and crucial. Both techniques are often based on viewport width. And both use CSS media queries to change the interface. But they are really quite different.
 
 #### Adaptive Design
 
-Adaptive design means defining several predefined layouts for specifically chosen viewport widths that correspond to a particular device. All the code for the different layouts are sent to the browser. 
+Not everyone in the industry agrees on the meaning of adaptive design[^]. Some think it means having different layouts that snap at particular sizes—in other words, not fluid. Others think it's the same as responsive design which is hardly surprising seeing as the words are synonyms.
 
-The interface that matches the predefined media query is applied accordingly. These media queries are known as device breakpoints because they are defined based on a device's width.
+The other common understanding of adaptive design is about defining several different (parts of) layouts, made up of different HTML that's rendered. Originally, this was based on user agent string[^]. Sometimes JavaScript is used to restructure the arrangement of HTML at certain viewport widths. But more commonly these days, it's done using CSS media queries. We'll focus on this flavour of adaptive design going forward.
 
-```CSS
-@media only screen and (min-device-width : 375px) and (max-device-width : 667px) { /* styles */}
+This involves delivering all the HTML for the different layouts and hiding and showing these layouts based on CSS media queries (that match a particular device's width—usually Apple devices but not always.
+
+```HTML
+<!-- layout 1 -->
+<div class="stuff1">...</div>
+
+<!-- layout 2 -->
+<div class="stuff2">...</div>
 ```
 
-Using this approach is normally unnecessary and counterproductive. 
+```CSS
+@media only screen and (min-device-width: 375px) and (max-device-width : 667px) {
+  .stuff1 {
+    display: none;
+  }
 
-First, there's an endless stream of devices and browsers with different widths: creating specific designs for every device width is impossible. Second, the extra code needed to produce such designs would result in slow loading pages which are detrimental to the user experience. Third, not all components need a breakpoint. Plenty of components can be designed to work well in exactly the same way on both small and large screens.
+  .stuff2 {
+    display: block;
+  }
+}
+```
 
-Moreover, this isn't just a technical issue. Users should receive a consistent experience (principle 3) no matter which device they choose to use. And if they rotate their device from portrait to landscape, they shouldn't have to relearn the interface as this is unnecessary cognitive load on users. 
+Using this approach is normally unnecessary and counterproductive for a number of reasons.
+
+1. There's an endless stream of devices and browsers with different widths: creating specific designs for every device width is impossible.
+2. The extra code needed to produce such designs would result in slow loading pages which are detrimental to the user experience. 
+3. Not all components need a breakpoint. Plenty of components can be designed to work well in exactly the same way on both small and large screens.
+
+More importantly, users should get a consistent experience (principle 3) no matter which device they choose to use. Rotating their device from portrait to landscape, for experience, shouldn't mean having to relearn an interface because that puts an unnecessary cognitive burden on users.
 
 #### Responsive Design
 
 Responsive design takes a different approach. It's about designing a single, fluid interface that works well at any size regardless of device. Specific browsers and device widths become irrelevant. The difference is that you only add a media query when and if something breaks. These media queries are known as content breakpoints.
 
 ```CSS
-@media only screen and (min-device-width : 61.37em) { /* Fix broken layout for a particular thing at a particular width here */}
+@media only screen and (min-width: 61.37em) { 
+  /* Fix broken layout for a particular thing at a particular width here */
+}
 ```
 
 Where adaptive design tries to bend the web to its will, responsive design embraces it. Responsive design understands that you can't possibly design for every device and browser individually. That's just not how the web works. Instead, responsive design encourages us to design interfaces that work on any size screen.
 
-The select box design I mentioned earlier requires an adaptive approach: on small viewports users get a select box. Then, when there's enough space, it's swapped out for set of submit buttons, laid out in a row.
+The select box design I mentioned earlier requires an adaptive approach: on small viewports users get a select box. Then, when there's enough space, it's swapped out for submit buttons.
 
 ![Adaptive select box](./images/05/adaptive-design.png)
 
-In this case, the big screen view entirely discards the select box in favour of a different interface using CSS and Javascript. Not only does this mean more work, but the page will take longer to load. And we either have to change the HTML dynamically with Javascript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
+In this case, the big screen view entirely discards the select box in favour of a different interface using CSS and Javascript. Not only does this mean more work, but the page will take longer to load. And we either have to change the HTML dynamically with JavaScript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
 
-```CSS
-@media only screen and (min-device-width : 30em) {
-  .smallScreenMenu {
-    display: none;
-  }
+If that weren't enough, the server needs to be aware of how both menus transmit data. In this case, the select box and submit buttons would be sending different data. 
 
-  .largeScreenMenu {
-    display: block;
-  }
-}
-```
-
-If that weren't enough, the server needs to be aware of how both menus transmit data. That is, the select box sends different data to the submit buttons. Adaptive design can be even more complicated if you had to listen to JavaScript events to restructure the arrangement of HTML.
-
-Not only is all of this more work, but there are now two vastly different variations of the same feature to maintain indefinitely.
+Not only is all of this more work, but there are now two vastly different variations of the same feature to maintain indefinitely. Adaptive design should always be a last resort.
 
 ### Hover Versus Click
 
-On the web, menus are often opened on hover. There are many problems with opening a menu or revealing anything else for that matter this way.
+On the web, menus are sometimes opened on hover. Designers often assume that doing so, aids discovery and saves users the effort of clicking. The thing is, there are many problems with opening a menu (or anything really) on hover.
 
 First, hovering is not an intention to open the menu. When a user moves over a menu that opens on hover it can obscure the content behind which disrupts the experience. With the inbox, as the user goes to select the first checkbox, they may accidentally end up clicking one of the items in the menu which fails principles 4, *Give Control*.
 
 Second, users have to be careful to keep the cursor within the bounds of the menu, otherwise it will close. This is known as a hover tunnel, and is especially difficult to operate with motor impairments.
 
-Third, not all users use a mouse (or other pointing device) and touch-screen devices are usually operated without one. So you need to show the menu on click anyway. If you wanted to open the menu on hover for large viewports and on click for small ones, think again. There are many large touch screen devices.
+Third, not all users use a mouse (or other types of pointing device) and touch-screen devices are usually operated without one. 
+
+You should note that opening a menu on hover on desktop and on click for mobile isn't recommended. There are many large touch screen devices.
+
+Needless to say, menus should be triggered on click, which is an explicit intention to activate it, keeping users in control.
 
 ### A True Menu
 
@@ -550,4 +564,6 @@ In this chapter we began by choosing the right way to present a collection of em
 [^fixed positioning]: http://bradfrost.com/blog/mobile/fixed-position/
 [^wcag change]: https://www.w3.org/TR/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html
 [^adaptive]: http://mediumwell.com/responsive-adaptive-mobile/
+[^brad]: http://bradfrost.com/blog/post/the-many-faces-of-adaptive-design/
+[^ress]: https://www.lukew.com/ff/entry.asp?1392
 [^flakey]: hhttps://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/#javascript

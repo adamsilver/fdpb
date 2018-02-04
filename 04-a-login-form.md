@@ -84,7 +84,7 @@ Some login forms, such as those found on bank sites, ask users for certain chara
 
 ![Santander](./images/04/santander.png)
 
-The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next text box automatically as the user enters a pre-determined number of characters. But as the BBC's UX guidance[^3] says:
+The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next text box automatically as the user enters a pre-determined number of characters. But as the BBC's UX guidance[^] says:
 
 > it can be disorienting and hinder users from verifying information or correcting mistakes if the focus automatically changes when the user is not expecting it.
 
@@ -159,7 +159,7 @@ Instead, put each form on a separate page, and give users a link to each form at
 
 ### Forgotten Password Link Placement
 
-Human beings are forgetful. Password managers[^2] mitigate this problem by storing all your passwords in one place—you just have to remember a single, master password. That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as everyone else. Moreover, not everyone uses one, nor should they have to.
+Human beings are forgetful. Password managers[^] mitigate this problem by storing all your passwords in one place—you just have to remember a single, master password. That's great, but password managers aren't infallible. If you don't rememeber to save your credentials into it, you're in the same position as everyone else. Moreover, not everyone uses one, nor should they have to.
 
 Most sites give users a way to reset their password if they forget it. The feature itself isn't especially problematic. It's the placement of the link within the login form that can cause usability issues. If the link is just above the password field, when users tab from the email field, it's the link that will receive focus, not the password field. Some users will tab and start typing not realising what's happened.
 
@@ -175,7 +175,7 @@ The submit button should be the last interactive element in the form because tha
 
 Sites have recently started to offer users the ability to sign in with social networks such as Facebook, Twitter and Google. This saves users having to type their credentials they may not remember.
 
-Medium.com, for example, lets users login in with Facebook. This is a boon for Medium users because they'll then have the option to post articles directly to Facebook automatically.
+Medium[^], for example, lets users login in with Facebook. This is a boon for Medium users because they'll then have the option to post articles directly to Facebook automatically.
 
 Social login is not without its problems though. 
 
@@ -230,8 +230,8 @@ In this chapter we started by quashing traditional advice that omiting hint text
 
 ## Footnotes
 
-[^1]: https://vimeo.com/138359368
-[^2]: https://www.lastpass.com/
-[^3]: http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
-
-TODO: https://twitter.com/dburka/status/947864214303100929
+[^bbc gel tab]: http://www.bbc.co.uk/guidelines/futuremedia/accessibility/mobile/forms/managing-focus
+[^metrically oposed]: https://vimeo.com/138359368
+[^tesco]: https://www.tesco.com/groceries/en-GB
+[^password managers]: https://www.lastpass.com/
+[^medium]: https://medium.com

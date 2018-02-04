@@ -324,7 +324,7 @@ Fortunately, there are some usability provisions we can apply here. By leveragin
 
 There are a number of details on a credit or debit card: name on card, card number, valid from date, expiry date, issue number, security number; all of these are commonly found on payment forms. However, not all of these details are necessary to process a payment.
 
-When we designed Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe[^15] as the payment provider. This way, we didn't have to worry about PCI compliance[^] and the cost of developing a solution from scratch. Here's the payment form we ended up with:
+When we designed Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe[^15] as the payment provider. This way, we didn't have to worry about PCI compliance[^16] and the cost of developing a solution from scratch. Here's the payment form we ended up with:
 
 ![Payment](./images/02/payment.png)
 
@@ -352,7 +352,7 @@ When researching this section for the book, I decided to speak to Stripe to see 
 
 Most modern browsers can automatically fill in form fields, by way of the `autocomplete` attribute. When the user focuses a particular field, the browser checks if it has that information stored—if it does, the user can select it without having to type.
 
-> Chrome autofill: used 9 billion times/month, saves an average of 12 seconds, 1.25 million days saved/month—Luke W, 24 October 2017[^16]
+> Chrome autofill: used 9 billion times/month, saves an average of 12 seconds, 1.25 million days saved/month—Luke W, 24 October 2017[^17]
 
 Since iOS 8, the Safari browser lets users scan their card using the iPhone's camera—it uses the same mechanism to automatically fill out those fields.
 
@@ -398,7 +398,7 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
 </fieldset>
 ```
 
-*(Note: you can refer to the full list of available values in the HTML specification[^17])*
+*(Note: you can refer to the full list of available values in the HTML specification[^18])*
 
 ### Number Input
 
@@ -592,7 +592,7 @@ By omitting navigation and search, users can focus on checking out which speaks 
 
 ![Progress bar](./images/02/progress-bar.png)
 
-Progress bars or indicators are often used within checkout because—at least in theory—they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful or even noticed. For example, you can read about how the Carer’s Allowance team removed a 12-step progress indicator with no effect on completion rates or times[^]. 
+Progress bars or indicators are often used within checkout because—at least in theory—they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful or even noticed. For example, you can read about how the Carer’s Allowance team removed a 12-step progress indicator with no effect on completion rates or times[^19]. 
 
 Progress bars pose some practical design challenges too. First, they take up a lot of space at the top of the page which is particularly important on mobile where they push the main content down. Second, fitting an accessible progress bar (with clear labeling) into a small viewport is nigh on impossible. 
 
@@ -668,7 +668,7 @@ While the summary panel is important, it's less important than the form. So it s
 
 As the user is moving through a linear flow, we need to consider the need to step back. The browser's back button provides this functionality for free, but some people mistrust it because of bad past experience where their data was lost.
 
-AJAX-driven and modal-heavy sites haven't helped matters because clicking the browser's back button often goes against user's expectations[^18]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect it to take them to the previous page in the state they left it in.
+AJAX-driven and modal-heavy sites haven't helped matters because clicking the browser's back button often goes against user's expectations[^20]. Thankfully, the checkout doesn't need AJAX or modal dialogs so this isn't a problem, but we still need to ensure the browser's back button works as expected. Users expect it to take them to the previous page in the state they left it in.
 
 However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust it. In this case, position the link at the top left of the page. By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
 
@@ -718,7 +718,8 @@ After that, we looked at other issues: giving users the ability to review their 
 [^13 polite]: http://w3c.github.io/aria/aria/aria.html#aria-live
 [^14 status]: http://w3c.github.io/aria/aria/aria.html#status
 [^15 stripe]: https://stripe.com/gb
-[^16 luke autofill tweet]: https://twitter.com/lukew/status/922630320293265408
-[^17 autofill attributes]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
-[^ progress]: https://designnotes.blog.gov.uk/2014/07/07/do-less-problems-as-shared-spaces/
-[^18 back link]: https://baymard.com/blog/back-button-expectations
+[^16 PCI compliance]: ?
+[^17 luke autofill tweet]: https://twitter.com/lukew/status/922630320293265408
+[^18 autofill attributes]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute
+[^19]: https://designnotes.blog.gov.uk/2014/07/07/do-less-problems-as-shared-spaces/
+[^20 back link]: https://baymard.com/blog/back-button-expectations

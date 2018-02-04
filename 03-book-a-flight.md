@@ -1306,16 +1306,23 @@ As much as we tried to use native form controls, in their standard format, it be
 
 [^burn select tags]: https://www.youtube.com/watch?v=CUkMCQR4TpY
 [^ dropdown last resort]: http://www.lukew.com/ff/entry.asp?1950
-[^users scroll]: ?
+[^users scroll]: http://uxmyths.com/post/654047943/myth-people-dont-scroll
 [^amazon]: https://www.amazon.co.uk
 [^data list]: http://caniuse.com/#feat=datalist
 [^ punch list]: https://www.paciellogroup.com/blog/2014/09/web-components-punch-list/
-[^ event delegation]: ?
+[^ MDN combo]: https://developer.mozilla.org/en-US/docs/Web/Accessibility/AT-APIs/Gecko/Roles/ROLE_COMBOBOX
+[^ magic numbers]: https://en.wikipedia.org/wiki/Magic_number_(programming)
+[^ single tab stop]: https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_generalnav
+[^ event delegation]: https://learn.jquery.com/events/event-delegation/
 [^ dates are hard]: http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
+[^nobody cares]: https://www.smashingmagazine.com/2016/01/nobody-wants-use-your-product/
 [^progressive enhancement 2.0]: https://youtu.be/hdTxeR90_1E?t=29m27s
-[^look the same]: http://dowebsitesneedtolookexactlythesameineverybrowser.com/
-[^continuum]: https://adactio.com/journal/6692
 [^tap]: https://developers.google.com/speed/docs/insights/SizeTapTargetsAppropriately
+[^dynamic JS API]: http://peter.michaux.ca/articles/feature-detection-state-of-the-art-browser-scripting
+[^roving tabs]: https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_roving_tabindex
+[^continuum]: https://adactio.com/journal/6692
 [^best icon is text]: https://thomasbyttebier.be/blog/the-best-icon-is-a-text-label
 [^using fieldset and legend]: https://accessibility.blog.gov.uk/2016/07/22/using-the-fieldset-and-legend-elements/
 [^checkboxes are never round]: http://danieldelaney.net/checkboxes/?utm_source=designernews
+[^millers law]: https://lawsofux.com/millers-law
+[^millers ux myth]: http://uxmyths.com/post/931925744/myth-23-choices-should-always-be-limited-to-seven

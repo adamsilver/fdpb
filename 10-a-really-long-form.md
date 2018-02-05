@@ -14,7 +14,7 @@ Of course, if you can simplify the process so that it's short in the first place
 
 ## The Power Of Checklists
 
-In “The Psychology of Checklists”[^1], Lauren Marchese explains the importance of breaking down big tasks into smaller ones and doing so is proven to motivate people. When we experience even small amounts of success, our brains release a chemical called dopamine which gives us feelings of pleasure, learning and motivation.
+In “The Psychology of Checklists”[^], Lauren Marchese explains the importance of breaking down big tasks into smaller ones and doing so is proven to motivate people. When we experience even small amounts of success, our brains release a chemical called dopamine which gives us feelings of pleasure, learning and motivation.
 
 Most of us work in teams employing Agile methodologies[^]. One of the main aspects to this is breaking down a large project into epics, stories and tasks. Complete enough tasks, and the story is done. Complete enough stories, and the epic is done. Complete enough epics and the project is done. Of course our work is never done, but you know what I mean.
 
@@ -30,7 +30,7 @@ In fact, many developers isolate themselves away from their teammates in a busy 
 
 ## The Task List Pattern
 
-The task list pattern, as coined by the Government Digital Service (GDS) shows a service that has several top level tasks. Each top level task is broken down into several sub tasks. Each one of those takes users through a flow. Whether it's one screen or several doesn't matter too much. As long as each sub task is achievable in a reasonable amount of time.
+The task list pattern[^], as coined by the Government Digital Service (GDS) shows a service that has several top level tasks. Each top level task is broken down into several sub tasks. Each one of those takes users through a flow. Whether it's one screen or several doesn't matter too much. As long as each sub task is achievable in a reasonable amount of time.
 
 Once a sub task is completed, users come back to the view with that task marked as complete.
 
@@ -79,6 +79,7 @@ In this chapter, we looked at how to break down really long forms into smaller o
 
 ## Footnotes
 
-[^]: Mailchimp
-[^]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/
-[^]: Agile
+[^ mailchimp]: https://mailchimp.com/
+[^ checklists]: https://blog.trello.com/the-psychology-of-checklists-why-setting-small-goals-motivates-us-to-accomplish-bigger-things
+[^ agile]: https://en.wikipedia.org/wiki/Agile_software_development
+[^ task list]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/

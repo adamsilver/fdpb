@@ -278,7 +278,7 @@ This loops through all the items in the form and invokes the `updateAttributes()
 
 #### Managing Focus
 
-When the user clicks the Remove button, everything inside the `<div class="addAnother-item">` will be removed. But, what happens to the focus when you delete the currently focused element? Heydon Pickering answers this question in “A Todo List”[^2]:
+When the user clicks the Remove button, everything inside the `<div class="addAnother-item">` will be removed. But, what happens to the focus when you delete the currently focused element? Heydon Pickering answers this question in “A Todo List”[^]:
 
 > [...] browsers don’t know where to place focus when it has been destroyed in this way. Some maintain a sort of “ghost” focus where the item used to exist, while others jump to focus the next focusable element. Some flip out completely and default to focusing the outer document — meaning keyboard users have to crawl [...] back to where the removed element was.
 
@@ -320,7 +320,7 @@ It's possible that judicious animation effects can help users understand an inte
 
 But all too often, designers want to add animation for the sake of it. Users, however, just want to get things done. And, needless animation is jarring and actually *detracts* from the user experience. Like anything else, animation should only be added if it adds value.
 
-Even when animation is valuable to some users, it can be harmful to users with cognitive impairments such as Attention Deficit Hyperactivity Disorder (ADHD) and Autism[^3].
+Even when animation is valuable to some users, it can be harmful to users with cognitive impairments such as Attention Deficit Hyperactivity Disorder (ADHD) and Autism[^].
 
 In the case of the expense form, had we not moved focus from the button to the field, an animation might mean the item's arrival is more likely to be noticed. Alas, we *are* moving focus to the form field and so animation is unnecessary here.
 
@@ -347,6 +347,9 @@ There's no right or wrong here. It's about choosing the most appropriate pattern
 
 ## Footnotes
 
-[^1]: http://todomvc.com/
-[^2]: https://inclusive-components.design/a-todo-list/
-[^3]: https://axesslab.com/accessibility-according-to-pwd/#motion-animations-and-cluttered-pages
+[^todo mvc]: http://todomvc.com/
+[^express]: https://expressjs.com/
+[^template literals]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+[^template element]: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
+[^a todo list]: https://inclusive-components.design/a-todo-list/
+[^animation]: https://axesslab.com/accessibility-according-to-pwd/#motion-animations-and-cluttered-pages

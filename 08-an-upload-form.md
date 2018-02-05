@@ -123,7 +123,7 @@ First, users can only select files within a single folder. If they need to uploa
 
 Second, not all browsers support this behaviour. And in these browsers, it will degrade into a single file picker which could result in a broken experience. For example, take the following form which asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit them. But without support, users can only upload a single receipt.
 
-![Degraded solution](./images/08/problematic-form.png)
+![Problem](./images/08/problematic-form.png)
 
 One way to solve this problem involves giving users a way to add additional files as part of the flow:
 

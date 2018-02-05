@@ -43,7 +43,7 @@ Whether you agree with all of these reasons or not, it must be said that *pretty
 
 However, it's just as important to make sure that any technique's we employ to achieve these goals doesn't cause any adverse usability issues. That would be a bit like modern medicine. For example, taking a pill often fixes the symptom of a problem only to cause several adverse side effects that require additional pills to fix.
 
-When it comes to file pickers, styling them has always been tricky because browsers ignore any attempt at doing so with CSS. This means we have to resort to hacking, which is never normally a good idea. But, let's walk through how it could work, what can be achieved and the pitfalls that are involved.
+When it comes to file pickers, styling them has always been tricky because browsers ignore any attempt at doing so with CSS. This means we have to resort to hacking, which is not usually a good idea—that's why it's called hacking. But, let's walk through how it could work, what can be achieved and the pitfalls that are involved.
 
 #### Hiding The Input
 
@@ -72,7 +72,7 @@ Now the input is hidden, we need to style the label so that it looks interactive
 
 Now the label looks clickable and is clickable we need to think about focus states. 
 
-As the input is visually hidden, when the user Tabs to it, the user won't get any feedback that it's in focus. To do this, JavaScript can be used to give so that when the input is focused a class of `focused` is added to the label so that we can style it to look focused:
+As the input is visually hidden, when the user tabs to it, the user won't get any feedback that it's in focus. To do this, JavaScript can be used to give so that when the input is focused a class of `focused` is added to the label so that we can style it to look focused:
 
 ```CSS
 .focused {
@@ -168,7 +168,7 @@ This also solves the aformentioned problem of not being able to select files acr
 As noted earlier, the native file input acts as a drop zone to let users drag and drop files. However, there are two problems:
 
 1. it's not immediately obvious that dragging and dropping is possible—there are no signifiers that makes this behaviour perceivable to users.
-2. the drop zone has a small hit area, which makes it hard to use, especially if the user has motor-impairments.
+2. the drop zone has a small hit area, which makes it hard to use, especially for motor-impaired users.
 
 To solve these issues, we're going to take our persistent upload form, and progressively enhance it with better drag and drop functionality.
 
@@ -225,17 +225,16 @@ Dropzone.prototype.onDragLeave = function() {
 };
 ```
 
-*(Note, `e.preventDefault()` is called to allow the file to be dropped onto the drop zone. Without doing this, the browser will try and load the dropped file instead.)*
-
-Now we can change the styles of the drop zone with CSS:
-
 ```CSS
 .dropzone-dragover {
   /* styles here */
 }
 ```
 
-*(Note: we can't just use `:hover` because the feedback should only given when a user is dragging a file over the drop zone—not just that the cursor happens to be over the drop zone.)*
+Notes:
+
+- `e.preventDefault()` is called to allow the file to be dropped onto the drop zone. Without doing this, the browser will try and load the dropped file instead.
+- we can't just use `:hover` because the feedback should only given when a user is dragging a file over the drop zone—not just that the cursor happens to be over the drop zone.
 
 ### Dropping Files
 
@@ -269,20 +268,20 @@ This method loops through each file and calls the `uploadFile` method, which is 
 
 ### Uploading The File
 
-Uploading the file involves two steps: creating the data to be sent and sending the data:
+Uploading the file involves two steps: creating the data to be sent and actually sending it.
 
 ```JS
 Dropzone.prototype.uploadFile = function(file) {
-    var formData = new FormData();
-    formData.append('documents', file);
-    $.ajax({
-      data: formData
-      url: '/ajax-upload',
-      type: 'post',
-      processData: false,
-      contentType: false
-    });
-  };
+  var formData = new FormData();
+  formData.append('documents', file);
+  $.ajax({
+    data: formData
+    url: '/ajax-upload',
+    type: 'post',
+    processData: false,
+    contentType: false
+  });
+};
 ```
 
 The `FormData` API is designed to construct key/value pairs that represent form fields and their values, which can then be sent with AJAX, including forms that contain files (like ours does). First, we create a new instance, then we append the file data to it.
@@ -299,15 +298,13 @@ For convenience, we're using jQuerys `$.ajax` method. Here's a run down of the p
 
 ### Feedback
 
-It's all well and good having uploaded the files to the server, but at this moment, the user hasn't been given any feedback as to what's happened. Perhaps the file didn't actually upload because something wen't wrong.
-
-We're going to give users feedback during upload, when the upload succeeds, and when there's an error.
+It's all well and good having uploaded the files to the server, but at this moment, the user hasn't been given any feedback as to what's happened. Perhaps the file couldn't be uploaded, for example. There are a number of times we need to give users feedback: during upload, on success and on error.
 
 #### Progress
 
 Files can take a long time to upload, especially if the connection is slow. As such, it's important to give users feedback during upload—not just on completion. 
 
-We can provide feedback using a progress bar. Each file should is represented separately as there's a separate request for each file. This way, some small files will upload quickly, while others load more slowly in parallel.
+We can show feedback with a progress bar. Each file is represented separately as there's a separate request for each one. This way, some small files will upload quickly, while others load more slowly in parallel.
 
 ![Progress](./images/08/progress.png)
 
@@ -324,9 +321,7 @@ We can provide feedback using a progress bar. Each file should is represented se
 </ul>
 ```
 
-The files are contained in a `<ul>`. Each file (`<li>`) contains the file name (`<span>`) and the progress bar (`<progress>`).
-
-Browsers typically display the progress element as a progress bar. The element has two attributes: `max` and value. The `max` attribute describes how much work there is to be done. In our case, it's set to 100 as we're working in percentages. The `value` specifies how much is complete. This will be updated with JavaScript.
+Supporting browsers display the progress element as a progress bar. The element has two attributes: `max` and `value`. The `max` attribute describes how much work there is to be done. In our case, it's set to 100 as we're working in percentages. The `value` specifies how much is complete which we'll updating with JavaScript.
 
 ```JS
 $.ajax({
@@ -346,11 +341,11 @@ $.ajax({
 });
 ```
 
-As jQuery (at the time of writing) doesn't expose the `onprogress` event, we created an instance of `XMLHttpRequest` using jQuery's `xhr` property.
+As jQuery (at time of writing) doesn't expose the `onprogress` event, we've created an `XMLHttpRequest` object ourselves.
 
 The handler first checks to see if the server has correctly sent a `Content-Length` header by seeing if `e.lengthComputable` is `true`. If it is, then we can determine how much of the file has been uploaded, which is calculated by dividing `e.loaded` by `e.total`. That value is then converted to a percentage before updating the progress bar.
 
-*(Note: we're also setting the inner text of the progress element. This is a form of progressive enhancement—that is users will see it in browsers that don't support the progress element.)*
+The progress bar's inner text is also set. This is so that users using a browser that lacks support for the progress element can still see it. That's inclusive.
 
 #### Success
 
@@ -383,13 +378,11 @@ $.ajax({
 
 We're using the success callback which receives the response from the server as an object. The response contains a `file` property which contains the path and name of the file. This is used to create the HTML that is injected into the list item.
 
-*(Note: the demo uses Multer and Express to process the request and generate the response object.)*
+*(Note: the demo uses Multer and Express to process the request and generate the response object. You can use whatever you like.)*
 
 #### Error
 
-If the uploaded file is too big, or in the wrong format, we'll need to show users an error message.
-
-This is similar to the success message, but instead of showing a green success message with a tick, we'll show a red message with a warning symbol.
+If the uploaded file is too big, or in the wrong format, we'll need to show users an error message. This is similar to the success message, but instead of showing a green success message with a tick, we'll show a red message with a warning symbol. Note: the error mark-up is the same as the error mark-up used to show validation errors in a standard form.
 
 ![An error](./images/08/error.png)
 
@@ -416,11 +409,11 @@ $.ajax({
 });
 ```
 
-The updated success function now checks to see if the response contains an `error`. If it does, the error state will be constructed and injected into the list item instead.
+The updated success function now checks to see if the response has an `error`. If it does, the error state will be constructed and injected into the list item instead.
 
 #### Screen Reader Feedback
 
-While the feedback is useful for sighted users, screen reader users won't hear any feedback. To provide a comparable experience (principle 1), we'll need to use a live region. 
+While the feedback is useful for sighted users, screen reader users won't hear any feedback. To provide a comparable experience (principle 1), we'll need to use a live region—something we've extensively covered in “Checkout” and “Book a Flight”. 
 
 ```HTML
 <div class="visually-hidden" role="status" aria-live="polite">
@@ -428,10 +421,7 @@ While the feedback is useful for sighted users, screen reader users won't hear a
 </div>
 ```
 
-Notes:
-
-- The live region is visually hidden, because sighted users have already been catered for with the live progress bar and its various states. The CSS for the visually hidden class is set out in “Checkout”. 
-- Live regions and their various attributes were first explained in chapter 2, “A Checkout”.
+*(Note: the live region is visually hidden, because sighted users have already been catered for with the live progress bar and its various states. The CSS for the visually hidden class is set out in “Checkout”.)*
 
 The live region will changed at various points:
 
@@ -443,9 +433,9 @@ The live region will changed at various points:
 
 ### Feature Detection And Initialisation
 
-We first discussed the importance of feature detection in chapter 1, “A Registration Form”. This is because if we don't detect features before using them, users will get a broken experience.
+Feature detection was introduced in the very first chapter and also demonstrated in “Book a Flight”. We'll be using it once again here because it's important to detect features before using them, otherwise we'll create a broken experience for users using a browser that lacks support.
 
-The drag and drop enhancement uses several APIs that not all browsers will recognise which means we must detect them first.
+The drag and drop enhancement uses a number of APIs that not all browsers recognise. Here's the feature detection functions with a usage example at the end.
 
 ```JS
 function dragAndDropSupported() {
@@ -472,7 +462,7 @@ if(dragAndDropSupported() && formDataSupported() && fileApiSupported()) {
 
 There are three feature detection functions for each of the features that browsers may not recognise. We then make sure that there is support for all of them before defining our Dropzone component.
 
-As the Dropzone is conditionally defined based on feature detection, we need to detect the Dropzone function during initialisation. If it's defined, then the browser supports it, meaning it's safe to initialise, otherwise users will get the basic (but not broken!) experience.
+As the Dropzone is conditionally defined based on feature detection, we need to detect the Dropzone function during initialisation too. If it's defined, then the browser supports it, meaning it's safe to initialise, otherwise users will get the basic (but not broken!) experience.
 
 ```JS
 if(typeof Dropzone != 'undefined') {
@@ -482,30 +472,30 @@ if(typeof Dropzone != 'undefined') {
 
 ### A Note About Older Browser Support
 
-Uploading files immediately `onchange` and `ondrop` might be confusing to users because, at least conventionally speaking, forms are submitted with a separate action. However, this isn't only a conventional problem. This approach doesn't necessarily work cross-browser.
+Uploading files immediately `onchange` and `ondrop` might be confusing to users because, at least conventionally speaking, forms are submitted with a separate action. However, this isn't only a conventional problem. It doesn't work cross-browser either.
 
-For example, some older browsers won't trigger the dialog when the label is used as proxy[^4] and while the `onchange` is supported there are two problems with it:
+For example, some older browsers won't trigger the dialog when the label is used as proxy[^4] and while the `onchange` event is supported there are two problems:
 
-1. Choosing the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^2], which creates a broken interface. The solution involves replacing the entire file input after the event with a clone of itself. As the cloned input would need to be focused, screen readers will announce it for a second time which is mildly annoying.
-2. The `onchange` event won't fire until the field is blurred[^3]. Newer browsers offer the `oninput` event which solves this problem. This is because it fires the event as soon as the value changes (without blurring the field).
+1. Choosing the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^2] which creates a broken interface. The solution is to replace the entire file input after the event with a clone of itself. As the cloned input would need to be re-focused, screen readers will announce it for a second time which is mildly annoying.
+2. The `onchange` event won't fire until the field is blurred[^3]. Newer browsers offer the `oninput` event which solves this problem because it fires the event as soon as the value changes.
 
-With that said, you may not have users using these older browsers. And, the feature detection rules out the offending browsers. Moreover, you may not even need drag and drop functionality. Without that need, there's less of a need to veer away from convention anyway.
+Whether you need to support such browsers depends on your situation but it's worth being aware of the problems. Fortunately, the feature detection above happens to rule out the offending browsers. Moreover, you may not even need drag and drop functionality. Without that need, there's less of a need to veer away from convention anyway.
 
 ## A Note About The `accept` and `capture` Attributes
 
 The file input offers two interesting attributes that affect the file uploading experience: `accept` and `capture`.
 
-The `accept` attribute takes a hint or mime type. When supported, the browser/device may offer users an optimised interface in which to choose files. 
+The `accept` attribute takes a string that indicates which types of file the picker will accept. 
 
 ```HTML
 <input type="file" accept="image/*">
 ```
 
-In Chrome and Safari on iOS and Android, for example, it will give users a choice of which app to use to capture the image, including the option of taking a photo with the camera or choosing an existing image file.
+When supported, the browser/device may offer users a more stringent experience when choosing files. In Chrome and Safari on iOS and Android, for example, it will give users a choice of which app to use to capture the image, including the option of taking a photo with the camera or choosing an existing image file.
 
 ![iOS and Android accept dialogs](./images/08/accept-attribute.png)
 
-*(Note: on desktop it will prompt the user to upload an image file from the file system disabling files that aren't images. The problem is users won't be told why the files are disabled as there's no feedback.)*
+But on desktop browsers it will prompt the user to upload an image file from the file system disabling files that aren't to be accepted (images in the above case). The problem is users won't be told why the files are disabled as there's no feedback.
 
 The `capture` attribute, when supported, indicates the preference of getting an image from the camera:
 

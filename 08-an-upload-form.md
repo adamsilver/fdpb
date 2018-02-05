@@ -474,10 +474,10 @@ if(typeof Dropzone != 'undefined') {
 
 Uploading files immediately `onchange` and `ondrop` might be confusing to users because, at least conventionally speaking, forms are submitted with a separate action. However, this isn't only a conventional problem. It doesn't work cross-browser either.
 
-For example, some older browsers won't trigger the dialog when the label is used as proxy[^4] and while the `onchange` event is supported there are two problems:
+For example, some older browsers won't trigger the dialog when the label is used as proxy[^] and while the `onchange` event is supported there are two problems:
 
-1. Choosing the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^2] which creates a broken interface. The solution is to replace the entire file input after the event with a clone of itself. As the cloned input would need to be re-focused, screen readers will announce it for a second time which is mildly annoying.
-2. The `onchange` event won't fire until the field is blurred[^3]. Newer browsers offer the `oninput` event which solves this problem because it fires the event as soon as the value changes.
+1. Choosing the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^] which creates a broken interface. The solution is to replace the entire file input after the event with a clone of itself. As the cloned input would need to be re-focused, screen readers will announce it for a second time which is mildly annoying.
+2. The `onchange` event won't fire until the field is blurred[^]. Newer browsers offer the `oninput` event which solves this problem because it fires the event as soon as the value changes.
 
 Whether you need to support such browsers depends on your situation but it's worth being aware of the problems. Fortunately, the feature detection above happens to rule out the offending browsers. Moreover, you may not even need drag and drop functionality. Without that need, there's less of a need to veer away from convention anyway.
 
@@ -527,8 +527,8 @@ In this chapter, we began by looking at the file picker as the browser gives us 
 
 ## Footnotes
 
-[^1]: https://css-tricks.com/drag-and-drop-file-uploading/#article-header-id-4
-[^2]: https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
-[^3]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
-[^4]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
-[^boundary]: yada
+[^ security]: https://css-tricks.com/drag-and-drop-file-uploading/#article-header-id-4
+[^ boundary]: https://stackoverflow.com/questions/3508338/what-is-the-boundary-in-multipart-form-data
+[^ proxy change]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
+[^ second time]: https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
+[^ blurred]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie

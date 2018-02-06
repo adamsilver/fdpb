@@ -683,11 +683,11 @@ In this chapter we solved several fundamental form design challenges that are ap
 
 ## Demos
 
-- Email field
-- Password field
-- Password reveal
-- Submit button
-- Form Validation
+- Email field: http://nostyle.herokuapp.com/examples/email-field
+- Password field: http://nostyle.herokuapp.com/examples/password-field
+- Password reveal: http://nostyle.herokuapp.com/examples/password-reveal
+- Submit button: http://nostyle.herokuapp.com/examples/primary-button
+- Form Validation: http://nostyle.herokuapp.com/examples/validation
 
 ## Footnotes
 

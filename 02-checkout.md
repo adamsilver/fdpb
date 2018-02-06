@@ -696,10 +696,10 @@ After that, we looked at other issues: giving users the ability to review their 
 
 ## Demos
 
-- Optional telephone field
-- Delivery radio buttons
-- Delivery notes with countdown
-- Payment form
+- Optional telephone field: http://nostyle.herokuapp.com/examples/telephone-field
+- Delivery radio buttons: 
+- Delivery notes with countdown: 
+- Payment form: http://nostyle.herokuapp.com/examples/payment-form
 
 ## Footnotes
 

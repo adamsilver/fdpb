@@ -226,7 +226,7 @@ In this chapter we started by quashing traditional advice that omiting hint text
 
 ## Demos
 
-- Login form
+- Login form: http://nostyle.herokuapp.com/examples/signin-form
 
 ## Footnotes
 

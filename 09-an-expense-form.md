@@ -8,7 +8,7 @@ Of course, if you know how many entries are needed in advance, then give users a
 
 ## The Persistent Form Pattern (Again)
 
-In the previous chapter, I introduced the persistent form pattern. In short, we gave users an upload form, which users can keep using until they've finished uploading as many files as they need. At which point they can proceed or exit the page—whichever is most appropriate for the specific problem at hand.
+In the previous chapter, I introduced the persistent form pattern. In short, we gave users an upload form, which users can keep using until they've finished uploading as many files as they need. At which point they can proceed or exit the page—whichever is best.
 
 ![Upload form](./images/09/persistent-upload-form.png)
 

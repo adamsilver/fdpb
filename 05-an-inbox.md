@@ -552,7 +552,6 @@ In this chapter we began by choosing the right way to present a collection of em
 ## Demos
 
 - Inbox
-- Menu
 - Select all
 
 ## Footnotes

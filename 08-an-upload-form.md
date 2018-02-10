@@ -523,7 +523,7 @@ In this chapter, we began by looking at the file picker as the browser gives us 
 
 - File picker
 - Multi file picker
-- File upload form
+- Dropzone
 
 ## Footnotes
 

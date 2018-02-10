@@ -2,7 +2,7 @@
 
 I'm an organised person. Even as a boy, I remember always having ‘a place’ for things. To be fair, I've always been minimalist too. Organising things when you only own a few things is easy. So I guess, it's unsurprising that I rarely lost things. On the odd occasion that I did, I just shouted in the general direction of the resident search engine: ‘Where's my...,’ and I'd have my answer.
 
-By search engine, I mean Mum! Mum knew where everything was, not just my stuff — everyones. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to everything (at least that's how I remember it). If I had grown up with search engines, I might have nicknamed her Google.
+By search engine, I mean Mum! Mum knew where everything was, not just my stuff—everyones. This was one of her many qualities. She didn't just know where stuff was, she knew the answer to everything (at least that's how I remember it). If I had grown up with search engines, I might have nicknamed her Google.
 
 As I've gotten older and become a husband and father, my life is richer but also less minimalist. Even if I meticulously organise all our belongings, it's still hard to remember where it all is. Worst case scenario: I have to peruse each cupboard one-by-one hoping that the thing hasn't been lost which is time-consuming.
 
@@ -44,19 +44,19 @@ The search form is simple enough and contains just three elements: the label, se
 
 ### The Search Landmark Role
 
-Discrete parts of a web page are often referred to as sections, modules and components. ARIA offers a number of landmark roles which define semantics and behaviours to make common sections accessible in assitive technologies.
+Discrete parts of a web page are often referred to as sections, modules and components. ARIA offers a number of landmark roles which define semantics and behaviours to make common sections accessible in assistive technologies.
 
 For the purposes of inclusion, our search component has a search landmark role: `role="search"`. This means, it will be listed as a shortcut with other landmarks in most screen readers.
 
-The extra `div` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^].
+The extra `<div>` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^].
 
-Normally, search is placed within the header which, like navigation, makes it easily discoverable and quick to access. In fact, putting such an integral feature somewhere else on the interface would be counterintuitive.
+Normally, search is placed within the header which, like navigation, makes it easily discoverable and quick to access. In fact, putting such an integral feature elsewhere would be counterintuitive and unconventional.
 
 ## There's No Room
 
-The challenge is that it's hard to fit the search form inside the header along with everything else. The header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
+The challenge, of course, is that it's hard to fit the search form inside the header along with everything else. The header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
 
-As noted previously, we're often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue — there's usually plenty of room. On mobile though, we're going to have to think a bit more.
+As noted previously, we're often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue—there's usually plenty of room. On mobile though, we're going to have to think a bit more.
 
 As discussed in “A Registration Form”, the best place for the submit button is directly below last field. But one way to reduce the amount of vertical space the search form takes up, is to place the submit button next to the field. This is okay as it's a bit of a special case.
 

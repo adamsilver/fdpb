@@ -180,7 +180,7 @@ The large drop zone is more ergonomic, especially for people with motor-impairme
 
 Inside the drop zone, sits a button. When clicked, it triggers the dialog as normal. The button is actually a label *styled* as a button using the ill-advised technique from earlier. But I haven't gone mad, there's good reason for this.
 
-### Why We're Styling The Label As A Button
+### Why Style The Label As A Button
 
 The dropzone has two methods of interaction: dropping files onto the drop zone and clicking the button.
 
@@ -221,7 +221,7 @@ Dropzone.prototype.onDragOver = function(e) {
 };
 
 Dropzone.prototype.onDragLeave = function() {
-  this.dropzone.removeClass('dropzone-dragOver');
+  this.dropzone.removeClass('dropzone-dragover');
 };
 ```
 

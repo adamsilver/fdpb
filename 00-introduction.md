@@ -2,15 +2,15 @@
 
 I remember my first foray into forms. At the turn of the century, web design was one of the modules on the Information Communication and Technology course I took at sixth form college. My learning mostly consisted of cutting and pasting snippets of HTML, CSS, and Javascript. Yes, I came from the view-source school of web design and development.
 
-My obsession with *forms* started when — like with any other HTML element — I tried to cut and paste it. Despite rendering okay, when I submitted it, nothing happened. Fast forward 17 years and here I am writing a book about form design patterns.
+My obsession with *forms* started when—like with any other HTML element—I tried to cut and paste it. Despite rendering okay, when I submitted it, nothing happened. Fast forward 17 years and here I am writing a book about form design patterns.
 
 ## Why Forms?
 
-Every meaningful interaction that happens on the web is achieved by a form of some sort. That's because without forms the web merely becomes a passive experience — just a way to consume content. 
+Every meaningful interaction that happens on the web is achieved by a form of some sort. That's because without forms the web merely becomes a passive experience—just a way to consume content. 
 
 Forms are the vessel by which users can create, update and delete things. Whether it's communicating through email, buying a product, online banking or working on a fully-fledged administrative digital service, forms are always front and center.
 
-Forms, on first glance, are rather easy to grasp. In less than an hour, you'll get text boxes, radio buttons and select boxes on the page. But, their low barrier to entry turns them into what Heydon Pickering refers to as a *10,000-volt electromagnet for attracting usability problems*[^1].
+Forms, on first glance, are rather easy to grasp. In less than an hour, you'll have text boxes, radio buttons and select boxes on the page. But, their low barrier to entry turns them into what Heydon Pickering refers to as a *10,000-volt electromagnet for attracting usability problems*[^1].
 
 This is a big part of why I'm even writing this book. Typically, these usability problems come up again and again.
 
@@ -28,7 +28,7 @@ Leveraging design patterns for digital experiences, or more specifically, forms,
 
 I first outlined the book based on 50 principles. Originally, each of those would become a short chapter. For example, there was a chapter called “Always Use A Label” and another called “Placeholders are problematic.”
 
-There are a few problems with this approach to design. First, rules can be broken — occasionally. Second, evaluating problems by principle is constraining. Many go together: when talking about screen readers, for example, it often makes sense to discuss keyboard users. And sometimes you have to make trade-offs.
+There are a few problems with this approach to design. First, rules can be broken—occasionally. Second, evaluating problems by principle is constraining. Many go together: when talking about screen readers, for example, it often makes sense to discuss keyboard users. And sometimes you have to make trade-offs.
 
 Instead of revolving the book around principles, I decided to revolve it around real problems. That way we can solve them as we do at work. The result is ten specific problems to solve, each represented as a chapter. The chapters are specific, but most of the patterns born out of them are reusable and transferable to many other forms you might be designing. After all, a pattern should be unique, but reusable across projects and organisations.
 
@@ -82,9 +82,13 @@ But where should our principles come from? We can either steal other people's, o
 
 Our principles normally stem from a belief system. We believe something should be a certain way. We normally have good reason for this. Without a good reason for our belief system, principles crumble under scrutiny.
 
-This book is about designing forms that let users interact over the web. As such, it would be remiss of me to ignore the essence of the web itself. The very power of the web is one of reach and accessibility. Anyone with a browser and an Internet connection gets to use it. And so the principles in this book need to align with this notion — to uphold its inherent qualities.
+This book is about designing forms for use on the web. As such, it would be remiss of me to ignore the essence of the web itself. The very power of the web is one of reach and accessibility. Anyone with a browser and an Internet connection gets to use it. And so the principles in this book need to align with this notion—to uphold its inherent qualities.
 
-Whatever we build, in the end, is about users. I don't want to leave a single person behind if I can help it. The web is for everyone. Therefore, I can't think of a better set of principles than the Inclusive Design Principles[^2]. These principles are about good design and good design is inclusive.
+Frank Chimero talks about this at length in The Web's Grain[^2], one of my favourite articles on design. The main point of which is not to aim to tackle complexity, but to do our very best to avoid it in the first place. Mostly by “going with the grain” and embracing the web's constraints.
+
+It turns out that not only is this the easiest and cheapest way to design something, but that users have a better time operating these simple interfaces in the end too. It's the content and functionality users want—not the design.
+
+Whatever we build, in the end, is about users. I don't want to leave a single person behind if I can help it. The web is for everyone. Therefore, I can't think of a better set of principles than the Inclusive Design Principles[^3]. These principles are about good design and good design is inclusive.
 
 1. **Provide a comparable experience**. Ensure your interface provides a comparable experience for all so people can accomplish tasks in a way that suits their needs without undermining the quality of the content.
 2. **Consider situation**. People use your interface in different situations. Make sure your interface delivers a valuable experience to people regardless of their circumstances.
@@ -94,9 +98,12 @@ Whatever we build, in the end, is about users. I don't want to leave a single pe
 6. **Prioritise content**. Help users focus on core tasks, features, and information by prioritising them within the content and layout.
 7. **Add value**. Consider the value of features and how they improve the experience for different users.
 
-We'll refer back to these principles throughout the book, pointing out where a solution fails or succeeds. These principles should, at least, indirectly hold us to account throughout the design process. See you on the other side.
+We'll refer back to these principles throughout the book, pointing out where a something works or not. These principles should, at least, indirectly hold us to account throughout the design process.
+
+By looking at common form patterns through the lens of inclusivity, this book will help you quickly learn how to apply and reapply conventions that will help users get the task done and on occasion make them feel awesome while doing it.
 
 ## Footnotes
 
 [^1]: https://shop.smashingmagazine.com/products/inclusive-design-patterns
-[^2]: http://inclusivedesignprinciples.org/
+[^2]: https://frankchimero.com/writing/the-webs-grain/
+[^3]: http://inclusivedesignprinciples.org/

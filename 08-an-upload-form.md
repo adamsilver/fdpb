@@ -521,8 +521,6 @@ In this chapter, we began by looking at the file picker as the browser gives us 
 
 ## Demos
 
-- File picker
-- Multi file picker
 - Dropzone
 
 ## Footnotes

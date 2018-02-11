@@ -343,7 +343,7 @@ There's no right or wrong here. It's about choosing the most appropriate pattern
 
 ## Demos
 
-- Add another
+- Add Another
 
 ## Footnotes
 

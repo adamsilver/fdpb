@@ -86,7 +86,7 @@ This book is about designing forms for use on the web. As such, it would be remi
 
 Frank Chimero talks about this at length in The Web's Grain[^2], one of my favourite articles on design. The main point of which is not to aim to tackle complexity, but to do our very best to avoid it in the first place. Mostly by “going with the grain” and embracing the web's constraints.
 
-It turns out that not only is this the easiest and cheapest way to design something, but that users have a better time operating these simple interfaces in the end too. It's the content and functionality users want—not the design.
+It turns out that not only is this the easiest and cheapest way to design something, but that users have a better time operating these simple interfaces in the end too. It's the content and functionality users want anyway.
 
 Whatever we build, in the end, is about users. I don't want to leave a single person behind if I can help it. The web is for everyone. Therefore, I can't think of a better set of principles than the Inclusive Design Principles[^3]. These principles are about good design and good design is inclusive.
 
@@ -100,7 +100,7 @@ Whatever we build, in the end, is about users. I don't want to leave a single pe
 
 We'll refer back to these principles throughout the book, pointing out where a something works or not. These principles should, at least, indirectly hold us to account throughout the design process.
 
-By looking at common form patterns through the lens of inclusivity, this book will help you quickly learn how to apply and reapply conventions that will help users get the task done and on occasion make them feel awesome while doing it.
+By looking at common form patterns through the lens of inclusivity, this book will help you learn how to apply and reuse conventions that help users complete the task, regardless of how they choose or need to use your service.
 
 ## Footnotes
 

@@ -1293,12 +1293,12 @@ As much as we tried to use native form controls, in their standard format, it be
 
 ## Demos
 
-- Autocomplete
-- Memorable date
-- Date picker
-- Stepper
-- Seat chooser (nested)
-- Seat chooser
+- Autocomplete: http://nostyle.herokuapp.com/examples/autocomplete
+- Memorable date: http://nostyle.herokuapp.com/examples/memorable-date
+- Date picker: http://nostyle.herokuapp.com/examples/date-picker
+- Stepper: http://nostyle.herokuapp.com/examples/stepper
+- Seat chooser (nested): http://nostyle.herokuapp.com/examples/seat-chooser--nested
+- Seat chooser: http://nostyle.herokuapp.com/examples/seat-chooser
 
 ## Footnotes
 

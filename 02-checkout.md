@@ -697,8 +697,8 @@ After that, we looked at other issues: giving users the ability to review their 
 ## Demos
 
 - Optional telephone field: http://nostyle.herokuapp.com/examples/telephone-field
-- Delivery radio buttons: 
-- Delivery notes with countdown: 
+- Delivery radio buttons: http://nostyle.herokuapp.com/examples/delivery-options-form
+- Delivery notes with countdown: http://nostyle.herokuapp.com/examples/character-countdown
 - Payment form: http://nostyle.herokuapp.com/examples/payment-form
 
 ## Footnotes

@@ -521,7 +521,7 @@ In this chapter, we began by looking at the file picker as the browser gives us 
 
 ## Demos
 
-- Dropzone
+- Dropzone: http://nostyle.herokuapp.com/examples/dropzone
 
 ## Footnotes
 

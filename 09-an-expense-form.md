@@ -343,7 +343,7 @@ There's no right or wrong here. It's about choosing the most appropriate pattern
 
 ## Demos
 
-- Add Another
+- Add Another: http://nostyle.herokuapp.com/examples/add-another-form
 
 ## Footnotes
 

@@ -504,8 +504,7 @@ With that said, we’ve carefully made the effort to include a number of provisi
 
 ## Demos
 
-- Filter Form
-- Filter Form (without buttons)
+- Filter Form: http://nostyle.herokuapp.com/examples/filter-form
 
 ## Footnotes
 

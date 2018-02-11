@@ -40,11 +40,11 @@ We'll start with a basic registration form which makes room to look at the found
 
 ### 2. Checkout
 
-The One Thing Per Page design pattern is a cornerstone of creating well-designed forms. We'll look at why that is before applying it to a checkout flow. After that, we'll consider flow and order to then break down each step for a deep dive on several input types and how they affect the experience on mobile and desktop browsers.
+The One Thing Per Page design pattern is a cornerstone of creating well-designed forms. We'll look at why that is before applying it to a checkout flow. After that, we'll consider flow and order with a view to breaking down each step of the checkout flow. At which point we'll look at several input types and how they affect the user experience on mobile and desktop browsers. All the while, looking at ways to help both first-time and returning customers order quickly and simply.
 
 ### 3. Book A flight
 
-We'll dive into the world of progressively enhanced, custom form components using ARIA. We'll do this by exploring the best way to let users select destinations, pick dates, add passengers and choose seats. We'll analyse native form controls at length and even break away from convention (for good reasons).
+We'll dive into the world of progressively enhanced, custom form components using ARIA. We'll do this by exploring the best way to let users select destinations, pick dates, add passengers and choose seats. We'll analyse native form controls at length and look at breaking away from convention where it becomes necessary.
 
 ### 4. A Login Form
 
@@ -56,19 +56,19 @@ We'll design ways to manage and action email in bulk. This is the first look at 
 
 ### 6. A Search Form
 
-We'll look at how to design a responsive search form that is readily available to users on all pages, as well as the search mechanism that powers it. By putting these things together, search can be simple and useful.
+We'll look at how to design a responsive search form that is readily available to users on all pages. We'll also look at the importance of the search mechanism that powers it. Together, search can be discoverable, simple and useful.
 
 ### 7. A Filter Form
 
-We'll look at how users can filter a large set of unwieldy search results. Without a well-designed filter, users are bound to give up. Filters pose some interesting problems that may force you to challenge ‘best practice’ to give users a better experience.
+We'll look at how users can filter a large set of unwieldy search results. Without a well-designed filter, users are bound to give up. Filters pose a number of interesting and unique design problems that may force us to challenge ‘best practice’ to give users a better experience.
 
 ### 8. An Upload Form
 
-Many digital services let you upload images and documents. We'll look at the file input and how we can use it to upload multiple files at once. We'll also look at the intricacies of a drag and drop, AJAX-enhanced interface that is inclusive of keyboard and screen reader users.
+Many services let users upload images and documents. We'll look at the file input and how we can use it to upload multiple files at once. We'll then look at the intricacies of a drag and drop, AJAX-enhanced interface that is inclusive of keyboard and screen reader users.
 
 ### 9. An Expense Form
 
-We'll look at the problem of creating and adding new form fields inside one interface. This is an excuse to look at the “Add Another” pattern which often crops up in administrative, frequently-used services.
+We'll look at the special problem of needing to create and add lots of expenses (or anything else) into a system. Ultimately, this is an excuse to look at the Add Another patern which is often useful in administrative interfaces.
 
 ### 10. A Really Long Form
 

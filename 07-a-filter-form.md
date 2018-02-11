@@ -505,7 +505,7 @@ With that said, we’ve carefully made the effort to include a number of provisi
 ## Demos
 
 - Filter Form
-- Filter Form (no buttons)
+- Filter Form (without buttons)
 
 ## Footnotes
 

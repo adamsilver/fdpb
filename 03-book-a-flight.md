@@ -1293,13 +1293,11 @@ As much as we tried to use native form controls, in their standard format, it be
 
 ## Demos
 
-- Select box
-- Datalist
 - Autocomplete
 - Memorable date
 - Date picker
 - Stepper
-- Seat chooser nested
+- Seat chooser (nested)
 - Seat chooser
 
 ## Footnotes

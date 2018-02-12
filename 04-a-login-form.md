@@ -92,7 +92,7 @@ Leonie Watson, accessibility expert, and screen reader user, finds them problema
 
 > I strongly dislike having auto-tab functionality imposed on me. It is unexpected, and based on a flawed assumption that it is helpful. It takes me more time and effort to correct mistakes caused by auto-tab, than it does to move focus for myself.
 
-This point of view shouldn't be surprising given that the technique is founded on assumptions that not only break convention, but also take control away from the user.
+This point of view shouldn't be surprising given that the technique is founded on assumptions that not only break convention, but also take control away from the user (principle 4).
 
 In this case, there's just no good reason for it. And splitting up a text box into three is unnecessary. A single, clearly-labelled text box lets users type three characters freely.
 

@@ -307,7 +307,7 @@ Using this approach is normally unnecessary and counterproductive for a number o
 2. The extra code needed to produce such designs would result in slow loading pages which are detrimental to the user experience. 
 3. Not all components need a breakpoint. Plenty of components can be designed to work well in exactly the same way on both small and large screens.
 
-More importantly, users should get a consistent experience (principle 3) no matter which device they choose to use. Rotating their device from portrait to landscape, for experience, shouldn't mean having to relearn an interface because that puts an unnecessary cognitive burden on users.
+More importantly, users should get a consistent experience (principle 3) no matter which device they choose to use. Rotating their device from portrait to landscape, for example, shouldn't mean having to relearn an interface because that puts an unnecessary cognitive burden on users.
 
 #### Responsive Design
 

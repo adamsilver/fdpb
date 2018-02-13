@@ -102,13 +102,13 @@ In this case, there's just no good reason for it. And splitting up a text box in
 
 Having ironed out problems with the username and password fields, our login form is almost identical to the registration form. It contains the same fields in the same order with the same microcopy. The only difference is the button's label. Instead of “Register” it's “Sign in.”
 
-“Sign in” is arguably more human than “Log in.” When you visit a spa or office building, signing in grants you entry. And you sign out as you leave. Where possible, we should use the same language for digital experiences. 
+“Sign in”, is perhaps more human than “Log in.” When you visit a spa or office building, signing in grants you entry. And you sign out as you leave. It's usually sensible to use the same language for digital experiences too.
 
-It can, however, depend on the industry. Bank sites, for example, tend to use “Log in.” The notion of logging came along with computers in the 80s—the operations that users do are *logged* for security reasons.
+It can, however, depend on the industry. Banks, for example, tend to use “Log in.” The notion of logging came along with computers in the 80s—the operations that users do are *logged* for security reasons.
 
 ![Login](./images/04/button-text.png)
 
-Whichever you choose, be consistent (principle 3). Make URLs, links, headings and buttons match. And if users click “Log in” to log in, then they should click “Log out” to log out.
+Ultimately, we should design interfaces that speak in the language that's familiar to the user. Whichever you choose, be consistent (principle 3). Make URLs, links, headings and buttons match. And if users click “Log in” to log in, then they should click “Log out” to log out.
 
 ## The ‘username and password don't match’ Problem
 
@@ -149,7 +149,7 @@ Some sites put both registration and login forms on one page. Either next to eac
 ![Link to register](./images/04/two-forms.png)
 
 1. Putting similar forms next to each other makes it hard to decide between them, especially for cognitively impaired users. 
-2. Arriving on a page containing two forms (with a heading of “Sign in or register”) is confusing when you consider that many users would have clicked a link labelled “Sign in”.
+2. Arriving on a page containing two forms, with a heading of “Log in or register”, is confusing when you consider that many users would have clicked a link labelled “Log in”.
 3. On mobile, one of the forms will be off screen and effectively depriortised.
 4. Screen reader and keyboard users are going to have to wade through more of the interface to get to the relevant form.
 
@@ -167,13 +167,13 @@ Worst still, is when the link is placed before the submit button. When keyboard 
 
 ![Forgot password](./images/04/tab.png)
 
-When the feature is considered in isolation, having the reset password link in close proximity to the password field makes sense. But the primary need is to sign in and the link shouldn't disturb the experience of logging in.
+When the feature is considered in isolation, having the reset password link in close proximity to the password field makes sense. But the primary need is to log in and the link shouldn't disturb the experience of logging in.
 
 The submit button should be the last interactive element in the form because that's what users expect. Solving this problem is simple: place the forgotten password link before the form, which makes it easy to discover, especially for screen reader and keyboard users.
 
 ## Social Login
 
-Sites have recently started to offer users the ability to sign in with social networks such as Facebook, Twitter and Google. This saves users having to type their credentials they may not remember.
+Sites have recently started to offer users the ability to log in with social networks such as Facebook, Twitter and Google. This saves users having to type their credentials they may not remember.
 
 Medium[^], for example, lets users login in with Facebook. This is a boon for Medium users because they'll then have the option to post articles directly to Facebook automatically.
 
@@ -209,7 +209,7 @@ There's also some interesting data on companies that offer employees pension pla
 
 This phenomenon is actually called Hick's Law (named after psychologist William Edmund Hick), which states that the time taken to make a decision increases as the number of choices expand. Funny that William made a law in his own name that's just basic common sense.
 
-The point of course is that we need to be wary that giving users multiple ways to sign in might seem useful, but it may also create a buren on them. We have to balance the value in doing so.
+The point of course is that we need to be wary that giving users multiple ways to log in might seem useful, but it may also create a buren on them. We have to balance the value in doing so.
 
 ## Summary
 
@@ -226,7 +226,7 @@ In this chapter we started by quashing traditional advice that omiting hint text
 
 ## Demos
 
-- Sign in form: http://nostyle.herokuapp.com/examples/signin-form
+- Log in form: http://nostyle.herokuapp.com/examples/login-form
 
 ## Footnotes
 

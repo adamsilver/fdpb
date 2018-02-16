@@ -333,15 +333,15 @@ Not only is all of this more work, but there are now two vastly different variat
 
 ### Hover Versus Click
 
-On the web, menus are sometimes opened on hover. Designers often assume that doing so, aids discovery and saves users the effort of clicking. The thing is, there are many problems with opening a menu (or anything really) on hover.
+On the web, menus are sometimes opened on hover. Designers often assume that this aids discovery and saves users the effort of clicking. The thing is, there are many problems with opening a menu (or anything really) on hover and the effort of clicking a part of the interface is extremely low.
 
-First, hovering is not an intention to open the menu. When a user moves over a menu that opens on hover it can obscure the content behind which disrupts the experience. With the inbox, as the user goes to select the first checkbox, they may accidentally end up clicking one of the items in the menu which fails principles 4, *Give Control*.
+First, hovering is not an intention to open the menu. When a user moves over a hover menu it can obscure the content behind it which disrupts the experience. With the inbox, as the user goes to select the first checkbox, they may accidentally end up clicking one of the items in the menu which fails principles 4, *Give Control*.
 
 Second, users have to be careful to keep the cursor within the bounds of the menu, otherwise it will close. This is known as a hover tunnel, and is especially difficult to operate with motor impairments.
 
 Third, not all users use a mouse (or other types of pointing device) and touch-screen devices are usually operated without one. 
 
-You should note that opening a menu on hover on desktop and on click for mobile isn't recommended. There are many large touch screen devices.
+You should note that opening a menu on hover on desktop and on click for mobile isn't recommended either. There are many large touch screen devices and many small screen laptops. Features should never be inferred from screen size.
 
 Needless to say, menus should be triggered on click, which is an explicit intention to activate it, keeping users in control.
 
@@ -517,7 +517,7 @@ This is all very interesting from a design perspective, but it's hardly a useful
 
 Really, a success message should be laid out bare and placed within the natural flow of the page. There is no need to obscure parts of the interface. After all, the message is temporary and will naturally disappear when the user leaves the page.
 
-However, if research shows that being able to dismiss a message *adds value*, you can offer the functionality in the form of a button. When clicked, it hides the message.
+However, if users are likely to stay on the page for a long time after, research might show that dismissing a message is valuable after all. In which case, you can offer that functionality with a button. When clicked, it hides the message.
 
 ![Success With Dismiss](./images/05/dismiss.png)
 

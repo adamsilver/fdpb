@@ -613,9 +613,9 @@ Alternatively, we could wait until the user enters enough characters before show
 
 We could wait until the user leaves the field (`onblur`), but this is too late as the user has mentally prepared for (and often started to type in) the next field. Moreover, some users switch windows or use a password manager when using a form. Doing so will trigger the blur event, causing an error to show before the user is finished. All very frustrating.
 
-Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields)—we've done this already. The problem with live feedback is that it interupts users either too early or too late which causes a jarring user experience.
+Remember, there's no problem with giving users feedback without a page refresh. Nor is there a problem with putting the error messages inline (next to fields)—we've done this already. The problem with live feedback is that it interupts users either too early or too late which often results in a jarring experience.
 
-If users are seeing errors, there's probably something wrong elsewhere. Focus on shortening your form and providing better guidance (good labeling and hint text). This way users shouldn't see more than the odd error. We'll look at long forms in the next chapter.
+If users are seeing errors often, there's probably something wrong elsewhere. Focus on shortening your form and providing better guidance (good labeling and hint text). This way users shouldn't see more than the odd error. We'll look at long forms in the next chapter.
 
 ### Checklist Affirmation Pattern
 
@@ -623,7 +623,7 @@ A variation of live validation involves ticking off rules (marking them as compl
 
 ![Mailchimp example](./images/01/mailchimp-affirmation.png)
 
-You should put the rules above the field otherwise the on-screen keyboard could obscure the feedback and cause the user to stop typing, to then hide the keyboard to check the feedback.
+You should put the rules above the field otherwise the on-screen keyboard could obscure the feedback. As a result users may stop typing, hide the keyboard to then check the feedback.
 
 ### A Note On Disabling Submit Buttons
 
@@ -631,11 +631,11 @@ Some forms are designed to disable the submit button until all the fields become
 
 First, users are left to wonder what's actually wrong with their entries. Second, disabled buttons are not focusable, which makes it hard for the button to be discovered for blind users navigating using the <kbd>Tab</kbd> key. Third, disabled buttons are hard to read as they are greyed out.
 
-As we're providing users with clear feedback when the user expects it, there is no good reason to take control away from the user by disabling the button anyway.
+As we're providing users with clear feedback, when the user expects it, there's no good reason to take control away from the user by disabling the button anyway.
 
-### Crafting Error Messages
+### Crafting A Good Error Message
 
-Arguably there is nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the result of using a service. 
+There's nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the outcome of using a service.
 
 Even the most thought-out, inclusive and beautifully designed experience counts for nothing if we ignore the words used to construct error messages. One study shows that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^].
 
@@ -645,7 +645,7 @@ Like labels, hints and any other content, a good error message provides clarity 
 
 As we know, we're going to inject messages into a summary panel at the top and next to the fields in context. This means, we need to make sure the content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
 
-Maintaining 2 versions of the same message is a hard sell for an unconvincing gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol’ works well in both locations.
+Maintaining two versions of the same message is a hard sell for an unconvincing gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol’ works well in both locations.
 
 Then there's pleasantries, like starting each message with “Please”. On one hand, this is noisey and repetitive. On the other it's polite and softens the experience. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to answer this question’ may work better.
 

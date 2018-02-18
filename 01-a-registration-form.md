@@ -469,6 +469,8 @@ It's positioned at the top of the page so that users don't have to scroll down t
 
 The panel consists of a heading, “There's a problem”, to indicate the problem. Notice, it doesn't say the word “Error” which isn't very human. Imagine you were filling out your details to purchase a car in real life and made a mistake. The salesperson wouldn't say “Error”—if they did it would be jarring and confusing.
 
+It also doesn't say “sorry”. Avoid this because it gets in the way and actually, we're not sorry.
+
 ```HTML
 <div class="errorSummary" role="group" tabindex="-1" aria-labelledby="errorSummary-heading">
   <h2 id="errorSummary-heading">There's a problem</h2>
@@ -637,36 +639,34 @@ As we're providing users with clear feedback, when the user expects it, there's 
 
 There's nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the outcome of using a service.
 
-Even the most thought-out, inclusive and beautifully designed experience counts for nothing if we ignore the words used to construct error messages. One study shows that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^].
+Even the most thought-out, inclusive and beautifully-designed experience counts for nothing if we ignore the words used to construct error messages. One study shows that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^].
 
 > “Content is the user experience”
 
 Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content—not the other way around. But in this case, understanding how messages are going to be shown and why, influences the design of the words themselves. This is why Jared Spool says “content and design are inseparable work partners.”
 
-As we know, we're going to inject messages into a summary panel at the top and next to the fields in context. This means, we need to make sure the content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
+We're showing messages in the both the summary at the top and next to the fields in context. As a result, we need to make sure the content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
 
 Maintaining two versions of the same message is a hard sell for an unconvincing gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol’ works well in both locations.
 
-Then there's pleasantries, like starting each message with “Please”. On one hand, this is noisey and repetitive. On the other it's polite and softens the experience. For example, ‘Please answer this question’ versus ‘Answer this question’. ‘You need to answer this question’ may work better.
+Avoid pleasantries, like starting each message with “Please”. On one hand, this seems polite. On the other, it gets in the way and implies a choice.
 
-Consider frequency of use. For people who use the system regularly, removing pleasantries gets to the point quicker. For those using a system once or twice, removing the pleasantires may seem blunt and rude. Without user research it's hard to know.
-
-Whatever approach you take, there's going to be some repetition due to the nature of the content. And when we test form validation we often submit the form without entering any information at all.
+Whatever approach you take, there's going to be some repetition due to the nature of the content. And testing usually involves submiting the form without entering any information at all. This makes the repetition glaringly obvious, which as content designers may cause us to flip out. But how often is this the case? Most users aren't trying to break the interface.
 
 ![Wall of errors on a larger form](./images/01/wall-of-errors.png)
 
-This scenario makes the repetition glaringly obvious and as content designers this may cause us to flip out. But consider how often a user submits a long form without entering a single field. Most users aren't trying to break the interface.
+Different errors require different techniques. Instructions like “Enter your first name” are natural. But “Enter a first name that is 35 characters or less” is longer, wordier and less natural than a description like “First name must be 35 characters or less”.
 
 Here's a checklist:
 
 - **Use punctuation.** Some errors have clauses and contain more than one sentence.
 - **Be specific.** If you know why something has gone wrong, say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and clear.
 - **Use the active voice**. For example, ‘Enter your name’ not ‘First name must be entered’.
-- Don't blame the user. Just let them know what's gone wrong and how to fix it.
-- **Use plain language.** Error messages are not an opportunity to promote your brand's tone of voice.
-- **Be human, avoid jargon.** Avoid avoid words like *invalid*, *unrecognised* and *mandatory*.
+- **Don't blame the user**. Just let them know what's gone wrong and how to fix it.
+- **Use plain language.** Error messages are not an opportunity to promote your brand's humerous tone of voice.
+- **Be human, avoid jargon.** Avoid avoid words like *invalid*, *forbidden* and *mandatory*.
 - **Be terse.** Don't use more words than is necessary, but don't omit words at the cost of clarity.
-- **Be consistent.** Use the same tone, the same words and the same punctuation throughout the site.
+- **Be consistent.** Use the same tone, the same words and the same punctuation throughout.
 
 ## Summary
 

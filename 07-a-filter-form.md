@@ -142,7 +142,7 @@ As the form is made out of standard form components, the code for our filter for
 
 - There are 3 headings on the page: the top level (`<h1>Wallets</h1>`) and a level two heading for the filter and products components. Many sites provide an incomplete and broken heading structure—for example, by replacing `<h2>Products</h2>` with `<h1>Wallets</h1>` . However, this orphans the `<h2>Filter</h2>` which deceives both sighted and non-sighted users because users expect that a second level heading comes after the first.
 - The specification has recently changed to allow headings inside legend elements. We could then consider marking up the text inside the legends as H3s. This would give screen reader users an alternative way to navigate the filter which is sometimes called multimodality and speaks to principle 5, Offer choice.
-- Notice the form has a `role=``"``form``"` attribute. This may seem counterintuitive, but it turns the form into a landmark, which makes it navigable in screen readers using shortcuts. Since the basic functionality works without JavaScript and triggers a page refresh, this helps users navigate back to the form from the top of the document. It also means users can browse the products and still get back to the filter component quickly.
+- Notice the form has a `role="form"` attribute. This may seem counterintuitive, but it turns the form into a landmark, which makes it navigable in screen readers using shortcuts. Since the basic functionality works without JavaScript and triggers a page refresh, this helps users navigate back to the form from the top of the document. It also means users can browse the products and still get back to the filter component quickly.
 - Similarly, the filter is marked up as an `<aside>` which as another type of landmark, typically used to denote a sidebar. An aside should be tangentially related to the main content, which suits the filter component well.
 - We’re using the get method on the form to rebuild the page from the server without relying on client-side JavaScript, at this stage. For example, submitting the form with the "Red" and “3 stars and above” options selected will build a page with `?color=red&rating=3` as the query parameter. We’ll look at enhancing the page with AJAX later.
 - The form contains a number of fields which have been included for example purposes. The type of form control you use, should be based on the type of behaviour your users need. As noted in previous chapters, checkboxes should be used for multiple selections; radio buttons if only one can be selected.
@@ -158,9 +158,9 @@ I interviewed David House, a former designer for Gumtree[^], a site which uses f
 
 Due to the materially dishonest design of filters as explained earlier, it seems some people have come to expect that clicking a checkbox (or radio button), will reload the results without having to submit.
 
-Automatically submitting the form when a filter is selected would effectively convert our batch filter into an interactive one. This is a shame as not only would we be exacerbating the problem of dishonest design, but we’d be forgoing the inherent advantages of batch filters.
+Automatically submitting the form when a filter is selected would effectively convert our batch filter into an interactive one. That's a shame as not only would we be exacerbating the problem of dishonest design, but we’d be forgoing the inherent advantages of batch filters.
 
-And this may work for radio buttons and checkboxes, but what if there were text boxes that could be used to enter a price range? When would users expect the form to submit? Submitting while typing is out of the question. This leaves submitting the form `onblur` (tabbing or clicking out of the field) which is odd and unintuitive.
+And this may work for radio buttons and checkboxes, but what if there were text boxes that could be used to enter a price range? When would users expect the form to submit? Submitting while typing is out of the question. This leaves submitting the form `onblur` (tabbing or clicking out of the field) which is odd and unintuitive. We'd need a submit button just for that box.
 
 If your users have the same expectations as Gumtree’s users, then you may have no choice. But, before going to such lengths, lets explore some other techniques to help users realise that submission is necessary. 
 
@@ -211,7 +211,7 @@ You should note that this fails Web Content Accessibility Guidelines Success Cri
 
 > Changing the setting of any user interface component does not automatically cause a change of context
 
-Additionally, keyboard users operating the filters, must use their arrow keys to move through the radio buttons. Each arrow keypress not only focuses adjacent radio buttons but selects them as well.  This means keyboard users won’t be able to move more than one radio button at a time without the form being submitted. What if they wanted the third or fourth radio button?
+Additionally, keyboard users operating the filters, must use their arrow keys to move through the radio buttons. Each arrow keypress not only focuses adjacent radio buttons but selects them as well. As a result keyboard users won’t be able to move more than one radio button at a time without the form being submitted. What if they wanted the third or fourth radio button?
 
 Even if you ignore the difficulties associated with certain interaction modalities, having the page refresh in the middle of choosing filters is a poor user experience. Let’s see if AJAX can fix these issues.
 

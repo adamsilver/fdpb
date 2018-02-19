@@ -1,10 +1,10 @@
 # An Upload Form
 
-The web is more than just text. Whether it's sending a CV to a recruiter by email, or adding photos to an Ebay advert, we need to let users upload files. Forms have this capability baked in.
+The web is more than just text. Whether it's sending a CV to a recruiter by email, or adding photos to an Ebay advert, we need to let users upload files. Forms have this capability baked in of course.
 
 On one hand, uploading a file is only marginally more complex than say, inputting text or clicking a checkbox. On the other hand, there are number of unique design challenges and opportunities that arise, especially when there's a need to upload multiple files at the same time.
 
-As usual, we'll start by looking at what browsers give us for free. After that, we'll look at designing various enhancements and issues that can arise along the way. In the end, we'll end up having designed a number of different ways to upload a file, depending on the occasion.
+As usual, we'll start by looking at what browsers give us for free. After that, we'll look at adding various enhancements and the various issues that surface as a result of those enhancements. In the end, we'll end up with a number of different ways to upload a file, appropriate for several different occasions.
 
 ## A File Picker
 
@@ -29,19 +29,19 @@ If all users need to do is upload a single file, then you can add a file picker 
 Notes:
 
 - The form has a `enctype="multipart/form-data"` attribute, which ensures the file is transmitted to the server for uploading
-- The file picker uses the same field constructs as first described in chapter 1, “A Registration Form” which can optionally include a hint and error message.
+- The file picker uses the same pattern as first described in “A Registration Form” and throughout the book, which can take a hint an error message.
 
 ### Restyling The File Picker Is Dangerous Territory
 
 Some designers like to restyle the file picker to:
 
 - achieve consistency between different browsers and operating systems
-- match the company's look and feel
+- match the brand's look and feel
 - be able to configure the control's text
 
 Whether you agree with all of these reasons or not, it must be said that *pretty and useless* is considerably worse than *ugly and useful*. But this doesn't mean aesthetics aren't important: where possible we should marry form and function together.
 
-However, it's just as important to make sure that any technique's we employ to achieve these goals doesn't cause any adverse usability issues. That would be a bit like modern medicine. For example, taking a pill often fixes the symptom of a problem only to cause several adverse side effects that require additional pills to fix.
+However, it's just as important to make sure that any techniques we employ to achieve these goals doesn't cause any adverse usability issues. Like modern medicine, that's a bit like taking one pill to fix one symptom, only to need additional pills to relieve the side-effects that come from the first pill.
 
 When it comes to file pickers, styling them has always been tricky because browsers ignore any attempt at doing so with CSS. This means we have to resort to hacking, which is not usually a good idea—that's why it's called hacking. But, let's walk through how it could work, what can be achieved and the pitfalls that are involved.
 
@@ -94,12 +94,14 @@ $('[type=file]').on('change', function(e) {
 
 #### Pitfalls
 
-On the face of it, this implementation is visually pleasing and still accessible. Keyboard, mouse and touch users can operate it normally and screen readers will announce the value of the input. But this doesn't cover the exhaustive list of considerations needed to provide a fully inclusive experience. Here's some examples:
+On the face of it, this implementation is visually pleasing and still accessible. Keyboard, mouse and touch users can operate it normally and screen readers will announce the value of the input. 
+
+But that's not all it takes to design a fully inclusive and robust custom file picker interface. There are a number of additional considerations that this solution doesn't solve very well at all.
 
 1. Updating the label to reflect the input's value is confusing because the label should describe the input and remain unchanged. In this case, screen reader users will hear “cv.doc” as opposed to “Attach document”.
 2. The interface doesn't fit with the established convention of providing hint and error text, as set out in “A Registration Form”. Not only would we need to think of another way to provide this information, but it creates an inconsistent and unfamiliar user experience.
 3. File inputs are actually drop zones which means they let users drag and drop files (instead of going through the dialog). Hiding the input means forgoing this behaviour which some users may prefer.
-4. There's not much room inside the button for a large file name. Remember, inclusive design ensures the interface works under varying lengths of content.
+4. There's not much room inside the button for a large file name. Remember, good design adapts well to varying lengths of content.
 
 Considering the pitfalls, the improvement to aesthetics doesn't seem to justify the downgrade in usability and utility.
 
@@ -107,21 +109,23 @@ Considering the pitfalls, the improvement to aesthetics doesn't seem to justify 
 
 Very few tasks on the web, require a user to upload just a single file at a time. Take the two examples from the introduction to this chapter. Both attaching files to an email and uploading photos to an Ebay advert involve uploading multiple files in one go.
 
-The easiest but most problematic way to solve this would be to add the `multiple` boolean attribute to the file input:
+The easiest, but most problematic way to solve this would be to add the `multiple` boolean attribute to the file input:
 
 ```HTML
 <input type="file" multiple>
 ```
 
-This gives users the same method of selecting files as described with the single file input. Except for one difference: the user can select multiple files from the dialog:
+This provides the same method of file selection as described above, except that users can select multiple files from within the dialog.
 
 ![Selecting multiple files](./images/08/multiple-dialog.png)
 
-And that would be it excusing the number of problems this creates:
+That would be it, if you ignored two significant problems:
 
-First, users can only select files within a single folder. If they need to upload files within different folders they can't. Of course, users could move all the files into a single folder beforehand but this puts the onus on the user.
+First, users can only select files within a single folder. If they need to upload files in different folders they can't. Of course, users could move all the files into a single folder beforehand but this puts the onus on the user.
 
-Second, not all browsers support this behaviour. And in these browsers, it will degrade into a single file picker which could result in a broken experience. For example, take the following form which asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit them. But without support, users can only upload a single receipt.
+Second, not all browsers support the multiple attribute. And when support is lacking, a single file input may be found wanting.
+
+For example, take a form which asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit them. Without support, users can only upload a single receipt.
 
 ![Problem](./images/08/problematic-form.png)
 
@@ -129,15 +133,13 @@ One way to solve this problem involves giving users a way to add additional file
 
 ![Degraded solution](./images/08/multiple-degrade-solution.png)
 
-Not only does this design let users upload multiple files in unsupported browsers, but it also lets the user review their submission which is a useful addition. 
-
-Another way to help users upload files is by using a persistent upload form, which we'll discuss next.
+Not only does this design let users upload multiple files in unsupported browsers, but it also lets the user review their submission which is a useful addition regardless. 
 
 ## A Persistent Upload Form
 
-Most forms are ephemeral—that is, they only stay on-screen until they've been submitted—at which point, the user is taken to another form or end of the task. For example, when you register, you enter your details, the form disappears and you see a confirmation. Another example, when you enter your delivery and payment information, you get an order confirmation.
+Most forms are ephemeral—users submit a form and they're taken to another page without a form. For example, when registering, users are taken to a confirmation screen.
 
-However, the task of uploading multiple files means it's useful to give users a form that persists until the they explicitly decide to move on. We might call this a persistent form.
+But the task of uploading files means it's useful to give users a form that persists until they're finished on their own terms. This is the persistent form pattern in action.
 
 ### How It Might Look
 
@@ -159,9 +161,9 @@ The user can choose and upload a file repeatedly until they've uploaded all the 
 </form>
 ```
 
-Note the file input has the `multiple` attribute. In this case this is a robust enhancement: if the browser has support, the user can choose multiple files (meaning fewer requests). If the user is using an unsupported browser, they can still upload a single file as many times as they need to. 
+Note the file input has the `multiple` attribute. When used in conjunction with a persistent form, the multiple attribute becomes a robust enhancement. Where supported, users can select multiple files at a time, meaning fewer requests and a streamlined experience.
 
-This also solves the aformentioned problem of not being able to select files across different folders.
+However, when not supported, users can keep uploading a single file at a time, as many times as they need to until the task is finished. This solves the problem I mentioned earlier regarding uploading files across different folders.
 
 ## A Drag And Drop Enhancement
 

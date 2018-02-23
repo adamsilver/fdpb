@@ -1,38 +1,44 @@
-# A Really Long Form
+# A Really Long, Complicated Form
 
 Different types of tasks take different amounts of time to complete. One Thing Per Page helps users complete tasks in one sitting, but what about those that take hours, or even days, to complete?
 
 In Mailchimp[^], for example, I'll usually start drafting an email campaign weeks before I send it. And there are a number of steps to complete, in a particular order too. First, I check the content reads well. Then I need to make sure it looks good in various email clients. Then days or even weeks later, I'll run through some final checks, decide the subject line and schedule it for release.
 
-Other tasks are performed by more than one person using the same application. For example, processing a return may involve someone receiving the goods at the warehouse. Then a decision maker may take a look at the goods to make sure it satisfies the returns policy.
+Other tasks may be performed by several people using the same application. For example, processing a return may involve someone receiving the goods at the warehouse. Then a decision maker may look at the goods to make sure it satisfies the returns policy.
 
-Some Government services take weeks to apply for and users need to provide information about their identity, home, family and financial situation. And sometimes people need to gather evidence and send it by post. That is, the journey users go through is not solely digital.
+Some services, such as applying for a mortgage or registering for a bank account, involve supplying personal information, and this may involve offline processes such as sending identification documents in the post.
 
-How can we design forms that play nicely with this complex and long-form process that can take weeks to complete, by different people across digital and non digital journeys?
+How can we design forms that play nicely with this complex and long-form process that can take weeks to complete, by different people across digital and non-digital journeys?
 
-Of course, if you can simplify the process so that it's short in the first place (or even remove it altogether), all the better. If you can't, let's look at some patterns that solve these problems.
+Of course, if you can simplify the process so that it's short in the first place (or even remove it altogether), all the better. If you can't, let's explore some useful patterns specifically designed to solve these problems.
 
 ## The Check Before You Start Pattern
 
-One of the best ways we can help users save time, is by not wasting it in the first place. Many Goverment services, for instance, require certain criteria to be met before people can apply. 
+One of the best ways we can help users save time, is by not wasting it in the first place. One way to do that is to tell users upfront what they'll need upfront along with other details such as how long it will take and if they're even eligible to apply.
 
-Take the Apply For Passport service (shown below). Before applying users are given some important information such as how long it takes to apply. And there's a link for users that need their passport more urgently.
-
-![Passport start page](.)
-
-Giving users some basic information upfront is valuable but some services have a complex set of rules that can't be communicated generically with a few bullet points. Sometimes the system needs to consider the individual and their circumstances before determining what to do.
-
-Continuing with the Passport service then, one of the first questions I'm asked is “Is your passport lost or stolen?”. Answering “No” lets me continue to apply for a passport as normal. But answering “Yes” takes me to a screen telling me to cancel my passport with a number of options that are best suited to my situation.
-
-This pattern isn't just useful to Government services. For example, you could use these patterns to stop under-aged users from buying cinema tickets for adult-only showings. For example, telling users that they may need to prove their age by bringing an ID card to the cinema.
-
-Alternatively, people applying for a mortgage online may wish to know some high level criteria before spending a lot of time gathering documents and setting up meetings. For example, to apply for an HSBC mortgage in the UK, users must:
+For example, to apply for an HSBC mortgage in the UK, users must:
 
 - constent to a credit check
 - confirm the property is in a habitual condition
 - be aged 18 and over
 
-Knowing this upfront, not only saves users a lot of time, but it can also lower the business' operating costs by reducing the time and effort support teams spend working out and explaining all of this to people over the phone.
+This is good, but users may also want to know:
+
+- what the process looks like; will they need to visit a branch
+- how long it takes to get a decision; perhaps it's urgent
+- what documents they need to apply; if they don't have them what happens
+
+Knowing this upfront, not only saves users a lot of time, but it can also lower the business' operating costs. This works by reducing the time and effort support teams spend working out and explaining all of this to people over the phone.
+
+![Check before you start bullets](.)
+
+This pattern is applicable in other situations too. For example, if an underaged person is trying to buy cinema tickets for an adult-only showing, they'd appreciate knowing that they may need to prove their age upon arrival.
+
+Some services aren't so simple and may differ depending on the individual's information and circumstances. In this case, users need to be asked a series of questions to determine whether they are eligible, and what alternative options they might have. The Government Digital Services call this the Check Before You Start pattern[^].
+
+Take the Passport service (shown below). If the applicant has lost their passport, then they aren't able to use the main service. One of the first questions I'm asked is “Is your passport lost or stolen?”. Answering “No” lets me continue to apply for a passport as normal. But answering “Yes” takes me to a screen telling me to cancel my passport with a number of options that are best suited to my situation.
+
+![Passport flow](.)
 
 ## The Task List Pattern
 

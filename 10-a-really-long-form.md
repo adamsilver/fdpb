@@ -10,17 +10,21 @@ Some Government services take weeks to apply for and users need to provide infor
 
 How can we design forms that play nicely with this complex and long-form process that can take weeks to complete, by different people across digital and non digital journeys?
 
-Of course, if you can simplify the process so that it's short in the first place (or remove it altogether, all the better. If you can't, let's look at some useful patterns that solve these problems.
+Of course, if you can simplify the process so that it's short in the first place (or even remove it altogether), all the better. If you can't, let's look at some patterns that solve these problems.
 
 ## The Check Before You Start Pattern
 
-One of the best ways we can help users save time, is by not wasting it in the first place. Many Goverment services, for example, have a complex policy that means people may or may not be eligible to apply for it.
+One of the best ways we can help users save time, is by not wasting it in the first place. Many Goverment services, for instance, require certain criteria to be met before people can apply. 
 
-For example, a person living abroad may not be able to apply for a passport online, depending on where they live. Or perhaps, you have to be over 18 years old to apply for a thing.
+Take the Apply For Passport service (shown below). Before applying users are given some important information such as how long it takes to apply. And there's a link for users that need their passport more urgently.
 
-Depending on the complexity of the service, providing a few bullet points may be all you need to do to help users decide whether to proceed. In other cases, we can help users by asking a series of questions. The Goverment Digital Service have a pattern for this called Check Before You Start.
+![Passport start page](.)
 
-It works by asking users a series of questions, with a view to telling the user whether they can or can't apply and what to do about it.
+Giving users some basic information upfront is valuable but some services have a complex set of rules that can't be communicated generically with a few bullet points. Sometimes the system needs to consider the individual and their circumstances before determining what to do.
+
+Continuing with the Passport service then, one of the first questions I'm asked is “Is your passport lost or stolen?”. Answering “No” lets me continue to apply for a passport as normal. But answering “Yes” takes me to a screen telling me to cancel my passport with a number of options that are best suited to my situation.
+
+This pattern isn't just useful to Government services. For example, you could use these patterns to stop under-aged users from buying cinema tickets for adult-only showings. For example, telling the user that they could be asked to verify their age by bringing some form of identification to the cinema.
 
 ## The Task List Pattern
 
@@ -34,11 +38,11 @@ That's not all checklists are good for. In “The Design of Everyday Things”, 
 
 > “Checklists are powerful tools, proven to increase the accuracy of behaviour and to reduce error [...]. They are especially important in situations with multiple, complex requirements, and even more so where there are interruptions.”
 
-As we're able to perform digital tasks on the go using different devices, the chances of interruption are always high. Designing for interruption and being able to fly back into a long and complex task is crucial.
+As we're able to perform digital tasks on the go using different devices, the chances of interruption are always high. Designing for interruption and being able to fly back into a long and complex task is crucial. And as mentioned earlier, some parts of the process happen offline too.
 
-In fact, many developers isolate themselves away from their teammates in a busy office buy putting on headphones. This helps them concentrate on large complex tasks without being interrupted which is unhealthy. Smaller tasks reduces the need for this, and promotes more communication.
+In the work place, many developers isolate themselves away from their teammates in a busy office buy putting on headphones. This helps them concentrate on large complex tasks without being interrupted which is unhealthy. Smaller tasks reduces the need for this, and promotes more communication.
 
-The task list pattern[^], as coined by the Government Digital Service (GDS) shows a service that has several top level tasks. Each top level task is broken down into several sub tasks. Each one of those takes users through a flow. Whether it's one screen or several doesn't matter too much. As long as each sub task is achievable in a reasonable amount of time.
+The Task List pattern[^], as coined by the Government Digital Service (GDS) shows a page with several top level tasks. Each top level task is broken down into several sub tasks. Each one of those takes users through a flow. Whether it's one screen or several doesn't matter too much. As long as each sub task is achievable in a reasonable amount of time.
 
 Once a sub task is completed, users come back to the view with that task marked as complete.
 
@@ -46,7 +50,7 @@ Once a sub task is completed, users come back to the view with that task marked 
 
 This is not a pattern reserved for Government services. Mailchimp users have a similar need. The only difference is the visual design and the flatter hierarchy of tasks.
 
-Instead of text, Mailchimp uses iconography to mark tasks as complete. I've discussed the pros and cons of iconography in chapter 3, “Book A Flight”. Additionally, instead of standard looking links, they use call-to-action buttons which are labelled as ‘resolve’ to prompt the user and reduce the effort on their part.
+Instead of text, Mailchimp uses iconography to mark tasks as complete. I've discussed the pros and cons of iconography in chapter 3, “Book A Flight”. Additionally, instead of standard looking links, they use call-to-action buttons which are labelled as ‘Resolve’ to prompt the user and reduce the effort on their part.
 
 ![Mailchimp](./images/10/task-list-pattern-mailchimp.png)
 
@@ -74,12 +78,6 @@ The points discussed above are probably applicable to any super long form you're
 - Listing tasks in order. If so, use an ordered list, the advantages of which are discussed in chapter 5, “An Inbox”.
 - Marking who needs to complete the task. This is only useful if the tasks are performed by different people.
 - Sizing all the tasks the same. Don't take this too literally, but if one task is 20 questions and another is 2, then take another look.
-
-## The Save And Return Pattern
-
-Applying for my baby girl's passport was a lengthy process and involved a number of discrete steps, which needed to take place online and offline. Importantly, the service offered me a way to fill in what I could, save my progress and return later to finish the job. This was made possible because I could choose to save my progress at every step of the way.
-
-This is mostly as simple as offering users an extra submit button at the bottom of every form labelled “Save for later” (or similar). The first time the user does this, they'll need to register in order to return securly. That's okay we have a pattern for that already (see chapter 1). 
 
 ## Summary
 

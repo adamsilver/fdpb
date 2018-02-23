@@ -6,13 +6,23 @@ In Mailchimp[^], for example, I'll usually start drafting an email campaign week
 
 Other tasks are performed by more than one person using the same application. For example, processing a return may involve someone receiving the goods at the warehouse. Then a decision maker may take a look at the goods to make sure it satisfies the returns policy.
 
-Some Government services take weeks to apply for and users need to provide information about their identity, home, family and financial situation. And sometimes people need to gather evidence and send it by post.
+Some Government services take weeks to apply for and users need to provide information about their identity, home, family and financial situation. And sometimes people need to gather evidence and send it by post. That is, the journey users go through is not solely digital.
 
-Whatever the case, if you're designing a really long form, there's some patterns that we can use to improve the experience. 
+How can we design forms that play nicely with this complex and long-form process that can take weeks to complete, by different people across digital and non digital journeys?
 
-Of course, if you can simplify the process so that it's short in the first place, all the better.
+Of course, if you can simplify the process so that it's short in the first place (or remove it altogether, all the better. If you can't, let's look at some useful patterns that solve these problems.
 
-## The Power Of Checklists
+## The Check Before You Start Pattern
+
+One of the best ways we can help users save time, is by not wasting it in the first place. Many Goverment services, for example, have a complex policy that means people may or may not be eligible to apply for it.
+
+For example, a person living abroad may not be able to apply for a passport online, depending on where they live. Or perhaps, you have to be over 18 years old to apply for a thing.
+
+Depending on the complexity of the service, providing a few bullet points may be all you need to do to help users decide whether to proceed. In other cases, we can help users by asking a series of questions. The Goverment Digital Service have a pattern for this called Check Before You Start.
+
+It works by asking users a series of questions, with a view to telling the user whether they can or can't apply and what to do about it.
+
+## The Task List Pattern
 
 In “The Psychology of Checklists”[^], Lauren Marchese explains the importance of breaking down big tasks into smaller ones and doing so is proven to motivate people. When we experience even small amounts of success, our brains release a chemical called dopamine which gives us feelings of pleasure, learning and motivation.
 
@@ -27,8 +37,6 @@ That's not all checklists are good for. In “The Design of Everyday Things”, 
 As we're able to perform digital tasks on the go using different devices, the chances of interruption are always high. Designing for interruption and being able to fly back into a long and complex task is crucial.
 
 In fact, many developers isolate themselves away from their teammates in a busy office buy putting on headphones. This helps them concentrate on large complex tasks without being interrupted which is unhealthy. Smaller tasks reduces the need for this, and promotes more communication.
-
-## The Task List Pattern
 
 The task list pattern[^], as coined by the Government Digital Service (GDS) shows a service that has several top level tasks. Each top level task is broken down into several sub tasks. Each one of those takes users through a flow. Whether it's one screen or several doesn't matter too much. As long as each sub task is achievable in a reasonable amount of time.
 
@@ -50,13 +58,13 @@ Key points:
 - It gives users an overall feel for how long is left.
 - Previous information is saved so that users can return later to complete it.
 
-## When All Tasks Are Complete
+### When All Tasks Are Complete
 
 When the last task in the list is completed, the user can still go back to the task list page with all the tasks marked as completed. This let's users bask in the glory of completing everything (which is another hit of dopamine). After all, the best part of completing a long to-do list is seeing all those ticks.
 
-It also gives users a chance to review all their answers and make any amends if necessary, which speaks to principle 4, *give control*. The only other thing to remember, is to give users an obvious way to proceed.
+It also gives users a chance to review all their answers and make any amends if necessary, which speaks to principle 4, *give control*. The only other thing to remember, is to give users an obvious way to proceed once everything is complete. For this, offer users a clear, single call to action.
 
-## Additional Considerations
+### Additional Considerations
 
 The points discussed above are probably applicable to any super long form you're designing, but you might also want to consider:
 
@@ -65,7 +73,13 @@ The points discussed above are probably applicable to any super long form you're
 - Using verbs for task names. For example, ‘Agree to the terms, ‘Create subject line’, ‘Choose template’.
 - Listing tasks in order. If so, use an ordered list, the advantages of which are discussed in chapter 5, “An Inbox”.
 - Marking who needs to complete the task. This is only useful if the tasks are performed by different people.
-- Sizing all the tasks the same. Don't take this too literally, but if one task is 20 questions and another is 2, then maybe you should take another look.
+- Sizing all the tasks the same. Don't take this too literally, but if one task is 20 questions and another is 2, then take another look.
+
+## The Save And Return Pattern
+
+Applying for my baby girl's passport was a lengthy process and involved a number of discrete steps, which needed to take place online and offline. Importantly, the service offered me a way to fill in what I could, save my progress and return later to finish the job. This was made possible because I could choose to save my progress at every step of the way.
+
+This is mostly as simple as offering users an extra submit button at the bottom of every form labelled “Save for later” (or similar). The first time the user does this, they'll need to register in order to return securly. That's okay we have a pattern for that already (see chapter 1). 
 
 ## Summary
 

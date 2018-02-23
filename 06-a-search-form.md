@@ -42,33 +42,34 @@ The search form is simple enough and contains just three elements: the label, se
 </div>
 ```
 
-### The Search Landmark Role
+Notes:
 
-Discrete parts of a web page are often referred to as sections, modules and components. ARIA offers a number of landmark roles which define semantics and behaviours to make common sections accessible in assistive technologies.
-
-For the purposes of inclusion, our search component has a search landmark role: `role="search"`. This means, it will be listed as a shortcut with other landmarks in most screen readers.
-
-The extra `<div>` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^].
-
-Normally, search is placed within the header which, like navigation, makes it easily discoverable and quick to access. In fact, putting such an integral feature elsewhere would be counterintuitive and unconventional.
+- As noted in chapter 3, “Book a Flight”, the search input (`<input type="search">`) lets users clear the field more conveniently than a standard text box by clicking the “X” or by pressing <kbd>Escape</kbd>.
+- The search form has a search landmark role: `role="search"`. Like other landmarks, this means it will be listed as a shortcut in most screen readers. The extra `<div>` is necessary because putting the landmark attribute directly on the `<form>` would override its semantics[^]
 
 ## There's No Room
 
-The challenge, of course, is that it's hard to fit the search form inside the header along with everything else. The header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page. On mobile, of course, there's even less space.
+Normally, search is placed within the header. Like navigation, this makes it easily discoverable and quick to access. Putting such an integral feature elsewhere on the page would be counterintuitive and unconventional.
 
-As noted previously, we're often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue—there's usually plenty of room. On mobile though, we're going to have to think a bit more.
+The challenge, of course, is that it's hard to fit the search form inside the header along with everything else. The header is premium screen real estate. That is, there isn't much room available and it's highly sought after. The more that we put into the header, the more the main content is pushed down the page.
 
-As discussed in “A Registration Form”, the best place for the submit button is directly below last field. But one way to reduce the amount of vertical space the search form takes up, is to place the submit button next to the field. This is okay as it's a bit of a special case.
+As noted in past chapters, we're often seduced by novel, space-saving techniques such as the hamburger menu[^2], but hiding content should always be a last resort. On desktop, the issue of space, isn't much of, well, an issue—there's usually plenty of room. On mobile though, we're going to have to think a bit more. There's only so much space available to play with.
+
+Let's look at some ways to reduce the size of the search form, so that it might fit inside the header more easily. As part of this we'll look at various problems and considerations we need to think about with each technique.
+
+### Place Submit Button Inline
+
+As explained in chapter 1, “A Registration Form”, the best place for the submit button is directly below last field. But one way to reduce the amount of vertical space the search form takes up, is to place the submit button next to the field. 
 
 ![Search button placement](./images/06/vertical-space.png)
 
-Let's look at some additional ways to reduce the size of the search form and make it fit inside the header more easily.
+As it's a bit of a special case, this is okay if the search form consists of just one form field. But some search forms offer more than one field. In this case, the submit button should go directly below the last field as usual.
 
 ### Hiding The Label
 
-The first space-saving technique is to hide the label. You might consider using a placeholder to supplant the label but we've already talked about the disadantages of the placeholder attribute in chapter 1.
+Another space-saving technique is to hide the label. As part of this, you might consider using the placeholder attribute to supplant the label but this is problematic for a number of reasons. See chapter 1, “A Registration Form” for an in-depth run down.
 
-We could forgo a visible label altogether because arguably the submit button acts as a quasi label for sight users. But, you should still include a label for screen reader users because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
+We could forgo a visible label altogether because arguably the submit button acts as a quasi label for sighted users. But, you should still include a label for screen reader users because they shouldn't have to skip ahead to the button in the hope that its label provides a clue.
 
 ```HTML
 <div class="field">
@@ -81,19 +82,19 @@ We could forgo a visible label altogether because arguably the submit button act
 
 *(Note: The CSS for the visually hidden class is set out in “Checkout”.)*
 
-If search only retrieves products, for example, then the button would be better labelled “Search products”. 
+If search only retrieves products, for example, then the button would be better labelled “Search products”. This way users know what they can and can't search for. As noted above, users should be able to search everything, but admittedly technological and resource limitations may come into play.
 
-Also, if you recall the patterns from “A Registration Form”, the hint and error text is injected into the `<label>`. If they're needed, you'll have to rethink how this works when there's no visible label to work with.
+Also, if you recall the hint and error patterns from “A Registration Form”, the text is injected into the `<label>`. If you need to show this information, you'll have to come up with a new and different solution which seems unnecessary.
 
-In any case, removing the label doesn't save enough space to make the search form fit inside the header on mobile—certainly not without sacrificing the user experience.
+In any case, hiding the label doesn't usually save enough space to fit the form inside the header anyway, especially in smaller viewports.
 
 ### Hiding The Button
 
-The second space-saving technique involves hiding the button. However, this has several pitfalls.
+We might also consider hiding the button, but this has several pitfalls. First, without a button you can't use it as a quasi label; the label would need to be reinstated taking up room again. 
 
-First, without a button you can't use it as a quasi label, and would need to reinstate the actual label. Second, the button is a fundamental part of a form—without one, it's not clear how users are meant to perform the search. While *we* may be aware that pressing <kbd>Enter</kbd> submits the form, not all users are.
+Second, the button is a fundamental part of a form—without it, it's not clear how users are meant to perform the search. While *we* may be aware that forms can be submitted implicitly (by pressing <kbd>Enter</kbd>), not all users are. See chapter 5, “An Inbox” for more information about implicit submission.
 
-Submitting the form with the Enter key is called implicit submission and was first discussed in chapter 5. You should note that omitting the submit button breaks this behaviour in forms that consists of two or more fields. With single field search fields (like ours), implicit submission will still work, even if you removed the button.
+Third, if your search form contains more than one field, omitting the submit button stops implicit submission from working. Fortunately, if your search form consists of a single field, implicit submission will still work without a button.
 
 Interestingly, many of the sites that omit the submit button, normally find room to include a magnifying glass icon to signify its otherwise hidden affordance. In this case, they may as well place the icon inside a submit button solving both problems at the same time.
 
@@ -105,9 +106,9 @@ Caption: Medium puts a magnifying glass icon before the search box. If they comb
 
 ## Toggling The Form's Visibility
 
-Even if removing the label and submit button could be done in a way that doesn't hurt usability, it doesn't really save enough space to allow the search form to fit within the header.
+Even if removing the label and submit button didn't degrade the usability of the form, it still wouldn't really solve the space problem enough to fit the form comfortably within the header.
 
-Another approach involves toggling the entire form's visibility using a button. Finding room in the header just for a button is relatively straightforward. The form might be revealed as an overlay or immediately underneath the header. Either way, including a visible label, a hint (if you need one) and a submit button becomes a simple task this way.
+Instead of messing around with pixels to this extent, we can toggle the entire form's visibility by letting users click a button. Finding room in the header for a button is relatively straightforward. And including a visible label, a hint (if needed) and a submit button is an easy task.
 
 ![Focus moved](./images/06/collapsible-search-form.png)
 
@@ -124,6 +125,8 @@ The basic page consists of a header containing the logo and navigation etc. The 
 
 ### The Enhanced Mark-Up
 
+When JavaScript is available, the mark-up is enhanced like this:
+
 ```HTML
 <header>
   ...
@@ -132,15 +135,14 @@ The basic page consists of a header containing the logo and navigation etc. The 
 <div role="search" class="hidden">...</div>
 ```
 
-When JavaScript is available, a toggle button is injected into the header.
+Notes:
 
+- A toggle button is injected into the header.
 - The search form is hidden using the `hidden` class as introduced in chapter 1.
 - The `aria-haspopup` attribute indicates that the button reveals a part of the interface (the search form). It acts as warning that, when pressed, the focus will be moved to the search form.
 - The `aria-expanded` attribute tells screen reader users whether the search form is currently expanded or collapsed by toggling between `true` and `false` values using a simple script.
 
 ### A Small Script
-
-First the script hides the form and injects the button into the header.
 
 ```JS
 function SearchForm() {
@@ -151,13 +153,7 @@ function SearchForm() {
   this.button.on('click', $.proxy(this, 'onButtonClick'));
   this.header.append(this.button);
 }
-```
 
-When the button is clicked, we check to see if the form is currently expanded or collapsed by interrogating the `aria-expanded` attribute (explained earlier). If it's collapsed, then we'll set the `aria-expanded` state to to `true` and remove the hidden class to reveal the button. Finally, the first input is focused which saves users an unnecessary extra click.
-
-If the form is already expanded, then the script hides the form by adding a class of hidden and sets the `aria-expanded` state back to `false`.
-
-```JS
 SearchForm.prototype.onButtonClick = function() {
   if(this.button.attr('aria-expanded') == 'false') {
     this.button.attr('aria-expanded', 'true');
@@ -169,6 +165,13 @@ SearchForm.prototype.onButtonClick = function() {
   }
 };
 ```
+
+Notes:
+
+- The constructor is responsible for enhancing the HTML and listening to the button's click event.
+- When the button is clicked, the script checks the `aria-expanded` attribute to see if the form is currently expanded or collapsed. 
+- If the form is collapsed, then the `aria-expanded` attribute is set to `true` and the `hidden` class is removed to reveal the form. Finally, the first input is focused which saves users an unnecessary extra click.
+- If the form is expanded, the  `aria-expanded` attribute is set to `false` and the form is hidden by adding the class of `hidden` to the form.
 
 ## Displaying Search Results
 

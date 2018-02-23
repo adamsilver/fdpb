@@ -26,9 +26,13 @@ Continuing with the Passport service then, one of the first questions I'm asked 
 
 This pattern isn't just useful to Government services. For example, you could use these patterns to stop under-aged users from buying cinema tickets for adult-only showings. For example, telling users that they may need to prove their age by bringing an ID card to the cinema.
 
-Alternatively, people applying for a mortgage online may wish to know some high level criteria before spending a lot of time gathering documents and setting up meetings. 
+Alternatively, people applying for a mortgage online may wish to know some high level criteria before spending a lot of time gathering documents and setting up meetings. For example, to apply for an HSBC mortgage in the UK, users must:
 
-Not only does this save users a lot of time, but it can also lower the business' operating costs by reducing the time and effort support teams spend working out and explaining all of this to people over the phone.
+- constent to a credit check
+- confirm the property is in a habitual condition
+- be aged 18 and over
+
+Knowing this upfront, not only saves users a lot of time, but it can also lower the business' operating costs by reducing the time and effort support teams spend working out and explaining all of this to people over the phone.
 
 ## The Task List Pattern
 

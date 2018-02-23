@@ -24,7 +24,11 @@ Giving users some basic information upfront is valuable but some services have a
 
 Continuing with the Passport service then, one of the first questions I'm asked is “Is your passport lost or stolen?”. Answering “No” lets me continue to apply for a passport as normal. But answering “Yes” takes me to a screen telling me to cancel my passport with a number of options that are best suited to my situation.
 
-This pattern isn't just useful to Government services. For example, you could use these patterns to stop under-aged users from buying cinema tickets for adult-only showings. For example, telling the user that they could be asked to verify their age by bringing some form of identification to the cinema.
+This pattern isn't just useful to Government services. For example, you could use these patterns to stop under-aged users from buying cinema tickets for adult-only showings. For example, telling users that they may need to prove their age by bringing an ID card to the cinema.
+
+Alternatively, people applying for a mortgage online may wish to know some high level criteria before spending a lot of time gathering documents and setting up meetings. 
+
+Not only does this save users a lot of time, but it can also lower the business' operating costs by reducing the time and effort support teams spend working out and explaining all of this to people over the phone.
 
 ## The Task List Pattern
 

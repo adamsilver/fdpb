@@ -487,9 +487,7 @@ Whether you need to support such browsers depends on your situation but it's wor
 
 ## Other Important Considerations
 
-You may think that having looked at the basic file picker and the drag and drop enhancement that can live alongside it, that there's little much else to cover with regards to uploading files. But really, there's a lot of other things to consider.
-
-In this section, we'll briefly cover some of these things.
+You may think that having looked at the basic file picker and the drag and drop enhancement that can live alongside it, that there's little much else to cover with regards to uploading files. But really, there's a lot of other things to consider. In this section, we'll briefly cover some of these things.
 
 ### Is Drag and Drop Necessary?
 
@@ -551,7 +549,7 @@ To solve this problem, you may be able to provide additional guidance (using the
 
 TODO: “Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an App like iPhoto or Google Photos”.
 
-![Photo of hint](.)
+![Photo of hint](./images/08/gov-file-hint.png)
 
 ### It's Easier To Take A Photo On Mobile
 
@@ -561,7 +559,7 @@ However, some users will start creating an advert on Desktop. In this case, it's
 
 Other services, may not require being logged in: Renew Your Passport, is an example of this. In this case, users may need to be securely directed with one time codes, or unique URLs that they can type into their mobile to continue.
 
-![Photo of special code/url](.)
+![Photo of special code/url](./images/08/gov-switch.png)
 
 ### Third Party Integration
 

@@ -1,6 +1,6 @@
 # A Really Long, Complicated Form
 
-Different types of tasks take different amounts of time to complete. One Thing Per Page helps users complete tasks in one sitting, but what about those that take hours, or even days, to complete?
+Different types of tasks take different amounts of time to complete. The One Thing Per Page pattern (introduced in “Checkout”) helps users complete tasks in one sitting, but what about those that take hours, or even days, to complete?
 
 In Mailchimp[^], for example, I'll usually start drafting an email campaign weeks before I send it. And there are a number of steps to complete, in a particular order too. First, I check the content reads well. Then I need to make sure it looks good in various email clients. Then days or even weeks later, I'll run through some final checks, decide the subject line and schedule it for release.
 
@@ -8,15 +8,13 @@ Other tasks may be performed by several people using the same application. For e
 
 Some services, such as applying for a mortgage or registering for a bank account, involve supplying personal information, and this may involve offline processes such as sending identification documents in the post.
 
-How can we design forms that play nicely with this complex and long-form process that can take weeks to complete, by different people across digital and non-digital journeys?
+How can we design forms that play nicely with this complex and long-form process that can take weeks to complete? And by different people across digital and non-digital journeys?
 
-Of course, if you can simplify the process so that it's short in the first place (or even remove it altogether), all the better. If you can't, let's explore some useful patterns specifically designed to solve these problems.
+First thought, it must be said that if you can simplify the process so that it's short in the first place—or even remove it altogether—do that. If not, this chapter explores some useful patterns specifically designed to solve these things.
 
 ## The Check Before You Start Pattern
 
-One of the best ways we can help users save time, is by not wasting it in the first place. One way to do that is to tell users upfront what they'll need upfront along with other details such as how long it will take and if they're even eligible to apply.
-
-For example, to apply for an HSBC mortgage in the UK, users must:
+One of the best ways we can help users save time, is by not wasting it in the first place. One way to do that is to tell users what they need to know before they start the process. For example, to apply for an HSBC[^] mortgage in the UK, users must:
 
 - constent to a credit check
 - confirm the property is in a habitual condition
@@ -24,41 +22,44 @@ For example, to apply for an HSBC mortgage in the UK, users must:
 
 This is good, but users may also want to know:
 
-- what the process looks like; will they need to visit a branch
-- how long it takes to get a decision; perhaps it's urgent
-- what documents they need to apply; if they don't have them what happens
+- what the process looks like
+- if they need to visit a branch
+- how long it takes to get a decision
+- what documents they'll need (and what alternative options they might have, if any)
 
-Knowing this upfront, not only saves users a lot of time, but it can also lower the business' operating costs. This works by reducing the time and effort support teams spend working out and explaining all of this to people over the phone.
+Knowing this upfront, not only saves users a lot of time, but it can also lower the operating costs of the service. This works by reducing the time and effort support teams spend working out and explaining all of this to people over the phone.
 
 ![Check before you start bullets](.)
 
-This pattern is applicable in other situations too. For example, if an underaged person is trying to buy cinema tickets for an adult-only showing, they'd appreciate knowing that they may need to prove their age upon arrival.
+This pattern is applicable in other situations too. For example, if an underaged person is trying to buy cinema tickets for an adult-only showing, they should know that they may need to prove their age before entering the cinema.
 
-Some services aren't so simple and may differ depending on the individual's information and circumstances. In this case, users need to be asked a series of questions to determine whether they are eligible, and what alternative options they might have. The Government Digital Services call this the Check Before You Start pattern[^].
+Some services are more complicated and can depend on the individual's circumstances. For example, the Passport[^] service (shown below), needs to ask a series of questions to determines someone eligibility to apply for a passport. 
 
-Take the Passport service (shown below). If the applicant has lost their passport, then they aren't able to use the main service. One of the first questions I'm asked is “Is your passport lost or stolen?”. Answering “No” lets me continue to apply for a passport as normal. But answering “Yes” takes me to a screen telling me to cancel my passport with a number of options that are best suited to my situation.
+![Passport question flow](.)
 
-![Passport flow](.)
+Caption: The user is asked if the passport is lost or stolen. Answering “No” lets them apply for a passport as normal. Answering “Yes” takes them to a screen telling them to cancel their passport, with a number of options suited to their specific situation.
+
+If the applicant has lost their passport, for example, then they aren't able to use the main service. The Government Digital Service has a pattern just for this type of situation and they call it the Check Before You Start pattern[^].
+
+These patterns make the service and the process more transparent and not only saves users time but gives users the choice whether they even want to go ahead in the first place.
 
 ## The Task List Pattern
 
-In “The Psychology of Checklists”[^], Lauren Marchese explains the importance of breaking down big tasks into smaller ones and doing so is proven to motivate people. When we experience even small amounts of success, our brains release a chemical called dopamine which gives us feelings of pleasure, learning and motivation.
+In “The Psychology of Checklists”[^], Lauren Marchese explains the importance of breaking down big tasks into smaller ones which is proven to motivate people. When we experience even small amounts of success, our brains release a chemical called dopamine which gives us feelings of pleasure, learning and motivation.
 
-Most of us work in teams employing Agile methodologies[^]. One of the main aspects to this is breaking down a large project into epics, stories and tasks. Complete enough tasks, and the story is done. Complete enough stories, and the epic is done. Complete enough epics and the project is done. Of course our work is never done, but you know what I mean.
+Most of us work in teams employing Agile methodologies[^]. This involves breaking down a large project into epics, stories and tasks. Complete enough tasks, and the story is done. Complete enough stories, and the epic is done. Complete enough epics and the project is done. Of course our work is never done, but you know what I mean.
 
-What's really happening is that tasks seem far easier to achieve when they're broken down. Crucially, if tasks are small enough, then we'll get that hit of dopamine frequently, which creates momentum. Momentum improves morale and morale improves productivity.
+What's really happening is that tasks seem far easier to achieve when they're broken down. Crucially, if tasks are small enough, then we'll get that hit of dopamine more frequently, which creates momentum. Momentum improves morale and morale improves productivity.
 
 That's not all checklists are good for. In “The Design of Everyday Things”, Don Norman says:
 
 > “Checklists are powerful tools, proven to increase the accuracy of behaviour and to reduce error [...]. They are especially important in situations with multiple, complex requirements, and even more so where there are interruptions.”
 
-As we're able to perform digital tasks on the go using different devices, the chances of interruption are always high. Designing for interruption and being able to fly back into a long and complex task is crucial. And as mentioned earlier, some parts of the process happen offline too.
+As people perform digital tasks on the go using different devices, the chances of interruption is high. Designing for interruption and being able to jump back into the middle of a long and complex task is crucial. And as mentioned earlier, some parts of the process happen offline too.
 
-In the work place, many developers isolate themselves away from their teammates in a busy office buy putting on headphones. This helps them concentrate on large complex tasks without being interrupted which is unhealthy. Smaller tasks reduces the need for this, and promotes more communication.
+The Task List pattern[^], as coined by the Government Digital Service (GDS) shows a page with several top level tasks. 
 
-The Task List pattern[^], as coined by the Government Digital Service (GDS) shows a page with several top level tasks. Each top level task is broken down into several sub tasks. Each one of those takes users through a flow. Whether it's one screen or several doesn't matter too much. As long as each sub task is achievable in a reasonable amount of time.
-
-Once a sub task is completed, users come back to the view with that task marked as complete.
+Each top level task is broken down into several sub tasks. Each one of those takes users through a flow—whether each flow consists of one or several screens doesn't really matter, as long as it's achievable in a reasonable time. Once a sub task is completed, users come back to the task list view with that particular task marked as complete.
 
 ![Task list Pattern](./images/10/task-list-pattern-gds.png)
 
@@ -68,13 +69,11 @@ Instead of text, Mailchimp uses iconography to mark tasks as complete. I've disc
 
 ![Mailchimp](./images/10/task-list-pattern-mailchimp.png)
 
-The exact design details you choose to employ will come down to your product's design language and your own user research.
+The exact design details you choose to employ will come down to your product's design language and user research but it's key to ensure that:
 
-Key points:
-
-- Each task's status is clearly marked, so that users can see what's left at a glance.
-- It gives users an overall feel for how long is left.
-- Previous information is saved so that users can return later to complete it.
+- each task's status is clear marked so that users can see what's left at a glance
+- users can get a feel for how long is left until completition
+- previous information is saved, so that users can return easily to it later
 
 ### When All Tasks Are Complete
 
@@ -106,6 +105,9 @@ In this chapter, we looked at how to break down really long forms into smaller o
 ## Footnotes
 
 [^ mailchimp]: https://mailchimp.com/
+[^ hsbc]: ?
+[^ passport]: ?
+[^ check before]: ?
 [^ checklists]: https://blog.trello.com/the-psychology-of-checklists-why-setting-small-goals-motivates-us-to-accomplish-bigger-things
 [^ agile]: https://en.wikipedia.org/wiki/Agile_software_development
 [^ task list]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/

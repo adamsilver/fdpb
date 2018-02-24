@@ -29,19 +29,22 @@ This is good, but users may also want to know:
 
 Knowing this upfront, not only saves users a lot of time, but it can also lower the operating costs of the service. This works by reducing the time and effort support teams spend working out and explaining all of this to people over the phone.
 
-![Check before you start bullets](.)
+![Check before you start bullets](./images/10/hsbc-bullets.png)
 
 This pattern is applicable in other situations too. For example, if an underaged person is trying to buy cinema tickets for an adult-only showing, they should know that they may need to prove their age before entering the cinema.
 
 Some services are more complicated and can depend on the individual's circumstances. For example, the Passport[^] service (shown below), needs to ask a series of questions to determines someone eligibility to apply for a passport. 
 
-![Passport question flow](.)
+![Passport question flow](./images/10/passport-questions.png)
 
 Caption: The user is asked if the passport is lost or stolen. Answering “No” lets them apply for a passport as normal. Answering “Yes” takes them to a screen telling them to cancel their passport, with a number of options suited to their specific situation.
 
-If the applicant has lost their passport, for example, then they aren't able to use the main service. The Government Digital Service has a pattern just for this type of situation and they call it the Check Before You Start pattern[^].
+If the applicant has lost their passport, for example, then they aren't able to use the main service. The Government Digital Service calls this the Check Before You Start pattern[^]. This pattern can:
 
-These patterns make the service and the process more transparent and not only saves users time but gives users the choice whether they even want to go ahead in the first place.
+- make the process more transparent which increases trust
+- save users a lot of time
+- reduce support costs
+- empower users to decide the best course of action
 
 ## The Task List Pattern
 

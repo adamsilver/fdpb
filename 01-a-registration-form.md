@@ -191,7 +191,6 @@ While this is the case, don't be tempted to remove it, because this will diminis
 ```HTML
 input:focus {
   outline: 4px solid #ffbf47;
-  outline-offset: 0;
 }
 ```
 
@@ -330,7 +329,7 @@ Third, jQuery is being used to create and retrieve elements, and listen to event
 
 If you're a designer who codes a little bit, then jQuery's ubiquity and low-barrier to entry should be helpful. By the same token, if you prefer not to use jQuery, you'll have no trouble refactoring the components to suit your preference.
 
-You may have also noticed the use of jQuery's `$.proxy` function. This function is a more widely supported version of `Function.prototype.bind`. If we didn't use this function to listen to events, then the event handler would be called in the element's context (`this`). In the above case, `this.button` would be undefined. But we want `this` to be the password reveal object instead so that we can access its properties and methods.
+You may have also noticed the use of the `$.proxy` function. This is jQuery's implementationo of `Function.prototype.bind`. If we didn't use this function to listen to events, then the event handler would be called in the element's context (`this`). In the above case, `this.button` would be undefined. But we want `this` to be the password reveal object instead so that we can access its properties and methods.
 
 #### Alternative Interface Options
 
@@ -358,7 +357,7 @@ When focusing the button, NVDA for example will announce, “Show password, togg
 }
 ```
 
-One problem with this approach is that it's not easy for sighted users to tell the difference between the pressed and unpressed button through styling alone.
+Just be sure that the unpressed and pressed styles are obvious and differentiated, otherwise sighted users may struggle to tell the difference between them.
 
 ### Microcopy
 
@@ -443,7 +442,7 @@ It's all very well detecting the presence of errors, but currently users are non
 
 #### Document Title
 
-The document's `<title>` is the first part of a web page to be read out by screen readers. As such, we can use it to quickly inform users that something has gone wrong with their submission. This is especially useful when errors are caught on the server.
+The document's `<title>` is the first part of a web page to be read out by screen readers. As such, we can use it to quickly inform users that something has gone wrong with their submission. This is especially useful when the page reloads after a server request.
 
 Even though we're enhancing the user experience by catching errors on the client with Javascript, not all errors can be caught this way. For example, checking that an email address hasn't already been taken can only be checked on the server. And in any case, Javascript is prone to failure[^] so we can't solely rely on it's availability.
 

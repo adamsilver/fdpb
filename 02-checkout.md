@@ -156,7 +156,7 @@ The delivery address contains five fields that together make up an address. Visu
 
 ### Field Width
 
-In “Write Less Damn Code”[^6], Heydon Pickering jokingly points out, that the reason some people used to add XHTML 1.1 Complaint banners to their website was to ensure the height of the menu matches the height of the content. Similarly, you might be tempted to give every address field the same width.
+In “Write Less Damn Code”[^6], Heydon Pickering jokingly points out, that the reason some people used to add XHTML 1.1 Compliant banners to their website was to ensure the height of the menu matches the height of the content. Similarly, you might be tempted to give every address field the same width.
 
 But giving the postcode field the same width as every other field increases the cognitive effort needed to fill it out. This is because the width gives users a clue as to the length of the content it requires.
 

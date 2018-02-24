@@ -927,7 +927,7 @@ Finally, the selected date is stored so that we can show the calendar in the cor
 
 Like the autocomplete component we designed earlier, the grid is composite control made up of many interactive elements—as many as 31 depending on the month. As discussed earlier, composite controls should have just one tab stop—having to tab through 31 days is tiresome and inefficient.
 
-To solve this problem, we're going to be using the concept of Roving Tabs[^]. The way it works is that only one cell in the grid is focusable at anyone time—the selected cell. The selected cell will have a `tabindex="0"` attribute which means users can tab to it from the Next Month button. The rest of the cells have a `tabindex="-1"` attribute which means we can set focus to it programmatically with JavaScript, but users won't be able to get to it with the Tab key.
+To solve this problem, we're going to be using the concept of Roving Tabs[^]. The way it works is that only one cell in the grid is focusable at anyone time—the selected cell. The selected cell will have a `tabindex="0"` attribute which means users can tab to it from the Next Month button. The rest of the cells have a `tabindex="-1"` attribute which means focus can be set programmatically with JavaScript, but users won't be able to get to it with the Tab key.
 
 Once the selected cell is focused users can traverse the calendar with the arrow keys. As the user moves between the cells the `tabindex` values will be updated to ensure that only the selected cell has a tabindex value of 0.
 

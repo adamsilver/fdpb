@@ -270,7 +270,7 @@ this.textBox.on('keydown', $.proxy(function(e) {
 }, this));
 ```
 
-Unlike the `blur` event, this approach doesn't cover the case where users blur the control by clicking outside of it. We have to handle this case manually by listening to the Document's `click` event but being careful to work out what's clicked—we don't want to hide the menu if the user clicks within the control.
+Unlike the `blur` event, this approach doesn't cover the case where users blur the control by clicking outside of it. We have to handle this case manually by listening to the Document's `click` event but being careful to work out what's clicked—we don't want to hide the menu if the user clicks *within* the control.
 
 ```JS
 $(document).on('click', $.proxy(function(e) {
@@ -543,7 +543,9 @@ Each matched option is added to the `matches` array which will be used by the ca
 
 #### Supporting Endonyms And Common Typos
 
-Some people refer to countries by different names. For example, Germany is sometimes referred to as Deutschland. An alternative name for a place is called an endonym. To allow users to type an endonym, we first need store it somewhere. We can put the endonym inside a data attribute on the `<option>` element.
+Some people refer to countries by different names. For example, Germany is sometimes referred to as Deutschland. An alternative name for a place is called an endonym. We can follow principle 5, *Offer choice*, by letting users type an endonym.
+
+To do this, we first need store it somewhere. We can put the endonym inside a data attribute on the `<option>` element.
 
 ```HTML
 <select>
@@ -697,11 +699,11 @@ The date picker consists of a toggle button that reveals the calendar. From ther
 
 #### Notes About The Design
 
-Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to disappearing off screen when positioned absolutely on top of the interface. Instead our calendar will be positioned underneath the input and inline avoiding such issues.
+Many date pickers are designed as overlays, but they obscure the rest of the page and are prone to being cropped by the viewport when positioned absolutely on top of the interface. Instead our calendar will be positioned underneath the input and inline avoiding such issues.
 
 There's an inset left border which visually connects the calendar to the field above. And the interactive elements within the calendar have large tap targets[^] which are  easier to tap and click.
 
-You might be tempted to try and squeezy additional information—such as price and availability—into each of the cells. This may be possible in very large viewports, but it's not practical from a responsive design perpsective: there's simply not enough room to denote this information in small viewports. This is why it's important to design mobile-first.
+You might be tempted to try and squeeze additional information—such as price and availability—into each of the cells. This may be possible in very large viewports, but it's not practical from a responsive design perpsective: there's simply not enough room to denote this information in small viewports. This is why it's important to design mobile-first.
 
 In any case, the primary user need at this stage of the journey is to select a date. Trying to squeeze in additional information is going to result in a slower, busier and overwhelming experience that slows users down.
 

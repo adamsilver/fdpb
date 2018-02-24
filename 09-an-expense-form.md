@@ -23,7 +23,7 @@ This pattern works for adding expenses too. Each time the user submits an expens
 This pattern is well-suited to short, simple forms that can be submitted in one go. The pattern does, however, have a number of downsides:
 
 1. Users might need to use a form that has dynamic questions (branching) that are conditionally shown based on previous answers. In this case, the pattern doesn't work so well. We'll look at branching in more detail shortly.
-2. As the list of added expenses grow, the form moves further down the page. This could be a problem, especially on mobile, as users would have to scroll down to see and use the form.
+2. As the list of added expenses grow, the form moves further down the page. This could be a problem, especially on mobile, as users would have to scroll down to see and use the form. Alternatively, you could put the list below the form, but after adding an expense, users may not see the newly added item.
 3. Having multiple calls to action (to submit and to proceed or exit) might be confusing, especially for cognitively-impaired users. Where possible, one call to action is preferrable as it requires less thinking.
 4. Each submission requires a separate request to the server. This could be frustrating, where lots of entries need to be added.
 

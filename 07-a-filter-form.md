@@ -28,11 +28,11 @@ Interactive filters update as soon as the user clicks a filter. The advantage is
 
 ![Clicking a filter refreshes the page immediately. If I want to select other filters, I have to click and refresh again.](./images/07/interactive-filter.png)
 
-One disadvantage is that each click causes a page refresh, which is particularly frustrating if users are likely to choose several filters.
+One disadvantage is that each click causes a page refresh, which can cause frustration due to lag and getting scrolled back to the top of the page. Something that will happen every time the user selects a filter. This is especially problematic for keyboard users as they'll have to tab back to where they were.
 
 ### Batch Filters
 
-Batch filters work by letting users choose a number of different filters, and then submitting them in one fell swoop. One advantage of this approach is that it’s faster, as users just make one request for several filters.
+Batch filters work by letting users set a number of options before submitting and reloading the page (see above). One advantage of this approach is that it’s faster, as users just make one request for several filters.
 
 ![Clicking a filter selects the checkbox. I can choose as many as I want and submit them together by pressing “Apply filters”.](./images/07/batch-filter.png)
 
@@ -42,7 +42,7 @@ One disadvantage of this approach is that a combination of filters could lead to
 
 We’ve already discussed the concept of material honesty several times in the book. This is because, rather unfortunately, dishonest interfaces are prevalent on the web. As a reminder, one material shouldn’t be used as a substitute for another because the end result is deceptive. In short, we should use the right material for the job. But what does this mean with regards to filters?
 
-As shown above, interactive filters tend to use links because they provide the expected behaviour—that clicking a filter immediately requests the new results. However, some sites style these links to look like checkboxes, by using CSS background images[^], for example. 
+As shown above, interactive filters tend to use links because they provide the expected behaviour—that clicking a filter would immediately request the new page of results. But, some sites style links to look like checkboxes by using CSS background images[^], for example. But checkboxes are for input, not for requesting new pages.
 
 ![When a user sees checkboxes, they think they'll behave accordingly. When their expectation isn't matched, it causes confusion and frustration.](./images/07/materials.png)
 
@@ -169,9 +169,10 @@ First, the button should look like a button and be styled prominently to stand o
 - Making each filter category collapsible (we’ll look at how to do this later)
 - Duplicate the submit button at the top of the form
 - Consider making the buttons stay on screen by using position: sticky[^].
+
 ## Should We Just Change To Links?
 
-Perhaps we should just throw away the form and use links. The advantage of which is that we wouldn’t need JavaScript—users would get standard and expected (link) behaviour, for free.
+Perhaps we should just throw away the form and use links. The advantage of which is that we wouldn’t need JavaScript—users would get standard (link) behaviour, for free.
 
 But there are several disadvantages:
 

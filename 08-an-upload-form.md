@@ -485,13 +485,23 @@ For example, some older browsers won't trigger the dialog when the label is used
 
 Whether you need to support such browsers depends on your situation but it's worth being aware of the problems. Fortunately, the feature detection above happens to rule out the offending browsers.
 
-## Other Considerations
+## Other Important Considerations
 
-There's great complexity involved in uploading files, and really I've only scratched the surface so far. Let's quickly run through some other important issues you may wish to consider when designing an upload form.
+You may think that having looked at the basic file picker and the drag and drop enhancement that can live alongside it, that there's little much else to cover with regards to uploading files. But really, there's a lot of other things to consider.
+
+In this section, we'll briefly cover some of these things.
+
+### Is Drag and Drop Necessary?
+
+Depending on the situation, the humble file picker may be all that users needs to upload files. In this case, you may not need to worry about adding a drag and drop enhancement at all. This way, there's less code to send to the user which improves page load performance and simplifies the interface, both of which improve the overall experience.
+
+It's important to note that drag and drop interfaces should be used in conjunction with a standard file picker. First, because users can't actuall drag and drop on mobile or tablet devices, for example. Second, users with dexterity problems such as tremor may have difficulty dragging a file. In any case, giving users choice (principle 5) as a crucial aspect of good design.
 
 ### The `accept` and `capture` Attributes
 
 The file input offers two interesting attributes that affect the file uploading experience: `accept` and `capture`.
+
+#### The `accept` Attribute
 
 The `accept` attribute takes a string that indicates which types of file the picker will accept. 
 
@@ -505,6 +515,8 @@ When supported, the browser/device may offer users a more stringent experience w
 
 But on desktop browsers it will prompt the user to upload an image file from the file system disabling files that aren't to be accepted (images in the above case). The problem is users won't be told why the files are disabled as there's no feedback.
 
+#### The `capture` Attribute
+
 The `capture` attribute, when supported, indicates the preference of getting an image from the camera:
 
 ```HTML
@@ -517,43 +529,61 @@ Adding the capture attribute without a value lets the browser decide which camer
 
 The capture attribute works on Android and iOS, but is ignored on desktop. Beware that on Android this means the user will no longer have the option of choosing an existing picture as the camera app will be started directly instead, which is probably undesirable.
 
-### Is Drag And Drop Even Necessary?
+### Allow For Different Formats
 
-- Moreover, you may not even need drag and drop functionality. Without that need, there's less reason to veer away from convention anyway.
-- You can't drag and drop on mobile, where mobile usage is increasing at a rapid rate.
-- Drag and drop always needs to be in conjunction with a standard file picker, because users with motor impairments, such as tremours will struggle to use one anyway.
-- Users with dexterity problems such as tremor may have difficulty dragging a file. 
+Giving users choice isn't just about interaction modalities. It's also about letting users upload files in many different formats. Why put the burden on users to convert files, when we can do that for them easily with technology.
+
+For example, if a user needs to upload a spreadsheet, we should let them do so with popular proprietary formats like Microsoft Excel, but also other non-proprietary forms such as CSV.
+
+This way users can upload whatever they have easily.
 
 ### Many Users Struggle To Find Files
 
-- On desktop: Sadly people who have used 'file importers' often struggle to find where the file was imported to. Eg Windows photo-importer.
-- On mobile generally easier but on some android devices: Though on Android when picking an existing photo, users must select 'documents'. This throws most users in research.
-- Tell users where they are likely to find the folder
-- Many users struggle to use the file explorer or finder on laptop or desktop machines. If you know the kind of file you need you may be able to help them find it.
+Many users, particularly less digitally savvy users, struggle to use file pickers because they don't know where the file lives on the computer. And remember, the file may originate on another external device such as a camera, phone or USB device.
 
-“Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an APp like iPhoto or Google Photos”.
+I spoke with Ed Horsford, a designer at GDS who conducted extensive research regarding file uploading, when he designed the Renew Your Passport service[^] which involves users uploading a photo of themselves.
 
-### Language upload/attach
+He said that on desktop, users who used a file importer (such as Windows photo-importer) struggled to find where he file was imported to when it came to selecting it from the file picker. Even as a digitally savvy user myself, I've struggled to locate files many times. I usually try to download files to my desktop for easy access and then periodically delete those files.
 
-- Steve: ​​I've never seen attach used for anything except emails – I think it is part of the vocabulary. I'd find attach to mean upload a bit odd as I'm not attaching it to anything – I'm sending it somewhere.
-- Ed: I did research looking at lots of 'social' type websites when I started on passports - those that do photo uploads or avatars. The overwhelming majority use the word 'upload'. We've found in research that less technically proficient users don't know what upload means, but they have a general idea that it's something to do with computers.
+He also mentioned that while users generally found picking a photo easy on mobile, some Android devices house the photos inside “Documents” which in research sessions threw most users.
 
-### Third party integration
+To solve this problem, you may be able to provide additional guidance (using the hint pattern, for example) to help users find the file.
 
-- Letting users upload through a third party may be an easy way for them to provide files, so long as it's likely the file exists with the third party, and they're already connected with the service. 
-- However, this method is likely to target more 'advanced' users - it won't help users who don't know what 'dropbox' is. Filepicker is an example of a 'drop-in' way to let users connect multiple services.
+TODO: “Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an App like iPhoto or Google Photos”.
 
-### Switching Between Desktop And Mobile To Take a Photo
+![Photo of hint](.)
 
-- File uploads from a mobile device (particularly photos) can often be much easier for users. If they can be directed to access the service from a mobile device, they may be able to upload much more easily.
+### It's Easier To Take A Photo On Mobile
 
-### Allow for multiple file formats and upload methods
+It's easier to upload a photo on a mobile device because many people take photos with their phone. So either the photo is already on their device (but not the computer), or they can easily take a new one. This is particularly useful, for example, when upload photos for a new Ebay advert.
 
-Be forgiving of different file formats and provide multiple methods for uploading files. If you’re using proprietary formats like Microsoft Excel, make sure you also support non-proprietary ones like CSV.
+However, some users will start creating an advert on Desktop. In this case, it's useful if they can be directed to use part of the service on their mobile. With Ebay, it's easy because users have to have an account to create an advert. This means, the in-progress advert will be ready and waiting for them, as soon as they login on their mobile.
+
+Other services, may not require being logged in: Renew Your Passport, is an example of this. In this case, users may need to be securely directed with one time codes, or unique URLs that they can type into their mobile to continue.
+
+![Photo of special code/url](.)
+
+### Third Party Integration
+
+Some users, especially digitally savvy users, may be using third party services to store files such as Dropbox and Google Drive.
+
+Letting users upload through a third party may be an easy way for them to provide files, so long as it's likely the file exists with the third party, and they're already connected with the service.
+
+But beware that it may not help, or even confuse users who don't know what “Dropbox” is. Be sure to test this diversely in user research.
+
+### A Note On Language
+
+When uploading a file, interfaces use the words “Document”, “File”, “Attach”, “Send” and “Upload”. I've not been able to run in-depth research on this myself, but attaching seems to be more reserved for emails. I don't attach photos, for example, to an Ebay advert.
+
+Apart from email, most websites use “Upload” for labels, buttons and just generally referring to the process of putting a file somewhere.
+
+NOTE:(Ed) We've found in research that less technically proficient users don't know what upload means, but they have a general idea that it's something to do with computers.
 
 ## Summary
 
-In this chapter, we began by looking at the file picker as the browser gives us quite a bit of power for free. However, we also looked at its various downsides particularly with regards to multi-file uploads. From here, we look at various solutions that started with the persistent upload form before enhancing the interface with a more ergonomic and inclusive drag and drop experience.
+In this chapter, we began by looking at the file picker as the browser gives us quite a bit of power for free. However, we also looked at its various problems that crop up with multi-file uploads. 
+
+From here, we look at various solutions that started with the persistent upload form before enhancing the interface with a more ergonomic and inclusive drag and drop interface.
 
 ### Things To Avoid
 
@@ -572,6 +602,3 @@ In this chapter, we began by looking at the file picker as the browser gives us 
 [^ proxy change]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
 [^ second time]: https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
 [^ blurred]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
-
-## TODO: 
-https://paper.dropbox.com/doc/Upload-a-file-SsbNkLSiTCw6uXQ5V8YHN

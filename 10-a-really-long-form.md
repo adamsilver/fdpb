@@ -97,13 +97,18 @@ The points discussed above are probably applicable to any super long form you're
 
 ## Summary
 
-In this chapter, we looked at how to break down really long forms into smaller ones. By using the task list pattern, users are guided through a long and potentially complex journey with relative ease.
+In this chapter, we looked at two important patterns. The Check Before You Start pattern makes a process transparent and saves users a lot of time and can even be designed for a range of personal circumstances by asking users a series of questions about themselves.
+
+We then looked at how the Task List pattern breaks down a very long process into a series of smaller, more manageable tasks that users can return to in their own time.
+
+In the end, these patterns can make a very long and very complex journey relatively easy to complete.
 
 ### Checklist
 
-- Avoid really long forms.
-- If you really need one, break the tasks up into smaller pieces.
-- Save users state, so that they can come back in their own time.
+- Avoid really long and complex forms but if you can't;
+- Tell users as much as they need to know upfront so they can decide whether they are eligible for a service
+- In more complex situations, ask users a series of questions to determine the best course of action for users and save their time and the operating costs of the business or service
+- Break up large tasks into smaller pieces and allow users to save their progress, so they can return later easily.
 
 ## Footnotes
 

@@ -172,7 +172,9 @@ As noted earlier, the native file input acts as a drop zone to let users drag an
 1. it's not immediately obvious that dragging and dropping is possible—there are no signifiers that makes this behaviour perceivable to users.
 2. the drop zone has a small hit area, which makes it hard to use, especially for motor-impaired users.
 
-To solve these issues, we're going to take our persistent upload form, and progressively enhance it with better drag and drop functionality.
+To solve these issues, we're going to take our persistent upload form, and progressively enhance it with better drag and drop functionality. 
+
+*(Note: should a drag and drop interface be employed, it should be used alongside a file picker. This is because some users may need or prefer to use it over drag and drop. We'll look at this in more detail later.)*
 
 ### How It Might Look
 
@@ -481,9 +483,13 @@ For example, some older browsers won't trigger the dialog when the label is used
 1. Choosing the same file (or a file with the same name) for a second time, won't fire the `onchange` event[^] which creates a broken interface. The solution is to replace the entire file input after the event with a clone of itself. As the cloned input would need to be re-focused, screen readers will announce it for a second time which is mildly annoying.
 2. The `onchange` event won't fire until the field is blurred[^]. Newer browsers offer the `oninput` event which solves this problem because it fires the event as soon as the value changes.
 
-Whether you need to support such browsers depends on your situation but it's worth being aware of the problems. Fortunately, the feature detection above happens to rule out the offending browsers. Moreover, you may not even need drag and drop functionality. Without that need, there's less of a need to veer away from convention anyway.
+Whether you need to support such browsers depends on your situation but it's worth being aware of the problems. Fortunately, the feature detection above happens to rule out the offending browsers.
 
-## A Note About The `accept` and `capture` Attributes
+## Other Considerations
+
+There's great complexity involved in uploading files, and really I've only scratched the surface so far. Let's quickly run through some other important issues you may wish to consider when designing an upload form.
+
+### The `accept` and `capture` Attributes
 
 The file input offers two interesting attributes that affect the file uploading experience: `accept` and `capture`.
 
@@ -511,6 +517,40 @@ Adding the capture attribute without a value lets the browser decide which camer
 
 The capture attribute works on Android and iOS, but is ignored on desktop. Beware that on Android this means the user will no longer have the option of choosing an existing picture as the camera app will be started directly instead, which is probably undesirable.
 
+### Is Drag And Drop Even Necessary?
+
+- Moreover, you may not even need drag and drop functionality. Without that need, there's less reason to veer away from convention anyway.
+- You can't drag and drop on mobile, where mobile usage is increasing at a rapid rate.
+- Drag and drop always needs to be in conjunction with a standard file picker, because users with motor impairments, such as tremours will struggle to use one anyway.
+- Users with dexterity problems such as tremor may have difficulty dragging a file. 
+
+### Many Users Struggle To Find Files
+
+- On desktop: Sadly people who have used 'file importers' often struggle to find where the file was imported to. Eg Windows photo-importer.
+- On mobile generally easier but on some android devices: Though on Android when picking an existing photo, users must select 'documents'. This throws most users in research.
+- Tell users where they are likely to find the folder
+- Many users struggle to use the file explorer or finder on laptop or desktop machines. If you know the kind of file you need you may be able to help them find it.
+
+“Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an APp like iPhoto or Google Photos”.
+
+### Language upload/attach
+
+- Steve: ​​I've never seen attach used for anything except emails – I think it is part of the vocabulary. I'd find attach to mean upload a bit odd as I'm not attaching it to anything – I'm sending it somewhere.
+- Ed: I did research looking at lots of 'social' type websites when I started on passports - those that do photo uploads or avatars. The overwhelming majority use the word 'upload'. We've found in research that less technically proficient users don't know what upload means, but they have a general idea that it's something to do with computers.
+
+### Third party integration
+
+- Letting users upload through a third party may be an easy way for them to provide files, so long as it's likely the file exists with the third party, and they're already connected with the service. 
+- However, this method is likely to target more 'advanced' users - it won't help users who don't know what 'dropbox' is. Filepicker is an example of a 'drop-in' way to let users connect multiple services.
+
+### Switching Between Desktop And Mobile To Take a Photo
+
+- File uploads from a mobile device (particularly photos) can often be much easier for users. If they can be directed to access the service from a mobile device, they may be able to upload much more easily.
+
+### Allow for multiple file formats and upload methods
+
+Be forgiving of different file formats and provide multiple methods for uploading files. If you’re using proprietary formats like Microsoft Excel, make sure you also support non-proprietary ones like CSV.
+
 ## Summary
 
 In this chapter, we began by looking at the file picker as the browser gives us quite a bit of power for free. However, we also looked at its various downsides particularly with regards to multi-file uploads. From here, we look at various solutions that started with the persistent upload form before enhancing the interface with a more ergonomic and inclusive drag and drop experience.
@@ -532,3 +572,6 @@ In this chapter, we began by looking at the file picker as the browser gives us 
 [^ proxy change]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
 [^ second time]: https://stackoverflow.com/questions/12030686/html-input-file-selection-event-not-firing-upon-selecting-the-same-file
 [^ blurred]: https://stackoverflow.com/questions/2389341/jquery-change-event-to-input-file-on-ie
+
+## TODO: 
+https://paper.dropbox.com/doc/Upload-a-file-SsbNkLSiTCw6uXQ5V8YHN

@@ -105,9 +105,9 @@ In this chapter, we looked at how to break down really long forms into smaller o
 ## Footnotes
 
 [^ mailchimp]: https://mailchimp.com/
-[^ hsbc]: ?
-[^ passport]: ?
-[^ check before]: ?
+[^ hsbc]: https://www.hsbc.co.uk/1/2/mortgages
+[^ passport]: https://www.gov.uk/apply-renew-passport
+[^ check before]: https://www.gov.uk/service-manual/design/check-before-you-start
 [^ checklists]: https://blog.trello.com/the-psychology-of-checklists-why-setting-small-goals-motivates-us-to-accomplish-bigger-things
 [^ agile]: https://en.wikipedia.org/wiki/Agile_software_development
 [^ task list]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/

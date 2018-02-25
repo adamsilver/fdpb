@@ -167,14 +167,19 @@ However, when not supported, users can keep uploading a single file at a time, a
 
 ## A Drag And Drop Enhancement
 
-As noted earlier, the native file input acts as a drop zone to let users drag and drop files. However, there are two problems:
+As noted earlier, the native file input acts as a drop zone to let users drag and drop files. However, there are two problems with it.
 
-1. it's not immediately obvious that dragging and dropping is possible—there are no signifiers that makes this behaviour perceivable to users.
-2. the drop zone has a small hit area, which makes it hard to use, especially for motor-impaired users.
+First, it's not immediately obvious that dragging and dropping is even possible—there are no signifiers that makes this behaviour perceivable to users. Second, the drop zone has a small hit area, which makes it hard to use, especially for motor-impaired users.
 
 To solve these issues, we're going to take our persistent upload form, and progressively enhance it with better drag and drop functionality. 
 
-*(Note: should a drag and drop interface be employed, it should be used alongside a file picker. This is because some users may need or prefer to use it over drag and drop. We'll look at this in more detail later.)*
+### Warning: Is Drag and Drop Necessary?
+
+Depending on the situation, the humble file picker may be all that users needs to upload files. In this case, you may not need to worry about adding a drag and drop enhancement at all. This way, there's less code to send to the user. As a result, this speeds up page load times and simplifies the interface at the same time.
+
+It's also worth noting that a drag and drop enhancement is just that—an enhancement. It should be used in conjunction with a standard file picker. First because users can't actually drag and drag on mobile, for example. Second, users with dexterity problems such as tremors may have difficulty dragging a file.
+
+By giving users both choices, we're safely following principle 5, *Offer choice*.
 
 ### How It Might Look
 
@@ -485,19 +490,61 @@ For example, some older browsers won't trigger the dialog when the label is used
 
 Whether you need to support such browsers depends on your situation but it's worth being aware of the problems. Fortunately, the feature detection above happens to rule out the offending browsers.
 
-## Other Important Considerations
+## Other Considerations
 
-You may think that having looked at the basic file picker and the drag and drop enhancement that can live alongside it, that there's little much else to cover with regards to uploading files. But really, there's a lot of other things to consider. In this section, we'll briefly cover some of these things.
+There's a number of additional design considerations with regard to uploading files, some of which are deep topics in their own right. Let's run through them quickly now for completeness.
 
-### Is Drag and Drop Necessary?
+### Convert Formats Automatically
 
-Depending on the situation, the humble file picker may be all that users needs to upload files. In this case, you may not need to worry about adding a drag and drop enhancement at all. This way, there's less code to send to the user which improves page load performance and simplifies the interface, both of which improve the overall experience.
+Depending on what users are uploading, we should do the hardwork on users behalf. For example, lets say users need to upload a spreadsheet. In this case, we should let users upload propriertary formats like Microsoft Excel, but also non-proprietary ones like CSV.
 
-It's important to note that drag and drop interfaces should be used in conjunction with a standard file picker. First, because users can't actuall drag and drop on mobile or tablet devices, for example. Second, users with dexterity problems such as tremor may have difficulty dragging a file. In any case, giving users choice (principle 5) as a crucial aspect of good design.
+Whichever, they choose, we can convert it into the right format when it's processed. As you can see, the *Give choice* principle is more than just offering different interaction modalities.
+
+This is also another example of “doing the hardwork so that users don't have to.”
+
+### Many Users Struggle To Find Files
+
+Many users, particularly less digitally savvy users, may struggle to use a file picker because they don't know where the file lives on the computer. And sometimes, the file needs to be transferred to the computer from an external camera or device creating additional effort and confusion.
+
+Ed Horsford, a designer at GDS, conducted research around this for the Renew Your Passport service[^] which involves users uploading a photo of themselves. He said that desktop users who used a file importer (such as Windows photo-importer) struggled to find where the file was imported to when it came to selecting it from the file picker. 
+
+I'd class myself as digitally svvy, but I've struggled many times in the past to locate files I've downloaded from different applications. My personal workaround involves remember to save my files to desktop. This makes the files easy to find. I just have to remember to delete the clutter every now and then.
+
+Ed also said that while users generally found picking a photo easy on mobile, some Android devices house the photos inside “Documents” (not a folder named “Photos”) which in research threw most users.
+
+One simple way to help users with this, is to provide additional guidance and instructions regarding how and where to save files, or alternatively tell users where they're likely to find the file.
+
+![This upload form tells users “Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an App like iPhoto”](./images/08/gov-file-hint.png)
+
+### It's Easier To Take A Photo On Mobile
+
+It's easier to upload a photo on mobile because so many of us take photos with our phones. This means the photo is already on the device, or taking a new one is an easy task. If users are already on their mobile then it's fine, but what if they start the process on desktop?
+
+For services that require users to have an account already, this is quite easy. For example, if I create an advert on Ebay but want to upload photos on my mobile, I just have to login on my mobile to continue where I left off—my in-progress advert will be there ready and waiting for me.
+
+For services that don't require being logged in, such as the Renew Your Passport service, it's more tricky. In this case, consider directing users to their phone with one time security codes or unique URLs that they can type easily into their phone.
+
+![Example screen offering users to continue on their mobile with a special link](./images/08/gov-switch.png)
+
+### Third Party Integration
+
+Some users, especially digitally savvy users, may be using third party services to store files such as Dropbox and Google Drive.
+
+Letting users upload through a third party may be an easy way for them to provide files, so long as it's likely the file exists with the third party, and they're already connected with the service.
+
+But beware that it may not help, or even confuse users who don't know what “Dropbox” is. Be sure to test this diversely in user research.
+
+### A Note On Language
+
+When uploading a file, interfaces use the words “Document”, “File”, “Attach”, “Send” and “Upload”. I've not been able to run in-depth research on this myself, but attaching seems to be more reserved for emails. I don't attach photos, for example, to an Ebay advert.
+
+Apart from email, most websites use “Upload” for labels, buttons and just generally referring to the process of putting a file somewhere.
+
+NOTE:(Ed) We've found in research that less technically proficient users don't know what upload means, but they have a general idea that it's something to do with computers.
 
 ### The `accept` and `capture` Attributes
 
-The file input offers two interesting attributes that affect the file uploading experience: `accept` and `capture`.
+The file input has two interesting attributes that affect the file uploading experience: `accept` and `capture`.
 
 #### The `accept` Attribute
 
@@ -526,56 +573,6 @@ The `capture` attribute, when supported, indicates the preference of getting an 
 Adding the capture attribute without a value lets the browser decide which camera to use (if there's one available), while the `user` and `environment` values tell the browser to prefer the front and rear cameras respectively.
 
 The capture attribute works on Android and iOS, but is ignored on desktop. Beware that on Android this means the user will no longer have the option of choosing an existing picture as the camera app will be started directly instead, which is probably undesirable.
-
-### Allow For Different Formats
-
-Giving users choice isn't just about interaction modalities. It's also about letting users upload files in many different formats. Why put the burden on users to convert files, when we can do that for them easily with technology.
-
-For example, if a user needs to upload a spreadsheet, we should let them do so with popular proprietary formats like Microsoft Excel, but also other non-proprietary forms such as CSV.
-
-This way users can upload whatever they have easily.
-
-### Many Users Struggle To Find Files
-
-Many users, particularly less digitally savvy users, struggle to use file pickers because they don't know where the file lives on the computer. And remember, the file may originate on another external device such as a camera, phone or USB device.
-
-I spoke with Ed Horsford, a designer at GDS who conducted extensive research regarding file uploading, when he designed the Renew Your Passport service[^] which involves users uploading a photo of themselves.
-
-He said that on desktop, users who used a file importer (such as Windows photo-importer) struggled to find where he file was imported to when it came to selecting it from the file picker. Even as a digitally savvy user myself, I've struggled to locate files many times. I usually try to download files to my desktop for easy access and then periodically delete those files.
-
-He also mentioned that while users generally found picking a photo easy on mobile, some Android devices house the photos inside “Documents” which in research sessions threw most users.
-
-To solve this problem, you may be able to provide additional guidance (using the hint pattern, for example) to help users find the file.
-
-TODO: “Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an App like iPhoto or Google Photos”.
-
-![Photo of hint](./images/08/gov-file-hint.png)
-
-### It's Easier To Take A Photo On Mobile
-
-It's easier to upload a photo on a mobile device because many people take photos with their phone. So either the photo is already on their device (but not the computer), or they can easily take a new one. This is particularly useful, for example, when upload photos for a new Ebay advert.
-
-However, some users will start creating an advert on Desktop. In this case, it's useful if they can be directed to use part of the service on their mobile. With Ebay, it's easy because users have to have an account to create an advert. This means, the in-progress advert will be ready and waiting for them, as soon as they login on their mobile.
-
-Other services, may not require being logged in: Renew Your Passport, is an example of this. In this case, users may need to be securely directed with one time codes, or unique URLs that they can type into their mobile to continue.
-
-![Photo of special code/url](./images/08/gov-switch.png)
-
-### Third Party Integration
-
-Some users, especially digitally savvy users, may be using third party services to store files such as Dropbox and Google Drive.
-
-Letting users upload through a third party may be an easy way for them to provide files, so long as it's likely the file exists with the third party, and they're already connected with the service.
-
-But beware that it may not help, or even confuse users who don't know what “Dropbox” is. Be sure to test this diversely in user research.
-
-### A Note On Language
-
-When uploading a file, interfaces use the words “Document”, “File”, “Attach”, “Send” and “Upload”. I've not been able to run in-depth research on this myself, but attaching seems to be more reserved for emails. I don't attach photos, for example, to an Ebay advert.
-
-Apart from email, most websites use “Upload” for labels, buttons and just generally referring to the process of putting a file somewhere.
-
-NOTE:(Ed) We've found in research that less technically proficient users don't know what upload means, but they have a general idea that it's something to do with computers.
 
 ## Summary
 

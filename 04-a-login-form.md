@@ -10,21 +10,21 @@ In this chapter, we'll design a login form and as we bump into each of the probl
 
 ## A Standard Login Form
 
-![Login bad example](./images/04/login-bad.png)
+![A standard login form](./images/04/login-bad.png)
 
 ## Username Label And Hint Text
 
 Our login form, like many sites on the web, has an ambiguous label of “Username” even though it expects users to enter their email address. Ultimately, the login form should mirror the site's registration form. In our case, this means the label should be “Email address.”
 
-![Username vs email](./images/04/username-vs-email.png)
+![A field labelled “username” (left) and “email address” (right)](./images/04/username-vs-email.png)
 
 Legacy systems sometimes let users enter an email address or a username. In this case, the same rules apply—the label should be “Username or email address”—don't make users guess.
 
-![Username vs username and email](./images/04/username-vs-username-and-email.png)
+![A field labelled “username” (left) and “username or email address” (right)](./images/04/username-vs-username-and-email.png)
 
 Some niche sites, such as airlines ask users to enter their booking reference number. In this case, use the hint pattern to tell users where they can find it.
 
-![Hint vs no hint](./images/04/username-hint.png)
+![A field labelled “booking reference” without a hint (left) and the same field with additional hint of “you'll find this in the confirmation email” (right)](./images/04/username-hint.png)
 
 ## Auto-capitalisation, Auto-correct And Spell checking
 
@@ -67,7 +67,7 @@ Many users will tweak their password to match the rules of the site in question.
 
 Referring back to the registration form in chapter 1 again, we gave users a hint that explained the password rules. But like many sites, our login form fails to provide the same clarity. Why should users have to guess, or worse, reset their password?
 
-![What are the rules](./images/04/login-hintless.png)
+![Password field without a hint (left) and with a hint (right)](./images/04/login-hintless.png)
 
 This sort of ambiguity is often in the name of security because providing a hint would make a hacker's job easier. But first, hackers don't hack this way and even if they did, what's to stop the the hacker checking the rules on the registration page? Nothing.
 
@@ -76,13 +76,13 @@ In short, we should leverage the patterns in “A Registration Form”:
 1. Give users a hint text. This way, users have a greater chance of success without having to wait for a useful error message. 
 2. Let users reveal their password using the password reveal pattern.
 
-![Password field with hint and reveal](./images/04/password-field.png)
+![Password field with a hint and password reveal component](./images/04/password-field.png)
 
 ## Auto-tabbing
 
 Some login forms, such as those found on bank sites, ask users for certain characters of their password. Or they may ask for certain digits of their security pin. In either case, users are normally given three separate text boxes or select boxes.
 
-![Santander](./images/04/santander.png)
+![Santander bank password field with separate text boxes for each character](./images/04/santander.png)
 
 The first problem with this approach is that sites will auto-tab between the fields. That is, focus is moved to the next text box automatically as the user enters a pre-determined number of characters. But as the BBC's UX guidance[^] says:
 
@@ -96,7 +96,7 @@ This point of view shouldn't be surprising given that the technique is founded o
 
 In this case, there's just no good reason for it. And splitting up a text box into three is unnecessary. A single, clearly-labelled text box lets users type three characters freely.
 
-![Single field vs three inputs](./images/04/single-field.png)
+![Password field with three separate inputs (left) and a single input (right)](./images/04/single-field.png)
 
 ## Submit Button Text: Log In Versus Sign In
 
@@ -106,7 +106,7 @@ Having ironed out problems with the username and password fields, our login form
 
 It can, however, depend on the industry. Banks, for example, tend to use “Log in.” The notion of logging came along with computers in the 80s—the operations that users do are *logged* for security reasons.
 
-![Login](./images/04/button-text.png)
+![Button labelled “Log in” (left) and “Sign in” (right)](./images/04/button-text.png)
 
 Ultimately, we should design interfaces that speak in the language that's familiar to the user. Whichever you choose, be consistent (principle 3). Make URLs, links, headings and buttons match. And if users click “Log in” to log in, then they should click “Log out” to log out.
 
@@ -124,7 +124,7 @@ The problem for users, is that they're left to reset their password which is lon
 
 In this case, we don't have to tell users what their password is, but we can tell them that it's the password that doesn't correspond to the username (which they have right).
 
-![What are the rules](./images/04/login-error.png)
+![Password error “The username and password doesn't match” (left) and “The password doesn't correspond to your username” (right)](./images/04/login-error.png)
 
 ## The Form In Context
 
@@ -136,7 +136,7 @@ When trying to perform an action anonymously, that requires being logged in, use
 
 Many sites design the login page with a unique, minimalist layout. For example, when users try to add a product to their basket on Tesco[^], they're taken to a login page with a very different layout.
 
-![Contextless](./images/04/contextless.png)
+![Tesco's login screen has a different layout to the main pages of the site](./images/04/contextless.png)
 
 Giving users a different layout is disorientating, especially for screen reader users and cognitively impaired users as they have to refamiliarise themselves with a new structure.
 
@@ -146,7 +146,7 @@ Where possible, the login form should inherit the layout of the rest of the site
 
 Some sites put both registration and login forms on one page. Either next to each other on desktop, or below one another on mobile. This is problematic for a number of reasons.
 
-![Link to register](./images/04/two-forms.png)
+![Login and register forms on the same page](./images/04/two-forms.png)
 
 1. Putting similar forms next to each other makes it hard to decide between them, especially for cognitively impaired users. 
 2. Arriving on a page containing two forms, with a heading of “Log in or register”, is confusing when you consider that many users would have clicked a link labelled “Log in”.
@@ -155,7 +155,7 @@ Some sites put both registration and login forms on one page. Either next to eac
 
 Instead, put each form on a separate page, and give users a link to each form at the top.
 
-![Link to register](./images/04/link.png)
+![Login and register forms on separate pages but linked together via hyperlinks](./images/04/link.png)
 
 ### Forgotten Password Link Placement
 
@@ -165,7 +165,7 @@ Most sites give users a way to reset their password if they forget it. The featu
 
 Worst still, is when the link is placed before the submit button. When keyboard and screen reader users tab from the password field and press <kbd>Enter</kbd>, they'll expect the form to submit. But instead, they'll be taken to reset their password. When they realise what's happened, they'll need to go back, re-enter their credentials and be careful not to make the same mistake again.
 
-![Forgot password](./images/04/tab.png)
+![Forgot password link between last field and button (left). Forgot password link before the form (right).](./images/04/tab.png)
 
 When the feature is considered in isolation, having the reset password link in close proximity to the password field makes sense. But the primary need is to log in and the link shouldn't disturb the experience of logging in.
 
@@ -185,7 +185,7 @@ Users are worried about their privacy. They don't know what you'll do automatica
 
 Medium.com does this well because on the login page it says “We won't post without asking” which puts users minds at ease.
 
-![Medium login](./images/04/medium-login-usage.png)
+![Medium social login buttons explain how the user's details will be used](./images/04/medium-login-usage.png)
 
 ### Seamless Interchange
 
@@ -197,7 +197,7 @@ Again, Medium lets users log in interchangeably without users ever knowing what 
 
 Users can visit the settings page to see what accounts are hooked up, which keeps users informed and in control.
 
-![Medium settings](./images/04/medium-settings.png)
+![Medium's settings page lets users configure their accounts easily](./images/04/medium-settings.png)
 
 ### Choice Versus Choice Paralysis
 

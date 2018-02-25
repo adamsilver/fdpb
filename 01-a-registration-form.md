@@ -710,8 +710,3 @@ In this chapter we solved several fundamental form design challenges that are ap
 [^error message return on investment]: http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
 [^where to look for buttons]: https://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php
 [^inline error message position]: http://adrianroselli.com/2017/01/avoid-messages-under-fields.html
-
-## Possible footnotes/additions
-
-[^reduce height of forms quote]: https://twitter.com/lukew/status/872861520811614208?s=09
-[^medium no password sign in]: https://blog.medium.com/signing-in-to-medium-by-email-aacc21134fcd

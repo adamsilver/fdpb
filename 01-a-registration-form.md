@@ -39,7 +39,7 @@ In “Accessibility For Everyone”[^], Laura Kalbag sets out four broad paramet
 
 By looking at labels from each of these standpoints, we can see just how important labels are. Sighted users can read them, visually-impaired users can hear them by using a screen reader and motor-impaired users can more easily set focus to the field thanks to the larger hit area. That's because clicking a label sets focus to the associated form element.
 
-![Hit area](./images/01/regform-label-hit-area.png)
+![The control's label increases the hit area](./images/01/regform-label-hit-area.png)
 
 For these reasons, every control that accepts input should have an auxilary `<label>`. Submit buttons, for example, don't accept input so they don't need an auxilary label—the `value` attribute which renders the text inside the button acts as the accessible label.
 
@@ -60,21 +60,21 @@ The `placeholder` attribute is intended to store a hint. It gives users extra gu
 
 As placeholder text is not a real value, it's ‘grayed out’ so that it can be differentiated from user-entered values.
 
-![Placeholder example from above](./images/01/placeholder-example.png)
+![The placeholder text is hard to read due to its poor contrast](./images/01/placeholder-example.png)
 
 Hints, unlike labels, are optional and shouldn't be used as a matter of course. Just because the placeholder attribute exists doesn't mean we have to use it. For example, you don't need a placeholder of ‘Enter your first name’ when the label is ‘First name’—that's needless duplication.
 
-![Placeholder and label with same value](./images/01/placeholder-label-same-value.png)
+![The placeholder is unnecessary as it doesn't provide any additional value over the label](./images/01/placeholder-label-same-value.png)
 
 Placeholders are appealing because of their minimal, space-saving aesthetic. This is because placeholder text is placed *inside* the field. But, this is a problematic way to give users a hint.
 
 First, they disappear when the user types. Disappearing text is hard to remember which can cause errors if, for example, the user forgets to satisify one of the password rules. Users often mistake placeholder text for a value[^], causing the field to be skipped, which again, would cause errors later on. Gray-on-white text lacks sufficient contrast making it generally hard-to-read[^]. And to top it off, some browsers don't support them, some screen readers don't announce them and long hint text may get cut off.
 
-![Long hint text cut off](./images/01/placeholder-cutoff.png)
+![The long placeholder text is cut off](./images/01/placeholder-cutoff.png)
 
 That's a lot of problems for what is essentially just text. All content, especially a form hint, shouldn't be considered a ‘nice to have.’ So instead of using placeholders, it's better to position hint text above the control like this:
 
-![Hint pattern](./images/01/hint-pattern.png)
+![Place the hint text outside of the control to avoid the problems with placeholder text](./images/01/hint-pattern.png)
 
 ```HTML
 <div class="field">
@@ -108,7 +108,7 @@ There are other differences too. First, clicking the hint (a `<p>` in this case)
 
 The float label[^] pattern by Matt Smith is a technique that uses the label as a placeholder. The label starts *inside* the control, but floats above the control as the user types, hence the name. This technique is often lauded for it's quirky, minimalist and space saving qualities.
 
-![Float label](./images/01/float-label.png)
+![The float label pattern](./images/01/float-label.png)
 
 Unfortunately, there are several problems with this approach. First, there is no space for a hint because the label and hint are one and the same. Second, they're hard-to-read due to their poor contrast and small text as they're typically designed. Lower contrast is necessary so that users have a chance to differentiate between a real value and a placeholder. And, like placeholders, they may be mistaken for a value and could get cropped.
 
@@ -134,7 +134,7 @@ In all likeliness you don't need to ask for the user's first and last name just 
 
 One way to avoid asking users for a password is to use the No Password Sign In pattern. It works by leveraging the security of email (which already needs a password). Users only have to enter their email address and the service sends a special link to their inbox. Clicking it logs the user into the service immediately.
 
-![Medium No Password Sign In](./images/01/no-password.png)
+![Medium's “no password” sign in feature](./images/01/no-password.png)
 
 Not only does this reduce the size of the form to just one field, but it also saves users having to remember another password. Whilst this simplifies the form in isolation, in other ways it adds some additional complexity for the user.
 
@@ -213,7 +213,7 @@ The label itself is “Email address” and uses sentence case. In “Making A C
 
 The input's `type` attribute is set to `email` which triggers an email-specific on-screen keyboard on mobile devices. Specifically, it gives users easy access to the ‘@’ and ‘.’ symbols which every email address must contain.
 
-![Email keyboard](./images/01/email-keyboard.png)
+![The email input Android on-screen keyboard](./images/01/email-keyboard.png)
 
 People using a non-supporting browser will see a standard text input (`input type="text"`). This is a form of progressive enhancement which is a cornerstone of designing inclusive experiences.
 
@@ -277,7 +277,7 @@ input[type=password]::-ms-reveal {
 
 Now we're ready to enhance the interface with our own version. 
 
-![Password reveal](./images/01/password-reveal.png)
+![The password field reveal pattern](./images/01/password-reveal.png)
 
 First, we need to inject a button next to the input. The `<button>` element should be your go-to element for changing anything with Javascript. That is, except for changing location which is what links are for. When clicked, it should toggle the `type` attribute between `password` and `text` and the label between “Show password” and “Hide password”.
 
@@ -456,7 +456,7 @@ document.title = "(" + this.errors.length + ")" + document.title;
 
 As noted above this is primarly for screen reader users, but as is often the case with inclusive design, what helps one set of users helps everyone else too. This time, the updated title acts as a notification in the tab.
 
-![Whatsapp and this side by side](./images/01/title-notification.png)
+![The title change acts as a prompt when viewed within the browser tab](./images/01/title-notification.png)
 
 #### Error Summary
 
@@ -522,7 +522,7 @@ When there aren't any errors, the summary panel should be hidden. This ensures t
 
 First, we need to put the relevant error message just above the field. This saves users scrolling up and down the page in order to check the error message, which keeps them moving down the form. If the message was placed below the field we'd increase the chance of it being obscured by the browser autocomplete panel[^] or by the on-screen keyboard.
 
-![In-context Errors](./images/01/inline-error.png)
+![Inline error message](./images/01/inline-error.png)
 
 ```html
 <div class="field">
@@ -622,7 +622,7 @@ If users are seeing errors often, there's probably something wrong elsewhere. Fo
 
 A variation of live validation involves ticking off rules (marking them as complete) as the user types. This is less invasive than live validation but isn't suited to every type of field. Here's an example of Mailchimp's sign up form which employs this technique for the password field.
 
-![Mailchimp example](./images/01/mailchimp-affirmation.png)
+![Mailchimp's live validation for the password field](./images/01/mailchimp-affirmation.png)
 
 You should put the rules above the field otherwise the on-screen keyboard could obscure the feedback. As a result users may stop typing, hide the keyboard to then check the feedback.
 
@@ -652,7 +652,7 @@ Avoid pleasantries, like starting each message with “please”. On one hand, t
 
 Whatever approach you take, there's going to be some repetition due to the nature of the content. And testing usually involves submitting the form without entering any information at all. This makes the repetition glaringly obvious, which as content designers may cause us to flip out. But how often is this the case? Most users aren't trying to break the interface.
 
-![Wall of errors on a larger form](./images/01/wall-of-errors.png)
+![A form with many error messages makes the repetition of words more obvious.](./images/01/wall-of-errors.png)
 
 Different errors require different formatting. Instructions like “Enter your first name” are natural. But “Enter a first name that is 35 characters or less” is longer, wordier and less natural than a description like “First name must be 35 characters or less”.
 

@@ -4,15 +4,15 @@
 
 In 2008 I worked on Boots.com where we designed a single-page checkout flow. This involved the trendiest of techniques from that era including accordions, AJAX and client-side validation. Each step: delivery address, delivery options and payment was an accordion panel. Each panel was submitted via AJAX. On successful submission, the panel collapsed and the next one opened.
 
-![Boots accordion](./images/02/boots-accordion.png)
+![The Boots accordion single page checkout flow](./images/02/boots-accordion.png)
 
 Users struggled to complete their orders. Errors were hard to fix as users had to scroll up and down. And the accordion was a distraction. Inevitably, Boots asked us to make changes. We redesigned it so that each panel became a page removing the need for an accordion and AJAX. (We kept the client-side validation to avoid an unnecessary trip to the server.)
 
-![Boots One Thing Per Page](./images/02/boots-one-thing-per-page.png)
+![The Boots “One Thing Per Page” checkout flow](./images/02/boots-one-thing-per-page.png)
 
 This converted a lot better. Although I can't remember the exact numbers, the client was happy with the results. Six years later, in 2014, at Just Eat, the same thing happened. We redesigned the single-page checkout flow so that each section became a page. This time I noted the numbers. The result was a whopping 5% increase in conversion. This equated to 2 million orders a year. That’s *orders*, not revenue.
 
-![Just Eat checkout](./images/02/justeat.png)
+![The Just Eat “One Thing Per Page” checkout mobile screens](./images/02/justeat.png)
 
 Two years later, in 2016, Robin Whittleton from GDS, told me that putting each thing on a page of its own was a design pattern called One Thing Per Page[^1]. Behind the improved numbers, there are many reasons why it drastically improves the user experience.
 
@@ -81,7 +81,7 @@ There is, however, an opportunity to adapt the content to fit this context bette
 
 Here, it's because we can send users a receipt of purchase, which is particularly important if checking out anonymously. Additionally the email may provide details about how to return it. We can tell users this transparently via the hint text.
 
-![We need this to send you a receipt](./images/02/email-field.png)
+![The email address field with hint to explain why users are being asked to provide this information](./images/02/email-field.png)
 
 *(Note: the button's positioning and styling is the same as set out in “A Registration Form”. But the label is set to “Continue” which implies progress and is better suited to the linear checkout flow)*.
 
@@ -89,7 +89,7 @@ Here, it's because we can send users a receipt of purchase, which is particularl
 
 Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint. Remember, the hint is not just for formatting rules—it's for anything that will help users fill out the field. This transparency builds trust, reduces effort, and promotes the feature all at the same time.
 
-![Mobile screen](./images/02/mobile-field.png)
+![Mobile phone field with “optional” text inside the label](./images/02/mobile-field.png)
 
 ```html
 <div class="field">
@@ -103,7 +103,7 @@ Like the email field, we should be asking ourselves why we're asking for their p
 
 The input's `type="tel"` attribute will spawn a telephone-specific keyboard on mobile devices. This makes it easier to enter a phone number thanks to the larger keypad.
 
-![Tel keyboard](./images/02/tel-keyboard.png)
+![The telephone input iOS on-screen keyboard](./images/02/tel-keyboard.png)
 
 ### Marking Optional Or Required Fields
 
@@ -123,7 +123,7 @@ Thanks to the Question Protocol, most fields should be required, so we mark opti
 
 ## 3. Delivery Address
 
-![Delivery form](./images/02/delivery-form.png)
+![Delivery address form](./images/02/delivery-form.png)
 
 ```HTML
 <div class="field">
@@ -172,7 +172,7 @@ Capture Plus[^8] is a third party plugin that lets users search for their addres
 
 As the user types the first line of their address, suggestions will appear from which they can select. This reduces the number of keystrokes and therefore the chance of typos.
 
-![Capture+ Enhancement](./images/02/capture-plus.png)
+![The Capture+ third-party plugin lets users search for their address by typing a few characters in a text box.](./images/02/capture-plus.png)
 
 If no address is found, users can change the interface back to the original address form. In doing so, we conform to principle 5, *Offer choice*.
 
@@ -180,7 +180,7 @@ Capture+ has a third-party script which you can include on your page. But most t
 
 ## 4. Delivery Options
 
-![Delivery options](./images/02/delivery-options.png)
+![Delivery option radio buttons](./images/02/delivery-options.png)
 
 ```html
 <fieldset class="field">
@@ -236,13 +236,13 @@ Imagine you're at work. You get a notification to say your item is being deliver
 
 A delivery note, which you can provide at your discretion, stops this from happening. The delivery note tells the delivery person what to do if you're not home. Perhaps you'd prefer it to be left with a neighbour, or inside your recycle bin which Amazon refers to as a “safe place.” This, by the way, works surprisingly well.
 
-![Delivery notes](./images/02/delivery-notes.png)
+![Delivery notes form with hint explaining what the field is for](./images/02/delivery-notes.png)
 
 ```HTML
 <div class="field">
   <label for="notes">
       <span class="field-label">Delivery notes (optional)</span>
-      <span class="field-hint">Tell us what to do if you're not in. For example, *leave it with the next door neighbour*.</span>
+      <span class="field-hint">Tell us where to leave your package in case you're not in. For example, “Leave it with my neighbor”.</span>
   </label>
     <textarea id="notes" name="notes"></textarea>
 </div>

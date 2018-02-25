@@ -18,9 +18,9 @@ If all users need to do is upload a single file, then you can add a file picker 
 <form enctype="multipart/form-data">
   <div class="field">
     <label for="documents">
-      <span class="label">Attach document</span>
+      <span class="label">Choose file</span>
     </label>
-    <input class="field-file" type="file" id="documents" name="documents">
+    <input class="field-file" type="file" id="file" name="file">
   </div>
   <input type="submit" value="Upload" name="upload">
 </form>
@@ -51,10 +51,10 @@ The most robust way of styling the file picker is to visually hide it like this:
 
 ```HTML
 <div class="field">
-  <label for="documents">
-    <span class="label">Attach document</span>
+  <label for="file">
+    <span class="label">Choose file</span>
   </label>
-  <input class="visually-hidden" type="file" id="documents" name="documents">
+  <input class="visually-hidden" type="file" id="file" name="file">
 </div>
 ```
 
@@ -203,10 +203,10 @@ Here's the Javascript-enhanced mark-up:
 
 ```HTML
 <form class="dropzone">
-	<div class="field">
-		<label for="files">Upload file</label>
-		<input type="file" name="files" id="files" multiple>
-	</div>
+  <div class="field">
+    <label for="files">Upload file</label>
+    <input type="file" name="files" id="files" multiple>
+  </div>
 </form>
 ```
 
@@ -528,19 +528,13 @@ For services that don't require being logged in, such as the Renew Your Passport
 
 ### Third Party Integration
 
-Some users, especially digitally savvy users, may be using third party services to store files such as Dropbox and Google Drive.
+Some (digitally savvy) users may already use third-party services (such as Dropbox) to store files. Giving users a way to upload or provide files from these services may well be easier for them, especially if it's connected with the service already.
 
-Letting users upload through a third party may be an easy way for them to provide files, so long as it's likely the file exists with the third party, and they're already connected with the service.
+However, be warned that it may be unhelpful or even confusing to users who don't know what “Dropbox” is. Be sure to make the different choices clear and test diversely in user research sessions.
 
-But beware that it may not help, or even confuse users who don't know what “Dropbox” is. Be sure to test this diversely in user research.
+### Microcopy: “Upload” or “Attach”
 
-### A Note On Language
-
-When uploading a file, interfaces use the words “Document”, “File”, “Attach”, “Send” and “Upload”. I've not been able to run in-depth research on this myself, but attaching seems to be more reserved for emails. I don't attach photos, for example, to an Ebay advert.
-
-Apart from email, most websites use “Upload” for labels, buttons and just generally referring to the process of putting a file somewhere.
-
-NOTE:(Ed) We've found in research that less technically proficient users don't know what upload means, but they have a general idea that it's something to do with computers.
+Generally speaking there's two ways to communicate to users about uploading files. The first is to use “attach”, but this seems best suited for email. In almost every other situation “Upload” seems more common, which is what we used for our generic drag and drop upload form.
 
 ### The `accept` and `capture` Attributes
 

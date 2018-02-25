@@ -590,7 +590,7 @@ The attribute isn't reserved for endonyms—it can be used to store common typos
 
 #### How It Might Look
 
-![Choosing where to fly](./images/03/autocomplete.png)
+![The autocomplete component offers suggestions as the user types](./images/03/autocomplete.png)
 
 ## 2. When To Fly
 
@@ -598,11 +598,11 @@ Dates are notoriously hard[^]: different time zones, formats, delimiters, days i
 
 Often three select boxes are used: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said that one of their redeeming qualities is that they stop users entering wrong information. But in the case of dates, even *this* quality doesn't hold up. For example, you can select an invalid date such as *31 February 2017*.
 
-![Select box date](./images/03/dob-select.png)
+![A date of birth field made up of three separate select boxes which is hard to use](./images/03/dob-select.png)
 
 Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine users' intention based on what they enter. It's just one of those things.
 
-![What date?](./images/03/what-date.png)
+![A text box with the date “10/09/12” which could be one of many dates depending on the order in which day, month and year is specified](./images/03/what-date.png)
 
 Many of us assume that using a calendar widget is always better than letting users type freely into a text box unassisted. But this is not always the case. The UK Goverment Digital Service (GDS) Service Manual states:
 
@@ -624,7 +624,7 @@ A memorable date is one that you remember easily such as your date of birth. Typ
 
 Memorable dates are best represented by three text boxes: one for day, month and year. Why three? Because it solves the locale and formating issues mentioned earlier.
 
-![memorable date](./images/03/memorable-date.png)
+![Date of birth field using the memorable date pattern made up of three separate text boxes](./images/03/memorable-date.png)
 
 ```HTML
 <fieldset class="field">
@@ -694,7 +694,7 @@ Depending on your situation, this level of support may be fine. Perhaps entering
 
 #### How It Might Look
 
-![Date picker](./images/03/date-picker.png)
+![The date picker component](./images/03/date-picker.png)
 
 The date picker consists of a toggle button that reveals the calendar. From there users will be able to traverse the calendar and ultimately select a date to populate the text box.
 
@@ -771,7 +771,7 @@ Notes:
 
 #### Revealing The Calendar
 
-![Date picker](./images/03/date-picker-focused.png)
+![The date picker in its original state (left) and after revealing the calendar (right)](./images/03/date-picker-focused.png)
 
 The calendar starts hidden. When the toggle button is clicked, the calendar is revealed by removing the `hidden` class on the wrapper. Immediately after, the focus is set to the Previous Month button, which is the first focusable element inside the calendar.
 
@@ -980,7 +980,7 @@ Despite our efforts to support as many users as possible, there's a rare situati
 
 In chapter 1 we discussed the importance of progressive enhancement because we can't be sure that JavaScript is always available. Users experiencing a network or JavaScript failure while also using a browser that doesn't support the native date will just see a text box without any hint text regarding the format of the date.
 
-![Date picker no hint](./images/03/date-picker-no-hint.png)
+![The date picker without a hint, as it would be seen without JavaScript](./images/03/date-picker-no-hint.png)
 
 We can't use the hint pattern (from chapter 1) because browsers that support the date input use a different format. Of course, we should be as forgiving as possible, by letting users type slashes, periods or spaces, but typing a two-digit year first, for example, will still cause an error. A well written error message may have to suffice.
 
@@ -1004,7 +1004,7 @@ As browser support improves, the number of people who would experience the degra
 
 Next we need to know how many people are travelling. The age of the passengers affects the price of the ticket so we'll arrange the interface according to these age groups.
 
-![Passengers](./images/03/passengers.png)
+![Choosing passengers by category](./images/03/passengers.png)
 
 ```HTML
 <div class="field">
@@ -1041,7 +1041,7 @@ To supply all browsers with bigger, more ergonomic buttons, we can create a cust
 
 #### How It Might Look
 
-![Passengers enhanced](./images/03/passengers-enhanced.png)
+![Choosing passengers now with custom stepper buttons making it simple to add or remove passengers within each category](./images/03/passengers-enhanced.png)
 
 #### Hiding The Native Spinners
 
@@ -1098,7 +1098,7 @@ In the case of the stepper buttons, plus and minus icons keep the options equall
 
 Now all the relevant information has been collected, we can give users a list of flights from which the user can choose one.
 
-![Choose flight](./images/03/choose-flight.png)
+![The choose flight screen made up of radio buttons for each choice.](./images/03/choose-flight.png)
 
 The system shows flights that match the date the user specified earlier. Additionally, the interface lets users move back and forth between days. The group's label is set as normal via the `<legend>` and is set to “Available flights on 18 August 2018.”
 
@@ -1155,7 +1155,7 @@ A radio button group is made up of multiple controls. Take a look at the mark-up
 
 The `aria-invalid="true"` attribute is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid—it's the group. The error `<span>` is exactly the same as the one used for standard text fields which ensures that errors look and behave the same across all types of form fields which speaks to principle 3, *Be consistent*.
 
-![Radio button error](./images/03/choose-flight-error.png)
+![Radio button group error state with the error residing inside the legend](./images/03/choose-flight-error.png)
 
 The error summary needs to contain a link to the first radio button within the group. That is, the link's `href` attribute needs to match the first radio button's `id` attribute. This is why the first radio button in the group has matching `id` and `name` attributes: “flight”.
 
@@ -1199,7 +1199,7 @@ Where possible, you should avoid nested fieldsets, not only for screen reader us
 
 Instead, we can ask users to specify their preference beforehand. At the same time, we can check Economy as checked by default. Marking the most common choice expedites the process.
 
-![Choose class](./images/03/choose-class.png)
+![This form lets users choose their class upfront with the most common option (“Economy”) checked by default](./images/03/choose-class.png)
 
 ### Checkboxes Are Never Round
 

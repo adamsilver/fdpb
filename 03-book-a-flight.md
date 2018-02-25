@@ -961,6 +961,15 @@ DatePicker.prototype.onCellKeyDown = function(e) {
 };
 ```
 
+(Note: as mentioned earlier, we could have used the `aria-activedescendant` technique for the grid. The reasons I opted for the roving tabindex technique is that )
+
+---
+One benefit of using roving tabindex rather than aria-activedescendant to manage focus is that the user agent will scroll the newly focused element into view.
+
+ARIA less support
+---
+
+
 | Key | Action |
 |:---|:---|
 | <kbd>Down</kbd> | Focus the same day in the subsequent week. If it's the last week, switch to the next month first. |

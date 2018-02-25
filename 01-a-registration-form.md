@@ -638,19 +638,19 @@ As we're providing users with clear feedback, when the user expects it, there's 
 
 There's nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the outcome of using a service.
 
-Even the most thought-out, inclusive and beautifully-designed experience counts for nothing if we ignore the words used to construct error messages. One study shows that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^].
+Even the most thought-out, inclusive and beautifully-designed experience counts for nothing if we ignore the words used to craft error messages. One study showed that showing custom messages increased conversions by 0.5% which equated to more than £250,000 in yearly revenue[^].
 
 > “Content is the user experience”—Ginny Redish
 
-Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content—not the other way around. But in this case, understanding how messages are going to be shown and why, influences the design of the words themselves. This is why Jared Spool says “content and design are inseparable work partners.”
+Like labels, hints and any other content, a good error message provides clarity in as few words as possible. Normally we should drive the design of an interface based on the content—not the other way around. But in this case, understanding how messages are going to be shown and why, influences the design of the words themselves. This is why Jared Spool says “content and design are inseparable work partners.”
 
-We're showing messages in the both the summary at the top and next to the fields in context. As a result, we need to make sure the content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
+We're showing messages in the both a summary at the top of the screen and next to the fields in context. As a result, we need to make sure the content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
 
 Maintaining two versions of the same message is a hard sell for an unconvincing gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol’ works well in both locations.
 
-Avoid pleasantries, like starting each message with “Please”. On one hand, this seems polite. On the other, it gets in the way and implies a choice.
+Avoid pleasantries, like starting each message with “please”. On one hand, this seems polite. On the other, it gets in the way and implies a choice.
 
-Whatever approach you take, there's going to be some repetition due to the nature of the content. And testing usually involves submiting the form without entering any information at all. This makes the repetition glaringly obvious, which as content designers may cause us to flip out. But how often is this the case? Most users aren't trying to break the interface.
+Whatever approach you take, there's going to be some repetition due to the nature of the content. And testing usually involves submitting the form without entering any information at all. This makes the repetition glaringly obvious, which as content designers may cause us to flip out. But how often is this the case? Most users aren't trying to break the interface.
 
 ![Wall of errors on a larger form](./images/01/wall-of-errors.png)
 
@@ -658,14 +658,13 @@ Different errors require different formatting. Instructions like “Enter your f
 
 Here's a checklist:
 
-- **Use punctuation.** Some errors have clauses and contain more than one sentence.
-- **Be specific.** If you know why something has gone wrong, say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and clear.
-- **Use the active voice**. For example, ‘Enter your name’ not ‘First name must be entered’.
-- **Don't blame the user**. Just let them know what's gone wrong and how to fix it.
-- **Use plain language.** Error messages are not an opportunity to promote your brand's humerous tone of voice.
-- **Be human, avoid jargon.** Avoid avoid words like *invalid*, *forbidden* and *mandatory*.
-- **Be terse.** Don't use more words than is necessary, but don't omit words at the cost of clarity.
+- **Be concise.** Don't use more words than is necessary, but don't omit words at the cost of clarity.
 - **Be consistent.** Use the same tone, the same words and the same punctuation throughout.
+- **Be specific.** If you know why something has gone wrong, say so. ‘The email is invalid.’ is ambiguous and puts the burden on the user. ‘The email needs an “at” symbol’ is explicit and clear.
+- **Be human, avoid jargon.** Don't use words like *invalid*, *forbidden* and *mandatory*.
+- **Use plain language.** Error messages are not an opportunity to promote your brand's humorous tone of voice.
+- **Use the active voice**. When an error is an instruction and you tell the user what to do. For example, 'Enter your name' not 'First name must be entered'.
+- **Don't blame the user**. Just let them know what's gone wrong and how to fix it.
 
 ## Summary
 
@@ -706,7 +705,7 @@ In this chapter we solved several fundamental form design challenges that are ap
 [^html5 validation not uniform]: http://caniuse.com/#feat=form-validation
 [^implicit form submission]: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#implicit-submission
 [^javascript prone to failure]: https://kryogenix.org/code/browser/everyonehasjs.html
-[^design is metrically oposed]: https://vimeo.com/138359368
+[^design is metrically opposed]: https://vimeo.com/138359368
 [^inline validation]: https://alistapart.com/article/inline-validation-in-web-forms
 [^error message return on investment]: http://www.90percentofeverything.com/2009/02/16/karl-sabino-on-the-roi-of-well-designed-error-messages/
 [^where to look for buttons]: https://www.uxmatters.com/mt/archives/2014/09/eye-tracking-in-user-experience-design.php

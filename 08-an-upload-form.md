@@ -577,8 +577,9 @@ From here, we look at various solutions that started with the persistent upload 
 ### Things To Avoid
 
 - Prioritising form over function.
-- Using the multiple file input without considering what happens in browsers that lack support for it.
-- Creating a drag and drop enhancement without ensuring users need such behaviour.
+- Using the multiple file input without considering what dealing with browsers that lack support for it.
+- Replacing a standard file picker with a drag and drop interface.
+- Forcing users to use a particular file format, when we can convert it for them automatically.
 
 ## Demos
 

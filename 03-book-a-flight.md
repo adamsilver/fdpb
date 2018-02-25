@@ -961,14 +961,7 @@ DatePicker.prototype.onCellKeyDown = function(e) {
 };
 ```
 
-(Note: as mentioned earlier, we could have used the `aria-activedescendant` technique for the grid. The reasons I opted for the roving tabindex technique is that )
-
----
-One benefit of using roving tabindex rather than aria-activedescendant to manage focus is that the user agent will scroll the newly focused element into view.
-
-ARIA less support
----
-
+*(Note: as described earlier with the autocomplete component, we could have used the `aria-activedescendant` technique for the grid. However, the benefits of using roving tab indexes is that it's better supported and it ensures that the newly focused element is scrolled into view.)*
 
 | Key | Action |
 |:---|:---|

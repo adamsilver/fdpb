@@ -98,9 +98,7 @@ Third, if your search form contains more than one field, omitting the submit but
 
 Interestingly, many of the sites that omit the submit button, normally find room to include a magnifying glass icon to signify its otherwise hidden affordance. In this case, they may as well place the icon inside a submit button solving both problems at the same time.
 
-![Medium no button](./images/06/medium-search-no-button.png)
-
-Caption: Medium puts a magnifying glass icon before the search box. If they combine the icon with a submit button placed after the search box, the form would work conventionally. That is, keyboard users, for example, would expect the search box to come before the submit button.
+![Medium puts a magnifying glass icon before the search box. If they combine the icon with a submit button placed after the search box, the form would work conventionally. That is, keyboard users, for example, would expect the search box to come before the submit button.](./images/06/medium-search-no-button.png)
 
 *(Note: if you do decide to hide the button using the `visually-hidden` class, remember the button would still be focusable. This means, sighted screen reader users[^adrian], for example, will find this problematic. You can fix this by adding the `tabindex="-1"` attribute.)*
 

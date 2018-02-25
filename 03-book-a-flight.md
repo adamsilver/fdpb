@@ -659,8 +659,7 @@ As usual, our first port of call is to see if there's a date picker control that
 
 Mobile browser support is really good and includes Samsung's browser, FireFox, Edge, Chrome, Opera and Safari. Desktop support is patchier: Chrome and Edge support it, but Internet Explorer and Safari (at time of writing) don't. We'll look at how to support them later.
 
-![Image](./images/03/date-input-mobile.png)
-Caption: A selection of date pickers on different browsers
+![A selection of date pickers on different browsers](./images/03/date-input-mobile.png)
 
 As the date picker is provided by the browser, you'll notice how it looks a lot like the system date picker that's used for setting dates and times on your phone. That's by design so that mobile browsers can outsource the problem to native components. This is good because users will be familiar with it which speaks to principle 3, *Be consistent*.
 

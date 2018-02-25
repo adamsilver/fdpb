@@ -14,37 +14,28 @@ First thought, it must be said that if you can simplify the process so that it's
 
 ## The Check Before You Start Pattern
 
-One of the best ways we can help users save time, is by not wasting it in the first place. One way to do that is to tell users what they need to know before they start the process. For example, to apply for an HSBC[^] mortgage in the UK, users must:
+One of the best ways we can help users save time, is by not wasting it in the first place. One way to do that is to tell users what they need to know before they start the process. 
 
-- constent to a credit check
-- confirm the property is in a habitual condition
-- be aged 18 and over
+For example, to apply for an HSBC[^] mortgage in the UK, users must: constent to a credit check; confirm the property is in a habitual condition; and be aged 18 and over. HSBC tells users this on the first page of the application, *before* they start.
 
-This is good, but users may also want to know:
+![HSBC tells users some important information that may rule them out on the first page of the application.](./images/10/hsbc-bullets.png)
 
-- what the process looks like
+This is helpful, but users may also want to know:
+
+- what the overall process involves
 - if they need to visit a branch
 - how long it takes to get a decision
 - what documents they'll need (and what alternative options they might have, if any)
 
 Knowing this upfront, not only saves users a lot of time, but it can also lower the operating costs of the service. This works by reducing the time and effort support teams spend working out and explaining all of this to people over the phone.
 
-![Check before you start bullets](./images/10/hsbc-bullets.png)
+This pattern is applicable in other situations too. For example, if an underaged person is trying to buy cinema tickets for an adult-only showing, they would want to know that they may have to prove their age at the cinema.
 
-This pattern is applicable in other situations too. For example, if an underaged person is trying to buy cinema tickets for an adult-only showing, they should know that they may need to prove their age before entering the cinema.
+Other processes and services are more complicated and can depend on the individual's circumstances. For example, the Renew Your Passport[^] service (shown below), needs to ask a series of questions to determines someone eligibility to apply for a passport. 
 
-Some services are more complicated and can depend on the individual's circumstances. For example, the Renew Your Passport[^] service (shown below), needs to ask a series of questions to determines someone eligibility to apply for a passport. 
+![The user is asked if the passport is lost or stolen. Answering “No” lets them apply for a passport as normal. Answering “Yes” takes them to a screen telling them to cancel their passport, with a number of options suited to their specific situation.](./images/10/passport-questions.png)
 
-![Passport question flow](./images/10/passport-questions.png)
-
-Caption: The user is asked if the passport is lost or stolen. Answering “No” lets them apply for a passport as normal. Answering “Yes” takes them to a screen telling them to cancel their passport, with a number of options suited to their specific situation.
-
-If the applicant has lost their passport, for example, then they aren't able to use the main service. The Government Digital Service calls this the Check Before You Start pattern[^]. This pattern can:
-
-- make the process more transparent which increases trust
-- save users a lot of time
-- reduce support costs
-- empower users to decide the best course of action
+If the applicant has lost their passport, for example, then they aren't able to use the main service. The Government Digital Service calls this Check Before You Start, which you can read about in “We've published the check before you start pattern”[^] by Harry Trimble and Rob Le Quesne.
 
 ## The Task List Pattern
 
@@ -115,7 +106,7 @@ In the end, these patterns can make a very long and very complex journey relativ
 [^ mailchimp]: https://mailchimp.com/
 [^ hsbc]: https://www.hsbc.co.uk/1/2/mortgages
 [^ passport]: https://www.gov.uk/apply-renew-passport
-[^ check before]: https://www.gov.uk/service-manual/design/check-before-you-start
+[^ check before launch]: https://designnotes.blog.gov.uk/2017/03/30/weve-published-the-check-before-you-start-pattern/
 [^ checklists]: https://blog.trello.com/the-psychology-of-checklists-why-setting-small-goals-motivates-us-to-accomplish-bigger-things
 [^ agile]: https://en.wikipedia.org/wiki/Agile_software_development
 [^ task list]: https://designnotes.blog.gov.uk/2017/04/04/weve-published-the-task-list-pattern/

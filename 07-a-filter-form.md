@@ -184,9 +184,9 @@ Really, we’re exchanging one set of problems for another, arguably larger set.
 
 ### Submitting The Form Automatically
 
-If, despite our efforts to thwart breaking convention, users still expect the form to submit automatically, we can use Javascript to submit the form in response to the form’s change event. 
+If, despite our efforts to thwart breaking convention, users still expect the form to submit automatically, we can use JavaScript to submit the form in response to the form’s change event. 
 
-As our filter only contain checkboxes and radio buttons, we can first remove the now redundant submit button. However, we can’t completely remove the button from the document because some platforms (iOS for example) will not submit forms where a submit button isn’t present. In which case, we can use our special visually hidden class, plus tabindex="-1" to make sure the button isn’t user-focusable.
+As our filter only contain checkboxes and radio buttons, we can first remove the now redundant submit button. However, we can’t completely remove the button from the document (with `display: none`, for example) because some platforms (iOS for example) will not submit forms where a submit button isn’t present—and as mentioned in chapter 6, omitting the submit button stops users being able to submit the form implicitly, with the Enter key. In which case, we can use our special visually hidden class, plus tabindex="-1" to make sure the button isn’t user-focusable.
 
 ```JS
 function FilterRequester() {

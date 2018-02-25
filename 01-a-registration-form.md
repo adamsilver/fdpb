@@ -640,7 +640,7 @@ There's nothing more important than content. Users don't come to your website to
 
 Even the most thought-out, inclusive and beautifully-designed experience counts for nothing if we ignore the words used to construct error messages. One study shows that showing custom messages increased conversion by 0.5% which equated to more than £250,000 in yearly revenue[^].
 
-> “Content is the user experience”
+> “Content is the user experience”—Ginny Redish
 
 Like labels, hints and any other content, a good error message provides clarity in as fewer words as possible. Normally we should drive the design of an interface based on the content—not the other way around. But in this case, understanding how messages are going to be shown and why, influences the design of the words themselves. This is why Jared Spool says “content and design are inseparable work partners.”
 
@@ -654,7 +654,7 @@ Whatever approach you take, there's going to be some repetition due to the natur
 
 ![Wall of errors on a larger form](./images/01/wall-of-errors.png)
 
-Different errors require different techniques. Instructions like “Enter your first name” are natural. But “Enter a first name that is 35 characters or less” is longer, wordier and less natural than a description like “First name must be 35 characters or less”.
+Different errors require different formatting. Instructions like “Enter your first name” are natural. But “Enter a first name that is 35 characters or less” is longer, wordier and less natural than a description like “First name must be 35 characters or less”.
 
 Here's a checklist:
 

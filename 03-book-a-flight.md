@@ -226,6 +226,8 @@ A radio button group, for example, is a composite control that has one tab stop.
 
 The text box within our autocomplete control is naturally focusable by the Tab key. Once focused, the user will be able to press the arrow keys to traverse the menu which we'll look at shortly. Pressing Tab when the text box or menu option is focused, should hide the menu to stop it from obscuring the content beneath when not in use. We'll look at how to do this next.
 
+*(Note: one way to make a composite control have just a single tab stop is to use the `aria-activedescendant` attribute[^]. It works by keeping focus on the component's container at all times but by referencing the currently active element. This doesn't work for the autocomplete component because the text box is a sibling (not a parent) of the menu.)*
+
 #### Hiding The Menu Onblur Is Problematic
 
 The `onblur` event is triggered when the user leaves an in-focus element. In the case of the autocomplete, we could listen to this event on the text box. The virtue of using the `onblur` event is that it will be triggered when the user leaves the field by pressing <kbd>Tab</kbd> or by clicking or tapping outside of the element.
@@ -893,7 +895,7 @@ The days of the month are presented in a grid format of which the `<table>` elem
 
 The `role="grid"` attribute (and each cell's `role="gridcell"` attribute) tells screen readers to treat the table as a grid. Without this, JAWS for example, won't let users operate the calendar with the arrow keys using JavaScript. This is because, the arrow keys are reserved for operating a standard table in a special way.
 
-The `<thead>` contains the names of the days. Note that they're abbreviated which should be avoided in most cases. But in this case, the calendar needs to fit on small viewports too. The unabbreviated heading is placed inside the `aria-label` attribute which means it will be announcd in screen readers.
+The `<thead>` contains the names of the days. Note that they're abbreviated which should be avoided in most cases. But in this case, the calendar needs to fit on small viewports too. The unabbreviated heading is placed inside the `aria-label` attribute. Support is a little patchy, but it's a useful enhancement for browser/screen reader combinations that will pick this up, such as NVDA with FireFox.
 
 Each cell contains a number (the date) which is perfectly adequate for sighted users as they can see the entire calendar. But, screen reader users would only hear “17” which is ambiguous unless they carefully remember the previously announced month and year. To provide a comparable experience (principle 1), we put the full date inside the `aria-label` attribute.
 
@@ -1312,6 +1314,7 @@ As much as we tried to use native form controls, in their standard format, it be
 [^ MDN combo]: https://developer.mozilla.org/en-US/docs/Web/Accessibility/AT-APIs/Gecko/Roles/ROLE_COMBOBOX
 [^ magic numbers]: https://en.wikipedia.org/wiki/Magic_number_(programming)
 [^ single tab stop]: https://www.w3.org/TR/wai-aria-practices-1.1/#kbd_generalnav
+[^ activedescendant]: https://www.w3.org/WAI/GL/wiki/Using_aria-activedescendant_to_allow_changes_in_focus_within_widgets_to_be_communicated_to_Assistive_Technology
 [^ event delegation]: https://learn.jquery.com/events/event-delegation/
 [^ dates are hard]: http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time
 [^nobody cares]: https://www.smashingmagazine.com/2016/01/nobody-wants-use-your-product/

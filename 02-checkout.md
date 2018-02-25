@@ -264,7 +264,7 @@ But, even if it was well supported, it's not recommended because some users don'
 
 Instead, we should let users type freely and tell users how many characters they have left. This way, users can see the feedback when they finally look up at the screen and can edit their entry in response. If they don't notice the feedback, an error will be shown when they submit the form, thanks to the validation routine (set out in chapter 1, “A Registration Form”).
 
-![Character count](./images/02/character-countdown.png)
+![The character countdown tells users how many characters they have left as they type](./images/02/character-countdown.png)
 
 To create this component, we need to use JavaScript to inject a status box below the field. 
 
@@ -326,7 +326,7 @@ There are a number of details on a credit or debit card: name on card, card numb
 
 When we designed Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe[^15] as the payment provider. This way, we didn't have to worry about PCI compliance[^16] and the cost of developing a solution from scratch. Here's the payment form we ended up with:
 
-![Payment](./images/02/payment.png)
+![Payment form](./images/02/payment.png)
 
 You'll notice Valid From date, which is often provided on a payment form is missing, so I spoke with Øyvind to find out why. Here's what he said:
 
@@ -404,7 +404,7 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
 
 The number input (`input type="number"`) lets mobile users more quickly type a number via a numeric keypad. On desktop, the input will contain increment and decrement buttons called spinners which make it easy to make small adjustments without having to select and type.
 
-![Spinners](./images/02/spinners.png)
+![Number input with little spinner buttons](./images/02/spinners.png)
 
 You might think that the number input is appropriate for the card number, expiry date, and CVC number—after all, they all consist of numbers. But it's a lot more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate or not.
 
@@ -535,7 +535,7 @@ As this is the final step in the flow, the button's text should be set to “Pla
 
 Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information—that would defeat the purpose of the page. Users should only need to go back if they spot a mistake.
 
-![Review](./images/02/review.png)
+![The review page lets users jump back in the flow to make quick changes](./images/02/review.png)
 
 Users can click Edit to make amendments which is another advantage of using the One Thing Per Page pattern. As pages are small they will load fast; as each page has just one thing on it making a change is simple.
 
@@ -557,7 +557,7 @@ By giving users value, they'll probably want to sign up. By value, I mean someth
 
 Up to now, we've also been sure to use plain and simple language for labels, hints, and errors. On the confirmation page, there is an opportunity to let your brand's personality shine through because the important stuff has already been done. Mailchimp's confirmation page show's their chimp mascot giving you a virtual high-five. Nice.
 
-![Mailchimp high five](./images/02/mailchimp.png)
+![Mailchimp's confirmation screen let's their brand shine through by showing their mascot high-fiving](./images/02/mailchimp.png)
 
 Here's a checklist of things to consider including on the confirmation page:
 
@@ -590,7 +590,7 @@ By omitting navigation and search, users can focus on checking out which speaks 
 
 ### Indicating Progress
 
-![Progress bar](./images/02/progress-bar.png)
+![A progress indicator](./images/02/progress-bar.png)
 
 Progress bars or indicators are often used within checkout because—at least in theory—they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful or even noticed. For example, you can read about how the Carer’s Allowance team removed a 12-step progress indicator with no effect on completion rates or times[^19]. 
 
@@ -600,7 +600,7 @@ If that weren't enough, they're even trickier to design when the journey consist
 
 The problem is that a progress bar should tell the user what steps exist in advance. But the steps are based on users' answers. Either you show every possible step which is misleading, or you update the progress bar (by removing or adding steps) as you go, which somewhat defeats the purpose of having one.
 
-![Progress bar woes](./images/02/progress-bar-woes.png)
+![The progress bar is misleading because it shows the payment step which isn't applicable when users are collecting in-store](./images/02/progress-bar-woes.png)
 
 Not including a progress bar prioritises the main content, by move it further up the page which speaks to principle 6, *Prioritse content*. In any case, having meticulously designed the journey to be as simple as possible, users should make their way to the end quickly which reduces the need for the progress indicator.
 
@@ -658,7 +658,7 @@ When you're shopping in a physical shop, you pick up your items and place them i
 
 Giving users a comparable experience digitally is important. We can place an order summary panel on every page to keep users informed without having to remember what they're buying, freeing up their mental energy to focus on checking out.
 
-![Order Summary](./images/02/order-summary.png)
+![The order summary screen](./images/02/order-summary.png)
 
 As the user completes each step, the order summary will populate with more information. For example, on the email address screen (step 1), the summmary only shows what they're buying. On the mobile screen (step 2) it will populate with their email address, and so forth. If the user spots a mistake, they can jump back to any previous step by clicking the Edit link—just like the review page.
 
@@ -672,7 +672,7 @@ AJAX-driven and modal-heavy sites haven't helped matters because clicking the br
 
 However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust it. In this case, position the link at the top left of the page. By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
 
-![Back link](./images/02/back-link.png)
+![The back link positioned above the form](./images/02/back-link.png)
 
 ## Summary
 

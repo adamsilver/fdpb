@@ -508,7 +508,7 @@ Many users, particularly less digitally savvy users, may struggle to use a file 
 
 Ed Horsford, a designer at GDS, conducted research around this for the Renew Your Passport service[^] which involves users uploading a photo of themselves. He said that desktop users who used a file importer (such as Windows photo-importer) struggled to find where the file was imported to when it came to selecting it from the file picker. 
 
-I'd class myself as digitally svvy, but I've struggled many times in the past to locate files I've downloaded from different applications. My personal workaround involves remember to save my files to desktop. This makes the files easy to find. I just have to remember to delete the clutter every now and then.
+I'd class myself as digitally savvy, but I've also struggled many times in the past to locate files I've downloaded from different applications. My personal workaround involves remembering to save my files to desktop. This makes the files easy to find. I just have to remember to delete the clutter every now and then.
 
 Ed also said that while users generally found picking a photo easy on mobile, some Android devices house the photos inside “Documents” (not a folder named “Photos”) which in research threw most users.
 

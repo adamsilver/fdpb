@@ -10,7 +10,7 @@ As usual, we'll start by looking at what browsers give us for free. After that, 
 
 A file picker (`<input type="file">`) is another type of form control. When clicked, it will spawn a dialog that let's users browse their files on their computer or device. Once a file is selected, the dialog closes and the picker updates to reflect the file has been chosen.
 
-![File picker](./images/08/single-file-picker.png)
+![Left a file picker without a file selected. Right a file picker with a file selected.](./images/08/single-file-picker.png)
 
 If all users need to do is upload a single file, then you can add a file picker to your form and you're pretty much done:
 
@@ -66,7 +66,7 @@ Now that it's hidden, we can style the control's label, which *is* easy to style
 
 Now the input is hidden, we need to style the label so that it looks interactive. To make it look interactive, we need to style it as a button and change it's text to “Upload file”.
 
-![Label as proxy](./images/08/label-as-button.png)
+![Left a label styled as normal. Right the modified label styled as a button.](./images/08/label-as-button.png)
 
 #### Focus States
 
@@ -90,7 +90,7 @@ $('[type=file]').on('change', function(e) {
 });
 ```
 
-![Label text updated](./images/08/chosen-file.png)
+![Left the button-styled label before file selection. Right after selection.](./images/08/chosen-file.png)
 
 #### Pitfalls
 
@@ -117,7 +117,7 @@ The easiest, but most problematic way to solve this would be to add the `multipl
 
 This provides the same method of file selection as described above, except that users can select multiple files from within the dialog.
 
-![Selecting multiple files](./images/08/multiple-dialog.png)
+![Multiple file dialog on Mac OS.](./images/08/multiple-dialog.png)
 
 That would be it, if you ignored two significant problems:
 
@@ -127,11 +127,11 @@ Second, not all browsers support the multiple attribute. And when support is lac
 
 For example, take a form which asks users to submit receipts. When the `multiple` attribute is supported, users can upload all the relevant receipts and submit them. Without support, users can only upload a single receipt.
 
-![Problem](./images/08/problematic-form.png)
+![Multiple file form.](./images/08/problematic-form.png)
 
 One way to solve this problem involves giving users a way to add additional files as part of the flow:
 
-![Degraded solution](./images/08/multiple-degrade-solution.png)
+![Multiple file form with extra screen to let users continue adding files.](./images/08/multiple-degrade-solution.png)
 
 Not only does this design let users upload multiple files in unsupported browsers, but it also lets the user review their submission which is a useful addition regardless. 
 
@@ -143,7 +143,7 @@ But the task of uploading files means it's useful to give users a form that pers
 
 ### How It Might Look
 
-![Illustrate degraded version](./images/08/degraded.png)
+![Left a persistent upload form before a file has been uploaded. Right the same form with a file uploaded and the upload form beneath.](./images/08/degraded.png)
 
 The user can choose and upload a file repeatedly until they've uploaded all the desired files. At which point, they can click the Continue button.
 
@@ -183,7 +183,7 @@ By giving users both choices, we're safely following principle 5, *Offer choice*
 
 ### How It Might Look
 
-![Dropzone](./images/08/drop-zone.png)
+![Upload from enhanced with large dropzone.](./images/08/drop-zone.png)
 
 The large drop zone is more ergonomic, especially for people with motor-impairments. It's conventionally styled with a dashed border. However, if your users aren't familiar with this convention, you can add instructional text.
 
@@ -219,7 +219,7 @@ Notes:
 
 When the user is dragging files over the dropzone, they should be given feedback so that they know that the files can be dropped. 
 
-![on drag over](./images/08/dragover.png)
+![Left dropzone. Right dropzone while file is being dragged over it.](./images/08/dragover.png)
 
 We can achieve this by adding a class onto the drop zone when the `ondragover` event is fired. Similarly, we need to remove the class when the user leaves the dropzone (`ondragleave`):
 
@@ -315,7 +315,7 @@ Files can take a long time to upload, especially if the connection is slow. As s
 
 We can show feedback with a progress bar. Each file is represented separately as there's a separate request for each one. This way, some small files will upload quickly, while others load more slowly in parallel.
 
-![Progress](./images/08/progress.png)
+![File list with progress bar for each one.](./images/08/progress.png)
 
 ```HTML
 <ul>
@@ -360,7 +360,7 @@ The progress bar's inner text is also set. This is so that users using a browser
 
 Next, we want to show users when a file has been successfully uploaded. First, the file name is converted into a link so that users can download and verify the file if they wish. Second, we inject a success message of “File uploaded” and a Remove button which is useful if the file was uploaded by mistake.
 
-![Success](./images/08/success.png)
+![File list with successfully uploaded files marked as such.](./images/08/success.png)
 
 ```HTML
 <li>
@@ -393,7 +393,7 @@ We're using the success callback which receives the response from the server as 
 
 If the uploaded file is too big, or in the wrong format, we'll need to show users an error message. This is similar to the success message, but instead of showing a green success message with a tick, we'll show a red message with a warning symbol. Note: the error mark-up is the same as the error mark-up used to show validation errors in a standard form.
 
-![An error](./images/08/error.png)
+![File list with unsuccessfully uploaded files marked with error messages.](./images/08/error.png)
 
 ```HTML
 <li>
@@ -514,7 +514,7 @@ Ed also said that while users generally found picking a photo easy on mobile, so
 
 One simple way to help users with this, is to provide additional guidance and instructions regarding how and where to save files, or alternatively tell users where they're likely to find the file.
 
-![This upload form tells users “Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an App like iPhoto”](./images/08/gov-file-hint.png)
+![Upload form with field hint explaining that “Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an App like iPhoto”.](./images/08/gov-file-hint.png)
 
 ### It's Easier To Take A Photo On Mobile
 
@@ -524,7 +524,7 @@ For services that require users to have an account already, this is quite easy. 
 
 For services that don't require being logged in, such as the Renew Your Passport service, it's more tricky. In this case, consider directing users to their phone with one time security codes or unique URLs that they can type easily into their phone.
 
-![Example screen offering users to continue on their mobile with a special link](./images/08/gov-switch.png)
+![Screen guiding users to continue the process on their mobile with a special link.](./images/08/gov-switch.png)
 
 ### Third Party Integration
 
@@ -550,7 +550,7 @@ The `accept` attribute takes a string that indicates which types of file the pic
 
 When supported, the browser/device may offer users a more stringent experience when choosing files. In Chrome and Safari on iOS and Android, for example, it will give users a choice of which app to use to capture the image, including the option of taking a photo with the camera or choosing an existing image file.
 
-![iOS and Android accept dialogs](./images/08/accept-attribute.png)
+![iOS (left) and Android (right) dialogs for selecting images on device when the capture attribute is used.](./images/08/accept-attribute.png)
 
 But on desktop browsers it will prompt the user to upload an image file from the file system disabling files that aren't to be accepted (images in the above case). The problem is users won't be told why the files are disabled as there's no feedback.
 

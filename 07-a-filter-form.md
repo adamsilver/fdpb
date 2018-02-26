@@ -152,9 +152,9 @@ As the form is made out of standard form components, the code for our filter for
 
 As noted above, the filter form (like any other form, I might add), lets users select as many filters as they like before submitting them. This standard and conventional behaviour should be familiar to users, except this is not always the case. 
 
-I interviewed David House, a former designer for Gumtree[^], a site which uses filters extensively. As such, David and his team did many rounds of usability tests and here’s what he said:
+I interviewed Dave House, a former designer for Gumtree[^], a site which uses filters extensively. As such, Dave and his team did many rounds of usability tests and here’s what he said:
 
-> On desktop, Gumtree users would select filters without submitting them. They didn't realise they had to submit their choices. We got a lot of feedback saying “Your filters are broken.”
+> On desktop, Gumtree users would select filters without submitting them. They didn't expect to have to submit their choices. We heard a lot of feedback saying “Your filters are broken.”
 
 Due to the materially dishonest design of filters as explained earlier, it seems some people have come to expect that clicking a checkbox (or radio button), will reload the results without having to submit.
 
@@ -454,9 +454,9 @@ We can’t just put the filters first as this will push the results down the pag
 
 We’re left with having to collapse the filters behind a toggle button. We’ve covered this behaviour extensively in chapters 5 and 6 respectively. Now, we’re going to focus on another related problem.
 
-Earlier, I mentioned part of the interview I had with David House, a former Gumtree designer, who conducted a lot of research with how to deal with filters. In particular, that Gumtree users expected the filter to submit with AJAX on submit. However, Gumtree’s research also showed that on mobile, this wan’t desirable because users couldn’t see the results refresh. Here’s what David said:
+Earlier, I mentioned part of the interview I had with Dave House, a former Gumtree designer, who conducted a lot of research with how to deal with filters. In particular, that Gumtree users expected the filter to submit with AJAX on submit. However, Gumtree’s research also showed that on mobile, this wan’t desirable because users couldn’t see the results refresh. Here’s what Dave said:
 
-> On mobile, AJAX wasn't desirable because users couldn't see any visible refresh. We didn't want to move focus to the results because users wanted to pick more than one filter. We reluctantly had to use an adaptive approach. On mobile, clicking the filter menu button would reveal a batch filtering system that worked without AJAX.
+> On mobile, AJAX wasn't desirable because users couldn't see any visible refresh of the results, the amount of filters available in some categories meant this would have happened off screen. To the user this would have looked like nothing had changed. We didn't want to move focus to the results on every interaction because users often wanted to pick more than one filter. We reluctantly had to use an adaptive approach. On mobile, clicking the refine menu button would reveal a full screen filter panel where users could build up their refinements and submit when they were done.
 
 Gumtree reluctantly went for an adaptive approach, giving mobile users and desktop users different experiences. But there might be a way to give users a more responsive experience—one that conforms to principle 3, Be consistent. 
 

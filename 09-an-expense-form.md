@@ -10,11 +10,11 @@ Of course, if you know how many entries are needed in advance, then give users a
 
 In the previous chapter, I introduced the persistent form pattern. In short, we gave users an upload form, which users can keep using until they've finished uploading as many files as they need. At which point they can proceed or exit the page—whichever is best.
 
-![Upload form](./images/09/persistent-upload-form.png)
+![Left an upload form that stays on screen to be used as many times as necessary. Right file list above the upload form with uploaded files. Each file can be deleted.](./images/09/persistent-upload-form.png)
 
 There are a number of other forms on the web that use the persistent form pattern. For example, Github's *add collaborators* form and the infamous Todo List[^] form that many JavaScript frameworks use to demonstrate their approach.
 
-![Github collaborators](./images/09/github.png)
+![Github's Add Collaborators form.](./images/09/github.png)
 
 This pattern works for adding expenses too. Each time the user submits an expense, it will be added to the list that sits above the form.
 

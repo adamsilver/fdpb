@@ -18,7 +18,7 @@ There are a number of other forms on the web that use the persistent form patter
 
 This pattern works for adding expenses too. Each time the user submits an expense, it will be added to the list that sits above the form.
 
-![Persistent expense form](./images/09/persistent-expense-form.png)
+![Left expense form before adding an expense. Right same form with a list of added expenses above.](./images/09/persistent-expense-form.png)
 
 This pattern is well-suited to short, simple forms that can be submitted in one go. The pattern does, however, have a number of downsides:
 
@@ -31,12 +31,11 @@ This pattern is well-suited to short, simple forms that can be submitted in one 
 
 One of the major problems with the Persistent Form pattern is that it can't handle branching. Branching involves users being asked different questions depending on previous answers. For example, if users are expensing a car, they'll need to enter mileage; if they're expensing a train ticket, then they'll need to enter its price.
 
-
 In this case, the One Thing Per Page pattern (first discussed in “Checkout”) is more suitable. This is because it presents one question at time meaning we can show users different pages depending on their answers. This solves the branching problem elegantly and simply, but, what if users need to enter multiple expenses and submit them in one go?
 
 We can add an additional screen to the end of the journey asking users if they'd like to add another expense. Selecting Yes takes the user to down the same flow again. Selecting No completes the task.
 
-![Add another question](./images/09/add-another-radios.png)
+![The add expense flow using One Thing Per Page with a question at the end of the flow asking if the user want's to add another one.](./images/09/add-another-radios.png)
 
 ## The Add Another Pattern
 
@@ -46,7 +45,7 @@ The Add Another pattern works by giving users a single form, on a single page, s
 
 ### How It Works
 
-![Add another](./images/09/add-another-pattern.png)
+![Left add expense form with Add Another button. Right having clicked the button to clone the fields allowing the user to add multiple expenses.](./images/09/add-another-pattern.png)
 
 The form starts with enough fields to enter one expense. However, there's an Add Another button, that when pressed, will instantly clone the fields so that users can enter the details of an additional expense.
 
@@ -200,7 +199,7 @@ The function works by searching for all form controls that have the `data-name` 
 
 Finally, the label's `for` attribute is set to the control's `id` attribute. If we didn't do this, then when the user clicks the cloned label, focus will be moved to the first field instead. 
 
-![Focus issue](./images/09/add-another-pattern-focus.png)
+![Left clicking the second description field sets focus to the first description field erroneously.](./images/09/add-another-pattern-focus.png)
 
 *(Note: the code for retrieving the label uses a logic OR operator. This is because the label appears in different places depending on the type of field. In the case of a text field, for example, it will be the previous sibling. However, for radio buttons, should an expense need radio buttons, it will be the parent.)*
 

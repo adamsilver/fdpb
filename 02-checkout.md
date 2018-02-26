@@ -81,7 +81,7 @@ There is, however, an opportunity to adapt the content to fit this context bette
 
 Here, it's because we can send users a receipt of purchase, which is particularly important if checking out anonymously. Additionally the email may provide details about how to return it. We can tell users this transparently via the hint text.
 
-![The email address field with hint to explain why users are being asked to provide this information](./images/02/email-field.png)
+![The email address field with hint text explaining why users are being asked for this.](./images/02/email-field.png)
 
 *(Note: the button's positioning and styling is the same as set out in “A Registration Form”. But the label is set to “Continue” which implies progress and is better suited to the linear checkout flow)*.
 
@@ -89,7 +89,7 @@ Here, it's because we can send users a receipt of purchase, which is particularl
 
 Like the email field, we should be asking ourselves why we're asking for their phone number. We know that the courier offers real-time text messages on the day of delivery. But the customer doesn't. So we tell them via the hint. Remember, the hint is not just for formatting rules—it's for anything that will help users fill out the field. This transparency builds trust, reduces effort, and promotes the feature all at the same time.
 
-![Mobile phone field with “optional” text inside the label](./images/02/mobile-field.png)
+![Mobile phone field with “(optional)” text at the end of the label.](./images/02/mobile-field.png)
 
 ```html
 <div class="field">
@@ -103,7 +103,7 @@ Like the email field, we should be asking ourselves why we're asking for their p
 
 The input's `type="tel"` attribute will spawn a telephone-specific keyboard on mobile devices. This makes it easier to enter a phone number thanks to the larger keypad.
 
-![The telephone input iOS on-screen keyboard](./images/02/tel-keyboard.png)
+![The iOS on-screen keyboard for the telephone input.](./images/02/tel-keyboard.png)
 
 ### Marking Optional Or Required Fields
 
@@ -123,7 +123,7 @@ Thanks to the Question Protocol, most fields should be required, so we mark opti
 
 ## 3. Delivery Address
 
-![Delivery address form](./images/02/delivery-form.png)
+![Delivery address fields: address line 1, line 2, city and postcode.](./images/02/delivery-form.png)
 
 ```HTML
 <div class="field">
@@ -172,7 +172,7 @@ Capture Plus[^8] is a third party plugin that lets users search for their addres
 
 As the user types the first line of their address, suggestions will appear from which they can select. This reduces the number of keystrokes and therefore the chance of typos.
 
-![The Capture+ third-party plugin lets users search for their address by typing a few characters in a text box.](./images/02/capture-plus.png)
+![A text box using the Capture+ plugin showing options as the user types their postcode.](./images/02/capture-plus.png)
 
 If no address is found, users can change the interface back to the original address form. In doing so, we conform to principle 5, *Offer choice*.
 
@@ -180,7 +180,7 @@ Capture+ has a third-party script which you can include on your page. But most t
 
 ## 4. Delivery Options
 
-![Delivery option radio buttons](./images/02/delivery-options.png)
+![Delivery option radio buttons with two options: free delivery and premium.](./images/02/delivery-options.png)
 
 ```html
 <fieldset class="field">
@@ -236,15 +236,15 @@ Imagine you're at work. You get a notification to say your item is being deliver
 
 A delivery note, which you can provide at your discretion, stops this from happening. The delivery note tells the delivery person what to do if you're not home. Perhaps you'd prefer it to be left with a neighbour, or inside your recycle bin which Amazon refers to as a “safe place.” This, by the way, works surprisingly well.
 
-![Delivery notes form with hint explaining what the field is for](./images/02/delivery-notes.png)
+![Delivery notes field with hint explaining what to enter.](./images/02/delivery-notes.png)
 
 ```HTML
 <div class="field">
   <label for="notes">
-      <span class="field-label">Delivery notes (optional)</span>
-      <span class="field-hint">Tell us where to leave your package in case you're not in. For example, “Leave it with my neighbor”.</span>
+    <span class="field-label">Delivery notes (optional)</span>
+    <span class="field-hint">Tell us where to leave your package in case you're not in. For example, “Leave it with my neighbor”.</span>
   </label>
-    <textarea id="notes" name="notes"></textarea>
+  <textarea id="notes" name="notes"></textarea>
 </div>
 ```
 
@@ -264,7 +264,7 @@ But, even if it was well supported, it's not recommended because some users don'
 
 Instead, we should let users type freely and tell users how many characters they have left. This way, users can see the feedback when they finally look up at the screen and can edit their entry in response. If they don't notice the feedback, an error will be shown when they submit the form, thanks to the validation routine (set out in chapter 1, “A Registration Form”).
 
-![The character countdown tells users how many characters they have left as they type](./images/02/character-countdown.png)
+![The character countdown telling users how many characters they have left to type.](./images/02/character-countdown.png)
 
 To create this component, we need to use JavaScript to inject a status box below the field. 
 
@@ -326,7 +326,7 @@ There are a number of details on a credit or debit card: name on card, card numb
 
 When we designed Kidly's checkout flow, Øyvind Valland, Chief Technology Officer (CTO) carefully picked Stripe[^15] as the payment provider. This way, we didn't have to worry about PCI compliance[^16] and the cost of developing a solution from scratch. Here's the payment form we ended up with:
 
-![Payment form](./images/02/payment.png)
+![Payment form with 4 fields: card number, expiry date, security number and same as billing address checkbox (checked by default).](./images/02/payment.png)
 
 You'll notice Valid From date, which is often provided on a payment form is missing, so I spoke with Øyvind to find out why. Here's what he said:
 
@@ -404,7 +404,7 @@ As mentioned earlier, autofill is enabled with the `autocomplete` attribute. Mos
 
 The number input (`input type="number"`) lets mobile users more quickly type a number via a numeric keypad. On desktop, the input will contain increment and decrement buttons called spinners which make it easy to make small adjustments without having to select and type.
 
-![Number input with little spinner buttons](./images/02/spinners.png)
+![Number input with tiny spinner buttons inside the field](./images/02/spinners.png)
 
 You might think that the number input is appropriate for the card number, expiry date, and CVC number—after all, they all consist of numbers. But it's a lot more complicated than that. By looking at what the spec says, what browsers do and what users want, we can more easily determine when the number input is appropriate or not.
 
@@ -535,7 +535,7 @@ As this is the final step in the flow, the button's text should be set to “Pla
 
 Every piece of information gathered during checkout should be represented on the review page. Users shouldn't have to go back to check information—that would defeat the purpose of the page. Users should only need to go back if they spot a mistake.
 
-![The review page lets users jump back in the flow to make quick changes](./images/02/review.png)
+![Left the review page with edit links. Right the user editing their mobile number having spotted a mistake.](./images/02/review.png)
 
 Users can click Edit to make amendments which is another advantage of using the One Thing Per Page pattern. As pages are small they will load fast; as each page has just one thing on it making a change is simple.
 
@@ -557,7 +557,7 @@ By giving users value, they'll probably want to sign up. By value, I mean someth
 
 Up to now, we've also been sure to use plain and simple language for labels, hints, and errors. On the confirmation page, there is an opportunity to let your brand's personality shine through because the important stuff has already been done. Mailchimp's confirmation page show's their chimp mascot giving you a virtual high-five. Nice.
 
-![Mailchimp's confirmation screen let's their brand shine through by showing their mascot high-fiving](./images/02/mailchimp.png)
+![Mailchimp's confirmation screen has their mascot high-fiving.](./images/02/mailchimp.png)
 
 Here's a checklist of things to consider including on the confirmation page:
 
@@ -590,7 +590,7 @@ By omitting navigation and search, users can focus on checking out which speaks 
 
 ### Indicating Progress
 
-![A progress indicator](./images/02/progress-bar.png)
+![A progress indicator showing the user they are at step 4.](./images/02/progress-bar.png)
 
 Progress bars or indicators are often used within checkout because—at least in theory—they give users an idea of where they are and how long's left. Despite the sound reasoning, there isn't much evidence to show that progress bars are all that useful or even noticed. For example, you can read about how the Carer’s Allowance team removed a 12-step progress indicator with no effect on completion rates or times[^19]. 
 
@@ -600,7 +600,7 @@ If that weren't enough, they're even trickier to design when the journey consist
 
 The problem is that a progress bar should tell the user what steps exist in advance. But the steps are based on users' answers. Either you show every possible step which is misleading, or you update the progress bar (by removing or adding steps) as you go, which somewhat defeats the purpose of having one.
 
-![The progress bar is misleading because it shows the payment step which isn't applicable when users are collecting in-store](./images/02/progress-bar-woes.png)
+![Misleading progress bar because the payment step isn't applicable when collecting in-store.](./images/02/progress-bar-woes.png)
 
 Not including a progress bar prioritises the main content, by move it further up the page which speaks to principle 6, *Prioritse content*. In any case, having meticulously designed the journey to be as simple as possible, users should make their way to the end quickly which reduces the need for the progress indicator.
 
@@ -658,7 +658,7 @@ When you're shopping in a physical shop, you pick up your items and place them i
 
 Giving users a comparable experience digitally is important. We can place an order summary panel on every page to keep users informed without having to remember what they're buying, freeing up their mental energy to focus on checking out.
 
-![The order summary screen](./images/02/order-summary.png)
+![The order summary panel gets populated as the user completes each screen. Left on the email screen containing just the basket. Right the mobile screen, now containing the email address previously populated.](./images/02/order-summary.png)
 
 As the user completes each step, the order summary will populate with more information. For example, on the email address screen (step 1), the summmary only shows what they're buying. On the mobile screen (step 2) it will populate with their email address, and so forth. If the user spots a mistake, they can jump back to any previous step by clicking the Edit link—just like the review page.
 
@@ -672,7 +672,7 @@ AJAX-driven and modal-heavy sites haven't helped matters because clicking the br
 
 However, research might show you that it's useful to include a back link within the interface itself and that users will be more inclined to trust it. In this case, position the link at the top left of the page. By placing it at the top of the page, users can see that they can go back if they need to. And they're less likely to fill out the form before hitting back and losing their data.
 
-![The back link positioned above the form](./images/02/back-link.png)
+![The back link positioned top left of the form.](./images/02/back-link.png)
 
 ## Summary
 

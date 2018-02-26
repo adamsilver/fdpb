@@ -1174,13 +1174,11 @@ Choosing a seat isn't the most complicated part of the journey, yet the combinat
 
 ### Layout
 
-Up to now, radio buttons have been stacked beneath one an other, which is good for most situations. For seat selection, however, this makes the page especially long, and more importantly, harder to scan, as there's a lack of structure.
-
-![Seat checkboxes stacked beneath each other making the page long.](./images/03/choose-seat-stacked.png)
+Up to now, any field that uses radio buttons have been stacked beneath one an other, which is good for most situations. For the seat chooser, however, this makes the page especially long, and more importantly, harder to scan, as there's a lack of structure.
 
 We can provide that structure by laying out the seats in rows, just like they are on a plane. This will help users map their location which is useful because users might be looking for aisle or window seats for example.
 
-![Seat checkboxes laid out in rows making the page shorter and seats easier to find.](./images/03/choose-seat-nested.png)
+![Left Seat checkboxes stacked beneath each other making the page long. Right seat checkboxes laid out in rows making the page shorter and seats easier to find.](./images/03/seat-chooser.png)
 
 To demarcate window seats and isle seats for screen reader users we can put hidden text inside the seat's label.
 

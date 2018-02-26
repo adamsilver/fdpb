@@ -16,7 +16,7 @@ You'd be forgiven for thinking you were spoiled for choice when it comes to form
 
 Select boxes, also known as drop-down menus, hide options behind a menu. Clicking the select box reveals the options. Once one is selected, the menu collapses back to its original state. Select boxes are often used because of their space-saving qualities. What's most interesting though, is why we need to save space in the first place.
 
-![Select box](./images/03/select-box.png)
+![Destination field as a select box: left collapsed, right expanded with options showing.](./images/03/select-box.png)
 
 Often an interface is crammed with features, usually to please stakeholders, not users. It's understandable then that learning ways to hide discrete pieces of an interface has become part of a designer's skillset. But design is about so much more than saving space. After all, if an interface really is crammed, then our first job as designers is to declutter it.
 
@@ -28,7 +28,7 @@ Usability expert, Luke Wobrelksi even wrote an article titled “Dropdowns Shoul
 
 Radio buttons, unlike select boxes, are generally well-understood and easy to use, not least because they don't hide options. They are exposed making them easy to compare, scan and select. They're also malleable. That is, they let us use whatever content, in whatever format, we want, inside the related label (more on that shortly).
 
-![Radio buttons](./images/03/radio-buttons.png)
+![Destination field using radio buttons.](./images/03/radio-buttons.png)
 
 The problem with radio buttons is that they're less suitable when there are many of them. As an airline could fly to hundreds of destinations, making the page long and unwieldy. This in turn, means users have to scroll (and keyboard users to tab) a lot more.
 
@@ -38,7 +38,7 @@ Don't get me wrong, users are more than happy to scroll[^], and we shouldn't use
 
 A search box (`<input type="search">`) is a similar to a regular text box (`<input type="text">`). A search box, however, lets users clear the field by tapping *X* or pressing <kbd>Escape</kbd> when focused. With a text box you have to select the text and press <kbd>Delete</kbd> which takes a little longer.
 
-![Search input](./images/03/search-input.png)
+![Destination field as a search input.](./images/03/search-input.png)
 
 Using a search box is useful when searching a large amount of dynamic data, such as searching Amazon's[^] product catalog. Airlines, however, fly to a finite set of destinations known in advance of the user searching. Letting users search unassisted like this could easily end up with a ‘no results’ page due to typos or a data mismatch.
 
@@ -50,7 +50,7 @@ Autocomplete controls work by filtering options (destinations in this case) as t
 
 HTML5's `<datalist>` combines with a text box (`<input type="text">`) to create a native autocomplete control which is unfortunately too buggy[^] for use on the open web. However, if your project is locked down to a few known browsers that don't have these bugs, then a native solution may work for you.
 
-![Datalist](./images/03/datalist.png)
+![Destination field as a datalist.](./images/03/datalist.png)
 
 But, having already defined our design principles in the introduction, we know we want to design an inclusive experience—one that works for as many people as possible, no matter their choice of browser or mobile device.
 
@@ -590,7 +590,7 @@ The attribute isn't reserved for endonyms—it can be used to store common typos
 
 #### How It Might Look
 
-![The autocomplete component offers suggestions as the user types](./images/03/autocomplete.png)
+![The autocomplete component showing suggestions as the user types.](./images/03/autocomplete.png)
 
 ## 2. When To Fly
 
@@ -598,11 +598,11 @@ Dates are notoriously hard[^]: different time zones, formats, delimiters, days i
 
 Often three select boxes are used: one for day, month and year. Admittedly, we've just discussed the cons of select boxes, but it must be said that one of their redeeming qualities is that they stop users entering wrong information. But in the case of dates, even *this* quality doesn't hold up. For example, you can select an invalid date such as *31 February 2017*.
 
-![A date of birth field made up of three separate select boxes which is hard to use](./images/03/dob-select.png)
+![A date of birth field made up of three select boxes: day, month and year.](./images/03/dob-select.png)
 
 Select boxes are also used to avoid locale and formatting differences. Some dates start with month, others with day. Some delimit dates with slashes, others with dashes or dots. We can't reliably determine users' intention based on what they enter. It's just one of those things.
 
-![A text box with the date “10/09/12” which could be one of many dates depending on the order in which day, month and year is specified](./images/03/what-date.png)
+![A text box populated with “10/09/12” which could be one of many different dates depending on the format.](./images/03/what-date.png)
 
 Many of us assume that using a calendar widget is always better than letting users type freely into a text box unassisted. But this is not always the case. The UK Goverment Digital Service (GDS) Service Manual states:
 
@@ -624,7 +624,7 @@ A memorable date is one that you remember easily such as your date of birth. Typ
 
 Memorable dates are best represented by three text boxes: one for day, month and year. Why three? Because it solves the locale and formating issues mentioned earlier.
 
-![Date of birth field using the memorable date pattern made up of three separate text boxes](./images/03/memorable-date.png)
+![Date of birth field made up of three text boxes: day, month and year.](./images/03/memorable-date.png)
 
 ```HTML
 <fieldset class="field">
@@ -661,7 +661,7 @@ As usual, our first port of call is to see if there's a date picker control that
 
 Mobile browser support is really good and includes Samsung's browser, FireFox, Edge, Chrome, Opera and Safari. Desktop support is patchier: Chrome and Edge support it, but Internet Explorer and Safari (at time of writing) don't. We'll look at how to support them later.
 
-![A selection of date pickers on different browsers](./images/03/date-input-mobile.png)
+![A selection of date pickers on different browsers.](./images/03/date-input-mobile.png)
 
 As the date picker is provided by the browser, you'll notice how it looks a lot like the system date picker that's used for setting dates and times on your phone. That's by design so that mobile browsers can outsource the problem to native components. This is good because users will be familiar with it which speaks to principle 3, *Be consistent*.
 
@@ -694,7 +694,7 @@ Depending on your situation, this level of support may be fine. Perhaps entering
 
 #### How It Might Look
 
-![The date picker component](./images/03/date-picker.png)
+![The enhanced date picker interface shown in its expanded state, with button to right of text field and calendar inline below it.](./images/03/date-picker.png)
 
 The date picker consists of a toggle button that reveals the calendar. From there users will be able to traverse the calendar and ultimately select a date to populate the text box.
 
@@ -771,7 +771,7 @@ Notes:
 
 #### Revealing The Calendar
 
-![The date picker in its original state (left) and after revealing the calendar (right)](./images/03/date-picker-focused.png)
+![The date picker in its original state (left) and after revealing the calendar (right).](./images/03/date-picker-focused.png)
 
 The calendar starts hidden. When the toggle button is clicked, the calendar is revealed by removing the `hidden` class on the wrapper. Immediately after, the focus is set to the Previous Month button, which is the first focusable element inside the calendar.
 
@@ -980,7 +980,7 @@ Despite our efforts to support as many users as possible, there's a rare situati
 
 In chapter 1 we discussed the importance of progressive enhancement because we can't be sure that JavaScript is always available. Users experiencing a network or JavaScript failure while also using a browser that doesn't support the native date will just see a text box without any hint text regarding the format of the date.
 
-![The date picker without a hint, as it would be seen without JavaScript](./images/03/date-picker-no-hint.png)
+![The date picker without a hint as seen when JavaScript is unavailable.](./images/03/date-picker-no-hint.png)
 
 We can't use the hint pattern (from chapter 1) because browsers that support the date input use a different format. Of course, we should be as forgiving as possible, by letting users type slashes, periods or spaces, but typing a two-digit year first, for example, will still cause an error. A well written error message may have to suffice.
 
@@ -1004,7 +1004,7 @@ As browser support improves, the number of people who would experience the degra
 
 Next we need to know how many people are travelling. The age of the passengers affects the price of the ticket so we'll arrange the interface according to these age groups.
 
-![Choosing passengers by category](./images/03/passengers.png)
+![Passenger count form with three fields. One for adults, children and infants.](./images/03/passengers.png)
 
 ```HTML
 <div class="field">
@@ -1041,7 +1041,7 @@ To supply all browsers with bigger, more ergonomic buttons, we can create a cust
 
 #### How It Might Look
 
-![Choosing passengers now with custom stepper buttons making it simple to add or remove passengers within each category](./images/03/passengers-enhanced.png)
+![Enhanced passenger form with stepper buttons making it simple to add or remove passengers.](./images/03/passengers-enhanced.png)
 
 #### Hiding The Native Spinners
 
@@ -1098,7 +1098,7 @@ In the case of the stepper buttons, plus and minus icons keep the options equall
 
 Now all the relevant information has been collected, we can give users a list of flights from which the user can choose one.
 
-![The choose flight screen made up of radio buttons for each choice.](./images/03/choose-flight.png)
+![Flight chooser form made up of radio buttons containing departure time, arrival time, price. The cheapest price is marked with “best price” label and there is pagination controls at the bottom to see other day's flights.](./images/03/choose-flight.png)
 
 The system shows flights that match the date the user specified earlier. Additionally, the interface lets users move back and forth between days. The group's label is set as normal via the `<legend>` and is set to “Available flights on 18 August 2018.”
 
@@ -1155,7 +1155,7 @@ A radio button group is made up of multiple controls. Take a look at the mark-up
 
 The `aria-invalid="true"` attribute is placed on the `fieldset`. Putting it directly on the radio button would be incorrect here, because it's not the individual input that's invalid—it's the group. The error `<span>` is exactly the same as the one used for standard text fields which ensures that errors look and behave the same across all types of form fields which speaks to principle 3, *Be consistent*.
 
-![Radio button group error state with the error residing inside the legend](./images/03/choose-flight-error.png)
+![Flight radio buttons with error message.](./images/03/choose-flight-error.png)
 
 The error summary needs to contain a link to the first radio button within the group. That is, the link's `href` attribute needs to match the first radio button's `id` attribute. This is why the first radio button in the group has matching `id` and `name` attributes: “flight”.
 
@@ -1176,11 +1176,11 @@ Choosing a seat isn't the most complicated part of the journey, yet the combinat
 
 Up to now, radio buttons have been stacked beneath one an other, which is good for most situations. For seat selection, however, this makes the page especially long, and more importantly, harder to scan, as there's a lack of structure.
 
-![Stacked](./images/03/choose-seat-stacked.png)
+![Seat checkboxes stacked beneath each other making the page long.](./images/03/choose-seat-stacked.png)
 
 We can provide that structure by laying out the seats in rows, just like they are on a plane. This will help users map their location which is useful because users might be looking for aisle or window seats for example.
 
-![Nested](./images/03/choose-seat-nested.png)
+![Seat checkboxes laid out in rows making the page shorter and seats easier to find.](./images/03/choose-seat-nested.png)
 
 To demarcate window seats and isle seats for screen reader users we can put hidden text inside the seat's label.
 
@@ -1199,7 +1199,7 @@ Where possible, you should avoid nested fieldsets, not only for screen reader us
 
 Instead, we can ask users to specify their preference beforehand. At the same time, we can check Economy as checked by default. Marking the most common choice expedites the process.
 
-![This form lets users choose their class upfront with the most common option (“Economy”) checked by default](./images/03/choose-class.png)
+![Class chooser with two radio buttons: economy and first class.](./images/03/choose-class.png)
 
 ### Checkboxes Are Never Round
 

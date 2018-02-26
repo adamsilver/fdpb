@@ -107,7 +107,7 @@ In this case, you could argue that a visible label is redundant. After all, the 
 
 Trying to meet two user needs (viewing and managing) in a single interface is partially responsible for the problem in the first place. One way to avoid the issue would be to split these needs apart using the concept of modes. This just means letting users switch between managing email and reading it.
 
-![Modes](./images/05/modes.png)
+![Left inbox in read mode where each row is a link to read the email. Right inbox in manage mode where each row is a label that toggles the checkbox state.](./images/05/modes.png)
 
 Clicking *Organise* puts users into *manage-mode*. When in manage-mode, the link's label changes to ‘Finished’ (or similar), which when clicked, takes the user back to read mode.
 
@@ -156,11 +156,11 @@ On the other hand, duplication in this case, can be advantageous. As the label c
 
 The deal with human-computer interaction is that when the human does something, the computer should respond. In this case, clicking a checkbox makes a little tick appear (and disappear) accordingly. As with every other checkbox in any other form, this is probably enough feedback.
 
-![Checked](./images/05/checked.png)
+![Left checkbox checked. Right checkbox unchecked.](./images/05/checked.png)
 
 For example, Mailchimp, who have a reputation for their user-centered design philosophy, show that you don't need to highlight the entire row. They rely solely on the checked state of the checkbox. We can assume their research showed this to be enough. My own research aligns with this too.
 
-![Mailchimp](./images/05/mailchimp-checkbox.png)
+![Mailchimp's campaign list page with one campaign selected.](./images/05/mailchimp-checkbox.png)
 
 We could highlight the entire row using CSS and Javascript, but we should only do that if user research shows this will *Add value* (principle 7).
 
@@ -189,7 +189,7 @@ One alternative approach could be to expect users to choose which action they wa
 
 Fortunately, multi-select interfaces usually place the submit buttons at the top of form in close alignment to the checkboxes. This gives users a way to discover the available actions before making their selection.
 
-![Gmail menu proximity](./images/05/gmail-menu.png)
+![Gmail's inbox screen showing a selected email with additional menu now available.](./images/05/gmail-menu.png)
 
 It's worth noting that implicit submission is probably less useful on a form consisting solely of checkboxes. In any case, as we have multiple submit buttons, we should put the least critical action first—in this case, Archive. That way, if a user happens to submit the form implicitly, they'll be in less of a predicament.
 
@@ -199,11 +199,11 @@ Also, we can offer users a way to *undo* their last action, which we'll discuss 
 
 The menu is placed above the list of emails so as users scroll it might disappear off screen. A sticky menu, however, would stay on-screen as soon as the menu gets to the top edge of the viewport.
 
-![Sticky menu](./images/05/sticky-menu.png)
+![Sticky menu in three states. Left menu positioned above content as normal before the page is scrolled. Middle the menu (not sticky) off screen after the page has been scrolled. Right a sticky menu still on screen even after the page has been scrolled.](./images/05/sticky-menu.png)
 
 Similarly, Material Design has the floating action button. As users scroll, the action button floats on top of the content. Both of these techniques give users quick and easy access to the menu without having to scroll back up to the top.
 
-![Floating action button](./images/05/floating-action.png)
+![Floating action button layered on top of the screen at the bottom right of the viewport.](./images/05/floating-action.png)
 
 However, sticky menus are problematic for three reasons.
 
@@ -233,7 +233,7 @@ Just show the buttons at all times.
 
 When there's enough space, the buttons should just be laid out at all times, making them readily available and interactive. But if you have more than three buttons in the menu, or you need to display additional components along the same row, it's going to be hard to fit them on screen, especially on mobile.
 
-![Stacked buttons](./images/05/stacked-buttons.png)
+![Left on mobile with menu buttons stacked. Right on desktop with menu buttons laid out in a row.](./images/05/stacked-buttons.png)
 
 The problem is that the buttons will start to stack beneath each other, which pushes the main content downwards and changes the spatial relationship between the menu and the list of emails. Moreover, having the menu dominate the interface is problematic because dominance is a quality we should use sparingly. After all, if everything dominates, nothing does. Really, the inbox itself should take center stage, with the menu taking a back-seat role.
 
@@ -253,7 +253,7 @@ The reason I bring this up is because using a select box as a menu, often causes
 
 This also causes problems for screen reader and keyboard users. For example, on Chrome (Windows), the `onchange` event is fired as soon as the user presses <kbd>Down</kbd> to select the next option. But with this approach in place, the form is immediately submitted, making it impossible to move through all the items in the menu.
 
-![Select submit onchange](./images/05/select-onchange.png)
+![Expanded select box with the first option selected. Pressing down immediatelty submits the second option when the user might have wanted to select the third option.](./images/05/select-onchange.png)
 
 Other browsers are more forgiving of such techniques—most won't fire the `onchange` event (and thus submit the form) until the user presses <kbd>Space</kbd> or <kbd>Enter</kbd>. But as not all browsers are alike or implement the specification consistently. Ignoring people who use one of the “bad” browsers, doesn't make the problem any less real for them.
 
@@ -323,7 +323,7 @@ Where adaptive design tries to bend the web to its will, responsive design embra
 
 The select box design I mentioned earlier requires an adaptive approach: on small viewports users get a select box. Then, when there's enough space, it's swapped out for submit buttons.
 
-![Adaptive select box](./images/05/adaptive-design.png)
+![Top select box menu for small screens. Bottom menu buttons laid out in a row for large screens.](./images/05/adaptive-design.png)
 
 In this case, the big screen view entirely discards the select box in favour of a different interface using CSS and Javascript. Not only does this mean more work, but the page will take longer to load. And we either have to change the HTML dynamically with JavaScript, or we have to have both layouts in HTML, ready to be enabled and disabled through a CSS device breakpoint.
 
@@ -349,7 +349,7 @@ Needless to say, menus should be triggered on click, which is an explicit intent
 
 Having explored the pitfalls of adaptive design and hover menus, we can now safely proceed to design a true, responsive menu that opens on click.
 
-![True menu](./images/05/true-menu.png)
+![Left a collapsible menu for small screens. Right a menu bar for large screens.](./images/05/true-menu.png)
 
 #### The Basic Mark-up
 
@@ -469,7 +469,7 @@ When focus is on a menu item, pressing <kbd>Down</kbd> or <kbd>Up</kbd> arrows w
 
 Users may want to, for example, archive every email in their inbox. Rather than selecting each email one by one, we can provide a more convenient method. One way to service this functionality is through a *special* checkbox, placed at the top and in vertical alignment with the other checkboxes creating a visual connection. Clicking it would check every checkbox in one fell swoop.
 
-![Select all mailchimp](./images/05/mailchimp-select-all.png)
+![Mailchimp's campaign list page showing Select All checkbox positioned top left of the list.](./images/05/mailchimp-select-all.png)
 
 Arguably, this standard checkbox has all the ingredients of an accessible control. It's screen reader and keyboard accessible. It communicates through its label and change of state. Its label would be *Select all* and it's state would be announced as *checked* or *unchecked*. All this behaviour without any JavaScript.
 
@@ -497,7 +497,7 @@ In chapter 1, “A Registration Form”, we designed and constructed an error su
 
 Instead of having red colouration, it should be green which is universally associated with success. Second, the content should be “You've successfully archived 15 emails” (or similar).
 
-![Success](./images/05/success-message.png)
+![A green success message panel.](./images/05/success-message.png)
 
 ```HTML
 <div class="successMessage" role="alert">
@@ -511,7 +511,7 @@ Both the error and success message panels are placed within the natural flow of 
 
 Some applications employ what is known as a ‘toast’ message or notification. When the application needs to notify users, a little (non modal) dialog will pop-up on top of the page - a bit like a piece of toast. Then, after a certain amount of time the notification disappears automatically, usually with a fading out animation.
 
-![Toast message](./images/05/toast.png)
+![A toast notification on Windows position bottom right but just above the task bar.](./images/05/toast.png)
 
 This is all very interesting from a design perspective, but it's hardly a useful way to communicate. First, the message obscures the content beneath. Second, users have to read the message before it disappears. This makes comprehension a stressful task and takes control *away* from the user.
 
@@ -519,7 +519,7 @@ Really, a success message should be laid out bare and placed within the natural 
 
 However, if users are likely to stay on the page for a long time after, research might show that dismissing a message is valuable after all. In which case, you can offer that functionality with a button. When clicked, it hides the message.
 
-![Success With Dismiss](./images/05/dismiss.png)
+![A success message panel with Dismiss button.](./images/05/dismiss.png)
 
 Be careful to inject the `<button>` with Javascript. If we put it in directly in the HTML, then the interface will appear broken when Javascript is unavailable. That is, nothing will happen when it's clicked.
 
@@ -527,13 +527,13 @@ Be careful to inject the `<button>` with Javascript. If we put it in directly in
 
 As a safety measure, some roads have speed bumps. They cause drivers to slow down on roads that are more likely to cause accidents. We can create a digital speed bump by asking users to confirm their action by asking them “if they're sure.” 
 
-![Are you sure](./images/05/are-you-sure.png)
+![An “are you sure” confirmation screen with an option to confirm or cancel the action.](./images/05/are-you-sure.png)
 
 This is fine for infrequent tasks but it quickly becomes tedious when that action needs to be performed more often. Continuing with the driving analogy then: it's a bit like puttings speed bumps on the motorway. They'd probably cause more accidents than they stop.
 
 An alternative approach would be to let users perform the action immediately, without any warning. Then, along with the success message, give users the chance to undo the action. Clicking *undo*, would reverse the action by restoring the emails back to the inbox. If only we could *undo* accidents on the road.
 
-![Undo](./images/05/undo.png)
+![A success message panel with Undo button.](./images/05/undo.png)
 
 ## Summary
 

@@ -18,7 +18,7 @@ The lady was happy enough to buy the purse on the proviso that she could return 
 
 The returns policy isn't a product. Nor does it reside in the database. But this is what she wanted. We often hear how content is king, but the design of the site lets the content down. Wherever possible search should search everything. And if it doesn't, the label should be explicit. If, for example, the search only returns products then make that clear within the interface.
 
-![Search label](./images/06/search-label.png)
+![Left generic search label: “Search”. Right specific search label: “Search products”.](./images/06/search-label.png)
 
 *(Tip: use analytics to track what users are searching for. If the most popular searches are retrieving empty results, make provisions to improve the experience based on data.)*
 
@@ -61,7 +61,7 @@ Let's look at some ways to reduce the size of the search form, so that it might 
 
 As explained in chapter 1, “A Registration Form”, the best place for the submit button is directly below last field. But one way to reduce the amount of vertical space the search form takes up, is to place the submit button next to the field. 
 
-![Search button placement](./images/06/vertical-space.png)
+![Left submit button below field. Right submit button next to text box to save vertical space.](./images/06/vertical-space.png)
 
 As it's a bit of a special case, this is okay if the search form consists of just one form field. But some search forms offer more than one field. In this case, the submit button should go directly below the last field as usual.
 
@@ -98,7 +98,7 @@ Third, if your search form contains more than one field, omitting the submit but
 
 Interestingly, many of the sites that omit the submit button, normally find room to include a magnifying glass icon to signify its otherwise hidden affordance. In this case, they may as well place the icon inside a submit button solving both problems at the same time.
 
-![Medium puts a magnifying glass icon before the search box. If they combine the icon with a submit button placed after the search box, the form would work conventionally. That is, keyboard users, for example, would expect the search box to come before the submit button.](./images/06/medium-search-no-button.png)
+![Medium's search form without a submit button but with a  magnifying glass icon to the left of the text box.](./images/06/medium-search-no-button.png)
 
 *(Note: if you do decide to hide the button using the `visually-hidden` class, remember the button would still be focusable. This means, sighted screen reader users[^adrian], for example, will find this problematic. You can fix this by adding the `tabindex="-1"` attribute.)*
 
@@ -108,7 +108,7 @@ Even if removing the label and submit button didn't degrade the usability of the
 
 Instead of messing around with pixels to this extent, we can toggle the entire form's visibility by letting users click a button. Finding room in the header for a button is relatively straightforward. And including a visible label, a hint (if needed) and a submit button is an easy task.
 
-![Focus moved](./images/06/collapsible-search-form.png)
+![Left hidden search form. Right search form revealed.](./images/06/collapsible-search-form.png)
 
 ### The Basic Mark-Up
 

@@ -18,7 +18,7 @@ One of the best ways we can help users save time, is by not wasting it in the fi
 
 For example, to apply for an HSBC[^] mortgage in the UK, users must: constent to a credit check; confirm the property is in a habitual condition; and be aged 18 and over. HSBC tells users this on the first page of the application, *before* they start.
 
-![HSBC tells users some important information that may rule them out on the first page of the application.](./images/10/hsbc-bullets.png)
+![The first page of the HSBC mortgage application process explaining what users need to know before applying.](./images/10/hsbc-bullets.png)
 
 This is helpful, but users may also want to know:
 
@@ -34,6 +34,8 @@ This pattern is applicable in other situations too. For example, if an underaged
 Other processes and services are more complicated and can depend on the individual's circumstances. For example, the Renew Your Passport[^] service (shown below), needs to ask a series of questions to determines someone eligibility to apply for a passport. 
 
 ![The user is asked if the passport is lost or stolen. Answering “No” lets them apply for a passport as normal. Answering “Yes” takes them to a screen telling them to cancel their passport, with a number of options suited to their specific situation.](./images/10/passport-questions.png)
+
+![Renew Your Passport service asking questions to determine the user's best course of action. The final screen tells users what to do having told the service that their password has been stolen.](./images/10/passport-questions.png)
 
 If the applicant has lost their passport, for example, then they aren't able to use the main service. The Government Digital Service calls this Check Before You Start, which you can read about in “We've published the check before you start pattern”[^] by Harry Trimble and Rob Le Quesne.
 
@@ -55,13 +57,13 @@ The Task List pattern[^], as coined by the Government Digital Service (GDS) show
 
 Each top level task is broken down into several sub tasks. Each one of those takes users through a flow—whether each flow consists of one or several screens doesn't really matter, as long as it's achievable in a reasonable time. Once a sub task is completed, users come back to the task list view with that particular task marked as complete.
 
-![Task list Pattern](./images/10/task-list-pattern-gds.png)
+![The GDS Task List pattern with all tasks marked as completed.](./images/10/task-list-pattern-gds.png)
 
 This is not a pattern reserved for Government services. Mailchimp users have a similar need. The only difference is the visual design and the flatter hierarchy of tasks.
 
 Instead of text, Mailchimp uses iconography to mark tasks as complete. I've discussed the pros and cons of iconography in chapter 3, “Book A Flight”. Additionally, instead of standard looking links, they use call-to-action buttons which are labelled as ‘Resolve’ to prompt the user and reduce the effort on their part.
 
-![Mailchimp](./images/10/task-list-pattern-mailchimp.png)
+![Mailchimp's campaign task list page showing that two tasks still need to be completed.](./images/10/task-list-pattern-mailchimp.png)
 
 The exact design details you choose to employ will come down to your product's design language and user research but it's key to ensure that:
 

@@ -638,17 +638,19 @@ As we're providing users with clear feedback, when the user expects it, there's 
 
 There's nothing more important than content. Users don't come to your website to enjoy the design. They come to enjoy the content or the outcome of using a service.
 
-Even the most thought-out, inclusive and beautifully-designed experience counts for nothing if we ignore the words used to craft error messages. One study showed that showing custom messages increased conversions by 0.5% which equated to more than £250,000 in yearly revenue[^].
+Even the most thought-out, inclusive and beautifully-designed experience counts for nothing if we ignore the words used to craft error messages. One study showed that showing custom error messages increased conversions by 0.5% which equated to more than £250,000 in yearly revenue[^].
 
 > “Content is the user experience”—Ginny Redish
 
-Like labels, hints and any other content, a good error message provides clarity in as few words as possible. Normally we should drive the design of an interface based on the content—not the other way around. But in this case, understanding how messages are going to be shown and why, influences the design of the words themselves. This is why Jared Spool says “content and design are inseparable work partners.”
+Like labels, hints and any other content, a good error message provides clarity in as few words as possible. Normally we should drive the design of an interface based on the content—not the other way around. But in this case, understanding how and why you show error messages influences the design of the words. This is why Jared Spool says “content and design are inseparable work partners.”
 
-We're showing messages in the both a summary at the top of the screen and next to the fields in context. As a result, we need to make sure the content works in both places. “Enter an ‘at symbol’” is ambiguous when inside the summary but works well next to the field, where the label provides context.
+We're showing messages in the summary at the top of the screen and next to the fields. Maintaining two versions of the same message is a hard sell for an unconvincing gain.
 
-Maintaining two versions of the same message is a hard sell for an unconvincing gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol’ works well in both locations.
+Design an error message that works in both places. ‘Enter an “at” symbol’ needs context from the field label to make sense. ‘Your email address needs an “at” symbol’ works well in both places.
 
-Avoid pleasantries, like starting each message with “please”. On one hand, this seems polite. On the other, it gets in the way and implies a choice.
+Maintaining two versions of the same error message is a hard sell for an unconvincing gain. Instead, we'll design the content to work in both locations. In the case of the email address, ‘Your email address needs an “at” symbol’ works well in both locations.
+
+Avoid pleasantries, like starting each error message with “please”. On one hand, this seems polite. On the other, it gets in the way and implies a choice.
 
 Whatever approach you take, there's going to be some repetition due to the nature of the content. And testing usually involves submitting the form without entering any information at all. This makes the repetition glaringly obvious, which as content designers may cause us to flip out. But how often is this the case? Most users aren't trying to break the interface.
 
@@ -664,7 +666,7 @@ Here's a checklist:
 - **Be human, avoid jargon.** Don't use words like *invalid*, *forbidden* and *mandatory*.
 - **Use plain language.** Error messages are not an opportunity to promote your brand's humorous tone of voice.
 - **Use the active voice**. When an error is an instruction and you tell the user what to do. For example, 'Enter your name' not 'First name must be entered'.
-- **Don't blame the user**. Just let them know what's gone wrong and how to fix it.
+- **Don't blame the user**. Let them know what's gone wrong and how to fix it.
 
 ## Summary
 

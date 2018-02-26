@@ -1064,9 +1064,9 @@ When the `Stepper()` component initialises, the mark-up will be changed to this:
 <div class="field">
   <label for="adults" id="adults-label">How many people aged 16 and over are flying?</label>
   <div class="stepper">
-    <button type="button" aria-label="Decrement" aria-describedby="adults-label">&minus;</button>
+    <button type="button" aria-label="Add" aria-describedby="adults-label">&minus;</button>
     <input type="number" id="adults" name="adults" value="1">
-    <button type="button" aria-label="Increment" aria-describedby="adults-label">&plus;</button>
+    <button type="button" aria-label="Remove" aria-describedby="adults-label">&plus;</button>
     <div class="visually-hidden" role="status" aria-live="polite">1</div>
   </div>
 </div>
@@ -1075,12 +1075,12 @@ When the `Stepper()` component initialises, the mark-up will be changed to this:
 Notes:
 
 - The buttons and number input is wrapped in a `<div>` so that they can be styled as a group underneath the label.
-- The button's `aria-label` attribute ensures that screen readers announce “Decrement” instead of “minus symbol”.
-- The button's `aria-describedby` attribute references the label's `id` which means it combines with the label text to give screen reader users extra context. As there are three fields on the page, this stops users thinking “Decrement—decrement what exactly?”.
+- The button's `aria-label` attribute ensures that screen readers announce “remove” instead of “minus symbol”. Same goes for “add” instead of “plus symbol”.
+- The button's `aria-describedby` attribute references the label's `id` which means it combines with the label text to give screen reader users extra context. As there are three fields on the page, this stops users thinking “Remove—remove what exactly?”.
 - Each button has a `type="button"` attribute which stops the form submitting when clicked.
-- Clicking increment or decrement updates the live region so that screen reader users will hear the change without having to move away from the button (see note below).
+- Clicking the Add or Remove buttons update the live region so that screen reader users will hear the change without having to move away from the button (see note below).
 
-*(Note: when the increment (or decrement) button is clicked, the input's value is updated but screen readers don't announce this change. At first, I put the live region attributes on the input. This didn't work in some screen readers, but worse, was that it changed the input's semantics into a status box.)*
+*(Note: when the Add (or Remove) button is clicked, the input's value is updated but screen readers don't announce this change. At first, I put the live region attributes on the input. This didn't work in some screen readers, but worse, was that it changed the input's semantics into a status box.)*
 
 #### A Note On Using Iconography
 
